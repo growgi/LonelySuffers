@@ -1,4 +1,4 @@
-package kr.or.notice.model.vo;
+package kr.co.notice.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notice {
+public class FileVO {
+	private int fileNo;
 	private int noticeNo;
-	private String noticeTitle;
-	private String noticeContent;
-	private String NoticeDate;
 	private String filename;
 	private String filepath;
 }
