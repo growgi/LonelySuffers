@@ -112,7 +112,7 @@
 		<section class="section overfree">
 			<div class="section-title text-center">
 				<h3>숫자 카운터</h3>
-				<p>숫자값이 크든 작든, 카운팅은 동시에 끝남</p>
+				<p>숫자값이 크든 작든, 카운팅은 동시에 끝납니다. 새로고침(F5) 눌러서 숫자를 보세요.</p>
 			</div>
 			<!-- end section-title -->
 			<div class="container">
@@ -152,14 +152,8 @@
 				<div class="col-md-5">
 					<div class="about-widget">
 						<i class="flaticon-cup"></i>
-						<h3>
-							Best SEO Company <strong>Award</strong>
-						</h3>
-						<p>Morbi quis porta dolor. Nullam feugiat sapien et libero
-							elementum faucibus. Praesent sagittis venenatis ipsum, eget
-							tristique odio pharetra quis. Sed maximus a eros quis ornare.
-							Proin tempor dolor a auctor convallis. Nam accumsan commodo
-							elit..</p>
+						<h3>Progress bar</h3>
+						<p>게이지 바에 차오르는 애니메이션이 있습니다. 새로고침(F5) 눌러서 게이지 바를 보세요.<br>다른 CSS 디자인은 <a href="https://freefrontend.com/css-progress-bars/">https://freefrontend.com/css-progress-bars/</a>에서 찾아보시면 됩니다.</p>
 
 						<div class="skills-style">
 							<div class="skills-wrapper">
@@ -438,14 +432,11 @@
 
 			<div class="row callout bgcolor">
 				<div class="col-md-9">
-					<p class="lead">We've hundreds of happy customers, do not you
-						want to be a member of this family? Just join us increase your
-						website visitors!</p>
+					<p class="lead">가로형(row) 배너 디자인<br>그림자 효과 들어가 있음<br>애니메이션 효과 없음</p>
 				</div>
 				<div class="col-md-3">
 					<div class="button-wrap text-center">
-						<a href="#" class="btn btn-transparent btn-light btn-lg">Contact
-							us</a>
+						<a href="#" class="btn btn-transparent btn-light btn-lg">A태그가 포함된 버튼</a>
 					</div>
 				</div>
 			</div>
@@ -463,7 +454,7 @@
 				<div class="col-md-6">
 					<div class="design-title">
 						<small>Quality Website Templates</small>
-						<h4>서서히 등장 (Fade in)</h4>
+						<h4>옆의 사진이 서서히 등장 (Fade in)</h4>
 						<p class="lead">Quisque eget nisl id nulla quis id. Aliquam
 							quis vehicula enim, non aliquam risus. Sed a tellus quis mi
 							rhoncus dignissim.</p>
@@ -499,7 +490,7 @@
 					<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
 						data-wow-delay="0.2s">
 						<i class="flaticon-content alignleft"></i>
-						<h3>서서히 등장</h3>
+						<h3>가로 3개 객체들이</h3>
 						<p>Our Landigoo responsive site template elements 100%
 							compatible with all mobile devices and modern browsers!</p>
 					</div>
@@ -511,7 +502,7 @@
 					<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
 						data-wow-delay="0.4s">
 						<i class="flaticon-html alignleft"></i>
-						<h3>Fade in 등장</h3>
+						<h3>차례로</h3>
 						<p>We offer pixel perfect icons, graphic sources for
 							high-resolution devices! Landigoo compatible retina display!</p>
 					</div>
@@ -623,7 +614,7 @@
 
 	<section class="section lb nopad spotlight style1">
 		<div class="content">
-			<h2>등장 효과 없음</h2>
+			<h2>등장 애니메이션 없음</h2>
 			<p>Donec congue odio in mi finibus dignissim. Etiam faucibus
 				pharetra euismod. Pellentesque malesuada et ligula et scelerisque.
 				Pellentesque aliquet magna ut dolor consequat, luctus tincidunt
@@ -881,7 +872,7 @@
 	<section class="section lb">
 		<div class="container">
 			<div class="section-title text-center">
-				<h3>Recent Case Studies</h3>
+				<h3>포토 카드</h3>
 				<hr>
 				<p class="lead">Our search engine optimization works and happy
 					customers in the past.</p>

@@ -32,7 +32,7 @@
 				<div class="row">	
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>갤러리</h2>
-						<p class="lead">Our search engine optimization works and happy customers in the past.</p>
+						<p class="lead">필터링하기 버튼을 눌러서 애니메이션 효과를 보세요.</p>
 					</div><!-- end col -->
 				</div><!-- end row -->
 			</div><!-- end container -->
