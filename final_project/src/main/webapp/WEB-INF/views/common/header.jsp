@@ -113,8 +113,7 @@
 													<li><a href="page.html">Default Page</a></li>
 													<li><a href="page-fullwidth.html">Fullwidth Page</a></li>
 													<li><a href="page-contact.html">Contact us</a></li>
-													<li><a href="page-contact-alt.html">Contact
-															Alternative</a></li>
+													<li><a href="/noticeList.do">공지사항</a></li>
 													<li><a href="page-faqs.html">FAQ's Page</a></li>
 													<li><a href="page-not-found.html">404 Not Found</a></li>
 												</ul>
