@@ -5,4 +5,7 @@
 		<!--  null값이 발생하면 빈칸("")이 아니라 그대로 null로 처리 -->
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
+	<typeAliases>
+		<typeAlias type="kr.co.member.model.vo.Member" alias="m"/>
+	</typeAliases>		
 </configuration>
