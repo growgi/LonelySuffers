@@ -127,7 +127,7 @@
 						<li><a href="case-studies.html">Case Studies</a></li>
 						<li><a href="blog.html">Blog</a></li>
 						<li><a href="page-contact.html">Contact</a></li>
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="page-seo-analysis.html"><i class="glyphicon glyphicon-search"></i> 마우스 호버 시</a></li>
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/login.do"> 로그인</a></li>
 					</ul>
 				</div>
 <!-- 상단 메뉴바  영역 끝 -->
