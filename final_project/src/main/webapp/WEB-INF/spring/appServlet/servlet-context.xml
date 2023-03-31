@@ -46,7 +46,11 @@
 
 	<context:component-scan base-package="kr.co.ls" />
 	<context:component-scan base-package="kr.co.member"/>
+<<<<<<< HEAD
 	<context:component-scan base-package="kr.co.carpool"/>
+=======
+	<context:component-scan base-package="kr.co.house"/>
+>>>>>>> Keon's_branch
 	
 	
 </beans:beans>
