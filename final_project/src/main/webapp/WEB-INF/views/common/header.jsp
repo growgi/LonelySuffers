@@ -5,24 +5,44 @@
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
+
+
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet">
 
-<!-- Custom & Default Styles -->
-<link rel="stylesheet" href="css/font-awesome.css">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/carousel.css">
-<link rel="stylesheet" href="style.css">
 
-<button onclick="scrollToTop()" id="toTopButton">맨 위로</button>
 
+
+<!-- 프레임워크에서 제공해준 CSS들은 임의 수정 금지 -->
+<link rel="stylesheet" href="css/font-awesome.css">			<!--  font awesome CSS -->
+<link rel="stylesheet" href="css/bootstrap.css">			<!-- 부트스트랩 제공 CSS -->
+<link rel="stylesheet" href="css/animate.css">				<!-- 애니메이션 효과용 CSS -->
+<link rel="stylesheet" href="css/carousel.css">				<!-- 캐러셀용 CSS -->	
+
+<!-- 사용자 CSS 파일들 -->
+<link rel="stylesheet" href="css/1_style.css">				<!-- 웹사이트 템플릿의 CSS -->
+<!-- 사용자 CSS 파일들은 프레임워크 제공 CSS들보다 아래쪽에 있어야 합니다. -->
+
+
+
+
+<!-- 화면 우측 하단 네비게이션 버튼 영역 시작 -->
+<button onclick="scrollToTop()" id="toTopButton">Λ</button>
+<!-- 화면 우측 하단 네비게이션 버튼 영역 끝 -->
+
+
+
+<!-- 헤더 영역 시작. 화면이 스크롤되어도 항상 위에 따라다니는 것들 -->
 <header class="header site-header">
 	<div class="container">
 		<nav class="navbar navbar-default yamm">
 			<div class="container-fluid">
 				<div class="navbar-header">
+
+
+
+<!-- 모바일 디자인에서만 보이는 메뉴열기 버튼 -->
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 						aria-controls="navbar">
@@ -30,13 +50,23 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
+
+
+
+<!-- 로고 영역 시작 -->
 					<a class="navbar-brand" href="/">
 						<div class="waveEffect">
 							<p class="waveEffectWord-back">물결치는글자</p>
 							<p class="waveEffectWord-front">물결치는글자</p>
 						</div>
 					</a>
+<!-- 로고 영역 끝 -->
+
 				</div>
+
+
+
+<!-- 상단 메뉴바  영역 시작 -->
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active"><a href="index.html">Home</a></li>
@@ -97,12 +127,13 @@
 						<li><a href="case-studies.html">Case Studies</a></li>
 						<li><a href="blog.html">Blog</a></li>
 						<li><a href="page-contact.html">Contact</a></li>
-						<li class="lastlink hidden-xs hidden-sm"><a
-							class="btn btn-primary" href="page-seo-analysis.html"><i
-								class="glyphicon glyphicon-search"></i> 마우스 호버 시</a></li>
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="page-seo-analysis.html"><i class="glyphicon glyphicon-search"></i> 마우스 호버 시</a></li>
 					</ul>
 				</div>
-				<!--/.nav-collapse -->
+<!-- 상단 메뉴바  영역 끝 -->
+
+
+
 			</div>
 			<!--/.container-fluid -->
 		</nav>
@@ -110,4 +141,4 @@
 	</div>
 	<!-- end container -->
 </header>
-<!-- end header -->
+<!-- 헤더 영역 끝 -->

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+
+<!-- 상단 푸터 영역 시작 -->
 		<footer class="footer primary-footer">
             <div class="container">
                 <div class="row">
@@ -69,8 +72,12 @@
                     </div><!-- end col -->
                 </div><!-- end row -->
            	</div><!-- end container -->
-		</footer><!-- end primary-footer -->
+		</footer>
+<!-- 상단 푸터 영역 끝 -->
 
+
+
+<!-- 하단 푸터 영역 (배경색 다른 부분) 시작 -->
 		<footer class="footer secondary-footer">
             <div class="container">
                 <div class="row">
@@ -85,4 +92,5 @@
                     </div><!-- end col -->
                 </div><!-- end row -->
             </div><!-- end container -->
-		</footer><!-- end second footer -->
+		</footer>
+<!-- 하단 후터 영역 끝 -->
