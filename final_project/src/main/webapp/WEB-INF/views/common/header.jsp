@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!-- Site Icons -->
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
 
 
 
@@ -126,7 +128,9 @@
 						<li><a href="case-studies.html">Case Studies</a></li>
 						<li><a href="blog.html">Blog</a></li>
 						<li><a href="page-contact.html">Contact</a></li>
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="page-seo-analysis.html"><i class="glyphicon glyphicon-search"></i> 마우스 호버 시</a></li>
+						<c:if test="${empty sessionScope.m }">
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/loginFrm.do"> 로그인</a></li>
+						</c:if>
 					</ul>
 				</div>
 <!-- 상단 메뉴바  영역 끝 -->

@@ -7,5 +7,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="kr.co.notice.model.vo.Notice" alias="n"/>
-	</typeAliases>
+		<typeAlias type="kr.co.member.model.vo.Member" alias="m"/>
+	</typeAliases>		
+
 </configuration>

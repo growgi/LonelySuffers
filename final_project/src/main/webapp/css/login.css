@@ -1,0 +1,61 @@
+.content{
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+[name=close-modal]{
+    display: flex;
+    float: right;
+    border: none;
+    background-color: #fff;
+
+}
+
+.main{
+    border: 1px solid black;
+
+}
+.content-top{
+    text-align: center;
+
+    border-bottom: none;
+}
+
+
+.main-top{
+    padding-top: 100px;
+    text-align: center;
+    padding-bottom: 50px;
+    border-top: none;
+
+}
+
+#memberId,#memberPw{
+    height: 40px;
+    width: 300px;
+}
+
+input[type=submit]{
+    margin-top: 100px;
+    width: 400px;
+    height: 40px;
+}
+
+.main-bottom{
+   text-align: center;
+}
+
+#findMemberId{
+    margin: 10px;
+}
+
+#findMemberPw{
+    margin: 10px;
+}
+
+#joinMember{
+    margin: 10px;
+
+}
