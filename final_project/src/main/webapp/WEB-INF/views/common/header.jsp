@@ -10,8 +10,7 @@
 
 
 <!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet">
 
 
 
@@ -48,9 +47,8 @@
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 						aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
+						<span class="sr-only">Toggle navigation</span>
+						 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
 
 
@@ -72,10 +70,7 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active"><a href="index.html">Home</a></li>
-						<li class="dropdown yamm-fw hasmenu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">드롭다운메뉴 <span
-								class="fa fa-angle-down"></span></a>
+						<li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">드롭다운메뉴 <span class="fa fa-angle-down"></span></a>
 							<ul class="dropdown-menu">
 								<li>
 									<div class="yamm-content">
@@ -90,8 +85,7 @@
 													<li><a href="service-06.html">Keyword Research</a></li>
 													<li><a href="service-07.html">SEO Strategy</a></li>
 													<li><a href="service-08.html">Website Design</a></li>
-													<li><a href="service-09.html">Link Building
-															Services</a></li>
+													<li><a href="service-09.html">Link Building Services</a></li>
 												</ul>
 											</div>
 											<div class="col-md-4">

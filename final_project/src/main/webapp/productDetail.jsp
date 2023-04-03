@@ -10,8 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <!-- Mobile Meta -->
-<meta name="viewport"
-	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
 <title>상품 페이지 - Lonely Suffers</title>
@@ -34,8 +33,7 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>상품페이지</h2>
-						<p class="lead">This is your default page example. You can add
-							anything here..</p>
+						<p class="lead">This is your default page example. You can add anything here..</p>
 					</div>
 					<!-- end col -->
 				</div>
@@ -116,12 +114,10 @@
 									tincidunt consectetur. Duis mattis ornare diam, vitae faucibus
 									libero pellentesque sit amet.</p>
 								<p>
-									<a href="https://freefrontend.com/bootstrap-modal-windows/">부트스트랩
-										Modal 디자인 CSS 모음</a>
+									<a href="https://freefrontend.com/bootstrap-modal-windows/">부트스트랩 Modal 디자인 CSS 모음</a>
 								</p>
 								<p>
-									<a href="https://freefrontend.com/css-star-ratings/">별 평점
-										매기기 디자인 CSS 모음</a>
+									<a href="https://freefrontend.com/css-star-ratings/">별 평점 매기기 디자인 CSS 모음</a>
 								</p>
 							</div>
 							<!-- end blog-desc -->
@@ -136,8 +132,7 @@
 						<div class="widget clearfix">
 							<h4 class="widget-title">구독하세요</h4>
 							<div class="newsletter-widget">
-								<p>You can opt out of our newsletters at any time. See our
-									privacy policy.</p>
+								<p>You can opt out of our newsletters at any time. See our privacy policy.</p>
 								<form class="form-inline" role="search">
 									<div class="form-1">
 										<input type="text" class="form-control"
