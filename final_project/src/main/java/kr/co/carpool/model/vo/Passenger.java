@@ -12,5 +12,9 @@ public class Passenger {
 	private int matchStatus;
 	private int carpoolNo;
 	private int passengerNo;
+	private String passengerName;
+	private int passengerGender;
+	private String passengerPhone;
+	private String passengerEmail;
 	private String passengerMsg;
 }
