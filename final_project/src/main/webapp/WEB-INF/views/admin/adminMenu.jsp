@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="css/common.css"></link>
+<link rel="stylesheet" href="css/adminCommon.css"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 <style>
     /*전체*/
@@ -25,6 +25,7 @@
         line-height: 70px;
 
     }
+
     .admin-icon{
         float: right;
         background-color: #fff;
@@ -51,6 +52,7 @@
         right: 20px;
         border-radius: 5px;
         box-shadow: 0 5px 5px rgba(170, 170, 170, 0.25), 0 5px 5px rgba(194, 194, 194, 0.22);
+        background-color: #fff;
     }
     .admin-icon2{
         font-size: 40px;
@@ -226,9 +228,9 @@
 </div>
 <script>
     /*admin-icon*/
-    $(".top-menu-background").on("click",function(){
+    $(".admin-icon").on("click",function(){
         $(".link-box").fadeToggle(200);
-        $(".admin-icon").toggleClass("active-admin-icon");
+        $(this).toggleClass("active-admin-icon");
     });
 
     /*왼쪽 메뉴*/

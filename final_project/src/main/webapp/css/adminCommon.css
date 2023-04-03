@@ -1,0 +1,12 @@
+*:not(a){
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    cursor: default;
+}
+
+.admin-content{
+	position: absolute;
+	top: 100px;
+	left: 300px;
+}
