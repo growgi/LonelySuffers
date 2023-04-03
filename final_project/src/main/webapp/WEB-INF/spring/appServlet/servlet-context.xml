@@ -51,5 +51,6 @@
 	<context:component-scan base-package="kr.co.carpool"/>
 	<context:component-scan base-package="kr.co.house"/>
 	<context:component-scan base-package="kr.co.notice"/>
+	<context:component-scan base-package="kr.co.admin"/>
 
 </beans:beans>
