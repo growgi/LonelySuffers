@@ -1,4 +1,4 @@
-package ko.co.house.model.vo;
+package kr.co.house.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
