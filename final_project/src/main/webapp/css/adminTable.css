@@ -1,19 +1,21 @@
+.list-wrapper{
+    width: 80%;
+}
+
 .list-wrapper form{
-    width: 1200px;
-    box-shadow: 0 4px 4px 4px rgba(207, 207, 207, 0.19), 0 2px 2px 2px rgba(177, 177, 177, 0.23);
+    box-shadow: 2px 4px 4px 4px rgba(207, 207, 207, 0.19), 1px 2px 2px 2px rgba(177, 177, 177, 0.23);
 }
 /*�˻�â*/
 .search-bar {
     display: flex;
-    width: 285px;
     margin-bottom: 15px;
 }
 .search-bar>.search-icon{
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     background-color: rgb(238, 238, 238);
     color: rgb(156, 156, 156);
-    line-height: 35px;
+    line-height: 45px;
     text-align: center;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -23,11 +25,13 @@
 .search-bar>input{
     outline: none;
     border: 1px solid #dddd;
-    padding-left: 7px;
-    width: 250px;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 45vh;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     cursor: auto;
+    font-size: 16px;
 }
 
 .active-search-bar{
@@ -40,19 +44,22 @@ table{
     text-align: center;
     border-spacing: 0;
 }
+table th{
+    font-size: 17px;
+}
+table td{
+    font-size: ;
+}
 table th, td{
-    height: 60px;
+    height: 70px;
     border-bottom: 1px solid rgb(202, 202, 202);
 }
-table>tr>th:first-of-type{
-    margin-left: 10px;
-}
 .list-top{
-    padding: 30px;
+    padding: 35px;
 }
 .list-bottom{
     background-color: rgb(241, 241, 241);
-    height: 100px;
+    height: 130px;
     box-sizing: border-box;
     text-align: right;
     position: relative;

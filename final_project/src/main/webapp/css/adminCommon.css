@@ -3,10 +3,41 @@
     padding: 0;
     list-style: none;
     cursor: default;
+    font-size: 16px;
+}
+*{
+    text-decoration-line: none;
 }
 
 .admin-content{
 	position: absolute;
 	top: 100px;
 	left: 300px;
+    width: 200vh;
+}
+
+/*버튼 디자인*/
+.btn {
+    border: none;
+    text-align: center;
+    line-height: 50px;
+    display: inline-block;
+    box-sizing: border-box;
+    transition-duration: 0.4s;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+}
+
+.bc1{
+    color: #252a34;
+    background-color: #fff;
+    border: 2px solid #d8d8d8;
+    cursor: pointer;
+}
+.bc1:hover {
+    background-color: #d8d8d8;
+    border: 2px solid #d8d8d8;
+    cursor: pointer;
 }

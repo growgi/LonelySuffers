@@ -11,20 +11,27 @@
 <style>
     .member-count{
         font-weight: 900;
+        font-size: 20px;
+        margin-bottom: 10px;
     }
     .member-count>span{
-        color: rgb(255, 0, 0);
+        color: #86C8BC;
+        font-size: 20px;
     }
-
+    .list-bottom>div{
+        display: flex;
+    }
+    .list-bottom>div>.btn:last-of-type{
+        display: block;
+        margin-left: 10px;
+    }
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
-        <form action="/adminSearchMember.do" method="get" name="search-member">
-            <div class="search-bar">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="search" placeholder="아이디로 사용자 검색" name="searchMember">
-            </div>
+        <form action="/adminSearchMember.do" method="get"  class="search-bar" name="search-member">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="search" placeholder="아이디로 사용자 검색" name="searchMember">
         </form>
         <div class="list-wrapper">
             <form action="/changeGrade.do" method="get" name="memberList">
@@ -61,8 +68,8 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <input type="submit" value="등급 변경">
-                        <a href="#">회원 탈퇴</a>
+                        <input type="submit" value="등급 변경" class="btn bc1">
+                        <a href="#" class="btn bc1">회원 탈퇴</a>
                     </div>
                 </div>
             </form>

@@ -16,6 +16,7 @@
         background-color: #e2e2e2;
         overflow: hidden;
         position: relative;
+        box-shadow: 0 2px 2px 2px rgba(233, 233, 233, 0.19), 0 1px 1px 1px rgba(223, 223, 223, 0.23);
     }
     .top-menu-title{
         font-size: 22px;
@@ -103,6 +104,8 @@
         position: absolute; 
         top: 0; 
         left: 0;
+
+        box-shadow: 2px 4px 4px 4px rgba(207, 207, 207, 0.19), 1px 2px 2px 2px rgba(177, 177, 177, 0.23);
     }
     .left-menu-title{
         font-size: 24px;
@@ -119,6 +122,7 @@
         padding: 15px;
         padding-left: 25px;
         position: relative;
+        color: #e4f0e1;
     }
     .right-navi{
         position: absolute;
