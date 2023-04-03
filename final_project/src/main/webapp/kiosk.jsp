@@ -10,9 +10,12 @@
 	*{
 		margin:0;
 		padding:0;
+		
 	}
+
 	.content-wrapper{
 		width:1200px;
+		
 	}
 	.title-wrapper{
 		width:1200px;
@@ -34,8 +37,28 @@
 		height:100px;
 		line-height:300%;
 	}
+	.money-wrapper{
+		width:1170px;
+		height: 100px;
+		overflow:hidden;
+	}
+	.money-emoji{
+		width:50px;
+		height:50px;
+		margin-top:25px;
+		margin-right:5px;
+		float:right;
+	}
+	.money{
+		font-size:30px;
+		font-weight:400;
+		float:right;
+		margin-right:100px;
+		line-height:100px;
+	}
 	.map-wrapper{
 		width: 1000px;
+		
 	}
 	.circle-wrap{
 		width: 1100px;
@@ -53,6 +76,23 @@
 		height:1000px;
 		margin-left: 285px;
 		padding-top: 65px
+	}
+	.btn-wrap{
+		width:1070px;
+	}
+	.btn-wrap>button{
+		width:200px;
+		height:60px;
+		border-radius:5px;
+		border: 1px solid #3da9d4;
+		margin-left:150px;
+		background-color:#fff;
+	}
+	.btn-wrap p{
+		font-weight:600;
+		font-size:20px;
+		margin-top:15px;
+		color:rgb(51, 51, 51);
 	}
 </style>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
@@ -72,6 +112,10 @@
 					<img src="/images/palm-tree.png">
 					<img src="/images/wave.png">
 				</div>
+				<div class="money-wrapper">
+					<span class="money stat-count">150000</span>
+					<img class="money-emoji" src="/images/dollar1.png">
+				</div>
 				<!-- 돋보기 모양으로 해보기 -->
 				<div class="map-wrapper">
 				<div class="row">
@@ -87,9 +131,21 @@
 				</div>
 				</div>
 			</div>
+			<div class="btn-wrap">
+				<button class="before"><p>이전으로</p></button>
+				<button class="okay"><p>확정</p></button>
+				<button class="pass"><p>넘어가기</p></button>
+			</div>
 		</div>
 	</section>
 	</div>
+
+<!-- 기본 .js 파일들 -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/parallax.js"></script>
+	<script src="js/animate.js"></script>
+	<script src="js/custom.js"></script>
 
 <script>
 
@@ -102,6 +158,7 @@ const map = new naver.maps.Map("map",{
 		style : naver.maps.ZoomControlStyle.SMALL
 	}
 });
+
 </script>					
 </body>
 </html>
