@@ -6,8 +6,11 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="kr.co.notice.model.vo.Notice" alias="n"/>
-		<typeAlias type="kr.co.member.model.vo.Member" alias="m"/>
+		<typeAlias type="kr.co.house.model.vo.House" alias="h"/>		<!-- House    as h -->
+		<typeAlias type="kr.co.notice.model.vo.Notice" alias="n"/>		<!-- Notice   as n -->
+		<typeAlias type="kr.co.member.model.vo.Member" alias="m"/>		<!-- Member   as m -->
+		<typeAlias type="kr.co.house.model.vo.Room" alias="r"/>			<!-- Room 	  as r -->
+		<typeAlias type="kr.co.house.model.vo.RoomBook" alias="rb"/>	<!-- RoomBook as rb -->
 	</typeAliases>		
 
 </configuration>

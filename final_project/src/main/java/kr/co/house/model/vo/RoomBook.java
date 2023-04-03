@@ -18,7 +18,8 @@ public class RoomBook {
 	private int roomNo;					// 예약한 객실(Room)의 고유 번호
 	private int memberNo;				// 예약한 고객의 MEMBER_NO
 	private String bookStartDate;		// 예약기간 첫날의 YYYY-MM-DD
-	private String bookEndDate;			// 예약기간 마지막날의 YYYY-MM-DD   그러나 퇴실 날짜에도 다른 고객이 오후부터 입실 가능해야 하므로, -1일된 값을 넣어두고 표시는 +1시켜 보여줌
+	private String bookEndDate;			/* 예약기간 마지막날의 YYYY-MM-DD   그러나 퇴실 날짜에도 다른 고객이 오후부터 입실 가능해야 하므로, -1일 한 값을 저장함.
+											예를 들어 4월 30일 오전 11시 퇴실이면, bookEndDate에는 2023-04-29를 저장하고, 사용자들한테는 +1해서 4월 30일 퇴실로 보여줌 */
 	private int houseNo;				// 숙박 상품(House)의 고유 번호
 	private int optionNo;				// Option의 고유 번호
 	private int roomBookPrice;		/*	     모든 비용을 계산한 후 넣어줄 변수.
