@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Passenger {
 	private int matchNo;
-	private int matchStatus;
+	private int matchStatus; //0. 매칭완료 1.매칭중 2.매칭취소
 	private int carpoolNo;
 	private int passengerNo;
 	private String passengerName;

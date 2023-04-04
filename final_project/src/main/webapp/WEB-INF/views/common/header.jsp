@@ -11,6 +11,9 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap" rel="stylesheet">
 
 
 
@@ -56,8 +59,8 @@
 <!-- 로고 영역 시작 -->
 					<a class="navbar-brand" href="/">
 						<div class="waveEffect">
-							<p class="waveEffectWord-back">물결치는글자</p>
-							<p class="waveEffectWord-front">물결치는글자</p>
+							<p class="waveEffectWord-back" style="font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
+							<p class="waveEffectWord-front" style="font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
 						</div>
 					</a>
 <!-- 로고 영역 끝 -->

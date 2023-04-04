@@ -18,6 +18,7 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<script src="/src/main/webapp/js/carpoolMain.js"></script>
 </head>
 
 <body>
@@ -50,9 +51,11 @@
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">마이카풀</p>
 					</div>
-					<div class="filter" style="float: right;">
-						<span class="material-symbols-outlined">edit_note</span>
-						<span class="material-symbols-outlined" style="display: inline-block; width: 50px; height: 30px;" >filter_alt</span>
+					<div class="menu" style="float: right;">
+						<a href="/carpoolOffer.do">
+						<span class="material-symbols-outlined edit">edit_note</span>
+						<span class="material-symbols-outlined filter" style="display: inline-block; width: 50px; height: 30px;" >filter_alt</span>
+						</a>
 					</div>
 				</div><!-- end row -->
 			</div><!-- end container -->
@@ -64,8 +67,8 @@
 			<div class="container">
 				<div class="row">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
-					<div class="col-md-2"><span class="material-symbols-outlined departDate">arrow_upward</span>출발일</div>
-					<div class="col-md-2"><span class="material-symbols-outlined writeDate">arrow_upward</span>등록일</div>
+					<div class="col-md-2"><span class="material-symbols-outlined departDate" id="departureDate-sort">arrow_upward</span>출발일</div>
+					<div class="col-md-2"><span class="material-symbols-outlined writeDate" id="regDate-sort">arrow_upward</span>등록일</div>
 				</div>
 				</div><!-- end row -->
 			</div><!-- end container -->
@@ -73,7 +76,7 @@
 
 		<section class="section" style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px; ">
 			<div class="container">
-				<div class="row" style="background-color: red; border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: #ceedc7;">
+				<div class="row" style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0 ;">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="col-md-2"></div>
 					<div class="onewayRound" style="margin-bottom:20px;">onewayRound</div><br>
@@ -92,7 +95,7 @@
 								</div><br>
 								<div class="additional-info">
 									<div class="boardStorage">#보드수납가능</div>
-									<div class="driverMsg">#드라이버 할말</div>
+									<div class="driverMsg">#드라이버 할말<c/div>
 								</div>
 							</div>
 						</div>
@@ -116,42 +119,79 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				  </div>
 				  <div class="modal-body" style="padding:5px 5px;">
-					<form role="form">
+					<form action="/filterSearch.do" method="post">
 					  <div class="form-group">
 						<label for="usrname">출발</label>
-						<input type="text" class="form-control" id="city" placeholder="시/도">
-						<input type="text" class="form-control" id="city" placeholder="시/도">
-						<div class="time-selection" id="am" onclick="selectTime('am')" onmouseover="mouseOver('am')" onmouseout="mouseOut('am')">오전</div>
-						<div class="time-selection" id="pm" onclick="selectTime('pm')" onmouseover="mouseOver('pm')" onmouseout="mouseOut('pm')">오후</div>
-						
-					  </div>
+						<select class="form-control" name="departureRegion" id="city">
+							<option value="" selected disabled>시/도</option>
+							<option value="서울">서울</option>
+							<option value="경기">경기</option>
+							<option value="인천">인천</option>
+							<option value="강원">강원</option>
+							<option value="부산">부산</option>
+							<option value="대구">대구</option>
+							<option value="광주">광주</option>
+						</select>						
+						<input type="text" class="form-control" name="departDistrict" id="city" placeholder="상세주소">
+					</div>
+					<div class="check-box-wrap"  style="height: 60px;">
+						<div class="check-box left">
+							<input type="radio" id="am" name="departureTime" value="0" style="display: none;" onclick="timeAm()"><label for="am-time"><span class="material-symbols-outlined">check</span>오전</label>
+						</div>
+						<div class="check-box right">
+							<input type="radio" id="pm" name="departureTime" value="1" style="display: none;" onclick="timePm()"><label for="pm-time"><span class="material-symbols-outlined">check</span>오후</label><br>
+						</div>
+					</div>
 					  <div class="form-group">
 						<label for="usrname">도착</label>
-						<input type="text" class="form-control" id="city" placeholder="시/도">
-						<input type="text" class="form-control" id="minprice" placeholder="최저가">
-						<input type="text" class="form-control" id="maxprice" placeholder="최고가">
+						<select class="form-control" name="arrivalRegion" id="city">
+							<option value="" selected disabled>시/도</option>
+							<option value="서울">서울</option>
+							<option value="경기">경기</option>
+							<option value="인천">인천</option>
+							<option value="강원">강원</option>
+							<option value="부산">부산</option>
+							<option value="대구">대구</option>
+							<option value="광주">광주</option>
+						</select>		
+						<input type="text" class="form-control"  name="arrivalDistrict" id="city" placeholder="상세주소">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="text" class="form-control" id="minprice" name="minPrice" placeholder="최저가">
+									<span class="input-group-addon" style="background-color: none; border: none;">(원)</span>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="text" class="form-control" id="maxprice" name="maxPrice" placeholder="최고가">
+									<span class="input-group-addon"style="background-color: none; border: none;" >(원)</span>
+								</div>
+							</div>
+						</div>
 					  </div>
 					  <div class="check-box-wrap">
 						<div class="check-box left">
-							<input type="radio" id="one-way" name="trip-type" value="편도" style="display:none;" onclick="selectOneWay()"><label for="one-way"><span class="material-symbols-outlined">check</span>편도</label>
+							<input type="radio" id="one-way" name="onewayRound" value="1" style="display:none;" onclick="selectOneWay()"><label for="one-way"><span class="material-symbols-outlined">check</span>편도</label>
 						</div>
 						<div class="check-box right">
-							<input type="radio" id="round-trip" name="trip-type" value="왕복" style="display:none;" onclick="selectRoundTrip()"><label for="round-trip"><span class="material-symbols-outlined">check</span>왕복</label><br>
+							<input type="radio" id="round-trip" name="onewayRound" value="2" style="display:none;" onclick="selectRoundTrip()"><label for="round-trip"><span class="material-symbols-outlined">check</span>왕복</label><br>
 						</div>
 						<div class="check-box left">
-							<input type="radio" id="recruiting" name="recruit" value="모집중" style="display:none;" onclick="recruiting()"><label for="recruiting"><span class="material-symbols-outlined">check</span>모집중</label>
+							<input type="radio" id="recruiting" name="closure" value="0" style="display:none;" onclick="recruiting()"><label for="recruiting"><span class="material-symbols-outlined">check</span>모집중</label>
 						</div>
 						<div class="check-box right">
-							<input type="radio" id="closed" name="recruit" value="모집완료" style="display:none;" onclick="closed()"><label for="closed"><span class="material-symbols-outlined">check</span>모집완료</label>
+							<input type="radio" id="closed" name="closure" value="1" style="display:none;" onclick="closed()"><label for="closed"><span class="material-symbols-outlined">check</span>모집완료</label>
 						</div>
-					  </div>
-					
-					  
-						<button type="submit" class="btn btn-block">초기화</button>
-						<button type="submit" class="btn btn-block">적용</button>
-				  </div>
+					</div>
+					<hr>
+					<div class="btn-pack" style="margin-left: 25px;">
+						<button type="button" class="btn btn-block" id="reset-btn" style="width: 250px;height: 40px;  border-radius: 10px; float:left; margin-right: 25px; background-color: #9f9f9f; color: white; font-weight: 900;">초기화</button>
+						<button type="submit" class="btn btn-block" id="apply-btn" style="width: 250px;height: 40px;  border-radius: 10px; background-color: #EA5455; color: white; font-weight: 900;">적용</button>					
+					</div><br>
+					</form>
 				  <div class="modal-footer">
-					<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>나가기</button>
+					<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="font-size: 14px;text-align: center;width: 40px; border-radius: 10px; background-color: rgb(255, 174, 0); display: flex; justify-content: center; align-items: center;"><span class="glyphicon glyphicon-remove"></span>나가기</button>
 				  </div>
 				</div>
 			  </div>
@@ -183,6 +223,24 @@
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
 	<script>
+		//출발일 순으로 내림차순 정렬
+		const departDateSort = document.getElementById('departureDate-sort');
+		departDateSort.addEventListener('click', function() {
+  		// 출발일 데이터를 정렬하여 새로운 순서대로 화면에 렌더링하는 코드 작성
+
+		});
+
+		//작성일 순으로 내림차순 정렬
+		const regDateSort = document.getElementById('regDate-sort');
+		regDateSort.addEventListener('click', function() {
+  		// 작성일 데이터를 정렬하여 새로운 순서대로 화면에 렌더링하는 코드 작성
+
+
+		});
+
+
+
+		//모달
 		$(document).ready(function(){
 		  $(".filter").click(function(){
 			$("#myModal").modal();
@@ -194,28 +252,35 @@
 			$("#myModal").modal();
 		});
 		});
-		function selectTime(time) {
-					var selected = document.querySelector('.time-selection.selected');
-					if (selected) {
-						selected.classList.remove('selected');
-					}
-					document.getElementById(time).classList.add('selected');
-					alert("선택된 시간: " + time);
-				}
+		
+		// 초기화 버튼 클릭 시
+document.getElementById("reset-btn").addEventListener("click", function() {
+  // input 값 초기화
+  document.querySelectorAll("input").forEach(function(input) {
+    input.value = "";
+  });
+  // 체크박스 초기화
+  document.querySelectorAll("input[type=radio]").forEach(function(radio) {
+    radio.checked = false;
+  });
+});
 
-		function mouseOver(time) {
-			var element = document.getElementById(time);
-			if (!element.classList.contains('selected')) {
-				element.style.backgroundColor = '#f2f2f2';
-			}
-		}
+// 적용 버튼 클릭 시
+document.getElementById("apply-btn").addEventListener("click", function() {
+  // 필터링 조건 추출
+  const departureCity = document.getElementById("city").value;
+  const arrivalCity = document.querySelectorAll("#city")[1].value;
+  const minPrice = document.getElementById("minprice").value;
+  const maxPrice = document.getElementById("maxprice").value;
+  const tripType = document.querySelector('input[name="trip-type"]:checked').value;
+  const recruitStatus = document.querySelector('input[name="recruit"]:checked').value;
+  
+  // 추출된 조건을 가지고 필터링 검색 실행
+  // 여기에 실행할 코드 추가
+});
 
-		function mouseOut(time) {
-			var element = document.getElementById(time);
-			if (!element.classList.contains('selected')) {
-				element.style.backgroundColor = '';
-			}
-		}
+
+
 </script>
 		</script>
 
