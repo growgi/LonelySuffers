@@ -39,8 +39,8 @@
 						<c:forEach items="${list }" var="n">
 							<tr>
 								<td class="nt">${n.noticeNo }</td>
-								<td class="nt">
-									<a href="noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle }</a>				
+								<td>
+									<a href="/noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle }</a>				
 								</td>
 								<td class="nt">${n.noticeDate }</td>
 							</tr>

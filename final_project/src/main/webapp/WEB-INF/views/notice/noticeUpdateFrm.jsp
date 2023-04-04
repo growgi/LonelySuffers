@@ -10,22 +10,9 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
-	<h1 style="text-align: center;">공지사항</h1>
+	<h1>공지사항 수정</h1>
 	<hr>
-	<table>
-		<tr>
-			<td>${n.noticeTitle }</td>
-			<td>${n.noticeDate }</td>
-		</tr>
-		<tr>
-			<td>${n.noticeContent }</td>
-		</tr>
-		<tr>
-			<th colspan="6">
-				<a href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a>
-				<!--<a href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>-->
-			</th>
-		</tr>
-	</table>		
+   	<form action="/noticeUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
+   	</form>
 </body>
 </html>
