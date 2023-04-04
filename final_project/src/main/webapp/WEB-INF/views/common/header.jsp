@@ -121,7 +121,12 @@
 									</div>
 								</li>
 							</ul></li>
-						<li><a href="page-about.html">What is SEO?</a></li>
+							<li>
+						  <a href="/gallery.do">
+						    <img alt="gallery" src="/images/gallery.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">갤러리</span>
+						  </a>
+						</li>
 						<li>
 						  <a href="/carpoolMain.do">
 						    <img alt="carpool" src="/images/carpool.png" style="width: 25px; height: 25px;">

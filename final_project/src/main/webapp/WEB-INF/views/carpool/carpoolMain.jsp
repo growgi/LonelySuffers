@@ -79,7 +79,7 @@
 
 	<!-- 얘네들이 반복돼야해!! Carpool list all -->
 		<c:forEach items="${list }" var="c">
-		<section class="section" style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px; ">
+		<section class="section" id="carpoolList" style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px; ">
 			<div class="container">
 				<div class="row" style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0 ;">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
@@ -263,10 +263,14 @@ document.getElementById("reset-btn").addEventListener("click", function() {
   document.querySelectorAll("input").forEach(function(input) {
     input.value = "";
   });
+  // select 값 초기화
+  document.querySelectorAll("select").forEach(function(select) {
+    select.selectedIndex = 0;
   // 체크박스 초기화
   document.querySelectorAll("input[type=radio]").forEach(function(radio) {
     radio.checked = false;
   });
+});
 });
 
 // 적용 버튼 클릭 시
