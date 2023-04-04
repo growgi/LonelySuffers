@@ -35,5 +35,11 @@ public class AdminController {
 		
 		return "admin/productList";
 	}
+	
+	@RequestMapping(value="/salesDetails.do")
+	public String salesDetails() {
+		
+		return "admin/salesDetails";
+	}
 
 }

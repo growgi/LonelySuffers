@@ -35,15 +35,16 @@
                             <td>hong123</td>
                             <td>숙박</td>
                             <td>65,000원</td>
+                            <td>2023-03-12</td>
                             <td>결제완료</td>
-                            <td><a href="#">주문 상세</a></td>
+                            <td><a href="#" class="btn bc1">주문 상세</a></td>
                         </tr>
                     </table>
                     <div></div>
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <input type="submit" value="등급 변경" class="btn bc1">
+                        <input type="submit" value="내역 삭제" class="btn bc1">
                     </div>
                 </div>
             </form>
