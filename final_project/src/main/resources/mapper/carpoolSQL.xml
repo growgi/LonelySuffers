@@ -7,6 +7,10 @@
  	<select id="selectAllCarpool" resultType="c">
  	select 
  		carpool_no as carpoolNo,
+ 		departure_region as departureRegion,
+ 		departure_district as departureDistrict,
+ 		arrival_region as arrivalRegion,
+ 		arrival_district as arrivalDistrict,
  		capacity as capacity,
  		surfboard_room as surfboardRoom,
  		driver_msg as driverMsg,

@@ -100,16 +100,18 @@
 								</div><br>
 								<div class="additional-info">
 									<div class="boardStorage">#${c.boardRoomCapacity }</div>
-									<div class="driverMsg">#{c.driverMsg }</div>
+									<div class="driverMsg">#${c.driverMsg }</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				</div><!-- end row -->
+				<br><br>
 			</div><!-- end container -->
 		</section><!-- end section -->
 		</c:forEach>
+		
 
 		<!--모달 -->
 		<div class="container">
@@ -202,12 +204,8 @@
 			  </div>
 			</div> 
 		  </div>
-		<section class="section">
-			<div class="container">
 
 
-<!-- section ＞  container 안에 class가 invis1인 hr 태그를 넣으시면, 가로로 큰 공백이 생깁니다. 이 태그를 여러 개를 넣으면 그만큼 공백 높이가 더 높아집니다. -->
-				<hr class="invis1">
 
 			</div><!-- end container -->
 		</section><!-- end section -->
@@ -242,6 +240,9 @@
 
 
 		});
+		
+		//리스트 5개씩 보이게 하기
+		
 
 		//모달
 		$(document).ready(function(){
