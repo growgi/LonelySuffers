@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-
 <!-- 상단 푸터 영역 시작 -->
 		<footer class="footer primary-footer">
             <div class="container">

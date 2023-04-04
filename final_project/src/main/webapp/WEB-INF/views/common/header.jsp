@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!-- Site Icons -->
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
@@ -7,9 +8,9 @@
 
 
 
+
 <!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet">
 
 
 
@@ -46,9 +47,8 @@
 					<button type="button" class="navbar-toggle collapsed"
 						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 						aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
+						<span class="sr-only">Toggle navigation</span>
+						 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
 
 
@@ -70,10 +70,7 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active"><a href="index.html">Home</a></li>
-						<li class="dropdown yamm-fw hasmenu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">드롭다운메뉴 <span
-								class="fa fa-angle-down"></span></a>
+						<li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">드롭다운메뉴 <span class="fa fa-angle-down"></span></a>
 							<ul class="dropdown-menu">
 								<li>
 									<div class="yamm-content">
@@ -88,8 +85,7 @@
 													<li><a href="service-06.html">Keyword Research</a></li>
 													<li><a href="service-07.html">SEO Strategy</a></li>
 													<li><a href="service-08.html">Website Design</a></li>
-													<li><a href="service-09.html">Link Building
-															Services</a></li>
+													<li><a href="service-09.html">Link Building Services</a></li>
 												</ul>
 											</div>
 											<div class="col-md-4">
@@ -126,7 +122,9 @@
 						<li><a href="case-studies.html">Case Studies</a></li>
 						<li><a href="blog.html">Blog</a></li>
 						<li><a href="page-contact.html">Contact</a></li>
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="page-seo-analysis.html"><i class="glyphicon glyphicon-search"></i> 마우스 호버 시</a></li>
+						<c:if test="${empty sessionScope.m }">
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/loginFrm.do"> 로그인</a></li>
+						</c:if>
 					</ul>
 				</div>
 <!-- 상단 메뉴바  영역 끝 -->

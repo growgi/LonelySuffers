@@ -1,0 +1,251 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="css/common.css"></link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+<style>
+    /*전체*/
+    .admin-menu-wrapper{
+        position: relative;
+        color: #fff;
+    }
+
+    /*메뉴 상단*/
+    .top-menu-background{
+        background-color: #e2e2e2;
+        overflow: hidden;
+        position: relative;
+    }
+    .top-menu-title{
+        font-size: 22px;
+        font-weight: 600;
+        position: absolute;
+        left: 270px;
+        line-height: 70px;
+
+    }
+    .admin-icon{
+        float: right;
+        background-color: #fff;
+        border-radius:40px;
+        width: 40px;
+        height: 40px;
+        margin: 15px;
+        margin-right: 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+    .admin-icon>span{
+        line-height: 40px;
+        color: black;
+    }
+
+    
+    /*링크 박스*/
+    .admin-menu-wrapper>.link-box{
+        width: 300px;
+        position: absolute;
+        z-index: 1;
+        top: 60px;
+        right: 20px;
+        border-radius: 5px;
+        box-shadow: 0 5px 5px rgba(170, 170, 170, 0.25), 0 5px 5px rgba(194, 194, 194, 0.22);
+    }
+    .admin-icon2{
+        font-size: 40px;
+        margin-right: 5px;
+    }
+    .box-top{
+        padding: 20px;
+        padding-top: 25px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: rgb(48,48,48);
+    }
+    .box-top>div:first-child{
+        display: flex;
+    }
+    .box-top>div>div>div:first-of-type {
+        font-weight: 900;
+        font-size: 18px;
+    }
+    .box-top>div>div>div:first-of-type>span{
+        color: crimson;
+    }
+    .box-top>div>div>div:last-of-type {
+        font-size: 14px;
+    }
+    .box-bottom{
+        padding: 20px;
+    }
+    .box-bottom>div{
+        margin-bottom: 7px;
+        font-size: 16px;
+        display: flex;
+    }
+    .box-bottom>div>a{
+        margin-left: 5px;
+    }
+    .link-icon {
+        color: #303030;
+    }
+
+    /*왼쪽 메뉴*/
+    .left-menu{
+        background-color: rgb(48,48,48);
+        width: 250px;
+        height: 100vh;
+        z-index: 1;
+        
+        position: absolute; 
+        top: 0; 
+        left: 0;
+    }
+    .left-menu-title{
+        font-size: 24px;
+        font-weight: 900;
+        padding: 70px 25px 40px 25px ;
+    }
+    .left-menu-list>li>div{
+        display: flex;
+        font-size: 18px;
+        font-weight: 900;
+
+    }
+    .menu-detail-title{
+        padding: 15px;
+        padding-left: 25px;
+        position: relative;
+    }
+    .right-navi{
+        position: absolute;
+        right: 15px;
+    }
+    .menu-detail-title>div{
+        margin-left: 5px;
+    }
+    .menu-detail{
+        display: none;
+    }
+    .menu-detail>li>a{
+        display: block;
+        padding: 15px;
+        padding-left: 50px;
+        font-size: 16px;
+        color: lightgray;
+    }
+
+    /*변화*/
+    .active-admin-icon{
+        background-color: #dfdfdf;
+    }
+    .menu-detail-title>li:hover{
+        background-color: rgb(37, 37, 37);
+    }
+    .action-menu-detail{
+        background-color: rgb(37, 37, 37);
+    }
+    .action-menu-detail-one{
+        background-color: rgb(22, 22, 22);
+    }
+</style>
+<div class="admin-menu-wrapper">
+    <div class="link-box" style="display:none">
+        <div class="box-top">
+            <div>
+                <span class="material-symbols-outlined admin-icon2">admin_panel_settings</span>
+                <div>
+                    <div><span>이름</span> 관리자</div>
+                    <div>아이디@naver.com</div>
+                </div>
+            </div>
+        </div>
+        <div class="box-bottom">
+            <div>
+                <span class="material-symbols-outlined link-icon">home</span>
+                <a href="#">홈으로 이동</a>
+            </div>
+            <div>
+                <span class="material-symbols-outlined link-icon">notifications_active</span>
+                <a href="#">공지사항으로 이동</a>
+            </div>
+            <div>
+                <span class="material-symbols-outlined link-icon">help</span>
+                <a href="#">FAQ로 이동</a>
+            </div>
+            <button name="logout">로그아웃</button>
+        </div>
+    </div>
+    <div class="top-menu">
+        <div class="top-menu-background">
+            <div class="top-menu-title">회원 목록</div>
+            <div class="admin-icon"><span class="material-symbols-outlined">link</span></div>
+        </div>
+    </div>
+    <div class="left-menu">
+        <div class="left-menu-title">Lonely Surfers</div>
+        <div class="left-menu-content">
+            <ul class="left-menu-list">
+                <li>
+                    <div class="menu-detail-title">
+                        <span class="material-symbols-outlined">group</span>
+                        <div>회원관리</div>
+                        <span class="material-symbols-outlined right-navi">chevron_right</span>
+                    </div>
+                    <ul class="menu-detail">
+                        <li><a href="#">회원 목록</a></li>
+                        <li><a href="#">판매자 신청 회원 조회</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="menu-detail-title">
+                        <span class="material-symbols-outlined">inventory</span>
+                        <div>상품 관리</div>
+                        <span class="material-symbols-outlined right-navi">chevron_right</span>
+                    </div>
+                    <ul class="menu-detail">
+                        <li><a href="#">신규 상품 승인</a></li>
+                        <li><a href="#">등록된 상품 관리</a></li>
+                        <li><a href="#">판매 내역</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="menu-detail-title">
+                        <span class="material-symbols-outlined">fact_check</span>
+                        <div>문의사항 관리</div>
+                        <span class="material-symbols-outlined right-navi">chevron_right</span>
+                    </div>
+                    <ul class="menu-detail">
+                        <li><a href="#">1:1 문의</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    /*admin-icon*/
+    $(".top-menu-background").on("click",function(){
+        $(".link-box").fadeToggle(200);
+        $(".admin-icon").toggleClass("active-admin-icon");
+    });
+
+    /*왼쪽 메뉴*/
+    $(".menu-detail-title").on("click",function(){
+        $(".menu-detail-title").next().hide();
+        $(".menu-detail-title").parent().removeClass("action-menu-detail");
+
+        $(this).next().slideToggle();
+        $(this).parent().toggleClass("action-menu-detail");
+    });
+    $(".menu-detail>li").on("mouseover",function(){
+        $(this).css("background-color","rgb(22, 22, 22)");
+    });
+    $(".menu-detail>li").on("mouseout",function(){
+        $(this).css("background-color","rgb(37, 37, 37)");
+    });
+    $(".menu-detail>li").on("click",function(){
+        $(this).css("background-color","rgb(22, 22, 22)");
+    });
+</script>

@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 public class Carpool {
 	private int carpoolNo;
 	private int driverNo;
+	private String driverName;
+	private int driverGender;
+	private String driverPhone;
+	private String driverEmail;
 	private int capacity;
 	private int onewayRound;
 	private String departureRegion;
