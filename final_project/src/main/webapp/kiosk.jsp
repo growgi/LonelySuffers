@@ -11,7 +11,8 @@
 		margin:0;
 		padding:0;
 	}
-
+	
+	
 	.ui-datepicker {
   	width: 1000px !important;
   	height: 948px;
