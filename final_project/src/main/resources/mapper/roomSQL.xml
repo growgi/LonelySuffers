@@ -4,7 +4,7 @@
 
 <!-- 하나의 숙박 상품에 대한 객실들만 전부 조회 -->
 <!-- 숙박 상품 House로부터 받은 roomTitle 및 roomCapa과 일치하면서 ROOM_ENABLE이 1인 모든 Row들을 SELECT  -->
-	<select id="selectAllAvailableRoom" parameterType="kr.co.house.model.vo.FindRoomByCondition" resultMap="r">
+	<select id="selectAllAvailableRoom" parameterType="kr.co.house.model.vo.FindRoomByCondition" resultType="r">
 		SELECT
 		ROOM_NO as roomNo,
 		ROOM_TITLE as roomTitle,
