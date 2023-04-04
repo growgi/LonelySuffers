@@ -1,5 +1,8 @@
+<%@page import="kr.co.carpool.model.vo.Carpool"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <head>
 
@@ -52,10 +55,10 @@
 						<p class="category" style="font-weight: 900; font-size: 20px;">마이카풀</p>
 					</div>
 					<div class="menu" style="float: right;">
-						<a href="/carpoolOffer.do">
+						<a href="/carpoolOfferForm.do">
 						<span class="material-symbols-outlined edit">edit_note</span>
-						<span class="material-symbols-outlined filter" style="display: inline-block; width: 50px; height: 30px;" >filter_alt</span>
 						</a>
+						<span class="material-symbols-outlined filter" style="display: inline-block; width: 50px; height: 30px;" >filter_alt</span>
 					</div>
 				</div><!-- end row -->
 			</div><!-- end container -->
@@ -66,7 +69,6 @@
 		<section class="section" style="padding-top: 0px; padding-bottom: 30px;">
 			<div class="container">
 				<div class="row">
-<!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="col-md-2"><span class="material-symbols-outlined departDate" id="departureDate-sort">arrow_upward</span>출발일</div>
 					<div class="col-md-2"><span class="material-symbols-outlined writeDate" id="regDate-sort">arrow_upward</span>등록일</div>
 				</div>
@@ -75,7 +77,8 @@
 		</section><!-- end section -->
 
 
-	
+	<!-- 얘네들이 반복돼야해!! Carpool list all -->
+
 		<section class="section" style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px; ">
 			<div class="container">
 				<div class="row" style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0 ;">
@@ -97,17 +100,17 @@
 								</div><br>
 								<div class="additional-info">
 									<div class="boardStorage">#보드수납가능</div>
-									<div class="driverMsg">#드라이버 할말<c/div>
+									<div class="driverMsg">#드라이버 할말</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					
 				</div>
+				
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->
-
 
 		<!--모달 -->
 		<div class="container">
@@ -240,8 +243,6 @@
 
 
 		});
-
-
 
 		//모달
 		$(document).ready(function(){

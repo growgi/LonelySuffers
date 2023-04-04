@@ -11,17 +11,25 @@ public class CarpoolController {
 	@Autowired
 	private CarpoolService service;
 	
-	@RequestMapping(value="/filterSearch.do")
-	public String filter() {
-		
-		return null;
-		
+	//카풀 메인으로 가기
+	@RequestMapping(value="/carpoolMain.do")
+	public String carpoolMain() {
+		return "carpool/carpoolMain";
 	}
 	
-
 	//필터 값 적용하기 filterSearch.do
-	
-	//운전자 카풀 신청하기 carpoolOffer.do
+	//@RequestMapping(value="/filterSearch.do")
+	//public String filter() {
+		
+		
+	//}
+
+	//운전자 카풀 신청하는 페이지로 넘어가기 carpoolOfferForm.do
+	@RequestMapping(value="carpoolOfferForm.do")
+	public String carpoolOfferForm() {
+		return "carpool/carpoolOfferForm";
+		
+	}
 	
 	
 }
