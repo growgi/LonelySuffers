@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="carpool">
  
+ <!-- 전체카풀조회 -->
+ <select id="selectAllCarpool" resultType="c">
+ 	select
+ 		capacity as capacity,
+ 		onewayRound as onewayRound,
+ 		departureRegion as departureRegion,
+ 		departureDistrict as departureDistrict,
+ 		arrivalRegion as arrivalRegion,
+ 		arrivalDistrict as arrivalDistrict,
+ 		surfboardRoom as surfBoardRoom,
+ 		driverMsg as driverMsg
+ </select>
 </mapper>

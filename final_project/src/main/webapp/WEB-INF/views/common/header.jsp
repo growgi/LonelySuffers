@@ -124,8 +124,7 @@
 						<li><a href="page-about.html">What is SEO?</a></li>
 						<li><a href="case-studies.html">Case Studies</a></li>
 						<li><a href="blog.html">Blog</a></li>
-						<li><a href="page-contact.html">Contact</a></li>
-						<li><a href="page-contact.html">Contact</a></li>
+						<li><a href="/carpoolMain.do">카풀해요</a></li>
 						<c:choose>
 							<c:when test="${not empty sessionScope.m }">
 						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/logout.do"> 로그아웃</a></li>
