@@ -17,5 +17,11 @@ public class AdminController {
 		
 		return "admin/memberList";
 	}
+	
+	@RequestMapping(value="/newProduct.do")
+	public String newProduct() {
+		
+		return "admin/newProduct";
+	}
 
 }

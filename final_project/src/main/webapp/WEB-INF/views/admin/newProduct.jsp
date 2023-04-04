@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,25 +8,20 @@
 <title>Insert title here</title>
 </head>
 <link rel="stylesheet" href="css/adminTable.css"></link>
-<style>
-    .list-bottom>div{
-        display: flex;
-    }
-    .list-bottom>div>.btn:last-of-type{
-        display: block;
-        margin-left: 10px;
-    }
-</style>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
-    <div class="memberList-wrapper admin-content">
+    <div class="newProduct-wrapper admin-content">
         <form action="/adminSearchMember.do" method="get"  class="search-bar" name="search-member">
             <span class="material-symbols-outlined search-icon">search</span>
-            <input type="search" placeholder="아이디로 사용자 검색" name="searchMember">
+            <input type="search" placeholder="강습명으로 검색" name="searchMember">
         </form>
+        <div class="product-choice">
+            <div>강습</div>
+            <div>숙박</div>
+        </div>
         <div class="list-wrapper">
             <form action="/changeGrade.do" method="get" name="memberList">
-                <div class="memberList-top list-top">
+                <div class="newProduct-top list-top">
                     <div class="count">전체 사용자 <span>n</span>명</div>
                     <table>
                         <tr>
@@ -69,6 +65,11 @@
 <script>
     $(".search-bar>input").on("click",function(){
         $(this).toggleClass("active-search-bar");
+    });
+
+    $(".product-choice>div").on("click",function(){
+        $(".product-choice>div").removeClass("active-product-choice");
+        $(this).addClass("active-product-choice");
     });
 </script>
 </html>
