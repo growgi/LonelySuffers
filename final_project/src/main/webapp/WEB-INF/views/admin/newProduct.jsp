@@ -109,15 +109,14 @@
             </div>
         </div>
     </div>
+    <script src="js/admin.js"></script>
 </body>
 <script>
-    $(".search-bar>input").on("click",function(){
-        $(this).toggleClass("active-search-bar");
+    /*메뉴 제목*/
+    $(document).ready(function(){
+        $(".top-menu-title").text("신규 상품 승인");
+        $(".product-choice>div").first().click();
     });
 
-    $(".product-choice>div").on("click",function(){
-        $(".product-choice>div").removeClass("active-product-choice");
-        $(this).addClass("active-product-choice");
-    });
 </script>
 </html>

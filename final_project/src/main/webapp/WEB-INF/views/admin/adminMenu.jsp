@@ -231,6 +231,12 @@
     </div>
 </div>
 <script>
+    /*admin-icon*/
+    $(".admin-icon").on("click",function(){
+        $(".link-box").fadeToggle(200);
+        $(this).toggleClass("active-admin-icon");
+    });
+
     /*왼쪽 메뉴*/
     $(".menu-detail-title").on("click",function(){
         $(".menu-detail-title").next().hide();
@@ -249,4 +255,3 @@
         $(this).css("background-color","rgb(22, 22, 22)");
     });
 </script>
-<script src="js/admin.js"></script>
