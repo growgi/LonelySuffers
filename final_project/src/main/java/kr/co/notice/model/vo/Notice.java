@@ -14,7 +14,7 @@ public class Notice {
 	private int noticeNo;
 	private String noticeTitle;
 	private String noticeContent;
-	private String NoticeDate;
+	private String noticeDate;
 	private ArrayList<FileVO> fileList;
 	
 }
