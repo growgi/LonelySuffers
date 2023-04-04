@@ -14,6 +14,8 @@
 }
 
 .main{
+    margin: 0 auto;
+    width: 500px;
     border: 1px solid black;
 
 }
@@ -41,6 +43,7 @@ input[type=submit]{
     margin-top: 100px;
     width: 400px;
     height: 40px;
+    border: none;
 }
 
 .main-bottom{
@@ -49,6 +52,7 @@ input[type=submit]{
 
 #findMemberId{
     margin: 10px;
+    border-radius: 10px;
 }
 
 #findMemberPw{
