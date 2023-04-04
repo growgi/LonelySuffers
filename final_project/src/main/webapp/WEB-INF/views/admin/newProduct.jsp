@@ -41,10 +41,10 @@
                                 <td><a href="#">개쉬운 서핑 너도 하자</a></td>
                                 <td>hong123</td>
                                 <td>Level1</td>
-                                <td>120,000원</td>
-                                <td>40명</td>
+                                <td><span>120,000</span>원</td>
+                                <td><span>40</span>명</td>
                                 <td>강원도</td>
-                                <td><a href="#">신청폼 확인</a></td>
+                                <td><a href="#" class="btn bc1">신청폼 확인</a></td>
                                 <td><input type="submit" value="승인" class="btn bc1"></td>
                             </tr>
                         </table>
@@ -78,10 +78,10 @@
                                 <td><a href="#">가격 실화? 멋지다 짜잔호텔</a></td>
                                 <td>hong123</td>
                                 <td>짜잔호텔</td>
-                                <td>200,000원</td>
-                                <td>6인실</td>
+                                <td><span>200,000</span>원</td>
+                                <td><span>6</span>인실</td>
                                 <td>강원도</td>
-                                <td><a href="#">신청폼 확인</a></td>
+                                <td><a href="#" class="btn bc1">신청폼 확인</a></td>
                                 <td><input type="submit" value="승인" class="btn bc1"></td>
                             </tr>
                         </table>

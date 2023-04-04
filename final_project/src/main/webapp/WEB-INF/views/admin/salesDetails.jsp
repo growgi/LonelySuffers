@@ -34,7 +34,7 @@
                             <td>4</td>
                             <td>hong123</td>
                             <td>숙박</td>
-                            <td>65,000원</td>
+                            <td><span>65,000</span>원</td>
                             <td>2023-03-12</td>
                             <td>결제완료</td>
                             <td><a href="#" class="btn bc1">주문 상세</a></td>
