@@ -4,7 +4,7 @@
 
 <!-- 하나의 객실에 대한 예약 내역(결제 완료 상태) 조회.    ROOM_BOOK 테이블에서 Row 여러개 조회 후 반환 -->
 <!-- 이미 예약되어서 더이상 예약불가능한 날짜들을 도출하기 위한 과정이므로, BOOK_START_DATE와 BOOK_END_DATE만 받음 -->
-	<select id="selectAllBook" parameterType="_int" resultMap="rb">
+	<select id="selectAllBook" parameterType="_int" resultType="rb">
 		SELECT
 		BOOK_START_DATE as bookStartDate,
 		BOOK_END_DATE as bookEndDate
