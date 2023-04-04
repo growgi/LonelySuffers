@@ -12,40 +12,32 @@
 		padding:0;
 	}
 	
-	.ui-datepicker {
-  	width: 800px !important;
-  	height: 828px;
-  	margin: 0 auto;
-  	left: 610px !important;
-  	top: 200px !important;
- 	font-size: 30px !important;
-	}
-
-	.ui-datepicker-title select{
-	width: 250px !important;
-	height: 60px !important;
-	height: 3.0em;
-	}
-	.ui-datepicker-month{
-	margin-left:20px !important;
-	}
-	.ui-state-default{
-	height: 110px !important;
-	}
-	.ui-datepicker-calendar>tbody>tr>td{
-	width:100px !important;
-	height:100px !important;
-	}
-	.ui-icon{
-	top:65% !important;
+	#daterangepicker{
+	width:596px;
+	height:80px;
+	font-size:30px;
+	text-align:center;
+	margin-left:300px;
+	border: 2px solid;
+	border-radius:15px;
+	font-weight:800;
 	}
 	
-	
+	#travel-days{
+	width:396px;
+	height:60px;
+	font-size:25px;
+	text-align:center;
+	margin-left:400px;
+	margin-top: 80px;
+	border: 2px solid;
+	border-radius:10px;
+	font-weight:800;
+	}
 	
 	
 	.content-wrapper{
 		width:1200px;
-		
 	}
 	.title-wrapper{
 		width:1200px;
@@ -68,7 +60,7 @@
 		line-height:300%;
 	}
 	.money-wrapper{
-		width:1170px;
+		width:1200px;
 		height: 100px;
 		overflow:hidden;
 	}
@@ -109,19 +101,19 @@
 	}
 	.calendar-wrap{
 		width:1100px;
-		height:500px;
+		height:1000px;
 	}
 	
 	
 	.btn-wrap{
-		width:1070px;
+		width:1200px;
 	}
 	.btn-wrap>button{
-		width:200px;
+		width:196px;
 		height:60px;
 		border-radius:5px;
-		border: 1px solid #3da9d4;
-		margin-left:150px;
+		border: 2px solid #3da9d4;
+		margin-left:145px;
 		background-color:#fff;
 	}
 	.btn-wrap p{
@@ -133,8 +125,8 @@
 </style>
 <!-- naver map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
-<!-- datepicker -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- daterangepicker -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
 </head>
 <body>
 
@@ -176,10 +168,21 @@
 				<!-- 키오스크 2페이지 -->
 				<div class="page2">
 					<div class="calendar-wrap">
-						<input type="text" id="datepicker" name="datepicker">
+						<div>
+						<input type="text" id="daterangepicker" name="daterangepicker" readonly>
+						</div>
+						<div>
+						<input type="text" id="travel-days" value="0박 0일"readonly>
+						</div>
 					</div>
 				</div>
-			<!-- 키오스크 2페이지 종료 -->
+				<!-- 키오스크 2페이지 종료 -->
+				<!-- 키오스크 3페이지 -->
+				<div clas="page3">
+					<div class="people-wrap">
+						
+					</div>
+				</div>
 			<div class="btn-wrap">
 				<button class="before"><p>이전으로</p></button>
 				<button class="okay"><p>확정</p></button>
@@ -193,11 +196,13 @@
 <!-- 기본 .js 파일들 -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
+	<!-- <script src="js/parallax.js"></script> -->
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
 
 
 <script>
@@ -212,36 +217,70 @@ const map = new naver.maps.Map("map",{
 	}
 });
 
-//datepicker api 스크립트
-
-$(function() {
-       //input을 datepicker로 선언
-       $("#datepicker").datepicker({
-           dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-           ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
-           ,buttonText: "선택" //버튼 호버 텍스트              
-           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,minDate: "today" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-           ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
-		   
-       });                    
-       
-       //초기값을 오늘 날짜로 설정해줘야 합니다.
-       $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)      
-       $("#datepicker").trigger('focus');
-   });
+//날짜의 차이를 구하는 함수
+Date.prototype.getInterval = function (otherDate) {
+    var interval;
+ 
+    if(this > otherDate)
+        interval = this.getTime() - otherDate.getTime();
+    else
+        interval = otherDate.getTime() - this.getTime();
+ 
+    return Math.floor(interval / (1000*60*60*24));
+}
 
 
+$("#daterangepicker").daterangepicker({
+    locale: {
+    "separator": " ~ ",                     // 시작일시와 종료일시 구분자
+    "format": 'YYYY-MM-DD',     // 일시 노출 포맷
+    "applyLabel": "확인",                    // 확인 버튼 텍스트
+    "cancelLabel": "취소",                   // 취소 버튼 텍스트
+    "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+    "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+
+    },
+    showDropdowns: true,                     // 년월 수동 설정 여부
+    minDate: moment(),
+    maxDate: moment().add(365, 'days')
+},function(start, end, label) {
+    console.log(start.format('YYYYMMDD'), end.format('YYYYMMDD'));
+    var startVal = start.format('YYYYMMDD');
+    var endVal = end.format('YYYYMMDD');
+    
+    
+    var date1 = new Date(start.format('YYYY-MM-DD'));
+    var date2 = new Date(end.format('YYYY-MM-DD'));
+    var result = date1.getInterval(date2);
+    
+    $("#travel-days").attr("value",result+"박"+(result+1)+"일");
+});
+ 
+$("#daterangepicker").on('show.daterangepicker', function (ev, picker) {
+    $(".yearselect").css("float", "left");
+    $(".monthselect").css("float", "right");
+    $(".cancelBtn").css("float", "right");
+});
+
+
+$("#daterangepicker").val('');
+$("#daterangepicker").attr("placeholder","여행을 떠날 날짜를 골라주세요:)");
+/*
+var applyBtn = document.querySelector(".applyBtn");
+//var result = $("#daterangerpicker").val();
+
+applyBtn.onclick=function(){
+	console.log($("#daterangepicker").val());
+	var result = $("#daterangerpicker").val();
+	var startDate = result.substr(0,9);
+	var endDate = result.substr(13,22);
+	console.log(startDate);
+	consol.log(endDate);
+}
+*/
+
+	
+	
 
 
 </script>					
