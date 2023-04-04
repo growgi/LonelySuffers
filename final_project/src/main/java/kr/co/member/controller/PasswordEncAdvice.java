@@ -17,10 +17,10 @@ public class PasswordEncAdvice {
 	@Autowired
 	private PasswordModul passEnc;
 	
-	@Pointcut(value = "execution(* kr.or.member.model.service.MemberService.*Member(kr.or.member.model.vo.Member))")
+	@Pointcut(value = "execution(* kr.co.member.model.service.MemberService.*Member(kr.co.member.model.vo.Member))")
 	private void encPointcut() {};
 	
-	@Pointcut(value = "execution(* kr.or.member.model.service.MemberService.updateMemberPw(..))")
+	@Pointcut(value = "execution(* kr.co.member.model.service.MemberService.updateMemberPw(..))")
 	private void encPwPointcut() {};
 	
 	

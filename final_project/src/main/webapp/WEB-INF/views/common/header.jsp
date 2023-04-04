@@ -122,13 +122,19 @@
 						<li><a href="case-studies.html">Case Studies</a></li>
 						<li><a href="blog.html">Blog</a></li>
 						<li><a href="page-contact.html">Contact</a></li>
-						<c:if test="${empty sessionScope.m }">
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/loginFrm.do"> 로그인</a></li>
-						</c:if>
+						<li><a href="page-contact.html">Contact</a></li>
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/logout.do"> 로그아웃</a></li>
+							</c:when>
+							<c:otherwise>
+							<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/loginFrm.do"> 로그인</a></li>
+							</c:otherwise>
+						</c:choose>
+								
 					</ul>
 				</div>
 <!-- 상단 메뉴바  영역 끝 -->
-
 
 
 			</div>
