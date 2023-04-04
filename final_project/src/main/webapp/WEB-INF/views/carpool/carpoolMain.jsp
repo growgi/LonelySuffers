@@ -78,39 +78,38 @@
 
 
 	<!-- 얘네들이 반복돼야해!! Carpool list all -->
-
+		<c:forEach items="${list }" var="c">
 		<section class="section" style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px; ">
 			<div class="container">
 				<div class="row" style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0 ;">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="col-md-2"></div>
-					<div class="onewayRound" style="margin-bottom:20px;">onewayRound</div><br>
-					<div class="capacity" style="padding: 5px 10px; display: inline-block; float: left; ">1/2 명 모집</div>
+					<div class="onewayRound" style="margin-bottom:20px;">${c.tripType}</div><br>
+					<div class="capacity" style="padding: 5px 10px; display: inline-block; float: left; ">${c.reserved}/${c.capacity } 명 모집</div>
 					<div class="col-md-7">
 						<div class="journey">
 							<img src="capool-img/destination.png" style="height: 50px; width: 45px; margin-left: 50px; float: left;">
 							<div class="location-wrapper" style="height: 50px; float: left; margin-left: 27px;">
 								<div class="departRegion" style="float: left;">
-									<div class="region" style="float: left">departureRegion</div>
-									<div class="district" style="float:left">departDestrict</div>
+									<div class="region" style="float: left">${c.departureRegion }</div>
+									<div class="district" style="float:left">${c.departureDistrict }</div>
 								</div><br>
 								<div class="arrivalRegion" style="float: left;">
-									<div class="region" style="float: left">arrivalRegion</div>
-									<div class="district" style="float:left">arrivalDestrict</div>
+									<div class="region" style="float: left">${c.arrivalRegion}</div>
+									<div class="district" style="float:left">${c.arrivalDistrict}</div>
 								</div><br>
 								<div class="additional-info">
-									<div class="boardStorage">#보드수납가능</div>
-									<div class="driverMsg">#드라이버 할말</div>
+									<div class="boardStorage">#${c.boardRoomCapacity }</div>
+									<div class="driverMsg">#{c.driverMsg }</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
 				</div>
-				
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->
+		</c:forEach>
 
 		<!--모달 -->
 		<div class="container">
