@@ -17,4 +17,13 @@ public class CarpoolFilter {
 	private int maxPrice;
 	private int onewayRound;
 	private int closure;
+	
+	public String getDepartureTimeRange() {
+		if(departureTime==0) {
+			return "오전";
+		}else {
+			return "오후"	;
+		}
+	}
+	
 }
