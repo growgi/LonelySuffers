@@ -29,5 +29,11 @@ public class AdminController {
 		
 		return "admin/newProduct";
 	}
+	
+	@RequestMapping(value="/productList.do")
+	public String productList() {
+		
+		return "admin/productList";
+	}
 
 }

@@ -1,3 +1,7 @@
+.product-wrapper{
+    position: relative;
+}
+
 .list-wrapper{
     width: 80%;
 }
@@ -55,6 +59,39 @@
     background-color: rgb(172, 172, 172);
 }
 
+/*테이블 내용 디테일*/
+.list-detail{
+    cursor: pointer;
+}
+.list-detail-box{
+    width: 130px;
+    height: 120px;
+    background-color: #fff;
+    box-shadow: 1px 2px 2px 2px rgba(207, 207, 207, 0.19), 1px 2px 2px 2px rgba(177, 177, 177, 0.23);
+
+    position: absolute;
+    right: 380px;
+    bottom: 55px;
+    z-index: 1;
+}
+.list-detail-box>div{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.list-detail-box>div>a{
+    display: inline-block;
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+}
+
+/*변화*/
+.list-detail-box>div>a:hover{
+    background-color: #f1f1f1;
+}
+
+
 /*���*/
 .count{
     font-weight: 900;
@@ -70,6 +107,7 @@ table{
     width: 100%;
     text-align: center;
     border-spacing: 0;
+
 }
 table th{
     font-size: 17px;
@@ -83,6 +121,8 @@ table th, td{
 }
 .list-top{
     padding: 35px;
+    border: 1px solid rgb(238, 238, 238);
+    border-bottom: none;
 }
 .list-bottom{
     background-color: rgb(241, 241, 241);

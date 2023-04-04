@@ -10,12 +10,15 @@ $(".product-choice>div").on("click",function(){
 
     const num = $(".product-choice>div").index($(this));
 
-    if(num == 1) {
-        // $(this).parent().next().next().show();
-        $(".list-wrapper").hide();
-        $(".list-wrapper").eq(num).show();
-    } else {
-        $(".list-wrapper").hide();
-        $(".list-wrapper").eq(num).show();
-    }
+    $(".list-wrapper").hide();
+    $(".list-wrapper").eq(num).show();
+});
+
+/*상품리스트 상세설정*/
+$(".list-detail").on("click",function(){
+    $(".list-detail-box").fadeToggle(200);
+});
+
+$(".list-detail-box>div>a").on("click",function(){
+    $(".list-detail-box").hide();
 });
