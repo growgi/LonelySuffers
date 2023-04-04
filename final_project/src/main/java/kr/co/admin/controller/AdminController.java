@@ -41,5 +41,11 @@ public class AdminController {
 		
 		return "admin/salesDetails";
 	}
+	
+	@RequestMapping(value="/wishList.do")
+	public String wishList() {
+		
+		return "member/wishList";
+	}
 
 }
