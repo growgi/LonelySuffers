@@ -1,0 +1,108 @@
+.onewayRound {
+    display: inline-block ;
+    padding: 5px 10px  ;
+    font-size: 12px  ;
+    font-weight: bold  ;
+    text-align: center  ;
+    color: black;
+    font-weight: bold;
+    background-color: #fff6bd;
+    border: 1px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .capacity {
+    display: inline-block ;
+    padding: 5px 10px  ;
+    font-size: 12px  ;
+    font-weight: bold  ;
+    text-align: center  ;
+    color: black;
+    font-weight: bold;
+    background-color: rgb(224, 223, 223);
+    border: 1px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .departDate{
+    font-weight: bold;
+  }
+  .writeDate{
+    font-weight: bold;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+
+  .region{
+    margin-right: 13px;
+    font-weight: 600;
+  }
+  .district{
+    margin-left: 5px;
+    font-size: 13px;
+  }
+
+  /* 모달 */
+  .modal-header, h4, .close {
+    background-color: white;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .modal-footer {
+    background-color: #f9f9f9;
+  }
+  .time-selection {
+			display: inline-block;
+			border: 1px solid #ccc;
+			padding: 5px;
+			cursor: pointer;
+		}
+		.time-selection:hover {
+			background-color: #f2f2f2;
+		}
+		.time-selection.selected {
+			background-color: #007bff;
+			color: #fff;
+		}
+        label{
+            cursor: pointer;
+        }
+        .check-box-wrap{
+            overflow: hidden;
+            width: 600px;
+            height: 100px;
+        }
+        .check-box{
+            width: 250px;
+            height: 40px;
+            border: 1px solid #f2f2f2;
+            margin-bottom: 10px;
+            margin-left:25px;
+            text-align: center;
+            float: left;
+        }
+        .filter{
+            cursor: pointer;
+            margin-right: 30px;
+        }
+        .form-group{
+          padding: 0 30px 0 30px;
+        }
+        .additional-info{
+          padding: 3px;
+          font-size: 12px;
+        }
+    
+
+          
+        
+     
