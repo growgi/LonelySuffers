@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="css/common.css"></link>
+<link rel="stylesheet" href="css/adminCommon.css"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 <style>
     /*전체*/
@@ -16,6 +16,7 @@
         background-color: #e2e2e2;
         overflow: hidden;
         position: relative;
+        box-shadow: 0 2px 2px 2px rgba(233, 233, 233, 0.19), 0 1px 1px 1px rgba(223, 223, 223, 0.23);
     }
     .top-menu-title{
         font-size: 22px;
@@ -25,6 +26,7 @@
         line-height: 70px;
 
     }
+
     .admin-icon{
         float: right;
         background-color: #fff;
@@ -51,6 +53,7 @@
         right: 20px;
         border-radius: 5px;
         box-shadow: 0 5px 5px rgba(170, 170, 170, 0.25), 0 5px 5px rgba(194, 194, 194, 0.22);
+        background-color: #fff;
     }
     .admin-icon2{
         font-size: 40px;
@@ -101,6 +104,8 @@
         position: absolute; 
         top: 0; 
         left: 0;
+
+        box-shadow: 2px 4px 4px 4px rgba(207, 207, 207, 0.19), 1px 2px 2px 2px rgba(177, 177, 177, 0.23);
     }
     .left-menu-title{
         font-size: 24px;
@@ -117,6 +122,7 @@
         padding: 15px;
         padding-left: 25px;
         position: relative;
+        color: #e4f0e1;
     }
     .right-navi{
         position: absolute;
@@ -225,12 +231,6 @@
     </div>
 </div>
 <script>
-    /*admin-icon*/
-    $(".top-menu-background").on("click",function(){
-        $(".link-box").fadeToggle(200);
-        $(".admin-icon").toggleClass("active-admin-icon");
-    });
-
     /*왼쪽 메뉴*/
     $(".menu-detail-title").on("click",function(){
         $(".menu-detail-title").next().hide();
@@ -249,3 +249,4 @@
         $(this).css("background-color","rgb(22, 22, 22)");
     });
 </script>
+<script src="js/admin.js"></script>

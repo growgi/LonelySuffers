@@ -7,15 +7,6 @@
 <title>Insert title here</title>
 </head>
 <link rel="stylesheet" href="css/adminTable.css"></link>
-<style>
-    .list-bottom>div{
-        display: flex;
-    }
-    .list-bottom>div>.btn:last-of-type{
-        display: block;
-        margin-left: 10px;
-    }
-</style>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
@@ -59,16 +50,10 @@
                 <div class="list-bottom">
                     <div>
                         <input type="submit" value="등급 변경" class="btn bc1">
-                        <a href="#" class="btn bc1">회원 탈퇴</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </body>
-<script>
-    $(".search-bar>input").on("click",function(){
-        $(this).toggleClass("active-search-bar");
-    });
-</script>
 </html>
