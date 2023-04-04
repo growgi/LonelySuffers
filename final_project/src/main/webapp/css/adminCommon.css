@@ -16,6 +16,18 @@
     width: 200vh;
 }
 
+.product-wrapper>div{
+    overflow: hidden;
+}
+.product-wrapper>div>.product-choice{
+    float: left;
+    margin-right: 20px;
+}
+.product-wrapper>div>.list-wrapper{
+    width: 70%;
+    float: left;
+}
+
 /*버튼 디자인*/
 .btn {
     border: none;
