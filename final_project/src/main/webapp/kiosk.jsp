@@ -10,9 +10,39 @@
 	*{
 		margin:0;
 		padding:0;
-		
 	}
 
+	.ui-datepicker {
+  	width: 1000px !important;
+  	height: 948px;
+  	margin: 0 auto;
+  	left: 300px !important;
+  	top: 200px !important;
+ 	font-size: 30px !important;
+	}
+
+	.ui-datepicker-title select{
+	width: 380px !important;
+	height: 60px !important;
+	height: 3.0em;
+	}
+	.ui-datepicker-month{
+	margin-left:20px !important;
+	}
+	.ui-state-default{
+	height: 130px !important;
+	}
+	.ui-datepicker-calendar>tbody>tr>td{
+	width:100px !important;
+	height:100px !important;
+	}
+	.ui-icon{
+	top:65% !important;
+	}
+	
+	
+	
+	
 	.content-wrapper{
 		width:1200px;
 		
@@ -77,6 +107,12 @@
 		margin-left: 285px;
 		padding-top: 65px
 	}
+	.calendar-wrap{
+		width:1100px;
+		height:500px;
+	}
+	
+	
 	.btn-wrap{
 		width:1070px;
 	}
@@ -95,7 +131,10 @@
 		color:rgb(51, 51, 51);
 	}
 </style>
+<!-- naver map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
+<!-- datepicker -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 
@@ -104,7 +143,8 @@
 	
 	<section class="section">
 		<div class="container">
-			<div class="content-wrapper">
+			<!-- 키오스크 1페이지 -->
+			<div class="content-wrapper page1">
 				<div class="title-wrapper">
 					<img src="/images/wave.png">	
 					<img src="/images/palm-tree.png">
@@ -124,13 +164,21 @@
 							<div class="circle" style="background-image:url(/images/magnify.png)">
 								<div class="map">
 								<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
+									</div>
 								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 				</div>
 			</div>
+			<!-- 키오스크 1페이지 종료 -->
+			<!-- 키오스크 2페이지 -->
+			<div class="content-wrapper page2">
+				<div class="calendar-wrap">
+					<input type="text" id="datepicker" name="datepicker">
+				</div>
+			</div>
+			<!-- 키오스크 2페이지 종료 -->
 			<div class="btn-wrap">
 				<button class="before"><p>이전으로</p></button>
 				<button class="okay"><p>확정</p></button>
@@ -146,9 +194,10 @@
 	<script src="js/parallax.js"></script>
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
-
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-
+//네이버지도 스크립트
 const map = new naver.maps.Map("map",{
 	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
 	zoom : 7,
@@ -158,6 +207,38 @@ const map = new naver.maps.Map("map",{
 		style : naver.maps.ZoomControlStyle.SMALL
 	}
 });
+
+//datepicker api 스크립트
+
+$(function() {
+       //input을 datepicker로 선언
+       $("#datepicker").datepicker({
+           dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,minDate: "today" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+           ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+		   
+       });                    
+       
+       //초기값을 오늘 날짜로 설정해줘야 합니다.
+       $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)      
+       $("#datepicker").trigger('focus');
+   });
+	
+
+
 
 </script>					
 </body>
