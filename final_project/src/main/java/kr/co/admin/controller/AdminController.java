@@ -17,6 +17,7 @@ public class AdminController {
 	@Autowired
 	AdminService service;
 	
+	/**회원목록*/
 	@RequestMapping(value="/memberList.do")
 	public String memberList(Model model) {
 		ArrayList<Member> memberList = service.selectAllMember();
@@ -34,6 +35,29 @@ public class AdminController {
 		int result = service.updateMemberGrade(m);
 		
 		if(result>0) {
+			return "redirect:/memberList.do";
+		} else {
+			return "redirect:/sellerEnrollList.do";
+		}
+	}
+	
+	@Transactional
+	@RequestMapping(value="/checkedChangeGrade.do")
+	public String checkedChangeGrade(String id, String grade) {
+		boolean result = service.checkedChangeGrade(id, grade);
+		
+		if(result) {
+			return "redirect:/memberList.do";
+		} else {
+			return "redirect:/sellerEnrollList.do";
+		}
+	}
+	
+	@RequestMapping(value="/deleteMember.do")
+	public String deleteMember(String id) {
+		boolean result = service.deleteMember(id);
+		
+		if(result) {
 			return "redirect:/memberList.do";
 		} else {
 			return "redirect:/sellerEnrollList.do";

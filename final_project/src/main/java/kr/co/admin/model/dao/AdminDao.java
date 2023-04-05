@@ -26,4 +26,10 @@ public class AdminDao {
 		
 		return result;
 	}
+
+	public int deleteMember(String memberId) {
+		int result = sqlSession.delete("admin.deleteMember", memberId);
+		
+		return result;
+	}
 }

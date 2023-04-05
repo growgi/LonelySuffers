@@ -11,11 +11,18 @@
 			member_grade as memberGrade,
 			enroll_date as enrollDate
 		from member_tbl
+		order by member_no asc
 	</select>
 	
 	<update id="updateMemberGrade" parameterType="m">
 		update member_tbl set
 			member_grade=#{memberGrade}
+		where member_id=#{memberId}
+	</update>
+	
+	<update id="deleteMember" parameterType="string">
+		update member_tbl set
+			member_grade=4
 		where member_id=#{memberId}
 	</update>
 </mapper>
