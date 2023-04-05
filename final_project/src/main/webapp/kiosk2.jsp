@@ -113,9 +113,7 @@
 		border-radius:15px;
 		font-weight:800;
 	}
-	select option[value=""][disabled] {
-	display: none;
-	}	
+
 	
 	.headcount-wrap{
 		width:1200px;
@@ -133,6 +131,78 @@
 		border-radius:10px;
 		font-weight:800;
 	}
+	.level-select{
+		width:1200px;
+		overflow:hidden;
+	}
+	.level-select>div{
+		width:400px;
+		float:left;
+	}
+	.level-select img{
+		width:300px;
+		height:300px;
+		margin-left:50px;
+
+	}
+	.boxes{
+		margin-left:50px;
+		margin-top:20px;
+		overflow:hidden;
+	}
+	.level-name{
+		float:left;
+		margin-left:20px;
+	}
+	.level-name>p{
+		font-size:24px;
+		font-weight:bold;
+		color:rgb(51, 51, 51);
+	}
+	input[type="checkbox"]{
+        display: none;
+      }
+	input[type="checkbox"] + label{
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border:3px solid #707070;
+        position: relative;
+        float:left;
+      }
+	input[id="level1"]:checked + label::after{
+        content:'✔';
+        font-size: 25px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color:#d4683d;
+        position: absolute;
+        left: 0;
+        top:0;
+      }
+     input[id="level2"]:checked + label::after{
+        content:'✔';
+        font-size: 25px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color:#d4683d;
+        position: absolute;
+        left: 0;
+        top:0;
+      }
+     input[id="level3"]:checked + label::after{
+        content:'✔';
+        font-size: 25px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color:#d4683d;
+        position: absolute;
+        left: 0;
+        top:0;
+      }
 	.btn-wrap{
 		width:1200px;
 	}
@@ -145,7 +215,7 @@
 		background-color:#fff;
 	}
 	.btn-wrap p{
-		font-weight:600;
+		font-weight: 600px;
 		font-size:20px;
 		margin-top:15px;
 		color:rgb(51, 51, 51);
@@ -206,7 +276,7 @@
 				</div>
 				<!-- 키오스크 2페이지 종료 -->
 				<!-- 키오스크 3페이지 -->
-				<div clas="page3">
+				<div class="page3">
 					<div class="headcount-wrap">
 						<select id="headcount">
 						  <option value="" disabled selected>몇 명이신가요?</option>
@@ -224,6 +294,50 @@
 					<input type="hidden" id="people-value" value="">
 						<div class="head-icon-wrap">
 						</div>
+				</div>
+				<!-- 키오스크 3페이지 종료 -->
+				<!-- 키오스크 4페이지 숙소리스트 -->
+				<div class="page4">
+					<div class="rooms-wrap">
+						
+					</div>
+				</div>
+				<!-- 키오스크 4페이지 숙소리스트 종료-->
+				<!-- 키오스크 5페이지 -->
+				<div class="page5">
+					<div class="level-select">
+					<!-- 중복선택이 가능하게 -->
+						<div class="level1">
+							<div>
+							<img src="/images/level1.png">
+							</div>
+							<div class="boxes">
+								<input type="checkbox" id="level1" value="1">
+								<label for="level1"></label>
+								<div class="level-name"><p>초급</p></div>
+							</div>
+						</div>
+						<div class="level2">
+							<div>
+								<img src="/images/level2.png">
+							</div>
+							<div class="boxes">
+								<input type="checkbox" id="level2" value="2">
+								<label for="level2"></label>
+								<div class="level-name"><p>중급</p></div>
+							</div>
+						</div>
+						<div class="level3">
+							<div>
+							<img src="/images/level3.png">
+							</div>
+							<div class="boxes">
+								<input type="checkbox" id="level3" value="3">
+								<label for="level3"></label>
+								<div class="level-name"><p>고급</p></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			<div class="btn-wrap">
 				<button class="before"><p>이전으로</p></button>
@@ -314,6 +428,7 @@ var element = document.querySelector("#headcount");
 var value = element.value;
 */
 
+//고른 인원수에 따른 아이콘 추가
 $("#headcount").on('change',function(){
 	
 	var value = this.value;
@@ -330,8 +445,13 @@ $("#headcount").on('change',function(){
 		 $("#people-value").attr("value",value);
 	}
 });
-
-
+$('input[type=checkbox]').on('change',function(){
+	 if ($(this).is(':checked')) {
+		 $(this).parent().prev().children().css("border", "8px solid #3da9d4");
+	 }else{
+		 $(this).parent().prev().children().css("border", "none");
+	 }
+})
 </script>					
 </body>
 </html>
