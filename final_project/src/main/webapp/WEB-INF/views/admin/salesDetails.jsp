@@ -10,44 +10,46 @@
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
-        <form action="/adminSearchMember.do" method="get"  class="search-bar" name="search-member">
-            <span class="material-symbols-outlined search-icon">search</span>
-            <input type="search" placeholder="아이디로 사용자 검색" name="searchMember">
-        </form>
-        <div class="list-wrapper">
-            <form action="/changeGrade.do" method="get" name="memberList">
-                <div class="memberList-top list-top">
-                    <div class="count">전체 사용자 <span>n</span>명</div>
-                    <table>
-                        <tr>
-                            <th><input type="checkbox" name="memberCheck"></th>
-                            <th>주문번호</th>
-                            <th>아이디</th>
-                            <th>주문상품</th>
-                            <th>총 결재금액</th>
-                            <th>주문날짜</th>
-                            <th>처리상태</th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" name="memberCheck"></td>
-                            <td>4</td>
-                            <td>hong123</td>
-                            <td>숙박</td>
-                            <td><span>65,000</span>원</td>
-                            <td>2023-03-12</td>
-                            <td>결제완료</td>
-                            <td><a href="#" class="btn bc1">주문 상세</a></td>
-                        </tr>
-                    </table>
-                    <div></div>
-                </div>
-                <div class="list-bottom">
-                    <div>
-                        <input type="submit" value="내역 삭제" class="btn bc1">
-                    </div>
-                </div>
+        <div>
+            <form action="/adminSearchMember.do" method="get"  class="search-bar" name="search-member">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="search" placeholder="아이디로 사용자 검색" name="searchMember">
             </form>
+            <div class="list-wrapper">
+                <form action="/changeGrade.do" method="get" name="memberList">
+                    <div class="memberList-top list-top">
+                        <div class="count">전체 사용자 <span>n</span>명</div>
+                        <table>
+                            <tr>
+                                <th><input type="checkbox" name="memberCheck"></th>
+                                <th>주문번호</th>
+                                <th>아이디</th>
+                                <th>주문상품</th>
+                                <th>총 결재금액</th>
+                                <th>주문날짜</th>
+                                <th>처리상태</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="memberCheck"></td>
+                                <td>4</td>
+                                <td>hong123</td>
+                                <td>숙박</td>
+                                <td><span>65,000</span>원</td>
+                                <td>2023-03-12</td>
+                                <td>결제완료</td>
+                                <td><a href="/orderDetail.do" class="btn bc1">주문 상세</a></td>
+                            </tr>
+                        </table>
+                        <div></div>
+                    </div>
+                    <div class="list-bottom">
+                        <div>
+                            <input type="submit" value="내역 삭제" class="btn bc1">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <script src="js/admin.js"></script>
