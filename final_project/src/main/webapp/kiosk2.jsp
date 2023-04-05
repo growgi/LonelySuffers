@@ -229,7 +229,7 @@ Date.prototype.getInterval = function (otherDate) {
     return Math.floor(interval / (1000*60*60*24));
 }
 
-
+//daterangepicker api
 $("#daterangepicker").daterangepicker({
     locale: {
     "separator": " ~ ",                     // 시작일시와 종료일시 구분자
@@ -262,22 +262,9 @@ $("#daterangepicker").on('show.daterangepicker', function (ev, picker) {
     $(".cancelBtn").css("float", "right");
 });
 
-
+//daterangepicker에 placeholder 삽입
 $("#daterangepicker").val('');
 $("#daterangepicker").attr("placeholder","여행을 떠날 날짜를 골라주세요:)");
-/*
-var applyBtn = document.querySelector(".applyBtn");
-//var result = $("#daterangerpicker").val();
-
-applyBtn.onclick=function(){
-	console.log($("#daterangepicker").val());
-	var result = $("#daterangerpicker").val();
-	var startDate = result.substr(0,9);
-	var endDate = result.substr(13,22);
-	console.log(startDate);
-	consol.log(endDate);
-}
-*/
 
 	
 	
