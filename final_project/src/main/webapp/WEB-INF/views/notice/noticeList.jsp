@@ -26,7 +26,7 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<h1>공지사항</h1>
+					<h1 style="text-align: center;">공지사항</h1>
 					<a href="/noticeWriteFrm.do">글쓰기</a>
 					<br>
 					<br>
