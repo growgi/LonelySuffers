@@ -19,4 +19,9 @@ public class CarpoolDao {
 		return (ArrayList<Carpool>)list;
 	}
 
+	public Carpool selectOneCarpool(Carpool carpool) {
+		Carpool c = sqlSession.selectOne("carpool.selectOneCarpool", carpool);
+		return c;
+	}
+
 }

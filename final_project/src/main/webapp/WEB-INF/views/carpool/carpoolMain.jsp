@@ -49,10 +49,18 @@
 				<div class="row" style="border-bottom: 2.5px solid rgba(101, 112, 123, 0.833);">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="col-md-2">
-						<p class="category" style="font-weight: 900; font-size: 20px;" >함께가요</p>
+						<p class="category" style="font-weight: 900; font-size: 20px;">
+						<a href="mycarpool.do"></a>전체보기</p>
 					</div>
 					<div class="col-md-2">
-						<p class="category" style="font-weight: 900; font-size: 20px;">마이카풀</p>
+						<p class="category" style="font-weight: 900; font-size: 20px;">
+						<a href="driverPage.do">함께가요</a>
+						</p>
+					</div>
+					<div class="col-md-2">
+						<p class="category" style="font-weight: 900; font-size: 20px;">
+						<a href="passengerPage.do">태워주세요</a>
+						</p>
 					</div>
 					<div class="menu" style="float: right;">
 						<a href="/carpoolOfferForm.do">
@@ -79,33 +87,40 @@
 
 	<!-- 얘네들이 반복돼야해!! Carpool list all -->
 		<c:forEach items="${list }" var="c">
-		<section class="section" id="carpoolList" style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px; ">
+		<section class="section" id="carpoolList" style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px;" ">
 			<div class="container">
-				<div class="row" style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0 ;">
-<!-- class가 row인 div 안에 구현하시면 됩니다. -->
-					<div class="col-md-2"></div>
-					<div class="onewayRound" style="margin-bottom:20px;">${c.tripType}</div><br>
-					<div class="capacity" style="padding: 5px 10px; display: inline-block; float: left; ">${c.reserved}/${c.capacity } 명 모집</div>
-					<div class="col-md-7">
-						<div class="journey">
-							<img src="capool-img/destination.png" style="height: 50px; width: 45px; margin-left: 50px; float: left;">
-							<div class="location-wrapper" style="height: 50px; float: left; margin-left: 27px;">
-								<div class="departRegion" style="float: left;">
-									<div class="region" style="float: left">${c.departureRegion }</div>
-									<div class="district" style="float:left">${c.departureDistrict }</div>
-								</div><br>
-								<div class="arrivalRegion" style="float: left;">
-									<div class="region" style="float: left">${c.arrivalRegion}</div>
-									<div class="district" style="float:left">${c.arrivalDistrict}</div>
-								</div><br>
-								<div class="additional-info">
-									<div class="boardStorage">#${c.boardRoomCapacity }</div>
-									<div class="driverMsg">#${c.driverMsg }</div>
+			<table style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0 ;">
+    		<tr style="cursor:pointer; onclick="location.href='/carpoolRequest.do?'">
+						<td class="col-md-2"></td>
+						<td class="onewayRound" style="margin-bottom: 20px;">${c.tripType}</td>
+						<td class="capacity"
+							style="padding: 5px 10px; display: inline-block; float: left;">${c.reserved}/${c.capacity }
+							명 모집</td>
+						<td class="col-md-7">
+							<div class="journey">
+								<img src="capool-img/destination.png"
+									style="height: 50px; width: 45px; margin-left: 50px; float: left;">
+								<div class="location-wrapper"
+									style="height: 50px; float: left; margin-left: 27px;">
+									<div class="departRegion" style="float: left;">
+										<div class="region" style="float: left">${c.departureRegion }</div>
+										<div class="district" style="float: left">${c.departureDistrict }</div>
+									</div>
+									<br>
+									<div class="arrivalRegion" style="float: left;">
+										<div class="region" style="float: left">${c.arrivalRegion}</div>
+										<div class="district" style="float: left">${c.arrivalDistrict}</div>
+									</div>
+									<br>
+									<div class="additional-info">
+										<div class="boardStorage">#${c.boardRoomCapacity }</div>
+										<div class="driverMsg">#${c.driverMsg }</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
+						</td>
+					</tr>
+			</table>
 				</div><!-- end row -->
 				<br><br>
 			</div><!-- end container -->
@@ -139,7 +154,7 @@
 							<option value="대구">대구</option>
 							<option value="광주">광주</option>
 						</select>						
-						<input type="text" class="form-control" name="departDistrict" id="city" placeholder="상세주소">
+						<input type="text" class="form-control" name="departureDistrict" id="city" placeholder="상세주소">
 					</div>
 					<div class="check-box-wrap"  style="height: 60px;">
 						<div class="check-box left">
@@ -223,8 +238,9 @@
 	<script src="js/parallax.js"></script>
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
+	
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-
+	<script src="js/jquery.tablesorter.min.js"></script>
 	<script>
 		//출발일 순으로 내림차순 정렬
 		const departDateSort = document.getElementById('departureDate-sort');
