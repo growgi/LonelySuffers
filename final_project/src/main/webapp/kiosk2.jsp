@@ -103,8 +103,36 @@
 		width:1100px;
 		height:1000px;
 	}
+	#headcount{
+		width:596px;
+		height:80px;
+		font-size:30px;
+		text-align:center;
+		margin-left:300px;
+		border: 2px solid;
+		border-radius:15px;
+		font-weight:800;
+	}
+	select option[value=""][disabled] {
+	display: none;
+	}	
 	
-	
+	.headcount-wrap{
+		width:1200px;
+		height:900px;
+		overflow:hidden;
+	}
+	#whole-people{
+		width:396px;
+		height:60px;
+		font-size:25px;
+		text-align:center;
+		margin-left:400px;
+		margin-top: 80px;
+		border: 2px solid;
+		border-radius:10px;
+		font-weight:800;
+	}
 	.btn-wrap{
 		width:1200px;
 	}
@@ -179,9 +207,23 @@
 				<!-- 키오스크 2페이지 종료 -->
 				<!-- 키오스크 3페이지 -->
 				<div clas="page3">
-					<div class="people-wrap">
-						
-					</div>
+					<div class="headcount-wrap">
+						<select id="headcount">
+						  <option value="" disabled selected>몇 명이신가요?</option>
+						  <option value="1">1명</option>
+						  <option value="2">2명</option>
+						  <option value="3">3명</option>
+						  <option value="4">4명</option>
+						  <option value="5">5명</option>
+						  <option value="6">6명</option>
+						  <option value="7">7명</option>
+						  <option value="8">8명</option>
+						</select>
+					<input type="text" id="whole-people" value="총 0명 입니다"readonly>
+					<!-- 진짜 총원 인원을 킵하고 있는 부분 -->
+					<input type="hidden" id="people-value" value="">
+						<div class="head-icon-wrap">
+						</div>
 				</div>
 			<div class="btn-wrap">
 				<button class="before"><p>이전으로</p></button>
@@ -266,8 +308,28 @@ $("#daterangepicker").on('show.daterangepicker', function (ev, picker) {
 $("#daterangepicker").val('');
 $("#daterangepicker").attr("placeholder","여행을 떠날 날짜를 골라주세요:)");
 
+/*
+//드롭다운 메뉴 값 받아오기
+var element = document.querySelector("#headcount");
+var value = element.value;
+*/
+
+$("#headcount").on('change',function(){
 	
-	
+	var value = this.value;
+	$(".head-icon-wrap").empty();
+	if(value>0){
+		for(var i=0;i<value;i++){
+			var url = '/images/headcount.png';
+			var image = new Image();
+			image.src = url;
+			$(".head-icon-wrap").append(image);
+			$(".head-icon-wrap").children().css({"width": "300px", "height": "300px", "float": "left"});
+		}
+		 $("#whole-people").attr("value","총 "+value+"명 입니다");
+		 $("#people-value").attr("value",value);
+	}
+});
 
 
 </script>					
