@@ -2,13 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="rb">
 
-<!-- 하나의 객실에 대한 예약 내역(결제 완료 상태) 조회.    ROOM_BOOK 테이블에서 Row 여러개 조회 후 반환 -->
+<!-- 하나의 객실에 대한 예약 내역 (결제완료 상태만) 조회.    ROOM_BOOK 테이블에서 Row 여러개 조회 후 반환 -->
 <!-- 이미 예약되어서 더이상 예약불가능한 날짜들을 도출하기 위한 과정이므로, BOOK_START_DATE와 BOOK_END_DATE만 받음 -->
 	<select id="selectAllBook" parameterType="_int" resultType="rb">
 		SELECT
+		ROOM_BOOK_NO as roomBookNo,
+		ROOM_NO as roomNo,
 		BOOK_START_DATE as bookStartDate,
 		BOOK_END_DATE as bookEndDate
-		FROM ROOM_BOOK WHERE ROOM_NO = ${_parameter}
+		FROM ROOM_BOOK
+			LEFT JOIN (SELECT ROOM_BOOK_NO, ORDER_STATUS FROM ORDER_TBL LEFT JOIN ORDER_DETAIL USING (ORDER_NO))
+		USING (ROOM_BOOK_NO) WHERE ROOM_NO = ${_parameter} AND ORDER_STATUS = 1
 	</select>
+
+
+<!-- 결제완료된 후 (ORDER_DETAIL 테이블에 insert된 후) ROOM_BOOK 테이블에 insert 실행 -->
+	<insert id="insertRoomBook" parameterType="rb">
+		INSERT INTO ROOM_BOOK VALUES (ROOM_BOOK_SEQ.NEXTVAL, #{roomNo}, #{memberNo}, #{bookStartDate}, #{bookEndDate}, #{houseNo}, #{optionNo}, #{roomBookPrice})
+<!-- 가장 최근 insert된 신규 Row의 roomBookNo 받아옴 -->
+		<selectKey resultType="_int" order="AFTER" keyProperty="roomBookNo">
+			SELECT MAX(ROOM_BOOK_NO) FROM ROOM_BOOK
+		</selectKey>
+	</insert>
 
 </mapper>
