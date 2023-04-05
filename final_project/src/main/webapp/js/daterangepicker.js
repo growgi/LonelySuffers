@@ -76,8 +76,8 @@
             cancelLabel: '취소',
             weekLabel: '주',
             customRangeLabel: '임의 범위',
-            daysOfWeek: moment.weekdaysMin(),
-            monthNames: moment.monthsShort(),
+            daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+            monthNames: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",  "12"],
             firstDay: moment.localeData().firstDayOfWeek()
         };
 
@@ -787,9 +787,13 @@
                     if (calendar[row][col].isSame(new Date(), "day"))
                         classes.push('today');
 
-                    //highlight weekends
-                    if (calendar[row][col].isoWeekday() > 5)
-                        classes.push('weekend');
+                    //토요일인 td들에 saturday 클래스 부여
+                    if (calendar[row][col].isoWeekday() == 6)
+                        classes.push('saturday');
+
+                    //일요일인 td들에 sunday 클래스 부여
+                    if (calendar[row][col].isoWeekday() == 7)
+                        classes.push('sunday');
 
                     //grey out the dates in other months displayed at beginning and end of this calendar
                     if (calendar[row][col].month() != calendar[1][1].month())
@@ -805,7 +809,7 @@
 
                     //don't allow selection of date if a custom function decides it's invalid
                     if (this.isInvalidDate(calendar[row][col]))
-                        classes.push('off', 'disabled');
+                        classes.push('off', 'disabled', 'soldout');
 
                     //highlight the currently selected start date
                     if (calendar[row][col].format('YYYY-MM-DD') == this.startDate.format('YYYY-MM-DD'))

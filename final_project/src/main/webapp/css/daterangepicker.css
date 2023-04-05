@@ -153,7 +153,6 @@
   height: 24px;
   line-height: 24px;
   font-size: 12px;
-  border-radius: 4px;
   border: 1px solid transparent;
   white-space: nowrap;
   cursor: pointer;
@@ -218,7 +217,22 @@
   width: auto;
 }
 
+.daterangepicker td.saturday, .daterangepicker th.saturday {
+  color: blue;
+}
+
+.daterangepicker td.sunday, .daterangepicker th.sunday {
+  color: red;
+}
+
 .daterangepicker td.disabled, .daterangepicker option.disabled {
+  background-color: #d9d9d9;
+  color: transparent;
+  cursor: not-allowed;
+}
+
+.daterangepicker td.soldout {
+  background-color: #d9d9d9;
   color: #999;
   cursor: not-allowed;
   text-decoration: line-through;
@@ -233,12 +247,12 @@
 }
 
 .daterangepicker select.monthselect {
-  margin-left: 2%;
-  width: 37%;
+  margin-left: 4%;
+  width: 32%;
 }
 
 .daterangepicker select.yearselect {
-  width: 50%;
+  width: 46%;
 }
 
 .daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.secondselect, .daterangepicker select.ampmselect {
