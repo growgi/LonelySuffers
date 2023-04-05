@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin">
+	<select id="selectAllMember" resultType="kr.co.member.model.vo.Member">
+		select
+			member_name as memberName,
+			member_id as memberId,
+			member_gender as memberGender,
+			member_phone as memberPhone,
+			member_email as memberEmail,
+			member_grade as memberGrade,
+			enroll_date as enrollDate
+		from member_tbl
+	</select>
+</mapper>

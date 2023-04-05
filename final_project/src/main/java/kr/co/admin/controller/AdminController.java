@@ -1,10 +1,14 @@
 package kr.co.admin.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.member.model.vo.Member;
 
 @Controller
 public class AdminController {
@@ -13,7 +17,17 @@ public class AdminController {
 	AdminService service;
 	
 	@RequestMapping(value="/memberList.do")
-	public String memberList() {
+	public String memberList(Model model) {
+		ArrayList<Member> memberList = service.selectAllMember();
+		model.addAttribute("memberList",memberList);
+		return "admin/memberList";
+	}
+	
+	@RequestMapping(value="/changeGrade.do")
+	public String changeGrade(String memberId, int updateMemberGrade) {
+//		int result = service.updateMemberGrade();
+		System.out.println(memberId);
+		System.out.println(updateMemberGrade);
 		
 		return "admin/memberList";
 	}

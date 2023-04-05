@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,7 @@
         </form>
         <div class="list-wrapper">
             <form action="/changeGrade.do" method="get" name="memberList">
+            <input type="hidden" name="memberId" value="${m.memberId }">
                 <div class="memberList-top list-top">
                     <div class="count">전체 사용자 <span>n</span>명</div>
                     <table>
@@ -38,21 +40,43 @@
                             <th>가입일</th>
                             <th>회원 등급</th>
                         </tr>
+                        <c:forEach items="${memberList }" var="m">
                         <tr>
+                        
                             <td><input type="checkbox" name="memberCheck"></td>
-                            <td>홍길동</td>
-                            <td>hong123</td>
-                            <td>여</td>
-                            <td>010-9595-6363</td>
-                            <td>hong123@naver.com</td>
-                            <td>2023-03-12</td>
+                            <td>${m.memberName }</td>
+                            <td>${m.memberId }</td>
+                            <td>${m.memberGender }</td>
+                            <td>${m.memberPhone }</td>
+                            <td>${m.memberEmail }</td>
+                            <td>${m.enrollDate }</td>
                             <td>
-                                <select class="grade-change">
-                                    <option value="사용자">사용자</option>
-                                    <option value="판매자">판매자</option>
+                            <c:choose>
+                            <c:when test="${m.memberGrade == 1}">
+                                <select name ="updateMemberGrade" class="grade-change">
+                                	<option value="1" selected>관리자</option>
+                                    <option value="2">판매자</option>
+                                    <option value="3">사용자</option>
                                 </select>
+                            </c:when>
+                            <c:when test="${m.memberGrade == 2}">
+                                <select name ="updateMemberGrade" class="grade-change">
+                                	<option value="1">관리자</option>
+                                    <option value="2" selected>판매자</option>
+                                    <option value="3">사용자</option>
+                                </select>
+                            </c:when>
+                            <c:otherwise>
+                            	<select name ="updateMemberGrade" class="grade-change">
+                            		<option value="1">관리자</option>
+                                    <option value="2">판매자</option>
+                                    <option value="3" selected>사용자</option>
+                                </select>
+                            </c:otherwise>
+                            </c:choose>
                             </td>
                         </tr>
+                        </c:forEach>
                     </table>
                     <div></div>
                 </div>
