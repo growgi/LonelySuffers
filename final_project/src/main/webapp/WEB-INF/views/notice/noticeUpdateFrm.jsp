@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <head>
 
@@ -26,35 +26,16 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<h1 style="text-align: center;">공지사항</h1>
-					<a href="/noticeWriteFrm.do">글쓰기</a>
-					<br>
-					<br>
-					<table class="table table-hover">
-						<tr>
-							<th class="nt" style="width:15%">번호</th>
-							<th class="nt" style="width:60%">제목</th>
-							<th class="nt" style="width:25%">작성일</th>
-						</tr>
-						<c:forEach items="${list }" var="n">
-							<tr>
-								<td class="nt">${n.noticeNo }</td>
-								<td>
-									<a href="/noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle }</a>				
-								</td>
-								<td class="nt">${n.noticeDate }</td>
-							</tr>
-						</c:forEach>
-						<tr>
-							<th class="pn" style="text-align: center;" colspan="4">${pageNavi }</th>
-						</tr>
-					</table>
+					<h1>공지사항 수정</h1>
+					<hr>
+					<form action="/noticeUpdate.do" method="post"
+						enctype="multipart/form-data" id="updateFrm"></form>
 				</div>
 			</div>
 		</section>
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-	</div>	
+	</div>
 	<!-- 기본 .js 파일들 -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.js"></script>

@@ -134,7 +134,7 @@
 						  </a>
 						</li>
 						<li>
-						  <a href="/noticeList.do">
+						  <a href="/noticeList.do?reqPage=1">
 						    <img alt="carpool" src="/images/notification-bell.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">공지사항</span>
 						  </a>
