@@ -14,6 +14,12 @@
 		order by member_no asc
 	</select>
 	
+	<select id="selectMemberCount" resultType="_int">
+		select 
+			count(*)
+		from member_tbl
+	</select>
+	
 	<update id="updateMemberGrade" parameterType="m">
 		update member_tbl set
 			member_grade=#{memberGrade}
@@ -25,4 +31,17 @@
 			member_grade=4
 		where member_id=#{memberId}
 	</update>
+	
+	<select id="selectOneMember" parameterType="string" resultType="m">
+		select
+			member_name as memberName,
+			member_id as memberId,
+			member_gender as memberGender,
+			member_phone as memberPhone,
+			member_email as memberEmail,
+			member_grade as memberGrade,
+			enroll_date as enrollDate
+		from member_tbl
+		where member_id=#{searchMemberId}
+	</select>
 </mapper>

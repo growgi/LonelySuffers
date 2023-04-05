@@ -21,13 +21,14 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
         <div>
-            <form action="/adminSearchMember.do" method="get"  class="search-bar" name="search-member">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="text" placeholder="아이디로 사용자 검색" name="searchMember" onkeyup="enterkey();">
+            <form action="/adminSearchMember.do" method="get" id="frm" class="search-bar" name="searchMember">
+                <span class="material-symbols-outlined search-icon" onclick="document.getElementById('frm').submit();">search</span>
+                <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
+                <input type="submit" style="display:none;">
             </form>
             <div class="list-wrapper">
                 <div class="memberList-top list-top">
-                    <div class="count">전체 사용자 <span>n</span>명</div>
+                    <div class="count">전체 사용자 <span>${memberCount }</span>명</div>
                     <table>
                         <tr>
                             <th><input type="checkbox" name="memberCheck" class="all-check"></th>
@@ -87,7 +88,7 @@
                 <div class="list-bottom">
                     <div>
                         <button class="checkedChangeGrade btn bc1">선택회원 등급변경</button>
-                        <button class="deleteMember btn bc1">회원탈퇴</a>
+                        <button class="deleteMember btn bc1">회원탈퇴</button>
                     </div>
                 </div>
             </div>
@@ -121,11 +122,6 @@
 
         location.href="/deleteMember.do?id="+id.join("/");
         
-    });
-
-    /*검색 ... 아이디로 사용자 검색*/
-    $(".search-icon").on("click",function(){
-        $(".search-bar").submit();
     });
 </script>
 </html>

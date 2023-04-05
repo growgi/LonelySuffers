@@ -20,6 +20,12 @@ public class AdminDao {
 		
 		return (ArrayList<Member>)memberList;
 	}
+	
+	public int selectMemberCount() {
+		int memberCount = sqlSession.selectOne("admin.selectMemberCount");
+		
+		return memberCount;
+	}
 
 	public int updateMemberGrade(Member m) {
 		int result = sqlSession.update("admin.updateMemberGrade", m);
@@ -32,4 +38,12 @@ public class AdminDao {
 		
 		return result;
 	}
+
+	public Member selectOneMember(String searchMemberId) {
+		Member searchMember = sqlSession.selectOne("admin.selectOneMember", searchMemberId);
+		
+		return searchMember;
+	}
+
+
 }

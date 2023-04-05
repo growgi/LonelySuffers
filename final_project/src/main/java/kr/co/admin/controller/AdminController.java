@@ -17,11 +17,14 @@ public class AdminController {
 	@Autowired
 	AdminService service;
 	
-	/**회원목록*/
+	/**1. 회원목록*/
 	@RequestMapping(value="/memberList.do")
 	public String memberList(Model model) {
 		ArrayList<Member> memberList = service.selectAllMember();
-		model.addAttribute("memberList",memberList);
+		int memberCount = service.selectMemberCount(); //전체 사용자 수
+		
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberCount", memberCount);
 		return "admin/memberList";
 	}
 	
@@ -62,6 +65,20 @@ public class AdminController {
 		} else {
 			return "redirect:/sellerEnrollList.do";
 		}
+	}
+	
+	@RequestMapping(value="/adminSearchMember.do")
+	public String adminSearchMember(String searchMemberId, Model model) {
+		Member searchMember = service.selectOneMember(searchMemberId);
+		
+		System.out.println(searchMemberId);
+		ArrayList<Member> memberList = new ArrayList<Member>();
+		memberList.add(searchMember);
+		
+		
+		model.addAttribute("memberList",memberList);
+		return "admin/memberList";
+		
 	}
 	
 	@RequestMapping(value="/sellerEnrollList.do")

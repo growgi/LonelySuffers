@@ -19,6 +19,11 @@ public class AdminService {
 		
 		return dao.selectAllMember();
 	}
+	
+	public int selectMemberCount() {
+
+		return dao.selectMemberCount();
+	}
 
 	public int updateMemberGrade(Member m) {
 		
@@ -73,5 +78,12 @@ public class AdminService {
 
 		return result;
 	}
+
+	public Member selectOneMember(String searchMemberId) {
+		
+		return dao.selectOneMember(searchMemberId);
+	}
+
+
 	
 }
