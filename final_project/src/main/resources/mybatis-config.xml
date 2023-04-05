@@ -7,16 +7,17 @@
 	</settings>
 	<typeAliases>
 
-		
-		<typeAlias type="kr.co.notice.model.vo.FileVO" alias="f"/>
-		<typeAlias type="kr.co.house.model.vo.House" alias="h"/>		<!-- House    as h -->
-		<typeAlias type="kr.co.notice.model.vo.Notice" alias="n"/>		<!-- Notice   as n -->
-		<typeAlias type="kr.co.member.model.vo.Member" alias="m"/>		<!-- Member   as m -->
-		<typeAlias type="kr.co.house.model.vo.Room" alias="r"/>			<!-- Room 	  as r -->
-		<typeAlias type="kr.co.house.model.vo.RoomBook" alias="rb"/>	<!-- RoomBook as rb -->
-		<typeAlias type="kr.co.carpool.model.vo.Carpool" alias="c"/>	
+		<typeAlias type="kr.co.carpool.model.vo.Carpool" alias="c"/>
 		<typeAlias type="kr.co.carpool.model.vo.CarpoolFilter" alias="cf"/>
-		<typeAlias type="kr.co.carpool.model.vo.Passenger" alias="p"/>		
+		<typeAlias type="kr.co.carpool.model.vo.Passenger" alias="p"/>
+		<typeAlias type="kr.co.house.model.vo.House" alias="h"/>			<!-- House      as h -->
+		<typeAlias type="kr.co.lesson.model.vo.Lesson" alias="l"/>			<!-- Lesson     as l -->
+		<typeAlias type="kr.co.lesson.model.vo.LessonBook" alias="lb"/>	 	<!-- LessonBook as lb -->
+		<typeAlias type="kr.co.member.model.vo.Member" alias="m"/>			<!-- Member     as m -->
+		<typeAlias type="kr.co.notice.model.vo.Notice" alias="n"/>			<!-- Notice     as n -->
+		<typeAlias type="kr.co.notice.model.vo.FileVO" alias="f"/>
+		<typeAlias type="kr.co.house.model.vo.Room" alias="r"/>				<!-- Room 	    as r -->
+		<typeAlias type="kr.co.house.model.vo.RoomBook" alias="rb"/>		<!-- RoomBook   as rb -->	
 	</typeAliases>		
 
 

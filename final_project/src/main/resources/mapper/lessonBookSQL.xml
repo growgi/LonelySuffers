@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lb">
+
+<!-- 하나의 강습에 대한 예약 내역 (결제완료 상태만) 조회.    LESSON_BOOK 테이블에서 Row 여러개 조회 후 반환 -->
+<!-- 이미 정원만큼 예약되어서 더이상 예약불가능한 날짜들을 도출하기 위한 과정이므로, LESSON_BOOK_DATE와 SUM(LESSON_PEOPLE)만 받음 -->
+	<select id="selectAllBook" parameterType="_int" resultType="lb">
+		SELECT
+		LESSON_BOOK_DATE as lessonBookDate,
+		SUM(LESSON_PEOPLE) as lessonPeople
+		FROM LESSON_BOOK LEFT JOIN (SELECT LESSON_BOOK_NO, ORDER_STATUS FROM ORDER_TBL LEFT JOIN ORDER_DETAIL USING (ORDER_NO)) USING (LESSON_BOOK_NO)
+		WHERE LESSON_NO = ${_parameter} AND ORDER_STATUS = 1 GROUP BY LESSON_BOOK_DATE ORDER BY LESSON_BOOK_DATE
+	</select>
+
+
+<!-- 결제완료된 후 (ORDER_DETAIL 테이블에 insert된 후) LESSON_BOOK 테이블에 insert 실행 -->
+	<insert id="insertLessonBook" parameterType="lb">
+		INSERT INTO LESSON_BOOK VALUES (LESSON_BOOK_SEQ.NEXTVAL, #{lessonBookDate}, #{lessonPeople}, #{memberNo}, #{lessonNo}, #{lessonBookPrice})
+<!-- 가장 최근 insert된 신규 Row의 lessonBookNo 받아옴 -->
+		<selectKey resultType="_int" order="AFTER" keyProperty="lessonBookNo">
+			SELECT MAX(LESSON_BOOK_NO) FROM LESSON_BOOK
+		</selectKey>
+	</insert>
+
+</mapper>

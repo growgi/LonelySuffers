@@ -8,6 +8,20 @@
 	</select>
 
 
+<!-- 키오스크에서, 지역이나 인원 수 조건 없이 숙박 상품 Row들 조회용  -->
+	<select id="selectHouseList" resultType="h">
+		SELECT
+		HOUSE_NO as houseNo,
+		HOUSE_TITLE as houseTitle,
+		HOUSE_CITY as houseCity,
+		HOUSE_ADDRESS as houseAddress,
+		HOUSE_PHOTO1 as housePhoto1,
+		HOUSE_STATUS as houseStatus,
+		HOUSE_SCORE as houseScore,
+		ROOM_TITLE as roomTitle,
+		ROOM_CAPA as roomCapa
+		FROM HOUSE WHERE HOUSE_STATUS = 1 ORDER BY HOUSE_ADDRESS
+	</select>
 
 
 <!-- 숙박 상품 House 의 모든 column에 대한 resultMap -->

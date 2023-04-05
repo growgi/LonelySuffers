@@ -103,8 +103,106 @@
 		width:1100px;
 		height:1000px;
 	}
+	#headcount{
+		width:596px;
+		height:80px;
+		font-size:30px;
+		text-align:center;
+		margin-left:300px;
+		border: 2px solid;
+		border-radius:15px;
+		font-weight:800;
+	}
+
 	
-	
+	.headcount-wrap{
+		width:1200px;
+		height:900px;
+		overflow:hidden;
+	}
+	#whole-people{
+		width:396px;
+		height:60px;
+		font-size:25px;
+		text-align:center;
+		margin-left:400px;
+		margin-top: 80px;
+		border: 2px solid;
+		border-radius:10px;
+		font-weight:800;
+	}
+	.level-select{
+		width:1200px;
+		overflow:hidden;
+	}
+	.level-select>div{
+		width:400px;
+		float:left;
+	}
+	.level-select img{
+		width:300px;
+		height:300px;
+		margin-left:50px;
+
+	}
+	.boxes{
+		margin-left:50px;
+		margin-top:20px;
+		overflow:hidden;
+	}
+	.level-name{
+		float:left;
+		margin-left:20px;
+	}
+	.level-name>p{
+		font-size:24px;
+		font-weight:bold;
+		color:rgb(51, 51, 51);
+	}
+	input[type="checkbox"]{
+        display: none;
+      }
+	input[type="checkbox"] + label{
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border:3px solid #707070;
+        position: relative;
+        float:left;
+      }
+	input[id="level1"]:checked + label::after{
+        content:'✔';
+        font-size: 25px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color:#d4683d;
+        position: absolute;
+        left: 0;
+        top:0;
+      }
+     input[id="level2"]:checked + label::after{
+        content:'✔';
+        font-size: 25px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color:#d4683d;
+        position: absolute;
+        left: 0;
+        top:0;
+      }
+     input[id="level3"]:checked + label::after{
+        content:'✔';
+        font-size: 25px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color:#d4683d;
+        position: absolute;
+        left: 0;
+        top:0;
+      }
 	.btn-wrap{
 		width:1200px;
 	}
@@ -117,7 +215,7 @@
 		background-color:#fff;
 	}
 	.btn-wrap p{
-		font-weight:600;
+		font-weight: 600px;
 		font-size:20px;
 		margin-top:15px;
 		color:rgb(51, 51, 51);
@@ -126,7 +224,7 @@
 <!-- naver map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
 <!-- daterangepicker -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
 </head>
 <body>
 
@@ -178,9 +276,67 @@
 				</div>
 				<!-- 키오스크 2페이지 종료 -->
 				<!-- 키오스크 3페이지 -->
-				<div clas="page3">
-					<div class="people-wrap">
+				<div class="page3">
+					<div class="headcount-wrap">
+						<select id="headcount">
+						  <option value="" disabled selected>몇 명이신가요?</option>
+						  <option value="1">1명</option>
+						  <option value="2">2명</option>
+						  <option value="3">3명</option>
+						  <option value="4">4명</option>
+						  <option value="5">5명</option>
+						  <option value="6">6명</option>
+						  <option value="7">7명</option>
+						  <option value="8">8명</option>
+						</select>
+					<input type="text" id="whole-people" value="총 0명 입니다"readonly>
+					<!-- 진짜 총원 인원을 킵하고 있는 부분 -->
+					<input type="hidden" id="people-value" value="">
+						<div class="head-icon-wrap">
+						</div>
+				</div>
+				<!-- 키오스크 3페이지 종료 -->
+				<!-- 키오스크 4페이지 숙소리스트 -->
+				<div class="page4">
+					<div class="rooms-wrap">
 						
+					</div>
+				</div>
+				<!-- 키오스크 4페이지 숙소리스트 종료-->
+				<!-- 키오스크 5페이지 -->
+				<div class="page5">
+					<div class="level-select">
+					<!-- 중복선택이 가능하게 -->
+						<div class="level1">
+							<div>
+							<img src="/images/level1.png">
+							</div>
+							<div class="boxes">
+								<input type="checkbox" id="level1" value="1">
+								<label for="level1"></label>
+								<div class="level-name"><p>초급</p></div>
+							</div>
+						</div>
+						<div class="level2">
+							<div>
+								<img src="/images/level2.png">
+							</div>
+							<div class="boxes">
+								<input type="checkbox" id="level2" value="2">
+								<label for="level2"></label>
+								<div class="level-name"><p>중급</p></div>
+							</div>
+						</div>
+						<div class="level3">
+							<div>
+							<img src="/images/level3.png">
+							</div>
+							<div class="boxes">
+								<input type="checkbox" id="level3" value="3">
+								<label for="level3"></label>
+								<div class="level-name"><p>고급</p></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			<div class="btn-wrap">
@@ -199,9 +355,9 @@
 	<!-- <script src="js/parallax.js"></script> -->
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	<script src="js/moment.min.js"></script>
+	<script src="js/daterangepicker.js"></script>
 
 
 
@@ -229,7 +385,7 @@ Date.prototype.getInterval = function (otherDate) {
     return Math.floor(interval / (1000*60*60*24));
 }
 
-
+//daterangepicker api
 $("#daterangepicker").daterangepicker({
     locale: {
     "separator": " ~ ",                     // 시작일시와 종료일시 구분자
@@ -242,7 +398,7 @@ $("#daterangepicker").daterangepicker({
     },
     showDropdowns: true,                     // 년월 수동 설정 여부
     minDate: moment(),
-    maxDate: moment().add(365, 'days')
+    maxDate: moment().add(12, 'months')
 },function(start, end, label) {
     console.log(start.format('YYYYMMDD'), end.format('YYYYMMDD'));
     var startVal = start.format('YYYYMMDD');
@@ -255,34 +411,41 @@ $("#daterangepicker").daterangepicker({
     
     $("#travel-days").attr("value",result+"박"+(result+1)+"일");
 });
- 
-$("#daterangepicker").on('show.daterangepicker', function (ev, picker) {
-    $(".yearselect").css("float", "left");
-    $(".monthselect").css("float", "right");
-    $(".cancelBtn").css("float", "right");
-});
 
-
+//daterangepicker에 placeholder 삽입
 $("#daterangepicker").val('');
 $("#daterangepicker").attr("placeholder","여행을 떠날 날짜를 골라주세요:)");
-/*
-var applyBtn = document.querySelector(".applyBtn");
-//var result = $("#daterangerpicker").val();
 
-applyBtn.onclick=function(){
-	console.log($("#daterangepicker").val());
-	var result = $("#daterangerpicker").val();
-	var startDate = result.substr(0,9);
-	var endDate = result.substr(13,22);
-	console.log(startDate);
-	consol.log(endDate);
-}
+/*
+//드롭다운 메뉴 값 받아오기
+var element = document.querySelector("#headcount");
+var value = element.value;
 */
 
+//고른 인원수에 따른 아이콘 추가
+$("#headcount").on('change',function(){
 	
-	
-
-
+	var value = this.value;
+	$(".head-icon-wrap").empty();
+	if(value>0){
+		for(var i=0;i<value;i++){
+			var url = '/images/headcount.png';
+			var image = new Image();
+			image.src = url;
+			$(".head-icon-wrap").append(image);
+			$(".head-icon-wrap").children().css({"width": "300px", "height": "300px", "float": "left"});
+		}
+		 $("#whole-people").attr("value","총 "+value+"명 입니다");
+		 $("#people-value").attr("value",value);
+	}
+});
+$('input[type=checkbox]').on('change',function(){
+	 if ($(this).is(':checked')) {
+		 $(this).parent().prev().children().css("border", "8px solid #3da9d4");
+	 }else{
+		 $(this).parent().prev().children().css("border", "none");
+	 }
+})
 </script>					
 </body>
 </html>

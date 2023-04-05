@@ -10,14 +10,18 @@
 }
 
 .admin-content{
-	position: absolute;
-	top: 100px;
+    position: relative;
+}
+.admin-content>div{
+    position: absolute;
+    top: 50px;
 	left: 300px;
-    width: 200vh;
+    width: 100%;
 }
 
 .product-wrapper>div{
     overflow: hidden;
+
 }
 .product-wrapper>div>.product-choice{
     float: left;
