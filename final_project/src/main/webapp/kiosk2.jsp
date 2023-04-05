@@ -154,7 +154,7 @@
 <!-- naver map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
 <!-- daterangepicker -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
 </head>
 <body>
 
@@ -241,9 +241,9 @@
 	<!-- <script src="js/parallax.js"></script> -->
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	<script src="js/moment.min.js"></script>
+	<script src="js/daterangepicker.js"></script>
 
 
 
@@ -284,7 +284,7 @@ $("#daterangepicker").daterangepicker({
     },
     showDropdowns: true,                     // 년월 수동 설정 여부
     minDate: moment(),
-    maxDate: moment().add(365, 'days')
+    maxDate: moment().add(12, 'months')
 },function(start, end, label) {
     console.log(start.format('YYYYMMDD'), end.format('YYYYMMDD'));
     var startVal = start.format('YYYYMMDD');
@@ -296,12 +296,6 @@ $("#daterangepicker").daterangepicker({
     var result = date1.getInterval(date2);
     
     $("#travel-days").attr("value",result+"박"+(result+1)+"일");
-});
- 
-$("#daterangepicker").on('show.daterangepicker', function (ev, picker) {
-    $(".yearselect").css("float", "left");
-    $(".monthselect").css("float", "right");
-    $(".cancelBtn").css("float", "right");
 });
 
 //daterangepicker에 placeholder 삽입
