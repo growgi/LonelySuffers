@@ -47,5 +47,11 @@ public class AdminController {
 		
 		return "member/wishList";
 	}
+	
+	@RequestMapping(value="/orderDetail.do")
+	public String orderDetail() {
+		
+		return "admin/orderDetail";
+	}
 
 }

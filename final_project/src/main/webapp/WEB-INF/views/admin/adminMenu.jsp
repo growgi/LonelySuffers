@@ -4,6 +4,8 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="css/adminCommon.css"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap" rel="stylesheet">
 <style>
     /*전체*/
     .admin-menu-wrapper{
@@ -11,9 +13,10 @@
         color: #fff;
     }
 
+
     /*메뉴 상단*/
     .top-menu-background{
-        background-color: #e2e2e2;
+        background-color: #86C8BC;
         overflow: hidden;
         position: relative;
         box-shadow: 0 2px 2px 2px rgba(233, 233, 233, 0.19), 0 1px 1px 1px rgba(223, 223, 223, 0.23);
@@ -22,7 +25,7 @@
         font-size: 22px;
         font-weight: 600;
         position: absolute;
-        left: 270px;
+        left: 280px;
         line-height: 70px;
 
     }
@@ -112,11 +115,14 @@
         font-weight: 900;
         padding: 70px 25px 40px 25px ;
     }
+    .waveEffectWord-back{
+        color: #f7f7f7;
+        font-size: 2.5em;
+    }
     .left-menu-list>li>div{
         display: flex;
         font-size: 18px;
         font-weight: 900;
-
     }
     .menu-detail-title{
         padding: 15px;
@@ -157,40 +163,14 @@
     }
 </style>
 <div class="admin-menu-wrapper">
-    <div class="link-box" style="display:none">
-        <div class="box-top">
-            <div>
-                <span class="material-symbols-outlined admin-icon2">admin_panel_settings</span>
-                <div>
-                    <div><span>이름</span> 관리자</div>
-                    <div>아이디@naver.com</div>
-                </div>
-            </div>
-        </div>
-        <div class="box-bottom">
-            <div>
-                <span class="material-symbols-outlined link-icon">home</span>
-                <a href="#">홈으로 이동</a>
-            </div>
-            <div>
-                <span class="material-symbols-outlined link-icon">notifications_active</span>
-                <a href="#">공지사항으로 이동</a>
-            </div>
-            <div>
-                <span class="material-symbols-outlined link-icon">help</span>
-                <a href="#">FAQ로 이동</a>
-            </div>
-            <button name="logout">로그아웃</button>
-        </div>
-    </div>
-    <div class="top-menu">
-        <div class="top-menu-background">
-            <div class="top-menu-title">회원 목록</div>
-            <div class="admin-icon"><span class="material-symbols-outlined">link</span></div>
-        </div>
-    </div>
     <div class="left-menu">
-        <div class="left-menu-title">Lonely Surfers</div>
+        <div class="left-menu-title">
+            <a class="navbar-brand" href="/">
+                <div class="waveEffect">
+                    <p class="waveEffectWord-back" style="font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
+                </div>
+            </a>
+        </div>
         <div class="left-menu-content">
             <ul class="left-menu-list">
                 <li>
@@ -227,6 +207,38 @@
                     </ul>
                 </li>
             </ul>
+        </div>
+    </div>
+    <div class="link-box" style="display:none">
+        <div class="box-top">
+            <div>
+                <span class="material-symbols-outlined admin-icon2">admin_panel_settings</span>
+                <div>
+                    <div><span>이름</span> 관리자</div>
+                    <div>아이디@naver.com</div>
+                </div>
+            </div>
+        </div>
+        <div class="box-bottom">
+            <div>
+                <span class="material-symbols-outlined link-icon">home</span>
+                <a href="#">홈으로 이동</a>
+            </div>
+            <div>
+                <span class="material-symbols-outlined link-icon">notifications_active</span>
+                <a href="#">공지사항으로 이동</a>
+            </div>
+            <div>
+                <span class="material-symbols-outlined link-icon">help</span>
+                <a href="#">FAQ로 이동</a>
+            </div>
+            <button name="logout">로그아웃</button>
+        </div>
+    </div>
+    <div class="top-menu">
+        <div class="top-menu-background">
+            <div class="top-menu-title">회원 목록</div>
+            <div class="admin-icon"><span class="material-symbols-outlined">link</span></div>
         </div>
     </div>
 </div>
