@@ -20,4 +20,10 @@ public class AdminDao {
 		
 		return (ArrayList<Member>)memberList;
 	}
+
+	public int updateMemberGrade(Member m) {
+		int result = sqlSession.update("admin.updateMemberGrade", m);
+		
+		return result;
+	}
 }

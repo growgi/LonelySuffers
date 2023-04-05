@@ -18,5 +18,10 @@ public class AdminService {
 		
 		return dao.selectAllMember();
 	}
+
+	public int updateMemberGrade(Member m) {
+		
+		return dao.updateMemberGrade(m);
+	}
 	
 }

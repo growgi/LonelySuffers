@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,13 +24,20 @@ public class AdminController {
 		return "admin/memberList";
 	}
 	
+	@Transactional
 	@RequestMapping(value="/changeGrade.do")
-	public String changeGrade(String memberId, int updateMemberGrade) {
-//		int result = service.updateMemberGrade();
-		System.out.println(memberId);
-		System.out.println(updateMemberGrade);
+	public String changeGrade(String memberId, int memberGrade) {
+		Member m = new Member();
+		m.setMemberId(memberId);
+		m.setMemberGrade(memberGrade);
 		
-		return "admin/memberList";
+		int result = service.updateMemberGrade(m);
+		
+		if(result>0) {
+			return "redirect:/memberList.do";
+		} else {
+			return "redirect:/sellerEnrollList.do";
+		}
 	}
 	
 	@RequestMapping(value="/sellerEnrollList.do")

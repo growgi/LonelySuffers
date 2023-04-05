@@ -25,74 +25,76 @@
             <input type="search" placeholder="아이디로 사용자 검색" name="searchMember">
         </form>
         <div class="list-wrapper">
-            <form action="/changeGrade.do" method="get" name="memberList">
-            <input type="hidden" name="memberId" value="${m.memberId }">
-                <div class="memberList-top list-top">
-                    <div class="count">전체 사용자 <span>n</span>명</div>
-                    <table>
-                        <tr>
-                            <th><input type="checkbox" name="memberCheck"></th>
-                            <th>이름</th>
-                            <th>아이디</th>
-                            <th>성별</th>
-                            <th>전화번호</th>
-                            <th>이메일</th>
-                            <th>가입일</th>
-                            <th>회원 등급</th>
-                        </tr>
-                        <c:forEach items="${memberList }" var="m">
-                        <tr>
-                        
-                            <td><input type="checkbox" name="memberCheck"></td>
-                            <td>${m.memberName }</td>
-                            <td>${m.memberId }</td>
-                            <td>${m.memberGender }</td>
-                            <td>${m.memberPhone }</td>
-                            <td>${m.memberEmail }</td>
-                            <td>${m.enrollDate }</td>
-                            <td>
-                            <c:choose>
-                            <c:when test="${m.memberGrade == 1}">
-                                <select name ="updateMemberGrade" class="grade-change">
-                                	<option value="1" selected>관리자</option>
-                                    <option value="2">판매자</option>
-                                    <option value="3">사용자</option>
-                                </select>
-                            </c:when>
-                            <c:when test="${m.memberGrade == 2}">
-                                <select name ="updateMemberGrade" class="grade-change">
-                                	<option value="1">관리자</option>
-                                    <option value="2" selected>판매자</option>
-                                    <option value="3">사용자</option>
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                            	<select name ="updateMemberGrade" class="grade-change">
-                            		<option value="1">관리자</option>
-                                    <option value="2">판매자</option>
-                                    <option value="3" selected>사용자</option>
-                                </select>
-                            </c:otherwise>
-                            </c:choose>
-                            </td>
-                        </tr>
-                        </c:forEach>
-                    </table>
-                    <div></div>
+            <div class="memberList-top list-top">
+                <div class="count">전체 사용자 <span>n</span>명</div>
+                <table>
+                    <tr>
+                        <th><input type="checkbox" name="memberCheck" class="all-check"></th>
+                        <th>이름</th>
+                        <th>아이디</th>
+                        <th>성별</th>
+                        <th>전화번호</th>
+                        <th>이메일</th>
+                        <th>가입일</th>
+                        <th>회원 등급</th>
+                        <th></th>
+                    </tr>
+                    <c:forEach items="${memberList }" var="m">
+                    <tr>
+                        <td><input type="checkbox" name="memberCheck" class="check"></td>
+                        <td>${m.memberName }</td>
+                        <td>${m.memberId }</td>
+                        <td>${m.memberGender }</td>
+                        <td>${m.memberPhone }</td>
+                        <td>${m.memberEmail }</td>
+                        <td>${m.enrollDate }</td>
+                        <td>
+                        <c:choose>
+                        <c:when test="${m.memberGrade == 1}">
+                            <select class="grade-change">
+                                <option value="1" selected>관리자</option>
+                                <option value="2">판매자</option>
+                                <option value="3">사용자</option>
+                            </select>
+                        </c:when>
+                        <c:when test="${m.memberGrade == 2}">
+                            <select class="grade-change">
+                                <option value="1">관리자</option>
+                                <option value="2" selected>판매자</option>
+                                <option value="3">사용자</option>
+                            </select>
+                        </c:when>
+                        <c:otherwise>
+                            <select class="grade-change">
+                                <option value="1">관리자</option>
+                                <option value="2">판매자</option>
+                                <option value="3" selected>사용자</option>
+                            </select>
+                        </c:otherwise>
+                        </c:choose>
+                        </td>
+                        <td>
+                            <button class="changeGrade btn bc1">등급 변경</button>
+                        </td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                <div></div>
+            </div>
+            <div class="list-bottom">
+                <div>
+                    <button class="checkedChangeGrade btn bc1">선택회원 등급변경</button>
+                    <a href="#" class="btn bc1">회원탈퇴</a>
                 </div>
-                <div class="list-bottom">
-                    <div>
-                        <input type="submit" value="등급 변경" class="btn bc1">
-                        <a href="#" class="btn bc1">회원 탈퇴</a>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+    <script src="js/admin.js"></script>
 </body>
 <script>
     $(".search-bar>input").on("click",function(){
         $(this).toggleClass("active-search-bar");
     });
+
 </script>
 </html>
