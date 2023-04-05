@@ -7,6 +7,7 @@
 }
 *{
     text-decoration-line: none;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .admin-content{
@@ -32,7 +33,7 @@
     float: left;
 }
 
-/*버튼 디자인*/
+/*踰꾪듉 �뵒�옄�씤*/
 .btn {
     border: none;
     text-align: center;
