@@ -11,6 +11,9 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap" rel="stylesheet">
 
 
 
@@ -56,8 +59,8 @@
 <!-- 로고 영역 시작 -->
 					<a class="navbar-brand" href="/">
 						<div class="waveEffect">
-							<p class="waveEffectWord-back">물결치는글자</p>
-							<p class="waveEffectWord-front">물결치는글자</p>
+							<p class="waveEffectWord-back" style="font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
+							<p class="waveEffectWord-front" style="font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
 						</div>
 					</a>
 <!-- 로고 영역 끝 -->
@@ -118,17 +121,44 @@
 									</div>
 								</li>
 							</ul></li>
-						<li><a href="page-about.html">What is SEO?</a></li>
-						<li><a href="case-studies.html">Case Studies</a></li>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="page-contact.html">Contact</a></li>
-						<c:if test="${empty sessionScope.m }">
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/loginFrm.do"> 로그인</a></li>
-						</c:if>
+							<li>
+						  <a href="/gallery.do">
+						    <img alt="gallery" src="/images/gallery.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">갤러리</span>
+						  </a>
+						</li>
+						<li>
+						  <a href="/carpoolMain.do">
+						    <img alt="carpool" src="/images/carpool.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">카풀해요</span>
+						  </a>
+						</li>
+						<li>
+						  <a href="/noticeList.do">
+						    <img alt="carpool" src="/images/notification-bell.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">공지사항</span>
+						  </a>
+						</li>
+						<li>
+						  <a href="/mypage.do">
+						    <img alt="mypage" src="/images/mypage.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">마이페이지</span>
+						  </a>
+						</li>
+						
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/logout.do"> 로그아웃</a></li>
+							</c:when>
+							<c:otherwise>
+							<li class="lastlink hidden-xs hidden-sm" "><a class="btn btn-primary" href="/loginFrm.do">
+							<img alt="login" src="/images/login(1).png" style="width:25px; length:25px;">로그인</a></li>
+							</c:otherwise>
+						</c:choose>
+								
 					</ul>
 				</div>
 <!-- 상단 메뉴바  영역 끝 -->
-
 
 
 			</div>

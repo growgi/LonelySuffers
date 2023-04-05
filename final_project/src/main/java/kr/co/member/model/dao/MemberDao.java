@@ -17,12 +17,17 @@ public class MemberDao {
 			System.out.println("MemberDao 생성 완료");
 		}
 
-		public Member login(Member m) {
+		public Member loginMember(Member m) {
+			System.out.println("dao : "+m);
 			return sqlSession.selectOne("member.login",m);
 		}
 
 		public int joinMember(Member m) {
-			return 0;
+			return sqlSession.insert("member.joinMember",m);
+		}
+
+		public Member idChk(String memberId) {
+			return sqlSession.selectOne("member.idChk",memberId);
 		}
 		
 		

@@ -55,5 +55,13 @@
             </form>
         </div>
     </div>
+    <script src="js/admin.js"></script>
 </body>
+<script>
+    /*메뉴 제목*/
+    $(document).ready(function(){
+        $(".top-menu-title").text("판매자 신청 회원 조회");
+        $(".product-choice>div").first().click();
+    });
+</script>
 </html>

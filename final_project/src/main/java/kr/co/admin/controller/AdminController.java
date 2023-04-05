@@ -29,5 +29,29 @@ public class AdminController {
 		
 		return "admin/newProduct";
 	}
+	
+	@RequestMapping(value="/productList.do")
+	public String productList() {
+		
+		return "admin/productList";
+	}
+	
+	@RequestMapping(value="/salesDetails.do")
+	public String salesDetails() {
+		
+		return "admin/salesDetails";
+	}
+	
+	@RequestMapping(value="/wishList.do")
+	public String wishList() {
+		
+		return "member/wishList";
+	}
+	
+	@RequestMapping(value="/orderDetail.do")
+	public String orderDetail() {
+		
+		return "admin/orderDetail";
+	}
 
 }

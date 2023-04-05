@@ -8,22 +8,9 @@
 <title>Insert title here</title>
 </head>
 <link rel="stylesheet" href="css/adminTable.css"></link>
-<style>
-    .newProduct-wrapper>div{
-        overflow: hidden;
-    }
-    .newProduct-wrapper>div>.product-choice{
-        float: left;
-        margin-right: 20px;
-    }
-    .newProduct-wrapper>div>.list-wrapper{
-        width: 70%;
-        float: left;
-    }
-</style>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
-    <div class="newProduct-wrapper admin-content">
+    <div class="newProduct-wrapper product-wrapper admin-content">
         <form action="/adminSearchMember.do" method="get"  class="search-bar" name="search-member">
             <span class="material-symbols-outlined search-icon">search</span>
             <input type="search" placeholder="상품명으로 검색" name="searchMember">
@@ -51,13 +38,13 @@
                             </tr>
                             <tr>
                                 <td><input type="checkbox" name="memberCheck"></td>
-                                <td>개쉬운 서핑 너도 하자</td>
+                                <td><a href="#">개쉬운 서핑 너도 하자</a></td>
                                 <td>hong123</td>
                                 <td>Level1</td>
-                                <td>120,000원</td>
-                                <td>40명</td>
+                                <td><span>120,000</span>원</td>
+                                <td><span>40</span>명</td>
                                 <td>강원도</td>
-                                <td><a href="#">신청폼 확인</a></td>
+                                <td><a href="#" class="btn bc1">신청폼 확인</a></td>
                                 <td><input type="submit" value="승인" class="btn bc1"></td>
                             </tr>
                         </table>
@@ -88,13 +75,13 @@
                             </tr>
                             <tr>
                                 <td><input type="checkbox" name="memberCheck"></td>
-                                <td>가격 실화? 멋지다 짜잔호텔</td>
+                                <td><a href="#">가격 실화? 멋지다 짜잔호텔</a></td>
                                 <td>hong123</td>
                                 <td>짜잔호텔</td>
-                                <td>200,000원</td>
-                                <td>6인실</td>
+                                <td><span>200,000</span>원</td>
+                                <td><span>6</span>인실</td>
                                 <td>강원도</td>
-                                <td><a href="#">신청폼 확인</a></td>
+                                <td><a href="#" class="btn bc1">신청폼 확인</a></td>
                                 <td><input type="submit" value="승인" class="btn bc1"></td>
                             </tr>
                         </table>
@@ -109,15 +96,14 @@
             </div>
         </div>
     </div>
+    <script src="js/admin.js"></script>
 </body>
 <script>
-    $(".search-bar>input").on("click",function(){
-        $(this).toggleClass("active-search-bar");
+    /*메뉴 제목*/
+    $(document).ready(function(){
+        $(".top-menu-title").text("신규 상품 승인");
+        $(".product-choice>div").first().click();
     });
 
-    $(".product-choice>div").on("click",function(){
-        $(".product-choice>div").removeClass("active-product-choice");
-        $(this).addClass("active-product-choice");
-    });
 </script>
 </html>

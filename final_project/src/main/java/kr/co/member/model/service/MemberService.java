@@ -17,12 +17,18 @@ public class MemberService {
 	}
 
 	public Member loginMember(Member m) {
-		return dao.login(m);
+		System.out.println("service :"+m);
+		return dao.loginMember(m);
+		
 	}
 
-	/*
-	 * public int joinMember(Member m) { return dao.joinMember(m); }
-	 */
-	
+	public int joinMember(Member m) {
+		return dao.joinMember(m);
+	}
+
+	public Member idChk(String memberId) {
+		return dao.idChk(memberId);
+	}
+
 	
 }

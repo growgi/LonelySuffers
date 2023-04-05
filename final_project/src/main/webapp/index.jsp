@@ -27,12 +27,12 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 
-		<section class="section transheader homepage parallax" data-stellar-background-ratio="0.5" style="background-image: url('upload/bg_04.jpg');">
+		<section class="section transheader homepage parallax" data-stellar-background-ratio="0.5" style="background-image: url('images/surfer-cluster.jpg');">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>Lonely Suffers!</h2>
-						<p class="lead">파도타기를 좋아하는 사람들을 위한 웹사이트</p>
+						<h2>Lonely Suffers</h2>
+						<p class="lead">같이 서핑해요!</p>
 						<form class="calculateform">
 							<div class="item-box">
 								<div class="item-top form-inline">
@@ -40,7 +40,7 @@
 										<div class="input-group2">
 											<span class="input-addon"> <i class="fa fa-link"></i>
 											</span> <input type="url" class="form-control" id="urladres"
-												name="url" placeholder="제출 폼">
+												name="url" placeholder="검색하세요">
 										</div>
 									</div>
 									<input type="submit" name="send" value="제출"
