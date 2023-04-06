@@ -18,72 +18,58 @@
                 <input type="submit" style="display:none;">
             </form>
 	        <div class="list-wrapper">
-	            <form action="/changeGrade.do" method="get" name="memberList">
-	                <div class="memberList-top list-top">
-	                    <div class="count">신청한 사용자 <span>${sellerAppCount }</span>명</div>
-	                    <table>
-	                        <tr>
-	                            <th><input type="checkbox" name="memberCheck"></th>
-	                            <th>이름</th>
-	                            <th>아이디</th>
-	                            <th>성별</th>
-	                            <th>전화번호</th>
-	                            <th>이메일</th>
-	                            <th>가입일</th>
-	                            <th>신청일</th>
-	                            <th>회원 등급</th>
-	                        </tr>
-						<c:forEach items="${sellerAppList }" var="s">
-                        <c:if test="${s.memberGrade != 4 }"> <!-- 탈퇴회원(4) 조회 X -->
+                <div class="memberList-top list-top">
+                    <div class="count">신청한 사용자 <span>${sellerAppCount }</span>명</div>
+                    <table>
                         <tr>
-                            <td><input type="checkbox" name="memberCheck" class="check"></td>
-                            <td>${s.memberName }</td>
-                            <td>${s.memberId }</td>
-                            <td>${s.memberGender }</td>
-                            <td>${s.memberPhone }</td>
-                            <td>${s.memberEmail }</td>
-                            <td>${s.enrollDate }</td>
-                            <td>${s.applicationDate }</td>
-                            <td>
-                            <c:choose>
-                            <c:when test="${s.memberGrade == 1}">
-                                <select class="grade-change">
-                                    <option value="1" selected>관리자</option>
-                                    <option value="2">판매자</option>
-                                    <option value="3">사용자</option>
-                                </select>
-                            </c:when>
-                            <c:when test="${s.memberGrade == 2}">
-                                <select class="grade-change">
-                                    <option value="1">관리자</option>
-                                    <option value="2" selected>판매자</option>
-                                    <option value="3">사용자</option>
-                                </select>
-                            </c:when>
-                            <c:otherwise>
-                                <select class="grade-change">
-                                    <option value="1">관리자</option>
-                                    <option value="2">판매자</option>
-                                    <option value="3" selected>사용자</option>
-                                </select>
-                            </c:otherwise>
-                            </c:choose>
-                            </td>
-                            <td>
-                                <button class="changeGrade btn bc1">등급 변경</button>
-                            </td>
+                            <th><input type="checkbox" name="memberCheck" class="all-check"></th>
+                            <th>이름</th>
+                            <th>아이디</th>
+                            <th>성별</th>
+                            <th>전화번호</th>
+                            <th>이메일</th>
+                            <th>가입일</th>
+                            <th>신청일</th>
+                            <th>현재 등급</th>
                         </tr>
-                        </c:if>
-                        </c:forEach>
-	                    </table>
-	                    <div></div>
-	                </div>
-	                <div class="list-bottom">
-	                    <div>
-	                        <input type="submit" value="등급 변경" class="btn bc1">
-	                    </div>
-	                </div>
-	            </form>
+						<c:forEach items="${sellerAppList }" var="s">
+						<c:if test="${s.memberGrade != 4 }"> <!-- 탈퇴회원(4) 조회 X -->
+						<tr>
+						    <td><input type="checkbox" name="memberCheck" class="check"></td>
+						    <td>${s.memberName }</td>
+						    <td>${s.memberId }</td>
+						    <td>${s.memberGender }</td>
+						    <td>${s.memberPhone }</td>
+						    <td>${s.memberEmail }</td>
+						    <td>${s.enrollDate }</td>
+						    <td>${s.applicationDate }</td>
+						    <td>
+						    <c:choose>
+						    <c:when test="${s.memberGrade == 2}">
+						        <select class="grade-change">
+						            <option value="2" selected>판매자</option>
+						            <option value="3">사용자</option>
+						        </select>
+						    </c:when>
+						    <c:otherwise>
+						        <select class="grade-change">
+						            <option value="2">판매자</option>
+						            <option value="3" selected>사용자</option>
+						        </select>
+						    </c:otherwise>
+						    </c:choose>
+						    </td>
+						</tr>
+						</c:if>
+						</c:forEach>
+                    </table>
+                    <div></div>
+                </div>
+                <div class="list-bottom">
+                    <div>
+                        <button class="checkedChangeGrade btn bc1">등급 변경</button>
+                    </div>
+                </div>
 	        </div>
     	</div>
     </div>

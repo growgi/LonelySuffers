@@ -56,12 +56,12 @@
 			enroll_date as enrollDate,
 			application_date as applicationDate
 		from member_tbl
-		join seller_application using(member_no)
+		join seller_application_tbl using(member_no)
 		order by application_date 
 	</select>
 	
 	<select id="selectSellerAppCount" resultType="_int">
 		select count(*)
-		from seller_application
+		from seller_application_tbl
 	</select>
 </mapper>
