@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.admin.model.dao.AdminDao;
+import kr.co.house.model.vo.House;
+import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 
 @Service
@@ -106,31 +108,31 @@ public class AdminService {
 		
 		boolean result = true;
 		
-		while(sT1.hasMoreTokens()) {
+		while(sT1.hasMoreTokens()&&sT2.hasMoreTokens()) {
 			String memberId = sT1.nextToken();
-			
-			int changeResult = dao.updateMemberGradeSeller(memberId); //등급 변경
-			
-			if(changeResult == 0) {
-				//실패
-				result = false;
-				break;
-			}
-		}
-		
-		while(sT2.hasMoreTokens()) {
 			int memberNo = Integer.parseInt(sT2.nextToken());
 			
+			int changeResult = dao.updateMemberGradeSeller(memberId); //등급 변경
 			int deleteResult = dao.deleteSellerApplication(memberNo); //seller_application_tbl에서 삭제
 			
-			if(deleteResult == 0) {
+			if(changeResult == 0 || deleteResult == 0) {
 				//실패
 				result = false;
 				break;
 			}
 		}
-		
+
 		return result;
+	}
+
+	public ArrayList<Lesson> selectAllLesson() {
+		
+		return dao.selectAllLesson();
+	}
+
+	public ArrayList<House> selectAllHouse() {
+
+		return dao.selectAllHouse();
 	}
 
 

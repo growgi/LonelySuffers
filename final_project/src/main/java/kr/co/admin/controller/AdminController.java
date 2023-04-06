@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.house.model.vo.House;
+import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 
 @Controller
@@ -129,15 +131,23 @@ public class AdminController {
 	}
 	
 	
-	
+	/**3. 신규 상품 승인*/
 	@RequestMapping(value="/newProduct.do")
 	public String newProduct() {
+		
 		
 		return "admin/newProduct";
 	}
 	
+	
+	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productList.do")
-	public String productList() {
+	public String productList(Model model) {
+		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록
+		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
+		
+		model.addAttribute("lessonList", lessonList);
+		model.addAttribute("houseList", houseList);
 		
 		return "admin/productList";
 	}
