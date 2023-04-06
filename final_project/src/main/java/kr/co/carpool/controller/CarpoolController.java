@@ -59,11 +59,11 @@ public class CarpoolController {
 	}
 	
 	
-	//mycar.do 운전자의 내 카풀 리스트 보기!!!
-		@RequestMapping(value="driverPage.do")
-		public String mycarpoolPassenger() {
-			return "carpool/driverPage";
-		}
+//	//mycar.do 운전자의 내 카풀 리스트 보기!!!
+//		@RequestMapping(value="driverPage.do")
+//		public String mycarpoolPassenger() {
+//			return "carpool/driverPage";
+//		}
 		
 	
 }
