@@ -17,4 +17,6 @@ public class Member {
 	private String memberEmail;
 	private int memberGrade;
 	private String enrollDate;
+	
+	private String applicationDate;
 }

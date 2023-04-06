@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.house.model.vo.House;
+import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 
 @Repository
@@ -43,6 +45,48 @@ public class AdminDao {
 		Member searchMember = sqlSession.selectOne("admin.selectOneMember", searchMemberId);
 		
 		return searchMember;
+	}
+
+	public ArrayList<Member> selectAllSellerApplication() {
+		List sellerAppList = sqlSession.selectList("admin.selectAllSellerApplication");
+		
+		return (ArrayList<Member>)sellerAppList;
+	}
+
+	public int selectSellerAppCount() {
+		int sellerAppCount = sqlSession.selectOne("admin.selectSellerAppCount");
+		
+		return sellerAppCount;
+	}
+	
+	public Member selectOneSellerApplication(String searchMemberId) {
+		Member searchSellerAppMember = sqlSession.selectOne("admin.selectOneSellerApplication", searchMemberId);
+		
+		return searchSellerAppMember;
+	}
+
+	public int updateMemberGradeSeller(String memberId) {
+		int result = sqlSession.update("admin.updateMemberGradeSeller", memberId);
+		
+		return result;
+	}
+
+	public int deleteSellerApplication(int memberNo) {
+		int result = sqlSession.delete("admin.deleteSellerApplication", memberNo);
+		
+		return result;
+	}
+
+	public ArrayList<Lesson> selectAllLesson() {
+		List lessonList = sqlSession.selectList("admin.selectAllLesson");
+		
+		return (ArrayList<Lesson>)lessonList;
+	}
+
+	public ArrayList<House> selectAllHouse() {
+		List houseList = sqlSession.selectList("admin.selectAllHouse");
+		
+		return (ArrayList<House>)houseList;
 	}
 
 

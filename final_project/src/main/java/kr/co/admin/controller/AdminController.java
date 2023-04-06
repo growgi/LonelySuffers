@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.house.model.vo.House;
+import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 
 @Controller
@@ -28,6 +30,7 @@ public class AdminController {
 		return "admin/memberList";
 	}
 	
+	//1명 회원 등급 변경
 	@Transactional
 	@RequestMapping(value="/changeGrade.do")
 	public String changeGrade(String memberId, int memberGrade) {
@@ -40,10 +43,11 @@ public class AdminController {
 		if(result>0) {
 			return "redirect:/memberList.do";
 		} else {
-			return "redirect:/sellerEnrollList.do";
+			return "redirect:/sellerApplicationList.do";
 		}
 	}
 	
+	//체크박스 체크된 회원 등급 변경
 	@Transactional
 	@RequestMapping(value="/checkedChangeGrade.do")
 	public String checkedChangeGrade(String id, String grade) {
@@ -52,10 +56,11 @@ public class AdminController {
 		if(result) {
 			return "redirect:/memberList.do";
 		} else {
-			return "redirect:/sellerEnrollList.do";
+			return "redirect:/sellerApplicationList.do";
 		}
 	}
 	
+	@Transactional
 	@RequestMapping(value="/deleteMember.do")
 	public String deleteMember(String id) {
 		boolean result = service.deleteMember(id);
@@ -63,38 +68,85 @@ public class AdminController {
 		if(result) {
 			return "redirect:/memberList.do";
 		} else {
-			return "redirect:/sellerEnrollList.do";
+			return "redirect:/sellerApplicationList.do";
 		}
 	}
 	
+	//검색
 	@RequestMapping(value="/adminSearchMember.do")
 	public String adminSearchMember(String searchMemberId, Model model) {
 		Member searchMember = service.selectOneMember(searchMemberId);
 		
-		System.out.println(searchMemberId);
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		memberList.add(searchMember);
 		
-		
-		model.addAttribute("memberList",memberList);
-		return "admin/memberList";
+		if(searchMember != null) {			
+			model.addAttribute("memberList",memberList);
+			return "admin/memberList";
+		} else {
+			return "admin/sellerApplicationList";
+		}
 		
 	}
 	
-	@RequestMapping(value="/sellerEnrollList.do")
-	public String sellerEnrollList() {
+	/**2. 판매자 신청 회원 목록*/
+	@RequestMapping(value="/sellerApplicationList.do")
+	public String sellerApplicationList(Model model) {
+		ArrayList<Member> sellerAppList = service.selectAllSellerApplication();
+		int sellerAppCount = service.selectSellerAppCount();
 		
-		return "admin/sellerEnrollList";
+		model.addAttribute("sellerAppList", sellerAppList);
+		model.addAttribute("sellerAppCount", sellerAppCount);
+		
+		return "admin/sellerApplicationList";
 	}
 	
+	//검색
+	@RequestMapping(value="/searchSellerAppMember.do")
+	public String searchSellerAppMember(String searchMemberId, Model model) {
+		Member searchSellerAppMember = service.selectOneSellerApplication(searchMemberId);
+		
+		ArrayList<Member> sellerAppList = new ArrayList<Member>();
+		sellerAppList.add(searchSellerAppMember);
+		
+		if(searchSellerAppMember != null) {			
+			model.addAttribute("sellerAppList", sellerAppList);
+			return "admin/sellerApplicationList";
+		} else {
+			return "admin/memberList";
+		}
+	}
+	
+	//체크박스 체크된 회원 등급을 '판매자'로 변경
+	@Transactional
+	@RequestMapping(value="/checkedChangeGradeSeller.do")
+	public String checkedChangeGradeSeller(String id, String no) {
+		boolean result = service.updateMemberGradeSeller(id, no);
+		
+		if(result) {
+			return "redirect:/sellerApplicationList.do";
+		} else {
+			return "redirect:/memberList.do";
+		}
+	}
+	
+	
+	/**3. 신규 상품 승인*/
 	@RequestMapping(value="/newProduct.do")
 	public String newProduct() {
 		
 		return "admin/newProduct";
 	}
 	
+	
+	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productList.do")
-	public String productList() {
+	public String productList(Model model) {
+		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록
+		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
+		
+		model.addAttribute("lessonList", lessonList);
+		model.addAttribute("houseList", houseList);
 		
 		return "admin/productList";
 	}
