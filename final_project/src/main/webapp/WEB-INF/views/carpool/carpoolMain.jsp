@@ -52,8 +52,7 @@
 		<section class="section"
 			style="padding-top: 50px; padding-bottom: 10px;">
 			<div class="container">
-				<div class="row"
-					style="border-bottom: 2.5px solid rgba(101, 112, 123, 0.833);">
+				<div class="row">
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">
 							<a href="carpoolMain.do">전체보기</a>
@@ -94,21 +93,21 @@
 			<div class="container">
 				<div class="row">
 					<table id="carpoolTable" class="tablesorter"
-						style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0;">
+						style="border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
 						<thead>
 							<tr>
-								<th data-sort-method='thead' style="width:15%;">출발일</th>
+								<th data-sort-method='thead' style="width:20%;">출발일</th>
 								<th data-sort-method='thead' style="width:10%">등록일</th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
+								<th data-sort-method='none' style="width:20%"></th>
+								<th data-sort-method='none' style="width:30%"></th>
+								<th data-sort-method='none' style="width:10%"></th>
+								<th data-sort-method='none' style="width:10%"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- 얘네들이 반복돼야해!! Carpool list all -->
 							<c:forEach items="${list }" var="c">
-								<tr style="cursor: pointer;" onclick="location.href=/carpoolRequest.do?${c.carpoolNo}">
+								<tr style="cursor: pointer;" onclick="location.href='/carpoolRequest.do?carpoolNo=${c.carpoolNo}'">
 									<td >${c.departureDate }</td>
 									<td>
 										<span style="display:none">${c.regDate }</span><img src="/capool-img/destination.png" alt="img" style="width:45px; height: 50px;">

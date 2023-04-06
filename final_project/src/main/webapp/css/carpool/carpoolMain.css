@@ -1,7 +1,9 @@
-#carpoolTable{
-	border:none;
+#carpoolTable tbody tr {
+  margin-bottom: 100px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
 }
-
 
 .onewayRound {
     display: inline-block ;

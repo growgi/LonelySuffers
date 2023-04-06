@@ -31,9 +31,9 @@ public class CarpoolController {
 		Carpool c = service.selectOneCarpool(carpool);
 		if(c!=null) {
 			model.addAttribute("c", c);
-			return "carpool/carpoolMain";
+			return "carpool/carpoolRequest";
 		}else {
-			return "redirect:/";			
+			return "carpool/carpoolMain";			
 		}
 		
 	}
@@ -60,13 +60,17 @@ public class CarpoolController {
 
 	
 	//운전자의 내 카풀 리스트 보기!!!
+	//운전자의 카풀 수락, 거절, 마감 등 관리하기
 	@RequestMapping(value="/driverPage.do")
 	public String mycarpoolDriver() {
 		return "carpool/driverPage";
 	}
 	
+
+	
 	
 	//탑승자의 내 카풀 리스트 보기!!!
+	//탑승자의 카풀 수락, 거절 관리하기
 		@RequestMapping(value="/passengerPage.do")
 		public String mycarpoolPassenger() {
 			return "carpool/passengerPage";

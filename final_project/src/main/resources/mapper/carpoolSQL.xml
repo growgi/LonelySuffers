@@ -27,7 +27,8 @@
 	<select id="selectOneCarpool" parameterType="c" resultType="c">
 	select
 		driver_no as driverNo,
-		member_gender as memberGender,
+		member_name as driverName,
+		member_gender as driverGender,
 		reg_date as regDate,
 		carpool_no as carpoolNo,
 		departure_region as departureRegion,
