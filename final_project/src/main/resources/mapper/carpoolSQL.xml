@@ -7,6 +7,8 @@
  	<select id="selectAllCarpool" resultType="c">
  	select 
  		carpool_no as carpoolNo,
+ 		departure_date as departureDate,
+ 		reg_date as regDate,
  		oneway_round as onewayRound,
  		departure_region as departureRegion,
  		departure_district as departureDistrict,
@@ -21,23 +23,22 @@
  		USING (CARPOOL_NO)
 	</select>
 	
-	<!--  
+
 	<select id="selectOneCarpool" parameterType="c" resultType="c">
 	select
 		driver_no as driverNo,
+		member_gender as memberGender,
 		reg_date as regDate,
 		carpool_no as carpoolNo,
 		departure_region as departureRegion,
 		departure_district as departureDistrict,
 		arrival_region as arrivalRegion,
 		arrival_district as arrivalDistrict,
-		capacity as capacity,
-		
-			
-	
-	
+		capacity as capacity
+		from carpool
+		left join member_tbl on(member_no=driver_no) 
+		where carpool_no=#{carpoolNo}
 	</select>
-	-->
 	
  
  
