@@ -47,7 +47,7 @@ public class NoticeController {
 	public String noticeWrite(Notice n, MultipartFile[] noticeFile, HttpServletRequest request) {
 		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
 		if(!noticeFile[0].isEmpty()) {
-	         String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/board/");
+	         String savePath = request.getSession().getServletContext().getRealPath("/upload/notice/");
 	         for(MultipartFile file : noticeFile) {
 	            String filename = file.getOriginalFilename();
 	            String filepath = manager.upload(savePath, file);
@@ -76,7 +76,7 @@ public class NoticeController {
 	@RequestMapping(value="/noticeUpdate.do")
 	public String noticeUpdate(Notice n, int[] fileNo, String[] filepath, MultipartFile[] noticeFile, HttpServletRequest request) {
 		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
-		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/board/");
+		String savePath = request.getSession().getServletContext().getRealPath("/upload/notice/");
 		if(!noticeFile[0].isEmpty()) {
 	       for(MultipartFile file : noticeFile) {
 	          String filename = file.getOriginalFilename();
@@ -103,6 +103,20 @@ public class NoticeController {
 			return "redirect:/noticeView.do?noticeNo="+n.getNoticeNo();
 		}else {
 			return "redirect:/noticeList.do";
+		}
+	}
+	
+	@RequestMapping(value="/deleteNotice.do")
+	public String deleteNotice(int noticeNo, HttpServletRequest request) {
+		ArrayList<FileVO> list = service.deleteNotice(noticeNo);
+		if(list == null) {
+			return "redirect:/noticeView.do?noticeNo="+noticeNo;
+		}else {
+			String savePath = request.getSession().getServletContext().getRealPath("/upload/notice/");
+			for(FileVO file : list) {
+				boolean deleteResult = manager.deleteFile(savePath, file.getFilepath());
+			}
+			return "redirect:/noticeList.do?reqPage=1";
 		}
 	}
 	

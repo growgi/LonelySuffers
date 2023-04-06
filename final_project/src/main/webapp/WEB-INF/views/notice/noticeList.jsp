@@ -45,10 +45,10 @@
 								<td class="nt">${n.noticeDate }</td>
 							</tr>
 						</c:forEach>
-						<tr>
-							<th class="pn" style="text-align: center;" colspan="4">${pageNavi }</th>
-						</tr>
 					</table>
+					<div>
+						<div class="pagination" style="text-align: center;" colspan="4">${pageNavi }</div>
+					</div>
 				</div>
 			</div>
 		</section>

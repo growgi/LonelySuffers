@@ -19,11 +19,30 @@
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet" href="/css/notice.css">
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<style>
+
+</style>
 </head>
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<section class="section">
+		
+
+		<section class="section normalhead lb">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+						<h2>상품페이지</h2>
+						<p class="lead">This is your default page example. You can add anything here..</p>
+					</div>
+					<!-- end col -->
+				</div>
+				<!-- end row -->
+			</div>
+			<!-- end container -->
+		</section>
+		<!-- end section -->
+		<section class="section normalhead">
 			<div class="container">
 				<div class="row">
 					<h1 style="text-align:center; font-size:50px">공지사항</h1>
@@ -33,13 +52,21 @@
 							<td style="text-align:center; font-size:40px">${n.noticeTitle }</td>
 						</tr>
 						<tr>
+				        	<td colspan="5">
+				            <c:forEach items="${n.fileList }" var="f">
+				            	<img src="/upload/notice/${f.filepath }">
+				            </c:forEach>
+				        	</td>
+				        </tr>
+						<tr>
 							<td>${n.noticeDate }</td>
 							<span>|</span>
 							<td>${n.noticeContent }</td>
 						</tr>
 						<tr>
-							<th colspan="6"><a
-								href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a> <!--  <a href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>-->
+							<th colspan="6">
+								<a href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a>
+								<a href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>
 							</th>
 						</tr>
 					</table>

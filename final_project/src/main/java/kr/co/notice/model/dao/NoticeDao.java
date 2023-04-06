@@ -50,6 +50,16 @@ public class NoticeDao {
 		int result = sqlSession.delete("notice.deleteFile", no);
 		return result;
 	}
+
+	public ArrayList<FileVO> selectFileList(int noticeNo) {
+		List list = sqlSession.selectList("notice.selectFileList", noticeNo);
+		return (ArrayList<FileVO>)list;
+	}
+
+	public int deleteNotice(int noticeNo) {
+		int result = sqlSession.delete("notice.deleteNotice", noticeNo);
+		return result;
+	}
 }
 
 
