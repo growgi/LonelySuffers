@@ -64,13 +64,13 @@ public class AdminDao {
 	}
 
 	public int updateMemberGradeSeller(String memberId) {
-		int result = sqlSession.update("adin.updateMemberGradeSeller", memberId);
+		int result = sqlSession.update("admin.updateMemberGradeSeller", memberId);
 		
 		return result;
 	}
 
-	public int deleteSellerApplication(String memberId) {
-		int result = sqlSession.delete("admin.deleteSellerApplication", memberId);
+	public int deleteSellerApplication(int memberNo) {
+		int result = sqlSession.delete("admin.deleteSellerApplication", memberNo);
 		
 		return result;
 	}

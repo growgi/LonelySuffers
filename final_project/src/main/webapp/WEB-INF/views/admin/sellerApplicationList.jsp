@@ -33,9 +33,8 @@
                             <th>현재 등급</th>
                         </tr>
 						<c:forEach items="${sellerAppList }" var="s">
-						<c:if test="${s.memberGrade == 3 }"> <!-- 사용자만 조회 -->
 						<tr>
-						    <td><input type="checkbox" name="memberCheck" class="check" value="${s.member_no }"></td>
+						    <td><input type="checkbox" name="memberCheck" class="check" value="${s.memberNo }"></td>
 						    <td>${s.memberName }</td>
 						    <td>${s.memberId }</td>
 						    <td>${s.memberGender }</td>
@@ -60,7 +59,6 @@
 						    </c:choose>
 						    </td>
 						</tr>
-						</c:if>
 						</c:forEach>
                     </table>
                     <div></div>
@@ -93,14 +91,23 @@
 
         //체크된 회원아이디 저장 배열
         const id = new Array();
+        const no = new Array();
 
         //체크된 체크박스 기준으로 회원아이디, 등급을 찾아서 배열에 넣는 작업
         check.each(function(index,item){
             const memberId = $(this).parent().parent().children().eq(2).text();
             id.push(memberId);
+            
+            const checkMemberNo = check.val();
+            no.push(checkMemberNo);
         });
 
-        location.href="/checkedChangeGradeSeller.do?id="+id.join("/");
+        location.href="/checkedChangeGradeSeller.do?id="+id.join("/")+"&no="+no.join("/");
     });
+  	
+  	$(".check").on("click",function(){
+  		const check = $(".check:checked").val();
+        console.log(check);
+  	});
 </script>
 </html>

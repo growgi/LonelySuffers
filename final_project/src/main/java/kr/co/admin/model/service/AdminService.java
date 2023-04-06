@@ -99,19 +99,31 @@ public class AdminService {
 		return dao.selectOneSellerApplication(searchMemberId);
 	}
 
-	public boolean updateMemberGradeSeller(String id) {
-		//id 구분자 "/" 분리
-		StringTokenizer sT = new StringTokenizer(id,"/");
+	public boolean updateMemberGradeSeller(String id, String no) {
+		//id, no 구분자 "/" 분리
+		StringTokenizer sT1 = new StringTokenizer(id,"/");
+		StringTokenizer sT2 = new StringTokenizer(no,"/");
 		
 		boolean result = true;
 		
-		while(sT.hasMoreTokens()) {
-			String memberId = sT.nextToken();
+		while(sT1.hasMoreTokens()) {
+			String memberId = sT1.nextToken();
 			
 			int changeResult = dao.updateMemberGradeSeller(memberId); //등급 변경
-			int deleteResult = dao.deleteSellerApplication(memberId);
 			
-			if(changeResult == 0 || deleteResult == 0) {
+			if(changeResult == 0) {
+				//실패
+				result = false;
+				break;
+			}
+		}
+		
+		while(sT2.hasMoreTokens()) {
+			int memberNo = Integer.parseInt(sT2.nextToken());
+			
+			int deleteResult = dao.deleteSellerApplication(memberNo); //seller_application_tbl에서 삭제
+			
+			if(deleteResult == 0) {
 				//실패
 				result = false;
 				break;

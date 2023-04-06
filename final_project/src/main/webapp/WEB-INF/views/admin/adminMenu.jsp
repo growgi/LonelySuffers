@@ -16,7 +16,7 @@
 
     /*메뉴 상단*/
     .top-menu-background{
-        background-color: #86C8BC;
+        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
         overflow: hidden;
         position: relative;
         box-shadow: 0 2px 2px 2px rgba(233, 233, 233, 0.19), 0 1px 1px 1px rgba(223, 223, 223, 0.23);

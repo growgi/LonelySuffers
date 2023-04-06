@@ -118,8 +118,8 @@ public class AdminController {
 	//체크박스 체크된 회원 등급을 '판매자'로 변경
 	@Transactional
 	@RequestMapping(value="/checkedChangeGradeSeller.do")
-	public String checkedChangeGradeSeller(String id) {
-		boolean result = service.updateMemberGradeSeller(id);
+	public String checkedChangeGradeSeller(String id, String no) {
+		boolean result = service.updateMemberGradeSeller(id, no);
 		
 		if(result) {
 			return "redirect:/sellerApplicationList.do";

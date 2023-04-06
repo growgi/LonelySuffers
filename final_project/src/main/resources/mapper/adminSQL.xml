@@ -18,6 +18,7 @@
 		select 
 			count(*)
 		from member_tbl
+		where member_grade != 4
 	</select>
 	
 	<update id="updateMemberGrade" parameterType="m">
@@ -89,9 +90,9 @@
 		where member_id=#{memberId}
 	</update>
 	
-	<delete id="deleteSellerApplication" parameterType="string">
+	<delete id="deleteSellerApplication" parameterType="_int">
 		delete 
 		from seller_application_tbl
-		where member_
+		where member_no=#{memberNo}
 	</delete>
 </mapper>
