@@ -34,4 +34,9 @@ public class HouseService {
 	public ArrayList<RoomBook> selectAllBook(int roomNo){
 		return dao.selectAllBook(roomNo);
 	}
+	
+// 네이버지도 api 마커를 위한 경도,위도 조회.
+	public ArrayList<House> selectAllAddress(){
+		return dao.selectAllAddress();
+	}
 }

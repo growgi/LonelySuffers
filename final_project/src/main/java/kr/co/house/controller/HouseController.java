@@ -50,5 +50,11 @@ public class HouseController {
 		model.addAttribute("invalidDateList", list);
 		return "product/houseDetail";
 	}
-
+//네이버지도 api 마커를 위한 경도,위도 조회.
+	@RequestMapping(value="/allAddress.do")
+	public String houseAddress(Model model) {
+		ArrayList<House> list = service.selectAllAddress();
+		model.addAttribute("list",list);
+		return "/kiosk";
+	}
 }

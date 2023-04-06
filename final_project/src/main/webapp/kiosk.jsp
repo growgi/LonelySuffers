@@ -510,6 +510,30 @@ Date.prototype.getInterval = function (otherDate) {
  
     return Math.floor(interval / (1000*60*60*24));
 }
+/*
+const marker = new naver.maps.Marker({
+	position : new naver.maps.LatLng(37.971644,128.762234),
+	map : map
+})
+*/
+
+//지도 리스트 불러와서 마커생성
+$(document).ready(function(){
+	$.ajax({
+		url : "/allAddress.do",
+		type : "get",
+		dataType : "json",
+		success : function(data){
+			for(let i=0;i<data.length;i++){
+				const marker = new naver.maps.Marker({
+					position : new naver.maps.LatLng(data[i].houseLat,data[i].houseLng),
+					map : map
+				})
+			}
+		}
+	})
+});
+
 
 //daterangepicker api
 $("#daterangepicker").daterangepicker({
