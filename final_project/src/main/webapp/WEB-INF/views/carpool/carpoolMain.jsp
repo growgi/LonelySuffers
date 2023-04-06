@@ -111,7 +111,7 @@
 								<tr style="cursor: pointer;" onclick="location.href=/carpoolRequest.do?${c.carpoolNo}">
 									<td >${c.departureDate }</td>
 									<td>
-										<span style="display:none">${c.regDate }</span><img src="/images/destination.png" alt="목적지" style="width:45px; height: 50px;">
+										<span style="display:none">${c.regDate }</span><img src="/capool-img/destination.png" alt="img" style="width:45px; height: 50px;">
 									</td>
 									<td data-sort-method='none'>
 											<div class="row onewayRound">${c.tripType }</div>
@@ -119,7 +119,7 @@
 											<div class="row region">${c.arrivalRegion }</div>
 									</td>
 									<td data-sort-method='none'>
-											<div class="row">&nbsp;</div>
+											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
 											<div class="row">${c.departureDistrict }</div>
 											<div class="row">${c.arrivalDistrict }</div>
 									</td>
@@ -272,6 +272,7 @@
 	<script src="js/custom.js"></script>
 
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	<script src="js/tablesort.min.js"></script>
 	<script src="js/tablesort.date.min.js"></script>
 
 
@@ -279,6 +280,58 @@
 
 
 	<script>
+	//모달
+	$(document).ready(function() {
+		$(".filter").click(function() {
+			$("#myModal").modal();
+		});
+	});
+	
+	// 초기화 버튼 클릭 시
+	document.getElementById("reset-btn").addEventListener(
+			"click",
+			function() {
+				// input 값 초기화
+				document.querySelectorAll("input").forEach(function(input) {
+					input.value = "";
+				});
+				// select 값 초기화
+				document.querySelectorAll("select").forEach(
+						function(select) {
+							select.selectedIndex = 0;
+							// 체크박스 초기화
+							document.querySelectorAll("input[type=radio]")
+									.forEach(function(radio) {
+										radio.checked = false;
+									});
+						});
+			});
+
+	// 적용 버튼 클릭 시
+	document
+			.getElementById("apply-btn")
+			.addEventListener(
+					"click",
+					function() {
+						// 필터링 조건 추출
+						const departureCity = document
+								.getElementById("city").value;
+						const arrivalCity = document
+								.querySelectorAll("#city")[1].value;
+						const minPrice = document
+								.getElementById("minprice").value;
+						const maxPrice = document
+								.getElementById("maxprice").value;
+						const tripType = document
+								.querySelector('input[name="trip-type"]:checked').value;
+						const recruitStatus = document
+								.querySelector('input[name="recruit"]:checked').value;
+
+						// 추출된 조건을 가지고 필터링 검색 실행
+						// 여기에 실행할 코드 추가
+					});
+	
+	
 		//출발일, 등록일 기준으로 table sort out기능
 		table = document.getElementById('carpoolTable');
 		new Tablesort(table);
@@ -291,62 +344,8 @@
 
 		//리스트 5개씩 보이게 하기
 
-		//모달
-		$(document).ready(function() {
-			$(".filter").click(function() {
-				$("#myModal").modal();
-			});
-		});
 
-		$(document).ready(function() {
-			$("#myBtn").click(function() {
-				$("#myModal").modal();
-			});
-		});
-
-		// 초기화 버튼 클릭 시
-		document.getElementById("reset-btn").addEventListener(
-				"click",
-				function() {
-					// input 값 초기화
-					document.querySelectorAll("input").forEach(function(input) {
-						input.value = "";
-					});
-					// select 값 초기화
-					document.querySelectorAll("select").forEach(
-							function(select) {
-								select.selectedIndex = 0;
-								// 체크박스 초기화
-								document.querySelectorAll("input[type=radio]")
-										.forEach(function(radio) {
-											radio.checked = false;
-										});
-							});
-				});
-
-		// 적용 버튼 클릭 시
-		document
-				.getElementById("apply-btn")
-				.addEventListener(
-						"click",
-						function() {
-							// 필터링 조건 추출
-							const departureCity = document
-									.getElementById("city").value;
-							const arrivalCity = document
-									.querySelectorAll("#city")[1].value;
-							const minPrice = document
-									.getElementById("minprice").value;
-							const maxPrice = document
-									.getElementById("maxprice").value;
-							const tripType = document
-									.querySelector('input[name="trip-type"]:checked').value;
-							const recruitStatus = document
-									.querySelector('input[name="recruit"]:checked').value;
-
-							// 추출된 조건을 가지고 필터링 검색 실행
-							// 여기에 실행할 코드 추가
-						});
+		
 	</script>
 
 </body>
