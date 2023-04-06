@@ -82,19 +82,21 @@
 	                                <th>상품 상태</th>
 	                                <th></th>
 	                            </tr>
-	                            
+	                            <c:forEach items="${houseList }" var="h">
 	                            <tr>
 	                                <td><input type="checkbox" name="memberCheck"></td>
-	                                <td><a href="#">가격 실화? 멋지다 짜잔호텔</a></td>
-	                                <td>hong123</td>
-	                                <td>짜잔호텔</td>
-	                                <td><span>200,000</span>원</td>
-	                                <td><span>6</span>인실</td>
-	                                <td>강원도</td>
+	                                <td><a href="#">${h.houseTitle }</a></td>
+	                                <td>${h.writer }</td>
+	                                <td>${h.roomTitle }</td>
+	                                <td><span>${h.housePrice }</span>원</td>
+	                                <td><span>${h.roomCapa }</span>명</td>
+	                                <td>${h.houseCity }</td>
 	                                <td></td>
-	                                <td>판매중</td>
-	                                <td><span class="material-symbols-outlined list-detail">more_vert</span></td>
+	                                <td>${h.houseStatus }</td>
+	                                <td><a href="#" class="btn bc1">신청폼 확인</a></td>
+	                                <td><input type="submit" value="승인" class="btn bc1"></td>
 	                            </tr>
+	                            </c:forEach>
 	                        </table>
 	                        <div></div>
 	                    </div>

@@ -135,7 +135,6 @@ public class AdminController {
 	@RequestMapping(value="/newProduct.do")
 	public String newProduct() {
 		
-		
 		return "admin/newProduct";
 	}
 	

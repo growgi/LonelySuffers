@@ -110,12 +110,14 @@
 	
 	<select id="selectAllHouse" resultType="h">
 		select
-			lesson_no as lessonNo,
-			lesson_name_level as lessonNameLevel,
-			lesson_title as lessonTitle,
-			lesson_price as lessonPrice,
-			lesson_max_no as lessonMaxNo,
-			lesson_city as lessonCity
-		from lesson
+			house_no as houseNo,
+			house_title as houseTitle,
+			writer,
+			room_title as roomTitle,
+			house_price as housePrice,
+			room_capa as roomCapa,
+			house_city as houseCity,
+			house_status as houseStatus
+		from house
 	</select>
 </mapper>
