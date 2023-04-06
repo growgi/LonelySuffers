@@ -11,9 +11,7 @@
     background-color: #fff6bd;
     border: 1px solid white;
     border-radius: 10px;
-    cursor: pointer;
   }
-  
   .capacity {
     display: inline-block ;
     padding: 5px 10px  ;
@@ -25,7 +23,7 @@
     background-color: rgb(224, 223, 223);
     border: 1px solid white;
     border-radius: 10px;
-    cursor: pointer;
+    vertical-align: middle;
   }
   .departDate{
     font-weight: bold;
@@ -41,7 +39,6 @@
     'GRAD' 0,
     'opsz' 48
   }
-  
 
   .region{
     margin-right: 13px;
