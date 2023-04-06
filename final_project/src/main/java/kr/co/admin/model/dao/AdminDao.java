@@ -56,6 +56,24 @@ public class AdminDao {
 		
 		return sellerAppCount;
 	}
+	
+	public Member selectOneSellerApplication(String searchMemberId) {
+		Member searchSellerAppMember = sqlSession.selectOne("admin.selectOneSellerApplication", searchMemberId);
+		
+		return searchSellerAppMember;
+	}
+
+	public int updateMemberGradeSeller(String memberId) {
+		int result = sqlSession.update("adin.updateMemberGradeSeller", memberId);
+		
+		return result;
+	}
+
+	public int deleteSellerApplication(String memberId) {
+		int result = sqlSession.delete("admin.deleteSellerApplication", memberId);
+		
+		return result;
+	}
 
 
 }

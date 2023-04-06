@@ -47,6 +47,7 @@
 	
 	<select id="selectAllSellerApplication" resultType="m">
 		select
+			member_no as memberNo,
 			member_name as memberName,
 			member_id as memberId,
 			member_gender as memberGender,
@@ -57,11 +58,40 @@
 			application_date as applicationDate
 		from member_tbl
 		join seller_application_tbl using(member_no)
-		order by application_date 
+		order by application_date desc
 	</select>
 	
 	<select id="selectSellerAppCount" resultType="_int">
 		select count(*)
 		from seller_application_tbl
 	</select>
+	
+	<select id="selectOneSellerApplication" parameterType="string" resultType="m">
+		select
+			member_no as memberNo,
+			member_name as memberName,
+			member_id as memberId,
+			member_gender as memberGender,
+			member_phone as memberPhone,
+			member_email as memberEmail,
+			member_grade as memberGrade,
+			enroll_date as enrollDate,
+			application_date as applicationDate
+		from member_tbl
+		join seller_application_tbl using(member_no)
+		where member_id=#{searchMemberId}
+		order by application_date desc
+	</select>
+	
+	<update id="updateMemberGradeSeller" parameterType="string">
+		update member_tbl set
+			member_grade=2
+		where member_id=#{memberId}
+	</update>
+	
+	<delete id="deleteSellerApplication" parameterType="string">
+		delete 
+		from seller_application_tbl
+		where member_
+	</delete>
 </mapper>

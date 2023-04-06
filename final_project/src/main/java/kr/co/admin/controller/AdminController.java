@@ -28,6 +28,7 @@ public class AdminController {
 		return "admin/memberList";
 	}
 	
+	//1명 회원 등급 변경
 	@Transactional
 	@RequestMapping(value="/changeGrade.do")
 	public String changeGrade(String memberId, int memberGrade) {
@@ -44,6 +45,7 @@ public class AdminController {
 		}
 	}
 	
+	//체크박스 체크된 회원 등급 변경
 	@Transactional
 	@RequestMapping(value="/checkedChangeGrade.do")
 	public String checkedChangeGrade(String id, String grade) {
@@ -68,6 +70,7 @@ public class AdminController {
 		}
 	}
 	
+	//검색
 	@RequestMapping(value="/adminSearchMember.do")
 	public String adminSearchMember(String searchMemberId, Model model) {
 		Member searchMember = service.selectOneMember(searchMemberId);
@@ -75,9 +78,12 @@ public class AdminController {
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		memberList.add(searchMember);
 		
-		
-		model.addAttribute("memberList",memberList);
-		return "admin/memberList";
+		if(searchMember != null) {			
+			model.addAttribute("memberList",memberList);
+			return "admin/memberList";
+		} else {
+			return "admin/sellerApplicationList";
+		}
 		
 	}
 	
@@ -92,6 +98,37 @@ public class AdminController {
 		
 		return "admin/sellerApplicationList";
 	}
+	
+	//검색
+	@RequestMapping(value="/searchSellerAppMember.do")
+	public String searchSellerAppMember(String searchMemberId, Model model) {
+		Member searchSellerAppMember = service.selectOneSellerApplication(searchMemberId);
+		
+		ArrayList<Member> sellerAppList = new ArrayList<Member>();
+		sellerAppList.add(searchSellerAppMember);
+		
+		if(searchSellerAppMember != null) {			
+			model.addAttribute("sellerAppList", sellerAppList);
+			return "admin/sellerApplicationList";
+		} else {
+			return "admin/memberList";
+		}
+	}
+	
+	//체크박스 체크된 회원 등급을 '판매자'로 변경
+	@Transactional
+	@RequestMapping(value="/checkedChangeGradeSeller.do")
+	public String checkedChangeGradeSeller(String id) {
+		boolean result = service.updateMemberGradeSeller(id);
+		
+		if(result) {
+			return "redirect:/sellerApplicationList.do";
+		} else {
+			return "redirect:/memberList.do";
+		}
+	}
+	
+	
 	
 	@RequestMapping(value="/newProduct.do")
 	public String newProduct() {

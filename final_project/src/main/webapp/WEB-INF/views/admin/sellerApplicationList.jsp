@@ -12,7 +12,7 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
     	<div>
-            <form action="/adminSearchMember.do" method="get" id="frm" class="search-bar" name="searchMember">
+            <form action="/searchSellerAppMember.do" method="get" id="frm" class="search-bar" name="searchMember">
                 <span class="material-symbols-outlined search-icon" onclick="document.getElementById('frm').submit();">search</span>
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
                 <input type="submit" style="display:none;">
@@ -33,9 +33,9 @@
                             <th>현재 등급</th>
                         </tr>
 						<c:forEach items="${sellerAppList }" var="s">
-						<c:if test="${s.memberGrade != 4 }"> <!-- 탈퇴회원(4) 조회 X -->
+						<c:if test="${s.memberGrade == 3 }"> <!-- 사용자만 조회 -->
 						<tr>
-						    <td><input type="checkbox" name="memberCheck" class="check"></td>
+						    <td><input type="checkbox" name="memberCheck" class="check" value="${s.member_no }"></td>
 						    <td>${s.memberName }</td>
 						    <td>${s.memberId }</td>
 						    <td>${s.memberGender }</td>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="checkedChangeGrade btn bc1">등급 변경</button>
+                        <button class="checkedChangeGradeSeller btn bc1">선택회원 등급변경</button>
                     </div>
                 </div>
 	        </div>
@@ -80,6 +80,27 @@
     $(document).ready(function(){
         $(".top-menu-title").text("판매자 신청 회원 조회");
         $(".product-choice>div").first().click();
+    });
+    
+  	//체크박스 선택회원
+    $(".checkedChangeGradeSeller").on("click",function(){
+        const check = $(".check:checked");
+
+        if(check.length == 0) {
+            alert("선택된 회원이 없습니다.");
+            return;
+        }
+
+        //체크된 회원아이디 저장 배열
+        const id = new Array();
+
+        //체크된 체크박스 기준으로 회원아이디, 등급을 찾아서 배열에 넣는 작업
+        check.each(function(index,item){
+            const memberId = $(this).parent().parent().children().eq(2).text();
+            id.push(memberId);
+        });
+
+        location.href="/checkedChangeGradeSeller.do?id="+id.join("/");
     });
 </script>
 </html>

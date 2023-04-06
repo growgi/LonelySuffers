@@ -94,6 +94,33 @@ public class AdminService {
 		return dao.selectSellerAppCount();
 	}
 
+	public Member selectOneSellerApplication(String searchMemberId) {
+
+		return dao.selectOneSellerApplication(searchMemberId);
+	}
+
+	public boolean updateMemberGradeSeller(String id) {
+		//id 구분자 "/" 분리
+		StringTokenizer sT = new StringTokenizer(id,"/");
+		
+		boolean result = true;
+		
+		while(sT.hasMoreTokens()) {
+			String memberId = sT.nextToken();
+			
+			int changeResult = dao.updateMemberGradeSeller(memberId); //등급 변경
+			int deleteResult = dao.deleteSellerApplication(memberId);
+			
+			if(changeResult == 0 || deleteResult == 0) {
+				//실패
+				result = false;
+				break;
+			}
+		}
+		
+		return result;
+	}
+
 
 	
 }
