@@ -23,6 +23,15 @@
 		FROM HOUSE WHERE HOUSE_STATUS = 1 ORDER BY HOUSE_ADDRESS
 	</select>
 
+<!-- 네이버지도 api를 위한 위도,경도 조회용 -->
+	<select id="selectAllAddress" resultType="h">
+		SELECT
+		HOUSE_NO as houseNo,
+		HOUSE_LAT as houseLat,
+		HOUSE_LNG as houseLng
+		FROM HOUSE
+	</select>
+
 
 <!-- 숙박 상품 House 의 모든 column에 대한 resultMap -->
 	<resultMap type="h" id="getHouse">
