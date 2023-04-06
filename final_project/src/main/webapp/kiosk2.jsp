@@ -113,8 +113,6 @@
 		border-radius:15px;
 		font-weight:800;
 	}
-
-	
 	.headcount-wrap{
 		width:1200px;
 		height:900px;
@@ -130,6 +128,11 @@
 		border: 2px solid;
 		border-radius:10px;
 		font-weight:800;
+	}
+	.rooms-wrap{
+		width:1200px;
+		height:400px;
+		background-color:red;
 	}
 	.level-select{
 		width:1200px;
@@ -203,6 +206,59 @@
         left: 0;
         top:0;
       }
+    .option-select{
+		width:1200px;
+		overflow:hidden;
+	}
+	.option-select>div{
+		width:400px;
+		float:left;
+		margin-left: calc(400px/3);
+	}  
+    .option-select img{
+		width:300px;
+		height:300px;
+		margin-left:50px;
+	}
+	.lessons-wrap{
+		width:1200px;
+		height:400px;
+		background-color:red;
+	}
+	input[id="barbecue"]:checked + label::after{
+        content:'✔';
+        font-size: 25px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color:#d4683d;
+        position: absolute;
+        left: 0;
+        top:0;
+      }
+     input[id="party"]:checked + label::after{
+        content:'✔';
+        font-size: 25px;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        color:#d4683d;
+        position: absolute;
+        left: 0;
+        top:0;
+      }
+    .option-name{
+		float:left;
+		margin-left:20px;
+	}
+	.option-name>p{
+		font-size:24px;
+		font-weight:bold;
+		color:rgb(51, 51, 51);
+	}
+	.receipt-wrap li{
+		list-style:none;
+	}
 	.btn-wrap{
 		width:1200px;
 	}
@@ -296,15 +352,41 @@
 						</div>
 				</div>
 				<!-- 키오스크 3페이지 종료 -->
-				<!-- 키오스크 4페이지 숙소리스트 -->
+				<!-- 키오스크 4페이지(숙소 옵션을 미리 선택) -->
 				<div class="page4">
+					<div class="option-select">
+						<div class="barbecue">
+							<div>
+							<img src="/images/barbecue.png">
+							</div>
+							<div class="boxes">
+								<input type="checkbox" id="barbecue" value="barbecue">
+								<label for="barbecue"></label>
+								<div class="option-name"><p>바베큐</p></div>
+							</div>
+						</div>
+						<div class="party">
+							<div>
+								<img src="/images/party.png">
+							</div>
+							<div class="boxes">
+								<input type="checkbox" id="party" value="party">
+								<label for="party"></label>
+								<div class="option-name"><p>파티</p></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 키오스크 4페이지 종료 -->
+				<!-- 키오스크 5페이지 숙소리스트 -->
+				<div class="page5">
 					<div class="rooms-wrap">
 						
 					</div>
 				</div>
-				<!-- 키오스크 4페이지 숙소리스트 종료-->
-				<!-- 키오스크 5페이지 -->
-				<div class="page5">
+				<!-- 키오스크 5페이지 숙소리스트 종료-->
+				<!-- 키오스크 6페이지 -->
+				<div class="page6">
 					<div class="level-select">
 					<!-- 중복선택이 가능하게 -->
 						<div class="level1">
@@ -339,6 +421,49 @@
 						</div>
 					</div>
 				</div>
+				<!-- 키오스크 6페이지 종료-->
+				<!-- 키오스크 7페이지 강습리스트 -->
+				<div class="page7">
+					<div class="lessons-wrap">
+						
+					</div>
+				</div>
+				<!-- 키오스크 7페이지 강습리스트 종료-->
+				<!-- 키오스크 8페이지 -->
+				<div class="page8">
+					<div class="receipt-wrap">
+						<form action="#">
+							<fieldset>
+								<legend>00님의 주문내역</legend>
+									<ul>
+										<li>숙소정보</li>
+										<li>숙박소이름,호수</li>
+										<li>숙박 날짜</li>
+										<li>옵션</li>
+										<li>가격</li>
+									</ul>
+									<ul>
+										<li>강습정보</li>
+										<li>강슴이름</li>
+										<li>강습날짜</li>
+										<li>강습시간</li>
+										<li>인원</li>
+										<li>가격</li>
+									</ul>
+									<p>총액</p>
+							</fieldset>
+						</form>
+					</div>
+					
+				</div>
+				<!-- 키오스크 8페이지 종료 -->
+				<!-- 키오스크 9페이지 -->
+				<div class="page9">
+					<div class="last-page">
+						<img src="/images/shaka.png">
+					</div>
+				</div>
+				<!-- 키오스크 9페이지 종료 -->
 			<div class="btn-wrap">
 				<button class="before"><p>이전으로</p></button>
 				<button class="okay"><p>확정</p></button>
@@ -366,6 +491,7 @@
 const map = new naver.maps.Map("map",{
 	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
 	zoom : 7,
+	maxZoom : 10,
 	zoomControl : true,
 	zoomControlOptions : {
 		position : naver.maps.Position.TOP_RIGHT,
