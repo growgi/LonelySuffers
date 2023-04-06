@@ -22,6 +22,8 @@
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<!-- <script src="/src/main/webapp/js/carpoolMain.js"></script> -->
+	<script src="js/jquery.tablesorter.min.js"></script>
 </head>
 
 <body>
@@ -97,8 +99,11 @@
 						style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0;">
 						<thead>
 							<tr>
-								<th style="width:15%;">출발일</th>
-								<th style="width:10%">등록일</th>
+								<th><span class="material-symbols-outlined departDate"
+									id="departureDate-sort">arrow_upward</span>출발일</th>
+								<th><span class="material-symbols-outlined writeDate"
+									id="regDate-sort">arrow_upward</span>등록일</th>
+								<th data-sort-method='none'></th>
 								<th data-sort-method='none'></th>
 								<th data-sort-method='none'></th>
 								<th data-sort-method='none'></th>
@@ -110,21 +115,19 @@
 							<c:forEach items="${list }" var="c">
 								<tr style="cursor: pointer;" onclick="location.href=/carpoolRequest.do?${c.carpoolNo}">
 									<td>${c.departureDate }</td>
+									<td><span display="none">${c.regDate }</span></td>
+									<td data-sort-method='none'>
+											<div class="row">${c.tripType }</div>
+											<div class="row">${c.departureRegion }</div>
+											<div class="row">${c.arrivalRegion }</div>
+									</td>
 									<td>
-										<div class="row"><span style="display:none">${c.regDate }</span></div>
-										<div class="row"><img src="/images/destination.png" alt="목적지" style="width:45px; height: 50px;"></div>
-									</td>
-									<td data-sort-method='none'>
-											<div class="row onewayRound">${c.tripType }</div>
-											<div class="row region">${c.departureRegion }</div>
-											<div class="row region">${c.arrivalRegion }</div>
-									</td>
-									<td data-sort-method='none'>
 											<div class="row">&nbsp;</div>
 											<div class="row">${c.departureDistrict }</div>
 											<div class="row">${c.arrivalDistrict }</div>
 									</td>
 									<td data-sort-method='none'>${c.reserved}/${c.capacity }</td>
+									<td data-sort-method='none'>${c.regDate }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -273,8 +276,6 @@
 	<script src="js/custom.js"></script>
 
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/jquery.tablesorter.min.js"></script>
-	<script src="js/jquery.tablesorter.widgets.min.js"></script>
 
 
 
@@ -282,12 +283,17 @@
 
 	<script>
 		//출발일, 등록일 기준으로 table sort out기능
-		$(function() {
-			  $("#carpoolTable").tablesorter();
-			});
+		table = document.getElementById('carpoolTable');
+		new Tablesort(table);
+		var refresh = new Tablesort(tableRefresh);
+		var rowCount = tableRefresh.rows.length;
+		var row = tableRefresh.insertRow(rowCount);
+		var cellName = row.insertCell(0);
+		cellName.innerHTML = 0;
+		refresh.refresh();
 
 		//리스트 5개씩 보이게 하기
-
+/*
 		//모달
 		$(document).ready(function() {
 			$(".filter").click(function() {
@@ -344,6 +350,7 @@
 							// 추출된 조건을 가지고 필터링 검색 실행
 							// 여기에 실행할 코드 추가
 						});
+		*/
 	</script>
 
 </body>
