@@ -41,12 +41,15 @@ public class CarpoolController {
 	}
 	
 	//운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
+	//카풀 페이지는 누구에게나 뜨지만 등록은 가입된 회원만 할 수 있도록
 	
 	
 	//필터 값 적용하기 filterSearch.do
-	//@RequestMapping(value="/filterSearch.do")
-	//public String filter() {
-	//}
+	@RequestMapping(value="/filterSearch.do")
+	public String filtering() {
+		return null;
+		
+	}
 
 	
 	
