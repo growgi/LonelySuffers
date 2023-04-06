@@ -45,5 +45,17 @@ public class AdminDao {
 		return searchMember;
 	}
 
+	public ArrayList<Member> selectAllSellerApplication() {
+		List sellerAppList = sqlSession.selectList("admin.selectAllSellerApplication");
+		
+		return (ArrayList<Member>)sellerAppList;
+	}
+
+	public int selectSellerAppCount() {
+		int sellerAppCount = sqlSession.selectOne("admin.selectSellerAppCount");
+		
+		return sellerAppCount;
+	}
+
 
 }

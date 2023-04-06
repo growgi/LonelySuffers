@@ -40,7 +40,7 @@ public class AdminController {
 		if(result>0) {
 			return "redirect:/memberList.do";
 		} else {
-			return "redirect:/sellerEnrollList.do";
+			return "redirect:/sellerApplicationList.do";
 		}
 	}
 	
@@ -52,10 +52,11 @@ public class AdminController {
 		if(result) {
 			return "redirect:/memberList.do";
 		} else {
-			return "redirect:/sellerEnrollList.do";
+			return "redirect:/sellerApplicationList.do";
 		}
 	}
 	
+	@Transactional
 	@RequestMapping(value="/deleteMember.do")
 	public String deleteMember(String id) {
 		boolean result = service.deleteMember(id);
@@ -63,7 +64,7 @@ public class AdminController {
 		if(result) {
 			return "redirect:/memberList.do";
 		} else {
-			return "redirect:/sellerEnrollList.do";
+			return "redirect:/sellerApplicationList.do";
 		}
 	}
 	
@@ -71,7 +72,6 @@ public class AdminController {
 	public String adminSearchMember(String searchMemberId, Model model) {
 		Member searchMember = service.selectOneMember(searchMemberId);
 		
-		System.out.println(searchMemberId);
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		memberList.add(searchMember);
 		
@@ -81,10 +81,16 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value="/sellerEnrollList.do")
-	public String sellerEnrollList() {
+	/**2. 판매자 신청 회원 목록*/
+	@RequestMapping(value="/sellerApplicationList.do")
+	public String sellerApplicationList(Model model) {
+		ArrayList<Member> sellerAppList = service.selectAllSellerApplication();
+		int sellerAppCount = service.selectSellerAppCount();
 		
-		return "admin/sellerEnrollList";
+		model.addAttribute("sellerAppList", sellerAppList);
+		model.addAttribute("sellerAppCount", sellerAppCount);
+		
+		return "admin/sellerApplicationList";
 	}
 	
 	@RequestMapping(value="/newProduct.do")

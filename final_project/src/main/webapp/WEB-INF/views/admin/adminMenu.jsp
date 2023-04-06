@@ -181,7 +181,7 @@
                     </div>
                     <ul class="menu-detail">
                         <li><a href="/memberList.do">회원 목록</a></li>
-                        <li><a href="/sellerEnrollList.do">판매자 신청 회원 조회</a></li>
+                        <li><a href="/sellerApplicationList.do">판매자 신청 회원 조회</a></li>
                     </ul>
                 </li>
                 <li>

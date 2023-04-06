@@ -44,4 +44,24 @@
 		from member_tbl
 		where member_id=#{searchMemberId}
 	</select>
+	
+	<select id="selectAllSellerApplication" resultType="m">
+		select
+			member_name as memberName,
+			member_id as memberId,
+			member_gender as memberGender,
+			member_phone as memberPhone,
+			member_email as memberEmail,
+			member_grade as memberGrade,
+			enroll_date as enrollDate,
+			application_date as applicationDate
+		from member_tbl
+		join seller_application using(member_no)
+		order by application_date 
+	</select>
+	
+	<select id="selectSellerAppCount" resultType="_int">
+		select count(*)
+		from seller_application
+	</select>
 </mapper>

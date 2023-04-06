@@ -84,6 +84,16 @@ public class AdminService {
 		return dao.selectOneMember(searchMemberId);
 	}
 
+	public ArrayList<Member> selectAllSellerApplication() {
+		
+		return dao.selectAllSellerApplication();
+	}
+
+	public int selectSellerAppCount() {
+		
+		return dao.selectSellerAppCount();
+	}
+
 
 	
 }
