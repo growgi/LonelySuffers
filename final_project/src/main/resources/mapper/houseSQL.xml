@@ -40,6 +40,7 @@
 		<result column="WRITER" property="writer"></result>
 		<result column="ROOM_TITLE" property="roomTitle"></result>
 		<result column="ROOM_CAPA" property="roomCapa"></result>
+		<result column="HOUSE_PRICE" property="housePrice"></result>
 	</resultMap>
 
 </mapper>

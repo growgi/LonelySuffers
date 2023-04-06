@@ -2,6 +2,7 @@ package kr.co.house.model.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.house.model.dao.HouseDao;
@@ -13,6 +14,7 @@ import kr.co.house.model.vo.RoomBook;
 @Service
 public class HouseService {
 
+	@Autowired
 	private HouseDao dao;
 
 

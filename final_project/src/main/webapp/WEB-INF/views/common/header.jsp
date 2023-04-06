@@ -108,7 +108,7 @@
 												<ul>
 													<li><a href="blog.html">Blog & News</a></li>
 													<li><a href="productDetail.jsp">상품페이지</a></li>
-													<li><a href="blog-single.html">Single Blog</a></li>
+													<li><a href="/houseView.do?houseNo=">숙박 상품 페이지</a></li>
 													<li><a href="page.html">Default Page</a></li>
 													<li><a href="page-fullwidth.html">Fullwidth Page</a></li>
 													<li><a href="page-contact.html">Contact us</a></li>

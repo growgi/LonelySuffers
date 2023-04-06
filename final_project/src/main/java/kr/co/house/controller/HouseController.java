@@ -15,6 +15,7 @@ import kr.co.house.model.vo.RoomBook;
 
 @Controller
 public class HouseController {
+
 	@Autowired
 	private HouseService service;
 
