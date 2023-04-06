@@ -34,10 +34,7 @@ public class House {
 	private String writer;				// 상품등록자의 MEMBER_ID (글쓴이)
 	private String roomTitle;			// 숙박소이름      예) XX펜션, ABC하우스
 	private int roomCapa;				// X인실. 객실 종류라고 인지하면 됨.
-<<<<<<< HEAD
 
-	private int housePrice;				// 1박당 가격. 할인/할증이 적용되지 않은 무보정 기본 가격
-=======
 	
 	private int housePrice;				//1박당 가격, 할인/ 할증이 적용되지 않은 무보정 기본 가격
 	private int houseBarbecue;			//0:안쓰는 것, 1:쓰는것
@@ -47,6 +44,4 @@ public class House {
 	
 	private String houseLng;				//숙박 경도
 	private String houseLat;				//숙박 위도
-	
->>>>>>> Keon's_branch
 }

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import kr.co.house.model.service.HouseService;
 import kr.co.house.model.vo.FindRoomByCondition;
@@ -52,10 +55,14 @@ public class HouseController {
 		return "product/houseDetail";
 	}
 //네이버지도 api 마커를 위한 경도,위도 조회.
-	@RequestMapping(value="/allAddress.do")
-	public String houseAddress(Model model) {
+	@ResponseBody
+	@RequestMapping(value="/allAddress.do" , produces = "application/json;charset=utf-8")
+	public String selectAllAddress() {
 		ArrayList<House> list = service.selectAllAddress();
-		model.addAttribute("list",list);
-		return "/kiosk";
+		Gson gson = new Gson();
+		String result = gson.toJson(list);
+		System.out.println(result);
+		return result;
 	}
+
 }
