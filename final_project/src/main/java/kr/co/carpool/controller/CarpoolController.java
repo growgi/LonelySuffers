@@ -7,12 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.google.gson.Gson;
 
 import kr.co.carpool.model.service.CarpoolService;
 import kr.co.carpool.model.vo.Carpool;
+import kr.co.carpool.model.vo.CarpoolMatch;
 import kr.co.carpool.model.vo.Passenger;
+import kr.co.member.model.vo.Member;
 
 @Controller
 public class CarpoolController {
@@ -60,13 +63,15 @@ public class CarpoolController {
 	}
 	//carpoolRequest.jsp에서 '태워주세요' 누르면 guest 테이블에 insert
 	@RequestMapping(value="/carpoolMatch.do")
-	public String carpoolMatch(Passenger passenger) {
-		System.out.println(passenger);
-		int result = service.insertPassenger(passenger);
+	public String carpoolMatch(int carpoolNo, @SessionAttribute(required = false) Member m ) {
+		CarpoolMatch match = new CarpoolMatch();
+		match.setCarpoolNo(carpoolNo);
+		match.setPassengerNo(m.getMemberNo());
+		int result = service.insertPassenger(match);
 		if(result>0) {
-			return "redirect:/";
+			return "carpool/passengerPage";
 		}else {
-			return "carpool/carpoolRequest";
+			return "carpool/carpoolMain";
 		}
 		
 	}

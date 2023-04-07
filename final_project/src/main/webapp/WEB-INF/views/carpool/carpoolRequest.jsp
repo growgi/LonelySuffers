@@ -75,12 +75,12 @@
 								<span class="ampm" style="font-weight: 600;">${c.departureTimeRange }</span>
 							</div>
 							<div class="col-md-3" style="font-weight: 900;">
-								<div class="row district" style="margin-bottom: 30px;">출발지</div>
-								<div class="row district">도착지</div>
+								<div class="row district" style="margin-bottom: 30px;"><출발></div>
+								<div class="row district"><도착></div>
 							</div>
 							<div class="col-md-3">
-								<div class="row district" style="margin-bottom: 30px;">${c.departureRegion }</div>
-								<div class="row district">${c.arrivalRegion }</div>
+								<div class="row district" style="margin-bottom: 30px; font-weight: 700;">${c.departureRegion }</div>
+								<div class="row district" style="font-weight: 700;">${c.arrivalRegion }</div>
 							</div>
 							<div class="col-md-6">
 								<div class="row district" style="margin-bottom: 30px;">${c.departureDistrict }</div>
@@ -130,7 +130,7 @@
 					</div>
 				<c:if test="${not empty sessionScope.m }">	
 			<div id="wrapper-cool-btn">
-			  <a href="/carpoolMatch.do" class="my-super-cool-btn">
+			  <a href="/carpoolMatch.do?carpoolNo=${c.carpoolNo }" class="my-super-cool-btn">
 			    <div class="dots-container">
 			      <div class="dot"></div>
 			      <div class="dot"></div>
