@@ -47,7 +47,7 @@
 				<div class="row">
 					<div class="driver-info">
 					<img src="/capool-img/car.png" alt="img" style="width: 40px; height: 40px;">
-					${c.driverName } / ${c.MaleFemale }
+					${c.driverName } / ${c.maleFemale }
 					</div>
 					
 				</div>

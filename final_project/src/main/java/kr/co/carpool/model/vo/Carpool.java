@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 public class Carpool {
 	private int carpoolNo;
 	private int driverNo;
-	private String driverName;
-	private int driverGender;
-	private String driverPhone;
-	private String driverEmail;
+	private String driverName; //JOIN으로 얻는 MEMBER_NAME
+	private int driverGender;  //JOIN으로 얻는 MEMBER_GENDER
+	private String driverPhone; //JOIN으로 얻는 MEMBER_PHONE
+	private String driverEmail; //JOIN으로 얻는 MEMBER_EMAIL
 	private int capacity; //6명까지
 	private int onewayRound; //편도1 왕복2
 	private String departureRegion;
@@ -30,6 +30,7 @@ public class Carpool {
 	private String regDate;
 	private int closure; //마감0 모집중1
 	private int reserved;
+	
 	
 	public String getTripType() {
 		if(onewayRound == 1) {
@@ -69,6 +70,18 @@ public class Carpool {
 		}else {
 			return "모집중";
 		}
+	}
+
+	//1: 남자 2:여자
+	public String getMaleFemale() {
+		if(driverGender ==1) {
+			return "남";
+		}else {
+			return "여";
+		}
+		
+		//carpoolRequest.jsp 작업중
+		//질문 : carpool에서 1,2 같은 숫자를 바꿔주는건 ok. 그런데 이제 member라는 조인된 테이블에서도 1,2를 가져와야하는데 오류가 뜸
 	}
 	
 }
