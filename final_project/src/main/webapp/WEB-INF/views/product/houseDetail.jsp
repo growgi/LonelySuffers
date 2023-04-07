@@ -20,7 +20,7 @@
 
 </head>
 
-
+<link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
 
 <body>
 	<div id="wrapper">
@@ -85,7 +85,7 @@
 						</div>
 						<div>
 							<button>관심상품</button>
-							<button>예약하기</button>
+							<button type="button" data-toggle="modal" data-target="#myModal" id="goBooking">예약하기</button>
 						</div>
 					</div>
 					<!-- end col -->
@@ -95,6 +95,38 @@
 			<!-- end container -->
 		</section>
 		<!-- end section -->
+
+
+
+
+<!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div id="bookingArea" class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">예약하기</h4>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-md-4">
+					<input type="text" id="bookStart">
+				</div>
+        		<div class="col-md-2"></div>
+        		<div class="col-md-4">
+					<input type="text" id="bookEnd" placeholder="시작일을 먼저 선택">
+				</div>
+        	</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal">닫기</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 
 
@@ -138,6 +170,78 @@
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	<script src="js/moment.min.js"></script>
+	<script src="js/daterangepicker.js"></script>
+
+
+
+	<script type="text/javascript">
+		$("#goBooking").on("click", function() {
+
+// 이미 결제완료된 날짜들은 invalidDateRanges 변수에 넣음 
+			var invalidDateRanges = [
+				{ 'start': moment('2023-04-10'), 'end': moment('2023-04-14') },
+				{ 'start': moment('2023-04-23'), 'end': moment('2023-04-27') },
+				{ 'start': moment('2023-05-03'), 'end': moment('2023-05-07') },
+				{ 'start': moment('2023-05-17'), 'end': moment('2023-05-20') }
+			];
+
+
+// 새 예약이 시작하는 날짜를 선택하는 date range picker 생성
+			$('#bookStart').daterangepicker({
+			    parentEl: "#bookingArea .modal-body",
+				locale: {
+					format: "YYYY-MM-DD",
+					fromLabel: "시작",
+					toLabel: "종료"
+			    },
+			    alwaysShowCalendars: true,
+				autoApply: true,
+				singleDatePicker: true,
+				showDropdowns: true,
+				minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
+				maxDate: moment().add(3, 'months'),	// 시작일은 3개월 이내에서 지정 가능
+				isInvalidDate: function(date) {
+					return invalidDateRanges.reduce(function(bool, range) {
+						return bool || (date >= range.start && date <= range.end);
+					}, false);
+				}
+			});
+			$("#bookStart").val("");	// value 없는 상태로 생성 필요
+
+
+// 시작일 input의 value가 바뀌면, 적절하게 minDate와 maxDate를 구성해서 종료일 date range picker를 생성  
+			$("#bookStart").on("change", function(){
+				const bookStartDate = $("#bookStart").val();	// 시작일을 minDate로 사용
+				$('#bookEnd').val(bookStartDate);
+	// maxDate는 시작일+3개월로 초기화 
+				var maxLimit = moment(bookStartDate).add(3, 'months').format("YYYY-MM-DD");
+	// bookStartDate로부터 가장 가까운 미래의 invalidDateRanges로 maxDate를 좁혀줌
+				for(let i=invalidDateRanges.length-1; i>=0; i--){
+					if(bookStartDate < invalidDateRanges[i].start.format("YYYY-MM-DD")){
+						maxLimit = invalidDateRanges[i].start.format("YYYY-MM-DD");
+					}
+				}
+
+				$('#bookEnd').daterangepicker({
+				    parentEl: "#bookingArea .modal-body",
+					locale: {
+						format: "YYYY-MM-DD",
+						fromLabel: "시작",
+						toLabel: "종료"
+				    },
+				    alwaysShowCalendars: true,
+					autoApply: true,
+					singleDatePicker: true,
+					showDropdowns: true,
+					minDate: bookStartDate,
+					maxDate: maxLimit
+				});
+
+				$('#bookEnd').focus();
+			});
+		});
+	</script>
 
 </body>
 </html>
