@@ -9,8 +9,8 @@
 		ROOM_NO as roomNo,
 		ROOM_TITLE as roomTitle,
 		ROOM_CAPA as roomCapa,
-		ROOM_NAME as roomName,
-		FROM ROOM WHERE ROOM_TITLE = ${roomTitle} AND ROOM_CATA = ${roomCapa} AND ROOM_ENABLE = 1
+		ROOM_NAME as roomName
+		FROM ROOM WHERE (ROOM_TITLE = '${roomTitle}') AND (ROOM_CAPA = ${roomCapa}) AND (ROOM_ENABLE = 1)
 	</select>
 
 

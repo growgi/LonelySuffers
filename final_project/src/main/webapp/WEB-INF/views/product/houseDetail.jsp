@@ -62,6 +62,7 @@
 
 					<div class="col-md-7">
 						<div>
+							<input type="hidden" name="roomTitle" value="${house.roomTitle }">
 							<p>${house.roomTitle }</p>
 							<div class="row">
 								<h1>${house.houseTitle }</h1>
@@ -70,6 +71,7 @@
 									<p>비성수기, 평일 기준</p>
 								</div>
 								<div class="col-md-3">
+									<input type="hidden" name="roomCapa" value="${house.roomCapa }">
 									<p style="text-align: left;">${house.roomCapa }인실</p>
 								</div>
 							</div>
@@ -99,7 +101,7 @@
 
 
 
-<!-- Modal -->
+<!-- 예약 진행용 Modal -->
   <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
     
@@ -110,13 +112,14 @@
           <h4 class="modal-title">예약하기</h4>
         </div>
         <div class="modal-body">
+			<select name="roomEach"></select>
         	<div class="row">
         		<div class="col-md-4">
-					<input type="text" id="bookStart">
+					<input type="text" id="bookStart" placeholder="숙박 시작일" required disabled>
 				</div>
         		<div class="col-md-2"></div>
         		<div class="col-md-4">
-					<input type="text" id="bookEnd" placeholder="시작일을 먼저 선택">
+					<input type="text" id="bookEnd" placeholder="숙박 퇴실일" required disabled>
 				</div>
         	</div>
         </div>
@@ -176,71 +179,122 @@
 
 
 	<script type="text/javascript">
-		$("#goBooking").on("click", function() {
-
-// 이미 결제완료된 날짜들은 invalidDateRanges 변수에 넣음 
-			var invalidDateRanges = [
-				{ 'start': moment('2023-04-10'), 'end': moment('2023-04-14') },
-				{ 'start': moment('2023-04-23'), 'end': moment('2023-04-27') },
-				{ 'start': moment('2023-05-03'), 'end': moment('2023-05-07') },
-				{ 'start': moment('2023-05-17'), 'end': moment('2023-05-20') }
-			];
-
-
-// 새 예약이 시작하는 날짜를 선택하는 date range picker 생성
-			$('#bookStart').daterangepicker({
-			    parentEl: "#bookingArea .modal-body",
-				locale: {
-					format: "YYYY-MM-DD",
-					fromLabel: "시작",
-					toLabel: "종료"
-			    },
-			    alwaysShowCalendars: true,
-				autoApply: true,
-				singleDatePicker: true,
-				showDropdowns: true,
-				minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
-				maxDate: moment().add(3, 'months'),	// 시작일은 3개월 이내에서 지정 가능
-				isInvalidDate: function(date) {
-					return invalidDateRanges.reduce(function(bool, range) {
-						return bool || (date >= range.start && date <= range.end);
-					}, false);
+	// (숙박업소 & 인원 수) 조건에 맞는 객실들을 받는 ajax
+		const roomTitleVal = $("[name=roomTitle]").val();
+		const roomCapaVal = $("[name=roomCapa]").val();
+		$.ajax({
+				url : "/availableRooms.do",
+				data: {roomTitle : roomTitleVal, roomCapa : roomCapaVal},
+				dataType : "json",
+				success : function(List){
+					$("[name=roomEach]").empty();
+					$("[name=roomEach]").append($("<option>").text("객실을 먼저 선택해주세요"));
+					for(let i=0; i<List.length; i++){
+						const option = $("<option>");
+						option.val(List[i].roomNo);
+						option.text(List[i].roomName);
+						$("[name=roomEach]").append(option);
+	    			}
 				}
-			});
-			$("#bookStart").val("");	// value 없는 상태로 생성 필요
+		});
 
 
-// 시작일 input의 value가 바뀌면, 적절하게 minDate와 maxDate를 구성해서 종료일 date range picker를 생성  
-			$("#bookStart").on("change", function(){
-				const bookStartDate = $("#bookStart").val();	// 시작일을 minDate로 사용
-				$('#bookEnd').val(bookStartDate);
-	// maxDate는 시작일+3개월로 초기화 
-				var maxLimit = moment(bookStartDate).add(3, 'months').format("YYYY-MM-DD");
-	// bookStartDate로부터 가장 가까운 미래의 invalidDateRanges로 maxDate를 좁혀줌
-				for(let i=invalidDateRanges.length-1; i>=0; i--){
-					if(bookStartDate < invalidDateRanges[i].start.format("YYYY-MM-DD")){
-						maxLimit = invalidDateRanges[i].start.format("YYYY-MM-DD");
+	// 예약하기 modal 띄우면 실행되는 함수 시작
+		$("#goBooking").on("click", function(){
+			$("[name=roomEach]").on("change", function(){
+			// 이미 결제완료된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax 
+				$.ajax({
+					url : "/bookOneRoom.do",
+					data: {roomNo : $(this).val()},
+					dataType : "json",
+					success : function(List){
+						let invalidDateRanges = [];
+						for(let i=0; i<List.length; i++){
+							invalidDateRanges[i] = { 'start': moment(List[i].bookStartDate), 'end': moment(List[i].bookEndDate) };
+	    				}
+
+					// 선택된 객실 바뀔 때마다 날짜 관련 데이터들 모두 초기화
+						$("#bookStart").val("");
+						$("#bookStart").attr("value", null);
+						$("#bookEnd").val("");
+						$("#bookEnd").attr("value", null);
+
+						$("#bookStart").attr("disabled", false);
+						$("#bookEnd").attr("disabled", false);
+
+						// 객실예약의 시작일을 선택하는 date range picker 생성
+							$('#bookStart').daterangepicker({
+							    parentEl: "#bookingArea .modal-body",
+								locale: {
+									format: "YYYY-MM-DD",
+									fromLabel: "시작",
+									toLabel: "종료"
+							    },
+							    alwaysShowCalendars: true,
+								autoApply: true,
+								singleDatePicker: true,
+								showDropdowns: true,
+								minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
+								maxDate: moment().add(3, 'months'),	// 시작일은 3개월 이내에서 지정 가능
+								isInvalidDate: function(date) {
+									return invalidDateRanges.reduce(function(bool, range) {
+										return bool || (date >= range.start && date <= range.end);
+									}, false);
+								}
+							});
+							$("#bookStart").val("");
+							$("#bookStart").attr("value", null);	// value 없는 상태로 생성 필요
+
+
+						// 시작일 input의 value가 바뀌면, 적절하게 minDate와 maxDate를 구성해서 종료일 date range picker를 생성  
+							$("#bookStart").on("change", function(){
+								const bookStartDate = $("#bookStart").val();	// 시작일을 minDate로 사용
+							// maxDate는 시작일+3개월로 초기화 
+								var maxLimit = moment(bookStartDate).add(3, 'months').format("YYYY-MM-DD");
+							// bookStartDate로부터 가장 가까운 미래의 invalidDateRanges로 maxDate를 좁혀줌
+								for(let i=invalidDateRanges.length-1; i>=0; i--){
+									if(bookStartDate < invalidDateRanges[i].start.format("YYYY-MM-DD")){
+										maxLimit = invalidDateRanges[i].start.format("YYYY-MM-DD");
+									}
+								}
+
+								$('#bookEnd').daterangepicker({
+								    parentEl: "#bookingArea .modal-body",
+									locale: {
+										format: "YYYY-MM-DD",
+										fromLabel: "시작",
+										toLabel: "종료"
+								    },
+								    alwaysShowCalendars: true,
+									autoApply: true,
+									singleDatePicker: true,
+									showDropdowns: true,
+									minDate: bookStartDate,
+									maxDate: maxLimit
+								});
+								$("#bookEnd").val("");
+								$("#bookEnd").attr("value", null);	// value 없는 상태로 생성시킴
+							});
+
+						},
+				// 드롭다운 input이 특정 객실일이 아니라, "객실을 먼저 선택해주세요"에 focus 되었을 때 처리를  ajax error에서 처리함 
+					error : function(){
+						invalidDates = null;	// 객체 초기화
+						console.log("객실을 먼저 선택해주세요에 focus됨");
+						$(".daterangepicker").remove();
+						$("#bookStart").val("");
+						$("#bookStart").attr("value", null);
+						$("#bookStart").attr("disabled", true);
+						$("#bookEnd").val("");
+						$("#bookEnd").attr("value", null);
+						$("#bookEnd").attr("disabled", true);
 					}
-				}
-
-				$('#bookEnd').daterangepicker({
-				    parentEl: "#bookingArea .modal-body",
-					locale: {
-						format: "YYYY-MM-DD",
-						fromLabel: "시작",
-						toLabel: "종료"
-				    },
-				    alwaysShowCalendars: true,
-					autoApply: true,
-					singleDatePicker: true,
-					showDropdowns: true,
-					minDate: bookStartDate,
-					maxDate: maxLimit
 				});
-
-				$('#bookEnd').focus();
 			});
 		});
+	// 예약하기 modal 띄우면 실행되는 함수 끝
+
+
 	</script>
 
 </body>
