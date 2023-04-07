@@ -2,6 +2,7 @@ package kr.co.house.model.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.house.model.dao.HouseDao;
@@ -13,6 +14,7 @@ import kr.co.house.model.vo.RoomBook;
 @Service
 public class HouseService {
 
+	@Autowired
 	private HouseDao dao;
 
 
@@ -33,5 +35,10 @@ public class HouseService {
 // 하나의 객실에 대한 예약 내역(결제 완료 상태) 조회.    ROOM_BOOK 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<RoomBook> selectAllBook(int roomNo){
 		return dao.selectAllBook(roomNo);
+	}
+	
+// 네이버지도 api 마커를 위한 경도,위도 조회.
+	public ArrayList<House> selectAllAddress(){
+		return dao.selectAllAddress();
 	}
 }

@@ -76,6 +76,32 @@ public class NoticeService {
 		return result;
 	}
 
+	public int noticeUpdate(Notice n, ArrayList<FileVO> fileList, int[] fileNo) {
+		int result = dao.noticeUpdate(n);
+		if(result > 0) {
+			if(fileNo != null) {
+				for(int no : fileNo) {
+					result += dao.deleteFile(no);
+				}
+			}
+			for(FileVO f : fileList) {
+				f.setNoticeNo(n.getNoticeNo());
+				result += dao.insertFile(f);
+			}
+		}
+		return result;
+	}
+
+	public ArrayList<FileVO> deleteNotice(int noticeNo) {
+		ArrayList<FileVO> fileList = dao.selectFileList(noticeNo);
+		int result = dao.deleteNotice(noticeNo);
+		if(result > 0) {
+			return fileList;
+		}else {
+			return null;
+		}
+	}
+
 	
 }
 

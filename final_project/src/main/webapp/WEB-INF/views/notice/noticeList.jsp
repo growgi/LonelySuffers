@@ -26,7 +26,7 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<h1>공지사항</h1>
+					<h1 style="text-align: center;">공지사항</h1>
 					<a href="/noticeWriteFrm.do">글쓰기</a>
 					<br>
 					<br>
@@ -39,16 +39,16 @@
 						<c:forEach items="${list }" var="n">
 							<tr>
 								<td class="nt">${n.noticeNo }</td>
-								<td class="nt">
-									<a href="noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle }</a>				
+								<td>
+									<a href="/noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle }</a>				
 								</td>
 								<td class="nt">${n.noticeDate }</td>
 							</tr>
 						</c:forEach>
-						<tr>
-							<th class="pn" style="text-align: center;" colspan="4">${pageNavi }</th>
-						</tr>
 					</table>
+					<div>
+						<div style="text-align: center;">${pageNavi }</div>
+					</div>
 				</div>
 			</div>
 		</section>

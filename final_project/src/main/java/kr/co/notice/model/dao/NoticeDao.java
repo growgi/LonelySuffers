@@ -40,6 +40,26 @@ public class NoticeDao {
 		int result = sqlSession.insert("notice.insertFile", file);
 		return result;
 	}
+
+	public int noticeUpdate(Notice n) {
+		int result = sqlSession.update("notice.noticeUpdate", n);
+		return result;
+	}
+
+	public int deleteFile(int no) {
+		int result = sqlSession.delete("notice.deleteFile", no);
+		return result;
+	}
+
+	public ArrayList<FileVO> selectFileList(int noticeNo) {
+		List list = sqlSession.selectList("notice.selectFileList", noticeNo);
+		return (ArrayList<FileVO>)list;
+	}
+
+	public int deleteNotice(int noticeNo) {
+		int result = sqlSession.delete("notice.deleteNotice", noticeNo);
+		return result;
+	}
 }
 
 

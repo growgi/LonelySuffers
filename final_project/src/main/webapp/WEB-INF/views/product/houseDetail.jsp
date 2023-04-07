@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>상품 페이지 - Lonely Suffers</title>
+<title>${house.houseTitle} - Lonely Suffers</title>
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
@@ -33,7 +33,10 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>숙박 상품</h2>
-						<p class="lead">판매 중지 제품은 여기에 판매중지 설명을 대신 기입</p>
+						<p class="lead">
+						<c:if test="${house.houseStatus == 0}">판매 중지된 상품입니다.
+						</c:if>
+						</p>
 					</div>
 					<!-- end col -->
 				</div>
@@ -59,15 +62,15 @@
 
 					<div class="col-md-7">
 						<div>
-							<p>(숙박소 이름)</p>
+							<p>${house.roomTitle }</p>
 							<div class="row">
-								<h1>(상품 제목)</h1>
-								<h3>(가격) 원/1일</h3>
+								<h1>${house.houseTitle }</h1>
+								<h3>${house.housePrice }원/1박</h3>
 								<div class="col-md-9">
 									<p>비성수기, 평일 기준</p>
 								</div>
 								<div class="col-md-3">
-									<p style="text-align: left;">()인실</p>
+									<p style="text-align: left;">${house.roomCapa }인실</p>
 								</div>
 							</div>
 							<div class="row">
@@ -78,7 +81,7 @@
 									별평점넣을자리
 								</div>
 							</div>
-							<p>주소지</p>
+							<p>주소지 <span>${house.houseAddress }</span></p>
 						</div>
 						<div>
 							<button>관심상품</button>

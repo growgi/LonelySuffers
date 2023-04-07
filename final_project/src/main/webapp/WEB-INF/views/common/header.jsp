@@ -11,6 +11,9 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap" rel="stylesheet">
 
 
 
@@ -29,7 +32,7 @@
 
 
 <!-- 화면 우측 하단 네비게이션 버튼 영역 시작 -->
-<button onclick="scrollToTop()" id="toTopButton">Λ</button>
+<button onclick="scrollToTop()" id="toTopButton" style="background-color:white;"><img alt="gallery" src="/images/up-arrow.png" style="width: 40px; height: 40px;">Λ</button>
 <!-- 화면 우측 하단 네비게이션 버튼 영역 끝 -->
 
 
@@ -56,8 +59,8 @@
 <!-- 로고 영역 시작 -->
 					<a class="navbar-brand" href="/">
 						<div class="waveEffect">
-							<p class="waveEffectWord-back">물결치는글자</p>
-							<p class="waveEffectWord-front">물결치는글자</p>
+							<p class="waveEffectWord-back" style="font-family: 'Courgette-Regular' !important; ">Lonely Surfers</p>
+							<p class="waveEffectWord-front" style="font-family: 'Courgette-Regular' !important;">Lonely Surfers</p>
 						</div>
 					</a>
 <!-- 로고 영역 끝 -->
@@ -69,7 +72,7 @@
 <!-- 상단 메뉴바  영역 시작 -->
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="index.html">Home</a></li>
+						<li class="active"><a href="index.html">홈</a></li>
 						<li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">드롭다운메뉴 <span class="fa fa-angle-down"></span></a>
 							<ul class="dropdown-menu">
 								<li>
@@ -105,7 +108,7 @@
 												<ul>
 													<li><a href="blog.html">Blog & News</a></li>
 													<li><a href="productDetail.jsp">상품페이지</a></li>
-													<li><a href="blog-single.html">Single Blog</a></li>
+													<li><a href="/houseView.do?houseNo=">숙박 상품 페이지</a></li>
 													<li><a href="page.html">Default Page</a></li>
 													<li><a href="page-fullwidth.html">Fullwidth Page</a></li>
 													<li><a href="page-contact.html">Contact us</a></li>
@@ -117,20 +120,40 @@
 										</div>
 									</div>
 								</li>
-							</ul>
-							</li>
-						<li><a href="page-about.html">What is SEO?</a></li>
-						<li><a href="case-studies.html">Case Studies</a></li>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="page-contact.html">Contact</a></li>
-						<li><a href="page-contact.html">Contact</a></li>
+							</ul></li>
+							<li>
+						  <a href="/gallery.do">
+						    <img alt="gallery" src="/images/gallery.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">갤러리</span>
+						  </a>
+						</li>
+						<li>
+						  <a href="/carpoolMain.do">
+						    <img alt="carpool" src="/images/carpool.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">카풀해요</span>
+						  </a>
+						</li>
+						<li>
+						  <a href="/noticeList.do?reqPage=1">
+						    <img alt="carpool" src="/images/notification-bell.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">공지사항</span>
+						  </a>
+						</li>
+						<li>
+						  <a href="/mypage.do">
+						    <img alt="mypage" src="/images/mypage.png" style="width: 25px; height: 25px;">
+						    <span style="line-height: 25px; vertical-align: middle;">마이페이지</span>
+						  </a>
+						</li>
+			
 						<c:choose>
 							<c:when test="${not empty sessionScope.m }">
 							<li><a href="/myPage.do">마이페이지</a></li>
 						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/logout.do"> 로그아웃</a></li>
 							</c:when>
 							<c:otherwise>
-							<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/loginFrm.do"> 로그인</a></li>
+							<li class="lastlink hidden-xs hidden-sm" "><a class="btn btn-primary" href="/loginFrm.do">
+							<img alt="login" src="/images/login(1).png" style="width:25px; length:25px; margin-right:5px;">로그인</a></li>
 							</c:otherwise>
 						</c:choose>
 								

@@ -7,16 +7,33 @@
 }
 *{
     text-decoration-line: none;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .admin-content{
-	position: absolute;
-	top: 100px;
+    position: relative;
+}
+.admin-content>div{
+    position: absolute;
+    top: 50px;
 	left: 300px;
-    width: 200vh;
+    width: 100%;
 }
 
-/*버튼 디자인*/
+.product-wrapper>div{
+    overflow: hidden;
+
+}
+.product-wrapper>div>.product-choice{
+    float: left;
+    margin-right: 20px;
+}
+.product-wrapper>div>.list-wrapper{
+    width: 70%;
+    float: left;
+}
+
+/*踰꾪듉 �뵒�옄�씤*/
 .btn {
     border: none;
     text-align: center;
