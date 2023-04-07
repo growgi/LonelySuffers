@@ -117,7 +117,8 @@
 										</div>
 									</div>
 								</li>
-							</ul></li>
+							</ul>
+							</li>
 						<li><a href="page-about.html">What is SEO?</a></li>
 						<li><a href="case-studies.html">Case Studies</a></li>
 						<li><a href="blog.html">Blog</a></li>
@@ -125,6 +126,7 @@
 						<li><a href="page-contact.html">Contact</a></li>
 						<c:choose>
 							<c:when test="${not empty sessionScope.m }">
+							<li><a href="/myPage.do">마이페이지</a></li>
 						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/logout.do"> 로그아웃</a></li>
 							</c:when>
 							<c:otherwise>

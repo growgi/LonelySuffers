@@ -1,0 +1,73 @@
+.main{
+    overflow: hidden;
+}
+.main-left{
+    float: left;
+    width: 30%;
+    height: 500px;
+}
+.main-right{
+    float: right;
+    width: 70%;
+    height: 500px;
+}
+
+.left-content{
+    float: right;
+    width: 260px;
+    background-color: #252525;
+    height: 100%;
+}
+
+.left-content>p{
+    padding-top: 20px;
+    font-size: 22px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.left-content>.material-symbols-outlined{
+    text-align: center;
+    font-size: 150px;
+    width: 100%;
+    margin: 0 auto;
+    
+}
+
+.sessionMemberName,.sessionMemberEmail{
+    text-align: center;
+    display: block;
+}
+
+.tab-content{
+    margin-top: 50px;
+    list-style: none;
+}
+
+.tab-content>li{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0px;
+    color : #fff;
+}
+
+.tab-content>.li-active{
+    border-bottom: 1px solid #fff;
+    font-size: 24px;
+}
+
+.myProfile>ul{
+    list-style: none;
+}
+
+.hidden-li{
+    display: none;
+}
+
+div>.updatePassWordFrm{
+    display: none;
+}
+
+input[type=text],input[type=password]{
+    padding: 2px 7px;
+}
