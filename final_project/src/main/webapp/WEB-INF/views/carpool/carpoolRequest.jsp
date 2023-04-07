@@ -46,11 +46,19 @@
 				<!-- section ＞  container 안에 class가 invis1인 hr 태그를 넣으시면, 가로로 큰 공백이 생깁니다. 이 태그를 여러 개를 넣으면 그만큼 공백 높이가 더 높아집니다. -->
 				<div class="row">
 					<div class="driver-info" style="margin-left: 190px; font-size:20px; font-weight:700; line-height: 40px;">
-					<img src="/capool-img/car.png" alt="img" style="width: 40px; height: 40px; margin-right:10px; ">
+					<img src="/capool-img/car.png" alt="img" style="width: 50px; height: 50px; margin-right:10px; margin-bottom: 10px; ">
+					<c:choose>
+						<c:when test="${not empty sessionScope.m }">
 						${c.driverName }(${c.maleFemale })
+						</c:when>
+						<c:otherwise>
+						회원에게만 정보가 표시됩니다.
+						</c:otherwise>
+					</c:choose>
 					</div><hr>
 					<div><p style="font-size:15px; font-weight: 600; margin-left:200px; font-size:20px;">함께가요<p>
-					<img src="/capool-img/clock.png"alt="img" style="width: 20px; height: 20px; margin-right:10px; margin-left:200px;">${c.regDate}
+					<img src="/capool-img/clock.png"alt="img" style="width: 20px; height: 20px; margin-right:10px; margin-left:200px;">
+					<span class="regdate">${c.regDate}</span> <span class="dayinKorean"></span> 
 					</div>
 					<div class="infobox row" style="background-color: #FFF4D2; margin:0 auto;  border-top-left-radius:20px; 
 					border-top-right-radius: 20px ;height: 200px; width: 800px; ">
@@ -63,17 +71,18 @@
 						</div>
 						<div class="col-md-8" style="height: 200px; padding: 40px;">
 							<div class="departure" style="margin-bottom: 20px;">
-								<span class="timeInfo">${c.departureDate }</span> ${c.departureTimeRange }
+								<span class="timeInfo" style="margin-right: 5px; font-weight: 600;">${c.departureDate }<span class="dayinKorean" style="margin-left:10px;"></span></span>
+								<span class="ampm" style="font-weight: 600;">${c.departureTimeRange }</span>
 							</div>
-							<div class="col-md-4" style="font-weight: 900;">
+							<div class="col-md-3" style="font-weight: 900;">
 								<div class="row district" style="margin-bottom: 30px;">출발지</div>
 								<div class="row district">도착지</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="row district" style="margin-bottom: 30px;">${c.departureRegion }</div>
 								<div class="row district">${c.arrivalRegion }</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-6">
 								<div class="row district" style="margin-bottom: 30px;">${c.departureDistrict }</div>
 								<div class="row district">${c.arrivalDistrict }</div>
 							</div>
@@ -119,6 +128,7 @@
  				 </div>
 				</div>
 					</div>
+				<c:if test="${not empty sessionScope.m }">	
 			<div id="wrapper-cool-btn">
 			  <a href="/carpoolMatch.do" class="my-super-cool-btn">
 			    <div class="dots-container">
@@ -130,6 +140,7 @@
 			    <span style="color: #F16767; font-size:25px; font-weight: 800;">태워주세요</span>
 			  </a>
 			</div>
+			</c:if>
 				<!-- end row -->
 
 				<!-- section ＞ container 안에 class가 invis1인 hr 태그를 넣으시면, 가로로 큰 공백이 생깁니다. 이 태그를 여러 개를 넣으면 그만큼 공백 높이가 더 높아집니다. -->
@@ -140,13 +151,6 @@
 		</section>
 		<!-- end section -->
 		
-
-
-
-
-
-
-
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
@@ -160,6 +164,39 @@
 	<script src="js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	<script src="js/moment.min.js"></script>
+	
+	<script>
+		// moment와 jQuery로 날짜 가져와서 요일값 추출하기
+		// c.regDate 값에서 날짜 정보를 추출
+		// jQuery를 쓰기 위해서는 class명으로 호출한다.
+		const date = moment($(".regdate"));
+		console.log(date);
+		
+		// 요일을 표시하는 문자열을 생성한다.
+		const dayOfWeek = date.format('dddd');
+		console.log(dayOfWeek);
+		
+		// 한국어로 번역된 요일을 표시하는 문자열을 생성한다다.
+		const dayOfWeekKorean = {
+		  'Sunday': '일요일',
+		  'Monday': '월요일',
+		  'Tuesday': '화요일',
+		  'Wednesday': '수요일',
+		  'Thursday': '목요일',
+		  'Friday': '금요일',
+		  'Saturday': '토요일'
+		}[dayOfWeek];
+		
+		// 결과를 출력해보고!
+		console.log(dayOfWeekKorean); // 예: "목요일"
+		
+		//특정 클래스에 값을 집어넣어줘. 값을 집어넣기위해 html에 span class를 만들어줬다. 그 장소에 집어넣어달라고.
+		$(".dayinKorean").text(dayOfWeekKorean);
+		console.log($(".dayinKorean").text(dayOfWeekKorean));
+	
+		//참고로 input인경우에는 감싸는 괄호가 없다. 그때는 text가 아니라  value를 의미하는 val을 쓴다. val() : 읽어온다., val(매개변수) : 값을 준다. 
+	
+	</script>
 
 </body>
 </html>
