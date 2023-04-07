@@ -10,6 +10,7 @@
 		<typeAlias type="kr.co.carpool.model.vo.Carpool" alias="c"/>
 		<typeAlias type="kr.co.carpool.model.vo.CarpoolFilter" alias="cf"/>
 		<typeAlias type="kr.co.carpool.model.vo.Passenger" alias="p"/>
+		<typeAlias type="kr.co.carpool.model.vo.CarpoolMatch" alias="match"/>
 		<typeAlias type="kr.co.house.model.vo.House" alias="h"/>			<!-- House      as h -->
 		<typeAlias type="kr.co.lesson.model.vo.Lesson" alias="l"/>			<!-- Lesson     as l -->
 		<typeAlias type="kr.co.lesson.model.vo.LessonBook" alias="lb"/>	 	<!-- LessonBook as lb -->
