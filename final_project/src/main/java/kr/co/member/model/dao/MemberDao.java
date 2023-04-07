@@ -29,6 +29,30 @@ public class MemberDao {
 		public Member idChk(String memberId) {
 			return sqlSession.selectOne("member.idChk",memberId);
 		}
+
+		public Member findMemberId(Member m) {
+			return sqlSession.selectOne("member.findMemberId",m);
+		}
+
+		public Member beforePwMember(Member m) {
+			return sqlSession.selectOne("member.beforePwMember",m);
+		}
+
+		public int updatePwMember(Member m) {
+			return sqlSession.update("member.updatePwMember",m);
+		}
+
+		public int sellerApplication(int memberNo) {
+			return sqlSession.insert("member.sellerApplication",memberNo);
+		}
+
+		public int cancelSeller(int memberNo) {
+			return sqlSession.delete("member.cancelSeller",memberNo);
+		}
+
+		public Member selectSellerApplication(int memberNo) {
+			return sqlSession.selectOne("member.selectSellerApplication",memberNo);
+		}
 		
 		
 }

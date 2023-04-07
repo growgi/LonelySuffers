@@ -54,9 +54,9 @@
 							<span id="pwChkSpan"></span><br>
 							<label for="memberName">이름</label><br>
 							<input type="text" name="memberName" id="memberName" class="longinput" required placeholder="이름"><br><br>
-							<label for="memberName">전화번호</label><br>
+							<label for="memberPhone">전화번호</label><br>
 							<input type="text" name="memberPhone" id="memberPhone" class="longinput" required placeholder="010-0000-0000"><br><br>
-							<label for="memberName">이메일</label><br>
+							<label for="email1">이메일</label><br>
 							<input type="text" name="email1" class="email1" id="email1"><span>@</span><input type="text" class="email2" name="email2" id="email2"><select class="emailSelect">
 								<option value="">직접입력</option>
 								<option value="naver.com">naver.com</option>
