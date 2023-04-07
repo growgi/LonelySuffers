@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.carpool.model.vo.Carpool;
+import kr.co.carpool.model.vo.Passenger;
 
 @Repository
 public class CarpoolDao {
@@ -27,6 +28,11 @@ public class CarpoolDao {
 	public ArrayList<Carpool> filterCarpool() {
 		List list = sqlSession.selectList("carpool.filterCapool");
 		return (ArrayList<Carpool>)list;
+	}
+
+	public int insertPassenger(Passenger passenger) {
+		int result= sqlSession.insert("passenger.insertPassenger", passenger);
+		return result;
 	}
 
 }

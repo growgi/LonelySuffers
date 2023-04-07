@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import kr.co.carpool.model.service.CarpoolService;
 import kr.co.carpool.model.vo.Carpool;
+import kr.co.carpool.model.vo.Passenger;
 
 @Controller
 public class CarpoolController {
@@ -44,7 +45,7 @@ public class CarpoolController {
 	}
 	
 	//운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
-	//카풀 페이지는 누구에게나 뜨지만 등록은 가입된 회원만 할 수 있도록
+	//카풀 페이지는 누구에게나 뜨지만 등록은 가입된 회원만 할 수 있도록 <c:if test="${not empty sessionScope.m }">	써서 만든다.
 	
 	
 	//ajax로 필터 값 적용하기 filterSearch.do
@@ -57,6 +58,18 @@ public class CarpoolController {
 		System.out.println(result);
 		return result;
 	}
+	//carpoolRequest.jsp에서 '태워주세요' 누르면 guest 테이블에 insert
+	@RequestMapping(value="/carpoolMatch.do")
+	public String carpoolMatch(Passenger passenger) {
+		System.out.println(passenger);
+		int result = service.insertPassenger(passenger);
+		if(result>0) {
+			return "redirect:/";
+		}else {
+			return "carpool/carpoolRequest";
+		}
+		
+	}
 
 	
 	//운전자의 내 카풀 리스트 보기!!!
@@ -65,9 +78,6 @@ public class CarpoolController {
 	public String mycarpoolDriver() {
 		return "carpool/driverPage";
 	}
-	
-
-	
 	
 	//탑승자의 내 카풀 리스트 보기!!!
 	//탑승자의 카풀 수락, 거절 관리하기

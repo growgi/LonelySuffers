@@ -148,12 +148,12 @@
 			
 						<c:choose>
 							<c:when test="${not empty sessionScope.m }">
-							<li><a href="/myPage.do">마이페이지</a></li>
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/logout.do"> 로그아웃</a></li>
+								<li><a href="/myPage.do">마이페이지</a></li>
+								<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/logout.do"> 로그아웃</a></li>
 							</c:when>
 							<c:otherwise>
-							<li class="lastlink hidden-xs hidden-sm" "><a class="btn btn-primary" href="/loginFrm.do">
-							<img alt="login" src="/images/login(1).png" style="width:25px; length:25px; margin-right:5px;">로그인</a></li>
+								<li class="lastlink hidden-xs hidden-sm" "><a class="btn btn-primary" href="/login.do">
+								<img alt="login" src="/images/login(1).png" style="width:25px; length:25px; margin-right:5px;">로그인</a></li>
 							</c:otherwise>
 						</c:choose>
 								

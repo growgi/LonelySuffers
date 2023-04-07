@@ -31,11 +31,13 @@
 		member_gender as driverGender,
 		reg_date as regDate,
 		carpool_no as carpoolNo,
+		departure_date as departureDate,
 		departure_region as departureRegion,
 		departure_district as departureDistrict,
 		arrival_region as arrivalRegion,
 		arrival_district as arrivalDistrict,
-		capacity as capacity
+		capacity as capacity,
+		carpool_price as carpoolPrice
 		from carpool
 		left join member_tbl on(member_no=driver_no) 
 		where carpool_no=#{carpoolNo}
@@ -46,6 +48,8 @@
 		
 	
 	</select>
+	
+	
 	
  
  

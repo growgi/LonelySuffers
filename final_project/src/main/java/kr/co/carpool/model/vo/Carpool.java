@@ -27,8 +27,8 @@ public class Carpool {
 	private String driverMsg;
 	private int carpoolPrice;
 	private int surfboardRoom; //수납불가0 수납가능1
-	private String regDate;
-	private int closure; //마감0 모집중1
+	private String regDate; //(TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'))
+	private int closure; //마감0 모집중1 : 운전자가 강제 마감했는지 안했는지에 따른 변수 , 기한만료와 정원 찬것과는 상관없는 변수임.
 	private int reserved;
 	
 	

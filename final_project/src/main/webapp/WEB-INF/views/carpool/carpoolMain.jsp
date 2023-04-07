@@ -55,7 +55,7 @@
 				<div class="row">
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="carpoolMain.do">전체보기</a>
+							<a href="/carpoolMain.do">전체보기</a>
 						</p>
 					</div>
 					<div class="col-md-2">
@@ -112,17 +112,17 @@
 									<td>
 										<span style="display:none">${c.regDate }</span><img src="/capool-img/destination.png" alt="img" style="width:45px; height: 50px;">
 									</td>
-									<td data-sort-method='none'>
+									<td>
 											<div class="row onewayRound">${c.tripType }</div>
 											<div class="row region">${c.departureRegion }</div>
 											<div class="row region">${c.arrivalRegion }</div>
 									</td>
-									<td data-sort-method='none'>
+									<td>
 											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
 											<div class="row district">${c.departureDistrict }</div>
 											<div class="row district">${c.arrivalDistrict }</div>
 									</td>
-									<td data-sort-method='none'>
+									<td>
 											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
 											<div class="row">${c.reserved}/${c.capacity }</div>
 									</td>
@@ -278,9 +278,6 @@
 	<script src="js/tablesort.date.min.js"></script>
 
 
-
-
-
 	<script>
 	//모달
 	$(document).ready(function() {
@@ -312,8 +309,6 @@
 						}
 					})
 				});
-	
-	
 	
 	// 초기화 버튼 클릭 시
 	document.getElementById("reset-btn").addEventListener(
