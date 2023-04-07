@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+#details::placeholder{
+    text-align: right;
+}
+.trip{
+    
+    background-color: red;
+}
+.oneway{
+    float:left;
+    width: 400px;
+    height: 30px;
+    background-color: red;
+}

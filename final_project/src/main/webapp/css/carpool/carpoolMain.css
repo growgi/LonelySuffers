@@ -1,3 +1,10 @@
+#carpoolTable tbody tr {
+  margin-bottom: 100px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+}
+
 .onewayRound {
     display: inline-block ;
     padding: 5px 10px  ;
@@ -9,9 +16,7 @@
     background-color: #fff6bd;
     border: 1px solid white;
     border-radius: 10px;
-    cursor: pointer;
   }
-  
   .capacity {
     display: inline-block ;
     padding: 5px 10px  ;
@@ -23,7 +28,7 @@
     background-color: rgb(224, 223, 223);
     border: 1px solid white;
     border-radius: 10px;
-    cursor: pointer;
+    vertical-align: middle;
   }
   .departDate{
     font-weight: bold;
@@ -48,6 +53,96 @@
     margin-left: 5px;
     font-size: 13px;
   }
+  
+	table tr{
+	border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0 ;
+	}
+
+
+
+.onewayRound {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	color: black;
+	font-weight: bold;
+	background-color: #fff6bd;
+	border: 1px solid white;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.capacity {
+display: inline-block;
+padding: 5px 10px;
+font-size: 12px;
+font-weight: bold;
+text-align: center;
+color: black;
+font-weight: bold;
+background-color: rgb(224, 223, 223);
+border: 1px solid white;
+border-radius: 10px;
+cursor: pointer;
+}
+
+.journey {
+display: flex;
+align-items: center;
+justify-content: center;
+margin-left: 50px;
+}
+
+.journey img {
+height: 50px;
+width: 45px;
+margin-right: 10px;
+}
+
+.location-wrapper {
+height: 50px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.additional-info {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+
+.boardStorage {
+font-size: 12px;
+font-weight: bold;
+color: gray;
+}
+
+.driverMsg {
+font-size: 12px;
+font-weight: bold;
+color: gray;
+}
+
+.region {
+margin-right: 13px;
+font-weight: 600;
+}
+
+.district {
+margin-left: 5px;
+font-size: 13px;
+}
+
+.departDate {
+font-weight: bold;
+}
+
+.writeDate {
+font-weight: bold;
+}
 
   /* 모달 */
 

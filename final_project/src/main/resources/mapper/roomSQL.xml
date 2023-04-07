@@ -10,7 +10,6 @@
 		ROOM_TITLE as roomTitle,
 		ROOM_CAPA as roomCapa,
 		ROOM_NAME as roomName,
-		ROOM_PRICE as roomPrice
 		FROM ROOM WHERE ROOM_TITLE = ${roomTitle} AND ROOM_CATA = ${roomCapa} AND ROOM_ENABLE = 1
 	</select>
 
@@ -25,7 +24,6 @@
 		<result column="MEMBER_ID" property="memberId"></result>
 		<result column="ROOM_NAME" property="roomName"></result>
 		<result column="ROOM_DESCRIPTION" property="roomDescription"></result>
-		<result column="ROOM_PRICE" property="roomPrice"></result>
 		<result column="ROOM_ENABLE" property="roomEnable"></result>
 	</resultMap>
 
