@@ -47,7 +47,7 @@
 						</c:forEach>
 					</table>
 					<div>
-						<div class="pagination" style="text-align: center;" colspan="4">${pageNavi }</div>
+						<div style="text-align: center;">${pageNavi }</div>
 					</div>
 				</div>
 			</div>
