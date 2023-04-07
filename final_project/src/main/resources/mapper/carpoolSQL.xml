@@ -23,11 +23,12 @@
  		USING (CARPOOL_NO)
 	</select>
 	
-
+<!-- 한개의 카풀 조회(상세페이지용) -->
 	<select id="selectOneCarpool" parameterType="c" resultType="c">
 	select
 		driver_no as driverNo,
-		member_gender as memberGender,
+		member_name as driverName,
+		member_gender as driverGender,
 		reg_date as regDate,
 		carpool_no as carpoolNo,
 		departure_region as departureRegion,
@@ -38,6 +39,12 @@
 		from carpool
 		left join member_tbl on(member_no=driver_no) 
 		where carpool_no=#{carpoolNo}
+	</select>
+	
+<!-- 필터링으로 카풀 검색결과 조회 -->
+	<select id="filterCapool" parameterType="c" resultType="c">
+		
+	
 	</select>
 	
  

@@ -92,6 +92,16 @@ public class NoticeService {
 		return result;
 	}
 
+	public ArrayList<FileVO> deleteNotice(int noticeNo) {
+		ArrayList<FileVO> fileList = dao.selectFileList(noticeNo);
+		int result = dao.deleteNotice(noticeNo);
+		if(result > 0) {
+			return fileList;
+		}else {
+			return null;
+		}
+	}
+
 	
 }
 

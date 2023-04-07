@@ -24,4 +24,9 @@ public class CarpoolDao {
 		return c;
 	}
 
+	public ArrayList<Carpool> filterCarpool() {
+		List list = sqlSession.selectList("carpool.filterCapool");
+		return (ArrayList<Carpool>)list;
+	}
+
 }

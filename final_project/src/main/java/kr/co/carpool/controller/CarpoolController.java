@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import kr.co.carpool.model.service.CarpoolService;
 import kr.co.carpool.model.vo.Carpool;
@@ -28,9 +31,9 @@ public class CarpoolController {
 		Carpool c = service.selectOneCarpool(carpool);
 		if(c!=null) {
 			model.addAttribute("c", c);
-			return "carpool/carpoolMain";
+			return "carpool/carpoolRequest";
 		}else {
-			return "redirect:/";			
+			return "carpool/carpoolMain";			
 		}
 		
 	}
@@ -44,23 +47,30 @@ public class CarpoolController {
 	//카풀 페이지는 누구에게나 뜨지만 등록은 가입된 회원만 할 수 있도록
 	
 	
-	//필터 값 적용하기 filterSearch.do
-	@RequestMapping(value="/filterSearch.do")
-	public String filtering() {
-		return null;
-		
+	//ajax로 필터 값 적용하기 filterSearch.do
+	@ResponseBody
+	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
+	public String filterCarpool() {
+		ArrayList<Carpool> list = service.filterCarpool();
+		Gson gson = new Gson();
+		String result= gson.toJson(list);
+		System.out.println(result);
+		return result;
 	}
 
 	
-	
 	//운전자의 내 카풀 리스트 보기!!!
+	//운전자의 카풀 수락, 거절, 마감 등 관리하기
 	@RequestMapping(value="/driverPage.do")
 	public String mycarpoolDriver() {
 		return "carpool/driverPage";
 	}
 	
+
+	
 	
 	//탑승자의 내 카풀 리스트 보기!!!
+	//탑승자의 카풀 수락, 거절 관리하기
 		@RequestMapping(value="/passengerPage.do")
 		public String mycarpoolPassenger() {
 			return "carpool/passengerPage";

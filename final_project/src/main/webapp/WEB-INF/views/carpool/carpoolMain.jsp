@@ -52,8 +52,7 @@
 		<section class="section"
 			style="padding-top: 50px; padding-bottom: 10px;">
 			<div class="container">
-				<div class="row"
-					style="border-bottom: 2.5px solid rgba(101, 112, 123, 0.833);">
+				<div class="row">
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">
 							<a href="carpoolMain.do">전체보기</a>
@@ -72,7 +71,7 @@
 					<div class="menu" style="float: right;">
 						<a href="/carpoolOfferForm.do"> <span
 							class="material-symbols-outlined edit">edit_note</span>
-						</a> <span class="material-symbols-outlined filter"
+						</a><span class="material-symbols-outlined filter"
 							style="display: inline-block; width: 50px; height: 30px;">filter_alt</span>
 					</div>
 				</div>
@@ -94,21 +93,21 @@
 			<div class="container">
 				<div class="row">
 					<table id="carpoolTable" class="tablesorter"
-						style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0;">
+						style="border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
 						<thead>
 							<tr>
-								<th data-sort-method='date' style="width:15%;">출발일</th>
-								<th data-sort-method='date' style="width:10%">등록일</th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
+								<th data-sort-method='thead' style="width:20%;">출발일</th>
+								<th data-sort-method='thead' style="width:10%">등록일</th>
+								<th data-sort-method='none' style="width:20%"></th>
+								<th data-sort-method='none' style="width:30%"></th>
+								<th data-sort-method='none' style="width:10%"></th>
+								<th data-sort-method='none' style="width:10%"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- 얘네들이 반복돼야해!! Carpool list all -->
 							<c:forEach items="${list }" var="c">
-								<tr style="cursor: pointer;" onclick="location.href=/carpoolRequest.do?${c.carpoolNo}">
+								<tr style="cursor: pointer;" onclick="location.href='/carpoolRequest.do?carpoolNo=${c.carpoolNo}'">
 									<td >${c.departureDate }</td>
 									<td>
 										<span style="display:none">${c.regDate }</span><img src="/capool-img/destination.png" alt="img" style="width:45px; height: 50px;">
@@ -120,10 +119,13 @@
 									</td>
 									<td data-sort-method='none'>
 											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
-											<div class="row">${c.departureDistrict }</div>
-											<div class="row">${c.arrivalDistrict }</div>
+											<div class="row district">${c.departureDistrict }</div>
+											<div class="row district">${c.arrivalDistrict }</div>
 									</td>
-									<td data-sort-method='none'>${c.reserved}/${c.capacity }</td>
+									<td data-sort-method='none'>
+											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
+											<div class="row">${c.reserved}/${c.capacity }</div>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -287,6 +289,32 @@
 		});
 	});
 	
+	//필터링으로 검색하는 ajax
+	$(".filter").on("click", function(){
+					$.ajax({
+						url : "/filterCarpool.do",
+						success : function(data){
+							//console.log(data);
+							$("#ajaxResult").empty(); //버튼을 여러번 누를 수 있으니까
+							const table = $("<table>");
+							const titleTr = $("<tr>");
+							titleTr.html("<th>번호</th><th>이름</th><th>전화번호</th>");
+							table.append(titleTr);
+							for(let i=0; i<data.length; i++){
+								const tr = $("<tr>");
+								tr.append("<td>"+data[i].memberNo+"</td>");
+								tr.append("<td>"+data[i].memberId+"</td>");
+								tr.append("<td>"+data[i].memberName+"</td>");
+								tr.append("<td>"+data[i].memberPhone+"</td>");
+								table.append(tr)
+							}
+							$("#ajaxResult").append(table);
+						}
+					})
+				});
+	
+	
+	
 	// 초기화 버튼 클릭 시
 	document.getElementById("reset-btn").addEventListener(
 			"click",
@@ -341,8 +369,11 @@
 		var cellName = row.insertCell(0);	
 		cellName.innerHTML = 0;
 		refresh.refresh();
+		
 
 		//리스트 5개씩 보이게 하기
+		
+		
 
 
 		

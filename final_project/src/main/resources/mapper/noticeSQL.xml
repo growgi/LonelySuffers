@@ -64,6 +64,12 @@
      <delete id="deleteFile" parameterType="f">
      	delete from file_tbl where file_no = #{fileNo}
      </delete>
+     
+         
+     <delete id="deleteNotice" parameterType="_int">
+		delete from notice where notice_no = #{noticeNo}     	
+     </delete>
+     
 </mapper>
 
 

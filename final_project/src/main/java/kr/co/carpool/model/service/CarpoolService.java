@@ -21,4 +21,8 @@ public class CarpoolService {
 		return dao.selectOneCarpool(carpool);
 	}
 
+	public ArrayList<Carpool> filterCarpool() {
+		return dao.filterCarpool();
+	}
+
 }
