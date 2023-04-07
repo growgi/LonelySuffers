@@ -87,7 +87,7 @@
 						</div>
 						<div>
 							<button>관심상품</button>
-							<button type="button" data-toggle="modal" data-target="#myModal" id="goBooking">예약하기</button>
+							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 						</div>
 					</div>
 					<!-- end col -->
@@ -102,7 +102,7 @@
 
 
 <!-- 예약 진행용 Modal -->
-  <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
+  <div class="modal fade bd-example-modal-lg" id="bookingModal" role="dialog">
     <div class="modal-dialog modal-lg">
     
       <!-- Modal content-->
@@ -279,7 +279,6 @@
 						},
 				// 드롭다운 input이 특정 객실일이 아니라, "객실을 먼저 선택해주세요"에 focus 되었을 때 처리를  ajax error에서 처리함 
 					error : function(){
-						invalidDates = null;	// 객체 초기화
 						console.log("객실을 먼저 선택해주세요에 focus됨");
 						$(".daterangepicker").remove();
 						$("#bookStart").val("");
