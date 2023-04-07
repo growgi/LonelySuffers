@@ -107,5 +107,22 @@
         $(".product-choice>div").first().click();
     });
 
+    /*강습 체크박스 전체 선택*/
+    $(".lesson-all-check").on("click",function(){
+        if($(".lesson-all-check").is(":checked")) {
+            $(".lesson-check").prop("checked", true)
+        } else {
+            $(".lesson-check").prop("checked", false)
+        }
+    });
+    
+    /*숙박 체크박스 전체 선택*/
+    $(".house-all-check").on("click",function(){
+        if($(".house-all-check").is(":checked")) {
+            $(".house-check").prop("checked", true)
+        } else {
+            $(".house-check").prop("checked", false)
+        }
+    });
 </script>
 </html>

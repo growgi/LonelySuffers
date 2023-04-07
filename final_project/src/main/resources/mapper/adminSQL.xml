@@ -104,7 +104,8 @@
 			lesson_price as lessonPrice,
 			lesson_max_no as lessonMaxNo,
 			writer,
-			lesson_city as lessonCity
+			lesson_city as lessonCity,
+			lesson_status as lessonStatus
 		from lesson
 	</select>
 	
@@ -120,4 +121,28 @@
 			house_status as houseStatus
 		from house
 	</select>
+	
+	<select id="selectLessonCount" resultType="_int">
+		select
+			count(*)
+		from lesson
+	</select>
+	
+	<select id="selectHouseCount" resultType="_int">
+		select
+			count(*)
+		from house
+	</select>
+	
+	<update id="updateLessonStatus" parameterType="l">
+		update lesson set
+			lesson_status=#{lessonStatus}
+		where lesson_no=#{lessonNo}
+	</update>
+	
+	<update id="updateHouseStatus" parameterType="h">
+		update house set
+			house_status=#{houseStatus}
+		where house_no=#{houseNo}
+	</update>
 </mapper>

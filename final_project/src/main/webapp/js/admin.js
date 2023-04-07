@@ -5,20 +5,30 @@ $(".search-bar>input").on("click",function(){
 
 
 /*상품 선택에 따라 리스트 조회*/
-$(".product-choice>div").on("click",function(){
+$(".product-choice>div:first-of-type").on("click",function(){
     $(".product-choice>div").removeClass("active-product-choice");
     $(this).addClass("active-product-choice");
 
-    const num = $(".product-choice>div").index($(this));
+    $(".chk").prop("checked",false); //탭 이동하면 체크박스 초기화
 
     $(".list-wrapper").hide();
-    $(".list-wrapper").eq(num).show();
+    $(".list-wrapper").eq(0).show();
+});
+
+$(".product-choice>div:last-of-type").on("click",function(){
+    $(".product-choice>div").removeClass("active-product-choice");
+    $(this).addClass("active-product-choice");
+
+    $(".chk").prop("checked",false); //탭 이동하면 체크박스 초기화
+
+    $(".list-wrapper").hide();
+    $(".list-wrapper").eq(1).show();
 });
 
 
 /*상품리스트 상세설정*/
 $(".list-detail").on("click",function(){
-    $(".list-detail-box").fadeToggle(200);
+    $(".list-detail-box").toggle();
 });
 
 $(".list-detail-box>div>a").on("click",function(){

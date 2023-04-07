@@ -89,5 +89,29 @@ public class AdminDao {
 		return (ArrayList<House>)houseList;
 	}
 
+	public int selectLessonCount() {
+		int lessonCount = sqlSession.selectOne("admin.selectLessonCount");
+		
+		return lessonCount;
+	}
+
+	public int selectHouseCount() {
+		int houseCount = sqlSession.selectOne("admin.selectHouseCount");
+		
+		return houseCount;
+	}
+
+	public int updateLessonStatus(Lesson l) {
+		int result = sqlSession.update("admin.updateLessonStatus", l);
+		
+		return result;
+	}
+
+	public int updateHouseStatus(House h) {
+		int result = sqlSession.update("admin.updateHouseStatus", h);
+		
+		return result;
+	}
+
 
 }

@@ -144,12 +144,45 @@ public class AdminController {
 	public String productList(Model model) {
 		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록
 		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
+		int lessonCount = service.selectLessonCount(); //강습 상품 수
+		int houseCount = service.selectHouseCount(); //숙박 상품 수
 		
 		model.addAttribute("lessonList", lessonList);
 		model.addAttribute("houseList", houseList);
+		model.addAttribute("lessonCount", lessonCount);
+		model.addAttribute("houseCount", houseCount);
 		
 		return "admin/productList";
 	}
+	
+	//선택 상품 - 강습 상태 변경
+	@Transactional
+	@RequestMapping(value="/checkedUpdateLessonStatus.do")
+	public String checkedUpdateLessonStatus(String no, String status) {
+		boolean result = service.updateLessonStatus(no, status);
+		
+		if(result) {
+			return "redirect:/productList.do";
+		} else {
+			return "redirect:/memberList.do";
+		}
+	}
+	
+	//선택 상품 - 숙박 상태 변경
+	@Transactional
+	@RequestMapping(value="/checkedUpdateHouseStatus.do")
+	public String checkedUpdateHouseStatus(String no, String status) {
+		boolean result = service.updateHouseStatus(no, status);
+		
+		if(result) {
+			return "redirect:/productList.do";
+		} else {
+			return "redirect:/memberList.do";
+		}
+	}
+	
+	//검색
+
 	
 	@RequestMapping(value="/salesDetails.do")
 	public String salesDetails() {
