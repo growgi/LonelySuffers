@@ -20,11 +20,17 @@
 			<div class="lesson-list">
 				<form action="/adminSearchLesson.do" method="get"
 					class="search-bar" name="search-product">
-					<span class="material-symbols-outlined search-icon">search</span> 
+					<select name="searchType" class="search-type">
+						<option value="n">강습명</option>
+						<option value="s">판매자</option>
+						<option value="le">강습레벨</option>
+						<option value="lo">지역</option>
+					</select>
 					<input
 						type="text" placeholder="강습명 또는 판매자로 검색" name="searchLesson"
 						onkeyup="enterkey();"> <input type="submit"
 						style="display: none;">
+					<span class="material-symbols-outlined search-icon">search</span> 
 				</form>
 				<div class="table-content">
 					<div class="product-choice">
@@ -168,8 +174,7 @@
 						</div>
 						<div class="list-bottom">
 							<div>
-								<input type="submit" value="선택 상품 상태 변경"
-									class="checkedUpdateHouseStatus btn bc1">
+								<button class="checkedUpdateHouseStatus btn bc1">선택 상품 상태 변경</button>
 							</div>
 						</div>
 					</div>

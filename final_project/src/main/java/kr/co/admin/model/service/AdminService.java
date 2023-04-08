@@ -229,12 +229,114 @@ public class AdminService {
 			result = dao.updateHouseStopSelling(no);
 		}
 		
-		return 0;
+		return result;
 	}
 
 	public ArrayList<Lesson> selectSearchLesson(String searchLesson) {
 		
 		return dao.selectSearchLesson(searchLesson);
+	}
+
+	public int updateApproveProduct(int productType, int productNo) {
+		int result = 0;
+		
+		if(productType == 1) {
+			//강습
+			result = dao.updateApproveLesson(productNo); //해당 상품 상태 1로 변경
+			
+		} else if(productType == 2) {
+			//숙박
+			result = dao.updateApproveHouse(productNo);
+		}
+		
+		return result;
+	}
+
+	public boolean updateCheckedApproveProduct(int productType, String no) {
+		//no 구분자 "/" 분리
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		
+		boolean result = true;
+		
+		if(productType == 1) {
+			while(sT1.hasMoreTokens()) {
+				int lessonNo = Integer.parseInt(sT1.nextToken());
+				
+				int changeResult = dao.updateApproveLesson(lessonNo); //상품 상태 변경
+				
+				if(changeResult == 0) {
+					//실패
+					result = false;
+					break;
+				}
+			}
+			
+		} else if(productType == 2) {
+			while(sT1.hasMoreTokens()) {
+				int houseNo = Integer.parseInt(sT1.nextToken());
+				
+				int changeResult = dao.updateApproveHouse(houseNo); //상품 상태 변경
+				
+				if(changeResult == 0) {
+					//실패
+					result = false;
+					break;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public int updateReturnProduct(int productType, int productNo) {
+		int result = 0;
+		
+		if(productType == 1) {
+			//강습
+			result = dao.updateReturnLesson(productNo); //해당 상품 상태 1로 변경
+			
+		} else if(productType == 2) {
+			//숙박
+			result = dao.updateReturnHouse(productNo);
+		}
+		
+		return result;
+	}
+
+	public boolean updateCheckedReturnProduct(int productType, String no) {
+		//no 구분자 "/" 분리
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		
+		boolean result = true;
+		
+		if(productType == 1) {
+			while(sT1.hasMoreTokens()) {
+				int lessonNo = Integer.parseInt(sT1.nextToken());
+				
+				int changeResult = dao.updateReturnLesson(lessonNo); //상품 상태 변경
+				
+				if(changeResult == 0) {
+					//실패
+					result = false;
+					break;
+				}
+			}
+			
+		} else if(productType == 2) {
+			while(sT1.hasMoreTokens()) {
+				int houseNo = Integer.parseInt(sT1.nextToken());
+				
+				int changeResult = dao.updateReturnHouse(houseNo); //상품 상태 변경
+				
+				if(changeResult == 0) {
+					//실패
+					result = false;
+					break;
+				}
+			}
+		}
+
+		return result;
 	}
 
 

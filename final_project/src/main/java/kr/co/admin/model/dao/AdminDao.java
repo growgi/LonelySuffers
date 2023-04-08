@@ -155,5 +155,28 @@ public class AdminDao {
 		return (ArrayList<Lesson>)searchLessonList;
 	}
 
+	public int updateApproveLesson(int productNo) {
+		int result = sqlSession.update("admin.updateApproveLesson", productNo);
+		
+		return result;
+	}
+
+	public int updateApproveHouse(int productNo) {
+		int result = sqlSession.update("admin.updateApproveHouse", productNo);
+		
+		return result;
+	}
+
+	public int updateReturnLesson(int productNo) {
+		int result = sqlSession.update("admin.updateReturnLesson", productNo);
+		
+		return result;
+	}
+
+	public int updateReturnHouse(int productNo) {
+		int result = sqlSession.update("admin.updateReturnHouse", productNo);
+		
+		return result;
+	}
 
 }

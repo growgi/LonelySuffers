@@ -147,7 +147,55 @@ public class AdminController {
 		return "admin/newProduct";
 	}
 
+	//승인
+	@RequestMapping(value="/approveProduct.do")
+	public String approveProduct(int productType, int productNo) {
+		//상품 1개
+		int result = service.updateApproveProduct(productType, productNo);
+		
+		if(result>0) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
 	
+	@RequestMapping(value="/checkedApproveProduct.do")
+	public String checkedApproveProduct(int productType, String no) {
+		//체크된 상품
+		boolean result = service.updateCheckedApproveProduct(productType, no);
+		
+		if(result) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
+	
+	//반려
+	@RequestMapping(value="/returnProduct.do")
+	public String returnProduct(int productType, int productNo) {
+		//상품 1개
+		int result = service.updateReturnProduct(productType, productNo);
+		
+		if(result>0) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
+	
+	@RequestMapping(value="/checkedReturnProduct.do")
+	public String checkedReturnProduct(int productType, String no) {
+		//체크된 상품
+		boolean result = service.updateCheckedReturnProduct(productType, no);
+		
+		if(result) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
 	
 	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productList.do")
@@ -205,15 +253,22 @@ public class AdminController {
 	
 	//검색
 	@RequestMapping(value="/adminSearchLesson.do")
-	public String adminSearchLesson(String searchLesson) {
+	public String adminSearchLesson(String searchType, String searchLesson, Model model) {
 		//강습
-		ArrayList<Lesson> searchLessonList = service.selectSearchLesson(searchLesson);
+		ArrayList<Lesson> lessonList = service.selectSearchLesson(searchLesson);
 		
+		if(!lessonList.isEmpty()) {
+			model.addAttribute("lessonList", lessonList);
+			return "redirect:/productList.do";
+		} else {
+			return "redirect:/newProduct.do";
+		}
 	}
 	
+	/*5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
 	public String salesDetails() {
-		
+		ArrayList<Order>
 		return "admin/salesDetails";
 	}
 	
