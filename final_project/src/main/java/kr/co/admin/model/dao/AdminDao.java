@@ -113,5 +113,47 @@ public class AdminDao {
 		return result;
 	}
 
+	public ArrayList<Lesson> selectNewLesson() {
+		List lessonList = sqlSession.selectList("admin.selectNewLesson");
+		
+		return (ArrayList<Lesson>)lessonList;
+	}
+
+	public ArrayList<House> selectNewHouse() {
+		List houseList = sqlSession.selectList("admin.selectNewHouse");
+		
+		return (ArrayList<House>)houseList;
+	}
+
+	public int selectNewLessonCount() {
+		int newLessonCount = sqlSession.selectOne("admin.selectNewLessonCount");
+		
+		return newLessonCount;
+	}
+
+	public int selectNewHouseCount() {
+		int newHouseCount = sqlSession.selectOne("admin.selectNewHouseCount");
+
+		return newHouseCount;
+	}
+
+	public int updateLessonStopSelling(int no) {
+		int result = sqlSession.update("admin.updateLessonStopSelling", no);
+		
+		return result;
+	}
+
+	public int updateHouseStopSelling(int no) {
+		int result = sqlSession.update("admin.updateHouseStopSelling", no);
+		
+		return result;
+	}
+
+	public ArrayList<Lesson> selectSearchLesson(String searchLesson) {
+		List searchLessonList = sqlSession.selectList("admin.selectSearchLesson",searchLesson);
+		
+		return (ArrayList<Lesson>)searchLessonList;
+	}
+
 
 }

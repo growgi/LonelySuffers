@@ -199,6 +199,44 @@ public class AdminService {
 		return result;
 	}
 
+	public ArrayList<Lesson> selectNewLesson() {
+		
+		return dao.selectNewLesson();
+	}
+
+	public ArrayList<House> selectNewHouse() {
+		
+		return dao.selectNewHouse();
+	}
+
+	public int selectNewLessonCount() {
+		
+		return dao.selectNewLessonCount();
+	}
+
+	public int selectNewHouseCount() {
+
+		return dao.selectNewHouseCount();
+	}
+
+	public int updateProductStopSelling(int no, int productType) {
+		int result = 0;
+		
+		if(productType == 1) {
+			result = dao.updateLessonStopSelling(no);
+			
+		} else if(productType == 2) {
+			result = dao.updateHouseStopSelling(no);
+		}
+		
+		return 0;
+	}
+
+	public ArrayList<Lesson> selectSearchLesson(String searchLesson) {
+		
+		return dao.selectSearchLesson(searchLesson);
+	}
+
 
 	
 }

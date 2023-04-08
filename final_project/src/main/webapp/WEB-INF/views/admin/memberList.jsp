@@ -21,8 +21,8 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
         <div>
-            <form action="/adminSearchMember.do" method="get" id="frm" class="search-bar" name="searchMember">
-                <span class="material-symbols-outlined search-icon" onclick="document.getElementById('frm').submit();">search</span>
+            <form action="/adminSearchMember.do" method="get" class="search-bar" name="searchMember">
+                <span class="material-symbols-outlined search-icon">search</span>
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
                 <input type="submit" style="display:none;">
             </form>

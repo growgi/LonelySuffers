@@ -2,9 +2,7 @@
     position: relative;
 }
 
-.product-wrapper>div>div{
-	display: flex;
-	
+.table-content{
 }
 
 .list-wrapper{

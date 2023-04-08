@@ -7,22 +7,22 @@ $(".search-bar>input").on("click",function(){
 /*상품 선택에 따라 리스트 조회*/
 $(".product-choice>div:first-of-type").on("click",function(){
     $(".product-choice>div").removeClass("active-product-choice");
-    $(this).addClass("active-product-choice");
+    $(".product-choice>div:first-of-type").addClass("active-product-choice");
 
     $(".chk").prop("checked",false); //탭 이동하면 체크박스 초기화
 
-    $(".list-wrapper").hide();
-    $(".list-wrapper").eq(0).show();
+    $(".house-list").hide();
+    $(".lesson-list").show();
 });
 
 $(".product-choice>div:last-of-type").on("click",function(){
     $(".product-choice>div").removeClass("active-product-choice");
-    $(this).addClass("active-product-choice");
+    $(".product-choice>div:last-of-type").addClass("active-product-choice");
 
     $(".chk").prop("checked",false); //탭 이동하면 체크박스 초기화
 
-    $(".list-wrapper").hide();
-    $(".list-wrapper").eq(1).show();
+    $(".lesson-list").hide();
+    $(".house-list").show();
 });
 
 
