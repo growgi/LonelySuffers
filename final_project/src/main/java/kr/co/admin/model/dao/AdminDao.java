@@ -89,5 +89,71 @@ public class AdminDao {
 		return (ArrayList<House>)houseList;
 	}
 
+	public int selectLessonCount() {
+		int lessonCount = sqlSession.selectOne("admin.selectLessonCount");
+		
+		return lessonCount;
+	}
+
+	public int selectHouseCount() {
+		int houseCount = sqlSession.selectOne("admin.selectHouseCount");
+		
+		return houseCount;
+	}
+
+	public int updateLessonStatus(Lesson l) {
+		int result = sqlSession.update("admin.updateLessonStatus", l);
+		
+		return result;
+	}
+
+	public int updateHouseStatus(House h) {
+		int result = sqlSession.update("admin.updateHouseStatus", h);
+		
+		return result;
+	}
+
+	public ArrayList<Lesson> selectNewLesson() {
+		List lessonList = sqlSession.selectList("admin.selectNewLesson");
+		
+		return (ArrayList<Lesson>)lessonList;
+	}
+
+	public ArrayList<House> selectNewHouse() {
+		List houseList = sqlSession.selectList("admin.selectNewHouse");
+		
+		return (ArrayList<House>)houseList;
+	}
+
+	public int selectNewLessonCount() {
+		int newLessonCount = sqlSession.selectOne("admin.selectNewLessonCount");
+		
+		return newLessonCount;
+	}
+
+	public int selectNewHouseCount() {
+		int newHouseCount = sqlSession.selectOne("admin.selectNewHouseCount");
+
+		return newHouseCount;
+	}
+
+	public int updateLessonStopSelling(int no) {
+		int result = sqlSession.update("admin.updateLessonStopSelling", no);
+		
+		return result;
+	}
+
+	public int updateHouseStopSelling(int no) {
+		int result = sqlSession.update("admin.updateHouseStopSelling", no);
+		
+		return result;
+	}
+
+	public ArrayList<Lesson> selectSearchLesson(String searchLesson) {
+		List searchLessonList = sqlSession.selectList("admin.selectSearchLesson",searchLesson);
+		
+		return (ArrayList<Lesson>)searchLessonList;
+	}
+
 
 }

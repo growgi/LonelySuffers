@@ -133,10 +133,20 @@ public class AdminController {
 	
 	/**3. 신규 상품 승인*/
 	@RequestMapping(value="/newProduct.do")
-	public String newProduct() {
+	public String newProduct(Model model) {
+		ArrayList<Lesson> lessonList = service.selectNewLesson(); //신규 강습 상품 목록
+		ArrayList<House> houseList = service.selectNewHouse(); //신규 숙박 상품 목록
+		int newLessonCount = service.selectNewLessonCount(); //신규 강습 상품 수
+		int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
+		
+		model.addAttribute("lessonList", lessonList);
+		model.addAttribute("houseList", houseList);
+		model.addAttribute("newLessonCount", newLessonCount);
+		model.addAttribute("newHouseCount", newHouseCount);
 		
 		return "admin/newProduct";
 	}
+
 	
 	
 	/**4. 등록된 상품 관리*/
@@ -144,11 +154,61 @@ public class AdminController {
 	public String productList(Model model) {
 		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록
 		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
+		int lessonCount = service.selectLessonCount(); //강습 상품 수
+		int houseCount = service.selectHouseCount(); //숙박 상품 수
 		
 		model.addAttribute("lessonList", lessonList);
 		model.addAttribute("houseList", houseList);
+		model.addAttribute("lessonCount", lessonCount);
+		model.addAttribute("houseCount", houseCount);
 		
 		return "admin/productList";
+	}
+	
+	//선택 상품 - 강습 상태 변경
+	@Transactional
+	@RequestMapping(value="/checkedUpdateLessonStatus.do")
+	public String checkedUpdateLessonStatus(String no, String status) {
+		boolean result = service.updateLessonStatus(no, status);
+		
+		if(result) {
+			return "redirect:/productList.do";
+		} else {
+			return "redirect:/memberList.do";
+		}
+	}
+	
+	//선택 상품 - 숙박 상태 변경
+	@Transactional
+	@RequestMapping(value="/checkedUpdateHouseStatus.do")
+	public String checkedUpdateHouseStatus(String no, String status) {
+		boolean result = service.updateHouseStatus(no, status);
+		
+		if(result) {
+			return "redirect:/productList.do";
+		} else {
+			return "redirect:/memberList.do";
+		}
+	}
+	
+	//상품 판매 중지 (1개)
+	@RequestMapping(value="/productStopSelling.do")
+	public String productStopSelling(int no, int productType) {
+		int result = service.updateProductStopSelling(no, productType);
+		
+		if(result>0) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
+	
+	//검색
+	@RequestMapping(value="/adminSearchLesson.do")
+	public String adminSearchLesson(String searchLesson) {
+		//강습
+		ArrayList<Lesson> searchLessonList = service.selectSearchLesson(searchLesson);
+		
 	}
 	
 	@RequestMapping(value="/salesDetails.do")

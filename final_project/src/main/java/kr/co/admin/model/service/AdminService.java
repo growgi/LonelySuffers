@@ -135,6 +135,108 @@ public class AdminService {
 		return dao.selectAllHouse();
 	}
 
+	public int selectLessonCount() {
+		
+		return dao.selectLessonCount();
+	}
+
+	public int selectHouseCount() {
+		
+		return dao.selectHouseCount();
+	}
+
+	public boolean updateLessonStatus(String no, String status) {
+		//no, status 구분자 "/" 분리
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		StringTokenizer sT2 = new StringTokenizer(status,"/");
+		
+		boolean result = true;
+		Lesson l = new Lesson();
+		
+		while(sT1.hasMoreTokens()) {
+			int lessonNo = Integer.parseInt(sT1.nextToken());
+			int lessonStatus = Integer.parseInt(sT2.nextToken());
+			
+			l.setLessonNo(lessonNo);
+			l.setLessonStatus(lessonStatus);
+			
+			int changeResult = dao.updateLessonStatus(l); //상품 상태 변경
+			
+			if(changeResult == 0) {
+				//실패
+				result = false;
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	public boolean updateHouseStatus(String no, String status) {
+		//no, status 구분자 "/" 분리
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		StringTokenizer sT2 = new StringTokenizer(status,"/");
+		
+		boolean result = true;
+		House h = new House();
+		
+		while(sT1.hasMoreTokens()) {
+			int houseNo = Integer.parseInt(sT1.nextToken());
+			int houseStatus = Integer.parseInt(sT2.nextToken());
+			
+			h.setHouseNo(houseNo);
+			h.setHouseStatus(houseStatus);
+			
+			int changeResult = dao.updateHouseStatus(h); //상품 상태 변경
+			
+			if(changeResult == 0) {
+				//실패
+				result = false;
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	public ArrayList<Lesson> selectNewLesson() {
+		
+		return dao.selectNewLesson();
+	}
+
+	public ArrayList<House> selectNewHouse() {
+		
+		return dao.selectNewHouse();
+	}
+
+	public int selectNewLessonCount() {
+		
+		return dao.selectNewLessonCount();
+	}
+
+	public int selectNewHouseCount() {
+
+		return dao.selectNewHouseCount();
+	}
+
+	public int updateProductStopSelling(int no, int productType) {
+		int result = 0;
+		
+		if(productType == 1) {
+			result = dao.updateLessonStopSelling(no);
+			
+		} else if(productType == 2) {
+			result = dao.updateHouseStopSelling(no);
+		}
+		
+		return 0;
+	}
+
+	public ArrayList<Lesson> selectSearchLesson(String searchLesson) {
+		
+		return dao.selectSearchLesson(searchLesson);
+	}
+
 
 	
 }
