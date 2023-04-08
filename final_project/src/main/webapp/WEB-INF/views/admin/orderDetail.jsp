@@ -124,7 +124,7 @@
                     <div class="product-box">
                         <div class="product-box-top">
                             <div class="product-title bold">개쉬운 서핑! 너도 하자</div>
-                            <div><span class="product-type">강습</span> | <span class="product-location">강원도 양양군 그 어딘가</span></div>
+                            <div><span class="product-type">강습</span> | <span class="product-location">강원도</span></div>
                         </div>
                         <div class="product-box-bottom">
                             <div class="product-img"></div>
@@ -143,20 +143,20 @@
                     </div>
                     <div class="product-box">
                         <div class="product-box-top">
-                            <div class="product-title bold">개쉬운 서핑! 너도 하자</div>
-                            <div><span class="product-type">강습</span> | <span class="product-location">강원도 양양군 그 어딘가</span></div>
+                            <div class="product-title bold">가격 실화? 멋지다 짜잔호텔</div>
+                            <div><span class="product-type">숙박</span> | <span class="product-location">강원도 양양군 그 어딘가</span></div>
                         </div>
                         <div class="product-box-bottom">
                             <div class="product-img"></div>
                             <div>
                                 <div class="product-info">
-                                    <div class="product-name bold">Level 1</div>
+                                    <div class="product-name bold">짜잔호텔</div>
                                     <div><span class="product-start-time">2023-03-12</span> ~ <span class="product-end-time">2023-03-13</span></div>
-                                    <div class="product-etc">강사명 : <span class="product-etc-val">홍길동</span></div>
+                                    <div class="product-etc">판매자 : <span class="product-etc-val">김철수</span></div>
                                 </div>
                                 <div>
                                     <div>결제완료</div>
-                                    <div class="bold"><span class="product-price">200,000</span>원</div>
+                                    <div class="bold"><span class="product-price">100,000</span>원</div>
                                 </div>
                             </div>
                         </div>

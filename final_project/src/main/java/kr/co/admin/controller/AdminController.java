@@ -75,12 +75,9 @@ public class AdminController {
 	//검색
 	@RequestMapping(value="/adminSearchMember.do")
 	public String adminSearchMember(String searchMemberId, Model model) {
-		Member searchMember = service.selectOneMember(searchMemberId);
+		ArrayList<Member> memberList = service.selectSearchMember(searchMemberId);
 		
-		ArrayList<Member> memberList = new ArrayList<Member>();
-		memberList.add(searchMember);
-		
-		if(searchMember != null) {			
+		if(memberList != null) {			
 			model.addAttribute("memberList",memberList);
 			return "admin/memberList";
 		} else {
@@ -267,21 +264,57 @@ public class AdminController {
 	
 	/*5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
-	public String salesDetails() {
-		ArrayList<Order>
+	public String salesDetails(Model model) {
+		//ArrayList<Order> orderList = service.selectAllOrder();
+		//int orderCount = service.selectOrderCount();
+		
+		//model.addAttribute("orderList", orderList);
+		//model.addAttribute("orderCount", orderCount);
+		
 		return "admin/salesDetails";
 	}
+	
+	//내역 삭제
+	/*@RequestMapping(value="/deleteOrder.do")
+	public String deleteOrder(int orderNo) {
+		//내역 1개
+		int result = service.deleteOrder(orderNo);
+		
+		if(result>0) {
+			return "redirect:/salesDetails.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
+	
+	@RequestMapping(value="/deleteCheckedOrder.do")
+	public String deleteCheckedOrder(String no) {
+		boolean result = service.deleteCheckedOrder(no);
+		
+		if(result) {
+			return "redirect:/salesDetails.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}*/
+	
+	/*6. 주문 상세*/
+	@RequestMapping(value="/orderDetail.do")
+	//public String orderDetail(int orderNo, Model model) {
+	public String orderDetail(Model model) {
+		/*ArrayList<OrderDetail> orderDetailList = service.selectOrderDetail(orderNo);
+		int orderDetailCount = service.selectOrderDetailCount(orderNo);
+		model.addAttribute("orderDetailList", orderDetailList);
+		model.addAttribute("orderDetailCount", orderDetailCount);*/
+		
+		return "admin/orderDetail";
+	}
+
 	
 	@RequestMapping(value="/wishList.do")
 	public String wishList() {
 		
 		return "member/wishList";
-	}
-	
-	@RequestMapping(value="/orderDetail.do")
-	public String orderDetail() {
-		
-		return "admin/orderDetail";
 	}
 
 }

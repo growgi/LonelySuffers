@@ -41,10 +41,10 @@ public class AdminDao {
 		return result;
 	}
 
-	public Member selectOneMember(String searchMemberId) {
-		Member searchMember = sqlSession.selectOne("admin.selectOneMember", searchMemberId);
+	public ArrayList<Member> selectSearchMember(String searchMemberId) {
+		List searchMember = sqlSession.selectList("admin.selectSearchMember", searchMemberId);
 		
-		return searchMember;
+		return (ArrayList<Member>)searchMember;
 	}
 
 	public ArrayList<Member> selectAllSellerApplication() {
@@ -178,5 +178,39 @@ public class AdminDao {
 		
 		return result;
 	}
+
+/*
+	public ArrayList<Order> selectAllOrder() {
+		List orderList = sqlSession.selectList("admin.selectAllOrder");
+		
+		return (ArrayList<Order>)orderList;
+	}
+
+	public int selectOrderCount() {
+		int orderCount = sqlSession.selectOne("admin.selectOrderCount");
+		
+		return orderCount;
+	}
+
+
+	public int deleteOrder(int orderNo) {
+		int result = sqlSession.delete("admin.deleteOrder", orderNo);
+		
+		return result;
+	}
+	
+	public ArrayList<OrderDetail> selectOrderDetail(int orderNo) {
+		List orderDetailList = sqlSession.selectList("admin.selectOrderDetail", orderNo);
+		
+		return orderDetailList;
+	}
+	
+	public int selectOrderDetailCount(int orderNo) {
+		int orderDetailCount = sqlSession.selectOne("admin.selectOrderDetailCount", orderNo);
+		
+		return orderDetailCount;
+	}
+	
+*/
 
 }

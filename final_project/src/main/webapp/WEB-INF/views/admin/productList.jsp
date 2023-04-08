@@ -26,11 +26,12 @@
 						<option value="le">강습레벨</option>
 						<option value="lo">지역</option>
 					</select>
+					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 					<input
-						type="text" placeholder="강습명 또는 판매자로 검색" name="searchLesson"
+						type="text" placeholder="검색어를 입력하세요" name="searchLesson"
 						onkeyup="enterkey();"> <input type="submit"
 						style="display: none;">
-					<span class="material-symbols-outlined search-icon">search</span> 
+					<div class="search-icon">검색</div>
 				</form>
 				<div class="table-content">
 					<div class="product-choice">
@@ -106,10 +107,18 @@
 			<div class="house-list">
 				<form action="/adminSearchHouse.do" method="get"
 					class="search-bar" name="search-product">
-					<span class="material-symbols-outlined search-icon">search</span> <input
-						type="search" placeholder="상품명 또는 판매자로 검색" name="searchProduct"
+					<select name="searchType" class="search-type">
+						<option value="n">상품명</option>
+						<option value="s">판매자</option>
+						<option value="le">숙박소 이름</option>
+						<option value="lo">지역</option>
+					</select>
+					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
+					<input
+						type="text" placeholder="검색어를 입력하세요" name="searchLesson"
 						onkeyup="enterkey();"> <input type="submit"
 						style="display: none;">
+					<div class="search-icon">검색</div>
 				</form>
 				<div class="table-content">
 					<div class="product-choice">

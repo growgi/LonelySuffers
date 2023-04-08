@@ -75,9 +75,9 @@ $(".checkedChangeGrade").on("click",function(){
 
     //체크된 체크박스 기준으로 회원아이디, 등급을 찾아서 배열에 넣는 작업
     check.each(function(index,item){
-        const memberId = $(this).parent().parent().children().eq(2).text();
+        const memberId = $(item).parent().parent().children().eq(2).text();
         id.push(memberId);
-        const memberGrade = $(this).parent().parent().find("select").val();
+        const memberGrade = $(item).parent().parent().find("select").val();
         grade.push(memberGrade);
     });
 

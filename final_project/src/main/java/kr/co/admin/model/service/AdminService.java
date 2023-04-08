@@ -81,9 +81,9 @@ public class AdminService {
 		return result;
 	}
 
-	public Member selectOneMember(String searchMemberId) {
+	public ArrayList<Member> selectSearchMember(String searchMemberId) {
 		
-		return dao.selectOneMember(searchMemberId);
+		return dao.selectSearchMember(searchMemberId);
 	}
 
 	public ArrayList<Member> selectAllSellerApplication() {
@@ -108,7 +108,7 @@ public class AdminService {
 		
 		boolean result = true;
 		
-		while(sT1.hasMoreTokens()&&sT2.hasMoreTokens()) {
+		while(sT1.hasMoreTokens()||sT2.hasMoreTokens()) {
 			String memberId = sT1.nextToken();
 			int memberNo = Integer.parseInt(sT2.nextToken());
 			
@@ -119,7 +119,7 @@ public class AdminService {
 				//실패
 				result = false;
 				break;
-			}
+			} 
 		}
 
 		return result;
@@ -339,6 +339,54 @@ public class AdminService {
 		return result;
 	}
 
+/*
+	public ArrayList<Order> selectAllOrder() {
+		
+		return dao.selectAllOrder();
+	}
 
+	public int selectOrderCount() {
+		
+		return dao.selectOrderCount();
+	}
+
+
+	public int deleteOrder(int orderNo) {
+		
+		return dao.deleteOrder(orderNo);
+	}
+
+	public boolean deleteCheckedOrder(String no) {
+		//no 구분자 "/" 분리
+		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		
+		boolean result = true;
+		
+		while(sT1.hasMoreTokens()) {
+			int orderNo = Integer.parseInt(sT1.nextToken());
+			
+			int deleteResult = dao.deleteOrder(orderNo); //상품 상태 변경
+			
+			if(deleteResult == 0) {
+				//실패
+				result = false;
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	public ArrayList<OrderDetail> selectOrderDetail(int orderNo) {
+
+		return dao.selectOrderDetail(orderNo);
+	}
 	
+	public int selectOrderDetailCount(int orderNo) {
+	
+		return dao.selectOrderDetailCount(orderNo);
+	}
+*/
+
+
 }

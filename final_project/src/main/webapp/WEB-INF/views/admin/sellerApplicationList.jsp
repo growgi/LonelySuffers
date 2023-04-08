@@ -37,7 +37,16 @@
 						    <td><input type="checkbox" name="memberCheck" class="check" value="${s.memberNo }"></td>
 						    <td>${s.memberName }</td>
 						    <td>${s.memberId }</td>
-						    <td>${s.memberGender }</td>
+						    <td>
+						    <c:choose>
+                            <c:when test="${s.memberGender == 1}">
+                            	남
+                            </c:when>
+                            <c:when test="${s.memberGender == 2}">
+                            	여
+                            </c:when>
+                            </c:choose>
+						    </td>
 						    <td>${s.memberPhone }</td>
 						    <td>${s.memberEmail }</td>
 						    <td>${s.enrollDate }</td>
@@ -65,7 +74,7 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="checkedChangeGradeSeller btn bc1">선택회원 등급변경</button>
+                        <button class="checkedChangeGradeSeller btn bc1">선택회원 판매자로 전환</button>
                     </div>
                 </div>
 	        </div>
@@ -95,10 +104,10 @@
 
         //체크된 체크박스 기준으로 회원아이디, 등급을 찾아서 배열에 넣는 작업
         check.each(function(index,item){
-            const memberId = $(this).parent().parent().children().eq(2).text();
+            const memberId = $(item).parent().parent().children().eq(2).text();
             id.push(memberId);
             
-            const checkMemberNo = check.val();
+            const checkMemberNo = $(item).val();
             no.push(checkMemberNo);
         });
 
