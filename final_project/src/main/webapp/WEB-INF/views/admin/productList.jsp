@@ -302,6 +302,5 @@
 						+ "&productType=" + productType;
 			});
 
-	$(".")
 </script>
 </html>

@@ -100,6 +100,26 @@
 		where member_no=#{memberNo}
 	</delete>
 	
+	<select id="selectSearchLesson" parameterType="s" resultType="l">
+		select
+			*
+		from lesson
+		<choose>
+			<when test="searchType.equals('n')">
+				where lesson_title='%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('s')">
+				where writer='%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('le')">
+				where lesson_name_level='%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('lo')">
+				where lesson_city='%'||#{searchKeyword}||'%'
+			</when>
+		</choose>
+	</select>
+	
 	<select id="selectAllLesson" resultType="l">
 		select
 			lesson_no as lessonNo,
@@ -205,20 +225,6 @@
 			house_status=0
 		where house_no=#{_parameter}
 	</update>
-	
-	<select id="selectSearchLesson" parameterType="string" resultType="l">
-		select
-			lesson_no as lessonNo,
-			lesson_name_level as lessonNameLevel,
-			lesson_title as lessonTitle,
-			lesson_price as lessonPrice,
-			lesson_max_no as lessonMaxNo,
-			writer,
-			lesson_city as lessonCity,
-			lesson_status as lessonStatus
-		from lesson
-		where lesson_name like #{_parameter} or writer like #{_parameter}
-	</select>
 	
 	<update id="updateApproveLesson" parameterType="_int">
 		update lesson set

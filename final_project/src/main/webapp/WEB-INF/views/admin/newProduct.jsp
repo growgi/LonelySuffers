@@ -13,17 +13,17 @@
 	<div class="newProduct-wrapper product-wrapper admin-content">
 		<div>
 			<div class="lesson-list">
-				<form action="/adminSearchProduct.do" method="get"
+				<form action="/adminSearchLesson.do" method="get"
 					class="search-bar" name="search-product">
 					<select name="searchType" class="search-type">
-						<option value="n">상품명</option>
+						<option value="n">강습명</option>
 						<option value="s">판매자</option>
-						<option value="le">숙박소 이름</option>
+						<option value="le">강습레벨</option>
 						<option value="lo">지역</option>
 					</select>
 					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 					<input
-						type="text" placeholder="검색어를 입력하세요" name="searchLesson"
+						type="text" placeholder="검색어를 입력하세요" name="searchKeyword"
 						onkeyup="enterkey();"> <input type="submit"
 						style="display: none;">
 					<div class="search-icon">검색</div>
@@ -96,7 +96,7 @@
 				</div>
 			</div>
 			<div class="house-list" style="display: none;">
-				<form action="/adminSearchProduct.do" method="get"
+				<form action="/adminSearchHouse.do" method="get"
 					class="search-bar" name="search-product">
 					<select name="searchType" class="search-type">
 						<option value="n">상품명</option>
@@ -106,7 +106,7 @@
 					</select>
 					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 					<input
-						type="text" placeholder="검색어를 입력하세요" name="searchLesson"
+						type="text" placeholder="검색어를 입력하세요" name="searchKeyword"
 						onkeyup="enterkey();"> <input type="submit"
 						style="display: none;">
 					<div class="search-icon">검색</div>

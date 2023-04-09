@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
@@ -194,6 +195,21 @@ public class AdminController {
 		}
 	}
 	
+	//검색
+	@RequestMapping(value="/adminSearchLesson.do")
+	public String adminSearchLesson(String searchType, String searchKeyword, Model model) {
+		Search sp = new Search(searchType, searchKeyword);
+		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
+		
+		if(!lessonList.isEmpty()) {			
+			model.addAttribute("lessonList",lessonList);
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+		
+	}
+	
 	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productList.do")
 	public String productList(Model model) {
@@ -245,20 +261,6 @@ public class AdminController {
 			return "redirect:/newProduct.do";
 		} else {
 			return "redirect:/productList.do";
-		}
-	}
-	
-	//검색
-	@RequestMapping(value="/adminSearchLesson.do")
-	public String adminSearchLesson(String searchType, String searchLesson, Model model) {
-		//강습
-		ArrayList<Lesson> lessonList = service.selectSearchLesson(searchLesson);
-		
-		if(!lessonList.isEmpty()) {
-			model.addAttribute("lessonList", lessonList);
-			return "redirect:/productList.do";
-		} else {
-			return "redirect:/newProduct.do";
 		}
 	}
 	
