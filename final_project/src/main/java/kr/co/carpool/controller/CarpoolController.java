@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import kr.co.carpool.model.service.CarpoolService;
 import kr.co.carpool.model.vo.Carpool;
+import kr.co.carpool.model.vo.CarpoolFilter;
 import kr.co.carpool.model.vo.CarpoolMatch;
 import kr.co.carpool.model.vo.Passenger;
 import kr.co.member.model.vo.Member;
@@ -51,16 +52,19 @@ public class CarpoolController {
 	//카풀 페이지는 누구에게나 뜨지만 등록은 가입된 회원만 할 수 있도록 <c:if test="${not empty sessionScope.m }">	써서 만든다.
 	
 	
-	//ajax로 필터 값 적용하기 filterSearch.do
-	@ResponseBody
-	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
-	public String filterCarpool() {
-		ArrayList<Carpool> list = service.filterCarpool();
-		Gson gson = new Gson();
-		String result= gson.toJson(list);
-		System.out.println(result);
-		return result;
-	}
+	//ajax로 필터링 된 값 화면에서 보기 filterSearch.do 
+	//1. 결국 페이지는 변경되지않고 carpoolMain.jsp 페이지에서 보여주는 것
+	//2. carpoolMain.do 처럼 ArrayList 가져오나?
+//	@ResponseBody
+//	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
+//	public String filterCarpool() {
+//		ArrayList<Carpool> list = service.filterCarpool();
+//		Gson gson = new Gson();
+//		String result= gson.toJson(list);
+//		System.out.println(result);
+//		return result;
+//	}
+	
 	//carpoolRequest.jsp에서 '태워주세요' 누르면 guest 테이블에 insert
 	@RequestMapping(value="/carpoolMatch.do")
 	public String carpoolMatch(int carpoolNo, @SessionAttribute(required = false) Member m ) {

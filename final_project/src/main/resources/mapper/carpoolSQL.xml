@@ -19,7 +19,8 @@
  		driver_msg as driverMsg,
  		NVL(GET_PASSENGER, 0) AS RESERVED
  	FROM CARPOOL
- 		LEFT JOIN (SELECT CARPOOL_NO, COUNT(CARPOOL_NO) AS GET_PASSENGER FROM CARPOOL RIGHT JOIN PASSENGER USING (CARPOOL_NO) WHERE MATCH_STATUS=0 GROUP BY CARPOOL_NO)
+ 		LEFT JOIN (SELECT CARPOOL_NO, COUNT(CARPOOL_NO) AS GET_PASSENGER FROM CARPOOL RIGHT JOIN PASSENGER USING (CARPOOL_NO) 
+ 		WHERE MATCH_STATUS=0 GROUP BY CARPOOL_NO)
  		USING (CARPOOL_NO)
 	</select>
 	
@@ -43,12 +44,7 @@
 		where carpool_no=#{carpoolNo}
 	</select>
 	
-<!-- 필터링으로 카풀 검색결과 조회 -->
-	<select id="filterCapool" parameterType="c" resultType="c">
-		
-	
-	</select>
-	
+
 	
 	
  

@@ -93,7 +93,7 @@
 						 width: 800px; height: 50px; line-height: 52px; margin-top: 20px;">모집인원 ${c.reserved}/${c.capacity }명 </div>
 				</div><br><br><hr>
 						<div class="price-box" style="margin: 0 auto; text-align:center; font-size:20px; font-weight: 600;">
-						희망가격 <span class="price" style="color: #82CD47; font-size:30px; font-weight: 900;">${c.carpoolPrice }원</span>(편도/인당)
+						희망가격 <span class="price" style="color: #82CD47; font-size:30px; font-weight: 900;">${c.carpoolPrice}원</span>(편도/인당)
 						</div>
 						<hr>
 						

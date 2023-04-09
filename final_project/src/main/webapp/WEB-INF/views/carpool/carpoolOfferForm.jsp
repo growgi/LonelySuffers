@@ -43,7 +43,7 @@
 		<section class="section" style="padding-top: 0px; padding-bottom: 30px;">
 			<div class="container"style="width: 800px; margin-top: 20px">
 				<div class="row" style="background-color: #DAF5FF; border-radius: 20px;">
-				 <form action="/registerCarpool.do" method="post">
+				 <form action="/registerCarpool.do" method="post"> <!-- registerCarpool.do로 가고서 그게 결국에 carpoolMain.do에 insert하는거다. -->
 				    <table style="border: 1px solid #fff; width: 500px;"> 
         <tbody> 
             <tr> 
