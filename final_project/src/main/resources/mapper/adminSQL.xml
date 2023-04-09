@@ -106,16 +106,36 @@
 		from lesson
 		<choose>
 			<when test="searchType.equals('n')">
-				where lesson_title='%'||#{searchKeyword}||'%'
+				where lesson_title like '%'||#{searchKeyword}||'%'
 			</when>
 			<when test="searchType.equals('s')">
-				where writer='%'||#{searchKeyword}||'%'
+				where writer like '%'||#{searchKeyword}||'%'
 			</when>
 			<when test="searchType.equals('le')">
-				where lesson_name_level='%'||#{searchKeyword}||'%'
+				where lesson_name_level like '%'||#{searchKeyword}||'%'
 			</when>
 			<when test="searchType.equals('lo')">
-				where lesson_city='%'||#{searchKeyword}||'%'
+				where lesson_city like '%'||#{searchKeyword}||'%'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="selectSearchHouse" parameterType="s" resultType="h">
+		select
+			*
+		from house
+		<choose>
+			<when test="searchType.equals('n')">
+				where house_title like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('s')">
+				where writer like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('hn')">
+				where room_title like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('lo')">
+				where house_address like '%'||#{searchKeyword}||'%'
 			</when>
 		</choose>
 	</select>

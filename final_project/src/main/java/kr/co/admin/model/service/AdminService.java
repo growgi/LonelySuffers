@@ -130,6 +130,13 @@ public class AdminService {
 
 		return dao.selectSearchLesson(sp);
 	}
+	
+
+	public ArrayList<House> selectSearchHouse(Search sp) {
+		
+		return dao.selectSearchHouse(sp);
+	}
+
 
 	public ArrayList<Lesson> selectAllLesson() {
 		

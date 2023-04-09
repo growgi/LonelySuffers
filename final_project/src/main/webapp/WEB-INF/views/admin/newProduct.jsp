@@ -14,7 +14,7 @@
 		<div>
 			<div class="lesson-list">
 				<form action="/adminSearchLesson.do" method="get"
-					class="search-bar" name="search-product">
+					id="frm" class="search-bar" name="search-product">
 					<select name="searchType" class="search-type">
 						<option value="n">강습명</option>
 						<option value="s">판매자</option>
@@ -24,7 +24,8 @@
 					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 					<input
 						type="text" placeholder="검색어를 입력하세요" name="searchKeyword"
-						onkeyup="enterkey();"> <input type="submit"
+						onkeyup="enterkey();"> 
+						<input type="submit"
 						style="display: none;">
 					<div class="search-icon">검색</div>
 				</form>
@@ -97,11 +98,11 @@
 			</div>
 			<div class="house-list" style="display: none;">
 				<form action="/adminSearchHouse.do" method="get"
-					class="search-bar" name="search-product">
+					id="frm" class="search-bar" name="search-product">
 					<select name="searchType" class="search-type">
 						<option value="n">상품명</option>
 						<option value="s">판매자</option>
-						<option value="le">숙박소 이름</option>
+						<option value="rt">숙박소 이름</option>
 						<option value="lo">지역</option>
 					</select>
 					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
@@ -184,7 +185,6 @@
 	/*메뉴 제목*/
 	$(document).ready(function() {
 		$(".top-menu-title").text("신규 상품 승인");
-		$(".product-choice>div").first().click();
 	});
 
 	/*강습 체크박스 전체 선택*/

@@ -199,10 +199,29 @@ public class AdminController {
 	@RequestMapping(value="/adminSearchLesson.do")
 	public String adminSearchLesson(String searchType, String searchKeyword, Model model) {
 		Search sp = new Search(searchType, searchKeyword);
+		System.out.println(searchType);
+		System.out.println(searchKeyword);
+		
 		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
 		
 		if(!lessonList.isEmpty()) {			
 			model.addAttribute("lessonList",lessonList);
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+		
+	}
+	
+	@RequestMapping(value="/adminSearchHouse.do")
+	public String adminSearchHouse(String searchType, String searchKeyword, Model model) {
+		Search sp = new Search(searchType, searchKeyword);
+		System.out.println(searchType);
+		System.out.println(searchKeyword);
+		ArrayList<House> houseList = service.selectSearchHouse(sp);
+		
+		if(!houseList.isEmpty()) {			
+			model.addAttribute("houseList",houseList);
 			return "redirect:/newProduct.do";
 		} else {
 			return "redirect:/productList.do";
@@ -300,7 +319,7 @@ public class AdminController {
 		}
 	}*/
 	
-	/*6. 주문 상세*/
+	/**6. 주문 상세*/
 	@RequestMapping(value="/orderDetail.do")
 	//public String orderDetail(int orderNo, Model model) {
 	public String orderDetail(Model model) {
@@ -312,7 +331,7 @@ public class AdminController {
 		return "admin/orderDetail";
 	}
 
-	
+	/**7. 관심상품*/
 	@RequestMapping(value="/wishList.do")
 	public String wishList() {
 		

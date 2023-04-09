@@ -84,6 +84,12 @@ public class AdminDao {
 		return (ArrayList<Lesson>)lessonList;
 	}
 
+	public ArrayList<House> selectSearchHouse(Search sp) {
+		List houseList = sqlSession.selectList("admin.selectSearchHouse", sp);
+		
+		return (ArrayList<House>)houseList;
+	}
+
 	public ArrayList<Lesson> selectAllLesson() {
 		List lessonList = sqlSession.selectList("admin.selectAllLesson");
 		
@@ -179,6 +185,7 @@ public class AdminDao {
 		
 		return result;
 	}
+
 
 /*
 	public ArrayList<Order> selectAllOrder() {

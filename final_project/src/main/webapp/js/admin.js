@@ -96,5 +96,4 @@ function enterkey() {
 //돋보기 클릭하면 검색창 submit
 $(".search-icon").on("click",function(){
     $(".search-bar").submit();
-    $(".count").text("");
 });
