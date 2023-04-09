@@ -11,6 +11,7 @@ import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.WishList;
 
 @Service
 public class AdminService {
@@ -347,6 +348,7 @@ public class AdminService {
 		return result;
 	}
 
+
 /*
 	public ArrayList<Order> selectAllOrder() {
 		
@@ -395,6 +397,11 @@ public class AdminService {
 		return dao.selectOrderDetailCount(orderNo);
 	}
 */
+
+	public ArrayList<WishList> selectWishList(String memberId) {
+
+		return dao.selectWishList(memberId);
+	}
 
 
 }

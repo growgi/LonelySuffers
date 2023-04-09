@@ -11,6 +11,7 @@ import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.WishList;
 
 @Repository
 public class AdminDao {
@@ -187,6 +188,7 @@ public class AdminDao {
 	}
 
 
+
 /*
 	public ArrayList<Order> selectAllOrder() {
 		List orderList = sqlSession.selectList("admin.selectAllOrder");
@@ -220,5 +222,11 @@ public class AdminDao {
 	}
 	
 */
+
+	public ArrayList<WishList> selectWishList(String memberId) {
+		List wishList = sqlSession.selectList("admin.selectWishList", memberId);
+		
+		return (ArrayList<WishList>)wishList;
+	}
 
 }

@@ -13,6 +13,7 @@ import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.WishList;
 
 @Controller
 public class AdminController {
@@ -333,8 +334,9 @@ public class AdminController {
 
 	/**7. 관심상품*/
 	@RequestMapping(value="/wishList.do")
-	public String wishList() {
-		
+	public String wishList(String memberId, Model model) {
+		ArrayList<WishList> wishList = service.selectWishList(memberId);
+		model.addAttribute("wishList", wishList);
 		return "member/wishList";
 	}
 

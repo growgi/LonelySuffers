@@ -19,7 +19,8 @@
 		<typeAlias type="kr.co.notice.model.vo.FileVO" alias="f"/>
 		<typeAlias type="kr.co.house.model.vo.Room" alias="r"/>				<!-- Room 	    as r -->
 		<typeAlias type="kr.co.house.model.vo.RoomBook" alias="rb"/>
-		<typeAlias type="kr.co.admin.model.vo.Search" alias="s"/>		<!-- RoomBook   as rb -->	
+		<typeAlias type="kr.co.admin.model.vo.Search" alias="s"/>		<!-- Search   as s -->
+		<typeAlias type="kr.co.member.model.vo.WishList" alias="w"/>		<!-- WishList   as w -->	
 	</typeAliases>		
 
 

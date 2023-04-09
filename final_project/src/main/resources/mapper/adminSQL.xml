@@ -310,5 +310,20 @@
 		where order_no=#{_parameter}
 	</select>
  -->
+ 	<select id="selectWishList" parameterType="string" resultType="w">
+ 		select
+ 			wish_no as wishNo,
+ 			member_id as memberId,
+ 			lesson_no as lessonNo,
+ 			lesson_name_level as lessonNameLevel,
+ 			lesson_title as lessonTitle,
+ 			lesson_price as lessonPrice,
+ 			lesson_max_no as lessonMaxNo,
+ 			lesson_start_time as lessonStartTime,
+ 			lesson_end_time as lessonEndTime
+ 		from wishList
+ 		join lesson using(lesson_no)
+ 		where member_id=#{_parameter}
+ 	</select>
  
 </mapper>
