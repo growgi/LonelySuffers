@@ -30,6 +30,8 @@ public class CarpoolController {
 		model.addAttribute("list",list);
 		return "carpool/carpoolMain";
 	}
+
+	
 	//탑승자의 카풀 신청하기! 카풀 메인의 개별 하나를 클릭 했을때 신청하는 상세 페이지로 넘어가기
 	@RequestMapping(value="/carpoolRequest.do")
 	public String carpoolRequest(Carpool carpool, Model model) {
@@ -49,21 +51,30 @@ public class CarpoolController {
 	}
 	
 	//운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
-	//카풀 페이지는 누구에게나 뜨지만 등록은 가입된 회원만 할 수 있도록 <c:if test="${not empty sessionScope.m }">	써서 만든다.
+	@RequestMapping(value="/registerCarpool.do")
+	public String registerCarpool(Carpool carpool) {
+		int result = service.insertCarpool(carpool);
+		if(result>0){
+			return "redirect:/carpoolMain.do";
+		}else {
+			return "redirect:/carpoolOfferForm.do";
+		}
+	}
 	
 	
 	//ajax로 필터링 된 값 화면에서 보기 filterSearch.do 
 	//1. 결국 페이지는 변경되지않고 carpoolMain.jsp 페이지에서 보여주는 것
 	//2. carpoolMain.do 처럼 ArrayList 가져오나?
-//	@ResponseBody
-//	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
-//	public String filterCarpool() {
-//		ArrayList<Carpool> list = service.filterCarpool();
-//		Gson gson = new Gson();
-//		String result= gson.toJson(list);
-//		System.out.println(result);
-//		return result;
-//	}
+	@ResponseBody
+	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
+	public String filterCarpool(CarpoolFilter cp) {
+	 	System.out.println(cp);
+		ArrayList<Carpool> list = service.filterCarpool(cp);
+		Gson gson = new Gson();
+		String result= gson.toJson(list);
+		System.out.println(result);
+		return result;
+	}
 	
 	//carpoolRequest.jsp에서 '태워주세요' 누르면 guest 테이블에 insert
 	@RequestMapping(value="/carpoolMatch.do")

@@ -24,12 +24,16 @@ public class CarpoolService {
 		return dao.selectOneCarpool(carpool);
 	}
 
-//	public ArrayList<Carpool> filterCarpool() {
-//		return dao.filterCarpool();
-//	}
+	public ArrayList<Carpool> filterCarpool(CarpoolFilter cp) {
+		return dao.filterCarpool(cp);
+	}
 
 	public int insertPassenger(CarpoolMatch match) {
 		return dao.insertPassenger(match);
+	}
+
+	public int insertCarpool(Carpool carpool) {
+		return dao.insertCarpool(carpool);
 	}
 
 }

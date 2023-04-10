@@ -27,13 +27,20 @@ public class CarpoolDao {
 		return c;
 	}
 
-//	public ArrayList<CarpoolFilter> filterCarpool() {
-//		List list = sqlSession.selectList("carpoolFilter.filterCapool");
-//		return (ArrayList<CarpoolFilter>)list;
-//	}
+	public ArrayList<Carpool> filterCarpool(CarpoolFilter cp) {
+		List list = sqlSession.selectList("carpoolFilter.filterCarpool", cp);
+		return (ArrayList<Carpool>)list;
+	}
 
+	//동행자가 카풀 상세페이지에서 카풀 신청하면 카풀 매칭 
 	public int insertPassenger(CarpoolMatch match) {
 		int result= sqlSession.insert("passenger.insertPassenger", match);
+		return result;
+	}
+	
+	//운전자가 카풀 등록
+	public int insertCarpool(Carpool carpool) {
+		int result = sqlSession.insert("carpool.insertCarpool", carpool);
 		return result;
 	}
 

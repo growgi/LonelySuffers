@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="carpoolFilter">
+
+<!-- 필터링으로 카풀 검색결과 조회하기 -->
+	<select id="filterCarpool" parameterType="cf" resultType="c">
+	select 
+ 		carpool_no,
+ 		departure_date,
+ 		reg_date,
+ 		oneway_round ,
+ 		departure_region,
+ 		departure_district,
+ 		arrival_region,
+ 		arrival_district,
+ 		capacity,
+ 		surfboard_room,
+ 		driver_msg,
+ 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) AS RESERVED
+     FROM CARPOOL c
+<trim prefix="where" prefixOverrides="and|or"> 		
+<if test="!departureRegion.equals('전체')">
+departure_region=#{departureRegion} 
+</if>
+
+<!--  for(Member m : list) 로치면 collection = Memer item=m 이다.-->
+
+<if test="departureTime != null">
+and departure_time in
+<foreach collection="departureTime" item="time" open="(" close=")" separator=",">
+#{time}
+</foreach>
+</if>
+
+<if test="!arrivalRegion.equals('전체')">
+and arrival_region=#{arrivalRegion} 
+</if>
+
+
+<if test="(minPrice != 0)">
+and carpool_price <![CDATA[ >=]]>#{minPrice}
+</if>
+
+<if test="(maxPrice != 0)"> 
+and carpool_price<![CDATA[ <= ]]>#{maxPrice}
+</if>
+
+<if test="closure != null">
+and closure in
+<foreach collection="closure" item="recruit" open="(" close=")" separator=",">
+#{recruit}			
+</foreach>
+</if>
+
+<if test="onewayRound !=null">
+and oneway_round in
+<foreach collection="onewayRound" item="triptype" open="(" close=")" separator=",">
+#{triptype}		
+</foreach>
+</if>
+	</trim>
+	
+	</select>
+
+
+
+
+</mapper>
