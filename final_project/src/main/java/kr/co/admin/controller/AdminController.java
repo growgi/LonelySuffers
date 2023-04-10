@@ -335,8 +335,11 @@ public class AdminController {
 	/**7. 관심상품*/
 	@RequestMapping(value="/wishList.do")
 	public String wishList(String memberId, Model model) {
-		ArrayList<WishList> wishList = service.selectWishList(memberId);
-		model.addAttribute("wishList", wishList);
+		ArrayList<WishList> lessonWishList = service.selectLessonWishList(memberId);
+		ArrayList<WishList> houseWishList = service.selectHouseWishList(memberId);
+		
+		model.addAttribute("lessonWishList", lessonWishList);
+		model.addAttribute("houseWishList", houseWishList);
 		return "member/wishList";
 	}
 
