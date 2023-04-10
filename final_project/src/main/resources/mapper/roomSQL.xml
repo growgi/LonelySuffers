@@ -25,6 +25,7 @@
 		<result column="ROOM_NAME" property="roomName"></result>
 		<result column="ROOM_DESCRIPTION" property="roomDescription"></result>
 		<result column="ROOM_ENABLE" property="roomEnable"></result>
+		<result column="HOUSE_NO" property="houseNo"></result>
 	</resultMap>
 
 </mapper>
