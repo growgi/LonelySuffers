@@ -11,7 +11,8 @@
 			member_grade as memberGrade,
 			enroll_date as enrollDate
 		from member_tbl
-		order by member_no asc
+		where member_grade != 4
+		order by member_no desc
 	</select>
 	
 	<select id="selectMemberCount" resultType="_int">
@@ -33,7 +34,7 @@
 		where member_id=#{memberId}
 	</update>
 	
-	<select id="selectOneMember" parameterType="string" resultType="m">
+	<select id="selectSearchMember" parameterType="string" resultType="m">
 		select
 			member_name as memberName,
 			member_id as memberId,
@@ -43,7 +44,7 @@
 			member_grade as memberGrade,
 			enroll_date as enrollDate
 		from member_tbl
-		where member_id=#{searchMemberId}
+		where member_id like '%'||#{searchMemberId}||'%'
 	</select>
 	
 	<select id="selectAllSellerApplication" resultType="m">
@@ -59,12 +60,15 @@
 			application_date as applicationDate
 		from member_tbl
 		join seller_application_tbl using(member_no)
+		where member_grade != 4
 		order by application_date desc
 	</select>
 	
 	<select id="selectSellerAppCount" resultType="_int">
 		select count(*)
 		from seller_application_tbl
+		join member_tbl using(member_no)
+		where member_grade != 4
 	</select>
 	
 	<select id="selectOneSellerApplication" parameterType="string" resultType="m">
@@ -96,6 +100,46 @@
 		where member_no=#{memberNo}
 	</delete>
 	
+	<select id="selectSearchLesson" parameterType="s" resultType="l">
+		select
+			*
+		from lesson
+		<choose>
+			<when test="searchType.equals('n')">
+				where lesson_title like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('s')">
+				where writer like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('le')">
+				where lesson_name_level like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('lo')">
+				where lesson_city like '%'||#{searchKeyword}||'%'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="selectSearchHouse" parameterType="s" resultType="h">
+		select
+			*
+		from house
+		<choose>
+			<when test="searchType.equals('n')">
+				where house_title like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('s')">
+				where writer like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('hn')">
+				where room_title like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('lo')">
+				where house_address like '%'||#{searchKeyword}||'%'
+			</when>
+		</choose>
+	</select>
+	
 	<select id="selectAllLesson" resultType="l">
 		select
 			lesson_no as lessonNo,
@@ -104,8 +148,10 @@
 			lesson_price as lessonPrice,
 			lesson_max_no as lessonMaxNo,
 			writer,
-			lesson_city as lessonCity
+			lesson_city as lessonCity,
+			lesson_status as lessonStatus
 		from lesson
+		where lesson_status=1 or lesson_status=0
 	</select>
 	
 	<select id="selectAllHouse" resultType="h">
@@ -119,5 +165,186 @@
 			house_city as houseCity,
 			house_status as houseStatus
 		from house
+		where house_status=1 or house_status=0
 	</select>
+	
+	<select id="selectLessonCount" resultType="_int">
+		select
+			count(*)
+		from lesson
+		where lesson_status=1 or lesson_status=0
+	</select>
+	
+	<select id="selectHouseCount" resultType="_int">
+		select
+			count(*)
+		from house
+		where house_status=1 or house_status=0
+	</select>
+	
+	<update id="updateLessonStatus" parameterType="l">
+		update lesson set
+			lesson_status=#{lessonStatus}
+		where lesson_no=#{lessonNo}
+	</update>
+	
+	<update id="updateHouseStatus" parameterType="h">
+		update house set
+			house_status=#{houseStatus}
+		where house_no=#{houseNo}
+	</update>
+	
+	<select id="selectNewLesson" resultType="l">
+		select 
+			lesson_no as lessonNo,
+			lesson_name_level as lessonNameLevel,
+			lesson_title as lessonTitle,
+			lesson_price as lessonPrice,
+			lesson_max_no as lessonMaxNo,
+			writer,
+			lesson_city as lessonCity,
+			lesson_status as lessonStatus
+		from lesson
+		where lesson_status=-1
+	</select>
+	
+	<select id="selectNewHouse" resultType="h">
+		select 
+			house_no as houseNo,
+			house_title as houseTitle,
+			writer,
+			room_title as roomTitle,
+			house_price as housePrice,
+			room_capa as roomCapa,
+			house_city as houseCity,
+			house_status as houseStatus
+		from house
+		where house_status=-1
+	</select>
+	
+	<select id="selectNewLessonCount" resultType="_int">
+		select count(*)
+		from lesson
+		where lesson_status=-1
+	</select>
+	
+	<select id="selectNewHouseCount" resultType="_int">
+		select count(*)
+		from house
+		where house_status=-1
+	</select>
+	
+	<update id="updateLessonStopSelling" parameterType="_int">
+		update lesson set
+			lesson_status=0
+		where lesson_no=#{_parameter}
+	</update>
+	
+	<update id="updateHouseStopSelling" parameterType="_int">
+		update house set
+			house_status=0
+		where house_no=#{_parameter}
+	</update>
+	
+	<update id="updateApproveLesson" parameterType="_int">
+		update lesson set
+			lesson_status=1
+		where lesson_no=#{_parameter}
+	</update>
+	
+	<update id="updateApproveHouse" parameterType="_int">
+		update house set
+			house_status=1
+		where house_no=#{_parameter}
+	</update>
+<!-- 	
+	<select id="selectAllOrder" resultType="o">
+		select 
+			*
+		from order_tbl
+		order by order_no desc
+	</select>
+	
+	<select id="selectOrderCount" resultType="_int">
+		select
+			count(*)
+		from order_tbl
+	</select>
+	
+	<delete id="deleteOrder" parameterType="_int">
+		delete
+		from order_tbl
+		where order_no=#{_parameter}
+	</delete>
+	
+	<select id="selectOrderDetail" parameterType="_int" resultType="od">
+		select 
+		    order_no, 
+		    order_date, 
+		    member_id, 
+		    lesson_name_level, 
+		    lesson_title, 
+		    lesson_city, 
+		    lesson_start_time, 
+		    lesson_end_time,
+		    lesson_teacher,
+		    house_title,
+		    house_address,
+		    house.writer,
+		    room_title,
+		    house_barbecue,
+		    house_party,
+		    product_price
+		from order_detail
+		left join order_tbl using(order_no)
+		left join member_tbl using(member_no)
+		left join lesson using(lesson_no)
+		left join house using(house_no)
+		where order_no=#{_parameter};
+	</select>
+	
+	<select id="selectOrderDetailCount" parameterType="_int" resultType="_int">
+		select
+			count(*)
+		from order_detail
+		where order_no=#{_parameter}
+	</select>
+ -->
+ 	<select id="selectLessonWishList" parameterType="string" resultType="w">
+ 		select
+ 			wish_no as wishNo,
+ 			member_id as memberId,
+ 			lesson_no as lessonNo,
+ 			lesson_name_level as lessonNameLevel,
+ 			lesson_title as lessonTitle,
+ 			lesson_price as lessonPrice,
+ 			lesson_max_no as lessonMaxNo,
+ 			lesson_start_time as lessonStartTime,
+ 			lesson_end_time as lessonEndTime,
+ 			lesson_city as lessonCity,
+ 			lesson_info_pic as lessonInfoPic
+ 		from wishList
+ 		join lesson using(lesson_no)
+ 		where member_id=#{_parameter} and house_no is null
+ 	</select>
+ 	
+ 	<select id="selectHouseWishList" parameterType="string" resultType="w">
+ 		select
+ 			wish_no as wishNo,
+ 			member_id as memberId,
+ 			house_no as houseNo,
+ 			house_title as houseTitle,
+ 			room_title as roomTitle,
+ 			house_city as houseCity,
+ 			house_photo1 as housePhoto1,
+ 			room_capa as roomCapa,
+ 			house_price as housePrice,
+ 			book_start_date as bookStartDate,
+ 			book_end_date as bookEndDate
+ 		from wishList
+ 		left join house using(house_no)
+ 		left join room_book using(house_no)
+ 		where member_id=#{_parameter} and lesson_no is null
+ 	</select>
+ 
 </mapper>

@@ -6,9 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import com.google.gson.Gson;
 
 import kr.co.carpool.model.service.CarpoolService;
 import kr.co.carpool.model.vo.Carpool;
+import kr.co.carpool.model.vo.CarpoolFilter;
+import kr.co.carpool.model.vo.CarpoolMatch;
+import kr.co.carpool.model.vo.Passenger;
+import kr.co.member.model.vo.Member;
 
 @Controller
 public class CarpoolController {
@@ -28,9 +36,9 @@ public class CarpoolController {
 		Carpool c = service.selectOneCarpool(carpool);
 		if(c!=null) {
 			model.addAttribute("c", c);
-			return "carpool/carpoolMain";
+			return "carpool/carpoolRequest";
 		}else {
-			return "redirect:/";			
+			return "carpool/carpoolMain";			
 		}
 		
 	}
@@ -41,26 +49,47 @@ public class CarpoolController {
 	}
 	
 	//운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
-	//카풀 페이지는 누구에게나 뜨지만 등록은 가입된 회원만 할 수 있도록
+	//카풀 페이지는 누구에게나 뜨지만 등록은 가입된 회원만 할 수 있도록 <c:if test="${not empty sessionScope.m }">	써서 만든다.
 	
 	
-	//필터 값 적용하기 filterSearch.do
-	@RequestMapping(value="/filterSearch.do")
-	public String filtering() {
-		return null;
+	//ajax로 필터링 된 값 화면에서 보기 filterSearch.do 
+	//1. 결국 페이지는 변경되지않고 carpoolMain.jsp 페이지에서 보여주는 것
+	//2. carpoolMain.do 처럼 ArrayList 가져오나?
+//	@ResponseBody
+//	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
+//	public String filterCarpool() {
+//		ArrayList<Carpool> list = service.filterCarpool();
+//		Gson gson = new Gson();
+//		String result= gson.toJson(list);
+//		System.out.println(result);
+//		return result;
+//	}
+	
+	//carpoolRequest.jsp에서 '태워주세요' 누르면 guest 테이블에 insert
+	@RequestMapping(value="/carpoolMatch.do")
+	public String carpoolMatch(int carpoolNo, @SessionAttribute(required = false) Member m ) {
+		CarpoolMatch match = new CarpoolMatch();
+		match.setCarpoolNo(carpoolNo);
+		match.setPassengerNo(m.getMemberNo());
+		int result = service.insertPassenger(match);
+		if(result>0) {
+			return "carpool/passengerPage";
+		}else {
+			return "carpool/carpoolMain";
+		}
 		
 	}
 
 	
-	
 	//운전자의 내 카풀 리스트 보기!!!
+	//운전자의 카풀 수락, 거절, 마감 등 관리하기
 	@RequestMapping(value="/driverPage.do")
 	public String mycarpoolDriver() {
 		return "carpool/driverPage";
 	}
 	
-	
 	//탑승자의 내 카풀 리스트 보기!!!
+	//탑승자의 카풀 수락, 거절 관리하기
 		@RequestMapping(value="/passengerPage.do")
 		public String mycarpoolPassenger() {
 			return "carpool/passengerPage";

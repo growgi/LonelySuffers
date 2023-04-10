@@ -28,8 +28,33 @@
 				<div class="row">
 					<h1>공지사항 수정</h1>
 					<hr>
-					<form action="/noticeUpdate.do" method="post"
-						enctype="multipart/form-data" id="updateFrm"></form>
+					<form action="/noticeUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
+					<table border="1">
+						<tr>
+							<th>제목</th>
+							<td><input type="text" name="noticeTitle" value="${n.noticeTitle }"></td>
+						</tr>
+						<tr>	
+							<th>첨부파일 추가</th>
+							<td><input type="file" name="noticeFile" multiple onchange="loadImgs(this);"></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div id="img-viewer2"></div>
+							</td>
+						</tr>
+						<tr>	
+							<th>내용</th>
+							<td><textarea name="noticeContent">${n.noticeContent }</textarea></td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<th colspan="2"><input type="submit" value="수정하기"></th>
+							<th colspan="2"><input type="submit" value="취소"></th>
+						</tr>
+					</table>		
+					</form>	
 				</div>
 			</div>
 		</section>

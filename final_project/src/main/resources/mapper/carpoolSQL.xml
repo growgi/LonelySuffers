@@ -19,26 +19,33 @@
  		driver_msg as driverMsg,
  		NVL(GET_PASSENGER, 0) AS RESERVED
  	FROM CARPOOL
- 		LEFT JOIN (SELECT CARPOOL_NO, COUNT(CARPOOL_NO) AS GET_PASSENGER FROM CARPOOL RIGHT JOIN PASSENGER USING (CARPOOL_NO) WHERE MATCH_STATUS=0 GROUP BY CARPOOL_NO)
+ 		LEFT JOIN (SELECT CARPOOL_NO, COUNT(CARPOOL_NO) AS GET_PASSENGER FROM CARPOOL RIGHT JOIN PASSENGER USING (CARPOOL_NO) 
+ 		WHERE MATCH_STATUS=0 GROUP BY CARPOOL_NO)
  		USING (CARPOOL_NO)
 	</select>
 	
-
+<!-- 한개의 카풀 조회(상세페이지용) -->
 	<select id="selectOneCarpool" parameterType="c" resultType="c">
 	select
 		driver_no as driverNo,
-		member_gender as memberGender,
+		member_name as driverName,
+		member_gender as driverGender,
 		reg_date as regDate,
 		carpool_no as carpoolNo,
+		departure_date as departureDate,
 		departure_region as departureRegion,
 		departure_district as departureDistrict,
 		arrival_region as arrivalRegion,
 		arrival_district as arrivalDistrict,
-		capacity as capacity
+		capacity as capacity,
+		carpool_price as carpoolPrice
 		from carpool
 		left join member_tbl on(member_no=driver_no) 
 		where carpool_no=#{carpoolNo}
 	</select>
+	
+
+	
 	
  
  

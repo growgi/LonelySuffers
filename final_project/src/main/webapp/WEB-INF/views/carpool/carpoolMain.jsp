@@ -52,11 +52,10 @@
 		<section class="section"
 			style="padding-top: 50px; padding-bottom: 10px;">
 			<div class="container">
-				<div class="row"
-					style="border-bottom: 2.5px solid rgba(101, 112, 123, 0.833);">
+				<div class="row">
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="carpoolMain.do">전체보기</a>
+							<a href="/carpoolMain.do">전체보기</a>
 						</p>
 					</div>
 					<div class="col-md-2">
@@ -69,11 +68,26 @@
 							<a href="passengerPage.do">태워주세요</a>
 						</p>
 					</div>
+					
 					<div class="menu" style="float: right;">
-						<a href="/carpoolOfferForm.do"> <span
-							class="material-symbols-outlined edit">edit_note</span>
-						</a> <span class="material-symbols-outlined filter"
+						
+						<c:choose>
+							<c:when test="${not empty sessionScope.m}">
+								<a href="/carpoolOfferForm.do"> 
+									<span class="material-symbols-outlined edit" id="edit-note-link">edit_note</span>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<!-- alert 창에 ip 안뜨게 해야함 -->
+								<a href="/login.do" onclick="alert('로그인한 회원만 작성 가능합니다.');">
+									<span class="material-symbols-outlined edit" id="edit-note-link">edit_note</span>
+								</a>
+							</c:otherwise>
+						</c:choose>
+			
+						<span class="material-symbols-outlined filter"
 							style="display: inline-block; width: 50px; height: 30px;">filter_alt</span>
+					
 					</div>
 				</div>
 				<!-- end row -->
@@ -94,36 +108,39 @@
 			<div class="container">
 				<div class="row">
 					<table id="carpoolTable" class="tablesorter"
-						style="border-radius: 20px; width: 900px; margin-left: 70px; padding-left: 20px; padding-top: 25px; padding-bottom: 70px; background-color: none; border: 3px solid #39B5E0;">
+						style="border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
 						<thead>
 							<tr>
-								<th data-sort-method='date' style="width:15%;">출발일</th>
-								<th data-sort-method='date' style="width:10%">등록일</th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
-								<th data-sort-method='none'></th>
+								<th data-sort-method='thead' style="width:20%;">출발일</th>
+								<th data-sort-method='thead' style="width:10%">등록일</th>
+								<th data-sort-method='none' style="width:20%"></th>
+								<th data-sort-method='none' style="width:30%"></th>
+								<th data-sort-method='none' style="width:10%"></th>
+								<th data-sort-method='none' style="width:10%"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- 얘네들이 반복돼야해!! Carpool list all -->
 							<c:forEach items="${list }" var="c">
-								<tr style="cursor: pointer;" onclick="location.href=/carpoolRequest.do?${c.carpoolNo}">
+								<tr style="cursor: pointer;" onclick="location.href='/carpoolRequest.do?carpoolNo=${c.carpoolNo}'">
 									<td >${c.departureDate }</td>
 									<td>
 										<span style="display:none">${c.regDate }</span><img src="/capool-img/destination.png" alt="img" style="width:45px; height: 50px;">
 									</td>
-									<td data-sort-method='none'>
+									<td>
 											<div class="row onewayRound">${c.tripType }</div>
 											<div class="row region">${c.departureRegion }</div>
 											<div class="row region">${c.arrivalRegion }</div>
 									</td>
-									<td data-sort-method='none'>
+									<td>
 											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
-											<div class="row">${c.departureDistrict }</div>
-											<div class="row">${c.arrivalDistrict }</div>
+											<div class="row district">${c.departureDistrict }</div>
+											<div class="row district">${c.arrivalDistrict }</div>
 									</td>
-									<td data-sort-method='none'>${c.reserved}/${c.capacity }</td>
+									<td>
+											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
+											<div class="row">${c.reserved}/${c.capacity }</div>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -155,8 +172,8 @@
 						<div class="modal-body" style="padding: 5px 5px;">
 							<form action="/filterSearch.do" method="post">
 								<div class="form-group">
-									<label for="usrname">출발</label> <select class="form-control"
-										name="departureRegion" id="city">
+									<label for="usrname">출발</label> 
+									<select class="form-control" id="departureRegion" name="departureRegion" >
 										<option value="" selected disabled>시/도</option>
 										<option value="서울">서울</option>
 										<option value="경기">경기</option>
@@ -165,24 +182,21 @@
 										<option value="부산">부산</option>
 										<option value="대구">대구</option>
 										<option value="광주">광주</option>
-									</select> <input type="text" class="form-control"
-										name="departureDistrict" id="city" placeholder="상세주소">
+									</select> 
 								</div>
-								<div class="check-box-wrap" style="height: 60px;">
+								<div class="check-box-wrap">
 									<div class="check-box left">
-										<input type="radio" id="am" name="departureTime" value="0"
-											style="display: none;" onclick="timeAm()"><label
-											for="am-time"><span class="material-symbols-outlined">check</span>오전</label>
+										<input type="checkbox" id="am" name="departureTime" value="0"  onclick="timeAm()">
+										<label for="am-time"><span class="material-symbols-outlined">check</span>오전</label>
 									</div>
 									<div class="check-box right">
-										<input type="radio" id="pm" name="departureTime" value="1"
-											style="display: none;" onclick="timePm()"><label
-											for="pm-time"><span class="material-symbols-outlined">check</span>오후</label><br>
+										<input type="checkbox" id="pm" name="departureTime" value="1" onclick="timePm()">
+										<label for="pm-time"><span class="material-symbols-outlined">check</span>오후</label><br>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="usrname">도착</label> <select class="form-control"
-										name="arrivalRegion" id="city">
+									<label for="usrname">도착</label> 
+									<select class="form-control" id="arrivalRegion" name="arrivalRegion" >
 										<option value="" selected disabled>시/도</option>
 										<option value="서울">서울</option>
 										<option value="경기">경기</option>
@@ -191,57 +205,50 @@
 										<option value="부산">부산</option>
 										<option value="대구">대구</option>
 										<option value="광주">광주</option>
-									</select> <input type="text" class="form-control" name="arrivalDistrict"
-										id="city" placeholder="상세주소">
+									</select> 
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="input-group">
-												<input type="text" class="form-control" id="minprice"
-													name="minPrice" placeholder="최저가"> <span
-													class="input-group-addon"
-													style="background-color: none; border: none;">(원)</span>
+												<input type="text" class="form-control" id="minPrice" name="carpoolPrice" placeholder="최저가"> 
+												<span class="input-group-addon" style="background-color: none; border: none;">(원)</span>
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="input-group">
-												<input type="text" class="form-control" id="maxprice"
-													name="maxPrice" placeholder="최고가"> <span
-													class="input-group-addon"
-													style="background-color: none; border: none;">(원)</span>
+												<input type="text" class="form-control" id="maxPrice" name="carpoolPrice" placeholder="최고가"> 
+												<span class="input-group-addon" style="background-color: none; border: none;">(원)</span>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="check-box-wrap">
 									<div class="check-box left">
-										<input type="radio" id="one-way" name="onewayRound" value="1"
-											style="display: none;" onclick="selectOneWay()"><label
-											for="one-way"><span class="material-symbols-outlined">check</span>편도</label>
+										<input type="checkbox" id="oneway" name="onewayRound" value="1"
+											" onchange="selectOneWay()"><label for="one-way">
+											<span class="material-symbols-outlined">check</span>편도</label>
 									</div>
 									<div class="check-box right">
-										<input type="radio" id="round-trip" name="onewayRound"
-											value="2" style="display: none;" onclick="selectRoundTrip()"><label
-											for="round-trip"><span
-											class="material-symbols-outlined">check</span>왕복</label><br>
+										<input type="checkbox" id="round" name="onewayRound" value="2" 
+											" onchange="selectRoundTrip()"><label for="round-trip">
+											<span class="material-symbols-outlined">check</span>왕복</label><br>
 									</div>
 									<div class="check-box left">
-										<input type="radio" id="recruiting" name="closure" value="0"
-											style="display: none;" onclick="recruiting()"><label
-											for="recruiting"><span
-											class="material-symbols-outlined">check</span>모집중</label>
+										<input type="checkbox" id="opened" name="closure" value="1"
+											" onchange="recruiting()"><label for="recruiting">
+											<span class="material-symbols-outlined">check</span>모집중</label>
 									</div>
 									<div class="check-box right">
-										<input type="radio" id="closed" name="closure" value="1"
-											style="display: none;" onclick="closed()"><label
-											for="closed"><span class="material-symbols-outlined">check</span>모집완료</label>
+										<input type="checkbox" id="closed" name="closure" value="0"
+											" onchange="closed()"><label for="closed">
+											<span class="material-symbols-outlined">check</span>모집완료</label>
 									</div>
 								</div>
 								<hr>
 								<div class="btn-pack" style="margin-left: 25px;">
 									<button type="button" class="btn btn-block" id="reset-btn"
 										style="width: 250px; height: 40px; border-radius: 10px; float: left; margin-right: 25px; background-color: #9f9f9f; color: white; font-weight: 900;">초기화</button>
-									<button type="submit" class="btn btn-block" id="apply-btn"
-										style="width: 250px; height: 40px; border-radius: 10px; background-color: #EA5455; color: white; font-weight: 900;">적용</button>
+									<button type="submit" class="btn btn-block" id="apply-btn" 	style="width: 250px; height: 40px; border-radius: 10px; 
+									background-color: #EA5455; color: white; font-weight: 900;">적용</button>
 								</div>
 								<br>
 							</form>
@@ -250,7 +257,7 @@
 									class="btn btn-danger btn-default pull-left"
 									data-dismiss="modal"
 									style="font-size: 14px; text-align: center; width: 40px; border-radius: 10px; background-color: rgb(255, 174, 0); display: flex; justify-content: center; align-items: center;">
-									<span class="glyphicon glyphicon-remove"></span>나가기
+									<span class="glyphicon glyphicon-remove">나가기</span>
 								</button>
 							</div>
 						</div>
@@ -276,9 +283,6 @@
 	<script src="js/tablesort.date.min.js"></script>
 
 
-
-
-
 	<script>
 	//모달
 	$(document).ready(function() {
@@ -287,6 +291,54 @@
 		});
 	});
 	
+	//필터링으로 해당 조건 검색해서 carpoolMain.jsp 에서 필터링된 리스트만 보이게한다.  
+	/*
+	$("#apply-btn").on("click", function(){
+		const departureRegion = ${"#departureRegion"}.val();
+		const am = ${"#am"}.val();
+		const pm = ${"#pm"}.val();
+		const arrivalRegion = ${"#arrivalRegion"}.val();
+		const minPrice = ${"#minPrice"}.val();
+		const maxPrice = ${"#maxPrice"}.val();
+		const oneway = ${"#oneway"}.val();
+		const round = ${"#round"}.val();
+		const opened = ${"#opened"}.val();
+		const closed = ${"#closed"}.val();
+		$.ajax({
+			 url : "/filterCarpool.do",
+			 type : "get",
+			 data : {
+				 departureRegion : departureRegion,
+				 am : am,
+				 pm : pm,
+				 arrivalRegion : arrivalRegion,
+				 minPrice : minPrice,
+				 maxPrice : maxPrice,
+				 oneway : oneway,
+				 round : round,
+				 opened : opened,
+				 closed : closed
+			 },
+			 dataType : "json",
+			 success : function(data){
+				 console.log(data);
+				 if(data==null){
+					 result.append("카풀 정보를 조회할 수 없습니다.");
+				 }else{
+					 const queryString = `?departureRegion=${departureRegion}&am=${am}&pm=${pm}&arrivalRegion=${arrivalRegion}&minPrice=${minPrice}&maxPrice=${maxPrice}&oneway=${oneway}&round=${round}&opened=${opened}&closed=${closed}`;
+					 const url = `carpoolMain.jsp${queryString}`;
+					window.location.href = url;
+				 }
+			 },
+			 error : function(){
+				 console.log("서버호출 실패");
+			 }
+		});
+	});
+	*/
+	
+	
+
 	// 초기화 버튼 클릭 시
 	document.getElementById("reset-btn").addEventListener(
 			"click",
@@ -307,30 +359,6 @@
 						});
 			});
 
-	// 적용 버튼 클릭 시
-	document
-			.getElementById("apply-btn")
-			.addEventListener(
-					"click",
-					function() {
-						// 필터링 조건 추출
-						const departureCity = document
-								.getElementById("city").value;
-						const arrivalCity = document
-								.querySelectorAll("#city")[1].value;
-						const minPrice = document
-								.getElementById("minprice").value;
-						const maxPrice = document
-								.getElementById("maxprice").value;
-						const tripType = document
-								.querySelector('input[name="trip-type"]:checked').value;
-						const recruitStatus = document
-								.querySelector('input[name="recruit"]:checked').value;
-
-						// 추출된 조건을 가지고 필터링 검색 실행
-						// 여기에 실행할 코드 추가
-					});
-	
 	
 		//출발일, 등록일 기준으로 table sort out기능
 		table = document.getElementById('carpoolTable');
@@ -341,8 +369,11 @@
 		var cellName = row.insertCell(0);	
 		cellName.innerHTML = 0;
 		refresh.refresh();
+		
 
 		//리스트 5개씩 보이게 하기
+		
+		
 
 
 		

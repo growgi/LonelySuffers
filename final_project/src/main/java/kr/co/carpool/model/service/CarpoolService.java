@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import kr.co.carpool.model.dao.CarpoolDao;
 import kr.co.carpool.model.vo.Carpool;
+import kr.co.carpool.model.vo.CarpoolFilter;
+import kr.co.carpool.model.vo.CarpoolMatch;
+import kr.co.carpool.model.vo.Passenger;
 
 @Service
 public class CarpoolService {
@@ -19,6 +22,14 @@ public class CarpoolService {
 
 	public Carpool selectOneCarpool(Carpool carpool) {
 		return dao.selectOneCarpool(carpool);
+	}
+
+//	public ArrayList<Carpool> filterCarpool() {
+//		return dao.filterCarpool();
+//	}
+
+	public int insertPassenger(CarpoolMatch match) {
+		return dao.insertPassenger(match);
 	}
 
 }

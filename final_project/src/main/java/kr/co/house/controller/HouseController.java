@@ -35,25 +35,28 @@ public class HouseController {
 
 
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
-	@RequestMapping(value="/availableRooms.do")
-	public String availableRooms(String roomTitle, int roomCapa, Model model) {
+	@ResponseBody
+	@RequestMapping(value="/availableRooms.do", produces = "application/json;charset=utf-8")
+	public String availableRooms(String roomTitle, int roomCapa) {
 		FindRoomByCondition condition = new FindRoomByCondition();
 		condition.setRoomTitle(roomTitle);
 		condition.setRoomCapa(roomCapa);
 		ArrayList<Room> list = service.selectAllAvailableRoom(condition);
-		model.addAttribute("roomList", list);
-		return "product/houseDetail";
+		return new Gson().toJson(list);
 	}
 
 
 
 // 하나의 객실에 대한 예약 내역(결제 완료 상태) 조회.    ROOM_BOOK 테이블에서 Row 여러개 조회 후 반환
+	@ResponseBody
 	@RequestMapping(value="/bookOneRoom.do")
-	public String bookOneRoom(int roomNo, Model model) {
+	public String bookOneRoom(int roomNo) {
 		ArrayList<RoomBook> list = service.selectAllBook(roomNo);
-		model.addAttribute("invalidDateList", list);
-		return "product/houseDetail";
+		return new Gson().toJson(list);
 	}
+
+
+
 //네이버지도 api 마커를 위한 경도,위도 조회.
 	@ResponseBody
 	@RequestMapping(value="/allAddress.do" , produces = "application/json;charset=utf-8")

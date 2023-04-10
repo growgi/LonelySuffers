@@ -21,8 +21,8 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
         <div>
-            <form action="/adminSearchMember.do" method="get" id="frm" class="search-bar" name="searchMember">
-                <span class="material-symbols-outlined search-icon" onclick="document.getElementById('frm').submit();">search</span>
+            <form action="/adminSearchMember.do" method="get" class="search-bar" name="searchMember">
+                <span class="material-symbols-outlined search-icon">search</span>
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
                 <input type="submit" style="display:none;">
             </form>
@@ -47,7 +47,16 @@
                             <td><input type="checkbox" name="memberCheck" class="check"></td>
                             <td>${m.memberName }</td>
                             <td>${m.memberId }</td>
-                            <td>${m.memberGender }</td>
+                            <td>
+                            <c:choose>
+                            <c:when test="${m.memberGender == 1}">
+                            	남
+                            </c:when>
+                            <c:when test="${m.memberGender == 2}">
+                            	여
+                            </c:when>
+                            </c:choose>
+                            </td>
                             <td>${m.memberPhone }</td>
                             <td>${m.memberEmail }</td>
                             <td>${m.enrollDate }</td>
@@ -115,7 +124,7 @@
 
         //체크된 체크박스 기준으로 회원아이디를 배열에 넣는 작업
         check.each(function(index,item){
-            const memberId = $(this).parent().parent().children().eq(2).text();
+            const memberId = $(item).parent().parent().children().eq(2).text();
             console.log(memberId);
             id.push(memberId);
         });

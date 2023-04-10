@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.WishList;
 
 @Controller
 public class AdminController {
@@ -75,12 +77,9 @@ public class AdminController {
 	//검색
 	@RequestMapping(value="/adminSearchMember.do")
 	public String adminSearchMember(String searchMemberId, Model model) {
-		Member searchMember = service.selectOneMember(searchMemberId);
+		ArrayList<Member> memberList = service.selectSearchMember(searchMemberId);
 		
-		ArrayList<Member> memberList = new ArrayList<Member>();
-		memberList.add(searchMember);
-		
-		if(searchMember != null) {			
+		if(memberList != null) {			
 			model.addAttribute("memberList",memberList);
 			return "admin/memberList";
 		} else {
@@ -133,40 +132,215 @@ public class AdminController {
 	
 	/**3. 신규 상품 승인*/
 	@RequestMapping(value="/newProduct.do")
-	public String newProduct() {
+	public String newProduct(Model model) {
+		ArrayList<Lesson> lessonList = service.selectNewLesson(); //신규 강습 상품 목록
+		ArrayList<House> houseList = service.selectNewHouse(); //신규 숙박 상품 목록
+		int newLessonCount = service.selectNewLessonCount(); //신규 강습 상품 수
+		int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
+		
+		model.addAttribute("lessonList", lessonList);
+		model.addAttribute("houseList", houseList);
+		model.addAttribute("newLessonCount", newLessonCount);
+		model.addAttribute("newHouseCount", newHouseCount);
 		
 		return "admin/newProduct";
 	}
+
+	//승인
+	@RequestMapping(value="/approveProduct.do")
+	public String approveProduct(int productType, int productNo) {
+		//상품 1개
+		int result = service.updateApproveProduct(productType, productNo);
+		
+		if(result>0) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
 	
+	@RequestMapping(value="/checkedApproveProduct.do")
+	public String checkedApproveProduct(int productType, String no) {
+		//체크된 상품
+		boolean result = service.updateCheckedApproveProduct(productType, no);
+		
+		if(result) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
+	
+	//반려
+	@RequestMapping(value="/returnProduct.do")
+	public String returnProduct(int productType, int productNo) {
+		//상품 1개
+		int result = service.updateReturnProduct(productType, productNo);
+		
+		if(result>0) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
+	
+	@RequestMapping(value="/checkedReturnProduct.do")
+	public String checkedReturnProduct(int productType, String no) {
+		//체크된 상품
+		boolean result = service.updateCheckedReturnProduct(productType, no);
+		
+		if(result) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
+	
+	//검색
+	@RequestMapping(value="/adminSearchLesson.do")
+	public String adminSearchLesson(String searchType, String searchKeyword, Model model) {
+		Search sp = new Search(searchType, searchKeyword);
+		System.out.println(searchType);
+		System.out.println(searchKeyword);
+		
+		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
+		
+		if(!lessonList.isEmpty()) {			
+			model.addAttribute("lessonList",lessonList);
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+		
+	}
+	
+	@RequestMapping(value="/adminSearchHouse.do")
+	public String adminSearchHouse(String searchType, String searchKeyword, Model model) {
+		Search sp = new Search(searchType, searchKeyword);
+		System.out.println(searchType);
+		System.out.println(searchKeyword);
+		ArrayList<House> houseList = service.selectSearchHouse(sp);
+		
+		if(!houseList.isEmpty()) {			
+			model.addAttribute("houseList",houseList);
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+		
+	}
 	
 	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productList.do")
 	public String productList(Model model) {
 		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록
 		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
+		int lessonCount = service.selectLessonCount(); //강습 상품 수
+		int houseCount = service.selectHouseCount(); //숙박 상품 수
 		
 		model.addAttribute("lessonList", lessonList);
 		model.addAttribute("houseList", houseList);
+		model.addAttribute("lessonCount", lessonCount);
+		model.addAttribute("houseCount", houseCount);
 		
 		return "admin/productList";
 	}
 	
+	//선택 상품 - 강습 상태 변경
+	@Transactional
+	@RequestMapping(value="/checkedUpdateLessonStatus.do")
+	public String checkedUpdateLessonStatus(String no, String status) {
+		boolean result = service.updateLessonStatus(no, status);
+		
+		if(result) {
+			return "redirect:/productList.do";
+		} else {
+			return "redirect:/memberList.do";
+		}
+	}
+	
+	//선택 상품 - 숙박 상태 변경
+	@Transactional
+	@RequestMapping(value="/checkedUpdateHouseStatus.do")
+	public String checkedUpdateHouseStatus(String no, String status) {
+		boolean result = service.updateHouseStatus(no, status);
+		
+		if(result) {
+			return "redirect:/productList.do";
+		} else {
+			return "redirect:/memberList.do";
+		}
+	}
+	
+	//상품 판매 중지 (1개)
+	@RequestMapping(value="/productStopSelling.do")
+	public String productStopSelling(int no, int productType) {
+		int result = service.updateProductStopSelling(no, productType);
+		
+		if(result>0) {
+			return "redirect:/newProduct.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
+	
+	/*5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
-	public String salesDetails() {
+	public String salesDetails(Model model) {
+		//ArrayList<Order> orderList = service.selectAllOrder();
+		//int orderCount = service.selectOrderCount();
+		
+		//model.addAttribute("orderList", orderList);
+		//model.addAttribute("orderCount", orderCount);
 		
 		return "admin/salesDetails";
 	}
 	
-	@RequestMapping(value="/wishList.do")
-	public String wishList() {
+	//내역 삭제
+	/*@RequestMapping(value="/deleteOrder.do")
+	public String deleteOrder(int orderNo) {
+		//내역 1개
+		int result = service.deleteOrder(orderNo);
 		
-		return "member/wishList";
+		if(result>0) {
+			return "redirect:/salesDetails.do";
+		} else {
+			return "redirect:/productList.do";
+		}
 	}
 	
+	@RequestMapping(value="/deleteCheckedOrder.do")
+	public String deleteCheckedOrder(String no) {
+		boolean result = service.deleteCheckedOrder(no);
+		
+		if(result) {
+			return "redirect:/salesDetails.do";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}*/
+	
+	/**6. 주문 상세*/
 	@RequestMapping(value="/orderDetail.do")
-	public String orderDetail() {
+	//public String orderDetail(int orderNo, Model model) {
+	public String orderDetail(Model model) {
+		/*ArrayList<OrderDetail> orderDetailList = service.selectOrderDetail(orderNo);
+		int orderDetailCount = service.selectOrderDetailCount(orderNo);
+		model.addAttribute("orderDetailList", orderDetailList);
+		model.addAttribute("orderDetailCount", orderDetailCount);*/
 		
 		return "admin/orderDetail";
+	}
+
+	/**7. 관심상품*/
+	@RequestMapping(value="/wishList.do")
+	public String wishList(String memberId, Model model) {
+		ArrayList<WishList> lessonWishList = service.selectLessonWishList(memberId);
+		ArrayList<WishList> houseWishList = service.selectHouseWishList(memberId);
+		
+		model.addAttribute("lessonWishList", lessonWishList);
+		model.addAttribute("houseWishList", houseWishList);
+		return "member/wishList";
 	}
 
 }
