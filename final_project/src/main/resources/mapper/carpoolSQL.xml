@@ -6,22 +6,19 @@
  <!-- 전체카풀조회(carpoolMain 페이지용)-->
  	<select id="selectAllCarpool" resultType="c">
  	select 
- 		carpool_no as carpoolNo,
- 		departure_date as departureDate,
- 		reg_date as regDate,
- 		oneway_round as onewayRound,
- 		departure_region as departureRegion,
- 		departure_district as departureDistrict,
- 		arrival_region as arrivalRegion,
- 		arrival_district as arrivalDistrict,
- 		capacity as capacity,
- 		surfboard_room as surfboardRoom,
- 		driver_msg as driverMsg,
- 		NVL(GET_PASSENGER, 0) AS RESERVED
- 	FROM CARPOOL
- 		LEFT JOIN (SELECT CARPOOL_NO, COUNT(CARPOOL_NO) AS GET_PASSENGER FROM CARPOOL RIGHT JOIN PASSENGER USING (CARPOOL_NO) 
- 		WHERE MATCH_STATUS=0 GROUP BY CARPOOL_NO)
- 		USING (CARPOOL_NO)
+ 		carpool_no,
+ 		departure_date,
+ 		reg_date,
+ 		oneway_round ,
+ 		departure_region,
+ 		departure_district,
+ 		arrival_region,
+ 		arrival_district,
+ 		capacity,
+ 		surfboard_room,
+ 		driver_msg,
+ 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) AS RESERVED
+     FROM CARPOOL c
 	</select>
 	
 <!-- 한개의 카풀 조회(상세페이지용) -->
@@ -43,6 +40,12 @@
 		left join member_tbl on(member_no=driver_no) 
 		where carpool_no=#{carpoolNo}
 	</select>
+	
+<!-- 운전자의 카풀 제공 등록 확인할 것 : 편도/왕복에 따라 화면이 다른데 그럼 mapper 다르게 구현하는게 맞는지??-->
+	<insert id="insertCarpool" parameterType="c">
+		insert into carpool values
+		(carpool_seq.nextval, #{departureRegion}, #{departureDistrict})
+	</insert>	
 	
 
 	
