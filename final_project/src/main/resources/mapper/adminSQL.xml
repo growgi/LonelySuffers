@@ -310,7 +310,7 @@
 		where order_no=#{_parameter}
 	</select>
  -->
- 	<select id="selectWishList" parameterType="string" resultType="w">
+ 	<select id="selectLessonWishList" parameterType="string" resultType="w">
  		select
  			wish_no as wishNo,
  			member_id as memberId,
@@ -320,10 +320,31 @@
  			lesson_price as lessonPrice,
  			lesson_max_no as lessonMaxNo,
  			lesson_start_time as lessonStartTime,
- 			lesson_end_time as lessonEndTime
+ 			lesson_end_time as lessonEndTime,
+ 			lesson_city as lessonCity,
+ 			lesson_info_pic as lessonInfoPic
  		from wishList
  		join lesson using(lesson_no)
- 		where member_id=#{_parameter}
+ 		where member_id=#{_parameter} and house_no is null
+ 	</select>
+ 	
+ 	<select id="selectHouseWishList" parameterType="string" resultType="w">
+ 		select
+ 			wish_no as wishNo,
+ 			member_id as memberId,
+ 			house_no as houseNo,
+ 			house_title as houseTitle,
+ 			room_title as roomTitle,
+ 			house_city as houseCity,
+ 			house_photo1 as housePhoto1,
+ 			room_capa as roomCapa,
+ 			house_price as housePrice,
+ 			book_start_date as bookStartDate,
+ 			book_end_date as bookEndDate
+ 		from wishList
+ 		left join house using(house_no)
+ 		left join room_book using(house_no)
+ 		where member_id=#{_parameter} and lesson_no is null
  	</select>
  
 </mapper>

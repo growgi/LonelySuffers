@@ -398,9 +398,14 @@ public class AdminService {
 	}
 */
 
-	public ArrayList<WishList> selectWishList(String memberId) {
+	public ArrayList<WishList> selectLessonWishList(String memberId) {
 
-		return dao.selectWishList(memberId);
+		return dao.selectLessonWishList(memberId);
+	}
+
+	public ArrayList<WishList> selectHouseWishList(String memberId) {
+
+		return dao.selectHouseWishList(memberId);
 	}
 
 

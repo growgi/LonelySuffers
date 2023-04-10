@@ -223,10 +223,16 @@ public class AdminDao {
 	
 */
 
-	public ArrayList<WishList> selectWishList(String memberId) {
-		List wishList = sqlSession.selectList("admin.selectWishList", memberId);
+	public ArrayList<WishList> selectLessonWishList(String memberId) {
+		List lessonWishList = sqlSession.selectList("admin.selectLessonWishList", memberId);
 		
-		return (ArrayList<WishList>)wishList;
+		return (ArrayList<WishList>)lessonWishList;
+	}
+
+	public ArrayList<WishList> selectHouseWishList(String memberId) {
+		List houseWishList = sqlSession.selectList("admin.selectHouseWishList", memberId);
+		
+		return (ArrayList<WishList>)houseWishList;
 	}
 
 }
