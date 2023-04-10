@@ -11,6 +11,8 @@ import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.Order;
+import kr.co.member.model.vo.OrderDetail;
 import kr.co.member.model.vo.WishList;
 
 @Service
@@ -349,7 +351,7 @@ public class AdminService {
 	}
 
 
-/*
+
 	public ArrayList<Order> selectAllOrder() {
 		
 		return dao.selectAllOrder();
@@ -387,7 +389,7 @@ public class AdminService {
 		return result;
 	}
 
-	public ArrayList<OrderDetail> selectOrderDetail(int orderNo) {
+	public ArrayList<Order> selectOrderDetail(int orderNo) {
 
 		return dao.selectOrderDetail(orderNo);
 	}
@@ -396,7 +398,7 @@ public class AdminService {
 	
 		return dao.selectOrderDetailCount(orderNo);
 	}
-*/
+
 
 	public ArrayList<WishList> selectLessonWishList(String memberId) {
 
@@ -406,6 +408,22 @@ public class AdminService {
 	public ArrayList<WishList> selectHouseWishList(String memberId) {
 
 		return dao.selectHouseWishList(memberId);
+	}
+
+	public ArrayList<WishList> selectAllWishList(String memberId) {
+
+		return dao.selectAllWishList(memberId);
+	}
+
+	public Order selectOrderDetailInfo(int orderNo) {
+
+		return dao.selectOrderDetailInfo(orderNo);
+	}
+
+	public ArrayList<Order> selectSearchSalesDetails(Search sp) {
+		System.out.println(sp.getSearchType());
+		System.out.println(sp.getSearchKeyword());
+		return dao.selectSearchSalesDetails(sp);
 	}
 
 

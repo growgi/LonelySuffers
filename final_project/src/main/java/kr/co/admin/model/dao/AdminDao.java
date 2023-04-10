@@ -11,6 +11,8 @@ import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.Order;
+import kr.co.member.model.vo.OrderDetail;
 import kr.co.member.model.vo.WishList;
 
 @Repository
@@ -187,9 +189,6 @@ public class AdminDao {
 		return result;
 	}
 
-
-
-/*
 	public ArrayList<Order> selectAllOrder() {
 		List orderList = sqlSession.selectList("admin.selectAllOrder");
 		
@@ -209,10 +208,10 @@ public class AdminDao {
 		return result;
 	}
 	
-	public ArrayList<OrderDetail> selectOrderDetail(int orderNo) {
+	public ArrayList<Order> selectOrderDetail(int orderNo) {
 		List orderDetailList = sqlSession.selectList("admin.selectOrderDetail", orderNo);
 		
-		return orderDetailList;
+		return (ArrayList<Order>)orderDetailList;
 	}
 	
 	public int selectOrderDetailCount(int orderNo) {
@@ -221,7 +220,7 @@ public class AdminDao {
 		return orderDetailCount;
 	}
 	
-*/
+
 
 	public ArrayList<WishList> selectLessonWishList(String memberId) {
 		List lessonWishList = sqlSession.selectList("admin.selectLessonWishList", memberId);
@@ -233,6 +232,25 @@ public class AdminDao {
 		List houseWishList = sqlSession.selectList("admin.selectHouseWishList", memberId);
 		
 		return (ArrayList<WishList>)houseWishList;
+	}
+
+	public ArrayList<WishList> selectAllWishList(String memberId) {
+		List allWishList = sqlSession.selectList("admin.selectAllWishList", memberId);
+		
+		return (ArrayList<WishList>)allWishList;
+	}
+
+	public Order selectOrderDetailInfo(int orderNo) {
+		Order orderDetailInfo = sqlSession.selectOne("admin.selectOrderDetailInfo", orderNo);
+		
+		return orderDetailInfo;
+	}
+
+	public ArrayList<Order> selectSearchSalesDetails(Search sp) {
+		List searchSalesDetails = sqlSession.selectList("admin.selectSearchSalesDetails", sp);
+		System.out.println(sp.getSearchType());
+		System.out.println(sp.getSearchKeyword());
+		return (ArrayList<Order>)searchSalesDetails;
 	}
 
 }

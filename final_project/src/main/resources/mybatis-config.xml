@@ -23,6 +23,7 @@
 		<typeAlias type="kr.co.member.model.vo.WishList" alias="w"/>		<!-- WishList   as w -->	
 		<typeAlias type="kr.co.house.model.vo.RoomBook" alias="rb"/>		<!-- RoomBook   as rb -->
 		<typeAlias type="kr.co.member.model.vo.Order" alias="order"/>
+		<typeAlias type="kr.co.member.model.vo.Order" alias="od"/>
 	</typeAliases>		
 
 
