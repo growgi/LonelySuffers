@@ -279,6 +279,7 @@
 </style>
 <!-- naver map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
+<script src="js/MarkerClustering.js"></script>
 <!-- daterangepicker -->
 <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
 </head>
@@ -487,6 +488,8 @@
 
 
 <script>
+//markers배열
+var markers = [];
 //네이버지도 스크립트
 const map = new naver.maps.Map("map",{
 	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
@@ -498,7 +501,8 @@ const map = new naver.maps.Map("map",{
 		style : naver.maps.ZoomControlStyle.SMALL
 	}
 });
-
+//마커배열
+var	markers = [];
 //날짜의 차이를 구하는 함수
 Date.prototype.getInterval = function (otherDate) {
     var interval;
@@ -528,11 +532,60 @@ $(document).ready(function(){
 				const marker = new naver.maps.Marker({
 					position : new naver.maps.LatLng(data[i].houseLat,data[i].houseLng),
 					map : map
+					
 				})
+				 markers.push(marker);
 			}
+			
 		}
 	})
 });
+//네이버지도 마커클러스터
+$(document).ready(function(){
+	var htmlMarker1 = {
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-1.png);background-size:contain;"></div>',
+	        size: N.Size(40, 40),
+	        anchor: N.Point(20, 20)
+	    },
+	    htmlMarker2 = {
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-2.png);background-size:contain;"></div>',
+	        size: N.Size(40, 40),
+	        anchor: N.Point(20, 20)
+	    },
+	    htmlMarker3 = {
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-3.png);background-size:contain;"></div>',
+	        size: N.Size(40, 40),
+	        anchor: N.Point(20, 20)
+	    },
+	    htmlMarker4 = {
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-4.png);background-size:contain;"></div>',
+	        size: N.Size(40, 40),
+	        anchor: N.Point(20, 20)
+	    },
+	    htmlMarker5 = {
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-5.png);background-size:contain;"></div>',
+	        size: N.Size(40, 40),
+	        anchor: N.Point(20, 20)
+	    };
+
+	var markerClustering = new MarkerClustering({
+        minClusterSize: 2,
+        maxZoom: 8,
+        map: map,
+        markers: markers,
+        disableClickZoom: false,
+        gridSize: 120,
+        icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
+        indexGenerator: [10, 100, 200, 500, 1000],
+        stylingFunction: function(clusterMarker, count) {
+            $(clusterMarker.getElement()).find('div:first-child').text(count);
+        }
+    });
+	
+});
+
+
+
 
 
 //daterangepicker api
