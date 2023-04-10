@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,28 +18,30 @@
             </form>
             <div class="list-wrapper">
                 <div class="orderList-top list-top">
-                    <div class="count">판매내역 <span>n</span>명</div>
+                    <div class="count">판매내역 <span>${orderCount }</span>건</div>
                     <table>
                         <tr>
                             <th><input type="checkbox" name="orderCheck" class="all-check"></th>
                             <th>주문번호</th>
                             <th>아이디</th>
                             <th>주문상품</th>
-                            <th>총 결재금액</th>
+                            <th>총 결제금액</th>
                             <th>주문날짜</th>
                             <th>처리상태</th>
                             <th>주문 상세</th>
                         </tr>
+                        <c:forEach items="${orderList }" var="o">
                         <tr>
                             <td><input type="checkbox" name="orderCheck" class="check"></td>
-                            <td>4</td>
-                            <td>hong123</td>
-                            <td>숙박</td>
-                            <td><span>65,000</span>원</td>
-                            <td>2023-03-12</td>
-                            <td>결제완료</td>
-                            <td><a href="/orderDetail.do">주문 상세 내역</a></td>
+                            <td>${o.orderNo }</td>
+                            <td>${o.memberId }</td>
+                            <td>${o.orderProductString }</td>
+                            <td><span>${o.orderAllPrice }</span>원</td>
+                            <td>${o.orderDate }</td>
+                            <td>${o.orderStatusString }</td>
+                            <td><a href="/orderDetail.do?orderNo=${o.orderNo }">주문 상세 내역</a></td>
                         </tr>
+                        </c:forEach>
                     </table>
                     <div></div>
                 </div>

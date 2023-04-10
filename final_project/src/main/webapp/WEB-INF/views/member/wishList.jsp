@@ -183,43 +183,49 @@
                             <div class="wishList-list">
                                 <div class="all-wishList">
                                     <c:forEach items="${allWishList }" var="w">
-                                        <div class="wishList-box">
-                                            <div class="wishList-box-top">
-                                                <div>
-                                                    <div class="product-title"><a href="#">1가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <a href="/deleteWishList.do?memberId=${sessionScope.m.memberId }&wishNo=${wishNo}" class="material-symbols-outlined close-icon">close</a>
-                                                </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
-                                            </div>
-                                            <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
-                                                <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    	
-                                        <div class="wishList-box">
-                                            <div class="wishList-box-top">
-                                                <div>
-                                                    <div class="product-title"><a href="#">가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <div class="material-symbols-outlined close-icon">close</div>
-                                                </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
-                                            </div>
-                                            <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
-                                                <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    	<c:choose>
+                                    		<c:when test="${empty w.houseNo}">
+	                                        <div class="wishList-box">
+	                                            <div class="wishList-box-top">
+	                                                <div>
+	                                                    <div class="product-title"><a href="#">${w.houseTitle }</a></div>
+	                                                    <div class="material-symbols-outlined close-icon">close</div>
+	                                                </div>
+	                                                <div><span class="product-name">숙박</span> | <span class="location">${w.houseCity }</span></div>
+	                                            </div>
+	                                            <div class="wishList-box-bottom">
+	                                                <div class="product-img"></div>
+	                                                <div class="wishList-box-detail">
+	                                                    <div><a href="#">${w.roomTitle }</a></div>
+	                                                    <div><span>${w.houseDescription}</span></div>
+	                                                    <div>객실인원 <span>${w.roomCapa }</span>명</div>
+	                                                    <div class="product-price"><span>${w.housePrice }</span>원</div>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+                                    		</c:when>
+                                    		<c:when test="${empty w.lessonNo}">
+ 											<div class="wishList-box">
+	                                            <div class="wishList-box-top">
+	                                                <div>
+	                                                    <div class="product-title"><a href="#">${w.lessonTitle }</a></div>
+	                                                    <div class="material-symbols-outlined close-icon">close</div>
+	                                                </div>
+	                                                <div><span class="product-name">강습</span> | <span class="location">${w.lessonCity }</span></div>
+	                                            </div>
+	                                            <div class="wishList-box-bottom">
+	                                           		<div class="product-img"></div>
+	
+	                                                <div class="wishList-box-detail">
+	                                                    <div><a href="#">${w.lessonNameLevel }</a></div>
+	                                                    <div><span>${w.lessonStartTime }</span> ~ <span>${w.lessonEndTime }</span></div>
+	                                                    <div>모집인원 <span>${w.lessonMaxNo }</span>명</div>
+	                                                    <div class="product-price"><span>${w.lessonPrice }</span>원</div>
+	                                                </div>
+	                                            </div>
+                                        	</div>
+                                    		</c:when>
+                                    	</c:choose>
                                     </c:forEach>
                                 </div>
 
@@ -261,7 +267,7 @@
                                                 <div class="product-img"></div>
                                                 <div class="wishList-box-detail">
                                                     <div><a href="#">${hw.roomTitle }</a></div>
-                                                    <div><span>${hw.bookStartDate }</span> ~ <span>${hw.bookEndDate }</span></div>
+                                                    <div><span>${hw.houseDescription}</span></div>
                                                     <div>객실인원 <span>${hw.roomCapa }</span>명</div>
                                                     <div class="product-price"><span>${hw.housePrice }</span>원</div>
                                                 </div>
@@ -291,24 +297,30 @@
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 </body>
 <script>
-    $(".wishList-category>div").on("click",function(){
-        $(".wishList-content>.line").removeClass("active-line1");
-        $(".wishList-content>.line").removeClass("active-line2");
-        $(".wishList-content>.line").removeClass("active-line3");
+	$(document).ready(function(){
+		$(".wishList-category>div").click(function(){
+	        $(".wishList-list>div").hide();
+	        $(".wishList-content>.line").removeClass("active-line1");
+	        $(".wishList-content>.line").removeClass("active-line2");
+	        $(".wishList-content>.line").removeClass("active-line3");
 
-        const num = $(".wishList-category>div").index($(this));
+	        const num = $(this).index();
+	        
+	        console.log(num);
 
-        $(".wishList-list>div").hide();
+	        if(num == 0) {
+	            $(".wishList-content>.line").addClass("active-line1");
+		        $(".wishList-list>div").eq(num).show();
+	        } else if(num == 1) {
+	            $(".wishList-content>.line").addClass("active-line2");
+	            $(".wishList-list>div").eq(num).show();
+	        } else if(num == 2) {
+	            $(".wishList-content>.line").addClass("active-line3");
+	            $(".wishList-list>div").eq(num).show();
+	        }
 
-        if(num == 0) {
-            $(".wishList-content>.line").addClass("active-line1");
-        } else if(num == 1) {
-            $(".wishList-content>.line").addClass("active-line2");
-        } else if(num == 2) {
-            $(".wishList-content>.line").addClass("active-line3");
-        }
-
-        $(".wishList-list>div").eq(num).show();
-    });
+	    });
+	});
+    
 </script>
 </html>

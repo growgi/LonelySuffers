@@ -113,54 +113,66 @@
             </div>
             <div class="orderDetail-info">
                 <div>
-                    <div class="bold">주문번호 <span class="order-no">4</span></div>
-                    <div class="bold">아이디 <span class="member-id">hong123</span></div>
+                    <div class="bold">주문번호 <span class="order-no">${orderDetailInfo.orderNo }</span></div>
+                    <div class="bold">아이디 <span class="member-id">${orderDetailInfo.memberId }</span></div>
                 </div>
-                <div class="bold">주문날짜 <span class="order-date">2023-03-12</span></div>
+                <div class="bold">주문날짜 <span class="order-date">${orderDetailInfo.orderDate }</span></div>
             </div>
             <div class="orderDetail-product">
-                <div class="produtc-count bold">주문상품 <span>3</span>개</div>
+                <div class="produtc-count bold">주문상품 <span>${orderCount }</span>개</div>
                 <div class="orderDetail-product-list">
-                    <div class="product-box">
+                	<c:if test="${!empty orderDetailList }">
+                	<c:forEach items="${orderDetailList }" var="od">
+                	<c:choose>
+                		<c:when test="${!empty od.lessonNo }">
+                		<div class="product-box">
                         <div class="product-box-top">
-                            <div class="product-title bold">개쉬운 서핑! 너도 하자</div>
-                            <div><span class="product-type">강습</span> | <span class="product-location">강원도</span></div>
+                            <div class="product-title bold">${od.lessonTitle }</div>
+                            <div><span class="product-type">강습</span> | <span class="product-location">${od.lessonCity }</span></div>
                         </div>
                         <div class="product-box-bottom">
                             <div class="product-img"></div>
                             <div>
                                 <div class="product-info">
-                                    <div class="product-name bold">Level 1</div>
-                                    <div><span class="product-start-time">2023-03-12</span> ~ <span class="product-end-time">2023-03-13</span></div>
-                                    <div class="product-etc">강사명 : <span class="product-etc-val">홍길동</span></div>
+                                    <div class="product-name bold">${od.lessonNameLevel }</div>
+                                    <div><span class="product-start-time">${od.lessonStartTime }</span> ~ <span class="product-end-time">${od.lessonEndTime }</span></div>
+                                    <div class="product-etc">강사명 : <span class="product-etc-val">${od.lessonTeacher }</span></div>
                                 </div>
                                 <div>
                                     <div>결제완료</div>
-                                    <div class="bold"><span class="product-price">200,000</span>원</div>
+                                    <div class="bold"><span class="product-price">${od.productPrice }</span>원</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="product-box">
+                    	</div>
+                		</c:when>
+                		<c:when test="${!empty od.houseNo }">
+                		<div class="product-box">
                         <div class="product-box-top">
-                            <div class="product-title bold">가격 실화? 멋지다 짜잔호텔</div>
-                            <div><span class="product-type">숙박</span> | <span class="product-location">강원도 양양군 그 어딘가</span></div>
+                            <div class="product-title bold">${od.houseTitle }</div>
+                            <div><span class="product-type">숙박</span> | <span class="product-location">${od.houseCity }</span></div>
                         </div>
                         <div class="product-box-bottom">
                             <div class="product-img"></div>
                             <div>
                                 <div class="product-info">
-                                    <div class="product-name bold">짜잔호텔</div>
-                                    <div><span class="product-start-time">2023-03-12</span> ~ <span class="product-end-time">2023-03-13</span></div>
-                                    <div class="product-etc">판매자 : <span class="product-etc-val">김철수</span></div>
+                                    <div class="product-name bold">${od.roomTitle }</div>
+                                    <div><span class="product-start-time">${od.bookStartDate }</span> ~ <span class="product-end-time">${od.bookEndDate }</span></div>
+                                    <div class="product-etc">판매자 : <span class="product-etc-val">${od.bookWriter }</span></div>
                                 </div>
                                 <div>
-                                    <div>결제완료</div>
-                                    <div class="bold"><span class="product-price">100,000</span>원</div>
+                                    <div>${od.orderStatus }</div>
+                                    <div class="bold"><span class="product-price">${od.productPrice }</span>원</div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                		</c:when>
+                	</c:choose>
+                    
+                    </c:forEach>
+                    </c:if>
+                    
                 </div>
             </div>
             <div class="pay-info bold">

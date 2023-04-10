@@ -13,6 +13,8 @@ import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.Order;
+import kr.co.member.model.vo.OrderDetail;
 import kr.co.member.model.vo.WishList;
 
 @Controller
@@ -287,17 +289,17 @@ public class AdminController {
 	/*5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
 	public String salesDetails(Model model) {
-		//ArrayList<Order> orderList = service.selectAllOrder();
-		//int orderCount = service.selectOrderCount();
+		ArrayList<Order> orderList = service.selectAllOrder();
+		int orderCount = service.selectOrderCount();
 		
-		//model.addAttribute("orderList", orderList);
-		//model.addAttribute("orderCount", orderCount);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("orderCount", orderCount);
 		
 		return "admin/salesDetails";
 	}
 	
 	//내역 삭제
-	/*@RequestMapping(value="/deleteOrder.do")
+	@RequestMapping(value="/deleteOrder.do")
 	public String deleteOrder(int orderNo) {
 		//내역 1개
 		int result = service.deleteOrder(orderNo);
@@ -318,16 +320,18 @@ public class AdminController {
 		} else {
 			return "redirect:/productList.do";
 		}
-	}*/
+	}
 	
 	/**6. 주문 상세*/
 	@RequestMapping(value="/orderDetail.do")
-	//public String orderDetail(int orderNo, Model model) {
-	public String orderDetail(Model model) {
-		/*ArrayList<OrderDetail> orderDetailList = service.selectOrderDetail(orderNo);
+	public String orderDetail(int orderNo, Model model) {
+		Order orderDetailInfo = service.selectOrderDetailInfo(orderNo);
+		ArrayList<Order> orderDetailList = service.selectOrderDetail(orderNo);
 		int orderDetailCount = service.selectOrderDetailCount(orderNo);
+		
+		model.addAttribute("orderDetailInfo", orderDetailInfo);
 		model.addAttribute("orderDetailList", orderDetailList);
-		model.addAttribute("orderDetailCount", orderDetailCount);*/
+		model.addAttribute("orderDetailCount", orderDetailCount);
 		
 		return "admin/orderDetail";
 	}
@@ -335,11 +339,13 @@ public class AdminController {
 	/**7. 관심상품*/
 	@RequestMapping(value="/wishList.do")
 	public String wishList(String memberId, Model model) {
+		ArrayList<WishList> allWishList = service.selectAllWishList(memberId);
 		ArrayList<WishList> lessonWishList = service.selectLessonWishList(memberId);
 		ArrayList<WishList> houseWishList = service.selectHouseWishList(memberId);
 		
 		model.addAttribute("lessonWishList", lessonWishList);
 		model.addAttribute("houseWishList", houseWishList);
+		model.addAttribute("allWishList", allWishList);
 		return "member/wishList";
 	}
 
