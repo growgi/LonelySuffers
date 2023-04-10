@@ -38,6 +38,7 @@
 	
 	.content-wrapper{
 		width:1200px;
+		overflow:hidden;
 	}
 	.title-wrapper{
 		width:1200px;
@@ -75,13 +76,27 @@
 		font-size:30px;
 		font-weight:400;
 		float:right;
-		margin-right:100px;
+		margin-right:50px;
 		line-height:100px;
 	}
 	.map-wrapper{
 		width: 1000px;
 		
 	}
+	
+	.scroll-wrapper{
+		position:relative;
+		float:right;
+		width:300px;
+		z-index: 2;
+	}
+	#scroll{
+		position:absolute;
+		top:0px;
+		left:0px;
+		overflow:hidden;
+	}
+	
 	.circle-wrap{
 		width: 1100px;
 		height: 1100px;
@@ -289,6 +304,13 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	
 	<section class="section">
+		<!-- 스크롤 메뉴 -->
+				<div class="scroll-wrapper">  
+       				 <div id="scroll">
+       				 	<span class="money"><span class="stat-count">150000</span>원</span>
+           				<img class="money-emoji" src="/images/won.png">
+        			</div>  
+				</div> 
 		<div class="container">
 			<!-- 키오스크 1페이지 -->
 			<div class="content-wrapper">
@@ -299,10 +321,16 @@
 					<img src="/images/palm-tree.png">
 					<img src="/images/wave.png">
 				</div>
+				<!-- 
 				<div class="money-wrapper">
 					<span class="money stat-count">150000</span>
 					<img class="money-emoji" src="/images/dollar1.png">
 				</div>
+				 -->
+				
+				
+				
+				
 				<!-- 돋보기 모양으로 해보기 -->
 				<div class="page1">
 					<div class="map-wrapper">
@@ -493,16 +521,14 @@ var markers = [];
 //네이버지도 스크립트
 const map = new naver.maps.Map("map",{
 	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
-	zoom : 7,
-	maxZoom : 10,
+	zoom : 6,
+	maxZoom : 7,
 	zoomControl : true,
 	zoomControlOptions : {
 		position : naver.maps.Position.TOP_RIGHT,
 		style : naver.maps.ZoomControlStyle.SMALL
 	}
 });
-//마커배열
-var	markers = [];
 //날짜의 차이를 구하는 함수
 Date.prototype.getInterval = function (otherDate) {
     var interval;
@@ -522,6 +548,7 @@ const marker = new naver.maps.Marker({
 */
 
 //지도 리스트 불러와서 마커생성
+/*
 $(document).ready(function(){
 	$.ajax({
 		url : "/allAddress.do",
@@ -540,33 +567,48 @@ $(document).ready(function(){
 		}
 	})
 });
+*/
 //네이버지도 마커클러스터
 $(document).ready(function(){
 	var htmlMarker1 = {
-	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-1.png);background-size:contain;"></div>',
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:40px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url(https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-1.png);background-size:contain;"></div>',
 	        size: N.Size(40, 40),
 	        anchor: N.Point(20, 20)
 	    },
 	    htmlMarker2 = {
-	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-2.png);background-size:contain;"></div>',
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:40px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url(https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-2.png);background-size:contain;"></div>',
 	        size: N.Size(40, 40),
 	        anchor: N.Point(20, 20)
 	    },
 	    htmlMarker3 = {
-	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-3.png);background-size:contain;"></div>',
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:40px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url(https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-3.png);background-size:contain;"></div>',
 	        size: N.Size(40, 40),
 	        anchor: N.Point(20, 20)
 	    },
 	    htmlMarker4 = {
-	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-4.png);background-size:contain;"></div>',
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:40px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url(https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-4.png);background-size:contain;"></div>',
 	        size: N.Size(40, 40),
 	        anchor: N.Point(20, 20)
 	    },
 	    htmlMarker5 = {
-	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url((https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-5.png);background-size:contain;"></div>',
+	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:40px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url(https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-5.png);background-size:contain;"></div>',
 	        size: N.Size(40, 40),
 	        anchor: N.Point(20, 20)
 	    };
+
+	$.ajax({
+		url : "/allAddress.do",
+		type : "get",
+		dataType : "json",
+		success : function(data){
+			for(let i=0;i<data.length;i++){
+				const marker = new naver.maps.Marker({
+					position : new naver.maps.LatLng(data[i].houseLat,data[i].houseLng),
+					map : map
+					
+				})
+				 markers.push(marker);
+			}
 
 	var markerClustering = new MarkerClustering({
         minClusterSize: 2,
@@ -574,14 +616,16 @@ $(document).ready(function(){
         map: map,
         markers: markers,
         disableClickZoom: false,
+        averageCenter: true, 
         gridSize: 120,
         icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
         indexGenerator: [10, 100, 200, 500, 1000],
         stylingFunction: function(clusterMarker, count) {
             $(clusterMarker.getElement()).find('div:first-child').text(count);
-        }
-    });
-	
+       		 }
+   		 });
+		}
+	});
 });
 
 
@@ -649,6 +693,19 @@ $('input[type=checkbox]').on('change',function(){
 		 $(this).parent().prev().children().css("border", "none");
 	 }
 })
+
+
+//test
+
+$("document").ready(function() {  
+    
+    $(window).scroll(function()  
+    {  
+        $('#scroll').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});    
+    });  
+  
+});  
+
 </script>					
 </body>
 </html>
