@@ -39,7 +39,7 @@ public class Order {
 	//House
 	private String houseTitle;			// 상품 웹페이지에 노출될 제목
 	private String houseCity;			// 광역시/도   부분만. 지역별 필터링에 쓸 것.
-	private String HouseWriter;				// 상품등록자의 MEMBER_ID (글쓴이)
+	private String houseWriter;				// 상품등록자의 MEMBER_ID (글쓴이)
 	private String roomTitle;			// 숙박소이름      예) XX펜션, ABC하우스
 	private int houseBarbecue;			//0:안쓰는 것, 1:쓰는것
 	private int houseParty;				//0:안쓰는 것, 1:쓰는것

@@ -119,65 +119,61 @@
                 <div class="bold">주문날짜 <span class="order-date">${orderDetailInfo.orderDate }</span></div>
             </div>
             <div class="orderDetail-product">
-                <div class="produtc-count bold">주문상품 <span>${orderCount }</span>개</div>
+                <div class="produtc-count bold">주문상품 <span>${orderDetailCount }</span>개</div>
                 <div class="orderDetail-product-list">
-                	<c:if test="${!empty orderDetailList }">
                 	<c:forEach items="${orderDetailList }" var="od">
                 	<c:choose>
-                		<c:when test="${!empty od.lessonNo }">
+                		<c:when test="${od.lessonNo ne null}">
                 		<div class="product-box">
-                        <div class="product-box-top">
-                            <div class="product-title bold">${od.lessonTitle }</div>
-                            <div><span class="product-type">강습</span> | <span class="product-location">${od.lessonCity }</span></div>
-                        </div>
-                        <div class="product-box-bottom">
-                            <div class="product-img"></div>
-                            <div>
-                                <div class="product-info">
-                                    <div class="product-name bold">${od.lessonNameLevel }</div>
-                                    <div><span class="product-start-time">${od.lessonStartTime }</span> ~ <span class="product-end-time">${od.lessonEndTime }</span></div>
-                                    <div class="product-etc">강사명 : <span class="product-etc-val">${od.lessonTeacher }</span></div>
-                                </div>
-                                <div>
-                                    <div>결제완료</div>
-                                    <div class="bold"><span class="product-price">${od.productPrice }</span>원</div>
-                                </div>
-                            </div>
-                        </div>
+	                        <div class="product-box-top">
+	                            <div class="product-title bold">${od.lessonTitle }</div>
+	                            <div><span class="product-type">강습</span> | <span class="product-location">${od.lessonCity }</span></div>
+	                        </div>
+	                        <div class="product-box-bottom">
+	                            <div class="product-img"></div>
+	                            <div>
+	                                <div class="product-info">
+	                                    <div class="product-name bold">${od.lessonNameLevel }</div>
+	                                    <div><span class="product-start-time">${od.lessonStartTime }</span> ~ <span class="product-end-time">${od.lessonEndTime }</span></div>
+	                                    <div class="product-etc">강사명 : <span class="product-etc-val">${od.lessonTeacher }</span></div>
+	                                </div>
+	                                <div>
+	                                    <div>${od.orderStatusString }</div>
+	                                    <div class="bold"><span class="product-price">${od.productPrice }</span>원</div>
+	                                </div>
+	                            </div>
+	                        </div>
+                    	</div>
+                		</c:when> 
+                		<c:when test="${od.houseNo ne null}">
+                		<div class="product-box">
+	                        <div class="product-box-top">
+	                            <div class="product-title bold">${od.houseTitle }</div>
+	                            <div><span class="product-type">숙박</span> | <span class="product-location">${od.houseCity }</span></div>
+	                        </div>
+	                        <div class="product-box-bottom">
+	                            <div class="product-img"></div>
+	                            <div>
+	                                <div class="product-info">
+	                                    <div class="product-name bold">${od.roomTitle }</div>
+	                                    <div><span class="product-start-time">${od.bookStartDate }</span> ~ <span class="product-end-time">${od.bookEndDate }</span></div>
+	                                    <div class="product-etc">판매자 : <span class="product-etc-val">${od.houseWriter }</span></div>
+	                                </div>
+	                                <div>
+	                                    <div>${od.orderStatusString }</div>
+	                                    <div class="bold"><span class="product-price">${od.productPrice }</span>원</div>
+	                                </div>
+	                            </div>
+	                        </div>
                     	</div>
                 		</c:when>
-                		<c:when test="${!empty od.houseNo }">
-                		<div class="product-box">
-                        <div class="product-box-top">
-                            <div class="product-title bold">${od.houseTitle }</div>
-                            <div><span class="product-type">숙박</span> | <span class="product-location">${od.houseCity }</span></div>
-                        </div>
-                        <div class="product-box-bottom">
-                            <div class="product-img"></div>
-                            <div>
-                                <div class="product-info">
-                                    <div class="product-name bold">${od.roomTitle }</div>
-                                    <div><span class="product-start-time">${od.bookStartDate }</span> ~ <span class="product-end-time">${od.bookEndDate }</span></div>
-                                    <div class="product-etc">판매자 : <span class="product-etc-val">${od.bookWriter }</span></div>
-                                </div>
-                                <div>
-                                    <div>${od.orderStatus }</div>
-                                    <div class="bold"><span class="product-price">${od.productPrice }</span>원</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                		</c:when>
-                	</c:choose>
-                    
+                		</c:choose>
                     </c:forEach>
-                    </c:if>
-                    
                 </div>
             </div>
             <div class="pay-info bold">
                 <div>결제 정보</div>
-                <div>총 <span class="all-price">600,000</span>원</div>
+                <div>총 <span class="all-price">${orderDetailInfo.orderAllPrice }</span>원</div>
             </div>
         </div>
     </div>

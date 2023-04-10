@@ -420,5 +420,11 @@ public class AdminService {
 		return dao.selectOrderDetailInfo(orderNo);
 	}
 
+	public ArrayList<Order> selectSearchSalesDetails(Search sp) {
+		System.out.println(sp.getSearchType());
+		System.out.println(sp.getSearchKeyword());
+		return dao.selectSearchSalesDetails(sp);
+	}
+
 
 }

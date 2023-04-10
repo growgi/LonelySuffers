@@ -321,6 +321,21 @@ public class AdminController {
 			return "redirect:/productList.do";
 		}
 	}
+	//검색
+	@RequestMapping(value="/adminSearchMemberSalesDetails.do")
+	public String adminSearchMemberSalesDetails(String searchType,String searchKeyword, Model model) {
+		Search sp = new Search(searchType, searchKeyword);
+		System.out.println(searchType);
+		System.out.println(searchKeyword);
+		ArrayList<Order> orderList = service.selectSearchSalesDetails(sp);
+		System.out.println(orderList);
+		if(orderList != null) {			
+			model.addAttribute("orderList", orderList);
+			return "admin/salesDetails";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
 	
 	/**6. 주문 상세*/
 	@RequestMapping(value="/orderDetail.do")
@@ -328,6 +343,8 @@ public class AdminController {
 		Order orderDetailInfo = service.selectOrderDetailInfo(orderNo);
 		ArrayList<Order> orderDetailList = service.selectOrderDetail(orderNo);
 		int orderDetailCount = service.selectOrderDetailCount(orderNo);
+		
+		//System.out.println(orderDetailList);
 		
 		model.addAttribute("orderDetailInfo", orderDetailInfo);
 		model.addAttribute("orderDetailList", orderDetailList);

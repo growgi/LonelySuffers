@@ -246,4 +246,11 @@ public class AdminDao {
 		return orderDetailInfo;
 	}
 
+	public ArrayList<Order> selectSearchSalesDetails(Search sp) {
+		List searchSalesDetails = sqlSession.selectList("admin.selectSearchSalesDetails", sp);
+		System.out.println(sp.getSearchType());
+		System.out.println(sp.getSearchKeyword());
+		return (ArrayList<Order>)searchSalesDetails;
+	}
+
 }

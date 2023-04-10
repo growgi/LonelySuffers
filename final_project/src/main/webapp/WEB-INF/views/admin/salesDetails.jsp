@@ -12,9 +12,17 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
         <div>
-            <form action="/adminSearchMember.do" method="get"  class="search-bar" name="search-member">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="search" placeholder="아이디로 사용자 검색" name="searchMember">
+            <form action="/adminSearchMemberSalesDetails.do" method="get"  class="search-bar" name="search-member">
+                	<select name="searchType" class="search-type">
+						<option value="i">아이디</option>
+						<option value="o">주문상품</option>
+					</select>
+					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
+					<input
+						type="text" placeholder="검색어를 입력하세요" name="searchKeyword"
+						onkeyup="enterkey();"> <input type="submit"
+						style="display: none;">
+					<div class="search-icon">검색</div>
             </form>
             <div class="list-wrapper">
                 <div class="orderList-top list-top">
@@ -59,17 +67,16 @@
     /*메뉴 제목*/
     $(document).ready(function(){
         $(".top-menu-title").text("판매 내역");
-        $(".product-choice>div").first().click();
     });
     
     /*내역 삭제*/
     //1개
-	/*$(".deleteOrder").on("click", function() {
+	$(".deleteOrder").on("click", function() {
 		//클릭한 버튼 기준으로 해당 주문 번호
 		const orderNo = $(this).parent().children().eq(2).text();
 
 		location.href = "/deleteOrder.do?orderNo="+orderNo;
-	});*/
+	});
 
     
     //체크박스 선택상품
@@ -87,7 +94,7 @@
 		//체크된 체크박스 기준으로 해당 상품 번호를 찾아서 배열에 넣는 작업
 		check.each(function(index, item) {
 			//클릭한 버튼 기준으로 해당 상품 번호
-			const orderNo = $(item).val();
+			const orderNo = $(item).parent().next().text();
 			no.push(orderNo);
 		});
 
