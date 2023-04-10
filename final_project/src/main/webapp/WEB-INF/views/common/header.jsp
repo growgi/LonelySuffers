@@ -139,8 +139,10 @@
 						    <span style="line-height: 25px; vertical-align: middle;">공지사항</span>
 						  </a>
 						</li>
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
 						<li>
-						  <a href="/mypage.do">
+						  <a href="/myPage.do">
 						    <img alt="mypage" src="/images/mypage.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">마이페이지</span>
 						  </a>
