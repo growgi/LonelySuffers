@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="l">
+
+<!-- 강습 상품 상세페이지 보기 lessonView.do -->
+	<select id="selectOneLesson" parameterType="_int" resultMap="getLesson">
+		SELECT * FROM LESSON WHERE LESSON_NO = ${_parameter}
+	</select>
+
+
+
+
+<!-- 강습 상품 Lesson 의 모든 column에 대한 resultMap -->
+	<resultMap type="l" id="getLesson">
+		<result column="LESSON_NO" property="lessonNo"></result>
+		<result column="LESSON_NAME_LEVEL" property="lessonNameLevel"></result>
+		<result column="LESSON_TITLE" property="lessonTitle"></result>
+		<result column="LESSON_CITY" property="lessonCity"></result>
+		<result column="LESSON_PRICE" property="lessonPrice"></result>
+		<result column="LESSON_INFO" property="lessonInfo"></result>
+		<result column="LESSON_INFO_PIC" property="lessonInfoPic"></result>
+		<result column="LESSON_TEACHER" property="lessonTeacher"></result>
+		<result column="LESSON_MAX_NO" property="lessonMaxNo"></result>
+		<result column="LESSON_START_TIME" property="lessonStartTime"></result>
+		<result column="LESSON_END_TIME" property="lessonEndTime"></result>
+		<result column="LESSON_STATUS" property="lessonStatus"></result>
+		<result column="LESSON_SCORE" property="lessonScore"></result>
+		<result column="WRITER" property="writer"></result>
+	</resultMap>
+
+</mapper>

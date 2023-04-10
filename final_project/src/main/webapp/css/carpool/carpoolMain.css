@@ -146,7 +146,7 @@ font-weight: bold;
 
   /* 모달 */
 
-  input[type="radio"]:checked  + label{
+  input[type="checkbox"]:checked  + label{
     font-weight: bold;
     background-color: #FEC868;
     width: 100%;
@@ -205,7 +205,6 @@ font-weight: bold;
           padding: 3px;
           font-size: 12px;
         }
-    /*carpoolMain.jsp와 연동해서 modal에 있는 오전,오후 radio를 편도 왕복 radio와 같은 스타일로 만들고싶다.*/
   
 .btn-block{
     background-color: #fff6bd;

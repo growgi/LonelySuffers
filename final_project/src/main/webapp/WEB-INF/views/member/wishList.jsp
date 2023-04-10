@@ -68,21 +68,19 @@
         border: 1px solid rgb(226, 226, 226);
         border-radius: 5px;
     }
-    .wishList-box-wrap{
-        display: flex;
-        justify-content: space-between;
-    }
+
     /*관심상품 개별*/
     .wishList-box{
-        border-bottom: 2px solid rgb(226, 226, 226);
-        width: 540px;
-        padding: 30px 0px 10px 0px;
+        /*border-bottom: 2px solid rgb(226, 226, 226);*/
+        width: 555px;
+        padding: 30px 10px 10px 10px;
         position: relative;
+        display:inline-block;
     }
     .close-icon{
         position: absolute;
         top: 30px;
-        right: 0;
+        right: 10px;
     }
     .wishList-box-top{
         border-bottom: 1px solid lightgray;
@@ -101,10 +99,11 @@
         cursor: pointer;
     }
     .wishList-box-bottom{
+    	width: 530px;
         display: flex;
         padding-top: 13px;
-        width: 445px;
-        width: 540px;
+        padding-bottom: 13px;
+        border-bottom: 2px solid rgb(226, 226, 226);
     }
     .wishList-box-bottom>.product-img{
         width: 100px;
@@ -113,7 +112,7 @@
         margin-right: 10px;
     }
     .wishList-box-detail{
-        width: 440px;
+        width: 400px;
     }
     .wishList-box-detail>div:first-child>a{
         font-size: 18px;
@@ -183,12 +182,12 @@
                             
                             <div class="wishList-list">
                                 <div class="all-wishList">
-                                    <div class="wishList-box-wrap">
+                                    <c:forEach items="${allWishList }" var="w">
                                         <div class="wishList-box">
                                             <div class="wishList-box-top">
                                                 <div>
                                                     <div class="product-title"><a href="#">1가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <div class="material-symbols-outlined close-icon">close</div>
+                                                    <a href="/deleteWishList.do?memberId=${sessionScope.m.memberId }&wishNo=${wishNo}" class="material-symbols-outlined close-icon">close</a>
                                                 </div>
                                                 <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
                                             </div>
@@ -202,6 +201,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    	
                                         <div class="wishList-box">
                                             <div class="wishList-box-top">
                                                 <div>
@@ -220,127 +220,54 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="wishList-box-wrap">
-                                        <div class="wishList-box">
-                                            <div class="wishList-box-top">
-                                                <div>
-                                                    <div class="product-title"><a href="#">가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <div class="material-symbols-outlined close-icon">close</div>
-                                                </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
-                                            </div>
-                                            <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
-                                                <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="wishList-box">
-                                            <div class="wishList-box-top">
-                                                <div>
-                                                    <div class="product-title"><a href="#">가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <div class="material-symbols-outlined close-icon">close</div>
-                                                </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
-                                            </div>
-                                            <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
-                                                <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
 
                                 <div class="lesson-wishList">
-                                    <div class="wishList-box-wrap">
-                                        <div class="wishList-box">
+                                	<c:forEach items="${lessonWishList }" var="lw">
+                                	   <div class="wishList-box">
                                             <div class="wishList-box-top">
                                                 <div>
-                                                    <div class="product-title"><a href="#">2가격 실화? 멋지다 짜잔호텔</a></div>
+                                                    <div class="product-title"><a href="#">${lw.lessonTitle }</a></div>
                                                     <div class="material-symbols-outlined close-icon">close</div>
                                                 </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
+                                                <div><span class="product-name">강습</span> | <span class="location">${lw.lessonCity }</span></div>
                                             </div>
                                             <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
+                                           		<div class="product-img"></div>
+
                                                 <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
+                                                    <div><a href="#">${lw.lessonNameLevel }</a></div>
+                                                    <div><span>${lw.lessonStartTime }</span> ~ <span>${lw.lessonEndTime }</span></div>
+                                                    <div>모집인원 <span>${lw.lessonMaxNo }</span>명</div>
+                                                    <div class="product-price"><span>${lw.lessonPrice }</span>원</div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="wishList-box">
-                                            <div class="wishList-box-top">
-                                                <div>
-                                                    <div class="product-title"><a href="#">가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <div class="material-symbols-outlined close-icon">close</div>
-                                                </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
-                                            </div>
-                                            <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
-                                                <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                	</c:forEach>
                                 </div>
 
                                 <div class="house-wishList">
-                                    <div class="wishList-box-wrap">
+                                	<c:forEach items="${houseWishList }" var="hw">
                                         <div class="wishList-box">
                                             <div class="wishList-box-top">
                                                 <div>
-                                                    <div class="product-title"><a href="#">3가격 실화? 멋지다 짜잔호텔</a></div>
+                                                    <div class="product-title"><a href="#">${hw.houseTitle }</a></div>
                                                     <div class="material-symbols-outlined close-icon">close</div>
                                                 </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
+                                                <div><span class="product-name">숙박</span> | <span class="location">${hw.houseCity }</span></div>
                                             </div>
                                             <div class="wishList-box-bottom">
                                                 <div class="product-img"></div>
                                                 <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
+                                                    <div><a href="#">${hw.roomTitle }</a></div>
+                                                    <div><span>${hw.bookStartDate }</span> ~ <span>${hw.bookEndDate }</span></div>
+                                                    <div>객실인원 <span>${hw.roomCapa }</span>명</div>
+                                                    <div class="product-price"><span>${hw.housePrice }</span>원</div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="wishList-box">
-                                            <div class="wishList-box-top">
-                                                <div>
-                                                    <div class="product-title"><a href="#">가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <div class="material-symbols-outlined close-icon">close</div>
-                                                </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
-                                            </div>
-                                            <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
-                                                <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>

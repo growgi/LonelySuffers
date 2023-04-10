@@ -26,4 +26,19 @@ public class CarpoolFilter {
 		}
 	}
 	
+	public String getTripType() {
+		if(onewayRound == 1) {
+			return "편도";
+		}else {
+			return "왕복";
+		}
+	}
+	
+	public String getRecruiting() {
+		if(closure==0) {
+			return "마감";
+		}else {
+			return "모집중";
+		}
+	}
 }

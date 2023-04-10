@@ -16,39 +16,37 @@
                 <input type="search" placeholder="아이디로 사용자 검색" name="searchMember">
             </form>
             <div class="list-wrapper">
-                <form action="/changeGrade.do" method="get" name="memberList">
-                    <div class="memberList-top list-top">
-                        <div class="count">전체 사용자 <span>n</span>명</div>
-                        <table>
-                            <tr>
-                                <th><input type="checkbox" name="memberCheck"></th>
-                                <th>주문번호</th>
-                                <th>아이디</th>
-                                <th>주문상품</th>
-                                <th>총 결재금액</th>
-                                <th>주문날짜</th>
-                                <th>처리상태</th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="memberCheck"></td>
-                                <td>4</td>
-                                <td>hong123</td>
-                                <td>숙박</td>
-                                <td><span>65,000</span>원</td>
-                                <td>2023-03-12</td>
-                                <td>결제완료</td>
-                                <td><a href="/orderDetail.do" class="btn bc1">주문 상세</a></td>
-                            </tr>
-                        </table>
-                        <div></div>
+                <div class="orderList-top list-top">
+                    <div class="count">판매내역 <span>n</span>명</div>
+                    <table>
+                        <tr>
+                            <th><input type="checkbox" name="orderCheck" class="all-check"></th>
+                            <th>주문번호</th>
+                            <th>아이디</th>
+                            <th>주문상품</th>
+                            <th>총 결재금액</th>
+                            <th>주문날짜</th>
+                            <th>처리상태</th>
+                            <th>주문 상세</th>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="orderCheck" class="check"></td>
+                            <td>4</td>
+                            <td>hong123</td>
+                            <td>숙박</td>
+                            <td><span>65,000</span>원</td>
+                            <td>2023-03-12</td>
+                            <td>결제완료</td>
+                            <td><a href="/orderDetail.do">주문 상세 내역</a></td>
+                        </tr>
+                    </table>
+                    <div></div>
+                </div>
+                <div class="list-bottom">
+                    <div>
+                        <button class="deleteCheckedOrder btn bc1">선택 내역 삭제</button>
                     </div>
-                    <div class="list-bottom">
-                        <div>
-                            <input type="submit" value="내역 삭제" class="btn bc1">
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -60,5 +58,37 @@
         $(".top-menu-title").text("판매 내역");
         $(".product-choice>div").first().click();
     });
+    
+    /*내역 삭제*/
+    //1개
+	/*$(".deleteOrder").on("click", function() {
+		//클릭한 버튼 기준으로 해당 주문 번호
+		const orderNo = $(this).parent().children().eq(2).text();
+
+		location.href = "/deleteOrder.do?orderNo="+orderNo;
+	});*/
+
+    
+    //체크박스 선택상품
+	$(".deleteCheckedOrder").on("click", function() {
+		const check = $(".check:checked");
+
+		if (check.length == 0) {
+			alert("선택된 회원이 없습니다.");
+			return;
+		}
+
+		//체크된 상품 번호 저장 배열
+		const no = new Array();
+
+		//체크된 체크박스 기준으로 해당 상품 번호를 찾아서 배열에 넣는 작업
+		check.each(function(index, item) {
+			//클릭한 버튼 기준으로 해당 상품 번호
+			const orderNo = $(item).val();
+			no.push(orderNo);
+		});
+
+		location.href = "/deleteCheckedOrder.do?no=" + no.join("/");
+	});
 </script>
 </html>

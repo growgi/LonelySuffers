@@ -14,14 +14,18 @@
 		HOUSE_NO as houseNo,
 		HOUSE_TITLE as houseTitle,
 		HOUSE_CITY as houseCity,
-		HOUSE_ADDRESS as houseAddress,
 		HOUSE_PHOTO1 as housePhoto1,
-		HOUSE_STATUS as houseStatus,
 		HOUSE_SCORE as houseScore,
 		ROOM_TITLE as roomTitle,
-		ROOM_CAPA as roomCapa
+		ROOM_CAPA as roomCapa,
+		HOUSE_PRICE as housePrice
+		HOUSE_BARBECUE as houseBarbecue
+		HOUSE_PARTY as houseParty,
+		HOUSE_LNG as houseLng,
+		HOUSE_LAT as houseLat
 		FROM HOUSE WHERE HOUSE_STATUS = 1 ORDER BY HOUSE_ADDRESS
 	</select>
+
 
 <!-- 네이버지도 api를 위한 위도,경도 조회용 -->
 	<select id="selectAllAddress" resultType="h">
@@ -29,7 +33,7 @@
 		HOUSE_NO as houseNo,
 		HOUSE_LAT as houseLat,
 		HOUSE_LNG as houseLng
-		FROM HOUSE
+		FROM HOUSE WHERE HOUSE_STATUS = 1
 	</select>
 
 
@@ -50,6 +54,10 @@
 		<result column="ROOM_TITLE" property="roomTitle"></result>
 		<result column="ROOM_CAPA" property="roomCapa"></result>
 		<result column="HOUSE_PRICE" property="housePrice"></result>
+		<result column="HOUSE_BARBECUE" property="houseBarbecue"></result>
+		<result column="HOUSE_BARBECUE_PRICE" property="houseBarbecuePrice"></result>
+		<result column="HOUSE_PARTY" property="houseParty"></result>
+		<result column="HOUSE_PARTY_PRICE" property="housePartyPrice"></result>
 	</resultMap>
 
 </mapper>

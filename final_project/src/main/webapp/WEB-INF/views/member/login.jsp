@@ -7,6 +7,10 @@
 <title>Lonly Suffers</title>
 <link rel="stylesheet" href="/css/login.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<div id="wrapper">
@@ -33,20 +37,57 @@
 					<form action="/login.do" method="post">
 					<input type="text" name="memberId" id="memberId" required placeholder="아이디" ><br>
 					<input type="password" name="memberPw" id="memberPw" required placeholder="비밀번호" ><br> 
-					<input type="submit" value ="로그인">
+					<input class="btn btn-success " type="submit" value ="로그인">
 					</form>
 				</div>
 			</div>
 		</div>
 		<div class="main-bottom">
-				<a href="/findMemberId.do" id="findMemberId">아이디 찾기</a>
+				<a id="findIdBtn">아이디 찾기</a>
 				<a href="/findMemberPw.do" id="findMemberPw">비밀번호 찾기</a>
 				<a href="/joinMemberFrm.do" id="joinMember">회원가입</a>
 			</div>
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->
-
+	<div class="modal fade" id="findId" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Lonely Suffers</h4><br>
+          <span>아이디 찾기</span>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+        	<div class="findMemberId">
+        	<div class="form-group">
+            <form action="/findMemberId.do" method="post" >
+              <label for="findMemberName">이름</label>
+              <input type="text" class="form-control" name="findMemberName" id="findMemberName" placeholder="이름을 입력하세요">
+              <label for="findMemberEmail">이메일</label>
+              <input type="text" class="form-control" name="findMemberEmail" id="findMemberEmail" placeholder="이메일을 입력하세요">
+              <span class="dataNull"></span><br>
+              <button type="button" class="btn btn-success btn-block selectIdBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
+              </form>
+            </div>
+            </div>
+            <div class="selectId">
+            <div class="form-group">
+              <h3>조회된 아이디는</h3>
+              <h3>[ <span class="findIdInput"></span> ]입니다.</h3>
+            </div>
+              <button type="button" class="btn btn-success btn-block idOkBtn"><span class="glyphicon glyphicon-off"></span> 확인</button>
+        	</div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 
 
@@ -62,6 +103,7 @@
 	<script src="js/parallax.js"></script>
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
+	<script src="/js/loginFrm.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
 </body>

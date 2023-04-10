@@ -5,20 +5,30 @@ $(".search-bar>input").on("click",function(){
 
 
 /*상품 선택에 따라 리스트 조회*/
-$(".product-choice>div").on("click",function(){
+$(".product-choice>div:first-of-type").on("click",function(){
     $(".product-choice>div").removeClass("active-product-choice");
-    $(this).addClass("active-product-choice");
+    $(".product-choice>div:first-of-type").addClass("active-product-choice");
 
-    const num = $(".product-choice>div").index($(this));
+    $(".chk").prop("checked",false); //탭 이동하면 체크박스 초기화
 
-    $(".list-wrapper").hide();
-    $(".list-wrapper").eq(num).show();
+    $(".house-list").hide();
+    $(".lesson-list").show();
+});
+
+$(".product-choice>div:last-of-type").on("click",function(){
+    $(".product-choice>div").removeClass("active-product-choice");
+    $(".product-choice>div:last-of-type").addClass("active-product-choice");
+
+    $(".chk").prop("checked",false); //탭 이동하면 체크박스 초기화
+
+    $(".lesson-list").hide();
+    $(".house-list").show();
 });
 
 
 /*상품리스트 상세설정*/
 $(".list-detail").on("click",function(){
-    $(".list-detail-box").fadeToggle(200);
+    $(".list-detail-box").toggle();
 });
 
 $(".list-detail-box>div>a").on("click",function(){
@@ -65,9 +75,9 @@ $(".checkedChangeGrade").on("click",function(){
 
     //체크된 체크박스 기준으로 회원아이디, 등급을 찾아서 배열에 넣는 작업
     check.each(function(index,item){
-        const memberId = $(this).parent().parent().children().eq(2).text();
+        const memberId = $(item).parent().parent().children().eq(2).text();
         id.push(memberId);
-        const memberGrade = $(this).parent().parent().find("select").val();
+        const memberGrade = $(item).parent().parent().find("select").val();
         grade.push(memberGrade);
     });
 
@@ -80,6 +90,7 @@ function enterkey() {
     if (window.event.keyCode == 13) {
          // 엔터키가 눌렸을 때 실행할 내용
         $("#frm").submit();
+        $(".count").text("");
     }
 }
 //돋보기 클릭하면 검색창 submit

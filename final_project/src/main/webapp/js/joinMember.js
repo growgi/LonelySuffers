@@ -23,12 +23,10 @@ $('#memberPwRe').on('change',function(){
                 if($('#memberPw').val() == pwValue){
                     $('#pwChkSpan').text('일치합니다.');
                 }else{
-                    $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 10~15글자를 입력해주세요.');
-                    $(this).focus();
+                    $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
                 }
             }else{
-                $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 10~15글자를 입력해주세요.');
-                $(this).focus();
+                $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
             }
     }
     
@@ -42,7 +40,8 @@ $('#memberPw').on('change',function(){
     if(check){
         $('#pwChkSpan').text('');
     }else{
-        $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 10~15글자를 입력해주세요.');
+        $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
+        $('#memberPw').focus();
 
     }
 });
