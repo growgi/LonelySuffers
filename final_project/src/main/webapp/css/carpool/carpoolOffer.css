@@ -1,1 +1,35 @@
 @charset "UTF-8";
+.tab-wrap{
+    width: 800px;
+    margin: 30px auto;
+}
+.tabs{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+.tabs>li{
+    float: left;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #ad8b73;
+    color: #fffbe9;
+}
+.tabs>li.active-tab{
+    background-color: #fffbe9;
+    color: #ad8b73;
+}
+
+.content-wrap{
+    background-color: #fffbe9;
+}
+.tabcontent{
+    width: 95%;
+    margin: 0 auto;
+    padding: 30px 0px;
+    display: none;
+}
