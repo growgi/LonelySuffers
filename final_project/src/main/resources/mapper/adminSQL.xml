@@ -341,9 +341,9 @@
  			house_price as housePrice,
  			book_start_date as bookStartDate,
  			book_end_date as bookEndDate
- 		from wishList
- 		left join house using(house_no)
- 		left join room_book using(house_no)
+ 		from wishList w
+ 		left join house h using(h.house_no=w.house_no)
+ 		left join room_book rb on(rb.house_no=w.house_no)
  		where member_id=#{_parameter} and lesson_no is null
  	</select>
  
