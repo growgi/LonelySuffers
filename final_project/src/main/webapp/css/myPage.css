@@ -71,3 +71,12 @@ div>.updatePassWordFrm{
 input[type=text],input[type=password]{
     padding: 2px 7px;
 }
+
+
+.hide-div{
+    display: none;
+}
+
+.active-div{
+    display: block;
+}

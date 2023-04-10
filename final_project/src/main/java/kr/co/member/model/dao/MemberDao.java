@@ -1,10 +1,14 @@
 package kr.co.member.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.Order;
 
 @Repository
 public class MemberDao {
@@ -52,6 +56,15 @@ public class MemberDao {
 
 		public Member selectSellerApplication(int memberNo) {
 			return sqlSession.selectOne("member.selectSellerApplication",memberNo);
+		}
+
+		public int deleteMember(int memberNo) {
+			return sqlSession.update("member.deleteMember",memberNo);
+		}
+
+		public ArrayList<Order> selectOrderList(int memberNo) {
+			List list = sqlSession.selectList("member.selectOrderList",memberNo);
+			return (ArrayList<Order>)list;
 		}
 		
 		

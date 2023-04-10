@@ -50,7 +50,7 @@
 						</div>
 						<div class="main-right">
 							<div class="right-content">
-								<div class="myProfile">
+								<div class="myProfile hide-div">
 									<h2>프로필 관리</h2>
 									<ul>
 										<li>내정보 변경</li>
@@ -95,10 +95,16 @@
 												<div>
 													<c:choose>
 														<c:when test="${sellerApplication != 0}">
-															<button type="button" class="cancelSellerBtn">신청취소</button>
+															<form action="/cancelSeller.do" method="post">
+																<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
+															<button type="submit" class="cancelSellerBtn">신청취소</button>
+															</form>
 														</c:when>
 														<c:otherwise>
-															<button type="button" class="sellerBtn">판매자 신청</button>
+														<form action="/sellerApplication.do" method="post">
+															<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }"> 
+															<button type="submit" class="sellerBtn">판매자 신청</button>
+														</form>
 														</c:otherwise>
 													</c:choose>
 												</div>
@@ -106,10 +112,34 @@
 										</c:if>
 										<li>회원 탈퇴</li>
 										<li class="hidden-li">
-											<div></div>
+											<div>
+												<button type="button" class="dropMember">탈퇴</button>
+											</div>
 										</li>
 										
 									</ul>
+								</div><!-- myProfile -->
+								<div class="buyList hide-div">
+									<div>
+										<table>
+											<tr>
+												<th>번호</th>
+												<th>주문 상품</th>
+												<th>처리 상태</th>
+												<th>결제 금액</th>
+												<th>주문 날짜</th>
+											</tr>
+											<c:forEach items="${list }" var="o" varStatus="s">
+												<tr>
+													<td>${s.count}</td>
+													<td>${o.orderProduct }</td>
+													<td>${o.orderStatus }</td>
+													<td>${o.orderAllPrice }</td>
+													<td>${o.orderDate }</td>
+												</tr>
+											</c:forEach>  
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>

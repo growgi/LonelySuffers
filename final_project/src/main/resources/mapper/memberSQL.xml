@@ -86,4 +86,27 @@
  		where
  			member_no = #{_parameter}
  	</select>
+ 	
+ 	<update id="deleteMember">
+ 		update 
+ 			member_tbl
+ 		set
+ 			member_grade = 4
+ 		where
+ 			member_no = #{_parameter}
+ 	</update>
+ 	
+ 	<select id="selectOrderList" parameterType="_int" resultType="order">
+ 		select
+ 			order_no as orderNo,
+ 			member_no as memberNo,
+ 			order_all_price as orderAllPrice,
+ 			order_status as orderStatus,
+ 			order_date as orderDate,
+ 			order_product as orderProduct
+ 		from
+ 			order_tbl
+ 		where
+ 			member_no = #{_parameter}
+ 	</select>
 </mapper>

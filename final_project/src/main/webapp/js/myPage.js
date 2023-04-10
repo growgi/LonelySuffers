@@ -2,14 +2,17 @@ $('.tab-content>li').on('click',function(){
     const index = $('.tab-content>li').index(this);
     $('.tab-content>li').removeClass('li-active');
     $('.tab-content>li').eq(index).addClass('li-active');
+    $('.right-content>div').removeClass('active-div');
+    $('.right-content>div').eq(index).addClass('active-div');
 })
 
 $('.myProfile>ul>li').on('click',function(){
     const index = $('.myProfile>ul>li').index(this);
-    if(index == 0 || index == 2 || index == 4){
+    if(index == 0 || index == 2 || index == 4 || index == 6){
         $('.myProfile>ul>li').eq(1).addClass('hidden-li');
         $('.myProfile>ul>li').eq(3).addClass('hidden-li');
         $('.myProfile>ul>li').eq(5).addClass('hidden-li');
+        $('.myProfile>ul>li').eq(7).addClass('hidden-li');
         $('.myProfile>ul>li').eq(index+1).toggleClass('hidden-li');
     }
 })
@@ -74,24 +77,10 @@ $('.passWordChangeBtn').on('click',function(){
     }
 });
 
-$('.sellerBtn').on('click',function(){
-    const memberNo = $('#memberNo').val();
-    $.ajax({
-        url : "/sellerApplication.do",
-        type : "POST",
-        data : {memberNo:memberNo},
-        success : function(data){
-            if(data == 'true'){
-                alert("판매자 신청을 완료했습니다.");
-                location.href= "/myPage.do"
-            }else{
-                alert("판매자 신청에 실패했습니다.")
-            }
-        }
-    })
-});
 
-$('.cancelSellerBtn').on('click',function(){
-    const memberNo = $('#memberNo').val();
-    location.href="/cancelSeller.do?memberNo="+memberNo;
+$('.dropMember').on('click',function(){
+    if(confirm('정말 탈퇴하시겠습니까?')){
+        const memberNo = $('#memberNo').val();
+        location.href="/dropMember.do?memberNo="+memberNo;
+    }
 })

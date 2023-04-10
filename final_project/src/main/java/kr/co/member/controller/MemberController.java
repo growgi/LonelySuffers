@@ -1,5 +1,7 @@
 package kr.co.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.Order;
 
 @Controller
 public class MemberController {
@@ -30,14 +33,26 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/login.do")
-	public String loginMember(Member m,HttpSession session) {
+	public String loginMember(Member m,HttpSession session,Model model) {
 		Member member = service.loginMember(m);
 		System.out.println("member : "+member);
-		if(member != null && member.getMemberGrade() != 4) {
+		if(member != null) {
+			if(member.getMemberGrade() != 4) {
 			session.setAttribute("m", member);
 			return "redirect:/";
+			}else{
+				model.addAttribute("title","로그인 실패");
+				model.addAttribute("msg","탈퇴한 계정입니다.새로운 계정을 가입해주세요");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/joinMemberFrm.do");
+				return "common/msg";
+			}
 		}else {
-			return "redirect:/loginFrm.do";
+			model.addAttribute("title","로그인 실패");
+			model.addAttribute("msg","아이디 비밀번호를 확인해 주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/loginFrm.do");
+			return "common/msg";
 		}
 	}
 		
@@ -53,9 +68,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value= "/joinMember.do")
-	public String joinMember(Member m) {
+	public String joinMember(Member m,Model model) {
 		int result = service.joinMember(m);
-		System.out.println(result);
+		if(result == 0) {
+			model.addAttribute("title","회원가입 실패");
+			model.addAttribute("msg","회원가입에 실패했습니다. 관리자에게 문의하세요.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/joinMemberFrm.do");
+			return "common/msg";
+		}
 		return "redirect:/";
 	}
 	
@@ -90,11 +111,15 @@ public class MemberController {
 	@RequestMapping(value = "/myPage.do")
 	public String myPage(@SessionAttribute (required = false) Member m ,Model model) {
 		Member result = service.selectSellerApplication(m.getMemberNo());
-		System.out.println(result);
+		ArrayList<Order> list = service.selectOrderList(m.getMemberNo());
+		System.out.println(list);
 		if(result == null) {
 			model.addAttribute("sellerApplication",0);
 		}else {
 			model.addAttribute("sellerApplication",result.getMemberNo());
+		}
+		if(!list.isEmpty()) {
+		model.addAttribute("list",list);
 		}
 		return "member/myPage";
 	}
@@ -122,14 +147,21 @@ public class MemberController {
 		}
 	}
 	
-	@ResponseBody
 	@RequestMapping(value = "/sellerApplication.do")
-	public String sellerApplication(int memberNo) {
+	public String sellerApplication(int memberNo,Model model) {
 		int result = service.sellerApplication(memberNo); 
-		if(result != 0 ) {
-			return "true";
+		if(result == 0) {
+			model.addAttribute("title","판매자 신청 취소 실패");
+			model.addAttribute("msg","판매자 신청 취소에 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/myPage.do");
+			return "common/msg";
 		}else {
-			return "false";
+			model.addAttribute("title","판매자 신청 취소 성공");
+			model.addAttribute("msg","판매자 신청을 취소했습니다.");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/myPage.do");
+			return "common/msg";
 		}
 	}
 	
@@ -147,6 +179,34 @@ public class MemberController {
 			model.addAttribute("msg","판매자 신청을 취소했습니다.");
 			model.addAttribute("icon","success");
 			model.addAttribute("loc","/myPage.do");
+			return "common/msg";
+		}
+	}
+	
+	@RequestMapping(value = "/dropMember.do")
+	public String deleteMember(int memberNo,Model model,HttpSession session) {
+		Member m = (Member)session.getAttribute("m");
+		if(m.getMemberNo() == memberNo) {
+			int result = service.deleteMember(memberNo);
+			if(result != 0) {
+				model.addAttribute("title","회원탈퇴");
+				model.addAttribute("msg","회원 탈퇴에 성공했습니다.");
+				model.addAttribute("icon","success");
+				model.addAttribute("loc","/");
+				session.invalidate();
+				return "common/msg";
+			}else {
+				model.addAttribute("title","회원탈퇴");
+				model.addAttribute("msg","회원 탈퇴에 실패했습니다. 관리자에게 문의하세요");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/myPage.do");
+				return "common/msg";
+			}
+		}else {
+			model.addAttribute("title","회원탈퇴");
+			model.addAttribute("msg","본인 아이디만 탈퇴 가능합니다");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/");
 			return "common/msg";
 		}
 	}
