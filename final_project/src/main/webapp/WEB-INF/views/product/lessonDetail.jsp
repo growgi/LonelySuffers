@@ -65,6 +65,7 @@
 							<p>${lesson.lessonTeacher } 강사</p>
 							<div class="row">
 								<h1>${lesson.lessonTitle }</h1>
+								<input type="hidden" name="lessonPrice" value="${lesson.lessonPrice }">
 								<h3>${lesson.lessonPrice }원</h3>
 								<div class="col-md-9">
 									<p>비성수기, 평일 기준</p>
@@ -111,22 +112,29 @@
           <h4 class="modal-title">예약하기</h4>
         </div>
         <div class="modal-body">
-			<select name="lessonPeople">
+        <form action="/orderLesson.do" onsubmit="return checkOrder();" method="post">
+        	<fieldset>
+				<input type="hidden" name="lessonNo" value="${lesson.lessonNo }">
+				<select name="lessonPeople">
 <!-- 미리 받은 인원 수에 따라 선택지 제한걸도록 작성해야됨 -->
-				<option>인원 수를 먼저 선택해주세요.</option>
-				<option value="1">1명</option>
-				<option value="2">2명</option>
-				<option value="3">3명</option>
-				<option value="4">4명</option>
-				<option value="5">5명</option>
-				<option value="6">6명</option>
-				<option value="7">7명</option>
-				<option value="8">8명</option>
-			</select>
+					<option>인원 수를 먼저 선택해주세요.</option>
+					<option value="1">1명</option>
+					<option value="2">2명</option>
+					<option value="3">3명</option>
+					<option value="4">4명</option>
+					<option value="5">5명</option>
+					<option value="6">6명</option>
+					<option value="7">7명</option>
+					<option value="8">8명</option>
+				</select>
 <!-- 미리 받은 인원 수에 따라 선택지 제한걸도록 작성해야됨 -->
-        	<div class="row">
-					<input type="text" id="bookStart" placeholder="강습 시작일" required disabled>
-        	</div>
+        		<div class="row">
+						<input type="text" name="lessonBookDate" id="bookStart" placeholder="강습일" required disabled>
+        		</div>
+				<input type="hidden" name="lessonBookPrice">
+				<input type="submit" value="주문">
+        	</fieldset>
+        </form>
         </div>
         <div class="modal-footer">
           <button type="button" data-dismiss="modal">닫기</button>
@@ -259,6 +267,25 @@ console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므
 			}
 		});
 	});
+	// 예약하기 modal 띄우면 실행되는 함수 끝
+
+
+	// input에 값이 없으면 form 제출을 막는 함수
+	function checkOrder(){
+		if ( $("[name=lessonBookDate]").val() == "" ) {
+			alert('강습일을 선택해주십시오.');
+			return false;
+		}
+		fullPrice();
+		return true;
+	}
+
+
+	// lessonBookPrice를 계산하는 함수
+	const onePersonPrice = $("[name=lessonPrice]").val();
+	function fullPrice(){
+		return Number(onePersonPrice) * Number($("[name=lessonPeople]").val());
+	}
 
 	</script>
 

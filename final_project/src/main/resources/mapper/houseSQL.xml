@@ -55,7 +55,7 @@
 		<result column="ROOM_CAPA" property="roomCapa"></result>
 		<result column="HOUSE_PRICE" property="housePrice"></result>
 		<result column="HOUSE_BARBECUE" property="houseBarbecue"></result>
-		<result column="HOUSE_BARBECUE_PRICE" property="houseBarbecue"></result>
+		<result column="HOUSE_BARBECUE_PRICE" property="houseBarbecuePrice"></result>
 		<result column="HOUSE_PARTY" property="houseParty"></result>
 		<result column="HOUSE_PARTY_PRICE" property="housePartyPrice"></result>
 	</resultMap>
