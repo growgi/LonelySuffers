@@ -42,4 +42,8 @@ public class ChatService {
 		System.out.println("service check : "+cc.getSenderCheck());
 		return dao.insertSendChat(cc);
 	}
+
+	public ArrayList<ChatActive> selectAllChatActive() {
+		return dao.selectAllChatActive();
+	}
 }
