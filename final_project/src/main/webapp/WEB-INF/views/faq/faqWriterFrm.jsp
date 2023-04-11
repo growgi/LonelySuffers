@@ -44,30 +44,32 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<table>
-						<tr>
-							<th>제목</th>
-							<td><input type="text" name="faqTitle"></td>
-						</tr>
-						<tr>
-							<th>카테고리</th>
-							<td>
-								<select name="categoryNo" id="categoryNo" class="input-form">
-									<option value="21">예약취소</option>
-									<option value="22">숙박</option>
-									<option value="23">강습</option>
-									<option value="24">카풀</option>
-									<option value="25">후기</option>
-									<option value="26">회원서비스</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>내용</th>
-							<td><textarea name="faqContent"></textarea></td>
-						</tr>
-					</table>
-					<button type="submit">작성하기</button>
+					<form action="/faqWrite.do" method="post">
+						<table>
+							<tr>
+								<th>제목</th>
+								<td><input type="text" name="faqTitle"></td>
+							</tr>
+							<tr>
+								<th>카테고리</th>
+								<td>
+									<select name="categoryNo" id="categoryNo" class="input-form">
+										<option value="21">예약취소</option>
+										<option value="22">숙박</option>
+										<option value="23">강습</option>
+										<option value="24">카풀</option>
+										<option value="25">후기</option>
+										<option value="26">회원서비스</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>내용</th>
+								<td><textarea name="faqContent"></textarea></td>
+							</tr>
+						</table>
+						<input type="submit" value="작성하기">
+					</form>	
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->

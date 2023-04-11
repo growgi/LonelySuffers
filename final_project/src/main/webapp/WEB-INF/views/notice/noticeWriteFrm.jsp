@@ -18,7 +18,6 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet" href="/css/notice.css">
-<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
 	<div id="wrapper">

@@ -344,7 +344,7 @@
 					<div class="btn-wrap" id="page1">
 						<button class="page1-before" onClick="location.href='/'"><p>메인으로</p></button>
 						<button class="page1-okay"><p>확정</p></button>
-						<button class="page1-pass"><p>넘어가기</p></button>
+						<button class="page1-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 1페이지 종료 -->
@@ -364,7 +364,7 @@
 					<div class="btn-wrap" id="page2">
 						<button class="page2-before"><p>이전으로</p></button>
 						<button class="page2-okay"><p>확정</p></button>
-						<button class="page2-pass"><p>넘어가기</p></button>
+						<button class="page2-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 2페이지 종료 -->
@@ -390,7 +390,7 @@
 					<div class="btn-wrap" id="page3">
 						<button class="page3-before"><p>이전으로</p></button>
 						<button class="page3-okay"><p>확정</p></button>
-						<button class="page3-pass"><p>넘어가기</p></button>
+						<button class="page3-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 3페이지 종료 -->
@@ -423,7 +423,7 @@
 					<div class="btn-wrap" id="page4">
 						<button class="page4-before"><p>이전으로</p></button>
 						<button class="page4-okay"><p>확정</p></button>
-						<button class="page4-pass"><p>넘어가기</p></button>
+						<button class="page4-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 4페이지 종료 -->
@@ -435,7 +435,7 @@
 					<div class="btn-wrap" id="page5">
 						<button class="page5-before"><p>이전으로</p></button>
 						<button class="page5-okay"><p>확정</p></button>
-						<button class="page5-pass"><p>넘어가기</p></button>
+						<button class="page5-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 5페이지 숙소리스트 종료-->
@@ -477,7 +477,7 @@
 					<div class="btn-wrap" id="page6">
 						<button class="page6-before"><p>이전으로</p></button>
 						<button class="page6-okay"><p>확정</p></button>
-						<button class="page6-pass"><p>넘어가기</p></button>
+						<button class="page6-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 6페이지 종료-->
@@ -489,7 +489,7 @@
 					<div class="btn-wrap" id="page7">
 						<button class="page7-before"><p>이전으로</p></button>
 						<button class="page7-okay"><p>확정</p></button>
-						<button class="page7-pass"><p>넘어가기</p></button>
+						<button class="page7-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 7페이지 강습리스트 종료-->
@@ -521,7 +521,7 @@
 					<div class="btn-wrap" id="page8">
 						<button class="page8-before"><p>이전으로</p></button>
 						<button class="page8-okay"><p>확정</p></button>
-						<button class="page8-pass"><p>넘어가기</p></button>
+						<button class="page8-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 8페이지 종료 -->
@@ -533,7 +533,7 @@
 					<div class="btn-wrap" id="page9">
 						<button class="page9-before"><p>이전으로</p></button>
 						<button class="page9-okay"><p>확정</p></button>
-						<button class="page9-pass"><p>넘어가기</p></button>
+						<button class="page9-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 9페이지 종료 -->
@@ -565,6 +565,7 @@
 <script>
 //markers배열
 var markers = [];
+
 //네이버지도 스크립트
 const map = new naver.maps.Map("map",{
 	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
@@ -576,17 +577,7 @@ const map = new naver.maps.Map("map",{
 		style : naver.maps.ZoomControlStyle.SMALL
 	}
 });
-//날짜의 차이를 구하는 함수
-Date.prototype.getInterval = function (otherDate) {
-    var interval;
- 
-    if(this > otherDate)
-        interval = this.getTime() - otherDate.getTime();
-    else
-        interval = otherDate.getTime() - this.getTime();
- 
-    return Math.floor(interval / (1000*60*60*24));
-}
+
 
 
 $(document).ready(function(){
@@ -642,12 +633,29 @@ $(document).ready(function(){
         indexGenerator: [10, 100, 200, 500, 1000],
         stylingFunction: function(clusterMarker, count) {
             $(clusterMarker.getElement()).find('div:first-child').text(count);
-       		 }
-   		 });
-		}
-	});
-});
+       		 },
+       	getCenter: function() {
+       		
+       		return this._clusterCenter;
+       		},
+       	 getClusterMember: function() {
+       	    return this._clusterMember;
+       	  }
+       		 
+ 		 });
+	console.log(markerClustering);
+	var test1 = markerClustering.getCenter;
+	console.log(test1());
 
+	naver.maps.Event.addListener(markerClustering, "click", function(e){
+		alert("클릭함");
+		});
+		}
+		
+	
+	});
+	
+});
 
 
 
@@ -688,7 +696,17 @@ $("#daterangepicker").daterangepicker({
 $("#daterangepicker").val('');
 $("#daterangepicker").attr("placeholder","여행을 떠날 날짜를 골라주세요:)");
 
-
+//날짜의 차이를 구하는 함수
+Date.prototype.getInterval = function (otherDate) {
+    var interval;
+ 
+    if(this > otherDate)
+        interval = this.getTime() - otherDate.getTime();
+    else
+        interval = otherDate.getTime() - this.getTime();
+ 
+    return Math.floor(interval / (1000*60*60*24));
+}
 
 //고른 인원수에 따른 아이콘 추가
 $("#headcount").on('change',function(){
@@ -757,11 +775,30 @@ $("document").ready(function() {
 		//아예 다 한번 hide하고 show 하자
 		$(".pages").hide();
 		$(".page2").show();
+		$(".title").text("언제 떠나실건가요~?")
 	})
 	$(".page1-pass").on('click',function(){
-		alert("pass 버튼")
+		alert("지역은 꼭 정해주셔야해요:)")
 	})
-
+//page2
+	$(".page2-before").on('click',function(){
+		$(".pages").hide();
+		$(".page1").show();
+		$(".title").text("어디로 떠나볼까요~?")
+		
+	})
+	$(".page2-okay").on('click',function(){
+		//아예 다 한번 hide하고 show 하자
+		if($("#travel-days").val() == "0박 0일"){
+			alert("날짜는 꼭 정해주셔야해요:)")
+		}else{
+			$(".pages").hide();
+			$(".page3").show();
+		}
+	});
+	$(".page2-pass").on('click',function(){
+		alert("날짜는 꼭 정해주셔야해요:)")
+	})
 
 </script>					
 </body>
