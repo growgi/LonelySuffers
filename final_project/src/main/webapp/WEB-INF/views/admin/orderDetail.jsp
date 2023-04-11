@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,7 +124,7 @@
                 <div class="orderDetail-product-list">
                 	<c:forEach items="${orderDetailList }" var="od">
                 	<c:choose>
-                		<c:when test="${od.lessonNo ne null}">
+                		<c:when test="${od.lessonNo ne 0}"> <!-- no는 int이기 때문에 null이 아닌 0으로 비교 -->
                 		<div class="product-box">
 	                        <div class="product-box-top">
 	                            <div class="product-title bold">${od.lessonTitle }</div>
@@ -139,13 +140,13 @@
 	                                </div>
 	                                <div>
 	                                    <div>${od.orderStatusString }</div>
-	                                    <div class="bold"><span class="product-price">${od.productPrice }</span>원</div>
+	                                    <div class="bold"><span class="product-price"><fmt:formatNumber value="${od.productPrice }" pattern="#,###" /></span>원</div>
 	                                </div>
 	                            </div>
 	                        </div>
                     	</div>
                 		</c:when> 
-                		<c:when test="${od.houseNo ne null}">
+                		<c:when test="${od.houseNo ne 0}">
                 		<div class="product-box">
 	                        <div class="product-box-top">
 	                            <div class="product-title bold">${od.houseTitle }</div>
@@ -161,7 +162,7 @@
 	                                </div>
 	                                <div>
 	                                    <div>${od.orderStatusString }</div>
-	                                    <div class="bold"><span class="product-price">${od.productPrice }</span>원</div>
+	                                    <div class="bold"><span class="product-price"><fmt:formatNumber value="${od.productPrice }" pattern="#,###" /></span>원</div>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -173,7 +174,7 @@
             </div>
             <div class="pay-info bold">
                 <div>결제 정보</div>
-                <div>총 <span class="all-price">${orderDetailInfo.orderAllPrice }</span>원</div>
+                <div>총 <span class="all-price"><fmt:formatNumber value="${orderDetailInfo.orderAllPrice }" pattern="#,###" /></span>원</div>
             </div>
         </div>
     </div>
