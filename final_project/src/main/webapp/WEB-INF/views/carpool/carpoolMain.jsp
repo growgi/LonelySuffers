@@ -242,7 +242,7 @@
 								</div>
 								<br>
 							<div class="modal-footer">
-								<button type="submit"
+								<button type="submit" id="exit-mymodal"
 									class="btn btn-danger btn-default pull-left"
 									data-dismiss="modal"
 									style="font-size: 14px; text-align: center; width: 40px; border-radius: 10px; background-color: rgb(255, 174, 0); display: flex; justify-content: center; align-items: center;">
@@ -338,6 +338,7 @@
 			 dataType : "json",
 			 success : function(data){
 				 console.log(data);
+				 $(".carpoolListWrapper").empty();
 				 for(let i=0; i<data.length; i++){
 					 
 			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor", "pointer").click(function(){
@@ -347,21 +348,30 @@
 			            
 			            const td2 = $("<td>").append($("<span>").css("display", "none").text(data[i].regDate))
 			            .append($("<img>").attr("src", "/capool-img/destination.png").attr("alt", "img").css("width", "45px").css("height", "50px"));
-			            
-			            const td3 = $("<td>").append($("<div>").addClass("row onewayRound").text(data[i].tripType))
-			            .append($("<div>").addClass("row region").text(data[i].departureRegion))
-			            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            const td3 = $("<td>");
+			            if(data[i].onewayRound == 1){
+			            	 td3.append($("<div>").addClass("row onewayRound").text("편도"))
+					            .append($("<div>").addClass("row region").text(data[i].departureRegion))
+					            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            }else if(data[i].onewayRound == 2){
+			            	 td3.append($("<div>").addClass("row onewayRound").text("왕복"))
+					            .append($("<div>").addClass("row region").text(data[i].departureRegion))
+					            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            }
+			           
 		
-			            const td4 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text("&nbsp;"))
+			            const td4 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""))
 			            .append($("<div>").addClass("row district").text(data[i].departureDistrict))
 			             .append($("<div>").addClass("row district").text(data[i].arrivalDistrict));
 	
-			            const td5 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text("&nbsp;"))
+			            const td5 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""))
 			            .append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));
 			           
 			            tr.append(td1).append(td2).append(td3).append(td4).append(td5);
-			            $("table").append(tr);
+			            $(".carpoolListWrapper").append(tr);
 			    }
+				//모달닫기
+				$("#exit-mymodal").click();
 			 },
 			 error : function(){
 				 console.log("서버호출 실패");
@@ -413,7 +423,6 @@
 
 	
 		//출발일, 등록일 기준으로 table sort out기능
-	/*
 		table = document.getElementById('carpoolTable');
 		new Tablesort(table);
 		var refresh = new Tablesort(tableRefresh);
@@ -422,7 +431,7 @@
 		var cellName = row.insertCell(0);	
 		cellName.innerHTML = 0;
 		refresh.refresh();
-	*/	
+	
 
 
 		
