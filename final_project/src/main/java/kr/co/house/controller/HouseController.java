@@ -67,5 +67,12 @@ public class HouseController {
 		System.out.println(result);
 		return result;
 	}
-
+//숙소 리스트를 조회하는 것
+	@ResponseBody
+	@RequestMapping(value="/roomList.do", produces = "application/json;charset=utf-8")
+	public String selectRoomList(House house) {
+		ArrayList<House> list = service.selectRoomList(house);
+		return null;
+		
+	}
 }
