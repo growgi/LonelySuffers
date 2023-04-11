@@ -297,8 +297,8 @@
 			type: "get",
 			dataType: "json",
 			data: {searchType : searchType, searchKeyword : searchKeyword},
-			success : function(data) {
-				console.log(data,typeof data);
+			success : function(lessonList) {
+				console.log(lessonList,typeof lessonList);
 				console.log("서버 호출 성공");
 				
 /*   				var result = $("<table>");
@@ -308,8 +308,8 @@
 					result.html(data);
 				}  */
 			},
-			error : function(data) {
-				console.log(data);
+			error : function(lessonList) {
+				console.log(lessonList);
 				alert("검색어를 확인해주세요");
 			}
 		})
