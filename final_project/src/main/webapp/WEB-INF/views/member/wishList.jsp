@@ -150,6 +150,13 @@
     .active-line3{
         left: 200px;
     }
+    .active-black-box{
+    	
+    }
+    
+    .wishList-box{
+    	
+    }
 </style>
 <body>
 	<div id="wrapper">
@@ -236,6 +243,8 @@
                                                 <div>
                                                     <div class="product-title"><a href="#">${lw.lessonTitle }</a></div>
                                                     <div class="material-symbols-outlined close-icon">close</div>
+                                                    <input type="hidden" value="${lw.wishNo }">
+                                                    <input type="hidden" value="${sessionScope.m.memberId }">
                                                 </div>
                                                 <div><span class="product-name">강습</span> | <span class="location">${lw.lessonCity }</span></div>
                                             </div>
@@ -260,6 +269,8 @@
                                                 <div>
                                                     <div class="product-title"><a href="#">${hw.houseTitle }</a></div>
                                                     <div class="material-symbols-outlined close-icon">close</div>
+                                                    <input type="hidden" value="${hw.wishNo }">
+                                                    <input type="hidden" value="${sessionScope.m.memberId }">
                                                 </div>
                                                 <div><span class="product-name">숙박</span> | <span class="location">${hw.houseCity }</span></div>
                                             </div>
@@ -306,8 +317,6 @@
 
 	        const num = $(this).index();
 	        
-	        console.log(num);
-
 	        if(num == 0) {
 	            $(".wishList-content>.line").addClass("active-line1");
 		        $(".wishList-list>div").eq(num).show();
@@ -322,5 +331,11 @@
 	    });
 	});
     
+	$(".close-icon").on("click",function(){
+		const wishNo = $(this).next().val();
+		const memberId = $(this).next().next().val();
+
+		location.href = "/deleteWishList.do?wishNo="+wishNo+"&memberId="+memberId;
+	});
 </script>
 </html>

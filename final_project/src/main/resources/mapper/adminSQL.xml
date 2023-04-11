@@ -295,7 +295,7 @@
 		where order_no=#{_parameter}
 	</select>
 	
-	<select id="selectOrderDetail" parameterType="_int" resultType="od">
+	<select id="selectOrderDetail" parameterType="_int" resultType="order">
 		select 
             order_detail_no as orderDetailNo,
 		    order_no as orderNo, 
@@ -418,6 +418,7 @@
  			l.lesson_end_time as lessonEndTime,
  			l.lesson_city as lessonCity,
  			l.lesson_info_pic as lessonInfoPic,
+ 			l.lesson_status as lessonStatus,
  			w.house_no as houseNo,
  			h.house_title as houseTitle,
  			h.room_title as roomTitle,
@@ -425,12 +426,20 @@
  			h.house_photo1 as housePhoto1,
  			h.room_capa as roomCapa,
  			h.house_price as housePrice,
- 			h.house_description as houseDescription
+ 			h.house_description as houseDescription,
+ 			h.house_status as houseStatus
  		from wishList w
  		left join lesson l on(l.lesson_no=w.lesson_no)
  		left join house h on(h.house_no=w.house_no)
  		where member_id=#{_parameter}
  		order by wish_no desc
  	</select>
+ 	
+ 	 <delete id="deleteWishList" parameterType="_int">
+ 		delete 
+ 		from wishlist
+ 		where wish_no=#{_parameter}
+ 	</delete>
+
  
 </mapper>

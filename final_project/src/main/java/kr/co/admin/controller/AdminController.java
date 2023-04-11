@@ -365,5 +365,18 @@ public class AdminController {
 		model.addAttribute("allWishList", allWishList);
 		return "member/wishList";
 	}
+	
+	@RequestMapping(value="/deleteWishList.do")
+	public String deleteWishList(int wishNo, String memberId) {
+		int result = service.deleteWishList(wishNo);
+		
+		if(result>0) {
+			return "redirect:/wishList.do?memberId="+memberId;
+		} else {
+			return "redirect:/";
+		}
+		
+		
+	}
 
 }

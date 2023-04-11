@@ -253,4 +253,10 @@ public class AdminDao {
 		return (ArrayList<Order>)searchSalesDetails;
 	}
 
+	public int deleteWishList(int wishNo) {
+		int result = sqlSession.delete("admin.deleteWishList", wishNo);
+		
+		return result;
+	}
+
 }

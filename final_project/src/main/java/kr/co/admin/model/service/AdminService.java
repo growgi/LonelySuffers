@@ -426,5 +426,12 @@ public class AdminService {
 		return dao.selectSearchSalesDetails(sp);
 	}
 
+	public int deleteWishList(int wishNo) {
+		
+		int result = dao.deleteWishList(wishNo);
+
+		return result;
+	}
+
 
 }
