@@ -21,6 +21,54 @@
 </head>
 
 <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+<style>
+.clickToLarger {
+	width: 80px;
+	height: 80px;
+}
+.clickToLarger:hover { cursor: pointer;}
+.onViewing { border: 4px solid #3ac5c8; }
+.product-detail>div{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+
+.tab-card {
+  border:1px solid #eee;
+}
+
+.tab-card-header {
+  background:none;
+}
+/* Default mode */
+.tab-card-header > .nav-tabs {
+  border: none;
+  margin: 0px;
+}
+.tab-card-header > .nav-tabs > li {
+  margin-right: 2px;
+}
+.tab-card-header > .nav-tabs > li > a {
+  border: 0;
+  border-bottom:2px solid transparent;
+  margin-right: 0;
+  color: #737373;
+  padding: 2px 15px;
+}
+
+.tab-card-header > .nav-tabs > li > a.show {
+    border-bottom:2px solid #007bff;
+    color: #007bff;
+}
+.tab-card-header > .nav-tabs > li > a:hover {
+    color: #007bff;
+}
+
+.tab-card-header > .tab-content {
+  padding-bottom: 0;
+}
+</style>
 
 <body>
 	<div id="wrapper">
@@ -53,39 +101,69 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-5">
-						<div>대표 사진 영역</div>
-						<div>다중 사진 선택 칸</div>
+						<c:choose>
+						<c:when test="${house.housePhoto1 == null }">
+						<div class="row" style="height: 450px;">
+							<div class="col-md-2"></div>
+							<div class="col-md-8">
+								<div class="waveEffect" style="margin: 0 auto;">
+									<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+									<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+								</div>
+							</div>
+						</div>
+						</c:when>
+						<c:otherwise>
+						<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="upload/house/${house.housePhoto1 }" style="width: 100%;"></div>
+						<div class="row">
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+							<ul class="pagination">
+								<li style="margin: 5px;"><img class="clickToLarger onViewing" src="upload/house/${house.housePhoto1 }"></li>
+								<c:if test="${house.housePhoto2 != null }">
+								<li style="margin: 5px;"><img class="clickToLarger" src="upload/house/${house.housePhoto2 }"></li>
+								</c:if>
+								<c:if test="${house.housePhoto3 != null }">
+								<li style="margin: 5px;"><img class="clickToLarger" src="upload/house/${house.housePhoto3 }"></li>
+								</c:if>
+								<c:if test="${house.housePhoto4 != null }">
+								<li style="margin: 5px;"><img class="clickToLarger" src="upload/house/${house.housePhoto4 }"></li>
+								</c:if>
+							</ul>
+							</div>
+						</div>
+						</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- end col -->
 
+					<div class="col-md-1"></div>
 
-
-					<div class="col-md-7">
-						<div>
+					<div class="col-md-6 product-detail">
 							<input type="hidden" name="roomTitle" value="${house.roomTitle }">
 							<p>${house.roomTitle }</p>
 							<div class="row">
-								<h1>${house.houseTitle }</h1>
+								<h1 style="padding-bottom: 40px;">${house.houseTitle }</h1>
 								<input type="hidden" name="housePrice" value="${house.housePrice }">
-								<h3>${house.housePrice }원/1박</h3>
+								<h3><span id="withCommas" style="font-size: 36px; font-weight: bold;">${house.housePrice }</span>원/1박</h3>
 								<div class="col-md-9">
-									<p>비성수기, 평일 기준</p>
+									<p style="text-indent: 10px;"><a href="#" data-toggle="tooltip" data-placement="right" title="주말(입실일 기준 금/토)에는 1.5배의 할증이 있습니다. 성수기(6월~8월)에는 1.2배의 할증이 추가로 붙습니다.">( ※ 비성수기 평일 기준 )</a></p>
 								</div>
 								<div class="col-md-3">
 									<input type="hidden" name="roomCapa" value="${house.roomCapa }">
-									<p style="text-align: left;">${house.roomCapa }인실</p>
+									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">${house.roomCapa }인실</span></p>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-4">
+							<div class="row" style="margin-top: 30px;">
+								<div class="col-md-3">
 									판매량 ()숫자
 								</div>
+								<div class="col-md-1"></div>
 								<div class="col-md-5">
 									별평점넣을자리
 								</div>
 							</div>
 							<p>주소지 <span>${house.houseAddress }</span></p>
-						</div>
 						<div>
 							<button>관심상품</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
@@ -158,17 +236,28 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-9">
-						<div class="row">
+					<div class="col-md-9 card mt-3 tab-card">
+						<div class="row card-header tab-card-header">
 							<ul class="nav navbar-nav navbar-left">
-								<li>상품설명</li>
-								<li>상품평</li>
-								<li>상품문의</li>
+								<li class="nav-item">
+									<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
+								</li>
 							</ul>
 						</div>
-						<div class="row">상품 설명 div</div>
-						<div class="row">상품 평 div</div>
-						<div class="row">상품 문의 div</div>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+								상품 설명 div</div>
+							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+								상품 평 div</div>
+							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+								상품 문의 div</div>
+						</div>
 					</div>
 					<div class="col-md-3">
 					광고 등 배너 영역 column
@@ -199,6 +288,27 @@
 
 
 	<script type="text/javascript">
+	// 가격에 3자리마다 , 출력
+	const num = Number($("#withCommas").text());
+	$("#withCommas").text(num.toLocaleString('ko-KR'));
+
+
+	// 부트스트랩 tooltip
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();   
+	});
+
+
+	$(function(){
+		$(".clickToLarger").click(function () {
+			$(".clickToLarger").removeClass("onViewing");
+			$(this).addClass("onViewing");
+			$(".bigThumbnailImage").attr("src",$(this).attr("src"));
+		});
+
+	})
+
+
 	// (숙박업소 & 인원 수) 조건에 맞는 객실들을 받는 ajax
 		const roomTitleVal = $("[name=roomTitle]").val();
 		const roomCapaVal = $("[name=roomCapa]").val();
