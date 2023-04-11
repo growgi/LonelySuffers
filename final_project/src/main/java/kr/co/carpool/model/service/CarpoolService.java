@@ -22,16 +22,21 @@ public class CarpoolService {
 
 	public Carpool selectOneCarpool(Carpool carpool) {
 		return dao.selectOneCarpool(carpool);
+		
 	}
 
-	public ArrayList<Carpool> filterCarpool(CarpoolFilter cp) {
-		return dao.filterCarpool(cp);
+	public ArrayList<Carpool> filterCarpool(CarpoolFilter cf) {
+		System.out.println("controller에서 service로 넘겨준조건"+cf);
+		System.out.println("dao로부터 controller로 넘겨준 것 "+dao.filterCarpool(cf));
+		return dao.filterCarpool(cf);
 	}
 
+	//카풀 신청하기(승객)
 	public int insertPassenger(CarpoolMatch match) {
 		return dao.insertPassenger(match);
 	}
-
+	
+	//운전자의 카풀 등록하기
 	public int insertCarpool(Carpool carpool) {
 		return dao.insertCarpool(carpool);
 	}

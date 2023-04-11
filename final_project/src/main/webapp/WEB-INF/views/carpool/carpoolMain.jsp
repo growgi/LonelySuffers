@@ -120,15 +120,19 @@
 							</tr>
 						</thead>
 						
-						<tbody>
+						<tbody  class="carpoolListWrapper list-wrap">
 							<!-- 얘네들이 반복돼야해!! Carpool list all -->
 							
-							<div class="carpoolListWrapper list-wrap">
-							<!-- 여기에 넣을 값을 ajax로 아래와 같이 만들어서 넣어준다!! -->
-							</div>
-							<button class="btn bc4 bs4" id="more-btn" currentCount ="0" value="1">더보기</button>
+						
 
 						</tbody>
+						<tfoot>
+							<tr>
+								<th colspan="6">
+									<button class="btn bc4 bs4" id="more-btn" currentCount ="0" value="1">더보기</button>
+								</th>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 				<!-- end row -->
@@ -336,7 +340,30 @@
 			 dataType : "json",
 			 success : function(data){
 				 console.log(data);
-				 
+				 for(let i=0; i<data.length; i++){
+					 
+			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor", "pointer").click(function(){
+			                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
+			            });
+			            const td1 = $("<td>").text(data[i].departureDate);
+			            
+			            const td2 = $("<td>").append($("<span>").css("display", "none").text(data[i].regDate))
+			            .append($("<img>").attr("src", "/capool-img/destination.png").attr("alt", "img").css("width", "45px").css("height", "50px"));
+			            
+			            const td3 = $("<td>").append($("<div>").addClass("row onewayRound").text(data[i].tripType))
+			            .append($("<div>").addClass("row region").text(data[i].departureRegion))
+			            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+		
+			            const td4 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text("&nbsp;"))
+			            .append($("<div>").addClass("row district").text(data[i].departureDistrict))
+			             .append($("<div>").addClass("row district").text(data[i].arrivalDistrict));
+	
+			            const td5 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text("&nbsp;"))
+			            .append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));
+			           
+			            tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+			            $("table").append(tr);
+			    }
 			 },
 			 error : function(){
 				 console.log("서버호출 실패");
@@ -388,6 +415,7 @@
 
 	
 		//출발일, 등록일 기준으로 table sort out기능
+	/*
 		table = document.getElementById('carpoolTable');
 		new Tablesort(table);
 		var refresh = new Tablesort(tableRefresh);
@@ -396,7 +424,7 @@
 		var cellName = row.insertCell(0);	
 		cellName.innerHTML = 0;
 		refresh.refresh();
-		
+	*/	
 
 
 		

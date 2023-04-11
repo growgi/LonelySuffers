@@ -27,8 +27,10 @@ public class CarpoolDao {
 		return c;
 	}
 
-	public ArrayList<Carpool> filterCarpool(CarpoolFilter cp) {
-		List list = sqlSession.selectList("carpoolFilter.filterCarpool", cp);
+	public ArrayList<Carpool> filterCarpool(CarpoolFilter cf) {
+		System.out.println("controller에서 dao로 넘겨준 것"+cf);
+		List list = sqlSession.selectList("carpoolFilter.filterCarpool", cf);
+		System.out.println("dao 실행한것"+list);
 		return (ArrayList<Carpool>)list;
 	}
 

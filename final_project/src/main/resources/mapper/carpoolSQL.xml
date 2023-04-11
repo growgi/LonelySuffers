@@ -17,7 +17,7 @@
  		capacity,
  		surfboard_room,
  		driver_msg,
- 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) AS RESERVED
+ 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
      FROM CARPOOL c
 	</select>
 	
@@ -43,8 +43,10 @@
 	
 <!-- 운전자의 카풀 제공 등록 확인할 것 : 편도/왕복에 따라 화면이 다른데 그럼 mapper 다르게 구현하는게 맞는지??-->
 	<insert id="insertCarpool" parameterType="c">
-		insert into carpool values
-		(carpool_seq.nextval, #{departureRegion}, #{departureDistrict})
+		insert into carpool values(
+		carpool_seq.nextval, #{driverNo}, #{capacity}, #{onewayRound},  #{departureRegion}, #{departureDistrict}, #{arrivalRegion}, #{arrivalDistrict},
+		#{departureDate}, #{departureTime}, #{returnDate}, #{returnTime},#{driverMsg}, #{carpoolPrice}, #{surfboardRoom}, 
+		TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'),1)
 	</insert>	
 	
 
