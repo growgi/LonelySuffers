@@ -101,23 +101,31 @@
 	</delete>
 	
 	<select id="selectSearchLesson" parameterType="s" resultType="l">
-		select
-			*
-		from lesson
-		<choose>
-			<when test="searchType.equals('n')">
-				where lesson_title like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('s')">
-				where writer like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('le')">
-				where lesson_name_level like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('lo')">
-				where lesson_city like '%'||#{searchKeyword}||'%'
-			</when>
-		</choose>
+	  select 
+	  		lesson_no as lessonNo,
+			lesson_name_level as lessonNameLevel,
+			lesson_title as lessonTitle,
+			lesson_price as lessonPrice,
+			lesson_max_no as lessonMaxNo,
+			writer,
+			lesson_city as lessonCity,
+			lesson_status as lessonStatus
+	  from lesson
+ 	    <choose>
+	      <when test='searchType.equals("n")'>
+	      	<!-- 한 글자는 문자 취급될 수 있기 때문에 ""큰따옴표로 묶어야함 -->
+	        where lesson_title like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test='searchType.equals("s")'>
+	        where writer like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test="searchType.equals('le')">
+	        where lesson_name_level like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test="searchType.equals('lo')">
+	        where lesson_city like '%'||#{searchKeyword}||'%'
+	      </when>
+	    </choose> 
 	</select>
 	
 	<select id="selectSearchHouse" parameterType="s" resultType="h">
@@ -295,7 +303,7 @@
 		where order_no=#{_parameter}
 	</select>
 	
-	<select id="selectOrderDetail" parameterType="_int" resultType="od">
+	<select id="selectOrderDetail" parameterType="_int" resultType="order">
 		select 
             order_detail_no as orderDetailNo,
 		    order_no as orderNo, 
@@ -418,6 +426,7 @@
  			l.lesson_end_time as lessonEndTime,
  			l.lesson_city as lessonCity,
  			l.lesson_info_pic as lessonInfoPic,
+ 			l.lesson_status as lessonStatus,
  			w.house_no as houseNo,
  			h.house_title as houseTitle,
  			h.room_title as roomTitle,
@@ -425,12 +434,20 @@
  			h.house_photo1 as housePhoto1,
  			h.room_capa as roomCapa,
  			h.house_price as housePrice,
- 			h.house_description as houseDescription
+ 			h.house_description as houseDescription,
+ 			h.house_status as houseStatus
  		from wishList w
  		left join lesson l on(l.lesson_no=w.lesson_no)
  		left join house h on(h.house_no=w.house_no)
  		where member_id=#{_parameter}
  		order by wish_no desc
  	</select>
+ 	
+ 	 <delete id="deleteWishList" parameterType="_int">
+ 		delete 
+ 		from wishlist
+ 		where wish_no=#{_parameter}
+ 	</delete>
+
  
 </mapper>

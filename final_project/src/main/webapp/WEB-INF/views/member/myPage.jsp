@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -7,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Lonly Suffers</title>
 <link rel="stylesheet" href="/css/myPage.css">
+<link rel="stylesheet" href="/css/chat.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,-25" />
@@ -40,7 +42,7 @@
 								<ul class="tab-content">
 									<li>프로필관리</li>
 									<li>구매내역</li>
-									<li>1대1문의</li>
+									<li class="chatList">1대1문의</li>
 									<c:if test="${sessionScope.m.memberGrade == 2}">
 									<li>판매자전용</li>
 									</c:if>
@@ -123,24 +125,55 @@
 									<div>
 										<table>
 											<tr>
-												<th>번호</th>
-												<th>주문 상품</th>
-												<th>처리 상태</th>
-												<th>결제 금액</th>
-												<th>주문 날짜</th>
+												<td width="15%">번호</td>
+												<td width="15%">주문 상품</td>
+												<td width="20%">처리 상태</td>
+												<td width="20%">결제 금액</td>
+												<td width="30%">주문 날짜</td>
 											</tr>
 											<c:forEach items="${list }" var="o" varStatus="s">
 												<tr>
 													<td>${s.count}</td>
-													<td>${o.orderProduct }</td>
-													<td>${o.orderStatus }</td>
-													<td>${o.orderAllPrice }</td>
+													<c:choose>
+														<c:when test="${o.orderProduct == 1}">
+															<td>강습</td>
+														</c:when>
+														<c:when test="${o.orderProduct == 2}">
+															<td>숙박</td>
+														</c:when>
+														<c:otherwise>
+															<td>강습 + 숙박</td>
+														</c:otherwise>
+													</c:choose>
+													<c:choose>
+														<c:when test="${o.orderStatus == 1}">
+															<td>결제 완료</td>
+														</c:when>
+														<c:otherwise>
+															<td>결제 취소</td>
+														</c:otherwise>
+													</c:choose>
+													<td><fmt:formatNumber value="${o.orderAllPrice }" pattern="#,###" />원</td>
 													<td>${o.orderDate }</td>
 												</tr>
 											</c:forEach>  
 										</table>
 									</div>
 								</div>
+								
+								<div class="adminChat hide-div">
+									<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
+									<div class="chatting">
+										<div class="messageArea">
+											<button type="button" name="endChatBtn" onclick="endChatBtn('${sesionScope.m.memberId}')">채팅종료</button>
+										</div>
+										<div class="sendBox">
+											<input type="text" id="sendMsg">
+											<button id="sendBtn" onClick="sendMsg();">전송</button> 
+										</div>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -163,6 +196,7 @@
 	<script src="js/animate.js"></script>
 	<script src="js/custom.js"></script>
 	<script src="js/myPage.js"></script>
+	<script src="js/chat.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
 </body>

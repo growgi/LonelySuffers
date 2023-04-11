@@ -203,7 +203,7 @@
                         <span class="material-symbols-outlined right-navi">chevron_right</span>
                     </div>
                     <ul class="menu-detail">
-                        <li><a href="#">1:1 문의</a></li>
+                        <li><a href="/adminChat.do">1:1 문의</a></li>
                     </ul>
                 </li>
             </ul>

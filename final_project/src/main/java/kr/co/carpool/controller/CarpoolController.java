@@ -53,8 +53,6 @@ public class CarpoolController {
 	//운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
 	@RequestMapping(value="/registerCarpool.do")
 	public String registerCarpool(Carpool carpool) {
-		System.out.println(carpool.getDriverNo());
-		System.out.println(carpool.getDepartureDate());
 		int result = service.insertCarpool(carpool);
 		if(result>0){
 			return "redirect:/carpoolMain.do";

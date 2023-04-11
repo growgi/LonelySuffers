@@ -24,11 +24,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
 
-<!-- date picker를위한 오픈소스
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
--->
 </head>
 
 <body>
@@ -118,10 +113,9 @@
 					                    <tr class="depart"> 
 					                        <th style="width:35%; text-align:center;">출발</th> 
 					                        <td>
-					                            <!--달력 api-->
-					                            <input type="date" id="start" name="departureDate"
-					                               value="2023-05-03"
-					                               min="2023-05-03" max="2023-12-31" required>
+					                            <!--daterangePicker-->
+					                            <input type="text" id="departureDate" name="departureDate" required>
+					                            <div id="calendar-area"></div>
 					                        </td>
 					                        <td>
 					                            <!--오전 오후 중에 체크하는 radio-->
@@ -131,13 +125,12 @@
 					                            <label for="pm-time">오후</label>		
 					                        </td>
 					                    </tr> 
-					                    <!-- 
+					                    <!-- daterangePicker
 					                     <tr class="arrive"> 
 					                        <th style="width:35%; text-align:center;">복귀</th> 
 					                        <td>
-					                            <input type="date" id="start" name="trip-start"
-					                               value="2023-05-03"
-					                               min="2023-05-03" max="2023-12-31">
+					                            <input type="text" id="returnDate" name="returnDate" required>
+					                            <div id="calendar-area2"></div>
 					                        </td>
 					                        <td>
 					                            <input type="radio" id="am" name="arrivalTime" value="0">
@@ -235,14 +228,13 @@
     			  '<tr class="arrive">' +
     	            '<th style="width:35%; text-align:center;">복귀</th>' +
     	            '<td>' +
-    	                '<input type="date" id="start" name="arrivalDate"' +
-    	                    'value="2023-05-03"' +
-    	                    'min="2023-05-03" max="2023-12-31" required>' +
+    	                '<input type="text" id="returnDate" name="returnDate" required>' +
+    	                '<div id="calendar-area2"></div>'+
     	            '</td>' +
     	            '<td>' +
-    	                '<input type="radio" id="am" name="arrivalTime" value="0" required>' +
+    	                '<input type="radio" id="am" name="returnTime" value="0" required>' +
     	                '<label for="am-time">오전</label>' +
-    	                '<input type="radio" id="pm" name="arrivalTime" value="1" required>' +
+    	                '<input type="radio" id="pm" name="returnTime" value="1" required>' +
     	                '<label for="pm-time">오후</label>' +
     	            '</td>' +
     	        '</tr>'
@@ -252,6 +244,44 @@
     	$(".arrive").remove();
     	$("[name=onewayRound]").val(1);
     });
+    
+    $('#departureDate').daterangepicker({
+	    parentEl: "#calendar-area",
+		locale: {
+			format: "YYYY-MM-DD",
+			fromLabel: "시작",
+			toLabel: "종료"
+	    },
+	    alwaysShowCalendars: true,
+		autoApply: true,
+		singleDatePicker: true,
+		showDropdowns: true,
+		minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
+		maxDate : moment().add(1, 'months'),	// 시작일은 3개월 이내에서 지정 가능
+	});
+    
+ // 시작일 input의 value가 바뀌면, 적절하게 minDate와 maxDate를 구성해서 종료일 date range picker를 생성  
+	$("#departureDate").on("change", function(){
+		const departureDate = $("#departureDate").val();	// 시작일+1을 minDate로 사용할 예정
+	// maxDate는 시작일+3개월로 초기화 
+		var maxLimit = moment(departureDate).add(15, 'days').format("YYYY-MM-DD");
+
+		$('#returnDate').daterangepicker({
+		    parentEl: "#calendar-area2",
+			locale: {
+				format: "YYYY-MM-DD",
+				fromLabel: "시작",
+				toLabel: "종료"
+		    },
+		    alwaysShowCalendars: true,
+			autoApply: true,
+			singleDatePicker: true,
+			showDropdowns: true,
+			minDate: departureDate,
+			maxDate: maxLimit
+		});
+	});
+    
 
 
 	function toggleStorage() {
@@ -265,30 +295,6 @@
 	    }
 	};
 
-    $(function() {
-       //input을 datepicker로 선언
-       $("#datepicker").datepicker({
-           dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-           ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
-           ,buttonText: "선택" //버튼 호버 텍스트              
-           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-           ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
-       });                    
-       
-       //초기값을 오늘 날짜로 설정해줘야 합니다.
-       $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
-   });
 
 		
 	</script>

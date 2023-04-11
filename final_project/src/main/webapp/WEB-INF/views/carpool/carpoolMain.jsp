@@ -164,7 +164,6 @@
 								<div class="form-group">
 									<label for="usrname">출발</label> 
 									<select class="form-control" id="departureRegion" name="departureRegion" >
-										<option value="" selected disabled>시/도</option>
 										<option value="전체">전체</option>
 										<option value="서울">서울</option>
 										<option value="경기">경기</option>
@@ -188,7 +187,6 @@
 								<div class="form-group">
 									<label for="usrname">도착</label> 
 									<select class="form-control" id="arrivalRegion" name="arrivalRegion" >
-										<option value="" selected disabled>시/도</option>
 										<option value="전체">전체</option>
 										<option value="서울">서울</option>
 										<option value="경기">경기</option>
