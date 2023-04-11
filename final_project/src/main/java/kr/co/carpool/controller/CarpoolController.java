@@ -53,6 +53,8 @@ public class CarpoolController {
 	//운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
 	@RequestMapping(value="/registerCarpool.do")
 	public String registerCarpool(Carpool carpool) {
+		System.out.println(carpool.getDriverNo());
+		System.out.println(carpool.getDepartureDate());
 		int result = service.insertCarpool(carpool);
 		if(result>0){
 			return "redirect:/carpoolMain.do";
@@ -67,9 +69,8 @@ public class CarpoolController {
 	//2. carpoolMain.do 처럼 ArrayList 가져오나?
 	@ResponseBody
 	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
-	public String filterCarpool(CarpoolFilter cp) {
-	 	System.out.println(cp);
-		ArrayList<Carpool> list = service.filterCarpool(cp);
+	public String filterCarpool(CarpoolFilter cf) {
+		ArrayList<Carpool> list = service.filterCarpool(cf);
 		Gson gson = new Gson();
 		String result= gson.toJson(list);
 		System.out.println(result);
@@ -90,6 +91,7 @@ public class CarpoolController {
 		}
 		
 	}
+	
 
 	
 	//운전자의 내 카풀 리스트 보기!!!
