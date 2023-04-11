@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 
 import kr.co.admin.model.service.AdminService;
 import kr.co.admin.model.vo.Search;
+import kr.co.chat.model.service.ChatService;
+import kr.co.chat.model.vo.ChatActive;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
@@ -24,6 +26,9 @@ public class AdminController {
 	
 	@Autowired
 	AdminService service;
+	
+	@Autowired
+	private ChatService cService;
 	
 	/**1. 회원목록*/
 	@RequestMapping(value="/memberList.do")
@@ -383,8 +388,9 @@ public class AdminController {
 	
 	/**1:1 문의*/
 	@RequestMapping(value="/adminChat.do")
-	public String adminChat() {
-
+	public String adminChat(Model model) {
+		ArrayList<ChatActive> list = cService.selectAllChatActive();
+		model.addAttribute("list",list);
 		return "admin/adminChat";
 	}
 
