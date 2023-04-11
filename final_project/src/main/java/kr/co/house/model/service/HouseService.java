@@ -41,4 +41,10 @@ public class HouseService {
 	public ArrayList<House> selectAllAddress(){
 		return dao.selectAllAddress();
 	}
+
+
+
+	public ArrayList<House> selectRoomList(House house) {
+		return dao.selectRoomList(house);
+	}
 }
