@@ -16,7 +16,7 @@
 
 <!-- Site Meta -->
 <title>Lonely Suffers-Carpool Main</title>
-<link rel="stylesheet" href="css/carpool/carpoolMain.css">
+<link rel="stylesheet" href="resources/css/carpool/carpoolMain.css">
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
@@ -32,7 +32,7 @@
 		<!-- section은 위아래로 margin이 크게 잡혀 있습니다. -->
 		<!-- class를 section 이 아니라 section nopad 로 하시면, 좌우 여백 없이 화면 너비 크기 전체에다가 section의 background-color를 부여할 수 있습니다. -->
 		<section class="section transheader homepage parallax"
-			style="background-image: url('capool-img/surftruck2.png'); opacity: 0.7">
+			style="background-image: url('resources/images/carpool/surftruck2.png'); opacity: 0.7">
 			<!--  container는 구현 내용물들을 담는 div입니다. -->
 			<div class="container">
 				<div class="row">
@@ -79,7 +79,7 @@
 							</c:when>
 							<c:otherwise>
 								<!-- alert 창에 ip 안뜨게 해야함 -->
-								<a href="/login.do" onclick="alert('로그인한 회원만 작성 가능합니다.');">
+								<a href="/loginFrm.do" onclick="alert('로그인한 회원만 작성 가능합니다.');">
 									<span class="material-symbols-outlined edit" id="edit-note-link">edit_note</span>
 								</a>
 							</c:otherwise>
@@ -261,15 +261,15 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/tablesort.min.js"></script>
-	<script src="js/tablesort.date.min.js"></script>
+	<script src="resources/js/tablesort.min.js"></script>
+	<script src="resources/js/tablesort.date.min.js"></script>
 
 
 	<script>
@@ -347,7 +347,7 @@
 			            const td1 = $("<td>").text(data[i].departureDate);
 			            
 			            const td2 = $("<td>").append($("<span>").css("display", "none").text(data[i].regDate))
-			            .append($("<img>").attr("src", "/capool-img/destination.png").attr("alt", "img").css("width", "45px").css("height", "50px"));
+			            .append($("<img>").attr("src", "/resources/images/carpool/destination.png").attr("alt", "img").css("width", "45px").css("height", "50px"));
 			            const td3 = $("<td>");
 			            if(data[i].onewayRound == 1){
 			            	 td3.append($("<div>").addClass("row onewayRound").text("편도"))

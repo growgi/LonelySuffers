@@ -5,11 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Lonly Suffers</title>
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/resources/css/login.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -98,12 +95,12 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
-	<script src="/js/loginFrm.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
+	<script src="resources/js/loginFrm.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
 </body>

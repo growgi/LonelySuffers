@@ -216,11 +216,11 @@ public class AdminController {
 		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
 		System.out.println(lessonList.size());
 		System.out.println(lessonList);
-		if(!lessonList.isEmpty()) {			
-			return new Gson().toJson(lessonList);
-		} else {
-			return "redirect:/productList.do";
-		}
+		
+		return new Gson().toJson(lessonList);
+		/*
+		 * if(!lessonList.isEmpty()) { } else { return "redirect:/productList.do"; }
+		 */
 		
 	}
 	

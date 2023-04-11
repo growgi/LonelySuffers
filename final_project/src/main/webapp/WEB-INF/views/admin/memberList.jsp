@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<link rel="stylesheet" href="css/adminTable.css"></link>
+<link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <style>
     .list-bottom>div{
         display: flex;
@@ -103,7 +103,7 @@
             </div>
         </div>
     </div>
-    <script src="js/admin.js"></script>
+    <script src="resources/js/admin.js"></script>
 </body>
 <script>
     $(".search-bar>input").on("click",function(){

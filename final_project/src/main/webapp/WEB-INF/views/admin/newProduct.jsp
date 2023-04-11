@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<link rel="stylesheet" href="css/adminTable.css"></link>
+<link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="newProduct-wrapper product-wrapper admin-content">
@@ -55,6 +55,7 @@
 									<th></th>
 								</tr>
 								<c:forEach items="${lessonList }" var="l">
+								<c:if test="${l.lessonStatus == -1 }">
 									<tr>
 										<td><input type="checkbox" name="lessonCheck"
 											class="lesson-check chk check" value="${l.lessonNo }"></td>
@@ -83,6 +84,7 @@
 										<input type="hidden" value="${l.lessonNo }" name="productNo">
 										<button class="returnProduct btn bc1">반려</button></td>
 									</tr>
+									</c:if>
 								</c:forEach>
 							</table>
 							<div></div>
@@ -137,6 +139,7 @@
 									<th></th>
 								</tr>
 								<c:forEach items="${houseList }" var="h">
+								<c:if test="${l.houseStatus == -1 }">
 									<tr>
 										<td><input type="checkbox" name="houseCheck"
 											class="house-check chk check" value="${h.houseNo }"></td>
@@ -165,6 +168,7 @@
 											<button class="returnProduct btn bc1">반려</button>
 										</td>
 									</tr>
+								</c:if>
 								</c:forEach>
 							</table>
 							<div></div>
@@ -180,7 +184,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/admin.js"></script>
+	<script src="resources/js/admin.js"></script>
 </body>
 <script>
 	/*메뉴 제목*/
@@ -264,7 +268,7 @@
 	$(".checkedReturnProduct").on("click", function() {
 		//상품 종류
 		const productType = $(this).parent().parent().parent().children(".list-top").children("[type=hidden]").val();
-		
+
 		const check = $(".check:checked");
 
 		if (check.length == 0) {
@@ -279,6 +283,7 @@
 		check.each(function(index, item) {
 			//클릭한 버튼 기준으로 해당 상품 번호
 			const productNo = $(item).val();
+			console.log(productNo);
 		});
 
 		location.href = "/checkedReturnProduct.do?productType="+productType+"&no=" + no.join("/");
@@ -286,31 +291,31 @@
 	
 	/*검색*/
 	function search(){
-		var searchType = $(" [name=lessonSearchType]").val();
-		var searchKeyword = $(" [name=lessonSearchKeyword]").val();
+		var searchType = $("[name=lessonSearchType]").val();
+		var searchKeyword = $("[name=lessonSearchKeyword]").val();
 
 		console.log(searchType);
 		console.log(searchKeyword);
 
 		$.ajax({
-			type:'GET',
-			dataType: 'JSON',
-			data: {searchType : searchType, searchKeyword : searchKeyword},
 			url: "/adminSearchLesson.do",
-			success : function(data) {
-				console.log(data,typeof data);
+			type: "get",
+			dataType: "json",
+			data: {searchType : searchType, searchKeyword : searchKeyword},
+			success : function(lessonList) {
+				console.log(lessonList,typeof lessonList);
 				console.log("서버 호출 성공");
-				
-/*  				var result = $("<tr>").eq(1);
+				displayData(lessonList);
+/*   				var result = $("<table>");
 				if(data == null) {
 					$("#lessonResult").text("상품 정보를 조회할 수 없습니다.");
 				} else {
 					result.html(data);
 				}  */
 			},
-			error : function() {
-				console.log("서버 호출 실패");
-				/* alert("검색어를 확인해주세요"); */
+			error : function(lessonList) {
+				console.log(lessonList);
+				alert("검색어를 확인해주세요");
 			}
 		})
 	}
