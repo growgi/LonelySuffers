@@ -57,7 +57,9 @@ public class ChatHandler extends TextWebSocketHandler{
 			}else {
 				result = 1;
 			}
+			System.out.println(result);
 			JsonObject obj = new JsonObject();
+			System.out.println();
 			if(result != 0) {
 				obj.addProperty("type", "startCondition");
 				obj.addProperty("msg", "ok");
@@ -117,6 +119,10 @@ public class ChatHandler extends TextWebSocketHandler{
 				TextMessage tm = new TextMessage(resultStr);
 				session.sendMessage(tm);
 			}
+		}else if(type.equals("adminStart")) {
+			String memberId = element.getAsJsonObject().get("memberId").getAsString();
+			connectionMemberList.put(memberId, session);
+			memberIdList.put(session,memberId);
 		}
 	}
 	
