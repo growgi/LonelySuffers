@@ -295,9 +295,9 @@
 </style>
 <!-- naver map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
-<script src="js/MarkerClustering.js"></script>
+<script src="resources/js/MarkerClustering.js"></script>
 <!-- daterangepicker -->
-<link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 </head>
 <body>
 
@@ -309,18 +309,18 @@
 				<div class="scroll-wrapper">  
        				 <div id="scroll">
        				 	<span class="money"><span class="stat-count">150000</span>원</span>
-           				<img class="money-emoji" src="/images/won.png">
+           				<img class="money-emoji" src="/resources/images/won.png">
         			</div>  
 				</div> 
 		<div class="container">
 			<!-- 키오스크 1페이지 -->
 			<div class="content-wrapper">
 				<div class="title-wrapper">
-					<img src="/images/wave.png">	
-					<img src="/images/palm-tree.png">
+					<img src="/resources/images/wave.png">	
+					<img src="/resources/images/palm-tree.png">
 					<span class="title">어디로 떠나볼까요~?</span>
-					<img src="/images/palm-tree.png">
-					<img src="/images/wave.png">
+					<img src="/resources/images/palm-tree.png">
+					<img src="/resources/images/wave.png">
 					<div class="values-wrapper">
 						
 					</div>
@@ -332,7 +332,7 @@
 					<div class="row">
 						<div class="col-md-8">
 							<div class="circle-wrap">
-								<div class="circle" style="background-image:url(/images/magnify.png)">
+								<div class="circle" style="background-image:url(/resources/images/magnify.png)">
 									<div class="map">
 									<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
 										</div>
@@ -399,7 +399,7 @@
 					<div class="option-select">
 						<div class="barbecue">
 							<div>
-							<img src="/images/barbecue.png">
+							<img src="/resources/images/barbecue.png">
 							</div>
 							<div class="boxes">
 								<input type="checkbox" id="barbecue" value="barbecue">
@@ -410,7 +410,7 @@
 						</div>
 						<div class="party">
 							<div>
-								<img src="/images/party.png">
+								<img src="/resources/images/party.png">
 							</div>
 							<div class="boxes">
 								<input type="checkbox" id="party" value="party">
@@ -445,7 +445,7 @@
 					<!-- 중복선택이 가능하게 -->
 						<div class="level1">
 							<div>
-							<img src="/images/level1.png">
+							<img src="/resources/images/level1.png">
 							</div>
 							<div class="boxes">
 								<input type="checkbox" id="level1" value="1">
@@ -455,7 +455,7 @@
 						</div>
 						<div class="level2">
 							<div>
-								<img src="/images/level2.png">
+								<img src="/resources/images/level2.png">
 							</div>
 							<div class="boxes">
 								<input type="checkbox" id="level2" value="2">
@@ -465,7 +465,7 @@
 						</div>
 						<div class="level3">
 							<div>
-							<img src="/images/level3.png">
+							<img src="/resources/images/level3.png">
 							</div>
 							<div class="boxes">
 								<input type="checkbox" id="level3" value="3">
@@ -528,7 +528,7 @@
 				<!-- 키오스크 9페이지 -->
 				<div class="pages page9">
 					<div class="last-page">
-						<img src="/images/shaka.png">
+						<img src="/resources/images/shaka.png">
 					</div>
 					<div class="btn-wrap" id="page9">
 						<button class="page9-before"><p>이전으로</p></button>
@@ -551,14 +551,14 @@
 	</div>
 
 <!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<!-- <script src="js/parallax.js"></script> -->
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<!-- <script src="resources/js/parallax.js"></script> -->
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 <!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/moment.min.js"></script>
-	<script src="js/daterangepicker.js"></script>
+	<script src="resources/js/moment.min.js"></script>
+	<script src="resources/js/daterangepicker.js"></script>
 
 
 
@@ -715,7 +715,7 @@ $("#headcount").on('change',function(){
 	$(".head-icon-wrap").empty();
 	if(value>0){
 		for(var i=0;i<value;i++){
-			var url = '/images/headcount.png';
+			var url = '/resources/images/headcount.png';
 			var image = new Image();
 			image.src = url;
 			$(".head-icon-wrap").append(image);

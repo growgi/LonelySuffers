@@ -18,7 +18,7 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 
-<link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 <style>
 .clickToLarger {
 	width: 80px;
@@ -79,20 +79,20 @@
 						</div>
 						</c:when>
 						<c:otherwise>
-						<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="upload/house/${house.housePhoto1 }" style="width: 100%;"></div>
+						<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/house/${house.housePhoto1 }" style="width: 100%;"></div>
 						<div class="row">
 							<div class="col-md-1"></div>
 							<div class="col-md-10">
 							<ul class="pagination">
-								<li style="margin: 5px; text-align: center;"><img class="clickToLarger onViewing" src="upload/house/${house.housePhoto1 }"></li>
+								<li style="margin: 5px; text-align: center;"><img class="clickToLarger onViewing" src="resources/upload/house/${house.housePhoto1 }"></li>
 								<c:if test="${house.housePhoto2 != null }">
-								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="upload/house/${house.housePhoto2 }"></li>
+								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto2 }"></li>
 								</c:if>
 								<c:if test="${house.housePhoto3 != null }">
-								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="upload/house/${house.housePhoto3 }"></li>
+								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto3 }"></li>
 								</c:if>
 								<c:if test="${house.housePhoto4 != null }">
-								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="upload/house/${house.housePhoto4 }"></li>
+								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto4 }"></li>
 								</c:if>
 							</ul>
 							</div>
@@ -241,14 +241,14 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/moment.min.js"></script>
-	<script src="js/daterangepicker.js"></script>
+	<script src="resources/js/moment.min.js"></script>
+	<script src="resources/js/daterangepicker.js"></script>
 
 
 

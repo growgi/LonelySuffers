@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<link rel="stylesheet" href="css/adminTable.css"></link>
+<link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <style>
     .bold{
         font-weight: 900;
@@ -178,7 +178,7 @@
             </div>
         </div>
     </div>
-    <script src="js/admin.js"></script>
+    <script src="resources/js/admin.js"></script>
 </body>
 <script>
     /*메뉴 제목*/

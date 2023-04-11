@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<link rel="stylesheet" href="css/adminTable.css"></link>
+<link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <script src="js/admin.js"></script>
+    <script src="resources/js/admin.js"></script>
 </body>
 <script>
     /*메뉴 제목*/
