@@ -266,6 +266,18 @@
 		where house_no=#{_parameter}
 	</update>
 	
+	<update id="updateReturnLesson" parameterType="_int">
+		update lesson set
+			lesson_status=-2
+		where lesson_no=#{_parameter}
+	</update>
+	
+	<update id="updateReturnHouse" parameterType="_int">
+		update house set
+			house_status=-2
+		where house_no=#{_parameter}
+	</update>
+	
 	<select id="selectAllOrder" resultType="order">
 		select 
 			order_no as orderNo,
