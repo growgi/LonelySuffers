@@ -25,7 +25,7 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<section class="section transheader withnormalheader parallax" data-stellar-background-ratio="0.5" style="background-image: url('upload/bg_02.jpg');">
+		<section class="section transheader withnormalheader parallax" data-stellar-background-ratio="0.5" style="background-image: url('resources/upload/bg_02.jpg');">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
@@ -71,7 +71,7 @@
 				<div class="portfolio row lightcasestudies withhover">
 					<div class="pitem item-w1 item-h1 cat1">
 						<div class="case-box">
-							<img src="upload/case_04.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_04.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -82,7 +82,7 @@
 
 					<div class="pitem item-w1 item-h1 cat2">
 						<div class="case-box">
-							<img src="upload/case_05.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_05.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -93,7 +93,7 @@
 
 					<div class="pitem item-w1 item-h1 cat3">
 						<div class="case-box">
-							<img src="upload/case_06.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_06.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -104,7 +104,7 @@
 
 					<div class="pitem item-w1 item-h1 cat4">
 						<div class="case-box">
-							<img src="upload/case_07.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_07.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -115,7 +115,7 @@
 
 					<div class="pitem item-w1 item-h1 cat1">
 						<div class="case-box">
-							<img src="upload/case_08.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_08.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -126,7 +126,7 @@
 
 					<div class="pitem item-w1 item-h1 cat2">
 						<div class="case-box">
-							<img src="upload/case_09.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_09.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -137,7 +137,7 @@
 
 					<div class="pitem item-w1 item-h1 cat3">
 						<div class="case-box">
-							<img src="upload/case_01.png" alt="" class="img-responsive">
+							<img src="resources/upload/case_01.png" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -148,7 +148,7 @@
 
 					<div class="pitem item-w1 item-h1 cat4">
 						<div class="case-box">
-							<img src="upload/case_02.png" alt="" class="img-responsive">
+							<img src="resources/upload/case_02.png" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -159,7 +159,7 @@
 
 					<div class="pitem item-w1 item-h1 cat1">
 						<div class="case-box">
-							<img src="upload/case_03.png" alt="" class="img-responsive">
+							<img src="resources/upload/case_03.png" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -192,14 +192,14 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/masonry.js"></script>
-	<script src="js/gallery_04.js"></script>
+	<script src="resources/js/masonry.js"></script>
+	<script src="resources/js/gallery_04.js"></script>
 
 </body>
 </html>

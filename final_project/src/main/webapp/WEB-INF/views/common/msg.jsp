@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 
 <!-- alert 라이브러리 -->
-<script src="js/sweetalert.min.js"></script> 
+<script src="resources/js/sweetalert.min.js"></script> 
 
 </head>
 <body>

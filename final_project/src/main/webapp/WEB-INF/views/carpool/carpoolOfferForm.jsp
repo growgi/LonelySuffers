@@ -16,13 +16,13 @@
 
 <!-- Site Meta -->
 <title>Lonely Suffers-Carpool Offer Form</title>
-<link rel="stylesheet" href="/src/main/webapp/css/carpool/carpoolOffer.css">
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-<link rel="stylesheet" href="/src/main/webapp/css/carpool/carpoolReg.css">
+<link rel="stylesheet" href="resources/css/carpool/carpoolOffer.css">
+<link rel="stylesheet" href="resources/css/carpool/carpoolReg.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 
 </head>
 
@@ -195,14 +195,14 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/moment.min.js"></script>
-	<script src="js/daterangepicker.js"></script>
+	<script src="resources/js/moment.min.js"></script>
+	<script src="resources/js/daterangepicker.js"></script>
 
 	<script>
 	/*	편도, 왕복 로직을 바꿨기 때문에 필요없어짐. '복귀'만 뺐다꼈다 하는 로직이 더 좋은거다!

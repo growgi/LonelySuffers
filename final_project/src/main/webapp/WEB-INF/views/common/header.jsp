@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!-- Site Icons -->
-<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="resources/images/apple-touch-icon.png">
 
 
 
@@ -19,20 +19,20 @@
 
 
 <!-- 프레임워크에서 제공해준 CSS들은 임의 수정 금지 -->
-<link rel="stylesheet" href="css/font-awesome.css">			<!--  font awesome CSS -->
-<link rel="stylesheet" href="css/bootstrap.css">			<!-- 부트스트랩 제공 CSS -->
-<link rel="stylesheet" href="css/animate.css">				<!-- 애니메이션 효과용 CSS -->
-<link rel="stylesheet" href="css/carousel.css">				<!-- 캐러셀용 CSS -->	
+<link rel="stylesheet" href="resources/css/font-awesome.css">			<!--  font awesome CSS -->
+<link rel="stylesheet" href="resources/css/bootstrap.css">			<!-- 부트스트랩 제공 CSS -->
+<link rel="stylesheet" href="resources/css/animate.css">				<!-- 애니메이션 효과용 CSS -->
+<link rel="stylesheet" href="resources/css/carousel.css">				<!-- 캐러셀용 CSS -->	
 
 <!-- 사용자 CSS 파일들 -->
-<link rel="stylesheet" href="css/1_style.css">				<!-- 웹사이트 템플릿의 CSS -->
+<link rel="stylesheet" href="resources/css/1_style.css">				<!-- 웹사이트 템플릿의 CSS -->
 <!-- 사용자 CSS 파일들은 프레임워크 제공 CSS들보다 아래쪽에 있어야 합니다. -->
 
 
 
 
 <!-- 화면 우측 하단 네비게이션 버튼 영역 시작 -->
-<button onclick="scrollToTop()" id="toTopButton" style="background-color:white;"><img alt="gallery" src="/images/up-arrow.png" style="width: 40px; height: 40px;">Λ</button>
+<button onclick="scrollToTop()" id="toTopButton" style="background-color:white;"><img alt="gallery" src="/resources/images/up-arrow.png" style="width: 40px; height: 40px;">Λ</button>
 <!-- 화면 우측 하단 네비게이션 버튼 영역 끝 -->
 
 
@@ -123,19 +123,19 @@
 							</ul></li>
 							<li>
 						  <a href="/gallery.do">
-						    <img alt="gallery" src="/images/gallery.png" style="width: 25px; height: 25px;">
+						    <img alt="gallery" src="/resources/images/gallery.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">갤러리</span>
 						  </a>
 						</li>
 						<li>
 						  <a href="/carpoolMain.do">
-						    <img alt="carpool" src="/images/carpool.png" style="width: 25px; height: 25px;">
+						    <img alt="carpool" src="/resources/images/carpool.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">카풀해요</span>
 						  </a>
 						</li>
 						<li>
 						  <a href="/noticeList.do?reqPage=1">
-						    <img alt="carpool" src="/images/notification-bell.png" style="width: 25px; height: 25px;">
+						    <img alt="carpool" src="/resources/images/notification-bell.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">공지사항</span>
 						  </a>
 						</li>
@@ -143,7 +143,7 @@
 							<c:when test="${not empty sessionScope.m }">
 						<li>
 						  <a href="/myPage.do">
-						    <img alt="mypage" src="/images/mypage.png" style="width: 25px; height: 25px;">
+						    <img alt="mypage" src="/resources/images/mypage.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">마이페이지</span>
 						  </a>
 						</li>
@@ -151,7 +151,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="lastlink hidden-xs hidden-sm" "><a class="btn btn-primary" href="/loginFrm.do">
-								<img alt="login" src="/images/login(1).png" style="width:25px; length:25px; margin-right:5px;">로그인</a></li>
+								<img alt="login" src="/resources/images/login(1).png" style="width:25px; length:25px; margin-right:5px;">로그인</a></li>
 							</c:otherwise>
 						</c:choose>
 								

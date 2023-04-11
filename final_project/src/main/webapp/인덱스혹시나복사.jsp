@@ -27,7 +27,7 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 
-		<section class="section transheader homepage parallax" data-stellar-background-ratio="0.5" style="background-image: url('upload/bg_04.jpg');">
+		<section class="section transheader homepage parallax" data-stellar-background-ratio="0.5" style="background-image: url('resources/upload/bg_04.jpg');">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
@@ -119,7 +119,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="milestone-counter c1">
-							<img src="images/icon_07.png" alt="" class="alignleft">
+							<img src="resources/images/icon_07.png" alt="" class="alignleft">
 							<h3 class="stat-count">2901</h3>
 							<p>Happy Customers</p>
 						</div>
@@ -127,7 +127,7 @@
 
 					<div class="col-md-4">
 						<div class="milestone-counter c2">
-							<img src="images/icon_08.png" alt="" class="alignleft">
+							<img src="resources/images/icon_08.png" alt="" class="alignleft">
 							<h3 class="stat-count">304</h3>
 							<p>Online Strategy</p>
 						</div>
@@ -135,7 +135,7 @@
 
 					<div class="col-md-4">
 						<div class="milestone-counter c3">
-							<img src="images/icon_09.png" alt="" class="alignleft">
+							<img src="resources/images/icon_09.png" alt="" class="alignleft">
 							<h3 class="stat-count">890</h3>
 							<p>Great Results</p>
 						</div>
@@ -210,7 +210,7 @@
 
 					<div class="col-md-7">
 						<div class="about-img">
-							<img src="upload/browser_01.png" alt="" class="img-responsive">
+							<img src="resources/upload/browser_01.png" alt="" class="img-responsive">
 						</div>
 					</div>
 				</div>
@@ -228,7 +228,7 @@
 					<div class="col-md-4">
 						<div class="seo-score">
 							<div class="website-screen">
-								<img src="upload/seo_screen.png" alt="" class="img-responsive">
+								<img src="resources/upload/seo_screen.png" alt="" class="img-responsive">
 							</div>
 							<!-- end website-screen -->
 
@@ -350,7 +350,7 @@
 
 					<div class="col-md-6">
 						<div class="feature-img">
-							<img src="upload/screen_04.jpg" alt=""
+							<img src="resources/upload/screen_04.jpg" alt=""
 								class="img-responsive wow fadeInDown">
 						</div>
 					</div>
@@ -362,7 +362,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="feature-img">
-							<img src="upload/screen_05.jpg" alt=""
+							<img src="resources/upload/screen_05.jpg" alt=""
 								class="img-responsive wow fadeInLeft">
 						</div>
 					</div>
@@ -400,7 +400,7 @@
 
 					<div class="col-md-6">
 						<div class="feature-img">
-							<img src="upload/screen_06.jpg" alt=""
+							<img src="resources/upload/screen_06.jpg" alt=""
 								class="img-responsive wow fadeInRight">
 						</div>
 					</div>
@@ -412,7 +412,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="feature-img">
-							<img src="upload/screen_07.jpg" alt=""
+							<img src="resources/upload/screen_07.jpg" alt=""
 								class="img-responsive wow fadeInUp">
 						</div>
 					</div>
@@ -481,7 +481,7 @@
 
 					<div class="col-md-6">
 						<div class="post-media wow fadeIn">
-							<img src="upload/seo_screen.png" alt="" class="img-responsive">
+							<img src="resources/upload/seo_screen.png" alt="" class="img-responsive">
 						</div>
 						<!-- end media -->
 					</div>
@@ -549,7 +549,7 @@
 				<div class="owl-carousel owl-theme lightcasestudies withhover">
 					<div class="item-carousel">
 						<div class="case-box">
-							<img src="upload/case_01.png" alt="" class="img-responsive">
+							<img src="resources/upload/case_01.png" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -560,7 +560,7 @@
 
 					<div class="item-carousel">
 						<div class="case-box">
-							<img src="upload/case_07.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_07.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -571,7 +571,7 @@
 
 					<div class="item-carousel">
 						<div class="case-box">
-							<img src="upload/case_03.png" alt="" class="img-responsive">
+							<img src="resources/upload/case_03.png" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -582,7 +582,7 @@
 
 					<div class="item-carousel">
 						<div class="case-box">
-							<img src="upload/case_02.png" alt="" class="img-responsive">
+							<img src="resources/upload/case_02.png" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -593,7 +593,7 @@
 
 					<div class="item-carousel">
 						<div class="case-box">
-							<img src="upload/case_05.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_05.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -604,7 +604,7 @@
 
 					<div class="item-carousel">
 						<div class="case-box">
-							<img src="upload/case_06.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_06.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
 								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
 							</div>
@@ -628,7 +628,7 @@
 				<a href="#" class="btn btn-transparent">Learn More</a>
 			</div>
 			<div class="image col-md-4 hidden-sm hidden-xs">
-				<img src="upload/blog_alt_01.jpg" alt="" />
+				<img src="resources/upload/blog_alt_01.jpg" alt="" />
 			</div>
 		</section>
 
@@ -652,7 +652,7 @@
 									site, my website is ranked number 1 in Google rankings.</p>
 							</div>
 							<!-- end testimonial-box -->
-							<img src="upload/team_03.jpeg" alt="" class="img-circle">
+							<img src="resources/upload/team_03.jpeg" alt="" class="img-circle">
 						</div>
 						<!-- end testimonial-wrapper -->
 					</div>
@@ -668,7 +668,7 @@
 									try SeoTime!.</p>
 							</div>
 							<!-- end testimonial-box -->
-							<img src="upload/team_01.jpeg" alt="" class="img-circle">
+							<img src="resources/upload/team_01.jpeg" alt="" class="img-circle">
 						</div>
 						<!-- end testimonial-wrapper -->
 					</div>
@@ -683,7 +683,7 @@
 									this website and now my blog 1st rank on Google!</p>
 							</div>
 							<!-- end testimonial-box -->
-							<img src="upload/team_02.jpeg" alt="" class="img-circle">
+							<img src="resources/upload/team_02.jpeg" alt="" class="img-circle">
 						</div>
 						<!-- end testimonial-wrapper -->
 					</div>
@@ -698,7 +698,7 @@
 									website I offer you a professional package.</p>
 							</div>
 							<!-- end testimonial-box -->
-							<img src="upload/team_04.jpg" alt="" class="img-circle">
+							<img src="resources/upload/team_04.jpg" alt="" class="img-circle">
 						</div>
 						<!-- end testimonial-wrapper -->
 					</div>
@@ -714,7 +714,7 @@
 									the latest Google update.</p>
 							</div>
 							<!-- end testimonial-box -->
-							<img src="upload/team_05.jpg" alt="" class="img-circle">
+							<img src="resources/upload/team_05.jpg" alt="" class="img-circle">
 						</div>
 						<!-- end testimonial-wrapper -->
 					</div>
@@ -730,7 +730,7 @@
 									world that makes this job the best.</p>
 							</div>
 							<!-- end testimonial-box -->
-							<img src="upload/team_06.jpg" alt="" class="img-circle">
+							<img src="resources/upload/team_06.jpg" alt="" class="img-circle">
 						</div>
 						<!-- end testimonial-wrapper -->
 					</div>
@@ -757,7 +757,7 @@
 				<div class="row clientv2">
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="client-box">
-							<a href="#"><img src="upload/client_01.png" alt=""
+							<a href="#"><img src="resources/upload/client_01.png" alt=""
 								class="img-responsive"></a>
 						</div>
 					</div>
@@ -765,7 +765,7 @@
 
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="client-box">
-							<a href="#"><img src="upload/client_02.png" alt=""
+							<a href="#"><img src="resources/upload/client_02.png" alt=""
 								class="img-responsive"></a>
 						</div>
 					</div>
@@ -773,7 +773,7 @@
 
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="client-box">
-							<a href="#"><img src="upload/client_08.png" alt=""
+							<a href="#"><img src="resources/upload/client_08.png" alt=""
 								class="img-responsive"></a>
 						</div>
 					</div>
@@ -781,7 +781,7 @@
 
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="client-box">
-							<a href="#"><img src="upload/client_04.png" alt=""
+							<a href="#"><img src="resources/upload/client_04.png" alt=""
 								class="img-responsive"></a>
 						</div>
 					</div>
@@ -885,7 +885,7 @@
 				<div class="row lightcasestudies">
 					<div class="col-md-4">
 						<div class="case-box">
-							<img src="upload/case_04.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_04.jpg" alt="" class="img-responsive">
 							<div class="case-info clearfix">
 								<div class="pull-left">
 									<h4>Carbon Beauty</h4>
@@ -902,7 +902,7 @@
 
 					<div class="col-md-4">
 						<div class="case-box">
-							<img src="upload/case_05.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_05.jpg" alt="" class="img-responsive">
 							<div class="case-info clearfix">
 								<div class="pull-left">
 									<h4>Denicler</h4>
@@ -919,7 +919,7 @@
 
 					<div class="col-md-4">
 						<div class="case-box">
-							<img src="upload/case_06.jpg" alt="" class="img-responsive">
+							<img src="resources/upload/case_06.jpg" alt="" class="img-responsive">
 							<div class="case-info clearfix">
 								<div class="pull-left">
 									<h4>KendPark</h4>
@@ -946,13 +946,13 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/owl.carousel.js"></script>
+	<script src="resources/js/owl.carousel.js"></script>
 
 </body>
 </html>

@@ -18,9 +18,17 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 
+<link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
+<style>
+.product-detail>div{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.nav-item { background-color: #3ac5c8;}
+.nav-link { color: #ffffff; }
+</style>
 </head>
 
-<link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
 
 <body>
 	<div id="wrapper">
@@ -53,38 +61,51 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-5">
+						<c:choose>
+						<c:when test="${lesson.lessonInfoPic == null }">
+						<div class="row" style="height: 450px;">
+							<div class="col-md-2"></div>
+							<div class="col-md-8">
+								<div class="waveEffect" style="margin: 0 auto;">
+									<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+									<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+								</div>
+							</div>
+						</div>
+						</c:when>
+						<c:otherwise>
 						<div>대표 사진 영역</div>
 						<div>다중 사진 선택 칸</div>
+						</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- end col -->
 
+					<div class="col-md-1"></div>
 
-
-					<div class="col-md-7">
-						<div>
+					<div class="col-md-6 product-detail">
 							<p>${lesson.lessonTeacher } 강사</p>
 							<div class="row">
-								<h1>${lesson.lessonTitle }</h1>
+								<h1 style="padding-bottom: 40px;">${lesson.lessonTitle }</h1>
 								<input type="hidden" name="lessonPrice" value="${lesson.lessonPrice }">
-								<h3>${lesson.lessonPrice }원</h3>
+								<h3><span id="withCommas" style="font-size: 36px; font-weight: bold;">${lesson.lessonPrice }</span>원</h3>
 								<div class="col-md-9">
-									<p>비성수기, 평일 기준</p>
 								</div>
 								<div class="col-md-3">
 									<input type="hidden" name="lessonMaxNo" value="${lesson.lessonMaxNo }">
-									<p style="text-align: left;">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</p>
+									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</span></p>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-md-3">
 									판매량 ()숫자
 								</div>
+								<div class="col-md-1"></div>
 								<div class="col-md-5">
 									별평점넣을자리
 								</div>
 							</div>
 							<p>지역 <span>${lesson.lessonCity }</span></p>
-						</div>
 						<div>
 							<button>관심상품</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
@@ -151,17 +172,28 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-9">
-						<div class="row">
-							<ul class="nav navbar-nav navbar-left">
-								<li>상품설명</li>
-								<li>상품평</li>
-								<li>상품문의</li>
+					<div class="col-md-9 card mt-3 tab-card">
+						<div class="row tab-card-header">
+							<ul class="nav nav-tabs card-header-tabs">
+								<li class="nav-item active">
+									<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
+								</li>
 							</ul>
 						</div>
-						<div class="row">상품 설명 div</div>
-						<div class="row">상품 평 div</div>
-						<div class="row">상품 문의 div</div>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
+								상품 설명 div</div>
+							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+								상품 평 div</div>
+							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+								상품 문의 div</div>
+						</div>
 					</div>
 					<div class="col-md-3">
 					광고 등 배너 영역 column
@@ -180,18 +212,23 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/moment.min.js"></script>
-	<script src="js/daterangepicker.js"></script>
+	<script src="resources/js/moment.min.js"></script>
+	<script src="resources/js/daterangepicker.js"></script>
 
 
 
 	<script type="text/javascript">
+	// 가격에 3자리마다 , 출력
+	const num = Number($("#withCommas").text());
+	$("#withCommas").text(num.toLocaleString('ko-KR'));
+
+
 	//url로부터 lessonNo값 알아내기
 		const ltrim = /^\S{0,}lessonNo=/;
 		const currentUrl = window.location.href;

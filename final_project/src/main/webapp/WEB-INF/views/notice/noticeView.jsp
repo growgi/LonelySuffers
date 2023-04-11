@@ -17,7 +17,7 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-<link rel="stylesheet" href="/css/notice.css">
+<link rel="stylesheet" href="/resources/css/notice.css">
 
 </head>
 <body>
@@ -40,7 +40,7 @@
 							<tr>
 					        	<td colspan="5">
 					            <c:forEach items="${n.fileList }" var="f">
-					            	<img src="/upload/notice/${f.filepath }">
+					            	<img src="/resources/upload/notice/${f.filepath }">
 					            </c:forEach>
 					        	</td>
 					        </tr>
@@ -71,11 +71,11 @@
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
 </body>

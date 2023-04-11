@@ -106,12 +106,12 @@
 			                  <td class="bus-stop">선유고등학교 / (구)강서세무서
 			                     <div class="bus-stop1"
 			                        style="line-height: 30px; padding-bottom: 5px;">
-			                        <img src="/images/bluebus.jpg" style="padding-right: 5px;">7612
-			                        <img src="/images/redbus.jpg"
+			                        <img src="/resources/images/bluebus.jpg" style="padding-right: 5px;">7612
+			                        <img src="/resources/images/redbus.jpg"
 			                           style="padding-left: 10px; padding-right: 5px;">1000/1200/1300/1301/1302/1400/1500/1601/M6628/M6724
 			                     </div> 당산역
 			                     <div class="bus-stop2" style="line-height: 30px;">
-			                        <img src="/images/bluebus.jpg" style="padding-right: 5px;">602/760/5620/5714/6514/6623/6631
+			                        <img src="/resources/images/bluebus.jpg" style="padding-right: 5px;">602/760/5620/5714/6514/6623/6631
 			                     </div>
 			                  </td>
 			               </tr>
@@ -161,11 +161,11 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
 </body>

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>카풀 신청 상세페이지</title>
-<link rel="stylesheet" href="css/carpool/carpoolRequest.css">
+<link rel="stylesheet" href="resources/css/carpool/carpoolRequest.css">
 </head>
 <body>
 	<!-- Basic -->
@@ -33,7 +33,7 @@
 		<section >
 			<div class="container">
 				<div class="row" style="display: flex; align-items: center;">
-					<a href="carpoolMain.do"><img src="/capool-img/left-arrow.png"
+					<a href="carpoolMain.do"><img src="/resources/images/carpool/left-arrow.png"
 						alt="img" style="width: 45px; height: 50px;"></a>
 					<h1 class="head"
 						style="text-align: center; font-weight: 600; margin-left: 500px;">카풀 탑승신청</h1>
@@ -46,7 +46,7 @@
 				<!-- section ＞  container 안에 class가 invis1인 hr 태그를 넣으시면, 가로로 큰 공백이 생깁니다. 이 태그를 여러 개를 넣으면 그만큼 공백 높이가 더 높아집니다. -->
 				<div class="row">
 					<div class="driver-info" style="margin-left: 190px; font-size:20px; font-weight:700; line-height: 40px;">
-					<img src="/capool-img/car.png" alt="img" style="width: 50px; height: 50px; margin-right:10px; margin-bottom: 10px; ">
+					<img src="/resources/images/carpool/car.png" alt="img" style="width: 50px; height: 50px; margin-right:10px; margin-bottom: 10px; ">
 					<c:choose>
 						<c:when test="${not empty sessionScope.m }">
 						${c.driverName }(${c.maleFemale })
@@ -57,7 +57,7 @@
 					</c:choose>
 					</div><hr>
 					<div><p style="font-size:15px; font-weight: 600; margin-left:200px; font-size:20px;">함께가요<p>
-					<img src="/capool-img/clock.png"alt="img" style="width: 20px; height: 20px; margin-right:10px; margin-left:200px;">
+					<img src="/resources/images/carpool/clock.png"alt="img" style="width: 20px; height: 20px; margin-right:10px; margin-left:200px;">
 					<span class="regdate">${c.regDate}</span> <span class="dayinKorean"></span> 
 					</div>
 					<div class="infobox row" style="background-color: #FFF4D2; margin:0 auto;  border-top-left-radius:20px; 
@@ -67,7 +67,7 @@
 						text-align: center; margin: 20px; line-height: 35px">
 						${c.tripType }
 						</div>
-						<img src="/capool-img/destination2.png" alt="img" style="margin-left: 30px;">
+						<img src="/resources/images/carpool/destination2.png" alt="img" style="margin-left: 30px;">
 						</div>
 						<div class="col-md-8" style="height: 200px; padding: 40px;">
 							<div class="departure" style="margin-bottom: 20px;">
@@ -101,7 +101,7 @@
 						<!-- Trigger the modal with a button -->
 				<div class="button-wrap" style="width:500px; margin: 0 auto; text-align:center;">		
 				  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"> 
-				  <img src="/capool-img/warning.png"alt="img" style="width: 30px; height: 30px;">
+				  <img src="/resources/images/carpool/warning.png"alt="img" style="width: 30px; height: 30px;">
 				  	꼭 읽어주세요 ! 아름다운 문화 만들기
 				  </button>
 				</div>  
@@ -157,13 +157,13 @@
 	<!-- end wrapper -->
 
 	<!-- 기본 .js 파일들 -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/parallax.js"></script>
-	<script src="js/animate.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-	<script src="js/moment.min.js"></script>
+	<script src="resources/js/moment.min.js"></script>
 	
 	<script>
 		// moment와 jQuery로 날짜 가져와서 요일값 추출하기
