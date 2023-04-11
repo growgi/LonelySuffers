@@ -41,5 +41,10 @@ public class ChatDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("chat.insertSendChat",cc);
 	}
+
+	public ArrayList<ChatActive> selectAllChatActive() {
+		List list = sqlSession.selectList("chat.selectAllChatActive");
+		return (ArrayList<ChatActive>)list;
+	}
 	
 }

@@ -42,4 +42,13 @@
 	<insert id="insertSendChat" parameterType="cc">
 		insert into chat_content values (chat_content_seq.nextVal,#{chatActiveNo},#{memberId},#{chatContent},to_char(sysdate,'YYYY-MM-DD HH24:mi'),#{senderCheck})
 	</insert>
+	
+	<select id="selectAllChatActive" resultType="ca">
+		select
+			chat_active_no as chatActiveNo,
+			member_id as memberId,
+			chat_activation as chatActivation
+		from
+			chat_active
+	</select>
 </mapper>
