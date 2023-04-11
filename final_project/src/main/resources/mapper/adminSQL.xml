@@ -101,23 +101,31 @@
 	</delete>
 	
 	<select id="selectSearchLesson" parameterType="s" resultType="l">
-		select
-			*
-		from lesson
-		<choose>
-			<when test="searchType.equals('n')">
-				where lesson_title like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('s')">
-				where writer like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('le')">
-				where lesson_name_level like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('lo')">
-				where lesson_city like '%'||#{searchKeyword}||'%'
-			</when>
-		</choose>
+	  select 
+	  		lesson_no as lessonNo,
+			lesson_name_level as lessonNameLevel,
+			lesson_title as lessonTitle,
+			lesson_price as lessonPrice,
+			lesson_max_no as lessonMaxNo,
+			writer,
+			lesson_city as lessonCity,
+			lesson_status as lessonStatus
+	  from lesson
+ 	    <choose>
+	      <when test='searchType.equals("n")'>
+	      	<!-- 한 글자는 문자 취급될 수 있기 때문에 ""큰따옴표로 묶어야함 -->
+	        where lesson_title like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test='searchType.equals("s")'>
+	        where writer like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test="searchType.equals('le')">
+	        where lesson_name_level like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test="searchType.equals('lo')">
+	        where lesson_city like '%'||#{searchKeyword}||'%'
+	      </when>
+	    </choose> 
 	</select>
 	
 	<select id="selectSearchHouse" parameterType="s" resultType="h">
