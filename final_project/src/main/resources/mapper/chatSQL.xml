@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chat">
+	
+	<select id="selectChatActive" parameterType="string" resultType="ca">
+		select
+			chat_active_no as chatActiveNo,
+			member_id as memberId,
+			chat_activation as chatActivation
+		from
+			chat_active
+		where
+			member_id = #{_parameter}
+	</select>
+	
+	<insert id="insertChatActive" parameterType="string">
+		insert into chat_active values (chat_active_seq.nextVal,#{_parameter},1)
+	</insert>
+		
+	<select id="selectChatContent" parameterType="string" resultType="cc">
+		select
+			chat_content_no as chatContentNo,
+			chat_active_no as chatActiveNo,
+			member_id as memberId,
+			chat_content as chatContent,
+			chat_date	as chatDate,
+			sender_check as senderCheck
+		from 
+			chat_content
+		where
+			member_id = #{_parameter}
+	</select>
+	
+	<insert id="insertChatStart" parameterType="ca">
+		insert into chat_content values (chat_content_seq.nextVal,#{chatActiveNo},#{memberId},'안녕하세요. Lonly Suffer 1대1 문의채팅입니다.',to_char(sysdate,'YYYY-MM-DD HH24:mi'),2)
+	</insert>
+	
+	<update id="updateChatActivation" parameterType="_int">
+		update chat_active set chat_activation = 1 where where chat_active = #{_parameter}
+	</update>
+	
+	<insert id="insertSendChat" parameterType="cc">
+		insert into chat_content values (chat_content_seq.nextVal,#{chatActiveNo},#{memberId},#{chatContent},to_char(sysdate,'YYYY-MM-DD HH24:mi'),#{senderCheck})
+	</insert>
+</mapper>
