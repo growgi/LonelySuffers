@@ -30,7 +30,7 @@
 					<form action="/searchNoticeTitle.do">
 						조회할 제목 입력 :
 						<input type="text" name="NoticeTitle">
-						<input type="submit" value="조회">				
+						<input type="submit" value="검색">				
 					</form>
 					<br>
 					<br>
@@ -51,7 +51,7 @@
 						</c:forEach>
 					</table>
 					<div>
-						<div style="text-align: center;">${pageNavi }</div>
+						<div class="pagination" style="text-align: center;">${pageNavi }</div>
 					</div>
 				</div>
 			</div>
