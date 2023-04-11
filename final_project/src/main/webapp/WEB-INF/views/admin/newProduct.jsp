@@ -13,9 +13,8 @@
 	<div class="newProduct-wrapper product-wrapper admin-content">
 		<div>
 			<div class="lesson-list">
-				<form action="/adminSearchLesson.do" method="get"
-					id="frm" class="search-bar" name="search-product">
-					<select name="searchType" class="search-type">
+				<div class="search-bar">
+					<select name="lessonSearchType" class="search-type">
 						<option value="n">강습명</option>
 						<option value="s">판매자</option>
 						<option value="le">강습레벨</option>
@@ -23,18 +22,19 @@
 					</select>
 					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 					<input
-						type="text" placeholder="검색어를 입력하세요" name="searchKeyword"
+						type="text" placeholder="검색어를 입력하세요" name="lessonSearchKeyword"
 						onkeyup="enterkey();"> 
 						<input type="submit"
 						style="display: none;">
-					<div class="search-icon">검색</div>
-				</form>
+					<div class="search-icon" onclick="search();">검색</div>
+				</div>
 				<div class="table-content">
 					<div class="product-choice">
 						<div>강습</div>
 						<div>숙박</div>
 					</div>
 					<div class="list-wrapper">
+						<div id="lessonResult"></div>
 						<div class="newProduct-top list-top">
 							<div class="count">
 								강습 전체 상품 <span>${newLessonCount }</span>
@@ -118,6 +118,7 @@
 						<div>숙박</div>
 					</div>
 					<div class="list-wrapper">
+						<div id="houseResult"></div>
 						<div class="newProduct-top list-top">
 							<div class="count">
 								숙박 전체 상품 <span>${newHouseCount }</span>
@@ -283,5 +284,35 @@
 		location.href = "/checkedReturnProduct.do?productType="+productType+"&no=" + no.join("/");
 	});
 	
+	/*검색*/
+	function search(){
+		var searchType = $("[name=lessonSearchType]").val();
+		var searchKeyword = $("[name=lessonSearchKeyword]").val();
+
+		console.log(searchType);
+		console.log(searchKeyword);
+
+		$.ajax({
+			url: "/adminSearchLesson.do",
+			type: "get",
+			dataType: "json",
+			data: {searchType : searchType, searchKeyword : searchKeyword},
+			success : function(data) {
+				console.log(data,typeof data);
+				console.log("서버 호출 성공");
+				
+/*   				var result = $("<table>");
+				if(data == null) {
+					$("#lessonResult").text("상품 정보를 조회할 수 없습니다.");
+				} else {
+					result.html(data);
+				}  */
+			},
+			error : function(data) {
+				console.log(data);
+				alert("검색어를 확인해주세요");
+			}
+		})
+	}
 </script>
 </html>

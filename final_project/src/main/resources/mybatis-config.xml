@@ -16,12 +16,15 @@
 		<typeAlias type="kr.co.lesson.model.vo.LessonBook" alias="lb"/>	 	<!-- LessonBook as lb -->
 		<typeAlias type="kr.co.member.model.vo.Member" alias="m"/>			<!-- Member     as m -->
 		<typeAlias type="kr.co.notice.model.vo.Notice" alias="n"/>			<!-- Notice     as n -->
+		<typeAlias type="kr.co.faq.model.vo.Faq" alias="fq"/>			<!-- Faq     	as fq -->
 		<typeAlias type="kr.co.notice.model.vo.FileVO" alias="f"/>
 		<typeAlias type="kr.co.house.model.vo.Room" alias="r"/>				<!-- Room 	    as r -->
 		<typeAlias type="kr.co.admin.model.vo.Search" alias="s"/>		<!-- Search   as s -->
 		<typeAlias type="kr.co.member.model.vo.WishList" alias="w"/>		<!-- WishList   as w -->	
 		<typeAlias type="kr.co.house.model.vo.RoomBook" alias="rb"/>		<!-- RoomBook   as rb -->
 		<typeAlias type="kr.co.member.model.vo.Order" alias="order"/>
+		<typeAlias type="kr.co.chat.model.vo.ChatActive" alias="ca"/>
+		<typeAlias type="kr.co.chat.model.vo.ChatContent" alias="cc"/>
 	</typeAliases>		
 
 

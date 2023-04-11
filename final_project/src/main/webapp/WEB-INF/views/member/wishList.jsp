@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,9 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 <style>
+.wishList-list>div{
+	display: none;
+}
     a{
         cursor: pointer;
     }
@@ -71,9 +75,11 @@
 
     /*관심상품 개별*/
     .wishList-box{
-        /*border-bottom: 2px solid rgb(226, 226, 226);*/
-        width: 555px;
-        padding: 30px 10px 10px 10px;
+        border-bottom: 2px solid rgb(226, 226, 226);
+        width: 535px;
+        padding: 30px 0px 10px 0px;
+        margin: 0 10px 0 10px;
+        box-sizing: border-box;
         position: relative;
         display:inline-block;
     }
@@ -102,8 +108,6 @@
     	width: 530px;
         display: flex;
         padding-top: 13px;
-        padding-bottom: 13px;
-        border-bottom: 2px solid rgb(226, 226, 226);
     }
     .wishList-box-bottom>.product-img{
         width: 100px;
@@ -150,6 +154,13 @@
     .active-line3{
         left: 200px;
     }
+    .active-black-box{
+    	
+    }
+    
+    .wishList-box{
+    	
+    }
 </style>
 <body>
 	<div id="wrapper">
@@ -183,43 +194,53 @@
                             <div class="wishList-list">
                                 <div class="all-wishList">
                                     <c:forEach items="${allWishList }" var="w">
-                                        <div class="wishList-box">
-                                            <div class="wishList-box-top">
-                                                <div>
-                                                    <div class="product-title"><a href="#">1가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <a href="/deleteWishList.do?memberId=${sessionScope.m.memberId }&wishNo=${wishNo}" class="material-symbols-outlined close-icon">close</a>
-                                                </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
-                                            </div>
-                                            <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
-                                                <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    	
-                                        <div class="wishList-box">
-                                            <div class="wishList-box-top">
-                                                <div>
-                                                    <div class="product-title"><a href="#">가격 실화? 멋지다 짜잔호텔</a></div>
-                                                    <div class="material-symbols-outlined close-icon">close</div>
-                                                </div>
-                                                <div><span class="product-name">숙박</span> | <span class="location">강원도 양양군 그 어딘가</span></div>
-                                            </div>
-                                            <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
-                                                <div class="wishList-box-detail">
-                                                    <div><a ref="#">짜잔호텔</a></div>
-                                                    <div><span>2023-03-12</span> ~ <span>2023-03-13</span></div>
-                                                    <div>객실인원 <span>4</span>명</div>
-                                                    <div class="product-price"><span>200,000</span>원</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    	<c:choose>
+                                    		<c:when test="${w.houseNo ne 0}">
+	                                        <div class="wishList-box">
+	                                            <div class="wishList-box-top">
+	                                                <div>
+	                                                    <div class="product-title"><a href="#">${w.houseTitle }</a></div>
+	                                                    <div class="material-symbols-outlined close-icon">close</div>
+	                                                    <input type="hidden" value="${w.wishNo }">
+                                                    	<input type="hidden" value="${sessionScope.m.memberId }">
+	                                                </div>
+	                                                <div><span class="product-name">숙박</span> | <span class="location">${w.houseCity }</span></div>
+	                                            </div>
+	                                            <div class="wishList-box-bottom">
+	                                                <div class="product-img"></div>
+	                                                <div class="wishList-box-detail">
+	                                                    <div><a href="#">${w.roomTitle }</a></div>
+	                                                    <div><span>${w.houseDescription}</span></div>
+	                                                    <div>객실인원 <span>${w.roomCapa }</span>명</div>
+	                                                    <div class="product-price"><span><fmt:formatNumber value="${w.housePrice }" pattern="#,###" /></span>원</div>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+                                    		</c:when>
+                                    		<c:when test="${w.lessonNo ne 0}">
+ 											<div class="wishList-box">
+	                                            <div class="wishList-box-top">
+	                                                <div>
+	                                                    <div class="product-title"><a href="#">${w.lessonTitle }</a></div>
+	                                                    <div class="material-symbols-outlined close-icon">close</div>
+	                                                    <input type="hidden" value="${w.wishNo }">
+                                                    	<input type="hidden" value="${sessionScope.m.memberId }">
+	                                                </div>
+	                                                <div><span class="product-name">강습</span> | <span class="location">${w.lessonCity }</span></div>
+	                                            </div>
+	                                            <div class="wishList-box-bottom">
+	                                           		<div class="product-img"></div>
+	
+	                                                <div class="wishList-box-detail">
+	                                                    <div><a href="#">${w.lessonNameLevel }</a></div>
+	                                                    <div><span>강습시간 ${w.lessonStartTime }</span> ~ <span>${w.lessonEndTime }</span></div>
+	                                                    <div>모집인원 <span>${w.lessonMaxNo }</span>명</div>
+	                                                    <div class="product-price"><span><fmt:formatNumber value="${w.lessonPrice }" pattern="#,###" /></span>원</div>
+	                                                </div>
+	                                            </div>
+                                        	</div>
+                                    		</c:when>
+                                    	</c:choose>
                                     </c:forEach>
                                 </div>
 
@@ -230,6 +251,8 @@
                                                 <div>
                                                     <div class="product-title"><a href="#">${lw.lessonTitle }</a></div>
                                                     <div class="material-symbols-outlined close-icon">close</div>
+                                                    <input type="hidden" value="${lw.wishNo }">
+                                                    <input type="hidden" value="${sessionScope.m.memberId }">
                                                 </div>
                                                 <div><span class="product-name">강습</span> | <span class="location">${lw.lessonCity }</span></div>
                                             </div>
@@ -238,9 +261,9 @@
 
                                                 <div class="wishList-box-detail">
                                                     <div><a href="#">${lw.lessonNameLevel }</a></div>
-                                                    <div><span>${lw.lessonStartTime }</span> ~ <span>${lw.lessonEndTime }</span></div>
+                                                    <div><span>강습시간 ${lw.lessonStartTime }</span> ~ <span>${lw.lessonEndTime }</span></div>
                                                     <div>모집인원 <span>${lw.lessonMaxNo }</span>명</div>
-                                                    <div class="product-price"><span>${lw.lessonPrice }</span>원</div>
+                                                    <div class="product-price"><span><fmt:formatNumber value="${lw.lessonPrice }" pattern="#,###" /></span>원</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,6 +277,8 @@
                                                 <div>
                                                     <div class="product-title"><a href="#">${hw.houseTitle }</a></div>
                                                     <div class="material-symbols-outlined close-icon">close</div>
+                                                    <input type="hidden" value="${hw.wishNo }">
+                                                    <input type="hidden" value="${sessionScope.m.memberId }">
                                                 </div>
                                                 <div><span class="product-name">숙박</span> | <span class="location">${hw.houseCity }</span></div>
                                             </div>
@@ -261,9 +286,9 @@
                                                 <div class="product-img"></div>
                                                 <div class="wishList-box-detail">
                                                     <div><a href="#">${hw.roomTitle }</a></div>
-                                                    <div><span>${hw.bookStartDate }</span> ~ <span>${hw.bookEndDate }</span></div>
+                                                    <div><span>${hw.houseDescription}</span></div>
                                                     <div>객실인원 <span>${hw.roomCapa }</span>명</div>
-                                                    <div class="product-price"><span>${hw.housePrice }</span>원</div>
+                                                    <div class="product-price"><span><fmt:formatNumber value="${hw.housePrice }" pattern="#,###" /></span>원</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -291,24 +316,39 @@
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 </body>
 <script>
-    $(".wishList-category>div").on("click",function(){
-        $(".wishList-content>.line").removeClass("active-line1");
-        $(".wishList-content>.line").removeClass("active-line2");
-        $(".wishList-content>.line").removeClass("active-line3");
+	/*탭별 조회*/	
+	$(".wishList-category>div").click(function(){
+	    $(".wishList-list>div").hide();
+	    $(".wishList-content>.line").removeClass("active-line1");
+	    $(".wishList-content>.line").removeClass("active-line2");
+	    $(".wishList-content>.line").removeClass("active-line3");
+	
+	    const num = $(this).index();
+	    
+	    if(num == 0) {
+	        $(".wishList-content>.line").addClass("active-line1");
+	        $(".wishList-list>div").eq(num).show();
+	    } else if(num == 1) {
+	        $(".wishList-content>.line").addClass("active-line2");
+	        $(".wishList-list>div").eq(num).show();
+	    } else if(num == 2) {
+	        $(".wishList-content>.line").addClass("active-line3");
+	        $(".wishList-list>div").eq(num).show();
+	    }
+	
+	});
+	
+	$(".wishList-category>div").eq(0).click(); //[전체] 클릭
+	
+	/*관심상품 삭제*/
+	$(".close-icon").on("click",function(){
+		const wishNo = $(this).next().val();
+		const memberId = $(this).next().next().val();
+		
+		console.log(wishNo);
+		console.log(memberId);
 
-        const num = $(".wishList-category>div").index($(this));
-
-        $(".wishList-list>div").hide();
-
-        if(num == 0) {
-            $(".wishList-content>.line").addClass("active-line1");
-        } else if(num == 1) {
-            $(".wishList-content>.line").addClass("active-line2");
-        } else if(num == 2) {
-            $(".wishList-content>.line").addClass("active-line3");
-        }
-
-        $(".wishList-list>div").eq(num).show();
-    });
+		location.href = "/deleteWishList.do?wishNo="+wishNo+"&memberId="+memberId;
+	});
 </script>
 </html>

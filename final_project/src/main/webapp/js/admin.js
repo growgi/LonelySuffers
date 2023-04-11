@@ -85,7 +85,7 @@ $(".checkedChangeGrade").on("click",function(){
 });
 
 
-/*엔터키 치면 검색창 자동 submit*/
+/*엔터키 치면 검색창 자동 submit
 function enterkey() {
     if (window.event.keyCode == 13) {
          // 엔터키가 눌렸을 때 실행할 내용
@@ -96,4 +96,4 @@ function enterkey() {
 //돋보기 클릭하면 검색창 submit
 $(".search-icon").on("click",function(){
     $(".search-bar").submit();
-});
+});*/

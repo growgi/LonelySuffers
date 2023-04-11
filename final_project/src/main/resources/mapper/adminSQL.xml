@@ -101,23 +101,31 @@
 	</delete>
 	
 	<select id="selectSearchLesson" parameterType="s" resultType="l">
-		select
-			*
-		from lesson
-		<choose>
-			<when test="searchType.equals('n')">
-				where lesson_title like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('s')">
-				where writer like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('le')">
-				where lesson_name_level like '%'||#{searchKeyword}||'%'
-			</when>
-			<when test="searchType.equals('lo')">
-				where lesson_city like '%'||#{searchKeyword}||'%'
-			</when>
-		</choose>
+	  select 
+	  		lesson_no as lessonNo,
+			lesson_name_level as lessonNameLevel,
+			lesson_title as lessonTitle,
+			lesson_price as lessonPrice,
+			lesson_max_no as lessonMaxNo,
+			writer,
+			lesson_city as lessonCity,
+			lesson_status as lessonStatus
+	  from lesson
+ 	    <choose>
+	      <when test='searchType.equals("n")'>
+	      	<!-- 한 글자는 문자 취급될 수 있기 때문에 ""큰따옴표로 묶어야함 -->
+	        where lesson_title like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test='searchType.equals("s")'>
+	        where writer like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test="searchType.equals('le')">
+	        where lesson_name_level like '%'||#{searchKeyword}||'%'
+	      </when>
+	      <when test="searchType.equals('lo')">
+	        where lesson_city like '%'||#{searchKeyword}||'%'
+	      </when>
+	    </choose> 
 	</select>
 	
 	<select id="selectSearchHouse" parameterType="s" resultType="h">
@@ -257,11 +265,18 @@
 			house_status=1
 		where house_no=#{_parameter}
 	</update>
-<!-- 	
-	<select id="selectAllOrder" resultType="o">
+	
+	<select id="selectAllOrder" resultType="order">
 		select 
-			*
+			order_no as orderNo,
+			member_no as memberNo,
+			order_all_price as orderAllPrice,
+			decode(order_status, 1, '결제완료', 0, '결제취소') as orderStatusString,
+			order_date as orderDate,
+			decode(order_product, 1, '강습', 2, '숙박', 3, '강습+숙박') as orderProductString,
+			member_id as memberId
 		from order_tbl
+		join member_tbl using(member_no)
 		order by order_no desc
 	</select>
 	
@@ -277,30 +292,49 @@
 		where order_no=#{_parameter}
 	</delete>
 	
-	<select id="selectOrderDetail" parameterType="_int" resultType="od">
+	<select id="selectOrderDetailInfo" parameterType="_int" resultType="order">
+		select
+			order_no as orderNo,
+			member_id as memberId,
+			order_all_price as orderAllPrice,
+			order_date as orderDate
+		from order_tbl
+		join member_tbl using(member_no)
+		where order_no=#{_parameter}
+	</select>
+	
+	<select id="selectOrderDetail" parameterType="_int" resultType="order">
 		select 
-		    order_no, 
-		    order_date, 
-		    member_id, 
-		    lesson_name_level, 
-		    lesson_title, 
-		    lesson_city, 
-		    lesson_start_time, 
-		    lesson_end_time,
-		    lesson_teacher,
-		    house_title,
-		    house_address,
-		    house.writer,
-		    room_title,
-		    house_barbecue,
-		    house_party,
-		    product_price
-		from order_detail
-		left join order_tbl using(order_no)
-		left join member_tbl using(member_no)
-		left join lesson using(lesson_no)
-		left join house using(house_no)
-		where order_no=#{_parameter};
+            order_detail_no as orderDetailNo,
+		    order_no as orderNo, 
+		    order_date as orderDate, 
+		    decode(order_status,1,'결제완료',0,'결제취소') as orderStatusString,
+		    member_id as memberId, 
+            l.lesson_no as lessonNo,
+		    lesson_name_level as lessonNameLevel, 
+		    lesson_title as lessonTitle, 
+		    lesson_city as lessonCity, 
+		    lesson_start_time as lessonStartTime, 
+		    lesson_end_time as lessonEndTime,
+		    lesson_teacher as lessonTeacher,
+            h.house_no as houseNo,
+		    house_title as houseTitle,
+		    house_city as houseCity,
+		    h.writer as houseWriter,
+		    room_title as roomTitle,
+		    house_barbecue as houseBarbecue,
+		    house_party as houseParty,
+		    book_start_date as bookStartDate,
+		    book_end_date as bookEndDate,
+		    product_price as productPrice
+		from order_detail od
+		left join order_tbl o using(order_no)
+		left join member_tbl m using(member_no)
+		left join lesson l on(od.lesson_no=l.lesson_no)
+		left join house h on(od.house_no=h.house_no)
+		left join room_book rb using(room_book_no)
+		where order_no=#{_parameter}
+		order by order_detail_no
 	</select>
 	
 	<select id="selectOrderDetailCount" parameterType="_int" resultType="_int">
@@ -309,7 +343,39 @@
 		from order_detail
 		where order_no=#{_parameter}
 	</select>
- -->
+	
+	<select id="selectSearchSalesDetails" parameterType="s" resultType="order">
+		select 
+			order_no as orderNo,
+			member_no as memberNo,
+			order_all_price as orderAllPrice,
+			decode(order_status, 1, '결제완료', 0, '결제취소') as orderStatusString,
+			order_date as orderDate,
+			decode(order_product, 1, '강습', 2, '숙박', 3, '강습+숙박') as orderProductString,
+			member_id as memberId
+		from order_tbl
+		join member_tbl using(member_no)
+		<choose>
+			<when test="searchType.equals('i')">
+				where member_id like '%'||#{searchKeyword}||'%'
+			</when>
+			<when test="searchType.equals('o')">
+				<choose>
+					<when test="searchKeyword.equals('강습')">
+						where order_product = 1
+					</when>				
+					<when test="searchKeyword.equals('숙박')">
+						where order_product = 2
+					</when>	
+					<when test="searchKeyword.equals('강습+숙박')">
+						where order_product = 3
+					</when>			
+				</choose>
+			</when>
+		</choose>
+		order by order_no desc
+	</select>
+
  	<select id="selectLessonWishList" parameterType="string" resultType="w">
  		select
  			wish_no as wishNo,
@@ -326,25 +392,62 @@
  		from wishList
  		join lesson using(lesson_no)
  		where member_id=#{_parameter} and house_no is null
+ 		order by wish_no desc
  	</select>
  	
  	<select id="selectHouseWishList" parameterType="string" resultType="w">
  		select
- 			wish_no as wishNo,
- 			member_id as memberId,
- 			house_no as houseNo,
- 			house_title as houseTitle,
- 			room_title as roomTitle,
- 			house_city as houseCity,
- 			house_photo1 as housePhoto1,
- 			room_capa as roomCapa,
- 			house_price as housePrice,
- 			book_start_date as bookStartDate,
- 			book_end_date as bookEndDate
+ 			w.wish_no as wishNo,
+ 			w.member_id as memberId,
+ 			w.house_no as houseNo,
+ 			h.house_title as houseTitle,
+ 			h.room_title as roomTitle,
+ 			h.house_city as houseCity,
+ 			h.house_photo1 as housePhoto1,
+ 			h.room_capa as roomCapa,
+ 			h.house_price as housePrice,
+ 			h.house_description as houseDescription
  		from wishList w
- 		left join house h using(h.house_no=w.house_no)
- 		left join room_book rb on(rb.house_no=w.house_no)
+ 		join house h on(h.house_no=w.house_no)
  		where member_id=#{_parameter} and lesson_no is null
+ 		order by wish_no desc
  	</select>
+ 	
+ 	<select id="selectAllWishList" parameterType="string" resultType="w">
+		select
+ 			w.wish_no as wishNo,
+ 			w.member_id as memberId,
+ 			w.lesson_no as lessonNo,
+ 			l.lesson_name_level as lessonNameLevel,
+ 			l.lesson_title as lessonTitle,
+ 			l.lesson_price as lessonPrice,
+ 			l.lesson_max_no as lessonMaxNo,
+ 			l.lesson_start_time as lessonStartTime,
+ 			l.lesson_end_time as lessonEndTime,
+ 			l.lesson_city as lessonCity,
+ 			l.lesson_info_pic as lessonInfoPic,
+ 			l.lesson_status as lessonStatus,
+ 			w.house_no as houseNo,
+ 			h.house_title as houseTitle,
+ 			h.room_title as roomTitle,
+ 			h.house_city as houseCity,
+ 			h.house_photo1 as housePhoto1,
+ 			h.room_capa as roomCapa,
+ 			h.house_price as housePrice,
+ 			h.house_description as houseDescription,
+ 			h.house_status as houseStatus
+ 		from wishList w
+ 		left join lesson l on(l.lesson_no=w.lesson_no)
+ 		left join house h on(h.house_no=w.house_no)
+ 		where member_id=#{_parameter}
+ 		order by wish_no desc
+ 	</select>
+ 	
+ 	 <delete id="deleteWishList" parameterType="_int">
+ 		delete 
+ 		from wishlist
+ 		where wish_no=#{_parameter}
+ 	</delete>
+
  
 </mapper>
