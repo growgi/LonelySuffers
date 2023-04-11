@@ -7,12 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import kr.co.admin.model.service.AdminService;
 import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
+import kr.co.member.model.vo.Order;
 import kr.co.member.model.vo.WishList;
 
 @Controller
@@ -197,17 +201,18 @@ public class AdminController {
 	}
 	
 	//검색
-	@RequestMapping(value="/adminSearchLesson.do")
+	@ResponseBody
+	@RequestMapping(value="/adminSearchLesson.do", produces = "application/json;charset=utf-8") //한글 인코딩
 	public String adminSearchLesson(String searchType, String searchKeyword, Model model) {
 		Search sp = new Search(searchType, searchKeyword);
-		System.out.println(searchType);
-		System.out.println(searchKeyword);
+		System.out.println("searchType:"+searchType);
+		System.out.println("searchKeyword:"+searchKeyword);
 		
 		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
-		
+		System.out.println(lessonList.size());
+		System.out.println(lessonList);
 		if(!lessonList.isEmpty()) {			
-			model.addAttribute("lessonList",lessonList);
-			return "redirect:/newProduct.do";
+			return new Gson().toJson(lessonList);
 		} else {
 			return "redirect:/productList.do";
 		}
@@ -217,8 +222,7 @@ public class AdminController {
 	@RequestMapping(value="/adminSearchHouse.do")
 	public String adminSearchHouse(String searchType, String searchKeyword, Model model) {
 		Search sp = new Search(searchType, searchKeyword);
-		System.out.println(searchType);
-		System.out.println(searchKeyword);
+		
 		ArrayList<House> houseList = service.selectSearchHouse(sp);
 		
 		if(!houseList.isEmpty()) {			
@@ -287,17 +291,17 @@ public class AdminController {
 	/*5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
 	public String salesDetails(Model model) {
-		//ArrayList<Order> orderList = service.selectAllOrder();
-		//int orderCount = service.selectOrderCount();
+		ArrayList<Order> orderList = service.selectAllOrder();
+		int orderCount = service.selectOrderCount();
 		
-		//model.addAttribute("orderList", orderList);
-		//model.addAttribute("orderCount", orderCount);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("orderCount", orderCount);
 		
 		return "admin/salesDetails";
 	}
 	
 	//내역 삭제
-	/*@RequestMapping(value="/deleteOrder.do")
+	@RequestMapping(value="/deleteOrder.do")
 	public String deleteOrder(int orderNo) {
 		//내역 1개
 		int result = service.deleteOrder(orderNo);
@@ -318,16 +322,35 @@ public class AdminController {
 		} else {
 			return "redirect:/productList.do";
 		}
-	}*/
+	}
+	//검색
+	@RequestMapping(value="/adminSearchMemberSalesDetails.do")
+	public String adminSearchMemberSalesDetails(String searchType,String searchKeyword, Model model) {
+		Search sp = new Search(searchType, searchKeyword);
+		//System.out.println(searchType);
+		//System.out.println(searchKeyword);
+		ArrayList<Order> orderList = service.selectSearchSalesDetails(sp);
+		System.out.println(orderList);
+		if(orderList != null) {			
+			model.addAttribute("orderList", orderList);
+			return "admin/salesDetails";
+		} else {
+			return "redirect:/productList.do";
+		}
+	}
 	
 	/**6. 주문 상세*/
 	@RequestMapping(value="/orderDetail.do")
-	//public String orderDetail(int orderNo, Model model) {
-	public String orderDetail(Model model) {
-		/*ArrayList<OrderDetail> orderDetailList = service.selectOrderDetail(orderNo);
+	public String orderDetail(int orderNo, Model model) {
+		Order orderDetailInfo = service.selectOrderDetailInfo(orderNo);
+		ArrayList<Order> orderDetailList = service.selectOrderDetail(orderNo);
 		int orderDetailCount = service.selectOrderDetailCount(orderNo);
+		
+		//System.out.println(orderDetailList);
+		
+		model.addAttribute("orderDetailInfo", orderDetailInfo);
 		model.addAttribute("orderDetailList", orderDetailList);
-		model.addAttribute("orderDetailCount", orderDetailCount);*/
+		model.addAttribute("orderDetailCount", orderDetailCount);
 		
 		return "admin/orderDetail";
 	}
@@ -335,12 +358,34 @@ public class AdminController {
 	/**7. 관심상품*/
 	@RequestMapping(value="/wishList.do")
 	public String wishList(String memberId, Model model) {
+		ArrayList<WishList> allWishList = service.selectAllWishList(memberId);
 		ArrayList<WishList> lessonWishList = service.selectLessonWishList(memberId);
 		ArrayList<WishList> houseWishList = service.selectHouseWishList(memberId);
 		
 		model.addAttribute("lessonWishList", lessonWishList);
 		model.addAttribute("houseWishList", houseWishList);
+		model.addAttribute("allWishList", allWishList);
 		return "member/wishList";
+	}
+	
+	@RequestMapping(value="/deleteWishList.do")
+	public String deleteWishList(int wishNo, String memberId) {
+		int result = service.deleteWishList(wishNo);
+		
+		if(result>0) {
+			return "redirect:/wishList.do?memberId="+memberId;
+		} else {
+			return "redirect:/";
+		}
+		
+		
+	}
+	
+	/**1:1 문의*/
+	@RequestMapping(value="/adminChat.do")
+	public String adminChat() {
+
+		return "admin/adminChat";
 	}
 
 }

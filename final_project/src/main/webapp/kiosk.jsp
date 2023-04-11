@@ -78,6 +78,7 @@
 		float:right;
 		margin-right:50px;
 		line-height:100px;
+		color:rgb(51, 51, 51);
 	}
 	.map-wrapper{
 		width: 1000px;
@@ -320,19 +321,13 @@
 					<span class="title">어디로 떠나볼까요~?</span>
 					<img src="/images/palm-tree.png">
 					<img src="/images/wave.png">
+					<div class="values-wrapper">
+						
+					</div>
 				</div>
-				<!-- 
-				<div class="money-wrapper">
-					<span class="money stat-count">150000</span>
-					<img class="money-emoji" src="/images/dollar1.png">
-				</div>
-				 -->
-				
-				
-				
 				
 				<!-- 돋보기 모양으로 해보기 -->
-				<div class="page1">
+				<div class="pages page1">
 					<div class="map-wrapper">
 					<div class="row">
 						<div class="col-md-8">
@@ -346,22 +341,35 @@
 						</div>
 					</div>
 					</div>
+					<div class="btn-wrap" id="page1">
+						<button class="page1-before" onClick="location.href='/'"><p>메인으로</p></button>
+						<button class="page1-okay"><p>확정</p></button>
+						<button class="page1-pass"><p>건너뛰기</p></button>
+					</div>
 				</div>
 				<!-- 키오스크 1페이지 종료 -->
 				<!-- 키오스크 2페이지 -->
-				<div class="page2">
+				<div class="pages page2">
 					<div class="calendar-wrap">
 						<div>
 						<input type="text" id="daterangepicker" name="daterangepicker" readonly>
 						</div>
 						<div>
 						<input type="text" id="travel-days" value="0박 0일"readonly>
+						<!-- hidden으로 숨겨놓았다가 나중에 쓸 값 -->
+						<input type="hidden" id="bookStartDate" value="" >
+						<input type="hidden" id="bookEndDate" value="" >
 						</div>
+					</div>
+					<div class="btn-wrap" id="page2">
+						<button class="page2-before"><p>이전으로</p></button>
+						<button class="page2-okay"><p>확정</p></button>
+						<button class="page2-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 2페이지 종료 -->
 				<!-- 키오스크 3페이지 -->
-				<div class="page3">
+				<div class="pages page3">
 					<div class="headcount-wrap">
 						<select id="headcount">
 						  <option value="" disabled selected>몇 명이신가요?</option>
@@ -379,10 +387,15 @@
 					<input type="hidden" id="people-value" value="">
 						<div class="head-icon-wrap">
 						</div>
+					<div class="btn-wrap" id="page3">
+						<button class="page3-before"><p>이전으로</p></button>
+						<button class="page3-okay"><p>확정</p></button>
+						<button class="page3-pass"><p>건너뛰기</p></button>
+					</div>
 				</div>
 				<!-- 키오스크 3페이지 종료 -->
 				<!-- 키오스크 4페이지(숙소 옵션을 미리 선택) -->
-				<div class="page4">
+				<div class="pages page4">
 					<div class="option-select">
 						<div class="barbecue">
 							<div>
@@ -393,6 +406,7 @@
 								<label for="barbecue"></label>
 								<div class="option-name"><p>바베큐</p></div>
 							</div>
+							<input type="hidden" id="barbecue-choice" value="0">
 						</div>
 						<div class="party">
 							<div>
@@ -403,19 +417,30 @@
 								<label for="party"></label>
 								<div class="option-name"><p>파티</p></div>
 							</div>
+							<input type="hidden" id="party-choice" value="0">
 						</div>
+					</div>
+					<div class="btn-wrap" id="page4">
+						<button class="page4-before"><p>이전으로</p></button>
+						<button class="page4-okay"><p>확정</p></button>
+						<button class="page4-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 4페이지 종료 -->
 				<!-- 키오스크 5페이지 숙소리스트 -->
-				<div class="page5">
+				<div class="pages page5">
 					<div class="rooms-wrap">
 						
+					</div>
+					<div class="btn-wrap" id="page5">
+						<button class="page5-before"><p>이전으로</p></button>
+						<button class="page5-okay"><p>확정</p></button>
+						<button class="page5-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 5페이지 숙소리스트 종료-->
 				<!-- 키오스크 6페이지 -->
-				<div class="page6">
+				<div class="pages page6">
 					<div class="level-select">
 					<!-- 중복선택이 가능하게 -->
 						<div class="level1">
@@ -449,17 +474,27 @@
 							</div>
 						</div>
 					</div>
+					<div class="btn-wrap" id="page6">
+						<button class="page6-before"><p>이전으로</p></button>
+						<button class="page6-okay"><p>확정</p></button>
+						<button class="page6-pass"><p>건너뛰기</p></button>
+					</div>
 				</div>
 				<!-- 키오스크 6페이지 종료-->
 				<!-- 키오스크 7페이지 강습리스트 -->
-				<div class="page7">
+				<div class="pages page7">
 					<div class="lessons-wrap">
 						
+					</div>
+					<div class="btn-wrap" id="page7">
+						<button class="page7-before"><p>이전으로</p></button>
+						<button class="page7-okay"><p>확정</p></button>
+						<button class="page7-pass"><p>건너뛰기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 7페이지 강습리스트 종료-->
 				<!-- 키오스크 8페이지 -->
-				<div class="page8">
+				<div class="pages page8">
 					<div class="receipt-wrap">
 						<form action="#">
 							<fieldset>
@@ -483,21 +518,33 @@
 							</fieldset>
 						</form>
 					</div>
-					
+					<div class="btn-wrap" id="page8">
+						<button class="page8-before"><p>이전으로</p></button>
+						<button class="page8-okay"><p>확정</p></button>
+						<button class="page8-pass"><p>건너뛰기</p></button>
+					</div>
 				</div>
 				<!-- 키오스크 8페이지 종료 -->
 				<!-- 키오스크 9페이지 -->
-				<div class="page9">
+				<div class="pages page9">
 					<div class="last-page">
 						<img src="/images/shaka.png">
 					</div>
+					<div class="btn-wrap" id="page9">
+						<button class="page9-before"><p>이전으로</p></button>
+						<button class="page9-okay"><p>확정</p></button>
+						<button class="page9-pass"><p>건너뛰기</p></button>
+					</div>
 				</div>
 				<!-- 키오스크 9페이지 종료 -->
-			<div class="btn-wrap">
-				<button class="before"><p>이전으로</p></button>
-				<button class="okay"><p>확정</p></button>
-				<button class="pass"><p>넘어가기</p></button>
-			</div>
+			<!-- 기본 버튼랩 양식 
+				<div class="btn-wrap">
+					<button class="before"><p>이전으로</p></button>
+					<button class="okay"><p>확정</p></button>
+					<button class="pass"><p>넘어가기</p></button>
+				</div>
+			 -->
+			
 			</div><!-- content-wrapper 종료 -->
 		</div>
 	</section>
@@ -518,6 +565,7 @@
 <script>
 //markers배열
 var markers = [];
+
 //네이버지도 스크립트
 const map = new naver.maps.Map("map",{
 	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
@@ -529,46 +577,9 @@ const map = new naver.maps.Map("map",{
 		style : naver.maps.ZoomControlStyle.SMALL
 	}
 });
-//날짜의 차이를 구하는 함수
-Date.prototype.getInterval = function (otherDate) {
-    var interval;
- 
-    if(this > otherDate)
-        interval = this.getTime() - otherDate.getTime();
-    else
-        interval = otherDate.getTime() - this.getTime();
- 
-    return Math.floor(interval / (1000*60*60*24));
-}
-/*
-const marker = new naver.maps.Marker({
-	position : new naver.maps.LatLng(37.971644,128.762234),
-	map : map
-})
-*/
 
-//지도 리스트 불러와서 마커생성
-/*
-$(document).ready(function(){
-	$.ajax({
-		url : "/allAddress.do",
-		type : "get",
-		dataType : "json",
-		success : function(data){
-			for(let i=0;i<data.length;i++){
-				const marker = new naver.maps.Marker({
-					position : new naver.maps.LatLng(data[i].houseLat,data[i].houseLng),
-					map : map
-					
-				})
-				 markers.push(marker);
-			}
-			
-		}
-	})
-});
-*/
-//네이버지도 마커클러스터
+
+
 $(document).ready(function(){
 	var htmlMarker1 = {
 	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:40px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url(https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-1.png);background-size:contain;"></div>',
@@ -622,12 +633,29 @@ $(document).ready(function(){
         indexGenerator: [10, 100, 200, 500, 1000],
         stylingFunction: function(clusterMarker, count) {
             $(clusterMarker.getElement()).find('div:first-child').text(count);
-       		 }
-   		 });
-		}
-	});
-});
+       		 },
+       	getCenter: function() {
+       		
+       		return this._clusterCenter;
+       		},
+       	 getClusterMember: function() {
+       	    return this._clusterMember;
+       	  }
+       		 
+ 		 });
+	console.log(markerClustering);
+	var test1 = markerClustering.getCenter;
+	console.log(test1());
 
+	naver.maps.Event.addListener(markerClustering, "click", function(e){
+		alert("클릭함");
+		});
+		}
+		
+	
+	});
+	
+});
 
 
 
@@ -648,8 +676,10 @@ $("#daterangepicker").daterangepicker({
     maxDate: moment().add(12, 'months')
 },function(start, end, label) {
     console.log(start.format('YYYYMMDD'), end.format('YYYYMMDD'));
-    var startVal = start.format('YYYYMMDD');
-    var endVal = end.format('YYYYMMDD');
+    //위로 넘겨줄 value값
+    var startVal = start.format('YYYY-MM-DD');
+    var endVal = end.format('YYYY-MM-DD');
+    
     
     
     var date1 = new Date(start.format('YYYY-MM-DD'));
@@ -657,17 +687,26 @@ $("#daterangepicker").daterangepicker({
     var result = date1.getInterval(date2);
     
     $("#travel-days").attr("value",result+"박"+(result+1)+"일");
+    //bookStartDate와 bookEndDate
+    $("#bookStartDate").attr("value",startVal);
+    $("#bookEndDate").attr("value",endVal);
 });
 
 //daterangepicker에 placeholder 삽입
 $("#daterangepicker").val('');
 $("#daterangepicker").attr("placeholder","여행을 떠날 날짜를 골라주세요:)");
 
-/*
-//드롭다운 메뉴 값 받아오기
-var element = document.querySelector("#headcount");
-var value = element.value;
-*/
+//날짜의 차이를 구하는 함수
+Date.prototype.getInterval = function (otherDate) {
+    var interval;
+ 
+    if(this > otherDate)
+        interval = this.getTime() - otherDate.getTime();
+    else
+        interval = otherDate.getTime() - this.getTime();
+ 
+    return Math.floor(interval / (1000*60*60*24));
+}
 
 //고른 인원수에 따른 아이콘 추가
 $("#headcount").on('change',function(){
@@ -686,6 +725,7 @@ $("#headcount").on('change',function(){
 		 $("#people-value").attr("value",value);
 	}
 });
+//체크박스 선택시 테두리 변경
 $('input[type=checkbox]').on('change',function(){
 	 if ($(this).is(':checked')) {
 		 $(this).parent().prev().children().css("border", "8px solid #3da9d4");
@@ -693,9 +733,32 @@ $('input[type=checkbox]').on('change',function(){
 		 $(this).parent().prev().children().css("border", "none");
 	 }
 })
+//체크박스 선택시 값 전달(바베큐 옵션)
+$("#barbecue").on('click',function(){
+	if($(this).prop('checked')){
+		$("#barbecue-choice").attr("value",1);
+	} else{
+		$("#barbecue-choice").attr("value",0);
+	}
+});
+//체크박스 선택시 값 전달(파티 옵션)
+$("#party").on('click',function(){
+	if($(this).prop('checked')){
+		$("#party-choice").attr("value",1);
+	} else{
+		$("#party-choice").attr("value",0);
+	}
+})
+
+//숙소 리스트를 가지고 오는 ajax
+$.ajax({
+	
+})
 
 
-//test
+
+
+//따라다니는 메뉴
 
 $("document").ready(function() {  
     
@@ -705,6 +768,37 @@ $("document").ready(function() {
     });  
   
 });  
+
+//페이지별 버튼 동작
+//page1
+	$(".page1-okay").on('click',function(){
+		//아예 다 한번 hide하고 show 하자
+		$(".pages").hide();
+		$(".page2").show();
+		$(".title").text("언제 떠나실건가요~?")
+	})
+	$(".page1-pass").on('click',function(){
+		alert("지역은 꼭 정해주셔야해요:)")
+	})
+//page2
+	$(".page2-before").on('click',function(){
+		$(".pages").hide();
+		$(".page1").show();
+		$(".title").text("어디로 떠나볼까요~?")
+		
+	})
+	$(".page2-okay").on('click',function(){
+		//아예 다 한번 hide하고 show 하자
+		if($("#travel-days").val() == "0박 0일"){
+			alert("날짜는 꼭 정해주셔야해요:)")
+		}else{
+			$(".pages").hide();
+			$(".page3").show();
+		}
+	});
+	$(".page2-pass").on('click',function(){
+		alert("날짜는 꼭 정해주셔야해요:)")
+	})
 
 </script>					
 </body>

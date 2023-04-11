@@ -83,4 +83,5 @@ $('.dropMember').on('click',function(){
         const memberNo = $('#memberNo').val();
         location.href="/dropMember.do?memberNo="+memberNo;
     }
-})
+});
+

@@ -1,5 +1,7 @@
 package kr.co.carpool.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,36 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CarpoolFilter {
 	private String departureRegion;
-	private String departureDistrict;
-	private int departureTime; //오전 오후
+	private int[] departureTime; //오전0 오후1
 	private String arrivalRegion;
-	private String arrivalDistrict;
 	private int minPrice;
 	private int maxPrice;
-	private int onewayRound;
-	private int closure;
+	private int[] onewayRound; //편도 1 왕복 2
+	private int[] closure; //마감 0 모집중 1
 	
-	public String getDepartureTimeRange() {
-		if(departureTime==0) {
-			return "오전";
-		}else {
-			return "오후"	;
-		}
-	}
-	
-	public String getTripType() {
-		if(onewayRound == 1) {
-			return "편도";
-		}else {
-			return "왕복";
-		}
-	}
-	
-	public String getRecruiting() {
-		if(closure==0) {
-			return "마감";
-		}else {
-			return "모집중";
-		}
-	}
 }

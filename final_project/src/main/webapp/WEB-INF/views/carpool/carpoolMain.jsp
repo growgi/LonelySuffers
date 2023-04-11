@@ -119,31 +119,20 @@
 								<th data-sort-method='none' style="width:10%"></th>
 							</tr>
 						</thead>
-						<tbody>
+						
+						<tbody  class="carpoolListWrapper list-wrap">
 							<!-- 얘네들이 반복돼야해!! Carpool list all -->
-							<c:forEach items="${list }" var="c">
-								<tr style="cursor: pointer;" onclick="location.href='/carpoolRequest.do?carpoolNo=${c.carpoolNo}'">
-									<td >${c.departureDate }</td>
-									<td>
-										<span style="display:none">${c.regDate }</span><img src="/capool-img/destination.png" alt="img" style="width:45px; height: 50px;">
-									</td>
-									<td>
-											<div class="row onewayRound">${c.tripType }</div>
-											<div class="row region">${c.departureRegion }</div>
-											<div class="row region">${c.arrivalRegion }</div>
-									</td>
-									<td>
-											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
-											<div class="row district">${c.departureDistrict }</div>
-											<div class="row district">${c.arrivalDistrict }</div>
-									</td>
-									<td>
-											<div class="row onewayRound" style="background-color:transparent;">&nbsp;</div>
-											<div class="row">${c.reserved}/${c.capacity }</div>
-									</td>
-								</tr>
-							</c:forEach>
+							
+						
+
 						</tbody>
+						<tfoot>
+							<tr>
+								<th colspan="6">
+									<button class="btn bc4 bs4" id="more-btn" currentCount ="0" value="1">더보기</button>
+								</th>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 				<!-- end row -->
@@ -170,11 +159,12 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body" style="padding: 5px 5px;">
-							<form action="/filterSearch.do" method="post">
+						
+						<!-- ajax로 처리하기 때문에 form이 필요 없음.  -->
 								<div class="form-group">
 									<label for="usrname">출발</label> 
 									<select class="form-control" id="departureRegion" name="departureRegion" >
-										<option value="" selected disabled>시/도</option>
+										<option value="전체">전체</option>
 										<option value="서울">서울</option>
 										<option value="경기">경기</option>
 										<option value="인천">인천</option>
@@ -186,18 +176,18 @@
 								</div>
 								<div class="check-box-wrap">
 									<div class="check-box left">
-										<input type="checkbox" id="am" name="departureTime" value="0"  onclick="timeAm()">
+										<input type="checkbox" id="am" name="departureTime" value="0" >
 										<label for="am-time"><span class="material-symbols-outlined">check</span>오전</label>
 									</div>
 									<div class="check-box right">
-										<input type="checkbox" id="pm" name="departureTime" value="1" onclick="timePm()">
+										<input type="checkbox" id="pm" name="departureTime" value="1" >
 										<label for="pm-time"><span class="material-symbols-outlined">check</span>오후</label><br>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="usrname">도착</label> 
 									<select class="form-control" id="arrivalRegion" name="arrivalRegion" >
-										<option value="" selected disabled>시/도</option>
+										<option value="전체">전체</option>
 										<option value="서울">서울</option>
 										<option value="경기">경기</option>
 										<option value="인천">인천</option>
@@ -224,22 +214,22 @@
 								<div class="check-box-wrap">
 									<div class="check-box left">
 										<input type="checkbox" id="oneway" name="onewayRound" value="1"
-											" onchange="selectOneWay()"><label for="one-way">
+											><label for="one-way">
 											<span class="material-symbols-outlined">check</span>편도</label>
 									</div>
 									<div class="check-box right">
 										<input type="checkbox" id="round" name="onewayRound" value="2" 
-											" onchange="selectRoundTrip()"><label for="round-trip">
+											><label for="round-trip">
 											<span class="material-symbols-outlined">check</span>왕복</label><br>
 									</div>
 									<div class="check-box left">
 										<input type="checkbox" id="opened" name="closure" value="1"
-											" onchange="recruiting()"><label for="recruiting">
+											><label for="recruiting">
 											<span class="material-symbols-outlined">check</span>모집중</label>
 									</div>
 									<div class="check-box right">
 										<input type="checkbox" id="closed" name="closure" value="0"
-											" onchange="closed()"><label for="closed">
+											><label for="closed">
 											<span class="material-symbols-outlined">check</span>모집완료</label>
 									</div>
 								</div>
@@ -247,11 +237,10 @@
 								<div class="btn-pack" style="margin-left: 25px;">
 									<button type="button" class="btn btn-block" id="reset-btn"
 										style="width: 250px; height: 40px; border-radius: 10px; float: left; margin-right: 25px; background-color: #9f9f9f; color: white; font-weight: 900;">초기화</button>
-									<button type="submit" class="btn btn-block" id="apply-btn" 	style="width: 250px; height: 40px; border-radius: 10px; 
+									<button type="button" class="btn btn-block" id="apply-btn" 	style="width: 250px; height: 40px; border-radius: 10px; 
 									background-color: #EA5455; color: white; font-weight: 900;">적용</button>
 								</div>
 								<br>
-							</form>
 							<div class="modal-footer">
 								<button type="submit"
 									class="btn btn-danger btn-default pull-left"
@@ -292,52 +281,115 @@
 	});
 	
 	//필터링으로 해당 조건 검색해서 carpoolMain.jsp 에서 필터링된 리스트만 보이게한다.  
-	/*
-	$("#apply-btn").on("click", function(){
-		const departureRegion = ${"#departureRegion"}.val();
-		const am = ${"#am"}.val();
-		const pm = ${"#pm"}.val();
-		const arrivalRegion = ${"#arrivalRegion"}.val();
-		const minPrice = ${"#minPrice"}.val();
-		const maxPrice = ${"#maxPrice"}.val();
-		const oneway = ${"#oneway"}.val();
-		const round = ${"#round"}.val();
-		const opened = ${"#opened"}.val();
-		const closed = ${"#closed"}.val();
-		$.ajax({
-			 url : "/filterCarpool.do",
-			 type : "get",
-			 data : {
+	// (소) {중} [대]
+ 	$("#apply-btn").on("click", function(){
+ 		console.log(1111);
+ 		//선택을 0, 1, 2개 등 여러개 할 수 있는 요소들은 배열로 받아와야한다. 아래 checkbox 요소 세개에 해당
+		const departureTime = new Array();
+		const onewayRound = new Array();
+		const closure = new Array();
+		
+		const departureRegion = $("#departureRegion").val();
+		//배열로 받아오는 요소 
+		const am = $("#am:checked").val();
+		const pm = $("#pm:checked").val();
+		if(am){
+			departureTime.push(am);
+		}
+		if(pm){
+			departureTime.push(pm);
+		}
+		const arrivalRegion = $("#arrivalRegion").val();
+		const minPrice = $("#minPrice").val()===""?0:$("#minPrice").val(); //삼학연산자로 빈칸이면 0, 빈칸이아니면 적힌 값 들고오기
+		const maxPrice = $("#maxPrice").val()===""?0:$("#maxPrice").val(); //삼학연산자로 빈칸이면 0, 빈칸이아니면 적힌 값 들고오기
+		
+		const oneway = $("#oneway:checked").val();
+		const round = $("#round:checked").val();
+		if(oneway){
+			onewayRound.push(oneway)
+		}
+		if(round){
+			onewayRound.push(round)
+		}
+		
+		const opened = $("#opened:checked").val();
+		const closed = $("#closed:checked").val();
+		if(opened){
+			closure.push(opened);
+		}
+		if(round){
+			closure.push(closed);
+		}
+		const data ={
 				 departureRegion : departureRegion,
-				 am : am,
-				 pm : pm,
+				 departureTime : departureTime,
 				 arrivalRegion : arrivalRegion,
 				 minPrice : minPrice,
 				 maxPrice : maxPrice,
-				 oneway : oneway,
-				 round : round,
-				 opened : opened,
-				 closed : closed
-			 },
+				 onewayRound : onewayRound,
+				 closure : closure
+			 };
+		console.log(data);
+		$.ajax({
+			 url : "/filterCarpool.do",
+			 type : "get",
+			 data : data,
+			 traditional:true, //배열로 받아올 때 추가해야한다. 
 			 dataType : "json",
 			 success : function(data){
 				 console.log(data);
-				 if(data==null){
-					 result.append("카풀 정보를 조회할 수 없습니다.");
-				 }else{
-					 const queryString = `?departureRegion=${departureRegion}&am=${am}&pm=${pm}&arrivalRegion=${arrivalRegion}&minPrice=${minPrice}&maxPrice=${maxPrice}&oneway=${oneway}&round=${round}&opened=${opened}&closed=${closed}`;
-					 const url = `carpoolMain.jsp${queryString}`;
-					window.location.href = url;
-				 }
+				 for(let i=0; i<data.length; i++){
+					 
+			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor", "pointer").click(function(){
+			                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
+			            });
+			            const td1 = $("<td>").text(data[i].departureDate);
+			            
+			            const td2 = $("<td>").append($("<span>").css("display", "none").text(data[i].regDate))
+			            .append($("<img>").attr("src", "/capool-img/destination.png").attr("alt", "img").css("width", "45px").css("height", "50px"));
+			            
+			            const td3 = $("<td>").append($("<div>").addClass("row onewayRound").text(data[i].tripType))
+			            .append($("<div>").addClass("row region").text(data[i].departureRegion))
+			            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+		
+			            const td4 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text("&nbsp;"))
+			            .append($("<div>").addClass("row district").text(data[i].departureDistrict))
+			             .append($("<div>").addClass("row district").text(data[i].arrivalDistrict));
+	
+			            const td5 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text("&nbsp;"))
+			            .append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));
+			           
+			            tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+			            $("table").append(tr);
+			    }
 			 },
 			 error : function(){
 				 console.log("서버호출 실패");
 			 }
 		});
 	});
+	
+	//더보기 버튼 누를때 
+	//하지만 확인하고 갈 문제 : tableSort 라이브러리로 출발일, 등록일 기준으로 정렬되는 기능을 썼다.
+	//그 기능을 유지하면서 ajax로 사용 가능할까.
+	//1)원래 빈 화면에서 기본적으로 첫번째는 더보기 버튼이 한번 눌려진채로 나오게 한다(빈화면이 되지않도록) -> web-workspace에 7.mvc2 photoList 참조.
+	
+	/*
+	$("#more-btn").on("click", function(){
+		const start = $(this).val();
+		const amount = 5;
+		const data ={
+				
+		}
+		$.ajax({
+			url : "/carpoolMain.do",
+			type: "post",
+			data : data,
+			dataType= json,
+			
+		});
+	});
 	*/
-	
-	
 
 	// 초기화 버튼 클릭 시
 	document.getElementById("reset-btn").addEventListener(
@@ -352,15 +404,16 @@
 						function(select) {
 							select.selectedIndex = 0;
 							// 체크박스 초기화
-							document.querySelectorAll("input[type=radio]")
-									.forEach(function(radio) {
-										radio.checked = false;
+							document.querySelectorAll("input[type=checkbox]")
+									.forEach(function(checkbox) {
+										checkbox.checked = false;
 									});
 						});
 			});
 
 	
 		//출발일, 등록일 기준으로 table sort out기능
+	/*
 		table = document.getElementById('carpoolTable');
 		new Tablesort(table);
 		var refresh = new Tablesort(tableRefresh);
@@ -369,9 +422,9 @@
 		var cellName = row.insertCell(0);	
 		cellName.innerHTML = 0;
 		refresh.refresh();
-		
+	*/	
 
-		//리스트 5개씩 보이게 하기
+
 		
 		
 
