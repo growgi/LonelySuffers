@@ -9,7 +9,7 @@
 .main-right{
     float: right;
     width: 70%;
-    height: 500px;
+    height: 600px;
 }
 
 .left-content{
@@ -79,4 +79,17 @@ input[type=text],input[type=password]{
 
 .active-div{
     display: block;
+    margin-left: 50px;
 }
+
+.buyList>div{
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+.buyList>div>table{
+    width: 100%;
+    margin: 0 auto;   
+    text-align: center;
+}
+
