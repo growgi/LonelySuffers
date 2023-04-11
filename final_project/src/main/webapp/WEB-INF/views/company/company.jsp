@@ -55,6 +55,10 @@
 #map{
    margin : 0 auto;
 }
+
+
+
+
 </style>
 
 
@@ -81,22 +85,25 @@
 				<div class="page-content">
 			      <div class="map-wrap">
 			         <div class="map-title">
-			            <h2>오시는길</h2>
+			            <h2>Lonely Suffers</h2>
 			            <h4>서퍼가 꿈이라면 지금이 기회다!!!</h4>
 			         </div>
 			         <div class="transport-way">
 			            <table>
 			            	<tr>
 			            		<th>Lonely Suffers란</th>
-			            		<th></th>
+			            		<td>대한민국 서퍼들에게 서핑과 숙소, 즐길거리를 제공하는 소셜 플랫폼</td>
+			            	</tr>
+			            	<tr>
+			            		<th><h2>오시는 길</h2></th>
 			            	</tr>
 			               <tr>
 			                  <th class="addr">주소</th>
-			                  <td>서울특별시 영등포구 선유동2로57 이레빌딩(구관)19F,20F</td>
+			                  <td>서울특별시 영등포구 선유동2로57 이레빌딩(구관)19F, 20F</td>
 			               </tr>
 			               <tr colspan="2" style="width: 100px;">
 			                  <th class="bus">버스</th>
-			                  <td class="bus-stop">선유고등학교/(구)강서세무서
+			                  <td class="bus-stop">선유고등학교 / (구)강서세무서
 			                     <div class="bus-stop1"
 			                        style="line-height: 30px; padding-bottom: 5px;">
 			                        <img src="/images/bluebus.jpg" style="padding-right: 5px;">7612
