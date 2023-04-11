@@ -18,7 +18,6 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <style>
 .tab>ul{
@@ -26,7 +25,7 @@
    	overflow: hidden;
 	}
 .tab>ul>li{
-	width: calc(100%/3);
+	width: calc(100%/6);
    	float: left;
    	height: 50px;
    	line-height: 30px;
@@ -35,6 +34,10 @@
    	text-align: center;
    	cursor: pointer;
 }
+
+
+
+
 </style>
 <body>
 	<div id="wrapper">
@@ -74,24 +77,25 @@
 								<th>제목</th>
 							</tr>
 						<c:forEach items="${list }" var="fq">
+							<tr>
 								<td>${fq.faqNo }</td>
 									<c:choose>
-										<c:when test="${fq.categoryNo == 21}">
+										<c:when test="${fq.categoryNo == 1}">
 											<td>예약취소</td>
 										</c:when>
-										<c:when test="${fq.categoryNo == 22}">
+										<c:when test="${fq.categoryNo == 2}">
 											<td>숙박</td>
 										</c:when>
-										<c:when test="${fq.categoryNo == 23}">
+										<c:when test="${fq.categoryNo == 3}">
 											<td>강습</td>
 										</c:when>
-										<c:when test="${fq.categoryNo == 24}">
+										<c:when test="${fq.categoryNo == 4}">
 											<td>카풀</td>
 										</c:when>
-										<c:when test="${fq.categoryNo == 25}">
+										<c:when test="${fq.categoryNo == 5}">
 											<td>후기</td>
 										</c:when>
-										<c:when test="${fq.categoryNo == 26}">
+										<c:when test="${fq.categoryNo == 6}">
 											<td>회원서비스</td>
 										</c:when>
 									</c:choose>

@@ -43,6 +43,8 @@ public class NoticeController {
 		return "notice/noticeWriteFrm";
 	}
 	
+	
+	
 	@RequestMapping(value="/noticeWrite.do")
 	public String noticeWrite(Notice n, MultipartFile[] noticeFile, HttpServletRequest request) {
 		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
@@ -118,6 +120,11 @@ public class NoticeController {
 			}
 			return "redirect:/noticeList.do?reqPage=1";
 		}
+	}
+	
+	@RequestMapping(value="/company.do")
+	public String company() {
+		return "company/company";
 	}
 	
 }

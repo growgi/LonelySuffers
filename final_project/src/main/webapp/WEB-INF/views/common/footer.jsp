@@ -25,7 +25,7 @@
                     		<h4 class="widget-title">Lonely Surfers Final Project</h4>
                     		<ul>
                     			<li>정세용 안병주 정은아 박강근 구민주 김건형</li>
-                    			<li><a href="#">Carrier</a></li>
+                    			<li><a href="/company.do">회사소개</a></li>
                     			<li><a href="#">Trademark</a></li>
                     			<li><a href="#">Contact</a></li>
                     		</ul>
