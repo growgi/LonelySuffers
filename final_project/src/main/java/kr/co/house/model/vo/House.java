@@ -28,7 +28,8 @@ public class House {
 	private int houseStatus;		/*     상품 상태. 노출 여부를 결정함.
 										   1 = 판매중. 전체공개
 										   0 = 판매중지
-										  -1 = 승인대기중. DB에는 insert됐지만, 고객들에게 노출되지는 않는 상품(게시물).	*/
+										  -1 = 승인대기중. DB에는 insert됐지만, 고객들에게 노출되지는 않는 상품(게시물)
+	  									  -2 = 승인 반려됨. DB에는 insert됐지만, 고객들에게 노출되지는 않는 상품(게시물)	*/
 
 	private int houseScore;				// 별평점후기 Table (RIVEIW)이 변경될때마다, oracle에서 trigger가 작동해서 HOUSE 테이블의 HOUSE_SCORE를 갱신
 	private String writer;				// 상품등록자의 MEMBER_ID (글쓴이)

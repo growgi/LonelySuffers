@@ -18,57 +18,22 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 
-</head>
-
 <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
 <style>
 .clickToLarger {
 	width: 80px;
 	height: 80px;
 }
-.clickToLarger:hover { cursor: pointer;}
+.clickToLarger:hover { cursor: pointer; }
 .onViewing { border: 4px solid #3ac5c8; }
 .product-detail>div{
 	margin-top:20px;
 	margin-bottom:20px;
 }
-
-
-.tab-card {
-  border:1px solid #eee;
-}
-
-.tab-card-header {
-  background:none;
-}
-/* Default mode */
-.tab-card-header > .nav-tabs {
-  border: none;
-  margin: 0px;
-}
-.tab-card-header > .nav-tabs > li {
-  margin-right: 2px;
-}
-.tab-card-header > .nav-tabs > li > a {
-  border: 0;
-  border-bottom:2px solid transparent;
-  margin-right: 0;
-  color: #737373;
-  padding: 2px 15px;
-}
-
-.tab-card-header > .nav-tabs > li > a.show {
-    border-bottom:2px solid #007bff;
-    color: #007bff;
-}
-.tab-card-header > .nav-tabs > li > a:hover {
-    color: #007bff;
-}
-
-.tab-card-header > .tab-content {
-  padding-bottom: 0;
-}
+.nav-item { background-color: #3ac5c8;}
+.nav-link { color: #ffffff; }
 </style>
+</head>
 
 <body>
 	<div id="wrapper">
@@ -119,15 +84,15 @@
 							<div class="col-md-1"></div>
 							<div class="col-md-10">
 							<ul class="pagination">
-								<li style="margin: 5px;"><img class="clickToLarger onViewing" src="upload/house/${house.housePhoto1 }"></li>
+								<li style="margin: 5px; text-align: center;"><img class="clickToLarger onViewing" src="upload/house/${house.housePhoto1 }"></li>
 								<c:if test="${house.housePhoto2 != null }">
-								<li style="margin: 5px;"><img class="clickToLarger" src="upload/house/${house.housePhoto2 }"></li>
+								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="upload/house/${house.housePhoto2 }"></li>
 								</c:if>
 								<c:if test="${house.housePhoto3 != null }">
-								<li style="margin: 5px;"><img class="clickToLarger" src="upload/house/${house.housePhoto3 }"></li>
+								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="upload/house/${house.housePhoto3 }"></li>
 								</c:if>
 								<c:if test="${house.housePhoto4 != null }">
-								<li style="margin: 5px;"><img class="clickToLarger" src="upload/house/${house.housePhoto4 }"></li>
+								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="upload/house/${house.housePhoto4 }"></li>
 								</c:if>
 							</ul>
 							</div>
@@ -237,9 +202,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-9 card mt-3 tab-card">
-						<div class="row card-header tab-card-header">
-							<ul class="nav navbar-nav navbar-left">
-								<li class="nav-item">
+						<div class="row tab-card-header">
+							<ul class="nav nav-tabs card-header-tabs">
+								<li class="nav-item active">
 									<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
 								</li>
 								<li class="nav-item">
@@ -251,7 +216,7 @@
 							</ul>
 						</div>
 						<div class="tab-content" id="myTabContent">
-							<div class="tab-pane fade p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
 								상품 설명 div</div>
 							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
 								상품 평 div</div>
