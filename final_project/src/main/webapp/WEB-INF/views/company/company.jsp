@@ -20,17 +20,6 @@
 
 </head>
 <style>
-.map-header{
-   padding-top: 50px;
-   padding-bottom: 50px;
-   border-bottom: 1px solid #ccc;
-   margin-bottom: 50px;
-}
-.map-header>span{
-   font-size: 40px;
-   font-weight: 900;
-   margin-right: 20px;
-}
 .map-title>h2{
    text-align: center;
 }
@@ -86,23 +75,21 @@
 			<!-- end container -->
 		</section>
 		<!-- end section -->
-
-
-
 		<section class="section">
 			<div class="container">
 				<div class="row">
 				<div class="page-content">
 			      <div class="map-wrap">
-			         <div class="map-header">
-			            <span>회사소개</span>
-			         </div>
 			         <div class="map-title">
 			            <h2>오시는길</h2>
-			            <h4>On your way to "EveryUniverse" !</h4>
+			            <h4>서퍼가 꿈이라면 지금이 기회다!!!</h4>
 			         </div>
 			         <div class="transport-way">
 			            <table>
+			            	<tr>
+			            		<th>Lonely Suffers란</th>
+			            		<th></th>
+			            	</tr>
 			               <tr>
 			                  <th class="addr">주소</th>
 			                  <td>서울특별시 영등포구 선유동2로57 이레빌딩(구관)19F,20F</td>
