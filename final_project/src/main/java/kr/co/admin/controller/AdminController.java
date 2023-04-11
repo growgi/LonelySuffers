@@ -380,5 +380,12 @@ public class AdminController {
 		
 		
 	}
+	
+	/**1:1 문의*/
+	@RequestMapping(value="/adminChat.do")
+	public String adminChat() {
+
+		return "admin/adminChat";
+	}
 
 }
