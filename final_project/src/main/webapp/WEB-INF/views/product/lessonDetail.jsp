@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +89,7 @@
 							<div class="row">
 								<h1 style="padding-bottom: 40px;">${lesson.lessonTitle }</h1>
 								<input type="hidden" name="lessonPrice" value="${lesson.lessonPrice }">
-								<h3><span id="withCommas" style="font-size: 36px; font-weight: bold;">${lesson.lessonPrice }</span>원</h3>
+								<h3><span style="font-size: 36px; font-weight: bold;"><fmt:formatNumber value="${lesson.lessonPrice }" pattern="#,###" /></span>원</h3>
 								<div class="col-md-9">
 								</div>
 								<div class="col-md-3">
@@ -224,11 +225,6 @@
 
 
 	<script type="text/javascript">
-	// 가격에 3자리마다 , 출력
-	const num = Number($("#withCommas").text());
-	$("#withCommas").text(num.toLocaleString('ko-KR'));
-
-
 	//url로부터 lessonNo값 알아내기
 		const ltrim = /^\S{0,}lessonNo=/;
 		const currentUrl = window.location.href;
