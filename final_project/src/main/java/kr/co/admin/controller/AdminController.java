@@ -140,19 +140,26 @@ public class AdminController {
 	
 	
 	/**3. 신규 상품 승인*/
-	@RequestMapping(value="/newProduct.do")
-	public String newProduct(Model model) {
+	@RequestMapping(value="/newProductLesson.do")
+	public String newProductLesson(Model model) {
 		ArrayList<Lesson> lessonList = service.selectNewLesson(); //신규 강습 상품 목록
-		ArrayList<House> houseList = service.selectNewHouse(); //신규 숙박 상품 목록
 		int newLessonCount = service.selectNewLessonCount(); //신규 강습 상품 수
-		int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
 		
 		model.addAttribute("lessonList", lessonList);
-		model.addAttribute("houseList", houseList);
 		model.addAttribute("newLessonCount", newLessonCount);
+		
+		return "admin/newProductLesson";
+	}
+	
+	@RequestMapping(value="/newProductHouse.do")
+	public String newProductHouse(Model model) {
+		ArrayList<House> houseList = service.selectNewHouse(); //신규 숙박 상품 목록
+		int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
+		
+		model.addAttribute("houseList", houseList);
 		model.addAttribute("newHouseCount", newHouseCount);
 		
-		return "admin/newProduct";
+		return "admin/newProductHouse";
 	}
 
 	//승인
@@ -162,7 +169,11 @@ public class AdminController {
 		int result = service.updateApproveProduct(productType, productNo);
 		
 		if(result>0) {
-			return "redirect:/newProduct.do";
+			if(productType == 2) {
+				return "redirect:/newProductHouse.do";
+			} else {
+				return "redirect:/newProductLesson.do";
+			}
 		} else {
 			return "redirect:/productList.do";
 		}
@@ -174,7 +185,11 @@ public class AdminController {
 		boolean result = service.updateCheckedApproveProduct(productType, no);
 		
 		if(result) {
-			return "redirect:/newProduct.do";
+			if(productType == 2) {
+				return "redirect:/newProductHouse.do";
+			} else {
+				return "redirect:/newProductLesson.do";
+			}
 		} else {
 			return "redirect:/productList.do";
 		}
@@ -187,7 +202,11 @@ public class AdminController {
 		int result = service.updateReturnProduct(productType, productNo);
 		
 		if(result>0) {
-			return "redirect:/newProduct.do";
+			if(productType == 2) {
+				return "redirect:/newProductHouse.do";
+			} else {
+				return "redirect:/newProductLesson.do";
+			}
 		} else {
 			return "redirect:/productList.do";
 		}
@@ -195,44 +214,48 @@ public class AdminController {
 	
 	@RequestMapping(value="/checkedReturnProduct.do")
 	public String checkedReturnProduct(int productType, String no) {
+		System.out.println("productType:"+productType);
+		System.out.println("no:"+no);
+		
 		//체크된 상품
 		boolean result = service.updateCheckedReturnProduct(productType, no);
 		
 		if(result) {
-			return "redirect:/newProduct.do";
+			if(productType == 2) {
+				return "redirect:/newProductHouse.do";
+			} else {
+				return "redirect:/newProductLesson.do";
+			}
 		} else {
 			return "redirect:/productList.do";
 		}
 	}
 	
 	//검색
-	@ResponseBody
-	@RequestMapping(value="/adminSearchLesson.do", produces = "application/json;charset=utf-8") //한글 인코딩
-	public String adminSearchLesson(String searchType, String searchKeyword, Model model) {
-		Search sp = new Search(searchType, searchKeyword);
-		System.out.println("searchType:"+searchType);
-		System.out.println("searchKeyword:"+searchKeyword);
+	@RequestMapping(value="/adminSearchLesson.do")
+	public String adminSearchLesson(String lessonSearchType, String lessonSearchKeyword, Model model) {
+		Search sp = new Search(lessonSearchType, lessonSearchKeyword);
 		
 		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
-		System.out.println(lessonList.size());
-		System.out.println(lessonList);
 		
-		return new Gson().toJson(lessonList);
-		/*
-		 * if(!lessonList.isEmpty()) { } else { return "redirect:/productList.do"; }
-		 */
+		if(lessonList != null) { 
+			model.addAttribute("lessonList", lessonList);
+			return "admin/newProductLesson";
+		} else { 
+			return "redirect:/productList.do"; 
+		}
 		
 	}
 	
 	@RequestMapping(value="/adminSearchHouse.do")
-	public String adminSearchHouse(String searchType, String searchKeyword, Model model) {
-		Search sp = new Search(searchType, searchKeyword);
+	public String adminSearchHouse(String houseSearchType, String houseSearchKeyword, Model model) {
+		Search sp = new Search(houseSearchType, houseSearchKeyword);
 		
 		ArrayList<House> houseList = service.selectSearchHouse(sp);
 		
-		if(!houseList.isEmpty()) {			
+		if(houseList != null) {			
 			model.addAttribute("houseList",houseList);
-			return "redirect:/newProduct.do";
+			return "admin/newProductHouse";
 		} else {
 			return "redirect:/productList.do";
 		}
