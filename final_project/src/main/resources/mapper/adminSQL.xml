@@ -109,7 +109,8 @@
 			lesson_max_no as lessonMaxNo,
 			writer,
 			lesson_city as lessonCity,
-			lesson_status as lessonStatus
+			lesson_status as lessonStatus,
+			lesson_score as lessonScore
 	  from lesson
  	    <choose>
 	      <when test='searchType.equals("n")'>
@@ -138,7 +139,8 @@
 			house_score as houseScore,
 			room_capa as roomCapa,
 			house_city as houseCity,
-			house_status as houseStatus
+			house_status as houseStatus,
+			house_score as houseScore
 		from house
 		<choose>
 			<when test='searchType.equals("n")'>
@@ -147,7 +149,7 @@
 			<when test='searchType.equals("s")'>
 				where writer like '%'||#{searchKeyword}||'%'
 			</when>
-			<when test="searchType.equals('hn')">
+			<when test="searchType.equals('rt')">
 				where room_title like '%'||#{searchKeyword}||'%'
 			</when>
 			<when test="searchType.equals('lo')">

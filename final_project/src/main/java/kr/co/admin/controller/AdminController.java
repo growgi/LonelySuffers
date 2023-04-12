@@ -175,7 +175,7 @@ public class AdminController {
 				return "redirect:/newProductLesson.do";
 			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
@@ -191,7 +191,7 @@ public class AdminController {
 				return "redirect:/newProductLesson.do";
 			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
@@ -208,7 +208,7 @@ public class AdminController {
 				return "redirect:/newProductLesson.do";
 			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
@@ -227,55 +227,86 @@ public class AdminController {
 				return "redirect:/newProductLesson.do";
 			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
 	//검색
 	@RequestMapping(value="/adminSearchLesson.do")
-	public String adminSearchLesson(String lessonSearchType, String lessonSearchKeyword, Model model) {
+	public String adminSearchLesson(String jspPage, String lessonSearchType, String lessonSearchKeyword, Model model) {
 		Search sp = new Search(lessonSearchType, lessonSearchKeyword);
 		
 		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
 		
 		if(lessonList != null) { 
 			model.addAttribute("lessonList", lessonList);
-			return "admin/newProductLesson";
+			
+			if(jspPage.equals("nl")) {
+				return "admin/newProductLesson";
+			} else if(jspPage.equals("pl")) {
+				return "admin/productListLesson";
+			} else {
+				return "redirect:/memberList.do"; 
+			}
 		} else { 
-			return "redirect:/productList.do"; 
+			return "redirect:/memberList.do"; 
 		}
 		
 	}
 	
 	@RequestMapping(value="/adminSearchHouse.do")
-	public String adminSearchHouse(String houseSearchType, String houseSearchKeyword, Model model) {
+	public String adminSearchHouse(String jspPage, String houseSearchType, String houseSearchKeyword, Model model) {
 		Search sp = new Search(houseSearchType, houseSearchKeyword);
 		
 		ArrayList<House> houseList = service.selectSearchHouse(sp);
 		
 		if(houseList != null) {			
 			model.addAttribute("houseList",houseList);
-			return "admin/newProductHouse";
+			
+			if(jspPage.equals("nl")) {
+				return "admin/newProductHouse";
+			} else if(jspPage.equals("pl")) {
+				return "admin/productListHouse";
+			} else {
+				return "redirect:/memberList.do"; 
+			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/memberList.do";
 		}
 		
 	}
 	
 	/**4. 등록된 상품 관리*/
-	@RequestMapping(value="/productList.do")
-	public String productList(Model model) {
+	@RequestMapping(value="/productListLesson.do")
+	public String productListLesson(Model model) {
 		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록
-		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
 		int lessonCount = service.selectLessonCount(); //강습 상품 수
+		
+		if(lessonList != null) {	
+			model.addAttribute("lessonList", lessonList);
+			model.addAttribute("lessonCount", lessonCount);
+			
+			return "admin/productListLesson";
+		} else {
+			return "redirect:/newProductLesson.do";
+		}
+		
+	}
+	
+	@RequestMapping(value="/productListHouse.do")
+	public String productListHouse(Model model) {
+		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
 		int houseCount = service.selectHouseCount(); //숙박 상품 수
 		
-		model.addAttribute("lessonList", lessonList);
-		model.addAttribute("houseList", houseList);
-		model.addAttribute("lessonCount", lessonCount);
-		model.addAttribute("houseCount", houseCount);
-		
-		return "admin/productList";
+		if(houseList != null) {	
+			model.addAttribute("houseList", houseList);
+			model.addAttribute("houseCount", houseCount);
+			
+			return "admin/productListHouse";
+		} else {
+			return "redirect:/newProductLesson.do";
+		}
+
 	}
 	
 	//선택 상품 - 강습 상태 변경
@@ -285,7 +316,7 @@ public class AdminController {
 		boolean result = service.updateLessonStatus(no, status);
 		
 		if(result) {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		} else {
 			return "redirect:/memberList.do";
 		}
@@ -298,7 +329,7 @@ public class AdminController {
 		boolean result = service.updateHouseStatus(no, status);
 		
 		if(result) {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		} else {
 			return "redirect:/memberList.do";
 		}
@@ -310,9 +341,9 @@ public class AdminController {
 		int result = service.updateProductStopSelling(no, productType);
 		
 		if(result>0) {
-			return "redirect:/newProduct.do";
+			return "redirect:/newProductLesson.do";
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	

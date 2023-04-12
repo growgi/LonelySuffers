@@ -15,6 +15,7 @@
 			<div class="lesson-list">
 				<form action="/adminSearchLesson.do" method="get"
 					id="frm" class="search-bar" name="search-product">
+					<input type="hidden" name="jspPage" value="nl">
 					<select name="lessonSearchType" class="search-type">
 						<option value="n">강습명</option>
 						<option value="s">판매자</option>
