@@ -156,8 +156,30 @@
 	}
 	.rooms-wrap{
 		width:1200px;
-		height:800px;
+		height:1100px;
 		background-color:beige;
+		overflow:hidden;
+	}
+	.roomList{
+		width:400px;
+		height:500px;
+		float:left;
+	}
+	.image-wrap>img{
+		width:398px;
+		height:398px;
+		border: 1px solid rgb(51, 51, 51);
+	}
+	.info-wrap{
+		width:398px;
+		height:98px;
+		border: 1px solid rgb(51, 51, 51);
+		border-top-style:none
+	}
+	.info-wrap>p{
+		text-align:center;
+		font-weight:800;
+		color:rgb(51, 51, 51);
 	}
 	.level-select{
 		width:1200px;
@@ -443,7 +465,7 @@
 				<!-- 키오스크 5페이지 숙소리스트 -->
 				<div class="pages page5">
 					<div class="rooms-wrap">
-						
+					
 					</div>
 					<div class="btn-wrap" id="page5">
 						<button class="page5-before"><p>이전으로</p></button>
@@ -802,7 +824,7 @@ $("document").ready(function() {
 	})
 	$(".page2-okay").on('click',function(){
 		//아예 다 한번 hide하고 show 하자
-		if($("#travel-days").val() == "0박 0일"){
+		if($("#travel-days").val().indexOf("0박") !== -1){
 			alert("날짜는 꼭 정해주셔야해요:)")
 		}else{
 			$(".pages").hide();
@@ -859,19 +881,32 @@ $("document").ready(function() {
 				data : {bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomCapa : roomCapa, houseBarbecue : houseBarbecue, houseParty : houseParty},
 				dataType : "json",
 				success : function(data){
-					console.log("ajax");
+					console.log(data);
 					for(let i=0;i<data.length;i++){
-						const div=$("<div></div>");
-						div.append(data[i].houseTitle);
-						div.append("/");
-						div.append(data[i].roomCapa+"명");
-						div.append("/");
-						div.append("바베큐값:"+data[i].houseBarbecuePrice+"원");
-						div.append("/");
-						div.append("파티값:"+data[i].housePartyPrice+"원");
-						div.append("/");
+						const div=$("<div class=roomList></div>");
+						console.log(data[i].houseTitle);
+						console.log(data[i].roomCapa+"명");
+						console.log("바베큐값:"+data[i].houseBarbecuePrice+"원");
+						console.log("ajax");
 						
+						div.append("<div class=image-wrap>");
+						div.append('<img src=resources/upload/house/"' + data[i].housePhoto1 + '" />');
+						div.append("</div>");
+						div.append("<div class=info-wrap>");
+						div.append("<p>"+data[i].houseTitle+"</p>");
+						//div.append("<p>"+data[i].roomCapa+"인실"+"</p>")
+						if(data[i].houseBarbecuePrice == 0 && data[i].housePartyPrice > 0){
+							div.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(O)</p>");					
+						}else if(data[i].houseBarbecuePrice > 0 && data[i].housePartyPrice == 0){
+							div.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(O),파티옵션(X)</p>");
+						}else if(data[i].houseBarbecuePrice > 0 && data[i].housePartyPrice > 0){
+							div.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(O),파티옵션(O)</p>");
+						}else{
+							div.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(X)</p>")
+						}
+						div.append("</div>");
 						result.append(div);
+						//result.addClass('roomList')
 					}
 				},
 					error : function(){

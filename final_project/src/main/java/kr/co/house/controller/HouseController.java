@@ -90,7 +90,7 @@ public class HouseController {
 		ArrayList<House> list = service.selectRoomList(house);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
-		System.out.println("result"+result.length());
+		System.out.println("result 결과"+result.length());
 		return result;
 		
 	}
