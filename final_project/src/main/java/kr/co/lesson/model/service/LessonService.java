@@ -23,6 +23,13 @@ public class LessonService {
 
 
 
+// 강습 상품 등록.  Lesson 테이블에 Row 1개 추가
+	public int insertLesson(Lesson l) {
+		return dao.insertLesson(l);
+	}
+
+
+
 // 하나의 강습에 대한 예약 내역(결제 완료 상태) 조회.    LESSON_BOOK 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<LessonBook> selectAllbookedDates(int lessonNo) {
 		return dao.selectAllbookedDates(lessonNo);

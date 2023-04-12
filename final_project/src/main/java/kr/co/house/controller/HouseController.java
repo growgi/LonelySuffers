@@ -34,6 +34,21 @@ public class HouseController {
 
 
 
+// 숙박 상품 등록.  House 테이블에 Row 1개 추가
+	@RequestMapping(value="/insertHouse.do")
+	public String insertHouse(House h) {
+		int result = service.insertHouse(h);
+		if(result > 0) {
+	// 승인대기중으로 등록 성공 시 처리내용 작성 필요
+			return "member/myPage";
+		}else {
+	// 실패 시 처리내용 작성 필요
+			return "member/myPage";
+		}
+	}
+
+
+
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
 	@ResponseBody
 	@RequestMapping(value="/availableRooms.do", produces = "application/json;charset=utf-8")

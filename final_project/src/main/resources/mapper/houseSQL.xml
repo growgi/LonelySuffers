@@ -8,6 +8,15 @@
 	</select>
 
 
+<!-- 숙박 상품 신규 등록 -->
+	<insert id="insertHouse" parameterType="h">
+		INSERT INTO HOUSE VALUES (HOUSE_SEQ.NEXTVAL, #{houseTitle}, #{houseCity}, #{houseAddress}, #{houseDescription}, #{housePhoto1}, #{housePhoto2}, #{housePhoto3}, #{housePhoto4}, -1, '', #{writer}, #{roomTitle}, #{roomCapa}, #{housePrice}, #{houseBarbecue}, #{houseBarbecuePrice}, #{houseParty}, #{housePartyPrice}, #{houseLNG}, #{houseLAT})
+		<selectKey resultType="_int" order="AFTER" keyProperty="houseNo">
+			SELECT MAX(HOUSE_NO) FROM HOUSE
+		</selectKey>
+	</insert>
+
+
 <!-- 키오스크에서, 지역이나 인원 수 조건 없이 숙박 상품 Row들 조회용  -->
 	<select id="selectHouseList" resultType="h">
 		SELECT

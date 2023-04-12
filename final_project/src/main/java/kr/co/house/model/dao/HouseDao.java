@@ -26,6 +26,13 @@ public class HouseDao {
 
 
 
+// 숙박 상품 등록.  House 테이블에 Row 1개 추가
+	public int insertHouse(House h) {
+		return sqlSession.insert("h.insertHouse", h);
+	}
+
+
+
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<Room> selectAllAvailableRoom(FindRoomByCondition condition) {
 		List list = sqlSession.selectList("r.selectAllAvailableRoom", condition);
