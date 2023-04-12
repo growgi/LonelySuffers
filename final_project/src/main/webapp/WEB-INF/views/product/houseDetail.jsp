@@ -84,16 +84,16 @@
 						<div class="row">
 							<div class="col-md-1"></div>
 							<div class="col-md-10">
-							<ul class="pagination">
-								<li style="margin: 5px; text-align: center;"><img class="clickToLarger onViewing" src="resources/upload/house/${house.housePhoto1 }"></li>
+							<ul class="pagination" style="text-align: center;">
+								<li style="margin: 5px;"><img class="clickToLarger onViewing" src="resources/upload/house/${house.housePhoto1 }"></li>
 								<c:if test="${house.housePhoto2 != null }">
-								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto2 }"></li>
+								<li style="margin: 5px;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto2 }"></li>
 								</c:if>
 								<c:if test="${house.housePhoto3 != null }">
-								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto3 }"></li>
+								<li style="margin: 5px;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto3 }"></li>
 								</c:if>
 								<c:if test="${house.housePhoto4 != null }">
-								<li style="margin: 5px; text-align: center;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto4 }"></li>
+								<li style="margin: 5px;"><img class="clickToLarger" src="resources/upload/house/${house.housePhoto4 }"></li>
 								</c:if>
 							</ul>
 							</div>
