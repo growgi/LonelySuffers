@@ -30,7 +30,6 @@ public class Carpool {
 	private String regDate; //(TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'))
 	private int closure; //마감0 모집중1 : 운전자가 강제 마감했는지 안했는지에 따른 변수 , 기한만료와 정원 찬것과는 상관없는 변수임.
 	private int reserved; //예약한 탑승자 수 
-	private int totalCount; //등록된 카풀 수
 	
 	
 	public String getTripType() {

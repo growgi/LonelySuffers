@@ -17,5 +17,8 @@ public class CarpoolFilter {
 	private int maxPrice;
 	private int[] onewayRound; //편도 1 왕복 2
 	private int[] closure; //마감 0 모집중 1
+	private int start;
+	private int end;
+	
 	
 }

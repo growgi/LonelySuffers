@@ -25,8 +25,10 @@ public class CarpoolService {
 		
 	}
 
-	public ArrayList<Carpool> filterCarpool(CarpoolFilter cf) {
+	public ArrayList<Carpool> filterCarpool(CarpoolFilter cf, int amount) {
 		System.out.println("controller에서 service로 넘겨준조건"+cf);
+		int end = cf.getStart()+amount-1;
+		cf.setEnd(end);
 		System.out.println("dao로부터 controller로 넘겨준 것 "+dao.filterCarpool(cf));
 		return dao.filterCarpool(cf);
 	}
@@ -42,8 +44,9 @@ public class CarpoolService {
 	}
 	
 	//더보기 버튼 구현을 위한 카풀수 구하기
-	public ArrayList<Carpool> carpoolCount(Carpool carpool) {
-		return dao.carpoolCount(carpool);
+	public int totalCount(CarpoolFilter cf) {
+		return dao.totalCount(cf);
 	}
+
 
 }
