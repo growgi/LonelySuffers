@@ -183,7 +183,7 @@
     		    	</c:if>
         		</div>
 				<input type="hidden" name="roomBookPrice">
-				<input type="submit" value="주문">
+				<button type="submit">주문</button>
         	</fieldset>
         </form>
         </div>

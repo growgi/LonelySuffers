@@ -10,7 +10,7 @@
 
 <!-- 강습 상품 신규 등록 -->
 	<insert id="insertLesson" parameterType="l">
-		INSERT INTO LESSON VALUES (LESSON_SEQ.NEXTVAL, #{lessonNameLevel}, #{lessonTitle}, #{lessonPrice}, #{lessonInfo}, #{lessonInfoPic}, #{lessonTeacher}, #{lessonMaxNo}, #{lessonStartTime}, #{lessonEndTime} -1, '', #{writer}, #{lessonCity})
+		INSERT INTO LESSON VALUES (LESSON_SEQ.NEXTVAL, #{lessonNameLevel}, #{lessonTitle}, #{lessonPrice}, #{lessonInfo}, #{lessonInfoPic}, #{lessonTeacher}, #{lessonMaxNo}, #{lessonStartTime}, #{lessonEndTime}, -1, '', #{writer}, #{lessonCity})
 		<selectKey resultType="_int" order="AFTER" keyProperty="lessonNo">
 			SELECT MAX(LESSON_NO) FROM LESSON
 		</selectKey>

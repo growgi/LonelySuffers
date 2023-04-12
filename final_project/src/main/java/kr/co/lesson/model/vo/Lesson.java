@@ -1,7 +1,5 @@
 package kr.co.lesson.model.vo;
 
-import java.util.ArrayList;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +24,7 @@ public class Lesson {
 	private String lessonTeacher;		// 강사이름. MEMBER_NAME을 가져오는게 아니라, 판매자가 임의로 적는 값		
 	private int lessonMaxNo;			// 수업 당 정원. 최대재고량으로 인지하면 됨.
 	private String lessonStartTime;		// "HH:MM " 시작시간만, default(선택시간) 로우  하나 더
+	private int lessonTimeLength;		// 종료시간을 얻어내기 위해 받은 강습 소요시간 단위(분)
 	private String lessonEndTime;		// "HH:MM " 종료시간만
 	private int lessonStatus;			/* 상품 상태. 노출 여부를 결정함.
 											1 = 판매중. 전체공개
@@ -33,5 +32,5 @@ public class Lesson {
 										   -1 = 승인대기중. DB에는 insert됐지만, 고객들에게 노출되지는 않는 상품(게시물)
 	  									   -2 = 승인 반려됨. DB에는 insert됐지만, 고객들에게 노출되지는 않는 상품(게시물)	*/
 	private int lessonScore;			// 별평점후기 Table (RIVEIW)이 변경될때마다, oracle에서 trigger가 작동해서 LESSON 테이블의 LESSON_SCORE를 갱신
-	private String Writer;				// 상품등록자의 MEMBER_ID (글쓴이)
+	private String writer;				// 상품등록자의 MEMBER_ID (글쓴이)
 }

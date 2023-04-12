@@ -90,11 +90,11 @@
 								<h1 style="padding-bottom: 40px;">${lesson.lessonTitle }</h1>
 								<input type="hidden" name="lessonPrice" value="${lesson.lessonPrice }">
 								<h3><span style="font-size: 36px; font-weight: bold;"><fmt:formatNumber value="${lesson.lessonPrice }" pattern="#,###" /></span>원</h3>
-								<div class="col-md-9">
+								<div class="col-md-6">
 								</div>
-								<div class="col-md-3">
+								<div class="col-md-6">
 									<input type="hidden" name="lessonMaxNo" value="${lesson.lessonMaxNo }">
-									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</span></p>
+									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">${lesson.lessonNameLevel }</span> <span class="label label-info">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</span></p>
 								</div>
 							</div>
 							<div class="row">
@@ -154,7 +154,7 @@
 						<input type="text" name="lessonBookDate" id="bookStart" placeholder="강습일" required disabled>
         		</div>
 				<input type="hidden" name="lessonBookPrice">
-				<input type="submit" value="주문">
+				<button type="submit">주문</button>
         	</fieldset>
         </form>
         </div>

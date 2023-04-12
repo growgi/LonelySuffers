@@ -2,6 +2,8 @@ package kr.co.lesson.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import com.google.gson.Gson;
 import kr.co.lesson.model.service.LessonService;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.lesson.model.vo.LessonBook;
+import kr.co.member.model.vo.Member;
 
 @Controller
 public class LessonController {
@@ -34,7 +37,9 @@ public class LessonController {
 
 // 강습 상품 등록.  Lesson 테이블에 Row 1개 추가
 	@RequestMapping(value="/insertLesson.do")
-	public String insertLesson(Lesson l) {
+	public String insertLesson(Lesson l, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		l.setWriter(me.getMemberId());
 		int result = service.insertLesson(l);
 		if(result > 0) {
 	// 승인대기중으로 등록 성공 시 처리내용 작성 필요
