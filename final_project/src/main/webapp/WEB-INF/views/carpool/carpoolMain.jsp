@@ -129,7 +129,8 @@
 						<tfoot>
 							<tr>
 								<th colspan="6">
-									<button class="btn bc4 bs4" id="more-btn" currentCount ="0" value="1">더보기</button>
+									<button class="btn bc4 bs4" id="more-btn" currentCount ="0" value="1"
+									totalCount="${c.totalCount }">더보기</button>
 								</th>
 							</tr>
 						</tfoot>
@@ -280,10 +281,11 @@
 		});
 	});
 	
+
 	//필터링으로 해당 조건 검색해서 carpoolMain.jsp 에서 필터링된 리스트만 보이게한다.  
 	// (소) {중} [대]
  	$("#apply-btn").on("click", function(){
- 		console.log(1111);
+ 		
  		//선택을 0, 1, 2개 등 여러개 할 수 있는 요소들은 배열로 받아와야한다. 아래 checkbox 요소 세개에 해당
 		const departureTime = new Array();
 		const onewayRound = new Array();
@@ -329,10 +331,21 @@
 				 onewayRound : onewayRound,
 				 closure : closure
 			 };
-		console.log(data);
+		//data에 담겨있는 조건 그대로 토탈갯수
+		$.ajax({
+			url:"/carpoolCount.do",
+			type:"post",
+			data:data,
+			traditional:true, //배열로 받아올 때 추가해야한다. 
+			dataType : "json",
+			success : function(totalCount){
+				console.log(totalCount);
+			} 
+		});
+	/*
 		$.ajax({
 			 url : "/filterCarpool.do",
-			 type : "get",
+			 type : "post",
 			 data : data,
 			 traditional:true, //배열로 받아올 때 추가해야한다. 
 			 dataType : "json",
@@ -377,6 +390,7 @@
 				 console.log("서버호출 실패");
 			 }
 		});
+	*/
 	});
 	
 	//더보기 버튼 누를때 
@@ -400,7 +414,7 @@
 		});
 	});
 	*/
-
+	$("#apply-btn").click();
 	// 초기화 버튼 클릭 시
 	document.getElementById("reset-btn").addEventListener(
 			"click",

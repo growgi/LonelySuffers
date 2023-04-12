@@ -36,9 +36,14 @@ public class CarpoolService {
 		return dao.insertPassenger(match);
 	}
 	
-	//운전자의 카풀 등록하기
+	//운전자의 카풀 등록하기(controller에서는 registerCarpool)
 	public int insertCarpool(Carpool carpool) {
 		return dao.insertCarpool(carpool);
+	}
+	
+	//더보기 버튼 구현을 위한 카풀수 구하기
+	public ArrayList<Carpool> carpoolCount(Carpool carpool) {
+		return dao.carpoolCount(carpool);
 	}
 
 }
