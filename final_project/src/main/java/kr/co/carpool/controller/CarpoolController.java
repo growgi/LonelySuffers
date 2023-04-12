@@ -28,14 +28,16 @@ public class CarpoolController {
 	public String carpoolMain(Model model) {
 		ArrayList<Carpool> list = service.selectAllCarpool();
 		model.addAttribute("list",list);
+		//model.addAttribute("totalNumber", list.size());
 		return "carpool/carpoolMain";
 	}
 	//카풀 메인에서 '더보기'버튼 구현을 위한 등록된 카풀 갯수 구하기(필터해서 볼때도 필터된 리스트 사이에서 구현된다.)
+	@ResponseBody
 	@RequestMapping(value="/carpoolCount.do")
-	public String carpoolCount(Carpool carpool, Model model) {
-		ArrayList<Carpool> list = service.carpoolCount(carpool);
-		model.addAttribute("list", list);
-		return "carpool/carpoolMain";
+	public String carpoolCount(CarpoolFilter cf, Model model) {
+		System.out.println(cf);
+		int totalCount = service.totalCount(cf);		
+		return String.valueOf(totalCount);
 	}
 	
 	//탑승자의 카풀 신청하기! 카풀 메인의 개별 하나를 클릭 했을때 신청하는 상세 페이지로 넘어가기
@@ -73,8 +75,8 @@ public class CarpoolController {
 	//2. carpoolMain.do 처럼 ArrayList 가져오나?
 	@ResponseBody
 	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
-	public String filterCarpool(CarpoolFilter cf) {
-		ArrayList<Carpool> list = service.filterCarpool(cf);
+	public String filterCarpool(CarpoolFilter cf,int amount) {
+		ArrayList<Carpool> list = service.filterCarpool(cf, amount);
 		Gson gson = new Gson();
 		String result= gson.toJson(list);
 		System.out.println(result);
