@@ -8,6 +8,19 @@
 <title>Insert title here</title>
 </head>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+/*별점*/
+.rating-color{
+    color:#fbc634 !important;
+}
+.small-ratings i{
+  color:#cecece;   
+}
+</style>
+<link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="currProduct-wrapper product-wrapper admin-content">
@@ -61,7 +74,64 @@
 										<td>${h.writer }</td>
 										<td>${h.roomTitle }</td>
 										<td>${h.houseCity }</td>
-										<td>${h.houseScore }</td>
+										<td>
+										<c:choose>
+										<c:when test="${h.houseScore == 0 }">
+									            <div class="small-ratings">
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									            </div>
+										</c:when>
+										<c:when test="${h.houseScore == 1 }">
+									            <div class="small-ratings">
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									            </div>
+										</c:when>
+										<c:when test="${h.houseScore == 2 }">
+									            <div class="small-ratings">
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									            </div>
+										</c:when>
+										<c:when test="${h.houseScore == 3 }">
+									            <div class="small-ratings">
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star"></i>
+									                <i class="fa fa-star"></i>
+									            </div>
+										</c:when>
+										<c:when test="${h.houseScore == 4 }">
+									            <div class="small-ratings">
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star"></i>
+									            </div>
+										</c:when>
+										<c:when test="${h.houseScore == 5 }">
+									            <div class="small-ratings">
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									                <i class="fa fa-star rating-color"></i>
+									            </div>
+										</c:when>
+										</c:choose>
+										</td>
 										<td><c:choose>
 												<c:when test="${h.houseStatus == 1}">
 													<select class="status-change">

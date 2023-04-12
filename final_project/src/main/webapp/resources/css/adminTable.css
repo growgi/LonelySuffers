@@ -95,6 +95,11 @@ table>tr>td:last-child{
     line-height: 55px;
     text-align: center;
 }
+.list-top {
+	border-bottom: 1px solid rgb(238, 238, 238);
+}
+
+
 
 /*변화*/
 .list-detail-box>div>a:hover{

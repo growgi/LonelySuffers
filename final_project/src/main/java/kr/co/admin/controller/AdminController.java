@@ -7,9 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.Gson;
 
 import kr.co.admin.model.service.AdminService;
 import kr.co.admin.model.vo.Search;
@@ -347,7 +344,7 @@ public class AdminController {
 		}
 	}
 	
-	/*5. 판매내역*/
+	/**5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
 	public String salesDetails(Model model) {
 		ArrayList<Order> orderList = service.selectAllOrder();
@@ -386,10 +383,8 @@ public class AdminController {
 	@RequestMapping(value="/adminSearchMemberSalesDetails.do")
 	public String adminSearchMemberSalesDetails(String searchType,String searchKeyword, Model model) {
 		Search sp = new Search(searchType, searchKeyword);
-		//System.out.println(searchType);
-		//System.out.println(searchKeyword);
+		
 		ArrayList<Order> orderList = service.selectSearchSalesDetails(sp);
-		System.out.println(orderList);
 		if(orderList != null) {			
 			model.addAttribute("orderList", orderList);
 			return "admin/salesDetails";
@@ -404,8 +399,6 @@ public class AdminController {
 		Order orderDetailInfo = service.selectOrderDetailInfo(orderNo);
 		ArrayList<Order> orderDetailList = service.selectOrderDetail(orderNo);
 		int orderDetailCount = service.selectOrderDetailCount(orderNo);
-		
-		//System.out.println(orderDetailList);
 		
 		model.addAttribute("orderDetailInfo", orderDetailInfo);
 		model.addAttribute("orderDetailList", orderDetailList);

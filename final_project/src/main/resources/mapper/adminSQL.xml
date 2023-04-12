@@ -380,10 +380,10 @@
 		from order_tbl
 		join member_tbl using(member_no)
 		<choose>
-			<when test="searchType.equals('i')">
+			<when test='searchType.equals("i")'>
 				where member_id like '%'||#{searchKeyword}||'%'
 			</when>
-			<when test="searchType.equals('o')">
+			<when test='searchType.equals("op")'>
 				<choose>
 					<when test="searchKeyword.equals('강습')">
 						where order_product = 1
