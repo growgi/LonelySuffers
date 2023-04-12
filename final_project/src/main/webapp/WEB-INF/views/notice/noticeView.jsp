@@ -59,8 +59,10 @@
 					<table>
 						<tr>
 							<th colspan="6">
-								<a href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a>
-								<a href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>
+								<c:if test="${sessionScope.m.memberGrade == 1}">
+									<a href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a>
+									<a href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>
+								</c:if>
 							</th>
 						</tr>
 					</table>	

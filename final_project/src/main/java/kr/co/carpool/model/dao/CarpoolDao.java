@@ -45,11 +45,17 @@ public class CarpoolDao {
 		int result = sqlSession.insert("carpool.insertCarpool", carpool);
 		return result;
 	}
+
+	public int totalCount(CarpoolFilter cf) {
+		int result = sqlSession.selectOne("carpoolFilter.totalCount", cf);
+		return result;
+	}
+
+	public int moreCarpool(CarpoolFilter cf, int start, int amount) {
+		
+		return 0;
+	}
 	
 	//더보기 버튼 구현을 위한 카풀수 구하기
-	public ArrayList<Carpool> carpoolCount(Carpool carpool) {
-		List list = sqlSession.selectList("carpoolFilter.totalCount", carpool);
-		return (ArrayList<Carpool>)list;
-	}
 
 }

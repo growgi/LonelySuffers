@@ -44,6 +44,33 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
+					<table>
+						<tr>
+							<th>${faq.faqNo }</th>
+								<c:choose>
+									<c:when test="${fq.categoryNo == 1}">
+										<td>예약취소</td>
+									</c:when>
+									<c:when test="${fq.categoryNo == 2}">
+										<td>숙박</td>
+									</c:when>
+									<c:when test="${fq.categoryNo == 3}">
+										<td>강습</td>
+									</c:when>
+									<c:when test="${fq.categoryNo == 4}">
+										<td>카풀</td>
+									</c:when>
+									<c:when test="${fq.categoryNo == 5}">
+										<td>후기</td>
+									</c:when>
+									<c:when test="${fq.categoryNo == 6}">
+										<td>회원서비스</td>
+									</c:when>
+								</c:choose>
+							<th>${faq.categoryNo }</th>
+							<th>${faq.faqContent }</th>
+						</tr>
+					</table>
 					
 					
 				

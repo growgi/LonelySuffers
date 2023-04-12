@@ -120,7 +120,7 @@
 							</tr>
 						</thead>
 						
-						<tbody  class="carpoolListWrapper list-wrap">
+						<tbody  class="carpoolListWrapper">
 							<!-- 얘네들이 반복돼야해!! Carpool list all -->
 							
 						
@@ -129,8 +129,7 @@
 						<tfoot>
 							<tr>
 								<th colspan="6">
-									<button class="btn bc4 bs4" id="more-btn" currentCount ="0" value="1"
-									totalCount="${c.totalCount }">더보기</button>
+									<button class="btn bc4 bs4" id="more-btn">더보기</button>
 								</th>
 							</tr>
 						</tfoot>
@@ -285,6 +284,9 @@
 	//필터링으로 해당 조건 검색해서 carpoolMain.jsp 에서 필터링된 리스트만 보이게한다.  
 	// (소) {중} [대]
  	$("#apply-btn").on("click", function(){
+ 		//검색을 해서 다시 돌아갔다가 다시 검색을 했을때 더보기 버튼 활성화
+ 			$("#more-btn").prop("disabled", false)
+ 			$("#more-btn").css("cursor", "")
  		
  		//선택을 0, 1, 2개 등 여러개 할 수 있는 요소들은 배열로 받아와야한다. 아래 checkbox 요소 세개에 해당
 		const departureTime = new Array();
@@ -331,15 +333,26 @@
 				 onewayRound : onewayRound,
 				 closure : closure
 			 };
+		
+		console.log(data);
 		//data에 담겨있는 조건 그대로 토탈갯수
+		const start	= Number($(".carpool-wrap")) + 1;
+		const amount = 5;
+		$(".carpoolListWrapper").empty();
 		$.ajax({
 			url:"/carpoolCount.do",
 			type:"post",
-			data:data,
+			data: data,
 			traditional:true, //배열로 받아올 때 추가해야한다. 
 			dataType : "json",
 			success : function(totalCount){
 				console.log(totalCount);
+				//push는 배열, append는 태그 사이 추가 
+				$("#more-btn").val(1);
+				$("#more-btn").attr("totalCount", totalCount);
+				$("#more-btn").attr("currentCount", 0);
+				$("#more-btn").click();
+				
 			} 
 		});
 	/*
@@ -398,22 +411,120 @@
 	//그 기능을 유지하면서 ajax로 사용 가능할까.
 	//1)원래 빈 화면에서 기본적으로 첫번째는 더보기 버튼이 한번 눌려진채로 나오게 한다(빈화면이 되지않도록) -> web-workspace에 7.mvc2 photoList 참조.
 	
-	/*
+
 	$("#more-btn").on("click", function(){
 		const start = $(this).val();
 		const amount = 5;
-		const data ={
-				
+		//선택을 0, 1, 2개 등 여러개 할 수 있는 요소들은 배열로 받아와야한다. 아래 checkbox 요소 세개에 해당
+		const departureTime = new Array();
+		const onewayRound = new Array();
+		const closure = new Array();
+		
+		const departureRegion = $("#departureRegion").val();
+		//배열로 받아오는 요소 
+		const am = $("#am:checked").val();
+		const pm = $("#pm:checked").val();
+		if(am){
+			departureTime.push(am);
 		}
+		if(pm){
+			departureTime.push(pm);
+		}
+		const arrivalRegion = $("#arrivalRegion").val();
+		const minPrice = $("#minPrice").val()===""?0:$("#minPrice").val(); //삼학연산자로 빈칸이면 0, 빈칸이아니면 적힌 값 들고오기
+		const maxPrice = $("#maxPrice").val()===""?0:$("#maxPrice").val(); //삼학연산자로 빈칸이면 0, 빈칸이아니면 적힌 값 들고오기
+		
+		const oneway = $("#oneway:checked").val();
+		const round = $("#round:checked").val();
+		if(oneway){
+			onewayRound.push(oneway)
+		}
+		if(round){
+			onewayRound.push(round)
+		}
+		
+		const opened = $("#opened:checked").val();
+		const closed = $("#closed:checked").val();
+		if(opened){
+			closure.push(opened);
+		}
+		if(round){
+			closure.push(closed);
+		}
+		const data ={
+				 departureRegion : departureRegion,
+				 departureTime : departureTime,
+				 arrivalRegion : arrivalRegion,
+				 minPrice : minPrice,
+				 maxPrice : maxPrice,
+				 onewayRound : onewayRound,
+				 closure : closure,
+				 start: start,
+				 amount : amount
+				 
+			 };
 		$.ajax({
-			url : "/carpoolMain.do",
-			type: "post",
-			data : data,
-			dataType= json,
-			
+			 url : "/filterCarpool.do",
+			 type : "post",
+			 data : data,
+			 traditional:true, //배열로 받아올 때 추가해야한다. 
+			 dataType : "json",
+			 success : function(data){
+				 console.log(data);
+				 
+				 for(let i=0; i<data.length; i++){
+					 
+			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor", "pointer").click(function(){
+			                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
+			            });
+			            const td1 = $("<td>").text(data[i].departureDate);
+			            
+			            const td2 = $("<td>").append($("<span>").css("display", "none").text(data[i].regDate))
+			            .append($("<img>").attr("src", "/resources/images/carpool/destination.png").attr("alt", "img").css("width", "45px").css("height", "50px"));
+			            const td3 = $("<td>");
+			            if(data[i].onewayRound == 1){
+			            	 td3.append($("<div>").addClass("row onewayRound").text("편도"))
+					            .append($("<div>").addClass("row region").text(data[i].departureRegion))
+					            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            }else if(data[i].onewayRound == 2){
+			            	 td3.append($("<div>").addClass("row onewayRound").text("왕복"))
+					            .append($("<div>").addClass("row region").text(data[i].departureRegion))
+					            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            }
+			            const td4 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""))
+			            .append($("<div>").addClass("row district").text(data[i].departureDistrict))
+			             .append($("<div>").addClass("row district").text(data[i].arrivalDistrict));
+	
+			            const td5 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""))
+			            .append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));
+			           
+			            tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+			            $(".carpoolListWrapper").append(tr);
+			    }
+				 //화면에 추가 완료 시점
+				 //->다음 더보기를 위한 값 수정
+				 const currentVal = Number($("#more-btn").val()); 
+				 $("#more-btn").val(currentVal+amount);
+				 //currentCount값도 변경
+				 const currentCount = Number($("#more-btn").attr("currentCount"));
+				 const changeCount = currentCount+data.length;
+				 $("#more-btn").attr("currentCount",changeCount);
+				 const totalCount = Number($("#more-btn").attr("totalCount"));
+				 
+				 //더 나올 사진이 없을 때 더보기 버튼 비활성화
+				 if(changeCount == totalCount){
+			 			$("#more-btn").prop("disabled", true)
+			 			$("#more-btn").css("cursor", "not-allowed");
+				 }
+				//모달닫기
+				$("#exit-mymodal").click();
+			 },
+			 error : function(){
+				 console.log("서버호출 실패");
+			 }
 		});
 	});
-	*/
+
 	$("#apply-btn").click();
 	// 초기화 버튼 클릭 시
 	document.getElementById("reset-btn").addEventListener(

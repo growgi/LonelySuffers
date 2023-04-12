@@ -59,7 +59,9 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<a href="/faqWriterFrm.do">글쓰기</a>
+					<c:if test="${sessionScope.m.memberGrade == 1}">
+						<a href="/faqWriterFrm.do">글쓰기</a>
+					</c:if>	
 					<div class="tab">
 						<ul>
 							<li>예약취소</li>

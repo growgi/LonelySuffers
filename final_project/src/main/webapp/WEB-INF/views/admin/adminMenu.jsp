@@ -137,9 +137,6 @@
     .menu-detail-title>div{
         margin-left: 5px;
     }
-    .menu-detail{
-        display: none;
-    }
     .menu-detail>li>a{
         display: block;
         padding: 15px;
@@ -177,7 +174,7 @@
                     <div class="menu-detail-title">
                         <span class="material-symbols-outlined">group</span>
                         <div>회원관리</div>
-                        <span class="material-symbols-outlined right-navi">chevron_right</span>
+                        <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
                     </div>
                     <ul class="menu-detail">
                         <li><a href="/memberList.do">회원 목록</a></li>
@@ -188,11 +185,11 @@
                     <div class="menu-detail-title">
                         <span class="material-symbols-outlined">inventory</span>
                         <div>상품 관리</div>
-                        <span class="material-symbols-outlined right-navi">chevron_right</span>
+                        <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
                     </div>
                     <ul class="menu-detail">
-                        <li><a href="/newProduct.do">신규 상품 승인</a></li>
-                        <li><a href="/productList.do">등록된 상품 관리</a></li>
+                        <li><a href="/newProductLesson.do">신규 상품 승인</a></li>
+                        <li><a href="/productListLesson.do">등록된 상품 관리</a></li>
                         <li><a href="/salesDetails.do">판매 내역</a></li>
                     </ul>
                 </li>
@@ -200,7 +197,7 @@
                     <div class="menu-detail-title">
                         <span class="material-symbols-outlined">fact_check</span>
                         <div>문의사항 관리</div>
-                        <span class="material-symbols-outlined right-navi">chevron_right</span>
+                        <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
                     </div>
                     <ul class="menu-detail">
                         <li><a href="/adminChat.do">1:1 문의</a></li>
@@ -251,10 +248,10 @@
 
     /*왼쪽 메뉴*/
     $(".menu-detail-title").on("click",function(){
-        $(".menu-detail-title").next().hide();
+        //$(".menu-detail-title").next().hide();
         $(".menu-detail-title").parent().removeClass("action-menu-detail");
 
-        $(this).next().slideToggle();
+        //$(this).next().slideToggle();
         $(this).parent().toggleClass("action-menu-detail");
     });
     $(".menu-detail>li").on("mouseover",function(){

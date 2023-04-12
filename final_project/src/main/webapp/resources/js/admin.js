@@ -4,7 +4,7 @@ $(".search-bar>input").on("click",function(){
 });
 
 
-/*상품 선택에 따라 리스트 조회*/
+/*상품 선택에 따라 리스트 조회
 $(".product-choice>div:first-of-type").on("click",function(){
     $(".product-choice>div").removeClass("active-product-choice");
     $(".product-choice>div:first-of-type").addClass("active-product-choice");
@@ -23,7 +23,7 @@ $(".product-choice>div:last-of-type").on("click",function(){
 
     $(".lesson-list").hide();
     $(".house-list").show();
-});
+});*/
 
 
 /*상품리스트 상세설정*/
@@ -85,7 +85,7 @@ $(".checkedChangeGrade").on("click",function(){
 });
 
 
-/*엔터키 치면 검색창 자동 submit
+/*엔터키 치면 검색창 자동 submit*/
 function enterkey() {
     if (window.event.keyCode == 13) {
          // 엔터키가 눌렸을 때 실행할 내용
@@ -96,4 +96,4 @@ function enterkey() {
 //돋보기 클릭하면 검색창 submit
 $(".search-icon").on("click",function(){
     $(".search-bar").submit();
-});*/
+});
