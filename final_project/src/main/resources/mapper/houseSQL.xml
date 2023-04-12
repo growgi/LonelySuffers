@@ -37,15 +37,22 @@
 	</select>
 
 <!-- 키오스크 조건에 맞는 숙소리스트 -->
-	<select id="selectRoomList" parameterType = "h" resultType="h">
-		SELECT HOUSE_NO, TOTAL FROM
-		(SELECT R.HOUSE_NO, COUNT(*) AS TOTAL FROM ROOM R LEFT JOIN HOUSE H ON R.HOUSE_NO = H.HOUSE_NO WHERE ROOM_ENABLE =1 AND ROOM_CAPA>#{roomCapa} ROOM_NO NOT IN
+	<select id="selectRoomList" parameterType = "h" resultMap="getHouse">
+	
+		SELECT R.HOUSE_NO, H.HOUSE_TITLE, H.ROOM_CAPA, NVL(HOUSE_BARBECUE_PRICE,0), NVL(HOUSE_PARTY_PRICE,0) 
+		FROM ROOM R LEFT JOIN HOUSE H ON R.HOUSE_NO = H.HOUSE_NO 
+		WHERE ROOM_ENABLE = 1 
+		<if test="#{houseBarbecue == 1}">AND HOUSE_BARBECUE = 1</if>
+		<if test="#{houseParty == 1}">AND HOUSE_PARTY = 1</if>
+		AND H.ROOM_CAPA>#{roomCapa} AND ROOM_NO NOT IN
 		(SELECT R.ROOM_NO FROM
 		ROOM R LEFT JOIN HOUSE H ON R.HOUSE_NO = H.HOUSE_NO
 		LEFT JOIN ROOM_BOOK B ON R.ROOM_NO = B.ROOM_NO
-		WHERE #{bookStartDate} BETWEEN BOOK_START_DATE AND BOOK_END_DATE OR #{bookEndDate} BETWEEN BOOK_START_DATE AND BOOK_END_DATE) GROUP BY R.HOUSE_NO ORDER BY HOUSE_NO ASC)
-		WHERE TOTAL > 0;
+		WHERE #{bookStartDate} BETWEEN BOOK_START_DATE AND BOOK_END_DATE OR #{bookEndDate} BETWEEN BOOK_START_DATE AND BOOK_END_DATE) ORDER BY HOUSE_NO ASC
 	</select>
+
+
+
 
 <!-- 숙박 상품 House 의 모든 column에 대한 resultMap -->
 	<resultMap type="h" id="getHouse">
