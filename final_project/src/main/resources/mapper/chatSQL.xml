@@ -14,7 +14,7 @@
 	</select>
 	
 	<insert id="insertChatActive" parameterType="string">
-		insert into chat_active values (chat_active_seq.nextVal,#{_parameter},1)
+		insert into chat_active values (chat_active_seq.nextVal,#{_parameter},2)
 	</insert>
 		
 	<select id="selectChatContent" parameterType="string" resultType="cc">
@@ -36,7 +36,7 @@
 	</insert>
 	
 	<update id="updateChatActivation" parameterType="_int">
-		update chat_active set chat_activation = 1 where where chat_active = #{_parameter}
+		update chat_active set chat_activation = 1 where chat_active_no = #{_parameter}
 	</update>
 	
 	<insert id="insertSendChat" parameterType="cc">

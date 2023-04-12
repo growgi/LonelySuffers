@@ -45,7 +45,7 @@
 		<div class="adminChatContent">
 			<c:forEach items="${list }" var="ca" varStatus="status">
 				<ul>
-					<li><div class="active_chat_title"><input type="hidden" id="memberId" value="${ca.memberId }"><div>${status.count }</div><div>${ca.memberId }</div><div>
+					<li><div class="active_chat_title"><input type="hidden" class="memberId" value="${ca.memberId }"><div>${status.count }</div><div>${ca.memberId }</div><div>
 						<c:choose>
 							<c:when test="${ca.chatActivation == 1}">
 								채팅중
@@ -61,7 +61,7 @@
 							</div>
 							<div class="sendBox">
 							<input type="text" id="sendMsg">
-							<button id="sendBtn" onClick="sendMsg();">전송</button> 
+							<button id="sendBtn" onClick="sendMsg('${ca.memberId }');">전송</button> 
 							</div>
 						</div>
 					</li>

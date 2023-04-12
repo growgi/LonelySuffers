@@ -43,86 +43,14 @@ public class ChatHandler extends TextWebSocketHandler{
 		JsonElement element = JsonParser.parseString(receiveMsg);
 		System.out.println("element : "+element);
 		String type = element.getAsJsonObject().get("type").getAsString();
-		if(type.equals("start")) {
-			String memberId = element.getAsJsonObject().get("msg").getAsString();
-			System.out.println("memberId : "+memberId);
-			connectionMemberList.put(memberId, session);
-			memberIdList.put(session,memberId);
-			System.out.println(connectionMemberList);
-			ChatActive ca = service.selectChatActive(memberId);
-			int result;
-			if(ca.getChatActivation() == 2) {
-				service.updateChatActivation(ca.getChatActiveNo());
-				result = service.insertChatStart(ca);
-			}else {
-				result = 1;
-			}
-			System.out.println(result);
-			JsonObject obj = new JsonObject();
-			System.out.println();
-			if(result != 0) {
-				obj.addProperty("type", "startCondition");
-				obj.addProperty("msg", "ok");
-				String resultStr = new Gson().toJson(obj);
-				TextMessage tm = new TextMessage(resultStr);
-				session.sendMessage(tm);
-			}else {
-				obj.addProperty("type", "startCondition");
-				obj.addProperty("msg", "no");
-				String resultStr = new Gson().toJson(obj);
-				TextMessage tm = new TextMessage(resultStr);
-				session.sendMessage(tm);
-			}
-		}else if(type.equals("send")) {
-			String chatContent = element.getAsJsonObject().get("msg").getAsString();
-			String memberId = memberIdList.get(session);
-			String sender = element.getAsJsonObject().get("sender").getAsString();
-			ChatActive ca = service.selectChatActive(memberId);
-			int chatActiveNo = ca.getChatActiveNo();
-			int result;
-			System.out.println("memberId : "+memberId);
-			System.out.println("sender : "+sender);
-			if(memberId.equals(sender)) {
-				//유저가 관리자에게 보낼때
-				ChatContent cc = new ChatContent();
-				cc.setChatActiveNo(chatActiveNo);
-				cc.setMemberId(sender);
-				cc.setChatContent(chatContent);
-				cc.setSenderCheck(1);
-				result = service.insertSendChat(cc);
-			}else {
-				//관리자가 유저에게 보낼때
-				ChatContent cc = new ChatContent();
-				cc.setChatActiveNo(chatActiveNo);
-				cc.setMemberId(sender);
-				cc.setChatContent(chatContent);
-				cc.setSenderCheck(2);
-				result = service.insertSendChat(cc);
-			}
-			if(result != 0) {
-				WebSocketSession adminSession = connectionMemberList.get("admin");
-				WebSocketSession userSession = connectionMemberList.get(sender);
-				JsonObject obj = new JsonObject();
-				obj.addProperty("type", "sendCondition");
-				obj.addProperty("msg", "ok");
-				String resultStr = new Gson().toJson(obj);
-				TextMessage tm = new TextMessage(resultStr);
-				if(adminSession != null) {
-					adminSession.sendMessage(tm);
-				}
-				userSession.sendMessage(tm);
-			}else {
-				JsonObject obj = new JsonObject();
-				obj.addProperty("type", "sendCondition");
-				obj.addProperty("msg", "no");
-				String resultStr = new Gson().toJson(obj);
-				TextMessage tm = new TextMessage(resultStr);
-				session.sendMessage(tm);
-			}
-		}else if(type.equals("adminStart")) {
+		if(type.equals("login")) {
 			String memberId = element.getAsJsonObject().get("memberId").getAsString();
 			connectionMemberList.put(memberId, session);
-			memberIdList.put(session,memberId);
+			memberIdList.put(session, memberId);
+		}else if(type.equals("logout")){
+			String memberId = element.getAsJsonObject().get("memberId").getAsString();
+			connectionMemberList.remove(memberId);
+			memberIdList.remove(session);
 		}
 	}
 	
