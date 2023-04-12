@@ -26,7 +26,9 @@
 			<div class="container">
 				<div class="row">
 					<h1 style="text-align: center;">공지사항</h1>
+					<c:if test="${sessionScope.m.memberGrade == 1}">
 					<a href="/noticeWriteFrm.do">글쓰기</a>
+					</c:if>
 					<form action="/searchNoticeTitle.do">
 						조회할 제목 입력 :
 						<input type="text" name="NoticeTitle">
@@ -34,24 +36,26 @@
 					</form>
 					<br>
 					<br>
-					<table class="table table-hover">
+					<table class="table">
 						<tr>
 							<th class="nt" style="width:15%">번호</th>
 							<th class="nt" style="width:60%">제목</th>
 							<th class="nt" style="width:25%">작성일</th>
 						</tr>
+					</table>	
+					<table class="table table-hover">
 						<c:forEach items="${list }" var="n">
 							<tr>
-								<td class="nt">${n.noticeNo }</td>
+								<td class="nt" style="width:15%">${n.noticeNo }</td>
 								<td>
 									<a href="/noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle }</a>				
 								</td>
-								<td class="nt">${n.noticeDate }</td>
+								<td class="nt" style="width:25%">${n.noticeDate }</td>
 							</tr>
 						</c:forEach>
 					</table>
 					<div>
-						<div class="pagination" style="text-align: center;">${pageNavi }</div>
+						<div style="text-align: center;">${pageNavi }</div>
 					</div>
 				</div>
 			</div>

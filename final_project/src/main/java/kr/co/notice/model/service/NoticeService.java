@@ -35,27 +35,38 @@ public class NoticeService {
 			pageNo = reqPage - 2;
 		}
 		
-		String pageNavi = "";
+		String pageNavi = "<ul class='pagination'>";;
 		
 		if(pageNo != 1) {
+			pageNavi += "<li>";
 			pageNavi += "<a href='/noticeList.do?reqPage="+(pageNo-1)+"'>[이전]</a>";
+			pageNavi += "</li>";
 		}
 		
 		for(int i=0;i<pageNaviSize;i++) {
 			if(pageNo == reqPage) {
+				pageNavi += "<li>";
 				pageNavi += "<span>"+pageNo+"</span>";
+				pageNavi += "</li>";
 			}else {
+				pageNavi += "<li>";
 				pageNavi += "<a href='noticeList.do?reqPage="+pageNo+"'>"+pageNo+"</a>";
+				pageNavi += "</li>";
 			}
 			pageNo++;
 			if(pageNo > totalPage) {
 				break;
 			}
+			
 		}
 		
 		if(pageNo <= totalPage) {
 			pageNavi += "<a href='noticeList.do?reqPage="+pageNo+"'>[다음]</a>";
 		}
+		pageNavi += "</ul>";
+		
+		
+		
 		NoticePageData npd = new NoticePageData(list, pageNavi);
 		return npd;
 	}

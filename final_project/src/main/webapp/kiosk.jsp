@@ -847,26 +847,36 @@ $("document").ready(function() {
 			$(".title").text("조건에 맞는 방 리스트예요~!")
 		//숙소 리스트 ajax
 			const result = $(".rooms-wrap");
-			const bookStartDate = $("#bookStartDate");
-			const bookEndDate = $("#bookEndDate");
-			const roomCapa = $("#people-value");
+			const bookStartDate = $("#bookStartDate").val();
+			const bookEndDate = $("#bookEndDate").val();
+			const roomCapa = $("#people-value").val();
+			const houseBarbecue = $("#barbecue-choice").val();
+			const houseParty = $("#party-choice").val();
 			result.empty();
 			$.ajax({
 				url : "/roomList.do",
 				type : "get",
-				data : {bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomCapa : roomCapa},
+				data : {bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomCapa : roomCapa, houseBarbecue : houseBarbecue, houseParty : houseParty},
 				dataType : "json",
 				success : function(data){
+					console.log("ajax");
 					for(let i=0;i<data.length;i++){
 						const div=$("<div></div>");
-						div.append(data[i].roomTitle);
+						div.append(data[i].houseTitle);
 						div.append("/");
-						div.append(data[i].roomCapa);
+						div.append(data[i].roomCapa+"명");
+						div.append("/");
+						div.append("바베큐값:"+data[i].houseBarbecuePrice+"원");
+						div.append("/");
+						div.append("파티값:"+data[i].housePartyPrice+"원");
 						div.append("/");
 						
 						result.append(div);
 					}
-				}
+				},
+					error : function(){
+						console.log("객실을 먼저 선택해주세요에 focus됨");
+					}
 			});
 	});
 	$(".page4-pass").on('click',function(){
