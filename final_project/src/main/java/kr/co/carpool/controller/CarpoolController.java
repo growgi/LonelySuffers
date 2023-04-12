@@ -30,7 +30,13 @@ public class CarpoolController {
 		model.addAttribute("list",list);
 		return "carpool/carpoolMain";
 	}
-
+	//카풀 메인에서 '더보기'버튼 구현을 위한 등록된 카풀 갯수 구하기(필터해서 볼때도 필터된 리스트 사이에서 구현된다.)
+	@RequestMapping(value="/carpoolCount.do")
+	public String carpoolCount(Carpool carpool, Model model) {
+		ArrayList<Carpool> list = service.carpoolCount(carpool);
+		model.addAttribute("list", list);
+		return "carpool/carpoolMain";
+	}
 	
 	//탑승자의 카풀 신청하기! 카풀 메인의 개별 하나를 클릭 했을때 신청하는 상세 페이지로 넘어가기
 	@RequestMapping(value="/carpoolRequest.do")

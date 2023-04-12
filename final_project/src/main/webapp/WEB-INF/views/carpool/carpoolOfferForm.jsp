@@ -19,8 +19,8 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-<link rel="stylesheet" href="resources/css/carpool/carpoolOffer.css">
-<link rel="stylesheet" href="resources/css/carpool/carpoolReg.css">
+<link rel="stylesheet" href="/src/main/webapp/resources/css/carpool/carpoolOffer.css">
+<link rel="stylesheet" href="/src/main/webapp/resources/css/carpool/carpoolReg.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 
@@ -46,7 +46,7 @@
 		<section class="section" style="padding-top: 0px; padding-bottom: 30px;">
 			<div class="container"style="width: 850px; margin-top: 20px; padding: 20px;">
 				<div class="row" style="border: 1px solid black; border-radius: 20px;">
-					 <form action="/registerCarpool.do" method="post"> <!-- registerCarpool.do로 가고서 그게 결국에 carpoolMain.do에 insert하는거다. -->
+					 <form action="/registerCarpool.do" method="post"> 
 					    <table style="border: 1px solid #fff; width: 500px;"> 
 					        <tbody> 
 					  
@@ -108,14 +108,16 @@
 					    </div>
 					    <div class="content-wrap">
 					        <div class="tabcontent" style="margin-bottom: 30px;">
-					            <table> <!-- 선생님 여기 테이블은 일부러 두신건가요? 사라지면 또... 형태가 ㅠㅠㅠ-->
+					            <table> 
 					                <tbody> 
 					                    <tr class="depart"> 
 					                        <th style="width:35%; text-align:center;">출발</th> 
 					                        <td>
-					                            <!--daterangePicker-->
+					                        	<div>
+					                            <!--daterangepicker-->
 					                            <input type="text" id="departureDate" name="departureDate" required>
 					                            <div id="calendar-area"></div>
+					                        	</div>
 					                        </td>
 					                        <td>
 					                            <!--오전 오후 중에 체크하는 radio-->
@@ -125,7 +127,7 @@
 					                            <label for="pm-time">오후</label>		
 					                        </td>
 					                    </tr> 
-					                    <!-- daterangePicker
+					                    <!-- daterangepicker
 					                     <tr class="arrive"> 
 					                        <th style="width:35%; text-align:center;">복귀</th> 
 					                        <td>
