@@ -7,9 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.Gson;
 
 import kr.co.admin.model.service.AdminService;
 import kr.co.admin.model.vo.Search;
@@ -140,19 +137,26 @@ public class AdminController {
 	
 	
 	/**3. 신규 상품 승인*/
-	@RequestMapping(value="/newProduct.do")
-	public String newProduct(Model model) {
+	@RequestMapping(value="/newProductLesson.do")
+	public String newProductLesson(Model model) {
 		ArrayList<Lesson> lessonList = service.selectNewLesson(); //신규 강습 상품 목록
-		ArrayList<House> houseList = service.selectNewHouse(); //신규 숙박 상품 목록
 		int newLessonCount = service.selectNewLessonCount(); //신규 강습 상품 수
-		int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
 		
 		model.addAttribute("lessonList", lessonList);
-		model.addAttribute("houseList", houseList);
 		model.addAttribute("newLessonCount", newLessonCount);
+		
+		return "admin/newProductLesson";
+	}
+	
+	@RequestMapping(value="/newProductHouse.do")
+	public String newProductHouse(Model model) {
+		ArrayList<House> houseList = service.selectNewHouse(); //신규 숙박 상품 목록
+		int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
+		
+		model.addAttribute("houseList", houseList);
 		model.addAttribute("newHouseCount", newHouseCount);
 		
-		return "admin/newProduct";
+		return "admin/newProductHouse";
 	}
 
 	//승인
@@ -162,9 +166,13 @@ public class AdminController {
 		int result = service.updateApproveProduct(productType, productNo);
 		
 		if(result>0) {
-			return "redirect:/newProduct.do";
+			if(productType == 2) {
+				return "redirect:/newProductHouse.do";
+			} else {
+				return "redirect:/newProductLesson.do";
+			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
@@ -174,9 +182,13 @@ public class AdminController {
 		boolean result = service.updateCheckedApproveProduct(productType, no);
 		
 		if(result) {
-			return "redirect:/newProduct.do";
+			if(productType == 2) {
+				return "redirect:/newProductHouse.do";
+			} else {
+				return "redirect:/newProductLesson.do";
+			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
@@ -187,72 +199,111 @@ public class AdminController {
 		int result = service.updateReturnProduct(productType, productNo);
 		
 		if(result>0) {
-			return "redirect:/newProduct.do";
+			if(productType == 2) {
+				return "redirect:/newProductHouse.do";
+			} else {
+				return "redirect:/newProductLesson.do";
+			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
 	@RequestMapping(value="/checkedReturnProduct.do")
 	public String checkedReturnProduct(int productType, String no) {
+		System.out.println("productType:"+productType);
+		System.out.println("no:"+no);
+		
 		//체크된 상품
 		boolean result = service.updateCheckedReturnProduct(productType, no);
 		
 		if(result) {
-			return "redirect:/newProduct.do";
+			if(productType == 2) {
+				return "redirect:/newProductHouse.do";
+			} else {
+				return "redirect:/newProductLesson.do";
+			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
 	//검색
-	@ResponseBody
-	@RequestMapping(value="/adminSearchLesson.do", produces = "application/json;charset=utf-8") //한글 인코딩
-	public String adminSearchLesson(String searchType, String searchKeyword, Model model) {
-		Search sp = new Search(searchType, searchKeyword);
-		System.out.println("searchType:"+searchType);
-		System.out.println("searchKeyword:"+searchKeyword);
+	@RequestMapping(value="/adminSearchLesson.do")
+	public String adminSearchLesson(String jspPage, String lessonSearchType, String lessonSearchKeyword, Model model) {
+		Search sp = new Search(lessonSearchType, lessonSearchKeyword);
 		
 		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
-		System.out.println(lessonList.size());
-		System.out.println(lessonList);
 		
-		return new Gson().toJson(lessonList);
-		/*
-		 * if(!lessonList.isEmpty()) { } else { return "redirect:/productList.do"; }
-		 */
+		if(lessonList != null) { 
+			model.addAttribute("lessonList", lessonList);
+			
+			if(jspPage.equals("nl")) {
+				return "admin/newProductLesson";
+			} else if(jspPage.equals("pl")) {
+				return "admin/productListLesson";
+			} else {
+				return "redirect:/memberList.do"; 
+			}
+		} else { 
+			return "redirect:/memberList.do"; 
+		}
 		
 	}
 	
 	@RequestMapping(value="/adminSearchHouse.do")
-	public String adminSearchHouse(String searchType, String searchKeyword, Model model) {
-		Search sp = new Search(searchType, searchKeyword);
+	public String adminSearchHouse(String jspPage, String houseSearchType, String houseSearchKeyword, Model model) {
+		Search sp = new Search(houseSearchType, houseSearchKeyword);
 		
 		ArrayList<House> houseList = service.selectSearchHouse(sp);
 		
-		if(!houseList.isEmpty()) {			
+		if(houseList != null) {			
 			model.addAttribute("houseList",houseList);
-			return "redirect:/newProduct.do";
+			
+			if(jspPage.equals("nl")) {
+				return "admin/newProductHouse";
+			} else if(jspPage.equals("pl")) {
+				return "admin/productListHouse";
+			} else {
+				return "redirect:/memberList.do"; 
+			}
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/memberList.do";
 		}
 		
 	}
 	
 	/**4. 등록된 상품 관리*/
-	@RequestMapping(value="/productList.do")
-	public String productList(Model model) {
+	@RequestMapping(value="/productListLesson.do")
+	public String productListLesson(Model model) {
 		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록
-		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
 		int lessonCount = service.selectLessonCount(); //강습 상품 수
+		
+		if(lessonList != null) {	
+			model.addAttribute("lessonList", lessonList);
+			model.addAttribute("lessonCount", lessonCount);
+			
+			return "admin/productListLesson";
+		} else {
+			return "redirect:/newProductLesson.do";
+		}
+		
+	}
+	
+	@RequestMapping(value="/productListHouse.do")
+	public String productListHouse(Model model) {
+		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
 		int houseCount = service.selectHouseCount(); //숙박 상품 수
 		
-		model.addAttribute("lessonList", lessonList);
-		model.addAttribute("houseList", houseList);
-		model.addAttribute("lessonCount", lessonCount);
-		model.addAttribute("houseCount", houseCount);
-		
-		return "admin/productList";
+		if(houseList != null) {	
+			model.addAttribute("houseList", houseList);
+			model.addAttribute("houseCount", houseCount);
+			
+			return "admin/productListHouse";
+		} else {
+			return "redirect:/newProductLesson.do";
+		}
+
 	}
 	
 	//선택 상품 - 강습 상태 변경
@@ -262,7 +313,7 @@ public class AdminController {
 		boolean result = service.updateLessonStatus(no, status);
 		
 		if(result) {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		} else {
 			return "redirect:/memberList.do";
 		}
@@ -275,7 +326,7 @@ public class AdminController {
 		boolean result = service.updateHouseStatus(no, status);
 		
 		if(result) {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		} else {
 			return "redirect:/memberList.do";
 		}
@@ -287,13 +338,13 @@ public class AdminController {
 		int result = service.updateProductStopSelling(no, productType);
 		
 		if(result>0) {
-			return "redirect:/newProduct.do";
+			return "redirect:/newProductLesson.do";
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productListLesson.do";
 		}
 	}
 	
-	/*5. 판매내역*/
+	/**5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
 	public String salesDetails(Model model) {
 		ArrayList<Order> orderList = service.selectAllOrder();
@@ -332,10 +383,8 @@ public class AdminController {
 	@RequestMapping(value="/adminSearchMemberSalesDetails.do")
 	public String adminSearchMemberSalesDetails(String searchType,String searchKeyword, Model model) {
 		Search sp = new Search(searchType, searchKeyword);
-		//System.out.println(searchType);
-		//System.out.println(searchKeyword);
+		
 		ArrayList<Order> orderList = service.selectSearchSalesDetails(sp);
-		System.out.println(orderList);
 		if(orderList != null) {			
 			model.addAttribute("orderList", orderList);
 			return "admin/salesDetails";
@@ -350,8 +399,6 @@ public class AdminController {
 		Order orderDetailInfo = service.selectOrderDetailInfo(orderNo);
 		ArrayList<Order> orderDetailList = service.selectOrderDetail(orderNo);
 		int orderDetailCount = service.selectOrderDetailCount(orderNo);
-		
-		//System.out.println(orderDetailList);
 		
 		model.addAttribute("orderDetailInfo", orderDetailInfo);
 		model.addAttribute("orderDetailList", orderDetailList);

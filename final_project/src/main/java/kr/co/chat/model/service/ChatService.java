@@ -17,7 +17,14 @@ public class ChatService {
 	private ChatDao dao;
 
 	public ChatActive selectChatActive(String memberId) {
-		return dao.selectChatActive(memberId);
+		ChatActive ca = dao.selectChatActive(memberId);
+		if(ca == null) {
+			insertChatActive(memberId);
+			return dao.selectChatActive(memberId);
+		}else {
+			return ca;
+		}
+		
 	}
 	
 	@Transactional

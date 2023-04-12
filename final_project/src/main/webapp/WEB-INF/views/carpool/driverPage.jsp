@@ -70,7 +70,7 @@
 						</p>
 					</div>
 					<div class="menu" style="float: right;">
-						<h3>운전자 페이지</h3>
+					<h3 style="color: #1A5F7A; text-shadow: 0 0 2px #fff; font-weight: 900;">운전자 페이지</h3>
 					</div>
 				</div>
 				<!-- end row -->
@@ -78,6 +78,46 @@
 			<!-- end container -->
 		</section>
 		<!-- end section -->
+		
+		
+		<!-- section은 container의 바탕(배경색)을 담당합니다. -->
+<!-- section은 위아래로 margin이 크게 잡혀 있습니다. -->
+<!-- class를 section 이 아니라 section nopad 로 하시면, 좌우 여백 없이 화면 너비 크기 전체에다가 section의 background-color를 부여할 수 있습니다. -->
+		<section class="section" style="padding: 20px 0 20px 0;">
+<!--  container는 구현 내용물들을 담는 div입니다. -->
+			<div class="container" style="margin-top:10px; margin-bottom: 10px;">
+				<div class="row" >
+					<div style="display:inline-block; width:45%; font-size:20px; font-weight:900;">태워주세요 신청을 보내온 회원들입니다.</div>
+					<div style="display:inline-block; width: 50%; text-align: right;"><button type="button" class="btn btn-secondary close">마감</button></div>
+				<hr>
+				</div><!-- end row -->
+			</div><!-- end container -->
+		</section><!-- end section -->
+		
+		
+		<!-- section은 container의 바탕(배경색)을 담당합니다. -->
+<!-- section은 위아래로 margin이 크게 잡혀 있습니다. -->
+<!-- class를 section 이 아니라 section nopad 로 하시면, 좌우 여백 없이 화면 너비 크기 전체에다가 section의 background-color를 부여할 수 있습니다. -->
+		<section class="section">
+<!--  container는 구현 내용물들을 담는 div입니다. -->
+			<div class="container">
+				<div class="row">
+				<div class="g-col-4">
+				</div>
+				</div><!-- end row -->
+			</div><!-- end container -->
+		</section><!-- end section -->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>

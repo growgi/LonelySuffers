@@ -7,34 +7,69 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	ul>li{
+	.adminChatContent>ul>li>div{
 	overflow: hidden;
 	}
-	ul>li>div{
+	.adminChatContent>ul>li>div>div{
 		float: left;
 	}
+	
+	.chatting{
+    display:none;
+	}
+	
+	.active_chat_content{
+		display: block;
+	}
+	.messageArea{
+	    overflow-y: auto;
+	    border : 1px solid black;
+	    height: 550px;
+	    width:500px;
+	    display: flex;
+	    flex-direction: column;
+	    background-color: #b2c7d9; 
+	}
+	
+	.chat{
+	    margin-bottom: 10px;
+	    padding: 8px;
+	    border-radius: 3px;
+	}
+	
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="admin-content">
-		<div>
-			<ul>
-				<c:forEach items="${list }" var="ca" varStatus="status">
-					<li><div>${status.count}</div><div>${ca.memberId }</div>
-					<c:choose>
-						<c:when test="${ca.chatActivation == 1 }">
-							<div>채팅중</div>
-						</c:when>
-						<c:otherwise>
-							<div>채팅종료</div>
-						</c:otherwise>					
-					</c:choose>
+		<div class="adminChatContent">
+			<c:forEach items="${list }" var="ca" varStatus="status">
+				<ul>
+					<li><div class="active_chat_title"><input type="hidden" class="memberId" value="${ca.memberId }"><div>${status.count }</div><div>${ca.memberId }</div><div>
+						<c:choose>
+							<c:when test="${ca.chatActivation == 1}">
+								채팅중
+							</c:when>
+							<c:otherwise>
+								채팅종료
+							</c:otherwise>
+						</c:choose>
+					</div></div></li>
+					<li>
+						<div class="chatting">
+							<div class="messageArea">
+							</div>
+							<div class="sendBox">
+							<input type="text" id="sendMsg">
+							<button id="sendBtn" onClick="sendMsg('${ca.memberId }');">전송</button> 
+							</div>
+						</div>
 					</li>
-				</c:forEach>
-			</ul>
+				</ul>
+			</c:forEach>
 		</div>
 	</div>
 	
+	<script src="js/adminChat.js"></script>
 </body>
 </html>

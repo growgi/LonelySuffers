@@ -44,4 +44,7 @@ public class House {
 	
 	private String houseLng;			//숙박 경도
 	private String houseLat;			//숙박 위도
+	
+	private String bookStartDate;		//예약시작일
+	private String bookEndDate;			//예약끝나는 날(퇴실-1)일
 }

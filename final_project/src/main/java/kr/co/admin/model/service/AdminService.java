@@ -350,8 +350,6 @@ public class AdminService {
 		return result;
 	}
 
-
-
 	public ArrayList<Order> selectAllOrder() {
 		
 		return dao.selectAllOrder();

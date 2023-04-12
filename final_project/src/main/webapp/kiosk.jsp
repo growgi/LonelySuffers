@@ -116,8 +116,17 @@
 		padding-top: 65px
 	}
 	.calendar-wrap{
-		width:1100px;
-		height:1000px;
+		width:1200px;
+		height:600px;
+	}
+	#daterangepicker{
+		margin-top:50px;
+	}
+	.headcount-wrap{
+		width:1200px;
+		height:800px;
+		margin-top: 50px;
+		overflow:hidden;
 	}
 	#headcount{
 		width:596px;
@@ -128,11 +137,6 @@
 		border: 2px solid;
 		border-radius:15px;
 		font-weight:800;
-	}
-	.headcount-wrap{
-		width:1200px;
-		height:900px;
-		overflow:hidden;
 	}
 	#whole-people{
 		width:396px;
@@ -145,10 +149,15 @@
 		border-radius:10px;
 		font-weight:800;
 	}
+	.option-select{
+		width:1200px;
+		height:600px;
+		margin-top:50px;
+	}
 	.rooms-wrap{
 		width:1200px;
-		height:400px;
-		background-color:red;
+		height:800px;
+		background-color:beige;
 	}
 	.level-select{
 		width:1200px;
@@ -277,6 +286,7 @@
 	}
 	.btn-wrap{
 		width:1200px;
+		margin-bottom:15px;
 	}
 	.btn-wrap>button{
 		width:196px;
@@ -292,6 +302,8 @@
 		margin-top:15px;
 		color:rgb(51, 51, 51);
 	}
+	
+
 </style>
 <!-- naver map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
@@ -387,6 +399,7 @@
 					<input type="hidden" id="people-value" value="">
 						<div class="head-icon-wrap">
 						</div>
+					</div>
 					<div class="btn-wrap" id="page3">
 						<button class="page3-before"><p>이전으로</p></button>
 						<button class="page3-okay"><p>확정</p></button>
@@ -647,7 +660,7 @@ $(document).ready(function(){
 	var test1 = markerClustering.getCenter;
 	console.log(test1());
 
-	naver.maps.Event.addListener(markerClustering, "click", function(e){
+	naver.maps.Event.addListener(map, "click", function(e){
 		alert("클릭함");
 		});
 		}
@@ -794,12 +807,83 @@ $("document").ready(function() {
 		}else{
 			$(".pages").hide();
 			$(".page3").show();
+			$(".title").text("몇 명이신가요~?")
 		}
 	});
 	$(".page2-pass").on('click',function(){
 		alert("날짜는 꼭 정해주셔야해요:)")
 	})
-
+//page3
+	$(".page3-before").on('click',function(){
+		$(".pages").hide();
+		$(".page2").show();
+		$(".title").text("언제 떠나실건가요~?")
+		
+	})
+	$(".page3-okay").on('click',function(){
+		//아예 다 한번 hide하고 show 하자
+		if($("#people-value").val() == ""){
+			alert("인원수는 꼭 정해주셔야해요:)")
+		}else{
+			$(".pages").hide();
+			$(".page4").show();
+			$(".title").text("옵션을 골라주세요~!")
+		}
+	});
+	$(".page3-pass").on('click',function(){
+		alert("인원수는 꼭 정해주셔야해요:)")
+	})
+//page4
+	$(".page4-before").on('click',function(){
+		$(".pages").hide();
+		$(".page4").show();
+		$(".title").text("옵션을 골라주세요~!")
+		
+	})
+	$(".page4-okay").on('click',function(){
+		//아예 다 한번 hide하고 show 하자
+			$(".pages").hide();
+			$(".page5").show();
+			$(".title").text("조건에 맞는 방 리스트예요~!")
+		//숙소 리스트 ajax
+			const result = $(".rooms-wrap");
+			const bookStartDate = $("#bookStartDate").val();
+			const bookEndDate = $("#bookEndDate").val();
+			const roomCapa = $("#people-value").val();
+			const houseBarbecue = $("#barbecue-choice").val();
+			const houseParty = $("#party-choice").val();
+			result.empty();
+			$.ajax({
+				url : "/roomList.do",
+				type : "get",
+				data : {bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomCapa : roomCapa, houseBarbecue : houseBarbecue, houseParty : houseParty},
+				dataType : "json",
+				success : function(data){
+					console.log("ajax");
+					for(let i=0;i<data.length;i++){
+						const div=$("<div></div>");
+						div.append(data[i].houseTitle);
+						div.append("/");
+						div.append(data[i].roomCapa+"명");
+						div.append("/");
+						div.append("바베큐값:"+data[i].houseBarbecuePrice+"원");
+						div.append("/");
+						div.append("파티값:"+data[i].housePartyPrice+"원");
+						div.append("/");
+						
+						result.append(div);
+					}
+				},
+					error : function(){
+						console.log("객실을 먼저 선택해주세요에 focus됨");
+					}
+			});
+	});
+	$(".page4-pass").on('click',function(){
+		$(".pages").hide();
+		$(".page5").show();
+		$(".title").text("조건에 맞는 방 리스트예요~!")
+	})
 </script>					
 </body>
 </html>

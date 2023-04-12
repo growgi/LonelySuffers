@@ -15,14 +15,13 @@
             <form action="/adminSearchMemberSalesDetails.do" method="get"  class="search-bar" name="search-member">
                 	<select name="searchType" class="search-type">
 						<option value="i">아이디</option>
-						<option value="o">주문상품</option>
+						<option value="op">주문상품</option>
 					</select>
 					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 					<input
 						type="text" placeholder="검색어를 입력하세요" name="searchKeyword"
-						onkeyup="enterkey();"> <input type="submit"
-						style="display: none;">
-					<div class="search-icon">검색</div>
+						onkeyup="enterkey();">
+					<input type="submit" value="검색" class="search-icon">
             </form>
             <div class="list-wrapper">
                 <div class="orderList-top list-top">
