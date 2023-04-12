@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,7 +111,7 @@
 							<div class="row">
 								<h1 style="padding-bottom: 40px;">${house.houseTitle }</h1>
 								<input type="hidden" name="housePrice" value="${house.housePrice }">
-								<h3><span id="withCommas" style="font-size: 36px; font-weight: bold;">${house.housePrice }</span>원/1박</h3>
+								<h3><span style="font-size: 36px; font-weight: bold;"><fmt:formatNumber value="${house.housePrice }" pattern="#,###" /></span>원/1박</h3>
 								<div class="col-md-9">
 									<p style="text-indent: 10px;"><a href="#" data-toggle="tooltip" data-placement="right" title="주말(입실일 기준 금/토)에는 1.5배의 할증이 있습니다. 성수기(6월~8월)에는 1.2배의 할증이 추가로 붙습니다.">( ※ 비성수기 평일 기준 )</a></p>
 								</div>
@@ -253,11 +254,6 @@
 
 
 	<script type="text/javascript">
-	// 가격에 3자리마다 , 출력
-	const num = Number($("#withCommas").text());
-	$("#withCommas").text(num.toLocaleString('ko-KR'));
-
-
 	// 부트스트랩 tooltip
 	$(document).ready(function(){
 		$('[data-toggle="tooltip"]').tooltip();   

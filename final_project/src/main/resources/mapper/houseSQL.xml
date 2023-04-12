@@ -8,6 +8,15 @@
 	</select>
 
 
+<!-- 숙박 상품 신규 등록 -->
+	<insert id="insertHouse" parameterType="h">
+		INSERT INTO HOUSE VALUES (HOUSE_SEQ.NEXTVAL, #{houseTitle}, #{houseCity}, #{houseAddress}, #{houseDescription}, #{housePhoto1}, #{housePhoto2}, #{housePhoto3}, #{housePhoto4}, -1, '', #{writer}, #{roomTitle}, #{roomCapa}, #{housePrice}, #{houseBarbecue}, #{houseBarbecuePrice}, #{houseParty}, #{housePartyPrice}, #{houseLNG}, #{houseLAT})
+		<selectKey resultType="_int" order="AFTER" keyProperty="houseNo">
+			SELECT MAX(HOUSE_NO) FROM HOUSE
+		</selectKey>
+	</insert>
+
+
 <!-- 키오스크에서, 지역이나 인원 수 조건 없이 숙박 상품 Row들 조회용  -->
 	<select id="selectHouseList" resultType="h">
 		SELECT
@@ -36,6 +45,16 @@
 		FROM HOUSE WHERE HOUSE_STATUS = 1
 	</select>
 
+<!-- 키오스크 조건에 맞는 숙소리스트 -->
+	<select id="selectRoomList" parameterType = "h" resultType="h">
+		SELECT HOUSE_NO, TOTAL FROM
+		(SELECT R.HOUSE_NO, COUNT(*) AS TOTAL FROM ROOM R LEFT JOIN HOUSE H ON R.HOUSE_NO = H.HOUSE_NO WHERE ROOM_ENABLE =1 AND ROOM_CAPA>#{roomCapa} ROOM_NO NOT IN
+		(SELECT R.ROOM_NO FROM
+		ROOM R LEFT JOIN HOUSE H ON R.HOUSE_NO = H.HOUSE_NO
+		LEFT JOIN ROOM_BOOK B ON R.ROOM_NO = B.ROOM_NO
+		WHERE #{bookStartDate} BETWEEN BOOK_START_DATE AND BOOK_END_DATE OR #{bookEndDate} BETWEEN BOOK_START_DATE AND BOOK_END_DATE) GROUP BY R.HOUSE_NO ORDER BY HOUSE_NO ASC)
+		WHERE TOTAL > 0;
+	</select>
 
 <!-- 숙박 상품 House 의 모든 column에 대한 resultMap -->
 	<resultMap type="h" id="getHouse">
@@ -60,4 +79,6 @@
 		<result column="HOUSE_PARTY_PRICE" property="housePartyPrice"></result>
 	</resultMap>
 
+
+	
 </mapper>

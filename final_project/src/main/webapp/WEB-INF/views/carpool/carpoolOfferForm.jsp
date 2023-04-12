@@ -19,8 +19,8 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-<link rel="stylesheet" href="resources/css/carpool/carpoolOffer.css">
-<link rel="stylesheet" href="resources/css/carpool/carpoolReg.css">
+<link rel="stylesheet" href="/src/main/webapp/resources/css/carpool/carpoolOffer.css">
+<link rel="stylesheet" href="/src/main/webapp/resources/css/carpool/carpoolReg.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 
