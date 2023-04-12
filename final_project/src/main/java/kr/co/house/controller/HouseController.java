@@ -79,17 +79,18 @@ public class HouseController {
 		ArrayList<House> list = service.selectAllAddress();
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
-		//System.out.println(result);
+		//System.out.println("지도 호출"+result);
 		return result;
 	}
 //숙소 리스트를 조회하는 것
 	@ResponseBody
 	@RequestMapping(value="/roomList.do", produces = "application/json;charset=utf-8")
 	public String selectRoomList(House house) {
+		System.out.println("housedata"+house);
 		ArrayList<House> list = service.selectRoomList(house);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
-		System.out.println(result);
+		System.out.println("result"+result.length());
 		return result;
 		
 	}
