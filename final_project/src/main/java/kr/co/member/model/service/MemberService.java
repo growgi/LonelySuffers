@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.chat.model.dao.ChatDao;
 import kr.co.member.model.dao.MemberDao;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
@@ -14,6 +15,8 @@ import kr.co.member.model.vo.Order;
 public class MemberService {
 	@Autowired
 	private MemberDao dao;
+	@Autowired
+	private ChatDao cDao;
 
 	public MemberService() {
 		super();
@@ -27,6 +30,7 @@ public class MemberService {
 	}
 	@Transactional
 	public int joinMember(Member m) {
+		cDao.insertChatActive(m.getMemberId());
 		return dao.joinMember(m);
 	}
 

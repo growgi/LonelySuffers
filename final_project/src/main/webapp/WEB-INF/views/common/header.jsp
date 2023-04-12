@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!-- Site Icons -->
+
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="resources/images/apple-touch-icon.png">
 
@@ -141,13 +142,23 @@
 						</li>
 						<c:choose>
 							<c:when test="${not empty sessionScope.m }">
+							<c:choose>
+								<c:when test="${sessionScope.m.memberGrade ==1}">
+						<li>
+							<a href="/memberList.do"><span>관리자페이지</span></a>
+						</li>								
+								</c:when>
+								<c:otherwise>
 						<li>
 						  <a href="/myPage.do">
 						    <img alt="mypage" src="/resources/images/mypage.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">마이페이지</span>
 						  </a>
 						</li>
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/logout.do"> 로그아웃</a></li>
+								</c:otherwise>
+							</c:choose>
+							
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary logout"><input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }"> 로그아웃</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="lastlink hidden-xs hidden-sm" "><a class="btn btn-primary" href="/loginFrm.do">
@@ -166,5 +177,7 @@
 		<!-- end nav -->
 	</div>
 	<!-- end container -->
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="/resources/js/chat.js"></script>
 </header>
 <!-- 헤더 영역 끝 -->
