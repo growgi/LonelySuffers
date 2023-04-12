@@ -54,12 +54,12 @@
 								<th>카테고리</th>
 								<td>
 									<select name="categoryNo" id="categoryNo" class="input-form">
-										<option value="21">예약취소</option>
-										<option value="22">숙박</option>
-										<option value="23">강습</option>
-										<option value="24">카풀</option>
-										<option value="25">후기</option>
-										<option value="26">회원서비스</option>
+										<option value="1">예약취소</option>
+										<option value="2">숙박</option>
+										<option value="3">강습</option>
+										<option value="4">카풀</option>
+										<option value="5">후기</option>
+										<option value="6">회원서비스</option>
 									</select>
 								</td>
 							</tr>

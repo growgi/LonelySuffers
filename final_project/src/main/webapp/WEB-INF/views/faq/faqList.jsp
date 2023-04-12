@@ -105,7 +105,6 @@
 									<a href="/faqView.do?faqNo=${fq.faqNo }">${fq.faqTitle }</a>
 								</td>
 							</tr>
-							<td>${fq.faqContent }</td>
 						</c:forEach>
 					</table>
 				</div>
