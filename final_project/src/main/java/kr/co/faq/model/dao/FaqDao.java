@@ -28,4 +28,14 @@ public class FaqDao {
 		Faq faq = sqlSession.selectOne("faq.selectOneFaq", faqNo);
 		return faq;
 	}
+
+	public int updateFaq(Faq faq) {
+		int result = sqlSession.update("faq.updateFaq", faq);
+		return result;
+	}
+
+	public int deleteFaq(int faqNo) {
+		int result = sqlSession.delete("faq.deleteFaq", faqNo);
+		return result;
+	}
 }

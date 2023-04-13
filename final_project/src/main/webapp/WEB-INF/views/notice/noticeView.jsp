@@ -65,7 +65,8 @@
 								</c:if>
 							</th>
 						</tr>
-					</table>	
+					</table>
+					<a href="/noticeList.do?reqPage=1">목록보기</a>	
 				</div>
 			</div>
 		</section>
