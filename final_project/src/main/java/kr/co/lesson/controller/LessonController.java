@@ -35,7 +35,7 @@ public class LessonController {
 
 
 
-// 강습 상품 등록.  Lesson 테이블에 Row 1개 추가
+// 강습 상품 등록.  Lesson 테이블에 Row 여러개 추가
 	@RequestMapping(value="/insertLesson.do")
 	public String insertLesson(Lesson l, HttpSession session) {
 		Member me = (Member)session.getAttribute("m");

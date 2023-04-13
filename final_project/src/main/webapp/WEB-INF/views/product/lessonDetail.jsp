@@ -93,8 +93,15 @@
 								<div class="col-md-6">
 								</div>
 								<div class="col-md-6">
-									<input type="hidden" name="lessonMaxNo" value="${lesson.lessonMaxNo }">
-									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">${lesson.lessonNameLevel }</span> <span class="label label-info">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</span></p>
+									<input type="hidden" name="lessonLevel" value="${lesson.lessonMaxNo }">
+									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">
+									<c:choose>
+										<c:when test="${lesson.lessonLevel == 1}">초급</c:when>
+										<c:when test="${lesson.lessonLevel == 2}">중급</c:when>
+										<c:when test="${lesson.lessonLevel == 3}">상급</c:when>
+									</c:choose>
+									</span>&nbsp;
+									<span class="label label-info">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</span></p>
 								</div>
 							</div>
 							<div class="row">
@@ -260,7 +267,7 @@ console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므
 					// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
 						$("#bookStart").val("");
 						$("#bookStart").attr("value", null);
-						$("#bookStart").attr("disabled", false);
+						$("#bookStart").prop("disabled", false);
 
 					// 예약일을 선택하는 date range picker 생성
 						$('#bookStart').daterangepicker({
@@ -290,13 +297,13 @@ console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므
 						$(".daterangepicker").remove();
 						$("#bookStart").val("");
 						$("#bookStart").attr("value", null);
-						$("#bookStart").attr("disabled", true);
+						$("#bookStart").prop("disabled", true);
 					}
 				});
 			}else{
 				$("#bookStart").val("");
 				$("#bookStart").attr("value", null);
-				$("#bookStart").attr("disabled", true);
+				$("#bookStart").prop("disabled", true);
 			}
 		});
 	});

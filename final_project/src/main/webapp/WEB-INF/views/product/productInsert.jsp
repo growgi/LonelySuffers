@@ -59,7 +59,7 @@
 						</div>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade p-2 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
-								<form action="/insertLesson.do" onsubmit="return calcEndTime();" method="post">
+								<form action="/insertLesson.do" onsubmit="return checkLessonCity();" method="post">
 									<fieldset>
 										<table id="lessonInsertForm">
 											<tr>
@@ -88,8 +88,14 @@
 												</td>
 											</tr>
 											<tr>
-												<th>강습 레벨</th>
-												<td><input type="text" name="lessonNameLevel" placeholder="예 초급반, 중급자 등 (한글 최대 20자)" required></td>
+												<th>강습 수준</th>
+												<td>
+													<select name="lessonLevel">
+														<option value="1">초급</option>
+														<option value="2">중급</option>
+														<option value="3">상급</option>
+													</select>
+												</td>
 											</tr>
 											<tr>
 												<th>상품 제목</th>
@@ -100,13 +106,13 @@
 												<td><input type="text" name="lessonTeacher" required></td>
 											</tr>
 											<tr>
-												<th>강습시작 시각</th>
-												<td><input type="time" name="lessonStartTime" min="06:00" max="17:00" step="300" pattern="[0-9]{2}:[0-9]{2}" required></td>
+												<th>강습 소요시간<br>(최소 30분, 최대 300분)</th>
+												<td><input type="number" id="lessonTimeLength" name="lessonTimeLength" min="30" max="300" step="5" required>분</td>
 											</tr>
 											<tr>
-												<th>강습 시간</th>
-												<td><input type="number" name="lessonTimeLength" min="30" max="300" step="5" required>분
-												<input type="hidden" name="lessonEndTime"></td>
+												<th>강습시작 시각<br>(이전 강습의 종료시각+10분부터 지정가능<br>최소 오전 6시, 최대 오후 5시)</th>
+												<td id="here"><div><input type="time" name="lessonStartTimes" min="06:00" max="17:00" step="300" pattern="[0-9]{2}:[0-9]{2}" required>
+												<input type="hidden" name="lessonEndTimes"><button type="button" onclick="insertNextLesson(this)">추가</button></div></td>
 											</tr>
 											<tr>
 												<th>상품 가격</th>
@@ -239,14 +245,120 @@
 
 
 
-// 강습 종료 시각을 구해내는 함수
-	function calcEndTime(){
-		const startTime = $("[name=lessonStartTime]").val();
-		const period = $("[name=lessonTimeLength]").val();
-		$("[name=lessonEndTime]").val(moment(startTime, 'HH:mm').add(period, 'minutes').format('HH:mm'));
-		return true;
+// 강습시간대 추가 함수
+	function insertNextLesson(obj){	
+		const period = Number($("[name=lessonTimeLength]").val());
+		if(period < 30){
+			alert("먼저 강습 소요시간을 정해야 합니다.");
+		}else{
+			const prevStart = $(obj).prev().prev().val();	// 이전 시간대의 시작시각 값
+			const min = $(obj).prev().prev().attr("min");	// 이전 시간대 input의 min
+		// 시작 시각 input의 value가 min ~ max 범위 안이면 수행
+			if(moment(prevStart, "HH:mm").diff(moment(min, "HH:mm"), 'minutes')>=0 && moment("17:00", "HH:mm").diff(moment(prevStart, "HH:mm"), 'minutes')>=0){
+			// 소요시간을 고정시켜야 하므로 readonly 처리
+				$("#lessonTimeLength").prop("readonly", true);
+			// 이전 시간대의 종료시각을 계산해서 hidden input의 value로 부여
+				$(obj).prev().val(moment(prevStart, 'HH:mm').add(period, 'minutes').format('HH:mm'));
+
+			// 추가된 시간대 input의 min = 이전 시간대 종료시각 + 10분  
+				const nextMin = moment(prevStart, 'HH:mm').add(period + 10, 'minutes').format('HH:mm');
+
+				const removeButton = $("<button>");
+				removeButton.attr("type", "button");
+				removeButton.attr("onclick", "removePrevLesson(this)");
+				removeButton.text("제거");
+
+				const addButton = $("<button>");
+				addButton.attr("type", "button");
+				addButton.attr("onclick", "insertNextLesson(this)");
+				addButton.text("추가");
+
+				const startInput = $("<input>");
+				startInput.attr("type", "time");
+				startInput.attr("name", "lessonStartTimes");
+				startInput.attr("min", nextMin);
+				startInput.attr("max", "17:00");
+				startInput.attr("step", "300");
+				startInput.attr("pattern", "[0-9]{2}:[0-9]{2}");
+				startInput.attr("required", true);
+
+				const endInput = $("<input>");
+				endInput.attr("name", "lessonEndTimes");
+				endInput.attr("type", "hidden");
+
+				const wrapper = $("<div>");
+
+			// 시간대 2개 이상을 더 추가할 여유가 남았으면, 추가 버튼과 제거 버튼을 달아줌
+				if(moment("17:00", "HH:mm").diff(moment($(obj).prev().val(), "HH:mm"), 'minutes')>=period+10){
+					wrapper.append(startInput).append(endInput).append(addButton).append(removeButton);
+					$(obj).prev().prev().prop("readonly", true);
+					$(obj).next().remove();
+					$(obj).remove();
+					$("#here").append(wrapper);
+				}else{
+				// 시간대 1개만 더 추가할 여유가 남았으면, 제거 버튼만 달아줌. 추가 버튼 자리에는 아무 동작도 없는 버튼을 숨겨서 삽입.
+					if(moment("17:00", "HH:mm").diff(moment($(obj).prev().val(), "HH:mm"), 'minutes')>=10){
+						wrapper.append(startInput).append(endInput).append($("<button>").attr("type", "button").css("display", "none")).append(removeButton);
+						$(obj).prev().prev().prop("readonly", true);
+						$(obj).next().remove();
+						$(obj).remove();
+						$("#here").append(wrapper);
+				// 시간대를 더 이상 추가할 여유가 없는 경우
+					}else{
+						alert("시간대를 추가할 여유가 더 이상 남아있지 않습니다. 다음 시작시각이 오후 5시를 넘을 수 없습니다.");
+					}
+				}
+		// 시작 시각 input의 value가 min ~ max 범위 밖일 때
+			}else{
+				alert("시작 시각을 올바르게 입력한 뒤, 추가 버튼을 눌러주십시오.");
+			}
+		}
 	}
 
+
+// 시간대 제거 버튼을 누르면 동작하는 함수
+	function removePrevLesson(obj){
+		const removeButton = $("<button>");
+		removeButton.attr("type", "button");
+		removeButton.attr("onclick", "removePrevLesson(this)");
+		removeButton.text("제거");
+
+		const addButton = $("<button>");
+		addButton.attr("type", "button");
+		addButton.attr("onclick", "insertNextLesson(this)");
+		addButton.text("추가");
+
+	// 이전 시간대의 readonly 속성을 지워줌
+		$(obj).parent().prev().children().eq(0).prop("readonly", false);
+	// min이 "06:00"이면, 가장 이른 시간대로 간주하고 제거 버튼을 달지 않음. 또한 소요시간의 readonly 속성을 지워줌
+		if($(obj).parent().prev().children().eq(0).attr("min")=="06:00"){
+			$(obj).parent().prev().append(addButton);
+			$("#lessonTimeLength").prop("readonly", false);
+	// 가장 이른 시간대가 아니면, 추가 버튼과 제거 버튼을 둘 다 달아줌
+		}else{
+			$(obj).parent().prev().append(addButton).append(removeButton);
+		}
+	// 원하는 시간대 제거
+		$(obj).parent().remove();
+	}
+
+
+
+// 신규 강습 등록 submit 시 동작되는 함수
+	function checkLessonCity(){
+	// 강습 지역 input(name=lessonCity)이 선택되지 않았으면 form 제출을 막음
+		if( $("[name=lessonCity]").val() == null ){
+			alert('지역을 선택해주십시오.');
+			return false;
+		}else{
+	// 마지막 종료시각을 계산해서 value로 부여하고 submit
+			const period = Number($("[name=lessonTimeLength]").val());
+			const lastStartTime = $("[name=lessonStartTimes]").last().val();
+			const lastEndTime = $("[name=lessonEndTimes]").last();
+			lastEndTime.val(moment(lastStartTime, 'HH:mm').add(period, 'minutes').format('HH:mm'));
+			return true;
+		}
+	}
 
 	</script>
 </body>
