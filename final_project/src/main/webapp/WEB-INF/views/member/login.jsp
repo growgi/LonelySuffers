@@ -27,7 +27,7 @@
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 						<div class="main">
 			<div class="content-top">
-				<h1>Lonly Suffers</h1>
+				<h1>Lonely Suffers</h1>
 			</div>
 			<div class="content-main">
 				<div class="main-top">
