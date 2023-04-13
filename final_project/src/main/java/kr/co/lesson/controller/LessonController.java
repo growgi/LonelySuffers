@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kr.co.house.model.vo.House;
 import kr.co.lesson.model.service.LessonService;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.lesson.model.vo.LessonBook;
@@ -59,4 +60,17 @@ public class LessonController {
 		ArrayList<LessonBook> list = service.selectAllbookedDates(lessonNo);
 		return new Gson().toJson(list);
 	}
+	
+// 조건에 맞는 숙소 리스트를 조회하는 것
+	@ResponseBody
+	@RequestMapping(value="/lessonList.do", produces = "application/json;charset=utf-8")
+	public String selectRoomList(Lesson lesson) {
+		System.out.println("lessondata"+lesson);
+		ArrayList<Lesson> list = service.selectSelectList(lesson);
+		Gson gson = new Gson();
+		String result = gson.toJson(list);
+		System.out.println("lesson result 결과"+result.length());
+		return result;
+			
+		}
 }
