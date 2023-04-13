@@ -197,8 +197,8 @@
 	}
 	.lessons-wrap{
 		width:1200px;
-		height:400px;
-		background-color:red;
+		overflow:hidden;
+		background-color:beige;
 	}
 	.lessonList{
 		width:400px;
@@ -1016,75 +1016,68 @@ $("document").ready(function() {
 		//아예 다 한번 hide하고 show 하자
 			$(".pages").hide();
 			$(".page7").show();
-			$(".title").text("조건에 맞는 강습 리스트예요~!")
+			$(".title").text("조건에 맞는 강습리스트예요~!");
 		//숙소 리스트 ajax
 			const result = $(".lessons-wrap");
 			const bookStartDate = $("#bookStartDate").val();
 			const bookEndDate = $("#bookEndDate").val();
 			const lessonMaxNo = $("#people-value").val();
-			const level1 = $("level1-choice").val();
-			const level2 = $("level2-choice").val();
-			const level3 = $("level3-choice").val();
-			
-			/*
-			if($("level1-choice").val() == 1){
-				const level1 = 1;
-			}else{
-				const level1 = 0;
-			}
-			if($("level2-choice").val() == 1){
-				const level2 = 2;
-			}else{
-				const level2 = 0;
-			}
-			if($("level3-choice").val() == 1){
-				const level3 = 3;
-			}else{
-				const level3 = 0;
-			}
-			*/
-			result.empty();
-			$.ajax({
-				url : "/lessonList.do",
-				type : "get",
-				data : {lessonMaxNo : lessonMaxNo, level1 : level1, level2 : level2, level3 : level3},
-				dataType : "json",
-				success : function(data){
-					console.log(data);
-					for(let i=0;i<data.length;i++){
-						const div=$("<div class=lessonList></div>");
-						console.log(data[i].lessonTitle);
-						console.log(data[i].lessonMaxNo+"명");
-						
-						console.log("레슨 ajax");
-						
-						const imageWrap = $("<div class=image-wrap></div>");
-						imageWrap.append("<img class=lessonImage src=resources/upload/lesson/" + data[i].lessonInfoPic + " />");
-						div.append(imageWrap);
-						
-						const infoWrap = $("<div class=info-wrap></div>");
-						infoWrap.append("<p>"+data[i].lessonTitle+"</p>");
-						if(data[i].lessonLevel == 1){
-							infoWrap.append("<p>초급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
-						}else if(data[i].lessonLevel == 2){
-							infoWrap.append("<p>중급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
-						}else if(data[i].lessonLevel == 3){
-							infoWrap.append("<p>고급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
+			const level1 = $("#level1-choice").val();
+			const level2 = $("#level2-choice").val();
+			const level3 = $("#level3-choice").val();
+			//console.log("레벨1:"+level1);
+			//console.log("레벨2:"+level2);
+			//console.log("레벨3:"+level3);
+			if(level1 != 0 || level2 != 0 || level3 != 0){
+				result.empty();
+				$.ajax({
+					url : "/lessonList.do",
+					type : "get",
+					data : {lessonMaxNo : lessonMaxNo, level1 : level1, level2 : level2, level3 : level3},
+					dataType : "json",
+					success : function(data){
+						console.log(data);
+						for(let i=0;i<data.length;i++){
+							const div=$("<div class=lessonList></div>");
+							console.log(data[i].lessonTitle);
+							console.log(data[i].lessonMaxNo+"명");
+							
+							console.log("레슨 ajax");
+							
+							const imageWrap = $("<div class=image-wrap></div>");
+							imageWrap.append("<img class=lessonImage src=resources/upload/lesson/" + data[i].lessonInfoPic + " />");
+							div.append(imageWrap);
+							
+							const infoWrap = $("<div class=info-wrap></div>");
+							infoWrap.append("<p>"+data[i].lessonTitle+"</p>");
+							if(data[i].lessonLevel == 1){
+								infoWrap.append("<p>초급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
+							}else if(data[i].lessonLevel == 2){
+								infoWrap.append("<p>중급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
+							}else if(data[i].lessonLevel == 3){
+								infoWrap.append("<p>고급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
+							}
+							infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원</p>");
+							div.append(infoWrap);
+							
+							result.append(div);
 						}
-						infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원</p>");
-						div.append(infoWrap);
-						
-						result.append(div);
-					}
-				},
-					error : function(){
-						console.log("레슨리스트 불러오기 에러");
-					}
-			});
-			$("#current-page").attr("value",5);
+					},
+						error : function(){
+							console.log("레슨리스트 불러오기 에러");
+						}
+				});
+				$("#current-page").attr("value",5);
+			}else {
+				alert("강습레벨은 꼭 정해주셔야해요:)");
+				$(".pages").hide();
+				$(".page6").show();
+				$(".title").text("원하시는 강습레벨을 골라주세요");
+			}
+			
 	});
 	$(".page6-pass").on('click',function(){
-		alert("강습레벨은 꼭 정해주셔야해요:)")
+		alert("강습레벨은 꼭 정해주셔야해요:)");
 	});
 	
 	
@@ -1114,6 +1107,8 @@ window.onpopstate = function() {
 		  $(".page4-before").trigger("click");
 	}else if($("#current-page").val() == 5){
 		  $(".page5-before").trigger("click");
+	}else if($("#current-page").val() == 6){
+		  $(".page6-before").trigger("click");
 	};
 	history.pushState(null, null, location.href); 
 	//history.go(1);
