@@ -2,6 +2,8 @@ package kr.co.house.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import kr.co.house.model.vo.FindRoomByCondition;
 import kr.co.house.model.vo.House;
 import kr.co.house.model.vo.Room;
 import kr.co.house.model.vo.RoomBook;
+import kr.co.member.model.vo.Member;
 
 @Controller
 public class HouseController {
@@ -36,7 +39,9 @@ public class HouseController {
 
 // 숙박 상품 등록.  House 테이블에 Row 1개 추가
 	@RequestMapping(value="/insertHouse.do")
-	public String insertHouse(House h) {
+	public String insertHouse(House h, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		h.setWriter(me.getMemberId());
 		int result = service.insertHouse(h);
 		if(result > 0) {
 	// 승인대기중으로 등록 성공 시 처리내용 작성 필요
@@ -90,7 +95,7 @@ public class HouseController {
 		ArrayList<House> list = service.selectRoomList(house);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
-		System.out.println("result"+result.length());
+		System.out.println("result 결과"+result.length());
 		return result;
 		
 	}

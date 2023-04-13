@@ -157,7 +157,7 @@
 										</table>
 									</div>
 								</div>
-								
+
 								<div class="adminChat hide-div">
 									<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
 									<div class="chatting">
@@ -166,6 +166,13 @@
 										</div>
 										<div class="sendBox">
 											<input type="text" id="sendMsg">
+											<script>
+											 $('#sendMsg').on('keyup',function(e){
+											        if(e.keyCode == 13){
+											            sendMsg();
+											        }
+											    });
+											 </script>
 											<button id="sendBtn" onClick="sendMsg();">전송</button> 
 										</div>
 									</div>
@@ -193,7 +200,6 @@
 	<script src="resources/js/animate.js"></script>
 	<script src="resources/js/custom.js"></script>
 	<script src="resources/js/myPage.js"></script>
-	<script src="resources/js/chat.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
 </body>

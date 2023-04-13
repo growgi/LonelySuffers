@@ -90,11 +90,18 @@
 								<h1 style="padding-bottom: 40px;">${lesson.lessonTitle }</h1>
 								<input type="hidden" name="lessonPrice" value="${lesson.lessonPrice }">
 								<h3><span style="font-size: 36px; font-weight: bold;"><fmt:formatNumber value="${lesson.lessonPrice }" pattern="#,###" /></span>원</h3>
-								<div class="col-md-9">
+								<div class="col-md-6">
 								</div>
-								<div class="col-md-3">
-									<input type="hidden" name="lessonMaxNo" value="${lesson.lessonMaxNo }">
-									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</span></p>
+								<div class="col-md-6">
+									<input type="hidden" name="lessonLevel" value="${lesson.lessonMaxNo }">
+									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">
+									<c:choose>
+										<c:when test="${lesson.lessonLevel == 1}">초급</c:when>
+										<c:when test="${lesson.lessonLevel == 2}">중급</c:when>
+										<c:when test="${lesson.lessonLevel == 3}">상급</c:when>
+									</c:choose>
+									</span>&nbsp;
+									<span class="label label-info">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</span></p>
 								</div>
 							</div>
 							<div class="row">
@@ -154,7 +161,7 @@
 						<input type="text" name="lessonBookDate" id="bookStart" placeholder="강습일" required disabled>
         		</div>
 				<input type="hidden" name="lessonBookPrice">
-				<input type="submit" value="주문">
+				<button type="submit">주문</button>
         	</fieldset>
         </form>
         </div>
@@ -260,7 +267,7 @@ console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므
 					// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
 						$("#bookStart").val("");
 						$("#bookStart").attr("value", null);
-						$("#bookStart").attr("disabled", false);
+						$("#bookStart").prop("disabled", false);
 
 					// 예약일을 선택하는 date range picker 생성
 						$('#bookStart').daterangepicker({
@@ -290,13 +297,13 @@ console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므
 						$(".daterangepicker").remove();
 						$("#bookStart").val("");
 						$("#bookStart").attr("value", null);
-						$("#bookStart").attr("disabled", true);
+						$("#bookStart").prop("disabled", true);
 					}
 				});
 			}else{
 				$("#bookStart").val("");
 				$("#bookStart").attr("value", null);
-				$("#bookStart").attr("disabled", true);
+				$("#bookStart").prop("disabled", true);
 			}
 		});
 	});

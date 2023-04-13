@@ -183,7 +183,7 @@
     		    	</c:if>
         		</div>
 				<input type="hidden" name="roomBookPrice">
-				<input type="submit" value="주문">
+				<button type="submit">주문</button>
         	</fieldset>
         </form>
         </div>
@@ -310,8 +310,8 @@
 						$("#bookEnd").val("");
 						$("#bookEnd").attr("value", null);
 
-						$("#bookStart").attr("disabled", false);
-						$("#bookEnd").attr("disabled", false);
+						$("#bookStart").prop("disabled", false);
+						$("#bookEnd").prop("disabled", false);
 
 						// 객실예약의 시작일을 선택하는 date range picker 생성
 							$('#bookStart').daterangepicker({
@@ -373,10 +373,10 @@
 						$(".daterangepicker").remove();
 						$("#bookStart").val("");
 						$("#bookStart").attr("value", null);
-						$("#bookStart").attr("disabled", true);
+						$("#bookStart").prop("disabled", true);
 						$("#bookEnd").val("");
 						$("#bookEnd").attr("value", null);
-						$("#bookEnd").attr("disabled", true);
+						$("#bookEnd").prop("disabled", true);
 					}
 				});
 			});

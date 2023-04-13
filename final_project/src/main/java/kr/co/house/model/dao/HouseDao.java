@@ -58,6 +58,7 @@ public class HouseDao {
 
 
 	public ArrayList<House> selectRoomList(House house) {
+		//System.out.println(house);
 		List list = sqlSession.selectList("h.selectRoomList", house);
 		return(ArrayList<House>)list;
 	}

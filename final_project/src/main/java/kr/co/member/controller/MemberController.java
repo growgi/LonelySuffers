@@ -24,7 +24,6 @@ public class MemberController {
 
 	public MemberController() {
 		super();
-		System.out.println("MemberController 생성 완료");
 	}
 	
 	@RequestMapping(value = "/loginFrm.do")
@@ -210,4 +209,22 @@ public class MemberController {
 			return "common/msg";
 		}
 	}
+
+
+// 상품 등록 페이지 productInsert.jsp를 방문하는 함수.  판매자(grade 2)만 허용됨
+	@RequestMapping(value = "/productInsert.do")
+	public String productInsert(HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberGrade()==2) {
+			return "product/productInsert";
+		}else {
+			model.addAttribute("title","접근 제한됨");
+			model.addAttribute("msg","판매자만 사용할 수 있는 기능입니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/myPage.do");
+			return "common/msg";
+		}
+	}
+
+
 }

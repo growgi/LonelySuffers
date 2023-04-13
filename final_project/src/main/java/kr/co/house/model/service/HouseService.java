@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.house.model.dao.HouseDao;
 import kr.co.house.model.vo.FindRoomByCondition;
@@ -24,7 +25,7 @@ public class HouseService {
 	}
 
 
-
+	@Transactional
 // 숙박 상품 등록.  House 테이블에 Row 1개 추가
 	public int insertHouse(House h) {
 		return dao.insertHouse(h);

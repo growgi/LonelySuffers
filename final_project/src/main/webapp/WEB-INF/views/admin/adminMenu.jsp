@@ -158,6 +158,51 @@
     .action-menu-detail-one{
         background-color: rgb(22, 22, 22);
     }
+
+    /*채팅*/
+
+    .adminMessageArea,.messageArea{
+        overflow-y: auto;
+        border : 1px solid black;
+        height: 550px;
+        display: flex;
+        flex-direction: column;
+        background-color: #b2c7d9; 
+    }
+
+    .idDiv{
+        margin-left: 5px;
+    }
+
+    .chat_left{
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 3px;
+        position: relative;
+        max-width: 300px;
+        line-height : 20px;
+        align-self: flex-start;
+        background-color: #fff;
+        border-radius: 10px;
+        margin-left: 5px;
+        padding: 5px;
+    } 
+
+    .chat_right{
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 3px;
+        position: relative;
+        max-width: 300px;
+        align-self: flex-end;
+        line-height : 20px;
+        background-color: #ffeb33;
+        border-radius: 10px;
+        margin-right: 5px;
+        padding: 5px;
+    }
+
+
 </style>
 <div class="admin-menu-wrapper">
     <div class="left-menu">

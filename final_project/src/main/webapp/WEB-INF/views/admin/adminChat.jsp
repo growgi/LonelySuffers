@@ -21,7 +21,7 @@
 	.active_chat_content{
 		display: block;
 	}
-	.messageArea{
+	.adminMessageArea{
 	    overflow-y: auto;
 	    border : 1px solid black;
 	    height: 550px;
@@ -37,15 +37,20 @@
 	    border-radius: 3px;
 	}
 	
+	
+	
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="admin-content">
 		<div class="adminChatContent">
+			<c:if test="${not empty sessionScope.m }">
+				<input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }">
+			</c:if>
 			<c:forEach items="${list }" var="ca" varStatus="status">
 				<ul>
-					<li><div class="active_chat_title"><input type="hidden" class="memberId" value="${ca.memberId }"><div>${status.count }</div><div>${ca.memberId }</div><div>
+					<li><div class="active_chat_title" value="${ca.memberId }"><input type="hidden" class="memberId" value="${ca.memberId }"><div>${status.count }</div><div>${ca.memberId }</div><div>
 						<c:choose>
 							<c:when test="${ca.chatActivation == 1}">
 								채팅중
@@ -57,19 +62,24 @@
 					</div></div></li>
 					<li>
 						<div class="chatting">
-							<div class="messageArea">
+							<div class="adminMessageArea">
+							
 							</div>
 							<div class="sendBox">
-							<input type="text" id="sendMsg">
-							<button id="sendBtn" onClick="sendMsg('${ca.memberId }');">전송</button> 
+							<input type="text" class="adminSendInput">
+							<button id="adminSendBtn" onClick="adminSendMsg('${ca.memberId }');">전송</button> 
 							</div>
 						</div>
 					</li>
+					
 				</ul>
 			</c:forEach>
+			<button type="button" name="divValue">DIV벨류체크</button>
 		</div>
 	</div>
 	
-	<script src="js/adminChat.js"></script>
+	<script src="/resources/js/adminChat.js"></script>
+	<script src="/resources/js/jquery.min.js"></script>
+	<script src="/resources/js/chat.js"></script>
 </body>
 </html>

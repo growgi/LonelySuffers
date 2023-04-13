@@ -21,20 +21,37 @@ public class ChatController {
 	private ChatService service;
 	
 	@ResponseBody
-	@RequestMapping(value = "/chat.do",produces = "application/json;charset=utf-8")
+	@RequestMapping(value = "/chat.do")
 	public String chat(String memberId) {
-	ChatActive ca = service.selectChatActive(memberId);
-		if(ca == null) {
-			int result = service.insertChatActive(memberId);
-			if(result != 0 ) {
-				return "caOk";
-			}else {
+		ChatActive ca = service.selectChatActive(memberId);
+		System.out.println(ca);
+		if(ca.getChatActivation() == 2) {
+			int result = service.updateChatActivation(ca.getChatActiveNo());
+			if(result == 0) {
 				return "caNo";
+			}else {
+				return "caOk";
 			}
 		}else {
 			return "caOk";
 		}
 	}
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/chat.do",produces = "application/json;charset=utf-8")
+//	public String chat(String memberId) {
+//	ChatActive ca = service.selectChatActive(memberId);
+//		if(ca == null) {
+//			int result = service.insertChatActive(memberId);
+//			if(result != 0 ) {
+//				return "caOk";
+//			}else {
+//				return "caNo";
+//			}
+//		}else {
+//			return "caOk";
+//		}
+//	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/chatList.do",produces = "application/json;charset=utf-8")

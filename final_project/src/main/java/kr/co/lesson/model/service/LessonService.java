@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.lesson.model.dao.LessonDao;
 import kr.co.lesson.model.vo.Lesson;
@@ -22,10 +23,16 @@ public class LessonService {
 	}
 
 
-
-// 강습 상품 등록.  Lesson 테이블에 Row 1개 추가
+// 강습 상품 등록.  Lesson 테이블에 Row 여러개 추가
+	@Transactional
 	public int insertLesson(Lesson l) {
-		return dao.insertLesson(l);
+		int result = 0;
+		for(int i=0; i<l.getLessonStartTimes().length; i++) {
+			l.setLessonStartTime(l.getLessonStartTimes()[i]);
+			l.setLessonEndTime(l.getLessonEndTimes()[i]);
+			result += dao.insertLesson(l);
+		}
+		return result;
 	}
 
 
