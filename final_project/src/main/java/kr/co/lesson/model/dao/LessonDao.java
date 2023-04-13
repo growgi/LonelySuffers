@@ -35,4 +35,11 @@ public class LessonDao {
 		List list = sqlSession.selectList("lb.selectAllBook", lessonNo);
 		return (ArrayList<LessonBook>)list;
 	}
+
+
+// 조건에 맞는 숙소 리스트를 조회하는 것
+	public ArrayList<Lesson> selectLessonList(Lesson lesson) {
+		List list = sqlSession.selectList("l.selectLessonList",lesson);
+		return(ArrayList<Lesson>)list;
+	}
 }
