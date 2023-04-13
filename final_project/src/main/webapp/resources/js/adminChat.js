@@ -1,65 +1,84 @@
-let ws;
-let memberId;
-$(function(){
-    memberId = "admin";
-    ws = new WebSocket("ws://192.168.10.18/chat.do");
-    ws.onopen = startChat;
-    ws.onmessage = receiveMsg;
-    ws.onclose = endChat;
-});
-
-    function startChat() {
-        const data = {type:"adminStart",memberId:memberId};
-        ws.send(JSON.stringify(data));
-    }
-
-    function receiveMsg(){
-
-    }
-    function endChat(){
-
-    }
-
 $('.active_chat_title').on('click',function(){
     $(this).parent().next().children().toggleClass('active_chat_content');
     const memberId = $(this).children().val();
+    const index = $('.active_chat_title').index(this);
+    adminChatList(memberId,index);
+})
+
+function adminChatList(memberId,index){
+    console.log("adminChatList index : "+index);
     $.ajax({
         url : "/chatList.do",
         type : "POST",
         data : {memberId:memberId},
         success : function(list){
-            for(let i=0; i<list.length;i++){
-                console.log('하이');
-                const msg = list[i];
-                console.log("SenderCheck : "+msg.senderCheck);
-                if(list[i].senderCheck == 1){
-                    const chatContent = list[i].chatContent;
-                    const chatDate = list[i].chatDate;
-                    const idDiv = $('<div class="idDiv">');
-                    idDiv.text(list[i].memberId);
-                    const contentDiv = $('<div class="chat_left">');
-                    contentDiv.text(chatContent);
-                    $('.messageArea').append(idDiv).append(contentDiv);
-                }else{
-                    const chatContent = list[i].chatContent;
-                    const chatDate = list[i].chatDate;
-                    const contentDiv = $('<div class="chat_right">');
-                    contentDiv.text(chatContent);
-                    $('.messageArea').append(contentDiv);
-                }     
-            }
-            $('.messageArea').scrollTop($('.messageArea')[0].scrollHeight);
+        $('.adminMessageArea').eq(index).empty();
+        for(let i=0; i<list.length;i++){
+            console.log('하이');
+            const msg = list[i];
+            console.log("SenderCheck : "+msg.senderCheck);
+            if(list[i].senderCheck == 1){
+                const chatContent = list[i].chatContent;
+                const chatDate = list[i].chatDate;
+                const idDiv = $('<div class="idDiv">');
+                idDiv.text(list[i].memberId);
+                const contentDiv = $('<div class="chat_left">');
+                contentDiv.text(chatContent);
+                $('.adminMessageArea').eq(index).append(idDiv).append(contentDiv);
+            }else{
+                const chatContent = list[i].chatContent;
+                const chatDate = list[i].chatDate;
+                const contentDiv = $('<div class="chat_right">');
+                contentDiv.text(chatContent);
+                $('.adminMessageArea').eq(index).append(contentDiv);
+            }     
         }
-    })
+        $('.adminMessageArea').eq(index).scrollTop($('.adminMessageArea')[index].scrollHeight);
+        }
+    });
+}
+
+function adminSendMsg(param) {
+    const divValue = $('.active_chat_title');
+    const memberId = param;
+            for(let i=0;i<divValue.length;i++){
+                const val = divValue.eq(i).attr('value');
+                console.log(val);
+                if(val==param){
+                    console.log("i : "+i);
+                    const msg = $('.adminSendInput').eq(i).val();
+                    if(msg != ""){
+                        const data = {type:"send",msg:msg,sender:memberId};
+                        console.log(data);
+                        ws.send(JSON.stringify(data));
+                    }
+                }
+            }
+}
+
+$('.adminSendInput').on('keyup',function(e){
+    if(e.keyCode == 13){
+        $(this).next().click();
+        $(this).val('');
+    }
+
 })
 
 
-function sendMsg() {
-    const msg = $('#sendMsg').val();
-    const memberId = $(this).parent().parent().parent().parent().find('#memberId');
-    console.log(memberId)
-    if(msg != ""){
-        const data = {type:"send",msg:msg}
-    }
-    
-}
+
+// function receiveMsg(param){
+//     const data = JSON.parse(param.data);
+//     console.log(data);
+//     if(data.type == "sendCondition" && data.msg == "sendOk"){
+//         const divValue = $('.active_chat_title');
+//         for(let i=0;i<divValue.length;i++){
+//             const val = divValue.eq(i).attr('value');
+//             console.log(val);
+//             console.log(data.sender);
+//             if(val == data.sender){
+//                 adminChatList(data.sender,i);
+//             }
+//         }
+        
+//     }
+// }

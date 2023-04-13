@@ -29,6 +29,7 @@
 			chat_content
 		where
 			member_id = #{_parameter}
+		order by 1
 	</select>
 	
 	<insert id="insertChatStart" parameterType="ca">
