@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
-import common.FileManager;
+import common.ProductFileNumbering;
 import kr.co.house.model.service.HouseService;
 import kr.co.house.model.vo.FindRoomByCondition;
 import kr.co.house.model.vo.House;
@@ -28,7 +28,7 @@ public class HouseController {
 	@Autowired
 	private HouseService service;
 	@Autowired
-	private FileManager fileManager;
+	private ProductFileNumbering fileManager;
 
 
 
@@ -48,21 +48,6 @@ public class HouseController {
 		Member me = (Member)session.getAttribute("m");
 		h.setWriter(me.getMemberId());
 
-		if(!housePhoto[0].isEmpty()){
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
-			for(int i=0; i<housePhoto.length; i++) {
-				String filepath = fileManager.upload(savePath, housePhoto[i]);
-				if(i==0) {
-					h.setHousePhoto1(filepath);
-				}else if(i==1) {
-					h.setHousePhoto2(filepath);
-				}else if(i==2) {
-					h.setHousePhoto3(filepath);
-				}else if(i==3) {
-					h.setHousePhoto4(filepath);
-				}
-			}
-		}
 
 ///////////////////  주소 및 위경도 API 아직 안 되어서 임시로 넣은 값들   ////////////
 		h.setHouseAddress("강원 양양군 현남면 인구중앙길 89-4 1층");			//
@@ -70,12 +55,42 @@ public class HouseController {
 		h.setHouseLng("127.012345");								//
 //////////////////////////////////////////////////////////////////////
 
+
 		String[] splitedAddress = h.getHouseAddress().split(" ");
 		h.setHouseCity(splitedAddress[0]);
 		int result = service.insertHouse(h);
 		if(result > 0) {
-	// 승인대기중으로 등록 성공 시 처리내용 작성 필요
-			return "member/myPage";
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
+			int flag = 0;
+			for(int i=0; i<housePhoto.length; i++) {
+				if(!housePhoto[i].isEmpty()) {
+					h.setHousePhoto1(fileManager.uploadHousePhoto1(savePath, housePhoto[i], h.getHouseNo()));
+					flag = i+1;
+					break;
+				}
+			}
+			for(int i=flag; i<housePhoto.length; i++) {
+				if(!housePhoto[i].isEmpty()) {
+					h.setHousePhoto2(fileManager.uploadHousePhoto2(savePath, housePhoto[i], h.getHouseNo()));
+					flag = i+1;
+					break;
+				}
+			}
+			for(int i=flag; i<housePhoto.length; i++) {
+				if(!housePhoto[i].isEmpty()) {
+					h.setHousePhoto3(fileManager.uploadHousePhoto3(savePath, housePhoto[i], h.getHouseNo()));
+					flag = i+1;
+					break;
+				}
+			}
+			for(int i=flag; i<housePhoto.length; i++) {
+				if(!housePhoto[i].isEmpty()) {
+					h.setHousePhoto4(fileManager.uploadHousePhoto4(savePath, housePhoto[i], h.getHouseNo()));
+					break;
+				}
+			}
+			service.uploadHousePhotos(h);
+			return "redirect:/houseView.do?houseNo="+h.getHouseNo();
 		}else {
 	// 실패 시 처리내용 작성 필요
 			return "member/myPage";

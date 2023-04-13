@@ -2,6 +2,7 @@ package kr.co.lesson.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
-import kr.co.house.model.vo.House;
+import common.ProductFileNumbering;
 import kr.co.lesson.model.service.LessonService;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.lesson.model.vo.LessonBook;
@@ -23,6 +25,8 @@ public class LessonController {
 
 	@Autowired
 	private LessonService service;
+	@Autowired
+	private ProductFileNumbering fileManager;
 
 
 
@@ -38,15 +42,31 @@ public class LessonController {
 
 // 강습 상품 등록.  Lesson 테이블에 Row 여러개 추가
 	@RequestMapping(value="/insertLesson.do")
-	public String insertLesson(Lesson l, HttpSession session) {
+	public String insertLesson(Lesson l, MultipartFile lessonPhoto, HttpServletRequest request, HttpSession session) {
 		Member me = (Member)session.getAttribute("m");
 		l.setWriter(me.getMemberId());
-		int result = service.insertLesson(l);
+
+		int result = 0;
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
+		for(int i=0; i<l.getLessonStartTimes().length; i++) {
+			result = 0;
+			l.setLessonStartTime(l.getLessonStartTimes()[i]);
+			l.setLessonEndTime(l.getLessonEndTimes()[i]);
+			result += service.insertLesson(l);
+			if(result > 0) {
+				if(!lessonPhoto.isEmpty()) {
+					l.setLessonInfoPic(fileManager.uploadLessonPhoto(savePath, lessonPhoto, l.getLessonNo()));
+					service.uploadLessonPhoto(l);
+				}
+			}else {
+				break;
+			}
+		}
 		if(result > 0) {
-	// 승인대기중으로 등록 성공 시 처리내용 작성 필요
+	// 실패가 전혀 없을 때 반환되는 내용
 			return "member/myPage";
 		}else {
-	// 실패 시 처리내용 작성 필요
+	// 중간에 하나라도 실패 시 반환되는 내용
 			return "member/myPage";
 		}
 	}

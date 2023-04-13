@@ -23,16 +23,17 @@ public class LessonService {
 	}
 
 
-// 강습 상품 등록.  Lesson 테이블에 Row 여러개 추가
+// 강습 상품 등록.  Lesson 테이블에 Row 1개 추가
 	@Transactional
 	public int insertLesson(Lesson l) {
-		int result = 0;
-		for(int i=0; i<l.getLessonStartTimes().length; i++) {
-			l.setLessonStartTime(l.getLessonStartTimes()[i]);
-			l.setLessonEndTime(l.getLessonEndTimes()[i]);
-			result += dao.insertLesson(l);
-		}
-		return result;
+		return dao.insertLesson(l);
+	}
+
+
+
+// 상품 등록 후 강습 상품 업로드
+	public int uploadLessonPhoto(Lesson l) {
+		return dao.uploadLessonPhoto(l);
 	}
 
 

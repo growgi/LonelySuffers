@@ -16,6 +16,15 @@
 		</selectKey>
 	</insert>
 
+
+<!-- 상품 등록 후 강습 상품 사진 업로드 -->
+	<update id="uploadLessonPhoto" parameterType="l">
+		UPDATE LESSON SET
+		LESSON_INFO_PIC = #{lessonInfoPic}
+  		WHERE LESSON_NO = #{lessonNo}
+	</update>
+
+
 <!-- 조건에 맞는 레슨리스트 불러오기 -->
 	<select id="selectLessonList" parameterType="l" resultMap="getLesson">
 		SELECT L.LESSON_NO, LESSON_TITLE, LESSON_INFO_PIC, LESSON_LEVEL, LESSON_MAX_NO, LESSON_START_TIME, LESSON_END_TIME, LESSON_PRICE 

@@ -32,6 +32,13 @@ public class HouseService {
 	}
 
 
+
+// 상품 등록 후 숙박 상품 사진들 업로드
+	public int uploadHousePhotos(House h) {
+		return dao.uploadHousePhotos(h);
+	}
+
+
 	
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<Room> selectAllAvailableRoom(FindRoomByCondition condition) {
