@@ -2,6 +2,7 @@ package kr.co.house.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import common.FileManager;
 import kr.co.house.model.service.HouseService;
 import kr.co.house.model.vo.FindRoomByCondition;
 import kr.co.house.model.vo.House;
@@ -24,6 +27,8 @@ public class HouseController {
 
 	@Autowired
 	private HouseService service;
+	@Autowired
+	private FileManager fileManager;
 
 
 
@@ -39,9 +44,34 @@ public class HouseController {
 
 // 숙박 상품 등록.  House 테이블에 Row 1개 추가
 	@RequestMapping(value="/insertHouse.do")
-	public String insertHouse(House h, HttpSession session) {
+	public String insertHouse(House h, MultipartFile[] housePhoto, HttpServletRequest request, HttpSession session) {
 		Member me = (Member)session.getAttribute("m");
 		h.setWriter(me.getMemberId());
+
+		if(!housePhoto[0].isEmpty()){
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
+			for(int i=0; i<housePhoto.length; i++) {
+				String filepath = fileManager.upload(savePath, housePhoto[i]);
+				if(i==0) {
+					h.setHousePhoto1(filepath);
+				}else if(i==1) {
+					h.setHousePhoto2(filepath);
+				}else if(i==2) {
+					h.setHousePhoto3(filepath);
+				}else if(i==3) {
+					h.setHousePhoto4(filepath);
+				}
+			}
+		}
+
+///////////////////  주소 및 위경도 API 아직 안 되어서 임시로 넣은 값들   ////////////
+		h.setHouseAddress("강원 양양군 현남면 인구중앙길 89-4 1층");			//
+		h.setHouseLat("37.491234");									//
+		h.setHouseLng("127.012345");								//
+//////////////////////////////////////////////////////////////////////
+
+		String[] splitedAddress = h.getHouseAddress().split(" ");
+		h.setHouseCity(splitedAddress[0]);
 		int result = service.insertHouse(h);
 		if(result > 0) {
 	// 승인대기중으로 등록 성공 시 처리내용 작성 필요

@@ -10,7 +10,7 @@
 
 <!-- 숙박 상품 신규 등록 -->
 	<insert id="insertHouse" parameterType="h">
-		INSERT INTO HOUSE VALUES (HOUSE_SEQ.NEXTVAL, #{houseTitle}, #{houseCity}, #{houseAddress}, #{houseDescription}, #{housePhoto1}, #{housePhoto2}, #{housePhoto3}, #{housePhoto4}, -1, '', #{writer}, #{roomTitle}, #{roomCapa}, #{housePrice}, #{houseBarbecue}, #{houseBarbecuePrice}, #{houseParty}, #{housePartyPrice}, #{houseLNG}, #{houseLAT})
+		INSERT INTO HOUSE VALUES (HOUSE_SEQ.NEXTVAL, #{houseTitle}, #{houseCity}, #{houseAddress}, #{houseDescription}, #{housePhoto1}, #{housePhoto2}, #{housePhoto3}, #{housePhoto4}, -1, '', #{writer}, #{roomTitle}, #{roomCapa}, #{housePrice}, #{houseBarbecue}, #{houseBarbecuePrice}, #{houseParty}, #{housePartyPrice}, #{houseLng}, #{houseLng})
 		<selectKey resultType="_int" order="AFTER" keyProperty="houseNo">
 			SELECT MAX(HOUSE_NO) FROM HOUSE
 		</selectKey>
