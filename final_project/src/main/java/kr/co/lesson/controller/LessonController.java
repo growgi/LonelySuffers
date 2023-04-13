@@ -2,7 +2,6 @@ package kr.co.lesson.controller;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
-import common.ProductFileNumbering;
+import kr.co.house.model.vo.House;
 import kr.co.lesson.model.service.LessonService;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.lesson.model.vo.LessonBook;
@@ -25,8 +23,6 @@ public class LessonController {
 
 	@Autowired
 	private LessonService service;
-	@Autowired
-	private ProductFileNumbering fileManager;
 
 
 
@@ -42,16 +38,9 @@ public class LessonController {
 
 // 강습 상품 등록.  Lesson 테이블에 Row 여러개 추가
 	@RequestMapping(value="/insertLesson.do")
-	public String insertLesson(Lesson l, MultipartFile lessonPhoto, HttpServletRequest request, HttpSession session) {
+	public String insertLesson(Lesson l, HttpSession session) {
 		Member me = (Member)session.getAttribute("m");
 		l.setWriter(me.getMemberId());
-
-		if(!lessonPhoto.isEmpty()){
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
-			String filepath = fileManager.upload(savePath, lessonPhoto);
-			l.setLessonInfoPic(filepath);
-		}
-
 		int result = service.insertLesson(l);
 		if(result > 0) {
 	// 승인대기중으로 등록 성공 시 처리내용 작성 필요
@@ -71,4 +60,17 @@ public class LessonController {
 		ArrayList<LessonBook> list = service.selectAllbookedDates(lessonNo);
 		return new Gson().toJson(list);
 	}
+	
+// 조건에 맞는 숙소 리스트를 조회하는 것
+	@ResponseBody
+	@RequestMapping(value="/lessonList.do", produces = "application/json;charset=utf-8")
+	public String selectRoomList(Lesson lesson) {
+		System.out.println("lessondata"+lesson);
+		ArrayList<Lesson> list = service.selectSelectList(lesson);
+		Gson gson = new Gson();
+		String result = gson.toJson(list);
+		System.out.println("lesson result 결과"+result.length());
+		return result;
+			
+		}
 }

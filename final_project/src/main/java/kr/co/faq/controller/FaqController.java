@@ -31,7 +31,7 @@ public class FaqController {
 	public String faqWrite(Faq faq) {
 		int result = service.insertFaq(faq);
 		if(result > 0) {
-			return "redirect:/";
+			return "redirect:/faqList.do";
 		}else {
 			return "redirect:/faqWriterFrm.do";
 		}
@@ -42,6 +42,38 @@ public class FaqController {
 		Faq faq = service.selectOneFaq(faqNo);
 		model.addAttribute("faq", faq);
 		return "faq/faqView";
+	}
+	
+	@RequestMapping(value="/faqUpdateFrm.do")
+	public String faqUpdateFrm(int faqNo, Model model) {
+		Faq faq = service.selectOneFaq(faqNo);
+		model.addAttribute("faq", faq);
+		if(faq != null) {
+			return "faq/faqUpdateFrm";
+		}else {
+			return "redirect:/faqList.do";
+		}
+	}
+	
+	@RequestMapping(value="/faqUpdate.do")
+	public String updateFaq(Faq faq) {
+		int result = service.updateFaq(faq);
+		if(result > 0) {
+			return "redirect:/faqView.do?faqNo="+faq.getFaqNo();
+		}else {
+			return "redirect:/faqList.do";
+		}
+	}
+	
+	@RequestMapping(value="/deleteFaq.do")
+	public String deleteFaq(int faqNo) {
+		int result = service.deleteFaq(faqNo);
+		if(result > 0) {
+			return "redirect:/faqList.do";
+		}else {
+			return "redirect:/";
+		}
+		
 	}
 }
 

@@ -24,4 +24,12 @@ public class FaqService {
 	public Faq selectOneFaq(int faqNo) {
 		return dao.selectOneFaq(faqNo);
 	}
+
+	public int updateFaq(Faq faq) {
+		return dao.updateFaq(faq);
+	}
+
+	public int deleteFaq(int faqNo) {
+		return dao.deleteFaq(faqNo);
+	}
 }

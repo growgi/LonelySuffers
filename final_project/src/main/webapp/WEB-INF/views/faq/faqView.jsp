@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>이 페이지의 제목을 적어주세요 - Lonely Suffers</title>
+<title>Lonely Suffers</title>
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
@@ -44,37 +44,52 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
+					<table border="1">
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>카테고리</th>
+							<th>내용</th>
+						</tr>		
+					</table>
 					<table>
 						<tr>
-							<th>${faq.faqNo }</th>
+							<td>${faq.faqNo }</td>
+							<td>${faq.faqTitle }</td>
 								<c:choose>
-									<c:when test="${fq.categoryNo == 1}">
+									<c:when test="${faq.categoryNo == 1}">
 										<td>예약취소</td>
 									</c:when>
-									<c:when test="${fq.categoryNo == 2}">
+									<c:when test="${faq.categoryNo == 2}">
 										<td>숙박</td>
 									</c:when>
-									<c:when test="${fq.categoryNo == 3}">
+									<c:when test="${faq.categoryNo == 3}">
 										<td>강습</td>
 									</c:when>
-									<c:when test="${fq.categoryNo == 4}">
+									<c:when test="${faq.categoryNo == 4}">
 										<td>카풀</td>
 									</c:when>
-									<c:when test="${fq.categoryNo == 5}">
+									<c:when test="${faq.categoryNo == 5}">
 										<td>후기</td>
 									</c:when>
-									<c:when test="${fq.categoryNo == 6}">
+									<c:when test="${faq.categoryNo == 6}">
 										<td>회원서비스</td>
 									</c:when>
 								</c:choose>
-							<th>${faq.categoryNo }</th>
-							<th>${faq.faqContent }</th>
+							<td>${faq.faqContent }</td>
 						</tr>
 					</table>
-					
-					
-				
-				
+					<table>
+						<tr>
+							<th colspan="6">
+								<c:if test="${sessionScope.m.memberGrade == 1}">
+									<a href="/faqUpdateFrm.do?faqNo=${faq.faqNo }">수정하기</a>
+									<a href="/deleteFaq.do?faqNo=${faq.faqNo }">삭제</a>
+								</c:if>
+							</th>
+						</tr>
+					</table>
+					<a href="/faqList.do">목록보기</a>
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->

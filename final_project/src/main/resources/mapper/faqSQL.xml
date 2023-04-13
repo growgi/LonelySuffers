@@ -24,5 +24,17 @@
   			faq_content as faqContent
   		from faq where faq_no = ${_parameter}	
   	</select>
+  	
+  	<update id="updateFaq" parameterType="fq">
+  		update faq set
+  			faq_title = #{faqTitle},
+  			category_no = #{categoryNo},
+  			faq_content = #{faqContent}
+  		where faq_no = #{faqNo}	
+  	</update>
+  	
+  	<delete id="deleteFaq" parameterType="_int">
+  		delete from faq where faq_no = #{_parameter}
+  	</delete>
   
 </mapper>

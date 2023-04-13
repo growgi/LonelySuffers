@@ -41,4 +41,10 @@ public class LessonService {
 	public ArrayList<LessonBook> selectAllbookedDates(int lessonNo) {
 		return dao.selectAllbookedDates(lessonNo);
 	}
+
+
+// 조건에 맞는 숙소 리스트를 조회하는 것
+	public ArrayList<Lesson> selectSelectList(Lesson lesson) {
+		return dao.selectLessonList(lesson);
+	}
 }
