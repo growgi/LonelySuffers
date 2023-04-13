@@ -10,9 +10,18 @@
 }
 
 .list-wrapper form{
-    box-shadow: 2px 4px 4px 4px rgba(207, 207, 207, 0.19), 2px 2px 2px 2px rgba(177, 177, 177, 0.23);
+    /* box-shadow: 2px 4px 4px 4px rgba(207, 207, 207, 0.19), 2px 2px 2px 2px rgba(177, 177, 177, 0.23); */
 }
-/*�˻�â*/
+/*검색*/
+.search-type{
+    width: 150px;
+    padding: 5px 30px 5px 10px;
+    outline: 0 none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 2px solid #dddd;
+    border-right: none;
+}
 .search-bar {
     display: flex;
     margin-bottom: 15px;
@@ -20,23 +29,31 @@
 .search-bar>.search-icon{
     /*width: 45px;
     height: 45px;*/
-    width: 80px;
-    background-color: rgb(238, 238, 238);
-    color: rgb(156, 156, 156);
+    width: 150px;
+    background-color: #19A7CE;
+    color: #fff;
+    font-weight: 600;
+    font-size: 24px;
     line-height: 45px;
     text-align: center;
-    border: 1px solid #dddd;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: 0.2s;
     /*border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border: 1px solid #dddd;
     border-right: none;*/
 }
+.search-bar>.search-icon:hover{
+    background-color: #1487a7;
+}
 .search-bar>input{
     outline: none;
-    border: 1px solid #dddd;
+    border: 2px solid #dddd;
+    border-right: none;
     padding-left: 8px;
     padding-right: 8px;
-    width: 45vh;
+    width: 40%;
     /*border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;*/
     cursor: auto;
@@ -49,19 +66,46 @@
 
 /*상품 선택*/
 .product-choice{
-    width: 150px;
-    height: 100px;
     text-align: left;
     box-sizing: border-box;
-    box-shadow: 1px 2px 2px 2px rgba(207, 207, 207, 0.19), 1px 2px 2px 2px rgba(177, 177, 177, 0.23);
-	margin-right: 15px;
+    border-radius: 10px;
+    display: flex;
+    margin-bottom: 15px;
+}
+.product-choice>a:first-child{
+    background-color: #146C94;
+}
+.product-choice>a:first-child:hover{
+    background-color: #105270;
+    color: #fff;
 }
 .product-choice>a{
 	display: block;
-    height: 50px;
-    line-height: 50px;
-    padding-left: 15px;
+    width: 110px;
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
     box-sizing: border-box;
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 20px;
+    transition: 0.2s;
+    border-radius: 100px;
+    background-color: #ecc351;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+/* .product-choice>a:first-child{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.product-choice>a:last-child{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+} */
+.product-choice>a:hover{
+    background-color: #ebb31b;
 }
 .active-product-choice{
     background-color: rgb(172, 172, 172);
@@ -111,33 +155,56 @@ table>tr>td:last-child{
 .count{
     font-weight: 900;
     font-size: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 .count>span{
     color: #86C8BC;
     font-size: 20px;
 }
+th:first-child, td:first-child{
+    width: 80px;
+
+}
 
 table{
     width: 100%;
+    table-layout: fixed;
     text-align: center;
     border-spacing: 0;
+
 }
 table th{
-    font-size: 17px;
+    font-size: 18px;
+    background-color: #F6F1F1;
+    color: #333536;
+}
+table th:first-child{
+    border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+table th:last-child{
+    border-top-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
 table td:nth-child(2){
 	overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 table th, td{
     height: 70px;
     border-bottom: 1px solid rgb(202, 202, 202);
+    word-break:break-all;
+}
+table tr:hover{
+    background-color: #fafafa;
 }
 .list-top{
     padding: 35px;
-    border: 1px solid rgb(238, 238, 238);
+    border: 2px solid rgb(238, 238, 238);
     border-bottom: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 .list-bottom{
     background-color: rgb(241, 241, 241);
@@ -145,6 +212,8 @@ table th, td{
     box-sizing: border-box;
     text-align: right;
     position: relative;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 .list-bottom>div{
     position: absolute; 

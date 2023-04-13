@@ -411,12 +411,19 @@ public class AdminController {
 	@RequestMapping(value="/wishList.do")
 	public String wishList(String memberId, Model model) {
 		ArrayList<WishList> allWishList = service.selectAllWishList(memberId);
+		int allWishListCount = service.selectAllWishListCount(memberId);
 		ArrayList<WishList> lessonWishList = service.selectLessonWishList(memberId);
+		int lessonWishListCount = service.selectLessonWishListCount(memberId);
 		ArrayList<WishList> houseWishList = service.selectHouseWishList(memberId);
+		int houseWishListCount = service.selectHouseWishListCount(memberId);
 		
-		model.addAttribute("lessonWishList", lessonWishList);
-		model.addAttribute("houseWishList", houseWishList);
 		model.addAttribute("allWishList", allWishList);
+		model.addAttribute("allWishListCount", allWishListCount);
+		model.addAttribute("lessonWishList", lessonWishList);
+		model.addAttribute("lessonWishListCount", lessonWishListCount);
+		model.addAttribute("houseWishList", houseWishList);
+		model.addAttribute("houseWishListCount", houseWishListCount);
+		
 		return "member/wishList";
 	}
 	

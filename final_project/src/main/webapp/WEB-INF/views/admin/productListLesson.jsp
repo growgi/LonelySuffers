@@ -9,8 +9,9 @@
 </head>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <style>
 /*별점*/
 .rating-color{
@@ -19,34 +20,38 @@
 .small-ratings i{
   color:#cecece;   
 }
+th:last-child, td-last-child{
+	width: 50px;
+}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="currProduct-wrapper product-wrapper admin-content">
 		<div>
 			<div class="lesson-list">
-				<form action="/adminSearchLesson.do" method="get"
-					class="search-bar" name="search-product">
-					<input type="hidden" name="jspPage" value="pl">
-					<select name="lessonSearchType" class="search-type">
-						<option value="n">강습명</option>
-						<option value="s">판매자</option>
-						<option value="le">강습레벨</option>
-						<option value="lo">지역</option>
-					</select>
-					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
-					<input
-						type="text" placeholder="검색어를 입력하세요" name="lessonSearchKeyword"
-						onkeyup="enterkey();"> <input type="submit"
-						style="display: none;">
-					<div class="search-icon">검색</div>
-				</form>
 				<div class="table-content">
 					<div class="product-choice">
+						<a href="#">전체</a>
 						<a href="/productListLesson.do">강습</a>
 						<a href="/productListHouse.do">숙박</a>
 					</div>
 					<div class="list-wrapper">
+						<form action="/adminSearchLesson.do" method="get"
+						class="search-bar" name="search-product">
+						<input type="hidden" name="jspPage" value="pl">
+						<select name="lessonSearchType" class="search-type">
+							<option value="n">강습명</option>
+							<option value="s">판매자</option>
+							<option value="le">강습레벨</option>
+							<option value="lo">지역</option>
+						</select>
+						<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
+						<input
+							type="text" placeholder="검색어를 입력하세요" name="lessonSearchKeyword"
+							onkeyup="enterkey();"> <input type="submit"
+							style="display: none;">
+							<div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
+					</form>
 						<div class="productList-top list-top">
 							<div class="count">
 								강습 전체 상품 <span>${lessonCount }</span>
@@ -64,7 +69,6 @@
 									<th>평점</th>
 									<th>상품 상태</th>
 									<th></th>
-									<th></th>
 								</tr>
 								<c:forEach items="${lessonList }" var="l">
 									<tr>
@@ -72,7 +76,7 @@
 											class="lesson-check chk" value="${l.lessonNo }"></td>
 										<td><a href="#">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
-										<td>${l.lessonNameLevel }</td>
+										<td>Level ${l.lessonNameLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
 										<td>

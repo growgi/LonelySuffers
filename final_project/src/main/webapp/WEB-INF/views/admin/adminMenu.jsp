@@ -16,18 +16,19 @@
 
     /*메뉴 상단*/
     .top-menu-background{
-        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+        /*background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);*/
+        background-color: #146C94;
         overflow: hidden;
         position: relative;
         box-shadow: 0 2px 2px 2px rgba(233, 233, 233, 0.19), 0 1px 1px 1px rgba(223, 223, 223, 0.23);
     }
     .top-menu-title{
-        font-size: 22px;
+        font-size: 24px;
         font-weight: 600;
         position: absolute;
         left: 280px;
         line-height: 70px;
-
+        color:#f3faf1;
     }
 
     .admin-icon{
@@ -83,7 +84,9 @@
         font-size: 14px;
     }
     .box-bottom{
+    	height: 150px;
         padding: 20px;
+        position: relative;
     }
     .box-bottom>div{
         margin-bottom: 7px;
@@ -99,25 +102,25 @@
 
     /*왼쪽 메뉴*/
     .left-menu{
-        background-color: rgb(48,48,48);
+        background-color: #0a2647;
         width: 250px;
-        height: 100vh;
         z-index: 1;
-        
-        position: absolute; 
-        top: 0; 
-        left: 0;
+        height: 100vh;
+        overflow: auto;
+        position: fixed;
 
-        box-shadow: 2px 4px 4px 4px rgba(207, 207, 207, 0.19), 1px 2px 2px 2px rgba(177, 177, 177, 0.23);
+
     }
     .left-menu-title{
         font-size: 24px;
         font-weight: 900;
         padding: 70px 25px 40px 25px ;
+        
     }
     .waveEffectWord-back{
         color: #f7f7f7;
         font-size: 2.5em;
+        color:rgba(255, 255, 255, 0.8);
     }
     .left-menu-list>li>div{
         display: flex;
@@ -135,16 +138,27 @@
         right: 15px;
     }
     .menu-detail-title>div{
-        margin-left: 5px;
+        margin-left: 10px;
+        font-size: 18px;
+        color:rgba(255, 255, 255, 0.9);
     }
     .menu-detail>li>a{
         display: block;
         padding: 15px;
         padding-left: 50px;
         font-size: 16px;
-        color: lightgray;
+        color: rgb(173, 173, 173);
+        text-decoration: none;
     }
-
+    .menu-detail>li>a:hover{
+        background-color: #061629;
+    }
+	.logout-btn{
+		width: 260px;
+		position: absolute;
+		bottom: 20px;
+		right: 20px;
+	}
     /*변화*/
     .active-admin-icon{
         background-color: #dfdfdf;
@@ -160,9 +174,10 @@
     }
 </style>
 <div class="admin-menu-wrapper">
-    <div class="left-menu">
+<div class="left-menu">
+    <div class="left-menu-wrapper">
         <div class="left-menu-title">
-            <a class="navbar-brand" href="/">
+            <a href="/">
                 <div class="waveEffect">
                     <p class="waveEffectWord-back" style="font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
                 </div>
@@ -170,6 +185,12 @@
         </div>
         <div class="left-menu-content">
             <ul class="left-menu-list">
+                <li>
+                    <div class="menu-detail-title">
+                        <span class="material-symbols-outlined">deployed_code</span>
+                        <div>Dashboard</div>
+                    </div>
+                </li>
                 <li>
                     <div class="menu-detail-title">
                         <span class="material-symbols-outlined">group</span>
@@ -206,30 +227,31 @@
             </ul>
         </div>
     </div>
+</div>
     <div class="link-box" style="display:none">
         <div class="box-top">
             <div>
                 <span class="material-symbols-outlined admin-icon2">admin_panel_settings</span>
                 <div>
-                    <div><span>이름</span> 관리자</div>
-                    <div>아이디@naver.com</div>
+                    <div><span>${sessionScope.m.memberName}</span> 관리자</div>
+                    <div>${sessionScope.m.memberEmail}</div>
                 </div>
             </div>
         </div>
         <div class="box-bottom">
             <div>
                 <span class="material-symbols-outlined link-icon">home</span>
-                <a href="#">홈으로 이동</a>
+                <a href="/">홈으로 이동</a>
             </div>
             <div>
                 <span class="material-symbols-outlined link-icon">notifications_active</span>
-                <a href="#">공지사항으로 이동</a>
+                <a href="/noticeList.do?reqPage=1">공지사항으로 이동</a>
             </div>
             <div>
                 <span class="material-symbols-outlined link-icon">help</span>
-                <a href="#">FAQ로 이동</a>
+                <a href="/faqList.do">FAQ로 이동</a>
             </div>
-            <button name="logout">로그아웃</button>
+            <button name="logout" class="btn bc1 logout-btn">로그아웃</button>
         </div>
     </div>
     <div class="top-menu">
@@ -246,7 +268,7 @@
         $(this).toggleClass("active-admin-icon");
     });
 
-    /*왼쪽 메뉴*/
+    /*왼쪽 메뉴
     $(".menu-detail-title").on("click",function(){
         //$(".menu-detail-title").next().hide();
         $(".menu-detail-title").parent().removeClass("action-menu-detail");
@@ -262,5 +284,5 @@
     });
     $(".menu-detail>li").on("click",function(){
         $(this).css("background-color","rgb(22, 22, 22)");
-    });
+    });*/
 </script>

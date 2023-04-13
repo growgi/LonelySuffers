@@ -13,9 +13,8 @@
     <div class="memberList-wrapper admin-content">
     	<div>
             <form action="/searchSellerAppMember.do" method="get" id="frm" class="search-bar" name="searchMember">
-                <span class="material-symbols-outlined search-icon" onclick="document.getElementById('frm').submit();">search</span>
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
-                <input type="submit" style="display:none;">
+                <span class="material-symbols-outlined search-icon">search</span>
             </form>
 	        <div class="list-wrapper">
                 <div class="memberList-top list-top">

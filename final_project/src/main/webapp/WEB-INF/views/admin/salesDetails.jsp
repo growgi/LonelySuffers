@@ -21,7 +21,7 @@
 					<input
 						type="text" placeholder="검색어를 입력하세요" name="searchKeyword"
 						onkeyup="enterkey();">
-					<input type="submit" value="검색" class="search-icon">
+                        <div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
             </form>
             <div class="list-wrapper">
                 <div class="orderList-top list-top">

@@ -10,27 +10,18 @@
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-.admin-content{
-    position: relative;
-}
+
 .admin-content>div{
-    position: absolute;
-    top: 50px;
-	left: 300px;
-    width: 100%;
+    margin-left: 300px;
+    margin-top: 50px;
 }
 
 .table-content{
-    overflow: hidden;
 
 }
-.product-choice{
-    float: left;
-    margin-right: 20px;
-}
+
 .list-wrapper{
-    width: 70%;
-    float: left;
+    width: 85%;
 }
 
 /*踰꾪듉 �뵒�옄�씤*/
