@@ -49,6 +49,84 @@
 		TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'),1)
 	</insert>	
 	
+<!-- 
+	운전자 페이지에 나올 리스트 보기. passenger까지 받아와야하기 때문에, carpool VO에
+	passengerList를 ArrayList로 받아왔고, 이를 넘겨주는 쿼리를 만들어야해
+	참고할 것은 spring-workspace의 selectOneBoard, selectFileList와 resultMap 세개 세트
+	service, dao를 안들리고 두개의 쿼리를 호출해야하기때문에 쓰는 방식이다. 
+ -->	
+ 
+ <!-- 원래 이 쿼리였지만 잘못됐으니까,
+	<select id="selectMyLists"  parameterType="_int" resultType="c">
+		select
+			carpool_no as carpoolNo,
+			c.driver_no as driverNo,
+			m.member_name as memberName,
+			m.member_gender as memberGender,
+			m.member_phone as memberPhone,
+			m.member_email as memberEmail,
+			c.departure_date as departureDate,
+			c.capacity as capacity,
+			p.match_no as matchNo,
+			p.match_status as matchStatus,
+			(select count(*) from passenger p where p.carpool_no = carpool_no and match_status=2) as reserved
+		from carpool c
+			join member_tbl m on (driver_no = member_no)
+			join passenger p using (carpool_no)
+			where driver_no=#{_parameter}
+	</select>
+-->
+	<select id="selectMyLists"  parameterType="_int" resultMap="getMyLists">
+		select
+			carpool_no,
+			c.driver_no,
+			m.member_name,
+			m.member_gender,
+			m.member_phone,
+			m.member_email,
+			c.departure_date,
+			c.capacity,
+			(select count(*) from passenger p where p.carpool_no = carpool_no and match_status=2) as reserved
+		from carpool c
+			join member_tbl m on (driver_no = member_no)
+			join passenger p using (carpool_no)
+			where driver_no=#{_parameter}
+	</select>
+	<select id="selectPassengerList" parameterType="_int" resultType="p">
+		select
+			match_no as matchNo,
+			match_status as matchStatus,
+			carpool_no as carpoolNo,
+			passenger_no as passengerNo,
+			m.member_id as passengerId,
+			m.member_gender as passengerGender,
+			m.member_name as passengerName,
+			m.member_phone as passengerPhone,
+			m.member_email as passengerEmail,
+			request_date as requestDate
+		from passenger p
+			join member_tbl m on (passenger_no = member_no)
+		where carpool_no=#{_parameter}	
+	</select>
+	<resultMap type="c" id="getMyLists">
+			<result column="carpool_no" property="carpoolNo"/>
+			<result column="driver_no" property="driverNo"/>
+			<result column="member_name" property="driverName"/>
+			<result column="member_gender" property="driverGender"/>
+			<result column="member_phone" property="driverPhone"/>
+			<result column="member_email" property="driverEmail"/>
+			<result column="departure_date" property="departureDate"/>
+			<result column="capacity" property="capacity"/>
+			<result column="reserved" property="reserved"/>
+			<result column="departure_date" property="departureDate"/>
+		<collection property="passengerList"
+					select="selectPassengerList"
+					column="carpool_no"
+					ofType="p" 
+					javaType="java.util.ArrayList"	
+		/>
+		<!--ofType: arrayList에 들어갈 type -->
+	</resultMap>
 	
 
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.carpool.model.dao.CarpoolDao;
 import kr.co.carpool.model.vo.Carpool;
@@ -26,19 +27,21 @@ public class CarpoolService {
 	}
 
 	public ArrayList<Carpool> filterCarpool(CarpoolFilter cf, int amount) {
-		System.out.println("controller에서 service로 넘겨준조건"+cf);
+		//System.out.println("controller에서 service로 넘겨준조건"+cf);
 		int end = cf.getStart()+amount-1;
 		cf.setEnd(end);
-		System.out.println("dao로부터 controller로 넘겨준 것 "+dao.filterCarpool(cf));
+		//System.out.println("dao로부터 controller로 넘겨준 것 "+dao.filterCarpool(cf));
 		return dao.filterCarpool(cf);
 	}
 
 	//카풀 신청하기(승객)
+	@Transactional
 	public int insertPassenger(CarpoolMatch match) {
 		return dao.insertPassenger(match);
 	}
 	
 	//운전자의 카풀 등록하기(controller에서는 registerCarpool)
+	@Transactional
 	public int insertCarpool(Carpool carpool) {
 		return dao.insertCarpool(carpool);
 	}
@@ -47,6 +50,12 @@ public class CarpoolService {
 	public int totalCount(CarpoolFilter cf) {
 		return dao.totalCount(cf);
 	}
+
+	public ArrayList<Carpool> getMyLists(int driverNo) {
+		ArrayList<Carpool> clist = dao.getMyLists(driverNo);
+		return clist;
+	}
+	
 
 
 }

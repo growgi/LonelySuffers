@@ -172,22 +172,53 @@
 					                    </tr>
 					                </table>
 											
-					        </div>
+					        </div><hr>
 							<!-- 
-					       
+					       	왕복일 경우에만 들어오는 '복귀'선택란은 원래 여기인데. 그것만 뺐다꼈다 하도록  javascript로 넣어줌.
 					                    -->
 					        
 					    </div>
+					     <!-- 모달 -->
+					<div class="button-wrap" style="width:500px; margin: 0 auto; text-align:center; margin-top: 20px; margin-bottom: 20px;">		 
+					  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+					   <img src="/resources/images/carpool/warning.png"alt="img" style="width: 30px; height: 30px;">
+				  		꼭 읽어주세요 ! 아름다운 문화 만들기</button>
+					</div>
+				
+					  <!-- Modal -->
+					  <div class="modal fade" id="myModal" role="dialog">
+					    <div class="modal-dialog">
+					    
+					      <!-- Modal content-->
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title">꼭 읽어주세요!</h4>
+					        </div>
+					        <div class="modal-body">
+					          <p>Lonely surfers는 카풀에 관여하지 않습니다.<br> 다만, 사용자 보호를 위하여 불건전한 내용 또는 사기로 의심되는 행위 적발 시 사기 피해확산을 막기 위해 사기 이용자의 계정을 차단하고 서비스 이용이 제한할 수 있으며 경찰 등 수사시관에 적극 협조하고 있습니다.</p>
+					        </div>
+					        <div class="modal-footer">
+					          <button type="button" class="btn btn-default" data-dismiss="modal">동의합니다.</button>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
 					    <div class="button-wrap"  style="text-align: center; margin-bottom:20px;">
-					        <button type="button" class="btn cancel" style="margin-right:20px; width: 100px; height:45px;"><a href="carpoolMain.do">취소하기</a></button>
-					        <button type="submit" class="btn btn-primary" style="width: 100px; height:45px; text-align:center;">등록</button>
+					    <hr>
+					        <button type="button" class="btn cancel" style="margin-right:20px; width: 150px; height:50px;"><a href="carpoolMain.do">취소하기</a></button>
+					        <button type="submit" class="btn btn-primary" style="width: 150px; height:50px; text-align:center;">등록</button>
 					    </div>
 					 </form>
+					 
+					</div>
+					 
 				
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->
 	   <a href="/carpoolMain.do">카풀 메인으로</a>
+</div>
 
 
 
