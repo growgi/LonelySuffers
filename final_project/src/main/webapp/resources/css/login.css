@@ -19,9 +19,14 @@
     border: 1px solid black;
 
 }
+.content-top>.waveEffectWord-back,.content-top>.waveEffectWord-front{
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
 .content-top{
     text-align: center;
-
     border-bottom: none;
 }
 
