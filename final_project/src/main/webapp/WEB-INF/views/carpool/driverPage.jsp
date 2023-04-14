@@ -152,12 +152,10 @@
 															<input type="hidden" id="matchStatus" value="${p.matchStatus }">
 																<c:choose>
 																	<c:when test="${p.matchStatus eq 0 }">
-																		<div>
 																			<button type="button"  class="btn btn-success accept" value="2" 
 																			onclick="decides(this)">수락</button>
 																			<button type="button" class="btn btn-danger reject" style="background-color: #F15A59;" value="1"
 																			onclick="decides(this)">거절</button>
-																		</div>
 																	</c:when>
 																	<c:otherwise>
 																			<button type="button"  class="btn btn-success accept" value="2" 
