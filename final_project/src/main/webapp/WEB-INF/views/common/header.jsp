@@ -114,7 +114,7 @@
 													<li><a href="page-fullwidth.html">Fullwidth Page</a></li>
 													<li><a href="page-contact.html">Contact us</a></li>
 													<li><a href="/noticeList.do?reqPage=1">공지사항</a></li>
-													<li><a href="/faqList.do">FAQ's Page</a></li>
+													<li><a href="/faqListKind.do?categoryNo=1">FAQ's Page</a></li>
 													<li><a href="page-not-found.html">404 Not Found</a></li>
 												</ul>
 											</div>
@@ -145,7 +145,8 @@
 							<c:choose>
 								<c:when test="${sessionScope.m.memberGrade ==1}">
 						<li>
-							<a href="/memberList.do"><span>관리자페이지</span></a>
+							<a href="/memberList.do">
+							<span style="line-height: 25px; vertical-align: middle;">관리자페이지</span></a>
 						</li>								
 								</c:when>
 								<c:otherwise>

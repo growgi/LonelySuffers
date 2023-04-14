@@ -21,7 +21,7 @@
 					<input
 						type="text" placeholder="검색어를 입력하세요" name="searchKeyword"
 						onkeyup="enterkey();">
-					<input type="submit" value="검색" class="search-icon">
+                        <div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
             </form>
             <div class="list-wrapper">
                 <div class="orderList-top list-top">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="deleteCheckedOrder btn bc1">선택 내역 삭제</button>
+                        <button class="deleteCheckedOrder btn-m bc2">선택 내역 삭제</button>
                     </div>
                 </div>
             </div>

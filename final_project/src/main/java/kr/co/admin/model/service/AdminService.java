@@ -419,16 +419,29 @@ public class AdminService {
 	}
 
 	public ArrayList<Order> selectSearchSalesDetails(Search sp) {
-		System.out.println(sp.getSearchType());
-		System.out.println(sp.getSearchKeyword());
+		
 		return dao.selectSearchSalesDetails(sp);
 	}
 
 	public int deleteWishList(int wishNo) {
-		
 		int result = dao.deleteWishList(wishNo);
 
 		return result;
+	}
+
+	public int selectAllWishListCount(String memberId) {
+		
+		return dao.selectAllWishListCount(memberId);
+	}
+
+	public int selectLessonWishListCount(String memberId) {
+
+		return dao.selectLessonWishListCount(memberId);
+	}
+
+	public int selectHouseWishListCount(String memberId) {
+
+		return dao.selectHouseWishListCount(memberId);
 	}
 
 

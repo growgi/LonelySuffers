@@ -105,6 +105,7 @@
 				  	꼭 읽어주세요 ! 아름다운 문화 만들기
 				  </button>
 				</div>  
+		
 				
 				  <!-- Modal -->
 				  <div class="modal fade" id="myModal" role="dialog">

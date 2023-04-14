@@ -60,6 +60,11 @@ public class NoticeDao {
 		int result = sqlSession.delete("notice.deleteNotice", noticeNo);
 		return result;
 	}
+
+	public ArrayList<Notice> selectSearchNotice(String searchNtTitle) {
+		List searchNotice = sqlSession.selectList("notice.selectSearchNotice", searchNtTitle);
+		return (ArrayList<Notice>)searchNotice;
+	}
 }
 
 

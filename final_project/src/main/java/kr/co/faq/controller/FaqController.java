@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.faq.model.service.FaqService;
+import kr.co.faq.model.vo.Category;
 import kr.co.faq.model.vo.Faq;
 
 @Controller
@@ -75,6 +76,20 @@ public class FaqController {
 		}
 		
 	}
+	
+	@RequestMapping(value="/faqHeader.do")
+	public String faqHeader() {
+		return "common/faqHeader";
+	}
+	
+	@RequestMapping(value="/faqListKind.do")
+	public String faqCancel(int categoryNo, Model model) {
+		ArrayList<Faq> list = service.selectOneFaqCancel(categoryNo);
+		model.addAttribute("list", list);
+		return "faq/faqListKind";
+	}
+	
+	
 }
 
 

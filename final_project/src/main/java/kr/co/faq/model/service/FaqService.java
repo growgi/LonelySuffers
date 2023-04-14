@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.faq.model.dao.FaqDao;
+import kr.co.faq.model.vo.Category;
 import kr.co.faq.model.vo.Faq;
 
 @Service
@@ -31,5 +32,9 @@ public class FaqService {
 
 	public int deleteFaq(int faqNo) {
 		return dao.deleteFaq(faqNo);
+	}
+
+	public ArrayList<Faq> selectOneFaqCancel(int categoryNo) {
+		return dao.selectOneFaqCancel(categoryNo);
 	}
 }

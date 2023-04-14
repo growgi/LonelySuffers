@@ -618,7 +618,7 @@
 var markers = [];
 
 //네이버지도 스크립트
-const map = new naver.maps.Map("map",{
+var map = new naver.maps.Map("map",{
 	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
 	zoom : 6,
 	maxZoom : 7,
@@ -670,8 +670,9 @@ $(document).ready(function(){
 					
 				})
 				 markers.push(marker);
-			}
-
+			}	
+			
+			
 	var markerClustering = new MarkerClustering({
         minClusterSize: 2,
         maxZoom: 8,
@@ -682,32 +683,59 @@ $(document).ready(function(){
         gridSize: 120,
         icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
         indexGenerator: [10, 100, 200, 500, 1000],
-        stylingFunction: function(clusterMarker, count) {
-            $(clusterMarker.getElement()).find('div:first-child').text(count);
-       		 },
-       	getCenter: function() {
-       		
+    	getCenter: function() {
+    		
+    		
+    		
        		return this._clusterCenter;
+       		
        		},
        	 getClusterMember: function() {
        	    return this._clusterMember;
-       	  }
+       	  },
+        stylingFunction: function(clusterMarker, count) {
+            $(clusterMarker.getElement()).find('div:first-child').text(count);
+            //클러스터를 클릭했을 때 동작하는 이벤트
+            naver.maps.Event.addListener(clusterMarker, 'click', function(e) {
+            	const mar = markers;
+            	console.log(mar);
+            	//lat, lng 초기화
+            	let lat = 0;
+            	let lng = 0;
+            	for(let i=0;i<markers.length;i++){
+            		//position이 해당 위치의 경도, 위도를 담고있음
+            		lat += markers[i].position.y;
+            		lng += markers[i].position.x;
+            	console.log(lat,lng);
+            	}
+            	//중심 경도 위도 = 클러스터 내부의 모든 경도 위도를 합한 값에 markers.length만큼 나눈 것
+            	const centerLat = lat/markers.length;
+            	const centerLng = lng/markers.length;
+            	console.log(centerLat,centerLng);
+            	const mapCenter = new naver.maps.LatLng(centerLat,centerLng);
+            	map.setCenter("평균 위도 경도"+mapCenter);
+               	//alert(test1);
+            });
+            
+       		}
+       
+       
        		 
- 		 });
-	console.log(markerClustering);
+ 		});
+	console.log("마커클러스터"+markerClustering);
 	var test1 = markerClustering.getCenter;
 	console.log(test1());
 
-	naver.maps.Event.addListener(map, "click", function(e){
-		alert("클릭함");
-		});
-		}
-		
 	
+			/*
+			naver.maps.Event.addListener(map, "click", function(e){
+			alert("클릭함");
+			});
+			*/
+		}
 	});
 	
 });
-
 
 
 
@@ -825,13 +853,6 @@ $("#level3").on('click',function(){
 		$("#level3-choice").attr("value",0);
 	}
 })
-
-//숙소 리스트를 가지고 오는 ajax
-$.ajax({
-	
-})
-
-
 
 
 //따라다니는 메뉴
