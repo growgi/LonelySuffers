@@ -28,9 +28,9 @@ public class CarpoolDao {
 	}
 
 	public ArrayList<Carpool> filterCarpool(CarpoolFilter cf) {
-		System.out.println("controller에서 dao로 넘겨준 것"+cf);
+		//System.out.println("controller에서 dao로 넘겨준 것"+cf);
 		List list = sqlSession.selectList("carpoolFilter.filterCarpool", cf);
-		System.out.println("dao 실행한것"+list);
+		//System.out.println("dao 실행한것"+list);
 		return (ArrayList<Carpool>)list;
 	}
 
@@ -51,9 +51,18 @@ public class CarpoolDao {
 		return result;
 	}
 
-	public int moreCarpool(CarpoolFilter cf, int start, int amount) {
-		
-		return 0;
+
+	public ArrayList<Carpool> getMyLists(int driverNo) {
+		// TODO Auto-generated method stub
+		List list = sqlSession.selectList("carpool.selectMyLists", driverNo);
+		System.out.println("dao");
+		System.out.println(list);
+		return (ArrayList<Carpool>)list;
+	}
+
+	public int updateDriverDecision(Passenger passenger) {
+		int result = sqlSession.update("carpool.updateDriverDecision", passenger);
+		return result;
 	}
 	
 	//더보기 버튼 구현을 위한 카풀수 구하기

@@ -30,9 +30,24 @@ public class LessonDao {
 	}
 
 
+
+// 상품 등록 후 강습 상품 업로드
+	public int uploadLessonPhoto(Lesson l) {
+		return sqlSession.update("l.uploadLessonPhoto", l);
+	}
+
+
+
 // 하나의 강습에 대한 예약 내역(결제 완료 상태) 조회.    LESSON_BOOK 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<LessonBook> selectAllbookedDates(int lessonNo) {
 		List list = sqlSession.selectList("lb.selectAllBook", lessonNo);
 		return (ArrayList<LessonBook>)list;
+	}
+
+
+// 조건에 맞는 숙소 리스트를 조회하는 것
+	public ArrayList<Lesson> selectLessonList(Lesson lesson) {
+		List list = sqlSession.selectList("l.selectLessonList",lesson);
+		return(ArrayList<Lesson>)list;
 	}
 }

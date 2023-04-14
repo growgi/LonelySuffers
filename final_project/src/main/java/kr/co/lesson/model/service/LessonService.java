@@ -23,16 +23,17 @@ public class LessonService {
 	}
 
 
-// 강습 상품 등록.  Lesson 테이블에 Row 여러개 추가
+// 강습 상품 등록.  Lesson 테이블에 Row 1개 추가
 	@Transactional
 	public int insertLesson(Lesson l) {
-		int result = 0;
-		for(int i=0; i<l.getLessonStartTimes().length; i++) {
-			l.setLessonStartTime(l.getLessonStartTimes()[i]);
-			l.setLessonEndTime(l.getLessonEndTimes()[i]);
-			result += dao.insertLesson(l);
-		}
-		return result;
+		return dao.insertLesson(l);
+	}
+
+
+
+// 상품 등록 후 강습 상품 업로드
+	public int uploadLessonPhoto(Lesson l) {
+		return dao.uploadLessonPhoto(l);
 	}
 
 
@@ -40,5 +41,11 @@ public class LessonService {
 // 하나의 강습에 대한 예약 내역(결제 완료 상태) 조회.    LESSON_BOOK 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<LessonBook> selectAllbookedDates(int lessonNo) {
 		return dao.selectAllbookedDates(lessonNo);
+	}
+
+
+// 조건에 맞는 숙소 리스트를 조회하는 것
+	public ArrayList<Lesson> selectSelectList(Lesson lesson) {
+		return dao.selectLessonList(lesson);
 	}
 }

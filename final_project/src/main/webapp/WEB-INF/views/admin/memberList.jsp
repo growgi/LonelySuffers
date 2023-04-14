@@ -12,9 +12,8 @@
     .list-bottom>div{
         display: flex;
     }
-    .list-bottom>div>.btn:last-of-type{
-        display: block;
-        margin-left: 10px;
+    .btn-m:first-child{
+    	margin-right: 5px;
     }
 </style>
 <body>
@@ -22,9 +21,8 @@
     <div class="memberList-wrapper admin-content">
         <div>
             <form action="/adminSearchMember.do" method="get" class="search-bar" name="searchMember">
-                <span class="material-symbols-outlined search-icon">search</span>
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
-                <input type="submit" style="display:none;">
+                <div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
             </form>
             <div class="list-wrapper">
                 <div class="memberList-top list-top">
@@ -86,7 +84,7 @@
                             </c:choose>
                             </td>
                             <td>
-                                <button class="changeGrade btn bc1">등급 변경</button>
+                                <button class="changeGrade btn-s bc1">등급 변경</button>
                             </td>
                         </tr>
                         </c:if>
@@ -96,8 +94,8 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="checkedChangeGrade btn bc1">선택회원 등급변경</button>
-                        <button class="deleteMember btn bc1">회원탈퇴</button>
+                        <button class="checkedChangeGrade btn-m bc1">선택회원 등급변경</button>
+                        <button class="deleteMember btn-m bc2">회원탈퇴</button>
                     </div>
                 </div>
             </div>

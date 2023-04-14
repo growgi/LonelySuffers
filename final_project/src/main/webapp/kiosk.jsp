@@ -156,7 +156,6 @@
 	}
 	.rooms-wrap{
 		width:1200px;
-		height:1100px;
 		background-color:beige;
 		overflow:hidden;
 	}
@@ -165,7 +164,7 @@
 		height:500px;
 		float:left;
 	}
-	.image-wrap>img{
+	.roomImage{
 		width:398px;
 		height:398px;
 		border: 1px solid rgb(51, 51, 51);
@@ -180,6 +179,7 @@
 		text-align:center;
 		font-weight:800;
 		color:rgb(51, 51, 51);
+		margin-bottom:5px;
 	}
 	.level-select{
 		width:1200px;
@@ -194,6 +194,21 @@
 		height:300px;
 		margin-left:50px;
 
+	}
+	.lessons-wrap{
+		width:1200px;
+		overflow:hidden;
+		background-color:beige;
+	}
+	.lessonList{
+		width:400px;
+		height:500px;
+		float:left;
+	}
+	.lessonImage{
+		width:398px;
+		height:398px;
+		border: 1px solid rgb(51, 51, 51);
 	}
 	.boxes{
 		margin-left:50px;
@@ -267,11 +282,7 @@
 		height:300px;
 		margin-left:50px;
 	}
-	.lessons-wrap{
-		width:1200px;
-		height:400px;
-		background-color:red;
-	}
+	
 	input[id="barbecue"]:checked + label::after{
         content:'✔';
         font-size: 25px;
@@ -308,6 +319,7 @@
 	}
 	.btn-wrap{
 		width:1200px;
+		margin-top:15px;
 		margin-bottom:15px;
 	}
 	.btn-wrap>button{
@@ -344,6 +356,7 @@
        				 <div id="scroll">
        				 	<span class="money"><span class="stat-count">150000</span>원</span>
            				<img class="money-emoji" src="/resources/images/won.png">
+           				<input type="text" id="current-page" value="1">
         			</div>  
 				</div> 
 		<div class="container">
@@ -486,6 +499,7 @@
 								<input type="checkbox" id="level1" value="1">
 								<label for="level1"></label>
 								<div class="level-name"><p>초급</p></div>
+								<input type="text" id="level1-choice" value="0">
 							</div>
 						</div>
 						<div class="level2">
@@ -496,6 +510,7 @@
 								<input type="checkbox" id="level2" value="2">
 								<label for="level2"></label>
 								<div class="level-name"><p>중급</p></div>
+								<input type="text" id="level2-choice" value="0">
 							</div>
 						</div>
 						<div class="level3">
@@ -505,7 +520,8 @@
 							<div class="boxes">
 								<input type="checkbox" id="level3" value="3">
 								<label for="level3"></label>
-								<div class="level-name"><p>고급</p></div>
+								<div class="level-name"><p>상급</p></div>
+								<input type="text" id="level3-choice" value="0">
 							</div>
 						</div>
 					</div>
@@ -602,7 +618,7 @@
 var markers = [];
 
 //네이버지도 스크립트
-const map = new naver.maps.Map("map",{
+var map = new naver.maps.Map("map",{
 	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
 	zoom : 6,
 	maxZoom : 7,
@@ -654,8 +670,9 @@ $(document).ready(function(){
 					
 				})
 				 markers.push(marker);
-			}
-
+			}	
+			
+			
 	var markerClustering = new MarkerClustering({
         minClusterSize: 2,
         maxZoom: 8,
@@ -666,32 +683,59 @@ $(document).ready(function(){
         gridSize: 120,
         icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
         indexGenerator: [10, 100, 200, 500, 1000],
-        stylingFunction: function(clusterMarker, count) {
-            $(clusterMarker.getElement()).find('div:first-child').text(count);
-       		 },
-       	getCenter: function() {
-       		
+    	getCenter: function() {
+    		
+    		
+    		
        		return this._clusterCenter;
+       		
        		},
        	 getClusterMember: function() {
        	    return this._clusterMember;
-       	  }
+       	  },
+        stylingFunction: function(clusterMarker, count) {
+            $(clusterMarker.getElement()).find('div:first-child').text(count);
+            //클러스터를 클릭했을 때 동작하는 이벤트
+            naver.maps.Event.addListener(clusterMarker, 'click', function(e) {
+            	const mar = markers;
+            	console.log(mar);
+            	//lat, lng 초기화
+            	let lat = 0;
+            	let lng = 0;
+            	for(let i=0;i<markers.length;i++){
+            		//position이 해당 위치의 경도, 위도를 담고있음
+            		lat += markers[i].position.y;
+            		lng += markers[i].position.x;
+            	console.log(lat,lng);
+            	}
+            	//중심 경도 위도 = 클러스터 내부의 모든 경도 위도를 합한 값에 markers.length만큼 나눈 것
+            	const centerLat = lat/markers.length;
+            	const centerLng = lng/markers.length;
+            	console.log(centerLat,centerLng);
+            	const mapCenter = new naver.maps.LatLng(centerLat,centerLng);
+            	map.setCenter("평균 위도 경도"+mapCenter);
+               	//alert(test1);
+            });
+            
+       		}
+       
+       
        		 
- 		 });
-	console.log(markerClustering);
+ 		});
+	console.log("마커클러스터"+markerClustering);
 	var test1 = markerClustering.getCenter;
 	console.log(test1());
 
-	naver.maps.Event.addListener(map, "click", function(e){
-		alert("클릭함");
-		});
-		}
-		
 	
+			/*
+			naver.maps.Event.addListener(map, "click", function(e){
+			alert("클릭함");
+			});
+			*/
+		}
 	});
 	
 });
-
 
 
 
@@ -785,12 +829,30 @@ $("#party").on('click',function(){
 	}
 })
 
-//숙소 리스트를 가지고 오는 ajax
-$.ajax({
-	
+//체크박스 선택시 값 전달(초급레벨)
+$("#level1").on('click',function(){
+	if($(this).prop('checked')){
+		$("#level1-choice").attr("value",1);
+	} else{
+		$("#level1-choice").attr("value",0);
+	}
+});
+//체크박스 선택시 값 전달(중급레벨)
+$("#level2").on('click',function(){
+	if($(this).prop('checked')){
+		$("#level2-choice").attr("value",1);
+	} else{
+		$("#level2-choice").attr("value",0);
+	}
 })
-
-
+//체크박스 선택시 값 전달(상급레벨)
+$("#level3").on('click',function(){
+	if($(this).prop('checked')){
+		$("#level3-choice").attr("value",1);
+	} else{
+		$("#level3-choice").attr("value",0);
+	}
+})
 
 
 //따라다니는 메뉴
@@ -805,22 +867,23 @@ $("document").ready(function() {
 });  
 
 //페이지별 버튼 동작
-//page1
+//page1 지역 선택
 	$(".page1-okay").on('click',function(){
 		//아예 다 한번 hide하고 show 하자
 		$(".pages").hide();
 		$(".page2").show();
 		$(".title").text("언제 떠나실건가요~?")
+		$("#current-page").attr("value",2);
 	})
 	$(".page1-pass").on('click',function(){
 		alert("지역은 꼭 정해주셔야해요:)")
 	})
-//page2
+//page2 날짜 선택
 	$(".page2-before").on('click',function(){
 		$(".pages").hide();
 		$(".page1").show();
 		$(".title").text("어디로 떠나볼까요~?")
-		
+		$("#current-page").attr("value",1);
 	})
 	$(".page2-okay").on('click',function(){
 		//아예 다 한번 hide하고 show 하자
@@ -829,17 +892,19 @@ $("document").ready(function() {
 		}else{
 			$(".pages").hide();
 			$(".page3").show();
-			$(".title").text("몇 명이신가요~?")
+			$(".title").text("몇 명이신가요~?");
+			$("#current-page").attr("value",3);
 		}
 	});
 	$(".page2-pass").on('click',function(){
 		alert("날짜는 꼭 정해주셔야해요:)")
 	})
-//page3
+//page3 인원수 선택
 	$(".page3-before").on('click',function(){
 		$(".pages").hide();
 		$(".page2").show();
-		$(".title").text("언제 떠나실건가요~?")
+		$(".title").text("언제 떠나실건가요~?");
+		$("#current-page").attr("value",2);
 		
 	})
 	$(".page3-okay").on('click',function(){
@@ -849,18 +914,19 @@ $("document").ready(function() {
 		}else{
 			$(".pages").hide();
 			$(".page4").show();
-			$(".title").text("옵션을 골라주세요~!")
+			$(".title").text("옵션을 골라주세요~!");
+			$("#current-page").attr("value",4);
 		}
 	});
 	$(".page3-pass").on('click',function(){
 		alert("인원수는 꼭 정해주셔야해요:)")
 	})
-//page4
+//page4 숙소옵션선택
 	$(".page4-before").on('click',function(){
 		$(".pages").hide();
-		$(".page4").show();
+		$(".page3").show();
 		$(".title").text("옵션을 골라주세요~!")
-		
+		$("#current-page").attr("value",3);
 	})
 	$(".page4-okay").on('click',function(){
 		//아예 다 한번 hide하고 show 하자
@@ -889,36 +955,188 @@ $("document").ready(function() {
 						console.log("바베큐값:"+data[i].houseBarbecuePrice+"원");
 						console.log("ajax");
 						
-						div.append("<div class=image-wrap>");
-						div.append('<img src=resources/upload/house/"' + data[i].housePhoto1 + '" />');
-						div.append("</div>");
-						div.append("<div class=info-wrap>");
-						div.append("<p>"+data[i].houseTitle+"</p>");
-						//div.append("<p>"+data[i].roomCapa+"인실"+"</p>")
+						const imageWrap = $("<div class=image-wrap></div>");
+						imageWrap.append("<img class=roomImage src=resources/upload/house/" + data[i].housePhoto1 + " />");
+						div.append(imageWrap);
+						
+						const infoWrap = $("<div class=info-wrap></div>");
+						infoWrap.append("<p>"+data[i].houseTitle+"</p>");
 						if(data[i].houseBarbecuePrice == 0 && data[i].housePartyPrice > 0){
-							div.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(O)</p>");					
+							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(O)</p>");
 						}else if(data[i].houseBarbecuePrice > 0 && data[i].housePartyPrice == 0){
-							div.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(O),파티옵션(X)</p>");
+							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(O),파티옵션(X)</p>");
 						}else if(data[i].houseBarbecuePrice > 0 && data[i].housePartyPrice > 0){
-							div.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(O),파티옵션(O)</p>");
+							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(O),파티옵션(O)</p>");
 						}else{
-							div.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(X)</p>")
+							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(X)</p>");
 						}
-						div.append("</div>");
+						infoWrap.append("<p>기본 1박 : "+data[i].housePrice+"원</p>");
+						div.append(infoWrap);
+						
 						result.append(div);
 						//result.addClass('roomList')
 					}
 				},
 					error : function(){
-						console.log("객실을 먼저 선택해주세요에 focus됨");
+						console.log("숙소리스트 불러오기 에러");
 					}
 			});
+			$("#current-page").attr("value",5);
 	});
 	$(".page4-pass").on('click',function(){
+		
+		var result = confirm("숙소 옵션은 필요없으신가요?");
+		if(result == true){
+			alert("옵션선택을 건너뜁니다");
+			$(".pages").hide();
+			$(".page6").show();
+			$(".title").text("조건에 맞는 방 리스트예요~!");
+			$("#current-page").attr("value",5);
+		}else{
+			alert("숙소를 골라주세요");
+		}
+	})
+//page5 숙소리스트
+	$(".page5-before").on('click',function(){
+		$(".pages").hide();
+		$(".page4").show();
+		$(".title").text("조건에 맞는 방 리스트예요~!");
+		$("#current-page").attr("value",4);
+	})
+	$(".page5-okay").on('click',function(){
+		//아예 다 한번 hide하고 show 하자
+		if($("#travel-days").val().indexOf("0박") !== -1){
+			alert("날짜는 꼭 정해주셔야해요:)")
+		}else{
+			$(".pages").hide();
+			$(".page6").show();
+			$(".title").text("원하시는 강습레벨을 골라주세요");
+			$("#current-page").attr("value",6);
+		}
+	});
+	$(".page5-pass").on('click',function(){
+		var result = confirm("숙소는 필요없으신가요?");
+		if(result == true){
+			alert("숙소선택을 건너뜁니다");
+			$(".pages").hide();
+			$(".page6").show();
+			$(".title").text("원하시는 강습레벨을 골라주세요");
+			$("#current-page").attr("value",6);
+		}else{
+			alert("숙소를 골라주세요");
+		}
+	})
+//page6 레벨선택
+	$(".page6-before").on('click',function(){
 		$(".pages").hide();
 		$(".page5").show();
 		$(".title").text("조건에 맞는 방 리스트예요~!")
+		$("#current-page").attr("value",5);
 	})
+	$(".page6-okay").on('click',function(){
+		//아예 다 한번 hide하고 show 하자
+			$(".pages").hide();
+			$(".page7").show();
+			$(".title").text("조건에 맞는 강습리스트예요~!");
+		//숙소 리스트 ajax
+			const result = $(".lessons-wrap");
+			const bookStartDate = $("#bookStartDate").val();
+			const bookEndDate = $("#bookEndDate").val();
+			const lessonMaxNo = $("#people-value").val();
+			const level1 = $("#level1-choice").val();
+			const level2 = $("#level2-choice").val();
+			const level3 = $("#level3-choice").val();
+			//console.log("레벨1:"+level1);
+			//console.log("레벨2:"+level2);
+			//console.log("레벨3:"+level3);
+			if(level1 != 0 || level2 != 0 || level3 != 0){
+				result.empty();
+				$.ajax({
+					url : "/lessonList.do",
+					type : "get",
+					data : {lessonMaxNo : lessonMaxNo, level1 : level1, level2 : level2, level3 : level3},
+					dataType : "json",
+					success : function(data){
+						console.log(data);
+						for(let i=0;i<data.length;i++){
+							const div=$("<div class=lessonList></div>");
+							console.log(data[i].lessonTitle);
+							console.log(data[i].lessonMaxNo+"명");
+							
+							console.log("레슨 ajax");
+							
+							const imageWrap = $("<div class=image-wrap></div>");
+							imageWrap.append("<img class=lessonImage src=resources/upload/lesson/" + data[i].lessonInfoPic + " />");
+							div.append(imageWrap);
+							
+							const infoWrap = $("<div class=info-wrap></div>");
+							infoWrap.append("<p>"+data[i].lessonTitle+"</p>");
+							if(data[i].lessonLevel == 1){
+								infoWrap.append("<p>초급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
+							}else if(data[i].lessonLevel == 2){
+								infoWrap.append("<p>중급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
+							}else if(data[i].lessonLevel == 3){
+								infoWrap.append("<p>고급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
+							}
+							infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원</p>");
+							div.append(infoWrap);
+							
+							result.append(div);
+						}
+					},
+						error : function(){
+							console.log("레슨리스트 불러오기 에러");
+						}
+				});
+				$("#current-page").attr("value",5);
+			}else {
+				alert("강습레벨은 꼭 정해주셔야해요:)");
+				$(".pages").hide();
+				$(".page6").show();
+				$(".title").text("원하시는 강습레벨을 골라주세요");
+			}
+			
+	});
+	$(".page6-pass").on('click',function(){
+		alert("강습레벨은 꼭 정해주셔야해요:)");
+	});
+	
+	
+//뒤로가기 막기
+
+// 스택 추가
+
+history.pushState({page: 1}, null, location.href); 
+
+// 뒤로가기 이벤트감지 -> 현재페이지로 이동
+
+window.onpopstate = function() { 
+	
+	if($("#current-page").val() == 1){
+		var result = confirm("이대로 나가시면 저장된 정보가 사라집니다 나가시겠습니까?");
+		if(result == true){
+			$(".page1-before").trigger("click");
+		}else{
+			alert("지역을 골라주세요");
+		}
+		
+	}else if($("#current-page").val() == 2){
+		  $(".page2-before").trigger("click");
+	}else if($("#current-page").val() == 3){
+		  $(".page3-before").trigger("click");
+	}else if($("#current-page").val() == 4){
+		  $(".page4-before").trigger("click");
+	}else if($("#current-page").val() == 5){
+		  $(".page5-before").trigger("click");
+	}else if($("#current-page").val() == 6){
+		  $(".page6-before").trigger("click");
+	};
+	history.pushState(null, null, location.href); 
+	//history.go(1);
+	
+}
+
+
 </script>					
 </body>
 </html>

@@ -10,11 +10,22 @@
 
 <!-- 숙박 상품 신규 등록 -->
 	<insert id="insertHouse" parameterType="h">
-		INSERT INTO HOUSE VALUES (HOUSE_SEQ.NEXTVAL, #{houseTitle}, #{houseCity}, #{houseAddress}, #{houseDescription}, #{housePhoto1}, #{housePhoto2}, #{housePhoto3}, #{housePhoto4}, -1, '', #{writer}, #{roomTitle}, #{roomCapa}, #{housePrice}, #{houseBarbecue}, #{houseBarbecuePrice}, #{houseParty}, #{housePartyPrice}, #{houseLNG}, #{houseLAT})
+		INSERT INTO HOUSE VALUES (HOUSE_SEQ.NEXTVAL, #{houseTitle}, #{houseCity}, #{houseAddress}, #{houseDescription}, #{housePhoto1}, #{housePhoto2}, #{housePhoto3}, #{housePhoto4}, -1, '', #{writer}, #{roomTitle}, #{roomCapa}, #{housePrice}, #{houseBarbecue}, #{houseBarbecuePrice}, #{houseParty}, #{housePartyPrice}, #{houseLng}, #{houseLng})
 		<selectKey resultType="_int" order="AFTER" keyProperty="houseNo">
 			SELECT MAX(HOUSE_NO) FROM HOUSE
 		</selectKey>
 	</insert>
+
+
+<!-- 상품 등록 후 숙박 상품 사진들 업로드 -->
+	<update id="uploadHousePhotos" parameterType="h">
+		UPDATE HOUSE SET
+		HOUSE_PHOTO1 = #{housePhoto1},
+		HOUSE_PHOTO2 = #{housePhoto2},
+		HOUSE_PHOTO3 = #{housePhoto3},
+		HOUSE_PHOTO4 = #{housePhoto4}
+  		WHERE HOUSE_NO = #{houseNo}
+	</update>
 
 
 <!-- 키오스크에서, 지역이나 인원 수 조건 없이 숙박 상품 Row들 조회용  -->
@@ -48,14 +59,23 @@
 <!-- 키오스크 조건에 맞는 숙소리스트 -->
 	<select id="selectRoomList" parameterType = "h" resultMap="getHouse">
 	
-		SELECT R.HOUSE_NO, HOUSE_PHOTO1, H.HOUSE_TITLE, H.ROOM_CAPA, NVL(HOUSE_BARBECUE_PRICE,0) AS HOUSE_BARBECUE_PRICE, NVL(HOUSE_PARTY_PRICE,0) AS HOUSE_PARTY_PRICE
+		SELECT R.HOUSE_NO, HOUSE_PHOTO1, H.HOUSE_TITLE, H.HOUSE_PRICE, H.ROOM_CAPA, NVL(HOUSE_BARBECUE_PRICE,0) AS HOUSE_BARBECUE_PRICE, NVL(HOUSE_PARTY_PRICE,0) AS HOUSE_PARTY_PRICE
 		FROM ROOM R LEFT JOIN HOUSE H ON R.HOUSE_NO = H.HOUSE_NO 
 		WHERE ROOM_ENABLE = 1
 		AND H.ROOM_CAPA>#{roomCapa}
  
-	
-		<if test='houseBarbecue==1'>AND HOUSE_BARBECUE = 1 </if>
-		<if test="houseParty==1">AND HOUSE_PARTY = 1</if>
+		
+		<choose>
+			<when test='houseBarbecue==1'>AND HOUSE_BARBECUE = 1</when>
+			<otherwise>AND HOUSE_BARBECUE = 0</otherwise>
+		</choose>
+		<choose>
+			<when test='houseParty==1'>AND  HOUSE_PARTY = 1</when>
+			<otherwise>AND HOUSE_PARTY = 0</otherwise>
+		</choose>
+		
+		<!--<if test='houseBarbecue==1'>AND HOUSE_BARBECUE = 1 </if>
+		<if test="houseParty==1">AND HOUSE_PARTY = 1</if>  -->
 		
 		AND ROOM_NO NOT IN
 		(SELECT R.ROOM_NO FROM

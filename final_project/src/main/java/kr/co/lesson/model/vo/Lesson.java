@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 
 public class Lesson {
 	private int lessonNo;				// Primary key
+	
 	private int lessonLevel;			// 1 = 초급 / 2 = 중급 / 3 = 상급
+
 	private String lessonTitle;			// 상품 웹페이지에 노출될 제목
 	private String lessonCity;			// 광역시/도   부분만. 지역별 필터링에 쓸 것.
 	private int lessonPrice;			// 강습(상품) 가격
@@ -38,4 +40,9 @@ public class Lesson {
 	private int lessonTimeLength;		// 종료시간을 얻어내기 위해 받은 강습 소요시간 단위(분)
 	private String lessonStartTimes[];	// 다중 시간대를 한꺼번에 테이블에 여러개의 row로 입력하기 위한 배열
 	private String lessonEndTimes[];
+	
+	//level값을 가져오는 것 level1=초급, level2=중급, level3=상급
+	private int level1;
+	private int level2;
+	private int level3;
 }

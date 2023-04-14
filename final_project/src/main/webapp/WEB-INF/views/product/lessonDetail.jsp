@@ -75,8 +75,7 @@
 						</div>
 						</c:when>
 						<c:otherwise>
-						<div>대표 사진 영역</div>
-						<div>다중 사진 선택 칸</div>
+						<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/lesson/${lesson.lessonInfoPic }" style="width: 100%;"></div>
 						</c:otherwise>
 						</c:choose>
 					</div>

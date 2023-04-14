@@ -59,7 +59,7 @@
 						</div>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade p-2 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
-								<form action="/insertLesson.do" onsubmit="return checkLessonCity();" method="post">
+								<form action="/insertLesson.do" onsubmit="return checkLessonCity();" method="post" enctype="multipart/form-data">
 									<fieldset>
 										<table id="lessonInsertForm">
 											<tr>
@@ -67,23 +67,23 @@
 												<td>
 													<select name="lessonCity">
 														<option selected disabled>- 광역시/도 -</option>
-														<option value="강원도">강원도</option>
-														<option value="경기도">경기도</option>
-														<option value="경상북도">경상북도</option>
-														<option value="경상남도">경상남도</option>
-														<option value="광주">광주</option>
-														<option value="대구">대구</option>
-														<option value="대전">대전</option>
-														<option value="부산">부산</option>
-														<option value="서울">서울</option>
-														<option value="세종">세종</option>
-														<option value="울산">울산</option>
-														<option value="인천">인천</option>
-														<option value="전라북도">전라북도</option>
-														<option value="전라남도">전라남도</option>
-														<option value="제주도">제주도</option>
-														<option value="충청북도">충청북도</option>
-														<option value="충청남도">충청남도</option>
+														<option value="강원">강원도</option>
+														<option value="경기">경기도</option>
+														<option value="경북">경상북도</option>
+														<option value="경남">경상남도</option>
+														<option value="광주">광주광역시</option>
+														<option value="대구">대구광역시</option>
+														<option value="대전">대전광역시</option>
+														<option value="부산">부산광역시</option>
+														<option value="서울">서울특별시</option>
+														<option value="세종">세종특별자치시</option>
+														<option value="울산">울산광역시</option>
+														<option value="인천">인천광역시</option>
+														<option value="전북">전라북도</option>
+														<option value="전남">전라남도</option>
+														<option value="제주">제주도</option>
+														<option value="충북">충청북도</option>
+														<option value="충남">충청남도</option>
 													</select>
 												</td>
 											</tr>
@@ -103,7 +103,7 @@
 											</tr>
 											<tr>
 												<th>강사명</th>
-												<td><input type="text" name="lessonTeacher" required></td>
+												<td><input type="text" name="lessonTeacher" placeholder="한글 최대 6자" required></td>
 											</tr>
 											<tr>
 												<th>강습 소요시간<br>(최소 30분, 최대 300분)</th>
@@ -124,7 +124,7 @@
 											</tr>
 											<tr>
 												<th>상품 사진</th>
-												<td><input type="file" name="lessonInfoPic" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												<td><input type="file" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 											</tr>
 											<tr>
 												<th>상품 설명</th>
@@ -138,7 +138,7 @@
 								</form>
 							</div>
 							<div class="tab-pane fade p-2" id="two" role="tabpanel" aria-labelledby="two-tab">
-								<form action="/insertHouse.do" method="post">
+								<form action="/insertHouse.do" method="post" enctype="multipart/form-data">
 									<fieldset>
 										<table id="houseInsertForm">
 											<tr>
@@ -162,36 +162,28 @@
 												<td><input type="number" name="housePrice" min="0" max="10000000" step="100" required>원</td>
 											</tr>
 											<tr>
-												<th>바베큐</th>
-												<td><input type="checkbox" name="houseBarbecue" value="1" style="width: 25px; height: 25px; margin-left: 20px;"></td>
-											</tr>
-											<tr>
-												<th>바베큐 가격</th>
+												<th><label><input type="checkbox" name="houseBarbecue" value="1" style="width: 25px; height: 25px; margin-left: 20px;"> 바베큐</label></th>
 												<td><input type="number" name="houseBarbecuePrice" min="0" max="10000000" step="100" required disabled>원</td>
-											</tr>
+											</tr>					</tr>
 											<tr>
-												<th>파티</th>
-												<td><input type="checkbox" name="houseParty" value="1" style="width: 25px; height: 25px; margin-left: 20px;"></td>
-											</tr>
-											<tr>
-												<th>파티 가격</th>
+												<th><label><input type="checkbox" name="houseParty" value="1" style="width: 25px; height: 25px; margin-left: 20px;"> 파티</label></th>
 												<td><input type="number" name="housePartyPrice" min="0" max="10000000" step="100" required disabled>원</td>
 											</tr>
 											<tr>
-												<th>상품 대표사진</th>
-												<td><input type="file" name="housePhoto1" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												<th>상품 대표사진<br>(최소 0개, 최대 4개)</th>
+												<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 											</tr>
 											<tr>
 												<th>상품 사진2</th>
-												<td><input type="file" name="housePhoto2" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 											</tr>
 											<tr>
 												<th>상품 사진3</th>
-												<td><input type="file" name="housePhoto3" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 											</tr>
 											<tr>
 												<th>상품 사진4</th>
-												<td><input type="file" name="housePhoto4" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 											</tr>
 											<tr>
 												<th>상품 설명</th>
@@ -228,18 +220,18 @@
 // 바베큐 옵션 유무에 따라 가격입력란 활성/비활성화
 	$("[name=houseBarbecue]").on("change", function(){
 		if($(this).prop("checked")){
-			$("[name=houseBarbecuePrice]").attr("disabled", false);
+			$("[name=houseBarbecuePrice]").prop("disabled", false);
 		}else{
-			$("[name=houseBarbecuePrice]").attr("disabled", true);
+			$("[name=houseBarbecuePrice]").prop("disabled", true);
 		}
 	});
 
 // 파티 옵션 유무에 따라 가격입력란 활성/비활성화
 	$("[name=houseParty]").on("change", function(){
 		if($(this).prop("checked")){
-			$("[name=housePartyPrice]").attr("disabled", false);
+			$("[name=housePartyPrice]").prop("disabled", false);
 		}else{
-			$("[name=housePartyPrice]").attr("disabled", true);
+			$("[name=housePartyPrice]").prop("disabled", true);
 		}
 	});
 
