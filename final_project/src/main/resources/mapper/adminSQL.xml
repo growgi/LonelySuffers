@@ -103,7 +103,7 @@
 	<select id="selectSearchLesson" parameterType="s" resultType="l">
 	  select 
 	  		lesson_no as lessonNo,
-			lesson_level as lessonNameLevel,
+			lesson_level as lessonLevel,
 			lesson_title as lessonTitle,
 			lesson_price as lessonPrice,
 			lesson_max_no as lessonMaxNo,
@@ -161,7 +161,7 @@
 	<select id="selectAllLesson" resultType="l">
 		select
 			lesson_no as lessonNo,
-			lesson_level as lessonNameLevel,
+			lesson_level as lessonLevel,
 			lesson_title as lessonTitle,
 			lesson_price as lessonPrice,
 			lesson_max_no as lessonMaxNo,
@@ -217,7 +217,7 @@
 	<select id="selectNewLesson" resultType="l">
 		select 
 			lesson_no as lessonNo,
-			lesson_level as lessonNameLevel,
+			lesson_level as lessonLevel,
 			lesson_title as lessonTitle,
 			lesson_price as lessonPrice,
 			lesson_max_no as lessonMaxNo,

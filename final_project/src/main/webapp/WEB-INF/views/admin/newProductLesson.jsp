@@ -75,7 +75,7 @@
 											class="lesson-check chk check" value="${l.lessonNo }"></td>
 										<td><a href="#">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
-										<td>${l.lessonNameLevel }</td>
+										<td>${l.lessonLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
 										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>

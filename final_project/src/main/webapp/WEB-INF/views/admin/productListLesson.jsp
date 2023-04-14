@@ -88,7 +88,7 @@ th:last-child, td-last-child{
 											class="lesson-check chk" value="${l.lessonNo }"></td>
 										<td><a href="#">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
-										<td>Level ${l.lessonNameLevel }</td>
+										<td>Level ${l.lessonLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
 										<td>
