@@ -60,7 +60,7 @@
 					</div>
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="driverPage.do">함께가요</a>
+							<a href="/driverPage.do?driverNo=${sessionScope.m.memberNo }">태워드려요</a>
 						</p>
 					</div>
 					<div class="col-md-2">
@@ -408,7 +408,7 @@
 	
 	//더보기 버튼 누를때 
 	//하지만 확인하고 갈 문제 : tableSort 라이브러리로 출발일, 등록일 기준으로 정렬되는 기능을 썼다.
-	//그 기능을 유지하면서 ajax로 사용 가능할까.
+	//그 기능을 유지하면서 ajax로 사용 가능할까. --> 가능했다.
 	//1)원래 빈 화면에서 기본적으로 첫번째는 더보기 버튼이 한번 눌려진채로 나오게 한다(빈화면이 되지않도록) -> web-workspace에 7.mvc2 photoList 참조.
 	
 

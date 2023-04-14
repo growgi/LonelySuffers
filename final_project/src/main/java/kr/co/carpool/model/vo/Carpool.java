@@ -1,5 +1,7 @@
 package kr.co.carpool.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ public class Carpool {
 	private int carpoolNo;
 	private int driverNo;
 	private String driverName; //JOIN으로 얻는 MEMBER_NAME
-	private int driverGender;  //JOIN으로 얻는 MEMBER_GENDER
+	private int driverGender;  //JOIN으로 얻는 MEMBER_GENDER 1:남자, 2:여자
 	private String driverPhone; //JOIN으로 얻는 MEMBER_PHONE
 	private String driverEmail; //JOIN으로 얻는 MEMBER_EMAIL
 	private int capacity; //6명까지
@@ -30,6 +32,10 @@ public class Carpool {
 	private String regDate; //(TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'))
 	private int closure; //마감0 모집중1 : 운전자가 강제 마감했는지 안했는지에 따른 변수 , 기한만료와 정원 찬것과는 상관없는 변수임.
 	private int reserved; //예약한 탑승자 수 
+	//passenger 정보도 여기 담아서 넣어줘야하기때문에, list로 받아온다
+	//spring-workspace의 Board 참조
+	private ArrayList<Passenger> passengerList;
+	
 	
 	
 	public String getTripType() {
