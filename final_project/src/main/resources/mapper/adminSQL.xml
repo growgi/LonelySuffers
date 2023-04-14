@@ -100,6 +100,26 @@
 		where member_no=#{memberNo}
 	</delete>
 	
+	<select id="selectAllProduct" resultType="pr">
+        select
+            lesson_no as lessonNo,
+			lesson_title as lessonTitle,
+			lesson_city as lessonCity,
+			lesson_info_pic as lessonInfoPic,
+			lesson_status as lessonStatus,
+			lesson_score as lessonScore,
+			l.writer as lessonWriter,
+			house_no as houseNo,
+			house_title as houseTitle,
+			house_city as houseCity,
+			house_photo1 as housePhoto1,
+			house_status as houseStatus,
+			house_score as houseScore,
+			h.writer as houseWriter
+		from lesson l
+        cross join house h
+	</select>
+	
 	<select id="selectSearchLesson" parameterType="s" resultType="l">
 	  select 
 	  		lesson_no as lessonNo,

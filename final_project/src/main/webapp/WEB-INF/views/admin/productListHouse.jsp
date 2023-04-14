@@ -32,14 +32,13 @@ th:last-child, td-last-child{
 			<div class="house-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="#">전체</a>
+						<a href="/productListAll.do">전체</a>
 						<a href="/productListLesson.do">강습</a>
 						<a href="/productListHouse.do" style="background-color:#19A7CE; color:#fff">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<form action="/adminSearchHouse.do" method="get"
 						class="search-bar" name="search-product">
-						<input type="hidden" name="jspPage" value="pl">
 						<select name="houseSearchType" class="search-type">
 							<option value="n">상품명</option>
 							<option value="s">판매자</option>

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.Search;
 import kr.co.chat.model.service.ChatService;
 import kr.co.chat.model.vo.ChatActive;
@@ -274,6 +275,21 @@ public class AdminController {
 	}
 	
 	/**4. 등록된 상품 관리*/
+	@RequestMapping(value="/productListAll.do")
+	public String productListAll(Model model) {
+		ArrayList<Product> productList = service.selectAllProduct(); //모든 상품 목록
+		int productCount = service.selectLessonCount() + service.selectHouseCount(); //모든 상품 수
+		
+		if(productList != null) {	
+			model.addAttribute("productList", productList);
+			model.addAttribute("productCount", productCount);
+			
+			return "admin/productListAll";
+		} else {
+			return "redirect:/newProductLesson.do";
+		}
+		
+	}
 	@RequestMapping(value="/productListLesson.do")
 	public String productListLesson(Model model) {
 		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록

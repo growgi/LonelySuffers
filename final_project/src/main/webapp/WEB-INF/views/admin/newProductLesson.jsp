@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<link rel="stylesheet" href="resources/css/adminCommon.css"></link>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <body>
@@ -22,7 +23,7 @@
 					</div>
 					<div class="list-wrapper">
 						<form action="/adminSearchLesson.do" method="get"
-						id="frm" class="search-bar" name="search-product">
+						id="frm" class="search-bar search-box" name="search-product">
 						<input type="hidden" name="jspPage" value="nl">
 						<select name="lessonSearchType" class="search-type">
 							<option value="n">강습명</option>
@@ -33,8 +34,8 @@
 						<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 						<input
 							type="text" placeholder="검색어를 입력하세요" name="lessonSearchKeyword"
-							onkeyup="enterkey();"> 
-						<div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
+							onkeyup="enterkey();" class="search-input"> 
+						<div class="material-symbols-outlined search-icon search-btn"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
 					</form>
 						<div id="lessonResult"></div>
 						<div class="newProduct-top list-top">

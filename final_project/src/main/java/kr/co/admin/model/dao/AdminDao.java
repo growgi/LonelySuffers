@@ -7,12 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
-import kr.co.member.model.vo.OrderDetail;
 import kr.co.member.model.vo.WishList;
 
 @Repository
@@ -277,6 +277,11 @@ public class AdminDao {
 		int houseWishCount = sqlSession.selectOne("admin.selectHouseWishListCount", memberId);
 		
 		return houseWishCount;
+	}
+
+	public ArrayList<Product> selectAllProduct() {
+		List productList = sqlSession.selectList("admin.selectAllProduct");
+		return (ArrayList<Product>)productList;
 	}
 
 }
