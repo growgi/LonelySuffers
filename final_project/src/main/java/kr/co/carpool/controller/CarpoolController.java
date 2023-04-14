@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -96,8 +97,6 @@ public class CarpoolController {
 			return "carpool/carpoolMain";
 		}
 	}
-	
-	
 	//운전자의 내 카풀 리스트 보기!!!
 	//운전자의 카풀 수락, 거절, 마감 등 관리하기
 	@RequestMapping(value="/driverPage.do")
@@ -106,6 +105,20 @@ public class CarpoolController {
 		model.addAttribute("list",list);
 		return "carpool/driverPage";
 	}
+	//운전자의 거절, 수락(번복없다!)
+	@ResponseBody	
+	@RequestMapping(value="driverDecide.do")
+	public String driverDecide(Passenger passenger) {
+		System.out.println("운전자페이지 테스트"+passenger);
+		int result = service.updateDriverDecision(passenger);
+		System.out.println(result);
+		if(result>0) {
+			return "success"; //success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
+		}else {
+			return "error";
+		}
+	}
+		
 	
 	
 	//탑승자의 내 카풀 리스트 보기!!!

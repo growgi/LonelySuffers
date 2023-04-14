@@ -127,7 +127,10 @@
 					                            <label for="pm-time">오후</label>		
 					                        </td>
 					                    </tr> 
-					                    <!-- daterangepicker
+					                    <!-- 
+					      				 	왕복일 경우에만 들어오는 '복귀'선택란은 원래 여기인데. 그것만 뺐다꼈다 하도록  javascript로 넣어줌.
+					                    -->
+					                    <!-- 왕복 탭을 누를 시 복귀란이 추가된다.
 					                     <tr class="arrive"> 
 					                        <th style="width:35%; text-align:center;">복귀</th> 
 					                        <td>
@@ -173,9 +176,7 @@
 					                </table>
 											
 					        </div><hr>
-							<!-- 
-					       	왕복일 경우에만 들어오는 '복귀'선택란은 원래 여기인데. 그것만 뺐다꼈다 하도록  javascript로 넣어줌.
-					                    -->
+							
 					        
 					    </div>
 					     <!-- 모달 -->

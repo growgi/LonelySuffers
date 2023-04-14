@@ -55,7 +55,11 @@ public class CarpoolService {
 		ArrayList<Carpool> clist = dao.getMyLists(driverNo);
 		return clist;
 	}
-	
+	@Transactional
+	public int updateDriverDecision(Passenger passenger) {
+		return dao.updateDriverDecision(passenger);
+	}
+
 
 
 }
