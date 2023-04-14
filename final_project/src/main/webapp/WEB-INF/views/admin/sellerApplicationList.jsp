@@ -73,7 +73,7 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="checkedChangeGradeSeller btn bc1">선택회원 판매자로 전환</button>
+                        <button class="checkedChangeGradeSeller btn-m bc1">선택회원 판매자로 전환</button>
                     </div>
                 </div>
 	        </div>

@@ -17,7 +17,7 @@
 				<div class="table-content">
 					<div class="product-choice">
 						<a href="#">전체</a>
-						<a href="/newProductLesson.do">강습</a>
+						<a href="/newProductLesson.do" style="background-color:#ecb534; color:#fff">강습</a>
 						<a href="/newProductHouse.do">숙박</a>
 					</div>
 					<div class="list-wrapper">
@@ -54,6 +54,20 @@
 									<th>신청서</th>
 									<th></th>
 								</tr>
+								<c:choose>
+								<c:when test="${houseList eq null }">
+								<tr>
+									<td colspan="8">
+									    <div class="noInfo-wrapper">
+									        <div>
+									            <span class="material-symbols-outlined noInfo-icon">info</span>
+									            <div class="noInfo-text">조회된 정보가 없습니다.</div>
+									        </div>
+									    </div>
+								    </td>
+								</tr>
+								</c:when>
+								<c:otherwise>
 								<c:forEach items="${lessonList }" var="l">
 								<c:if test="${l.lessonStatus == -1 }">
 									<tr>
@@ -64,20 +78,22 @@
 										<td>${l.lessonNameLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
-										<td><a href="#">신청서 확인</a></td>
+										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
 										<td><button class="approveProduct btn bc1">승인</button>
 										<input type="hidden" value="${l.lessonNo }" name="productNo">
 										<button class="returnProduct btn bc1">반려</button></td>
 									</tr>
 									</c:if>
 								</c:forEach>
+								</c:otherwise>
+								</c:choose>
 							</table>
 							<div></div>
 						</div>
 						<div class="list-bottom">
 							<div>
-								<button class="checkedApproveProduct btn bc1">선택 상품 승인</button>
-								<button class="checkedReturnProduct btn bc1">선택 상품 반려</button>
+								<button class="checkedApproveProduct btn-m bc1">선택 상품 승인</button>
+								<button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button>
 							</div>
 						</div>
 					</div>

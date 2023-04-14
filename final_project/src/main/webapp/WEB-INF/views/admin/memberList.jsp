@@ -12,9 +12,8 @@
     .list-bottom>div{
         display: flex;
     }
-    .list-bottom>div>.btn:last-of-type{
-        display: block;
-        margin-left: 10px;
+    .btn-m:first-child{
+    	margin-right: 5px;
     }
 </style>
 <body>
@@ -85,7 +84,7 @@
                             </c:choose>
                             </td>
                             <td>
-                                <button class="changeGrade btn bc1">등급 변경</button>
+                                <button class="changeGrade btn-s bc1">등급 변경</button>
                             </td>
                         </tr>
                         </c:if>
@@ -95,8 +94,8 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="checkedChangeGrade btn bc1">선택회원 등급변경</button>
-                        <button class="deleteMember btn bc1">회원탈퇴</button>
+                        <button class="checkedChangeGrade btn-m bc1">선택회원 등급변경</button>
+                        <button class="deleteMember btn-m bc2">회원탈퇴</button>
                     </div>
                 </div>
             </div>

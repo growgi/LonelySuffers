@@ -54,7 +54,7 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="deleteCheckedOrder btn bc1">선택 내역 삭제</button>
+                        <button class="deleteCheckedOrder btn-m bc2">선택 내역 삭제</button>
                     </div>
                 </div>
             </div>

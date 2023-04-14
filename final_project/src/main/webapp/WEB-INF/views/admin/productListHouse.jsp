@@ -34,7 +34,7 @@ th:last-child, td-last-child{
 					<div class="product-choice">
 						<a href="#">전체</a>
 						<a href="/productListLesson.do">강습</a>
-						<a href="/productListHouse.do">숙박</a>
+						<a href="/productListHouse.do" style="background-color:#19A7CE; color:#fff">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<form action="/adminSearchHouse.do" method="get"
@@ -165,7 +165,7 @@ th:last-child, td-last-child{
 						</div>
 						<div class="list-bottom">
 							<div>
-								<button class="checkedUpdateHouseStatus btn bc1">선택 상품 상태 변경</button>
+								<button class="checkedUpdateHouseStatus btn-m bc1">선택 상품 상태 변경</button>
 							</div>
 						</div>
 					</div>

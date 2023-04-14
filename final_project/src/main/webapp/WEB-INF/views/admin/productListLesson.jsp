@@ -32,7 +32,7 @@ th:last-child, td-last-child{
 				<div class="table-content">
 					<div class="product-choice">
 						<a href="#">전체</a>
-						<a href="/productListLesson.do">강습</a>
+						<a href="/productListLesson.do" style="background-color:#ecb534; color:#fff">강습</a>
 						<a href="/productListHouse.do">숙박</a>
 					</div>
 					<div class="list-wrapper">
@@ -70,6 +70,18 @@ th:last-child, td-last-child{
 									<th>상품 상태</th>
 									<th></th>
 								</tr>
+								<c:if test="${lessonList eq null }">
+								<tr>
+									<td>
+									    <div class="noInfo-wrapper">
+									        <div>
+									            <span class="material-symbols-outlined noInfo-icon">info</span>
+									            <div class="noInfo-text">조회된 정보가 없습니다.</div>
+									        </div>
+									    </div>
+								    </td>
+								</tr>
+								</c:if>
 								<c:forEach items="${lessonList }" var="l">
 									<tr>
 										<td><input type="checkbox" name="memberCheck"
@@ -167,7 +179,7 @@ th:last-child, td-last-child{
 						<div class="list-bottom">
 							<div>
 								<input type="submit" value="선택 상품 상태 변경"
-									class="checkedUpdateLessonStatus btn bc1">
+									class="checkedUpdateLessonStatus btn-m bc1">
 							</div>
 						</div>
 					</div>
