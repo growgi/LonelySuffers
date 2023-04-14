@@ -164,7 +164,7 @@
 											<tr>
 												<th><label><input type="checkbox" name="houseBarbecue" value="1" style="width: 25px; height: 25px; margin-left: 20px;"> 바베큐</label></th>
 												<td><input type="number" name="houseBarbecuePrice" min="0" max="10000000" step="100" required disabled>원</td>
-											</tr>					</tr>
+											</tr>
 											<tr>
 												<th><label><input type="checkbox" name="houseParty" value="1" style="width: 25px; height: 25px; margin-left: 20px;"> 파티</label></th>
 												<td><input type="number" name="housePartyPrice" min="0" max="10000000" step="100" required disabled>원</td>

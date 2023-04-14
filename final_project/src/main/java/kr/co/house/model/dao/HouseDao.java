@@ -40,6 +40,13 @@ public class HouseDao {
 
 
 
+// 객실 등록.  Room 테이블에 Row 1개 추가
+	public int insertRoom(Room r) {
+		return sqlSession.insert("r.insertRoom", r);
+	}
+
+
+
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<Room> selectAllAvailableRoom(FindRoomByCondition condition) {
 		List list = sqlSession.selectList("r.selectAllAvailableRoom", condition);
@@ -47,7 +54,15 @@ public class HouseDao {
 	}
 
 
+	
+// 객실 이름들 중복 여부 조회. roomTitle을 WHERE 조건으로 Room 테이블에서 Row 0개 이상 조회 후 반환
+	public ArrayList<String> checkRoomNameInSameRoomTitle(FindRoomByCondition condition) {
+		List list = sqlSession.selectList("r.checkRoomName", condition);
+		return (ArrayList<String>)list;
+	}
 
+
+	
 // 하나의 객실에 대한 예약 내역(결제 완료 상태) 조회.    ROOM_BOOK 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<RoomBook> selectAllBook(int roomNo){
 		List list = sqlSession.selectList("rb.selectAllBook", roomNo);

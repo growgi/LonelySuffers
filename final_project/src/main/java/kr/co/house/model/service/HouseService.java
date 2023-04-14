@@ -39,10 +39,30 @@ public class HouseService {
 	}
 
 
-	
+
+	@Transactional
+// 객실 등록.  Room 테이블에 Row 여러개 추가
+	public int insertRooms(Room r) {
+		int result = 0;
+		for(int i=0; i<r.getRoomNames().length; i++) {
+			r.setRoomName(r.getRoomNames()[i]);
+			result += dao.insertRoom(r);
+		}
+		return result;
+	}
+
+
+
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<Room> selectAllAvailableRoom(FindRoomByCondition condition) {
 		return dao.selectAllAvailableRoom(condition);
+	}
+
+
+
+// 객실 이름들 중복 여부 조회. roomTitle을 WHERE 조건으로 Room 테이블에서 Row 0개 이상 조회 후 반환
+	public ArrayList<String> checkRoomNameInSameRoomTitle(FindRoomByCondition condition) {
+		return dao.checkRoomNameInSameRoomTitle(condition);
 	}
 
 

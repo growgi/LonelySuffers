@@ -34,7 +34,7 @@ public class Lesson {
 	  									   -2 = 승인 반려됨. DB에는 insert됐지만, 고객들에게 노출되지는 않는 상품(게시물)	*/
 	private int lessonScore;			// 별평점후기 Table (RIVEIW)이 변경될때마다, oracle에서 trigger가 작동해서 LESSON 테이블의 LESSON_SCORE를 갱신
 	private String writer;				// 상품등록자의 MEMBER_ID (글쓴이)
-
+	private String rejectComment;		// houseStatus -1인 게시물을 관리자가 반려해서 -2로 상태를 바꿀 때, 사유를 입력하는 란
 
 // 테이블에 Column으로 존재하지 않지만, 다중 insert를 하기 위해서 추가된 변수들
 	private int lessonTimeLength;		// 종료시간을 얻어내기 위해 받은 강습 소요시간 단위(분)
