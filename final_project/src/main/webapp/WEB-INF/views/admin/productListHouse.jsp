@@ -9,8 +9,10 @@
 </head>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="resources/css/adminTable.css"></link>
+<link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <style>
 /*별점*/
 .rating-color{
@@ -19,35 +21,38 @@
 .small-ratings i{
   color:#cecece;   
 }
+th:last-child, td-last-child{
+	width: 50px;
+}
 </style>
-<link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="currProduct-wrapper product-wrapper admin-content">
 		<div>
 			<div class="house-list">
-				<form action="/adminSearchHouse.do" method="get"
-					class="search-bar" name="search-product">
-					<input type="hidden" name="jspPage" value="pl">
-					<select name="houseSearchType" class="search-type">
-						<option value="n">상품명</option>
-						<option value="s">판매자</option>
-						<option value="rt">숙박소 이름</option>
-						<option value="lo">지역</option>
-					</select>
-					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
-					<input
-						type="text" placeholder="검색어를 입력하세요" name="houseSearchKeyword"
-						onkeyup="enterkey();"> <input type="submit"
-						style="display: none;">
-					<div class="search-icon">검색</div>
-				</form>
 				<div class="table-content">
 					<div class="product-choice">
+						<a href="#">전체</a>
 						<a href="/productListLesson.do">강습</a>
-						<a href="/productListHouse.do">숙박</a>
+						<a href="/productListHouse.do" style="background-color:#19A7CE; color:#fff">숙박</a>
 					</div>
 					<div class="list-wrapper">
+						<form action="/adminSearchHouse.do" method="get"
+						class="search-bar" name="search-product">
+						<input type="hidden" name="jspPage" value="pl">
+						<select name="houseSearchType" class="search-type">
+							<option value="n">상품명</option>
+							<option value="s">판매자</option>
+							<option value="rt">숙박소 이름</option>
+							<option value="lo">지역</option>
+						</select>
+						<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
+						<input
+							type="text" placeholder="검색어를 입력하세요" name="houseSearchKeyword"
+							onkeyup="enterkey();"> <input type="submit"
+							style="display: none;">
+							<div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
+					</form>
 						<div class="productList-top list-top">
 							<div class="count">
 								숙박 전체 상품 <span>${houseCount }</span>
@@ -63,7 +68,6 @@
 									<th>지역</th>
 									<th>평점</th>
 									<th>상품 상태</th>
-									<th></th>
 									<th></th>
 								</tr>
 								<c:forEach items="${houseList }" var="h">
@@ -146,7 +150,6 @@
 													</select>
 												</c:when>
 											</c:choose></td>
-										<td>
 										<td><span class="material-symbols-outlined more-detail">more_vert</span>
 											<div class="list-detail-box" style="display: none">
 												<div>
@@ -162,7 +165,7 @@
 						</div>
 						<div class="list-bottom">
 							<div>
-								<button class="checkedUpdateHouseStatus btn bc1">선택 상품 상태 변경</button>
+								<button class="checkedUpdateHouseStatus btn-m bc1">선택 상품 상태 변경</button>
 							</div>
 						</div>
 					</div>

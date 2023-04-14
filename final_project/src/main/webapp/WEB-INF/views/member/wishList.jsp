@@ -77,16 +77,19 @@
     .wishList-box{
         border-bottom: 2px solid rgb(226, 226, 226);
         width: 535px;
-        padding: 30px 0px 10px 0px;
+        padding: 30px 5px 0px 5px;
         margin: 0 10px 0 10px;
         box-sizing: border-box;
         position: relative;
         display:inline-block;
     }
     .close-icon{
+        padding: 5px;
         position: absolute;
         top: 30px;
-        right: 10px;
+        right: 0px;
+        transition-duration : 0.4s;
+        border-radius: 24px;
     }
     .wishList-box-top{
         border-bottom: 1px solid lightgray;
@@ -108,6 +111,7 @@
     	width: 530px;
         display: flex;
         padding-top: 13px;
+        padding-bottom: 10px;
     }
     .wishList-box-bottom>.product-img{
         width: 100px;
@@ -154,12 +158,28 @@
     .active-line3{
         left: 200px;
     }
-    .active-black-box{
-    	
+    .black-box{
+        width: 546px;
+        height: 205px;
+    	background-color: rgba(0, 0, 0, 0.06);
+        position: absolute;
+        top: 23px;
+        left: -5px;
+        border-radius: 5px;
+        transition-duration : 0.5s;
+        text-align: center;
+        line-height: 205px;
+        font-size: 30px;
+        font-weight: 900;
+        color: rgb(247, 247, 247);
     }
-    
-    .wishList-box{
-    	
+    .black-box:hover{
+        background-color: rgba(0, 0, 0, 0.3);
+        
+    }
+    .close-icon:hover{
+        background-color: rgba(194, 194, 194, 0.3);
+        
     }
 </style>
 <body>
@@ -185,9 +205,9 @@
                         <div class="wishList-content">
 
                             <div class="wishList-category">
-                                <div>전체 (<span>4</span>)</div>
-                                <div>강습 (<span>2</span>)</div>
-                                <div>숙박 (<span>2</span>)</div>
+                                <div>전체 (<span>${allWishListCount }</span>)</div>
+                                <div>강습 (<span>${lessonWishListCount }</span>)</div>
+                                <div>숙박 (<span>${houseWishListCount }</span>)</div>
                             </div>
                             <div class="line"></div>
                             
@@ -197,6 +217,9 @@
                                     	<c:choose>
                                     		<c:when test="${w.houseNo ne 0}">
 	                                        <div class="wishList-box">
+                                                <c:if test="${w.houseStatus eq 0}">
+                                                <div class="black-box"></div>
+                                                </c:if>
 	                                            <div class="wishList-box-top">
 	                                                <div>
 	                                                    <div class="product-title"><a href="#">${w.houseTitle }</a></div>
@@ -219,6 +242,9 @@
                                     		</c:when>
                                     		<c:when test="${w.lessonNo ne 0}">
  											<div class="wishList-box">
+                                                <c:if test="${w.lessonStatus eq 0}">
+                                                <div class="black-box"></div>
+                                                </c:if>
 	                                            <div class="wishList-box-top">
 	                                                <div>
 	                                                    <div class="product-title"><a href="#">${w.lessonTitle }</a></div>
@@ -247,6 +273,9 @@
                                 <div class="lesson-wishList">
                                 	<c:forEach items="${lessonWishList }" var="lw">
                                 	   <div class="wishList-box">
+                                            <c:if test="${lw.lessonStatus eq 0}">
+                                            <div class="black-box"></div>
+                                            </c:if>
                                             <div class="wishList-box-top">
                                                 <div>
                                                     <div class="product-title"><a href="#">${lw.lessonTitle }</a></div>
@@ -273,6 +302,9 @@
                                 <div class="house-wishList">
                                 	<c:forEach items="${houseWishList }" var="hw">
                                         <div class="wishList-box">
+                                            <c:if test="${hw.houseStatus eq 0}">
+                                            <div class="black-box"></div>
+                                            </c:if>
                                             <div class="wishList-box-top">
                                                 <div>
                                                     <div class="product-title"><a href="#">${hw.houseTitle }</a></div>
@@ -350,5 +382,13 @@
 
 		location.href = "/deleteWishList.do?wishNo="+wishNo+"&memberId="+memberId;
 	});
+
+    $(".black-box").hover(function(){
+        $(this).text("판매중지");
+        $(this).css("cursor","default");
+    }, function() {
+        $(this).text("");
+    });
+    
 </script>
 </html>

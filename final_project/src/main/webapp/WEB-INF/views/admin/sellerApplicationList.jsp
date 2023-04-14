@@ -13,9 +13,8 @@
     <div class="memberList-wrapper admin-content">
     	<div>
             <form action="/searchSellerAppMember.do" method="get" id="frm" class="search-bar" name="searchMember">
-                <span class="material-symbols-outlined search-icon" onclick="document.getElementById('frm').submit();">search</span>
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
-                <input type="submit" style="display:none;">
+                <span class="material-symbols-outlined search-icon">search</span>
             </form>
 	        <div class="list-wrapper">
                 <div class="memberList-top list-top">
@@ -74,7 +73,7 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="checkedChangeGradeSeller btn bc1">선택회원 판매자로 전환</button>
+                        <button class="checkedChangeGradeSeller btn-m bc1">선택회원 판매자로 전환</button>
                     </div>
                 </div>
 	        </div>

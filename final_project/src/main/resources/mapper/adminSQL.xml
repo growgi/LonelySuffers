@@ -103,7 +103,7 @@
 	<select id="selectSearchLesson" parameterType="s" resultType="l">
 	  select 
 	  		lesson_no as lessonNo,
-			lesson_name_level as lessonNameLevel,
+			lesson_level as lessonNameLevel,
 			lesson_title as lessonTitle,
 			lesson_price as lessonPrice,
 			lesson_max_no as lessonMaxNo,
@@ -121,7 +121,7 @@
 	        where writer like '%'||#{searchKeyword}||'%'
 	      </when>
 	      <when test="searchType.equals('le')">
-	        where lesson_name_level like '%'||#{searchKeyword}||'%'
+	        where lesson_level like '%'||#{searchKeyword}||'%'
 	      </when>
 	      <when test="searchType.equals('lo')">
 	        where lesson_city like '%'||#{searchKeyword}||'%'
@@ -161,7 +161,7 @@
 	<select id="selectAllLesson" resultType="l">
 		select
 			lesson_no as lessonNo,
-			lesson_name_level as lessonNameLevel,
+			lesson_level as lessonNameLevel,
 			lesson_title as lessonTitle,
 			lesson_price as lessonPrice,
 			lesson_max_no as lessonMaxNo,
@@ -217,7 +217,7 @@
 	<select id="selectNewLesson" resultType="l">
 		select 
 			lesson_no as lessonNo,
-			lesson_name_level as lessonNameLevel,
+			lesson_level as lessonNameLevel,
 			lesson_title as lessonTitle,
 			lesson_price as lessonPrice,
 			lesson_max_no as lessonMaxNo,
@@ -335,7 +335,7 @@
 		    decode(order_status,1,'결제완료',0,'결제취소') as orderStatusString,
 		    member_id as memberId, 
             l.lesson_no as lessonNo,
-		    lesson_name_level as lessonNameLevel, 
+		    lesson_level as lessonNameLevel, 
 		    lesson_title as lessonTitle, 
 		    lesson_city as lessonCity, 
 		    lesson_start_time as lessonStartTime, 
@@ -405,14 +405,15 @@
  			wish_no as wishNo,
  			member_id as memberId,
  			lesson_no as lessonNo,
- 			lesson_name_level as lessonNameLevel,
+ 			lesson_level as lessonNameLevel,
  			lesson_title as lessonTitle,
  			lesson_price as lessonPrice,
  			lesson_max_no as lessonMaxNo,
  			lesson_start_time as lessonStartTime,
  			lesson_end_time as lessonEndTime,
  			lesson_city as lessonCity,
- 			lesson_info_pic as lessonInfoPic
+ 			lesson_info_pic as lessonInfoPic,
+ 			lesson_status as lessonStatus
  		from wishList
  		join lesson using(lesson_no)
  		where member_id=#{_parameter} and house_no is null
@@ -430,7 +431,8 @@
  			h.house_photo1 as housePhoto1,
  			h.room_capa as roomCapa,
  			h.house_price as housePrice,
- 			h.house_description as houseDescription
+ 			h.house_description as houseDescription,
+ 			h.house_status as houseStatus
  		from wishList w
  		join house h on(h.house_no=w.house_no)
  		where member_id=#{_parameter} and lesson_no is null
@@ -442,7 +444,7 @@
  			w.wish_no as wishNo,
  			w.member_id as memberId,
  			w.lesson_no as lessonNo,
- 			l.lesson_name_level as lessonNameLevel,
+ 			l.lesson_level as lessonNameLevel,
  			l.lesson_title as lessonTitle,
  			l.lesson_price as lessonPrice,
  			l.lesson_max_no as lessonMaxNo,
@@ -473,5 +475,24 @@
  		where wish_no=#{_parameter}
  	</delete>
 
- 
+ 	<select id="selectAllWishListCount" parameterType="string" resultType="_int">
+ 		select
+ 			count(*)
+ 		from wishlist
+ 		where member_id=#{_parameter}
+ 	</select>
+ 	
+ 	 <select id="selectLessonWishListCount" parameterType="string" resultType="_int">
+ 		select
+ 			count(*)
+ 		from wishlist
+ 		where member_id=#{_parameter} and lesson_no is not null
+ 	</select>
+ 	
+ 	<select id="selectHouseWishListCount" parameterType="string" resultType="_int">
+ 		select
+ 			count(*)
+ 		from wishlist
+ 		where member_id=#{_parameter} and house_no is not null
+ 	</select>
 </mapper>

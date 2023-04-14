@@ -261,4 +261,22 @@ public class AdminDao {
 		return result;
 	}
 
+	public int selectAllWishListCount(String memberId) {
+		int allWishCount = sqlSession.selectOne("admin.selectAllWishListCount", memberId);
+		
+		return allWishCount;
+	}
+
+	public int selectLessonWishListCount(String memberId) {
+		int lessonWishCount = sqlSession.selectOne("admin.selectLessonWishListCount", memberId);
+		
+		return lessonWishCount;
+	}
+
+	public int selectHouseWishListCount(String memberId) {
+		int houseWishCount = sqlSession.selectOne("admin.selectHouseWishListCount", memberId);
+		
+		return houseWishCount;
+	}
+
 }
