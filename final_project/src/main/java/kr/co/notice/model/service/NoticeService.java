@@ -113,6 +113,10 @@ public class NoticeService {
 		}
 	}
 
+	public ArrayList<Notice> selectSearchNotice(String searchNtTitle) {
+		return dao.selectSearchNotice(searchNtTitle);
+	}
+
 	
 }
 

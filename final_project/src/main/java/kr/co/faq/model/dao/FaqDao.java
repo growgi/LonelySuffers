@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.faq.model.vo.Category;
 import kr.co.faq.model.vo.Faq;
 
 @Repository
@@ -37,5 +38,10 @@ public class FaqDao {
 	public int deleteFaq(int faqNo) {
 		int result = sqlSession.delete("faq.deleteFaq", faqNo);
 		return result;
+	}
+
+	public ArrayList<Faq> selectOneFaqCancel(int categoryNo) {
+		List list = sqlSession.selectList("faq.selectOneFaqCancel", categoryNo);
+		return (ArrayList<Faq>)list;
 	}
 }
