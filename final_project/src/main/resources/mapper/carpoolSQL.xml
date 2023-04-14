@@ -103,6 +103,7 @@
 			m.member_name as passengerName,
 			m.member_phone as passengerPhone,
 			m.member_email as passengerEmail,
+			passenger_msg as passengerMsg,
 			request_date as requestDate
 		from passenger p
 			join member_tbl m on (passenger_no = member_no)
@@ -128,6 +129,15 @@
 		<!--ofType: arrayList에 들어갈 type -->
 	</resultMap>
 	
+	<!-- 운전자가 자기가 받은 카풀 신청 대기목록의 승인/거절 기능 -->
+	<update id="updateDriverDecision" parameterType="p">
+		update passenger
+		<choose>
+			<when test="matchStatus == 1">set match_status=1</when>
+			<when test="matchStatus == 2">set match_status=2</when>
+		</choose>
+		where match_no=#{matchNo}
+	</update>
 
 	
 	

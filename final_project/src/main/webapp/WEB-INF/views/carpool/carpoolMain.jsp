@@ -108,7 +108,7 @@
 			<div class="container">
 				<div class="row">
 					<table id="carpoolTable" class="tablesorter"
-						style="border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
+						style="border-collapse: initial; border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
 						<thead>
 							<tr>
 								<th data-sort-method='thead' style="width:20%;">출발일</th>

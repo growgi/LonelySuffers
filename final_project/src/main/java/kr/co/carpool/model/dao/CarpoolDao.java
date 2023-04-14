@@ -59,6 +59,11 @@ public class CarpoolDao {
 		System.out.println(list);
 		return (ArrayList<Carpool>)list;
 	}
+
+	public int updateDriverDecision(Passenger passenger) {
+		int result = sqlSession.update("carpool.updateDriverDecision", passenger);
+		return result;
+	}
 	
 	//더보기 버튼 구현을 위한 카풀수 구하기
 
