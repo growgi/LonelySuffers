@@ -13,16 +13,43 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <style>
-/*별점*/
-.rating-color{
-    color:#fbc634 !important;
-}
-.small-ratings i{
-  color:#cecece;   
-}
-th:last-child, td-last-child{
-	width: 50px;
-}
+	/*table*/
+	.list-top>table th:nth-child(2){
+		width: 6%;
+	}
+	table th:nth-child(3){
+		width: 13%;
+	}
+	table th:nth-child(4){
+		width: 300px;
+	}
+	table td:nth-child(4){
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	}
+	/*table th:nth-child(4){
+		width: 30%;
+	}
+	table th:nth-child(5){
+		width: 20%;
+	}
+	table th:nth-child(6){
+		width: 20%;
+	}
+	table th:nth-child(7){
+		width: 30%;
+	}*/
+	/*별점*/
+	.rating-color{
+	    color:#fbc634 !important;
+	}
+	.small-ratings i{
+	  color:#cecece;   
+	}
+	th:last-child, td-last-child{
+		width: 50px;
+	}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
@@ -31,13 +58,14 @@ th:last-child, td-last-child{
 			<div class="lesson-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="/productListAll.do">전체</a>
-						<a href="/productListLesson.do" style="background-color:#ecb534; color:#fff">강습</a>
+						<a href="/productListAll.do" style="background-color:#19A7CE; color:#fff">전체</a>
+						<a href="/productListLesson.do">강습</a>
 						<a href="/productListHouse.do">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<form action="/adminSearchProduct.do" method="get"
 						class="search-bar" name="search-product">
+						<input type="hidden" name="jspPage" value="pl">
 						<select name="productSearchType" class="search-type">
 							<option value="n">상품명</option>
 							<option value="s">판매자</option>
@@ -59,6 +87,8 @@ th:last-child, td-last-child{
 								<tr>
 									<th><input type="checkbox" name="memberCheck"
 										class="lesson-all-check chk"></th>
+									<th>종류</th>
+									<th>사진</th>
 									<th>상품명</th>
 									<th>판매자</th>
 									<th>지역</th>
@@ -81,15 +111,32 @@ th:last-child, td-last-child{
 								<c:forEach items="${productList }" var="p">
                                 	<tr>
 										<td><input type="checkbox" name="memberCheck"
-											class="lesson-check chk" value="${p.lessonNo }"></td>
-										<td><a href="#">${p.lessonTitle }</a></td>
-										<td>${p.writer }</td>
-										<td>Level ${p.lessonLevel }</td>
-										<td>${p.lessonCity }</td>
+											class="lesson-check chk" value="${p.productNo }"></td>
+                                		<td>${p.productType }</td>
+                                		<td>
+                                		<c:choose>
+	                                		<c:when test="${p.productPic eq null}">
+	                                			<div class="material-symbols-outlined no-pic">quiz</div>
+	                                		</c:when>
+	                                		<c:otherwise>
+		                                		<c:choose>
+		                                		<c:when test="${p.productType == '강습'}">
+			                                		<img src="resources/upload/lesson/${p.productPic }">
+		                                		</c:when>
+		                                		<c:when test="${p.productType == '숙박'}">
+			                                		<img src="resources/upload/house/${p.productPic }">
+		                                		</c:when>
+		                                		</c:choose>
+                                			</c:otherwise>
+                                		</c:choose>
+                                		</td>
+										<td><a href="#">${p.productTitle }</a></td>
+										<td>${p.productWriter }</td>
+										<td>${p.productCity }</td>
 										<td>
 										<c:choose>
-										<c:when test="${p.lessonScore == 0 }">
-									            <div class="small-ratings">
+										<c:when test="${p.productScore == 0}">		
+												<div class="small-ratings">
 									                <i class="fa fa-star"></i>
 									                <i class="fa fa-star"></i>
 									                <i class="fa fa-star"></i>
@@ -97,7 +144,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.lessonScore == 1 }">
+										<c:when test="${p.productScore == 1 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star"></i>
@@ -106,7 +153,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.lessonScore == 2 }">
+										<c:when test="${p.productScore == 2 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -115,7 +162,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.lessonScore == 3 }">
+										<c:when test="${p.productScore == 3 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -124,7 +171,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.lessonScore == 4 }">
+										<c:when test="${p.productScore == 4 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -133,7 +180,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.lessonScore == 5 }">
+										<c:when test="${p.productScore == 5 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -145,13 +192,13 @@ th:last-child, td-last-child{
 										</c:choose>
 										</td>
 										<td><c:choose>
-												<c:when test="${p.lessonStatus == 1}">
+												<c:when test="${p.productStatus == 1}">
 													<select class="status-change">
 														<option value="1" selected>판매중</option>
 														<option value="0">판매중지</option>
 													</select>
 												</c:when>
-												<c:when test="${p.lessonStatus == 0}">
+												<c:when test="${p.productStatus == 0}">
 													<select class="status-change">
 														<option value="1">판매중</option>
 														<option value="0" selected>판매중지</option>
@@ -163,94 +210,7 @@ th:last-child, td-last-child{
 												<div>
 													<a href="#" class="update-detail">상품 정보 수정</a>
 													<div class="product-stop-selling">상품 판매 중지</div>
-													<input type="hidden" value="${p.lessonNo }">
-												</div>
-											</div></td>
-									</tr>
-                                	<tr>
-										<td><input type="checkbox" name="houseCheck"
-											class="house-check chk" value="${p.houseNo }"></td>
-										<td><a href="#">${p.houseTitle }</a></td>
-										<td>${p.writer }</td>
-										<td>${p.houseCity }</td>
-										<td>
-										<c:choose>
-										<c:when test="${p.houseScore == 0 }">
-									            <div class="small-ratings">
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									            </div>
-										</c:when>
-										<c:when test="${p.houseScore == 1 }">
-									            <div class="small-ratings">
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									            </div>
-										</c:when>
-										<c:when test="${p.houseScore == 2 }">
-									            <div class="small-ratings">
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									            </div>
-										</c:when>
-										<c:when test="${p.houseScore == 3 }">
-									            <div class="small-ratings">
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star"></i>
-									                <i class="fa fa-star"></i>
-									            </div>
-										</c:when>
-										<c:when test="${p.houseScore == 4 }">
-									            <div class="small-ratings">
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star"></i>
-									            </div>
-										</c:when>
-										<c:when test="${p.houseScore == 5 }">
-									            <div class="small-ratings">
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									                <i class="fa fa-star rating-color"></i>
-									            </div>
-										</c:when>
-										</c:choose>
-										</td>
-										<td><c:choose>
-												<c:when test="${p.houseStatus == 1}">
-													<select class="status-change">
-														<option value="1" selected>판매중</option>
-														<option value="0">판매중지</option>
-													</select>
-												</c:when>
-												<c:when test="${p.houseStatus == 0}">
-													<select class="status-change">
-														<option value="1">판매중</option>
-														<option value="0" selected>판매중지</option>
-													</select>
-												</c:when>
-											</c:choose></td>
-										<td><span class="material-symbols-outlined more-detail">more_vert</span>
-											<div class="list-detail-box" style="display: none">
-												<div>
-													<a href="#">상품 정보 수정</a>
-													<div class="product-stop-selling">상품 판매 중지</div>
-													<input type="hidden" value="${p.houseNo }">
+													<input type="hidden" value="${p.productNo }">
 												</div>
 											</div></td>
 									</tr>

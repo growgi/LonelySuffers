@@ -284,4 +284,9 @@ public class AdminDao {
 		return (ArrayList<Product>)productList;
 	}
 
+	public ArrayList<Product> selectSearchProduct(Search sp) {
+		List productList = sqlSession.selectList("admin.selectSearchProduct", sp);
+		return (ArrayList<Product>)productList;
+	}
+
 }

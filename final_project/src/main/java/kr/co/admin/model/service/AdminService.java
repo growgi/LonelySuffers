@@ -448,5 +448,10 @@ public class AdminService {
 		
 		return dao.selectAllProduct();
 	}
+	
+	public ArrayList<Product> selectSearchProduct(Search sp) {
+		
+		return dao.selectSearchProduct(sp);
+	}
 
 }

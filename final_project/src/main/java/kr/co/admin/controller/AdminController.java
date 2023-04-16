@@ -274,6 +274,28 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value="/adminSearchProduct.do")
+	public String adminSearchProduct(String jspPage, String productSearchType, String productSearchKeyword, Model model) {
+		Search sp = new Search(productSearchType, productSearchKeyword);
+		
+		ArrayList<Product> productList = service.selectSearchProduct(sp);
+		
+		if(productList != null) {			
+			model.addAttribute("productList",productList);
+			
+			if(jspPage.equals("nl")) {
+				return "admin/newProductAll";
+			} else if(jspPage.equals("pl")) {
+				return "admin/productListAll";
+			} else {
+				return "redirect:/memberList.do"; 
+			}
+		} else {
+			return "redirect:/memberList.do";
+		}
+		
+	}
+	
 	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productListAll.do")
 	public String productListAll(Model model) {

@@ -39,6 +39,7 @@ th:last-child, td-last-child{
 					<div class="list-wrapper">
 						<form action="/adminSearchHouse.do" method="get"
 						class="search-bar" name="search-product">
+						<input type="hidden" name="jspPage" value="pl">
 						<select name="houseSearchType" class="search-type">
 							<option value="n">상품명</option>
 							<option value="s">판매자</option>
@@ -61,6 +62,7 @@ th:last-child, td-last-child{
 								<tr>
 									<th><input type="checkbox" name="houseCheck"
 										class="house-all-check chk"></th>
+									<th>사진</th>
 									<th>상품명</th>
 									<th>판매자</th>
 									<th>숙박소 이름</th>
@@ -73,6 +75,16 @@ th:last-child, td-last-child{
 									<tr>
 										<td><input type="checkbox" name="houseCheck"
 											class="house-check chk" value="${h.houseNo }"></td>
+										<td>
+										<c:choose>
+	                                		<c:when test="${h.housePhoto1 eq null}">
+	                                			<div class="material-symbols-outlined no-pic">quiz</div>
+	                                		</c:when>
+	                                		<c:otherwise>
+			                                	<img src="resources/upload/house/${h.housePhoto1 }">
+                                			</c:otherwise>
+                                		</c:choose>
+										</td>
 										<td><a href="#">${h.houseTitle }</a></td>
 										<td>${h.writer }</td>
 										<td>${h.roomTitle }</td>

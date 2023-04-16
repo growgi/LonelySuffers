@@ -6,7 +6,7 @@
 }
 
 .list-wrapper{
-    width: 73%;
+    width: 97%;
 }
 
 .list-wrapper form{
@@ -190,7 +190,7 @@ table th:last-child{
     border-top-right-radius: 10px;
     border-top-right-radius: 10px;
 }
-table td:nth-child(2){
+table td:nth-child(3){
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

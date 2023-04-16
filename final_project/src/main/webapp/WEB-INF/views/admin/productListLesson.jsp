@@ -38,6 +38,7 @@ th:last-child, td-last-child{
 					<div class="list-wrapper">
 						<form action="/adminSearchLesson.do" method="get"
 						class="search-bar" name="search-product">
+						<input type="hidden" name="jspPage" value="pl">
 						<select name="lessonSearchType" class="search-type">
 							<option value="n">강습명</option>
 							<option value="s">판매자</option>
@@ -60,6 +61,7 @@ th:last-child, td-last-child{
 								<tr>
 									<th><input type="checkbox" name="memberCheck"
 										class="lesson-all-check chk"></th>
+									<th>사진</th>
 									<th>강습명</th>
 									<th>판매자</th>
 									<th>강습 레벨</th>
@@ -85,6 +87,16 @@ th:last-child, td-last-child{
 									<tr>
 										<td><input type="checkbox" name="memberCheck"
 											class="lesson-check chk" value="${l.lessonNo }"></td>
+										<td>
+										<c:choose>
+	                                		<c:when test="${l.lessonInfoPic eq null}">
+	                                			<div class="material-symbols-outlined no-pic">quiz</div>
+	                                		</c:when>
+	                                		<c:otherwise>
+			                                	<img src="resources/upload/lesson/${l.lessonInfoPic }">
+                                			</c:otherwise>
+                                		</c:choose>
+										</td>
 										<td><a href="#">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
 										<td>Level ${l.lessonLevel }</td>

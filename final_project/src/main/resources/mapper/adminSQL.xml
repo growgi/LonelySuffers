@@ -101,23 +101,29 @@
 	</delete>
 	
 	<select id="selectAllProduct" resultType="pr">
+         select * from (select
+        	'강습' as productType,
+            lesson_no as productNo,
+			lesson_title as productTitle,
+			lesson_city as productCity,
+			lesson_info_pic as productPic,
+			lesson_status as productStatus,
+			lesson_score as productScore,
+			l.writer as productWriter
+        from lesson l
+        union
         select
-            lesson_no as lessonNo,
-			lesson_title as lessonTitle,
-			lesson_city as lessonCity,
-			lesson_info_pic as lessonInfoPic,
-			lesson_status as lessonStatus,
-			lesson_score as lessonScore,
-			l.writer as lessonWriter,
-			house_no as houseNo,
-			house_title as houseTitle,
-			house_city as houseCity,
-			house_photo1 as housePhoto1,
-			house_status as houseStatus,
-			house_score as houseScore,
-			h.writer as houseWriter
-		from lesson l
-        cross join house h
+        	'숙박' as productType,
+            house_no as productNo,
+			house_title as productTitle,
+			house_city as productCity,
+			house_photo1 as productPic,
+			house_status as productStatus,
+			house_score as productScore,
+			h.writer as productWriter
+        from house h)
+        where productStatus in(1,0)
+        order by productStatus desc, productNo desc
 	</select>
 	
 	<select id="selectSearchLesson" parameterType="s" resultType="l">
@@ -146,7 +152,8 @@
 	      <when test="searchType.equals('lo')">
 	        where lesson_city like '%'||#{searchKeyword}||'%'
 	      </when>
-	    </choose> 
+	    </choose>
+	    order by lesson_status desc, lesson_no desc 
 	</select>
 	
 	<select id="selectSearchHouse" parameterType="s" resultType="h">
@@ -176,6 +183,44 @@
 				where house_address like '%'||#{searchKeyword}||'%'
 			</when>
 		</choose>
+		order by house_status desc, house_no desc
+	</select>
+	
+	<select id="selectSearchProduct" parameterType="s" resultType="pr">
+         select * from (select
+        	'강습' as productType,
+            lesson_no as productNo,
+			lesson_title as productTitle,
+			lesson_city as productCity,
+			lesson_info_pic as productPic,
+			lesson_status as productStatus,
+			lesson_score as productScore,
+			l.writer as productWriter
+        from lesson l
+        union
+        select
+        	'숙박' as productType,
+            house_no as productNo,
+			house_title as productTitle,
+			house_city as productCity,
+			house_photo1 as productPic,
+			house_status as productStatus,
+			house_score as productScore,
+			h.writer as productWriter
+        from house h
+        )
+        <choose>
+			<when test='searchType.equals("n")'>
+				where (productStatus in(1,0)) and (productTitle like '%'||#{searchKeyword}||'%')
+			</when>
+			<when test='searchType.equals("s")'>
+				where (productStatus in(1,0)) and (productWriter like '%'||#{searchKeyword}||'%')
+			</when>
+			<when test="searchType.equals('lo')">
+				where (productStatus in(1,0)) and (productCity like '%'||#{searchKeyword}||'%')
+			</when>
+		</choose>
+        order by productStatus desc, productNo desc
 	</select>
 	
 	<select id="selectAllLesson" resultType="l">
@@ -188,9 +233,11 @@
 			lesson_score as lessonScore,
 			writer,
 			lesson_city as lessonCity,
-			lesson_status as lessonStatus
+			lesson_status as lessonStatus,
+			lesson_info_pic as lessonInfoPic
 		from lesson
-		where lesson_status=1 or lesson_status=0
+		where lesson_status in(0,1)
+		order by lesson_status desc, lesson_no desc
 	</select>
 	
 	<select id="selectAllHouse" resultType="h">
@@ -203,9 +250,11 @@
 			house_score as houseScore,
 			room_capa as roomCapa,
 			house_city as houseCity,
-			house_status as houseStatus
+			house_status as houseStatus,
+			house_photo1 as housePhoto1
 		from house
-		where house_status=1 or house_status=0
+		where house_status in(0,1)
+		order by house_status desc, house_no desc
 	</select>
 	
 	<select id="selectLessonCount" resultType="_int">
@@ -246,6 +295,7 @@
 			lesson_status as lessonStatus
 		from lesson
 		where lesson_status=-1
+		order by lesson_status desc, lesson_no desc
 	</select>
 	
 	<select id="selectNewHouse" resultType="h">
@@ -260,18 +310,21 @@
 			house_status as houseStatus
 		from house
 		where house_status=-1
+		order by house_status desc, house_no desc
 	</select>
 	
 	<select id="selectNewLessonCount" resultType="_int">
 		select count(*)
 		from lesson
 		where lesson_status=-1
+		order by lesson_status desc, lesson_no desc
 	</select>
 	
 	<select id="selectNewHouseCount" resultType="_int">
 		select count(*)
 		from house
 		where house_status=-1
+		order by house_status desc, house_no desc
 	</select>
 	
 	<update id="updateLessonStopSelling" parameterType="_int">

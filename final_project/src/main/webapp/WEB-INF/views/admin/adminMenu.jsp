@@ -254,8 +254,8 @@
                         <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
                     </div>
                     <ul class="menu-detail">
-                        <li><a href="/newProductLesson.do">신규 상품 승인</a></li>
-                        <li><a href="/productListLesson.do">등록된 상품 관리</a></li>
+                        <li><a href="/newProductAll.do">신규 상품 승인</a></li>
+                        <li><a href="/productListAll.do">등록된 상품 관리</a></li>
                         <li><a href="/salesDetails.do">판매 내역</a></li>
                     </ul>
                 </li>
