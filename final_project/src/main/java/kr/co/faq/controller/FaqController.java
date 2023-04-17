@@ -83,10 +83,21 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/faqListKind.do")
-	public String faqCancel(int categoryNo, Model model) {
-		ArrayList<Faq> list = service.selectOneFaqCancel(categoryNo);
+	public String faqListKind(int categoryNo, Model model) {
+		ArrayList<Faq> list = service.selectOneFaqListKind(categoryNo);
 		model.addAttribute("list", list);
 		return "faq/faqListKind";
+	}
+	
+	@RequestMapping(value="/searchFaqTitle.do")
+	public String searchFaqTitle(String searchFaqTitle, Model model) {
+		ArrayList<Faq> list = service.selectSearchFaq(searchFaqTitle);
+		if(list != null) { 
+			model.addAttribute("list", list);
+			return "faq/faqListKind";
+		}else {
+			return "redirect:/";
+		}
 	}
 	
 	

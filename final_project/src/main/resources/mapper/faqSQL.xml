@@ -37,7 +37,7 @@
   		delete from faq where faq_no = #{_parameter}
   	</delete>
   	
-  	<select id="selectOneFaqCancel" parameterType="_int" resultType="fq">
+  	<select id="selectOneFaqListKind" parameterType="_int" resultType="fq">
   		select
   			faq_no as faqNo,
   			category_no as categoryNo,
@@ -49,5 +49,14 @@
   		 where category_no = #{_parameter}
   		 order by 1 desc	
   	</select>
-  
+	
+	<select id="selectSearchFaq" parameterType="string" resultType="fq">
+     	select
+     		faq_no as faqNo,
+			category_no as categoryNo,
+  			faq_title as faqTitle,
+  			faq_content as faqContent
+		from faq
+		where faq_title like '%'||#{searchFaqTitle}||'%' 	
+     </select>  
 </mapper>
