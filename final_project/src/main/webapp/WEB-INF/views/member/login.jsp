@@ -32,7 +32,7 @@
 			</div>
 			<div class="content-main">
 				<div class="main-top">
-					<form action="/login.do" method="post" class="customInput">
+					<form action="/login.do" method="post" class="customInput" onsubmit="return frm_check();">
 					<div>
 					<input type="text" name="memberId" id="memberId" required autocomplete="off">
 					<label>아이디</label>
@@ -43,6 +43,16 @@
 					<label>비밀번호</label>
 					<span></span>
 					</div> 
+					<div style="display: flex; flex-direction: column; margin-bottom: 5px;">
+					  <div style="margin-right: 10px; display: flex;align-items: flex-start;">
+					    <input type="checkbox" name="saveId" id="saveId">
+					    <label for="saveId" style="margin-left: 5px;">아이디 저장</label>
+					  </div>
+					  <div style="display: flex;align-items: flex-start;">
+					    <input type="checkbox" name="savePw" id="savePw">
+					    <label for="savePw" style="margin-left: 5px;">비밀번호 저장</label>
+					  </div>
+					</div>
 					<input class="btn btn-success " type="submit" value ="로그인">
 					</form>
 				</div>
@@ -113,7 +123,7 @@
         <div class="modal-body" style="padding:40px 50px;">
         	<div class="findMemberPw">
         	<div class="form-group">
-            <form action="/findMemberPw.do" class="findMemberPwForm" method="post" >
+            <form action="/findMemberPw.do" class="customInputLong" method="post" >
               <div>
               <input type="text" name="memberId" class="findMemberPwId" required>
               <label>아이디</label>
