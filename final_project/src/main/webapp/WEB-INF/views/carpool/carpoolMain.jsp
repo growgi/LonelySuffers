@@ -23,6 +23,28 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
+<style>
+	.load-more {
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more:hover {
+  background-color: #e6e6e6;
+}
+</style>
 
 <body>
 	<div id="wrapper">
@@ -52,21 +74,39 @@
 		<section class="section"
 			style="padding-top: 50px; padding-bottom: 10px;">
 			<div class="container">
-				<div class="row">
+				<div class="row" style="padding-left: 90px; padding-bottom: 20px; padding-right: 140px;">
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">
 							<a href="/carpoolMain.do">전체보기</a>
 						</p>
 					</div>
 					<div class="col-md-2">
-						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="/driverPage.do?driverNo=${sessionScope.m.memberNo }">태워드려요</a>
-						</p>
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="/driverPage.do?driverNo=${sessionScope.m.memberNo }">태워드려요</a>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="#" onclick="alert('로그인하고 이용해주세요.');">태워드려요</a>
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="col-md-2">
-						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="passengerPage.do">태워주세요</a>
-						</p>
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="passengerPage.do">태워주세요</a>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="#" onclick="alert('로그인하고 이용해주세요.');">태워주세요</a>
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					
 					<div class="menu" style="float: right;">
@@ -107,14 +147,14 @@
 			style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px;">
 			<div class="container">
 				<div class="row">
-					<table id="carpoolTable" class="tablesorter"
-						style="border-collapse: initial; border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
+					<table id="carpoolTable" class="tablesorter" style="border-collapse: initial; padding: 30px;
+						border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
 						<thead>
 							<tr>
-								<th data-sort-method='thead' style="width:20%;">출발일</th>
-								<th data-sort-method='thead' style="width:10%">등록일</th>
-								<th data-sort-method='none' style="width:20%"></th>
-								<th data-sort-method='none' style="width:30%"></th>
+								<th data-sort-method='thead' style="width:15%; ">출발일</th>
+								<th data-sort-method='thead' style="width:10%;">등록일</th>
+								<th data-sort-method='none' style="width:20%;"></th>
+								<th data-sort-method='none' style="width:30%;"></th>
 								<th data-sort-method='none' style="width:10%"></th>
 								<th data-sort-method='none' style="width:10%"></th>
 							</tr>
@@ -129,7 +169,7 @@
 						<tfoot>
 							<tr>
 								<th colspan="6">
-									<button class="btn bc4 bs4" id="more-btn">더보기</button>
+									<button class="load-more" id="more-btn">더보기</button>
 								</th>
 							</tr>
 						</tfoot>
@@ -273,6 +313,9 @@
 
 
 	<script>
+	//로그인하고 이용해주세요
+	
+	
 	//모달
 	$(document).ready(function() {
 		$(".filter").click(function() {
@@ -473,8 +516,9 @@
 				 console.log(data);
 				 
 				 for(let i=0; i<data.length; i++){
+					 	const hr = $("<hr>");
 					 
-			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor", "pointer").click(function(){
+			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor","pointer").click(function(){
 			                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
 			            });
 			            const td1 = $("<td>").text(data[i].departureDate);
@@ -496,9 +540,9 @@
 			             .append($("<div>").addClass("row district").text(data[i].arrivalDistrict));
 	
 			            const td5 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""))
-			            .append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));
+			            .append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));			            
 			           
-			            tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+			           	tr.append(td1).append(td2).append(td3).append(td4).append(td5);
 			            $(".carpoolListWrapper").append(tr);
 			    }
 				 //화면에 추가 완료 시점

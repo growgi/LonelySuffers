@@ -55,9 +55,15 @@ public class CarpoolService {
 		ArrayList<Carpool> clist = dao.getMyLists(driverNo);
 		return clist;
 	}
+	// 운전자페이지 : matchNo로 카풀 수락, 거절 
 	@Transactional
 	public int updateDriverDecision(Passenger passenger) {
 		return dao.updateDriverDecision(passenger);
+	}
+	// 운전자페이지 : carpoolNo로 카풀 마감, 취소(아예삭제)
+	@Transactional
+	public int updateDriverClosing(Carpool carpool) {
+		return dao.updateDriverClosing(carpool);
 	}
 
 

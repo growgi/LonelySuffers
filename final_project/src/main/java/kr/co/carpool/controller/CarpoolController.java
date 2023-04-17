@@ -118,6 +118,20 @@ public class CarpoolController {
 			return "error";
 		}
 	}
+	//운전자의 마감, 취소(번복없다)
+	@ResponseBody
+	@RequestMapping("value=driverClosing.do")
+	public String driverClosing(Carpool carpool) {
+		System.out.println("운전자 closure 페이지 컨트롤러테스트"+carpool);
+		int result= service.updateDriverClosing(carpool);
+		System.out.println("운전자 closure 페이지 컨트롤러 result 테스트"+result);
+		if(result>0) {
+			return "success"; //success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
+		}else {
+			return "error";
+		}
+
+	}
 		
 	
 	

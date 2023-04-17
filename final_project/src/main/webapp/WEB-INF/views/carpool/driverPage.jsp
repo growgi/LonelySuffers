@@ -182,7 +182,6 @@
 																			onclick="decides(this)" style="cursor:not-allowed;" disabled>수락</button>
 																			<button type="button" class="btn btn-danger reject" style="background-color: #F15A59;" value="1"
 																			onclick="decides(this)" style="cursor:not-allowed;" disabled>거절</button>
-																	
 																	</c:otherwise>
 																</c:choose>
 														</div>
@@ -193,10 +192,11 @@
 										
 									</c:forEach>
 									<div class="buttons" style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
-										<button type="button" title="이 버튼을 누르면 해당 건은 마감처리되어 더 이상 신청을 받을 수 없습니다."
+										<input type="hidden" name="carpoolNo" value="${c.carpoolNo }">
+										<button type="button" title="이 버튼을 누르면 해당 건은 마감처리되어 더 이상 신청을 받을 수 없습니다." value="1"
 											data-toggle="popover" data-trigger="hover" style="margin-right: 30px;" onclick="closing(this)">마감</button> 
-										<button type="button" title="해당 건의 카풀을 취소하시면 탑승자들에게 탑승불가 알림이 가고 이 건은 사라집니다."
-											data-toggle="popover" data-trigger="hover" onclick="closing(this)">취소</button>
+										<button type="button" title="해당 건의 카풀을 삭제하시면 탑승자들에게 탑승불가 알림이 가고 이 건은 삭제됩니다." value="3"
+											data-toggle="popover" data-trigger="hover" onclick="closing(this)">삭제</button>	
 									</div>
 								</div>
 							</c:forEach>
@@ -238,6 +238,7 @@
 		    success : function(decision){
 		      console.log(decision);
 		      if(decision=="success"){
+		    	 //한번 버튼 선택하면 버튼 비활성화 
 		        $(obj).parent().children().prop("disabled",true);
 		        $(obj).parent().children().css("cursor","now-allowed");
 		        
@@ -250,12 +251,44 @@
 		      }
 		    },
 		    error: function(){
-		      alert("에러났습니다.");
+		      alert("decision 에러났습니다.");
 		    }
 		  });
 		}
 	
-	//update 두개 해주기 carpoolNo 보내주면된다.
+	//closure 상태 update 두개 해주기 carpoolNo 보내주면된다.
+	//마감1 모집중2 삭제함3 : 운전자가 강제 마감했는지 안했는지에 따른 변수 , 기한만료와 정원 찬것과는 상관없는 변수임.
+	function closing(obj){
+		//carpoolNo 키값으로 보내주기
+		const carpoolNo = Number($(obj).parent().children().eq(0).val());
+		console.log("driverPage.jsp의 carpoolNo : "+carpoolNo. $(obj).val());
+			$ajax({
+				url: "driverClosing.do",
+				type: "post",
+				data: {closure: $(obj).val(), carpoolNo:carpoolNo}
+				success : function(closeit){
+					console.log(closeit);
+					if(closeit=="success"){
+						//한번 버튼 선택하면 그 해당 버튼은 비활성화 
+				        $(obj).prop("disabled",true);
+				        $(obj).css("cursor","now-allowed");
+				        
+				        
+				        
+					}else{
+						alert("다시 시도해주세요.");
+					}
+				},
+				error: function(){
+					alert("closeit 에러났습니다")
+				}
+				
+			});
+		
+	}
+	
+	
+	
 	
 	
 	</script>
