@@ -340,7 +340,7 @@
 
 </style>
 <!-- naver map -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34&submodules=geocoder" ></script>
 <script src="resources/js/MarkerClustering.js"></script>
 <!-- daterangepicker -->
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
@@ -379,6 +379,7 @@
 					<div class="row">
 						<div class="col-md-8">
 							<div class="circle-wrap">
+								<input type="text" id="travel-location" value=""readonly>
 								<div class="circle" style="background-image:url(/resources/images/magnify.png)">
 									<div class="map">
 									<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
@@ -666,8 +667,8 @@ $(document).ready(function(){
 			for(let i=0;i<data.length;i++){
 				const marker = new naver.maps.Marker({
 					position : new naver.maps.LatLng(data[i].houseLat,data[i].houseLng),
-					map : map
-					
+					map : map,
+					title : data[i].houseCity
 				})
 				 markers.push(marker);
 			}	
@@ -683,13 +684,7 @@ $(document).ready(function(){
         gridSize: 120,
         icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
         indexGenerator: [10, 100, 200, 500, 1000],
-    	getCenter: function() {
-    		
-    		
-    		
-       		return this._clusterCenter;
-       		
-       		},
+    	
        	 getClusterMember: function() {
        	    return this._clusterMember;
        	  },
@@ -697,41 +692,39 @@ $(document).ready(function(){
             $(clusterMarker.getElement()).find('div:first-child').text(count);
             //클러스터를 클릭했을 때 동작하는 이벤트
             naver.maps.Event.addListener(clusterMarker, 'click', function(e) {
+            	
             	const mar = markers;
             	console.log(mar);
             	//lat, lng 초기화
-            	let lat = 0;
-            	let lng = 0;
-            	for(let i=0;i<markers.length;i++){
-            		//position이 해당 위치의 경도, 위도를 담고있음
-            		lat += markers[i].position.y;
-            		lng += markers[i].position.x;
-            	console.log(lat,lng);
-            	}
-            	//중심 경도 위도 = 클러스터 내부의 모든 경도 위도를 합한 값에 markers.length만큼 나눈 것
-            	const centerLat = lat/markers.length;
-            	const centerLng = lng/markers.length;
-            	console.log(centerLat,centerLng);
-            	const mapCenter = new naver.maps.LatLng(centerLat,centerLng);
-            	map.setCenter("평균 위도 경도"+mapCenter);
-               	//alert(test1);
-            });
-            
-       		}
-       
-       
-       		 
- 		});
-	console.log("마커클러스터"+markerClustering);
-	var test1 = markerClustering.getCenter;
-	console.log(test1());
-
-	
-			/*
-			naver.maps.Event.addListener(map, "click", function(e){
-			alert("클릭함");
-			});
-			*/
+	           	let lat = 0;
+	           	let lng = 0;
+	           	let count = 0;
+	           	console.log(clusterMarker);
+	           	console.log(clusterMarker.position.y);
+	           	console.log(clusterMarker.position.x);
+	           	lat = clusterMarker.position.y;
+	           	lng = clusterMarker.position.x;
+            	
+            	const mapCenter = new naver.maps.LatLng(lat,lng);
+    
+            	
+	            	//위경도를 통해서 해당 위치의 주소를 알아내기(reverseGeocode)
+	    			naver.maps.Service.reverseGeocode({ //주소를 주면 위경도를 구해주는건 Geocode의 반대
+	    				location : new naver.maps.LatLng(lat,lng)
+	    			}, function(status, response){
+	    				if(status != naver.maps.Service.Status.OK){
+	    					return alert("주소를 찾을 수 없습니다");
+	    				}
+	    				console.log(response);
+	    				const address = response.result.items[0].address;
+	    				console.log("주소"+address);
+	    				$("#travel-location").attr("value",address);
+	    				
+	    				});
+            	
+           			});
+       			}
+ 			});
 		}
 	});
 	

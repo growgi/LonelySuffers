@@ -51,6 +51,7 @@
 	<select id="selectAllAddress" resultType="h">
 		SELECT
 		HOUSE_NO as houseNo,
+		HOUSE_CITY as houseCity,
 		HOUSE_LAT as houseLat,
 		HOUSE_LNG as houseLng
 		FROM HOUSE WHERE HOUSE_STATUS = 1
