@@ -176,9 +176,10 @@ public class HouseController {
 	@RequestMapping(value="/allAddress.do" , produces = "application/json;charset=utf-8")
 	public String selectAllAddress() {
 		ArrayList<House> list = service.selectAllAddress();
+		System.out.println("리스트사이즈:"+list.size());
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
-		//System.out.println("지도 호출"+result);
+		System.out.println("지도 호출"+result);
 		return result;
 	}
 //숙소 리스트를 조회하는 것

@@ -28,7 +28,7 @@
 <!-- 조건에 맞는 레슨리스트 불러오기 -->
 	<select id="selectLessonList" parameterType="l" resultMap="getLesson">
 		SELECT L.LESSON_NO, LESSON_TITLE, LESSON_INFO_PIC, LESSON_LEVEL, LESSON_MAX_NO, LESSON_START_TIME, LESSON_END_TIME, LESSON_PRICE 
-		FROM LESSON L LEFT JOIN LESSON_BOOK B ON L.LESSON_NO = B.LESSON_NO WHERE LESSON_MAX_NO>#{lessonMaxNo} AND LESSON_STATUS = 1
+		FROM LESSON L LEFT JOIN LESSON_BOOK B ON L.LESSON_NO = B.LESSON_NO WHERE LESSON_MAX_NO>#{lessonMaxNo} AND LESSON_CITY = #{lessonCity} AND LESSON_STATUS = 1
 		
 		<if test='level1 == 1'>AND LESSON_LEVEL = 1</if>
 
@@ -40,6 +40,7 @@
 		<choose>
 			<when test='level1 == 1 and level2 == 1 and level3 == 1'>OR LESSON_LEVEL = 3</when>
 			<when test='level1 != 1 and level2 == 1 and level3 == 1'>OR LESSON_LEVEL = 3</when>
+			<when test='level1 == 1 and level2 != 1 and level3 == 1'>OR LESSON_LEVEL = 3</when>
 			<when test='level1 != 1 and level2 != 1 and level3 == 1'>AND LESSON_LEVEL = 3</when>
 		</choose>
 		
