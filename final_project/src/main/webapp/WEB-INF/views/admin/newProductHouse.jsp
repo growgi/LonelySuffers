@@ -16,7 +16,7 @@
 			<div class="house-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="#">전체</a>
+						<a href="/newProductAll.do">전체</a>
 						<a href="/newProductLesson.do">강습</a>
 						<a href="/newProductHouse.do" style="background-color:#19A7CE; color:#fff">숙박</a>
 					</div>
@@ -46,6 +46,7 @@
 								<tr>
 									<th><input type="checkbox" name="houseCheck"
 										class="house-all-check chk"></th>
+									<th>사진</th>
 									<th>상품명</th>
 									<th>판매자</th>
 									<th>숙박소 이름</th>
@@ -72,6 +73,16 @@
 									<tr>
 										<td><input type="checkbox" name="houseCheck"
 											class="house-check chk check" value="${h.houseNo }"></td>
+										<td>
+                                		<c:choose>
+	                                		<c:when test="${h.housePhoto1 eq null}">
+	                                			<div class="material-symbols-outlined no-pic">quiz</div>
+	                                		</c:when>
+	                                		<c:otherwise>
+		                                		<img src="resources/upload/house/${h.housePhoto1 }">
+                                			</c:otherwise>
+                                		</c:choose>
+                                		</td>
 										<td><a href="#">${h.houseTitle }</a></td>
 										<td>${h.writer }</td>
 										<td>${h.roomTitle }</td>

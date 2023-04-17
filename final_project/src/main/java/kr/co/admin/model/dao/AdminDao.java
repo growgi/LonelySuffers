@@ -289,4 +289,15 @@ public class AdminDao {
 		return (ArrayList<Product>)productList;
 	}
 
+	public ArrayList<Product> selectAllNewProduct() {
+		List newProductList = sqlSession.selectList("admin.selectAllNewProduct");
+		return (ArrayList<Product>)newProductList;
+	}
+
+	public int selectNewProductCount() {
+		int newProductCount = sqlSession.selectOne("admin.selectNewProductCount");
+		
+		return newProductCount;
+	}
+
 }

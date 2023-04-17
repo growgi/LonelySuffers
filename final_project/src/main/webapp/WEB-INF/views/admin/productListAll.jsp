@@ -85,7 +85,7 @@
 							<input type="hidden" value="1" class="lesson-product-type">
 							<table>
 								<tr>
-									<th><input type="checkbox" name="memberCheck"
+									<th><input type="checkbox" name="productCheck"
 										class="lesson-all-check chk"></th>
 									<th>종류</th>
 									<th>사진</th>
@@ -96,9 +96,10 @@
 									<th>상품 상태</th>
 									<th></th>
 								</tr>
-								<c:if test="${productList eq null }">
+								<c:choose>
+								<c:when test="${productList eq null }">
 								<tr>
-									<td>
+									<td colspan="8">
 									    <div class="noInfo-wrapper">
 									        <div>
 									            <span class="material-symbols-outlined noInfo-icon">info</span>
@@ -107,8 +108,10 @@
 									    </div>
 								    </td>
 								</tr>
-								</c:if>
+								</c:when>
+								<c:otherwise>
 								<c:forEach items="${productList }" var="p">
+								<c:if test="${p.productStatus == 1 || p.productStatus == 0 }">
                                 	<tr>
 										<td><input type="checkbox" name="memberCheck"
 											class="lesson-check chk" value="${p.productNo }"></td>
@@ -214,7 +217,10 @@
 												</div>
 											</div></td>
 									</tr>
+								</c:if>
 								</c:forEach>
+								</c:otherwise>
+								</c:choose>
 							</table>
 							<div></div>
 						</div>

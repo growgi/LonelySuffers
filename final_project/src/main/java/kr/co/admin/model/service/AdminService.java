@@ -454,4 +454,14 @@ public class AdminService {
 		return dao.selectSearchProduct(sp);
 	}
 
+	public ArrayList<Product> selectAllNewProduct() {
+		
+		return dao.selectAllNewProduct();
+	}
+
+	public int selectNewProductCount() {
+		
+		return dao.selectNewProductCount();
+	}
+
 }

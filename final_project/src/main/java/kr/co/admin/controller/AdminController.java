@@ -138,6 +138,17 @@ public class AdminController {
 	
 	
 	/**3. 신규 상품 승인*/
+	@RequestMapping(value="/newProductAll.do")
+	public String newProductAll(Model model) {
+		ArrayList<Product> productList = service.selectAllNewProduct(); //신규 전체 상품 목록
+		int newProductCount = service.selectNewProductCount(); //신규 강습 상품 수
+		
+		model.addAttribute("productList", productList);
+		model.addAttribute("newProductCount", newProductCount);
+		
+		return "admin/newProductAll";
+	}
+	
 	@RequestMapping(value="/newProductLesson.do")
 	public String newProductLesson(Model model) {
 		ArrayList<Lesson> lessonList = service.selectNewLesson(); //신규 강습 상품 목록
@@ -273,7 +284,7 @@ public class AdminController {
 		}
 		
 	}
-	
+
 	@RequestMapping(value="/adminSearchProduct.do")
 	public String adminSearchProduct(String jspPage, String productSearchType, String productSearchKeyword, Model model) {
 		Search sp = new Search(productSearchType, productSearchKeyword);
@@ -295,12 +306,14 @@ public class AdminController {
 		}
 		
 	}
-	
+
 	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productListAll.do")
 	public String productListAll(Model model) {
 		ArrayList<Product> productList = service.selectAllProduct(); //모든 상품 목록
 		int productCount = service.selectLessonCount() + service.selectHouseCount(); //모든 상품 수
+		
+		System.out.println(productList);
 		
 		if(productList != null) {	
 			model.addAttribute("productList", productList);
@@ -430,6 +443,7 @@ public class AdminController {
 			return "redirect:/productList.do";
 		}
 	}
+
 	
 	/**6. 주문 상세*/
 	@RequestMapping(value="/orderDetail.do")
