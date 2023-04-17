@@ -10,7 +10,7 @@
 
 <!-- 강습 상품 신규 등록 -->
 	<insert id="insertLesson" parameterType="l">
-		INSERT INTO LESSON VALUES (LESSON_SEQ.NEXTVAL, #{lessonLevel}, #{lessonTitle}, #{lessonPrice}, #{lessonInfo}, #{lessonInfoPic}, #{lessonTeacher}, #{lessonMaxNo}, #{lessonStartTime}, #{lessonEndTime}, -1, '', #{writer}, #{lessonCity})
+		INSERT INTO LESSON VALUES (LESSON_SEQ.NEXTVAL, #{lessonLevel}, #{lessonTitle}, #{lessonPrice}, #{lessonInfo}, #{lessonInfoPic}, #{lessonTeacher}, #{lessonMaxNo}, #{lessonStartTime}, #{lessonEndTime}, -1, '', #{writer}, #{lessonCity}, '')
 		<selectKey resultType="_int" order="AFTER" keyProperty="lessonNo">
 			SELECT MAX(LESSON_NO) FROM LESSON
 		</selectKey>
@@ -45,6 +45,8 @@
 		</choose>
 		
 	</select>
+
+
 <!-- 강습 상품 Lesson 의 모든 column에 대한 resultMap -->
 	<resultMap type="l" id="getLesson">
 		<result column="LESSON_NO" property="lessonNo"></result>
@@ -61,6 +63,8 @@
 		<result column="LESSON_STATUS" property="lessonStatus"></result>
 		<result column="LESSON_SCORE" property="lessonScore"></result>
 		<result column="WRITER" property="writer"></result>
+		<result column="REJECT_COMMNET" property="rejectComment"></result>
 	</resultMap>
+
 
 </mapper>
