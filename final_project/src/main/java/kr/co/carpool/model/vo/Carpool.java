@@ -69,13 +69,16 @@ public class Carpool {
 			return "수납가능";
 		}
 	}
-	
+	//1:마감 2:모집중 3:삭제
 	public String getRecruiting() {
-		if(closure==0) {
+		if(closure==1) {
 			return "마감";
-		}else {
+		}else if(closure==2) {
 			return "모집중";
+		}else {
+			return "삭제";
 		}
+		
 	}
 
 	//1: 남자 2:여자
