@@ -34,9 +34,22 @@
    	text-align: center;
    	cursor: pointer;
 }
-
-
-
+.tab-content{
+		height: 100%;
+	}
+.tab-content>div{
+   	padding: 50px 30px;
+   	box-sizing: border-box;
+   	display: none;
+}
+.tab-content>div.active-content{
+   	display: block;
+}
+.faq-detail{
+    	height: 100%;
+    	overflow: hidden;
+    	position : relative;
+	}
 
 </style>
 <body>
@@ -64,7 +77,7 @@
 					</c:if>	
 					<div class="tab">
 						<ul>
-							<li>예약취소</li>
+							<li class="active-tab">예약취소</li>
 							<li>숙박</li>
 							<li>강습</li>
 							<li>카풀</li>
@@ -72,41 +85,48 @@
 							<li>회원서비스</li>
 						</ul>
 					</div>	
-					<table>
-							<tr>
-								<th>번호</th>
-								<th>카테고리</th>
-								<th>제목</th>
-							</tr>
-						<c:forEach items="${list }" var="fq">
-							<tr>
-								<td>${fq.faqNo }</td>
-									<c:choose>
-										<c:when test="${fq.categoryNo == 1}">
-											<td>예약취소</td>
-										</c:when>
-										<c:when test="${fq.categoryNo == 2}">
-											<td>숙박</td>
-										</c:when>
-										<c:when test="${fq.categoryNo == 3}">
-											<td>강습</td>
-										</c:when>
-										<c:when test="${fq.categoryNo == 4}">
-											<td>카풀</td>
-										</c:when>
-										<c:when test="${fq.categoryNo == 5}">
-											<td>후기</td>
-										</c:when>
-										<c:when test="${fq.categoryNo == 6}">
-											<td>회원서비스</td>
-										</c:when>
-									</c:choose>
-								<td>
-									<a href="/faqView.do?faqNo=${fq.faqNo }">${fq.faqTitle }</a>
-								</td>
-							</tr>
-						</c:forEach>
-					</table>
+					<div class="tab-content">
+					
+						<!--숙박 -->
+						<div class="faq-detail">
+							<table>
+								<tr>
+									<th>번호</th>
+									<th>카테고리</th>
+									<th>제목</th>
+								</tr>
+								<c:forEach items="${list }" var="fq" varStatus="faqNoSt">
+								<tr>
+									<td>${faqNoSt.count }</td>
+										<c:choose>
+											<c:when test="${fq.categoryNo == 1}">
+												<td>예약취소</td>
+											</c:when>
+											<c:when test="${fq.categoryNo == 2}">
+												<td>숙박</td>
+											</c:when>
+											<c:when test="${fq.categoryNo == 3}">
+												<td>강습</td>
+											</c:when>
+											<c:when test="${fq.categoryNo == 4}">
+												<td>카풀</td>
+											</c:when>
+											<c:when test="${fq.categoryNo == 5}">
+												<td>후기</td>
+											</c:when>
+											<c:when test="${fq.categoryNo == 6}">
+												<td>후기</td>
+											</c:when>
+										</c:choose>
+									<td>
+										<a href="/faqView.do?faqNo=${fq.faqNo }">${fq.faqTitle }</a>
+									</td>
+								</tr>
+								</c:forEach>
+							</table>
+						</div>
+						
+					</div>
 				</div>
 				<!-- end row -->
 			</div>
@@ -125,8 +145,29 @@
 	<script src="resources/js/animate.js"></script>
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	
 	<script>
+		const tabs = document.querySelectorAll(".tab>ul>li");
+		tabs.forEach(function(tab,index){
+			tab.addEventListener("click",function(){
+				tabs.forEach(function(removeTab){
+					removeTab.classList.remove("active-tab");
+				})
+				tab.classList.add("active-tab");
+				const contents = document.querySelectorAll(".tab-content>div");
+				contents.forEach(function(content){
+					content.classList.remove("active-content");
+				});
+				contents[index].classList.add("active-content");
+			});
+		});
 		
+		window.onload = function(){
+			const activeLi = document.querySelector(".tab>ul>li:first-child");
+			const activeContent = document.querySelector(".tab-content>div:first-child");
+			activeLi.classList.add("active-tab");
+			activeContent.classList.add("active-content");
+		}
 	</script>
 </body>
 </html>

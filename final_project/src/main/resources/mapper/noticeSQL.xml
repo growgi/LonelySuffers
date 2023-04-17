@@ -70,6 +70,14 @@
 		delete from notice where notice_no = #{noticeNo}     	
      </delete>
      
+     <select id="selectSearchNotice" parameterType="string" resultType="n">
+     	select
+     		notice_no as noticeNo,
+			notice_title as noticeTitle,
+			notice_date as noticeDate
+		from notice
+		where notice_title like '%'||#{searchNtTitle}||'%' 	
+     </select>
 </mapper>
 
 

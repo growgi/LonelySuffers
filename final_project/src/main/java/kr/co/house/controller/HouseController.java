@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -99,6 +100,41 @@ public class HouseController {
 
 
 
+// 객실 등록 페이지 roomInsert.jsp를 방문하는 함수.  작성자(숙박 상품 등록자)만 허용됨
+	@RequestMapping(value = "/roomInsert.do")
+	public String roomInsert(int houseNo, HttpSession session, Model model) {
+		House h = service.selectOneHouse(houseNo);
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberId().equals(h.getWriter())) {
+			model.addAttribute("house", h);
+			return "product/roomInsert";
+		}else {
+			model.addAttribute("title","접근 제한됨");
+			model.addAttribute("msg","상품 등록자만이 해당 상품에 대한 객실들을 추가할 수 있습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/houseView.do?houseNo="+houseNo);
+			return "common/msg";
+		}
+	}
+
+
+
+// 객실 등록.  Room 테이블에 Row 여러개 추가
+	@RequestMapping(value="/insertRooms.do")
+	public String insertRooms(Room r, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		r.setMemberId(me.getMemberId());
+		int result = service.insertRooms(r);
+		if(result > 0) {
+			return "redirect:/houseView.do?houseNo="+r.getHouseNo();
+		}else {
+	// 실패 시 처리내용 작성 필요
+			return "member/myPage";
+		}
+	}
+
+
+
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
 	@ResponseBody
 	@RequestMapping(value="/availableRooms.do", produces = "application/json;charset=utf-8")
@@ -107,6 +143,19 @@ public class HouseController {
 		condition.setRoomTitle(roomTitle);
 		condition.setRoomCapa(roomCapa);
 		ArrayList<Room> list = service.selectAllAvailableRoom(condition);
+		return new Gson().toJson(list);
+	}
+
+
+
+// 객실 이름들 중복 여부 조회. roomTitle을 WHERE 조건으로 Room 테이블에서 Row 0개 이상 조회 후 반환
+	@ResponseBody
+	@RequestMapping(value="/checkRoomName.do", produces = "application/json;charset=utf-8")
+	public String checkRoomNameInSameRoomTitle(@RequestParam(value="roomNames[]") String[] roomNames, String roomTitle) {
+		FindRoomByCondition condition = new FindRoomByCondition();
+		condition.setRoomTitle(roomTitle);
+		condition.setRoomNames(roomNames);
+		ArrayList<String> list = service.checkRoomNameInSameRoomTitle(condition);
 		return new Gson().toJson(list);
 	}
 

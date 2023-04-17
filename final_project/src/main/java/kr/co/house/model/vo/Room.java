@@ -22,4 +22,6 @@ public class Room {
 	private String roomDescription;		// 숙박업소에서 방에 대해 주석을 다는 곳. 일반고객들에게 노출시키지 않음(상품페이지에서 노출시킬 일 없음).
 	private int roomEnable;				// 1 = 사용가능(판매중)      0 = 사용중지(현재는 고객받지 않음)
 	private int houseNo;				// join용으로 만든 왜래키. where roomTitle & roomCapa 대신에 where houseNo로 가능
+
+	private String roomNames[];			// 다중 등록을 위해 roomName들을 저장할 배열
 }

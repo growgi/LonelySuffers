@@ -127,6 +127,18 @@ public class NoticeController {
 		return "company/company";
 	}
 	
+	@RequestMapping(value="/searchNoticeTitle.do")
+	public String searchNoticeTitle(String searchNtTitle, Model model) {
+		ArrayList<Notice> list = service.selectSearchNotice(searchNtTitle);
+		if(list != null) { 
+			model.addAttribute("list", list);
+			return "notice/noticeList";
+		}else {
+			return "redirect:/";
+		}
+		
+	}
+	
 }
 
 

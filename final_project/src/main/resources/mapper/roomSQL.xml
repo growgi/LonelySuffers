@@ -10,9 +10,25 @@
 		ROOM_TITLE as roomTitle,
 		ROOM_CAPA as roomCapa,
 		ROOM_NAME as roomName
-		FROM ROOM WHERE (ROOM_TITLE = '${roomTitle}') AND (ROOM_CAPA = ${roomCapa}) AND (ROOM_ENABLE = 1)
+		FROM ROOM WHERE (ROOM_TITLE = #{roomTitle}) AND (ROOM_CAPA = #{roomCapa}) AND (ROOM_ENABLE = 1)
 	</select>
 
+
+<!-- roomTitle 및 roomName이 일치하는 모든 Row들을 SELECT  -->
+	<select id="checkRoomName" parameterType="kr.co.house.model.vo.FindRoomByCondition" resultType="string">
+		SELECT
+		ROOM_NAME as roomName
+		FROM ROOM WHERE (ROOM_TITLE = #{roomTitle}) AND ROOM_NAME IN
+  		<foreach collection="roomNames" item="roomName" open="(" close=")" separator=",">
+  			#{roomName}
+  		</foreach>
+	</select>
+
+
+<!-- 객실 신규 등록 -->
+	<insert id="insertRoom" parameterType="r">
+		INSERT INTO ROOM VALUES (ROOM_SEQ.NEXTVAL, #{roomTitle}, #{roomCapa}, #{memberId}, #{roomName}, #{roomDescription}, 1, #{houseNo})
+	</insert>
 
 
 

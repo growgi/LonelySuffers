@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메세지</title>
 
 <!-- alert 라이브러리 -->
 <script src="resources/js/sweetalert.min.js"></script> 
