@@ -91,6 +91,7 @@
  		update 
  			member_tbl
  		set
+ 			member_email = '',
  			member_grade = 4
  		where
  			member_no = #{_parameter}
