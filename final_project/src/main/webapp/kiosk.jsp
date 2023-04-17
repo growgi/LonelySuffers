@@ -718,8 +718,39 @@ $(document).ready(function(){
 	    				console.log(response);
 	    				const address = response.result.items[0].address;
 	    				console.log("주소"+address);
-	    				$("#travel-location").attr("value",address);
-	    				
+		    				if(address.includes('서울')){
+		    					$("#travel-location").attr("value",'서울');
+		    				}else if(address.includes('제주')){
+		    					$("#travel-location").attr("value",'제주');
+		    				}else if(address.includes('부산')){
+		    					$("#travel-location").attr("value",'부산');
+		    				}else if(address.includes('인천')){
+		    					$("#travel-location").attr("value",'인천');
+		    				}else if(address.includes('대구')){
+		    					$("#travel-location").attr("value",'대구');
+		    				}else if(address.includes('대전')){
+		    					$("#travel-location").attr("value",'대전');
+		    				}else if(address.includes('광주')){
+		    					$("#travel-location").attr("value",'광주');
+		    				}else if(address.includes('울산')){
+	    						$("#travel-location").attr("value",'울산');
+		    				}else if(address.includes('경기도')){
+		    					$("#travel-location").attr("value",'경기');
+		    				}else if(address.includes('충청북도')){
+		    					$("#travel-location").attr("value",'충북');
+		    				}else if(address.includes('충청남도')){
+		    					$("#travel-location").attr("value",'충남');
+		    				}else if(address.includes('강원도')){
+		    					$("#travel-location").attr("value",'강원');
+		    				}else if(address.includes('경상북도')){
+		    					$("#travel-location").attr("value",'경북');
+		    				}else if(address.includes('경상남도')){
+		    					$("#travel-location").attr("value",'경남');
+		    				}else if(address.includes('전라북도')){
+		    					$("#travel-location").attr("value",'전남');
+		    				}else if(address.includes('전라남도')){
+		    					$("#travel-location").attr("value",'전남');
+		    				};
 	    				});
             	
            			});
@@ -933,11 +964,12 @@ $("document").ready(function() {
 			const roomCapa = $("#people-value").val();
 			const houseBarbecue = $("#barbecue-choice").val();
 			const houseParty = $("#party-choice").val();
+			const houseCity = $("#travel-location").val();
 			result.empty();
 			$.ajax({
 				url : "/roomList.do",
 				type : "get",
-				data : {bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomCapa : roomCapa, houseBarbecue : houseBarbecue, houseParty : houseParty},
+				data : {bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomCapa : roomCapa, houseBarbecue : houseBarbecue, houseParty : houseParty, houseCity : houseCity},
 				dataType : "json",
 				success : function(data){
 					console.log(data);
@@ -1039,6 +1071,7 @@ $("document").ready(function() {
 			const level1 = $("#level1-choice").val();
 			const level2 = $("#level2-choice").val();
 			const level3 = $("#level3-choice").val();
+			const lessonCity = $("#travel-location").val();
 			//console.log("레벨1:"+level1);
 			//console.log("레벨2:"+level2);
 			//console.log("레벨3:"+level3);
@@ -1047,7 +1080,7 @@ $("document").ready(function() {
 				$.ajax({
 					url : "/lessonList.do",
 					type : "get",
-					data : {lessonMaxNo : lessonMaxNo, level1 : level1, level2 : level2, level3 : level3},
+					data : {lessonMaxNo : lessonMaxNo, level1 : level1, level2 : level2, level3 : level3, lessonCity : lessonCity},
 					dataType : "json",
 					success : function(data){
 						console.log(data);
