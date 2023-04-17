@@ -66,6 +66,10 @@ public class MemberDao {
 			List list = sqlSession.selectList("member.selectOrderList",memberNo);
 			return (ArrayList<Order>)list;
 		}
+
+		public Member selectOneMember(Member m) {
+			return sqlSession.selectOne("member.selectOneMember",m);
+		}
 		
 		
 }

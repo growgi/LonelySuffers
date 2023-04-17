@@ -18,13 +18,17 @@ function adminChatList(memberId,index){
             const msg = list[i];
             console.log("SenderCheck : "+msg.senderCheck);
             if(list[i].senderCheck == 1){
-                const chatContent = list[i].chatContent;
-                const chatDate = list[i].chatDate;
+                const chatContent = msg.chatContent;
+                const chatDate = msg.chatDate;
+                const dateDiv = $('<div class="dateDate">');
+                dateDiv.text(chatDate);
                 const idDiv = $('<div class="idDiv">');
-                idDiv.text(list[i].memberId);
+                idDiv.text(msg.memberId);
                 const contentDiv = $('<div class="chat_left">');
                 contentDiv.text(chatContent);
-                $('.adminMessageArea').eq(index).append(idDiv).append(contentDiv);
+                const containerDiv = $('<div class="containerDiv">');
+                containerDiv.append(contentDiv).append(dateDiv);
+                $('.adminMessageArea').eq(index).append(idDiv).append(containerDiv);
             }else{
                 const chatContent = list[i].chatContent;
                 const chatDate = list[i].chatDate;

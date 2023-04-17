@@ -81,11 +81,18 @@ let memberId;
                     console.log(msg);
                     if(msg.senderCheck == 2){
                         const chatContent = msg.chatContent;
+                        const chatDate = msg.chatDate;
+                        console.log("chatDate : "+chatDate);
+                        const dateDiv = $("<div class='dateDiv'>");
+                        dateDiv.text(chatDate);
+                        console.log("chatDateDiv : "+dateDiv);
                         const idDiv = $("<div class='chatLeft'>");
                         idDiv.text("admin");
                         const contentDiv = $('<div class="chat_left">');
                         contentDiv.text(chatContent);
-                        $('.messageArea').append(idDiv).append(contentDiv);
+                        const containerDiv = $('<div class="containerDiv">');
+                        containerDiv.append(contentDiv).append(dateDiv);
+                        $('.messageArea').append(idDiv).append(containerDiv);
                     }else if(msg.senderCheck == 1){
                         const chatContent = list[i].chatContent;
                         const chatDate = list[i].chatDate;

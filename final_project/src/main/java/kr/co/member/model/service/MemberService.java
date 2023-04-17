@@ -74,5 +74,9 @@ public class MemberService {
 		return dao.selectOrderList(memberNo);
 	}
 
+	public Member selectOneMember(Member m) {
+		return dao.selectOneMember(m);
+	}
+
 	
 }

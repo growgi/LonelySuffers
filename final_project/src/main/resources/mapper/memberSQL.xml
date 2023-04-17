@@ -109,4 +109,22 @@
  		where
  			member_no = #{_parameter}
  	</select>
+ 	
+ 	<select id="selectOneMember" parameterType="m" resultType="m">
+ 		select
+ 			member_no as memberNo,
+	 		member_id as memberId,
+	 		member_pw as memberPw,
+	 		member_name as memberName,
+	 		member_gender as memberGender,
+	 		member_phone as memberPhone,
+	 		member_email as memberEmail,
+	 		member_grade as memberGrade,
+	 		enroll_date as enrollDate
+ 		from 
+ 			member_tbl 
+ 		where
+ 			member_id = #{memberId} and member_email = #{memberEmail}
+ 			
+ 	</select>
 </mapper>

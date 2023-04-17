@@ -150,14 +150,14 @@ public class MemberController {
 	public String sellerApplication(int memberNo,Model model) {
 		int result = service.sellerApplication(memberNo); 
 		if(result == 0) {
-			model.addAttribute("title","판매자 신청 취소 실패");
-			model.addAttribute("msg","판매자 신청 취소에 실패했습니다.");
+			model.addAttribute("title","판매자 신청 실패");
+			model.addAttribute("msg","판매자 신청에 실패했습니다.");
 			model.addAttribute("icon","error");
 			model.addAttribute("loc","/myPage.do");
 			return "common/msg";
 		}else {
-			model.addAttribute("title","판매자 신청 취소 성공");
-			model.addAttribute("msg","판매자 신청을 취소했습니다.");
+			model.addAttribute("title","판매자 신청 성공");
+			model.addAttribute("msg","판매자 신청을 완료했습니다.");
 			model.addAttribute("icon","success");
 			model.addAttribute("loc","/myPage.do");
 			return "common/msg";
@@ -209,6 +209,32 @@ public class MemberController {
 			return "common/msg";
 		}
 	}
+	
+	@RequestMapping(value =  "/findMemberPw.do")
+	public String findMemberPw(Member m,Model model) {
+		Member member = service.selectOneMember(m);
+		if(member != null) {
+			String memberPw = mailSender.sendPw(member.getMemberEmail());
+			System.out.println("memberPw : "+memberPw);
+			if(memberPw != null) {
+				member.setMemberPw(memberPw);
+				int result = service.updatePwMember(member);
+				if(result != 0) {
+					model.addAttribute("title","임시비밀번호 전송완료");
+					model.addAttribute("msg","해당 이메일로 임시비밀번호를 전송했습니다.");
+					model.addAttribute("icon","success");
+					model.addAttribute("loc","/loginFrm.do");
+					return "common/msg";
+				}
+				
+			}
+		}
+		model.addAttribute("title","임시비밀번호 전송실패");
+		model.addAttribute("msg","해당 이메일로 임시 비밀번호전송에 실패했습니다.");
+		model.addAttribute("icon","error");
+		model.addAttribute("loc","/loginFrm.do");
+		return "common/msg";
+	}
 
 
 // 상품 등록 페이지 productInsert.jsp를 방문하는 함수.  판매자(grade 2)만 허용됨
@@ -225,6 +251,8 @@ public class MemberController {
 			return "common/msg";
 		}
 	}
+	
+	
 
 
 }

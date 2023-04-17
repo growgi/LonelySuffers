@@ -1,7 +1,8 @@
 
-$('#memberPwRe').on('change',function(){
+$('#memberPwRe').on('focusout',function(){
     if($('#memberPw').val() ==''){
         $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
+        $('#memberPw').next().next().css('background-color','red');
         $('#memberPw').focus();
     }else{
             const pwValue = $('#memberPwRe').val();
@@ -21,28 +22,57 @@ $('#memberPwRe').on('change',function(){
             }
             if(count == regArr.length){
                 if($('#memberPw').val() == pwValue){
-                    $('#pwChkSpan').text('일치합니다.');
+                    $('#pwChkSpan').text('');
+                    $('#memberPwRe').next().next().css('background-color','#666');
+                    $('#memberPwRe').next().css('color','black');
                 }else{
+                    $('#memberPwRe').next().next().css('background-color','red');
+                    $('#memberPwRe').next().css('color','red');
                     $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
+                    $(this).focus();
                 }
             }else{
+                $('#memberPwRe').next().next().css('background-color','red');
+                $('#memberPwRe').next().css('color','red');
                 $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
+                $(this).focus();
             }
     }
     
 });
 
 
-$('#memberPw').on('change',function(){
+$('#memberPw').on('focusout',function(){
     const pwValue = $('#memberPw').val();
-    const regChk = [/^.{8,15}$/];
-    const check = regChk[0].test(pwValue);
-    if(check){
+    let count = 0;
+    const regArr = [
+    /^.{8,15}$/,
+    /[A-Z]/,
+    /[a-z]/,
+    /[0-9]/,
+    /[!@#$%]/
+    ];
+    for(let i=0 ; i<regArr.length;i++){
+        const check = regArr[i].test(pwValue);
+        if(check){
+            count++;
+        }
+    }
+    if(count == regArr.length){
         $('#pwChkSpan').text('');
+        $('#memberPw').next().next().css('background-color','#666');
+        $('#memberPw').next().css('color','#666');
     }else{
         $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
+        $('#memberPw').next().next().css('background-color','red');
+        $('#memberPw').next().css('color','red');
         $('#memberPw').focus();
-
+    }
+    if($('#memberPwRe').val() != '' && $(this).val() != $('#memberPwRe').val()){
+        $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
+        $('#memberPw').next().next().css('background-color','red');
+        $('#memberPw').next().css('color','red');
+        $('#memberPw').focus();
     }
 });
 
@@ -86,8 +116,8 @@ $("[name=emailCodeChk]").click(function(){
     const emailCode = $('[name=emailCode]').val();
     if(emailCode == $('#emailCode').val()){
         $('.close').click();
-        $('#email1').attr('readonly',"true");
-        $('#email2').attr('readonly',"true");
+        // $('#email1').attr('readonly',"true");
+        // $('#email2').attr('readonly',"true");
         const memberEmail = $('[name=memberEmail]');
         const email1 = $('#email1').val();
         const email2 = $('#email2').val();
@@ -136,8 +166,10 @@ $("[name=emailCodeChk]").click(function(){
                 }
             }
         });
+        $(this).next().next().css('background-color','#666');
         $("#idChkModal").modal();
     }else{
+        $(this).next().next().css('background-color','red');
         $('#memberId').focus();
     }
     })
@@ -145,7 +177,7 @@ $("[name=emailCodeChk]").click(function(){
 
     $('.successId').on('click',function(){
         $('.close').click();
-        $('input[name=memberId]').attr('readonly','true');
+        // $('input[name=memberId]').attr('readonly','true');
         $('input[name=memberPw]').focus();
     })
 
@@ -174,3 +206,17 @@ $("[name=emailCodeChk]").click(function(){
             $('#userIdInput').focus();
         }
     })
+
+    $('#memberPhone').on('focusin',function(){
+        $(this).attr('placeholder',"010-0000-0000");
+    })
+
+    $('#memberPhone').on('focusout',function(){
+        if($(this).val() == ''){
+        $(this).attr('placeholder',"");
+        }
+    })
+
+    // $('.email2').on('focusin',function(){
+    //     $(this).css('border-bottom','2px solid #aaaaaa');
+    // })

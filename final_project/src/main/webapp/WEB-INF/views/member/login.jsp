@@ -32,9 +32,17 @@
 			</div>
 			<div class="content-main">
 				<div class="main-top">
-					<form action="/login.do" method="post">
-					<input type="text" name="memberId" id="memberId" required placeholder="아이디" ><br>
-					<input type="password" name="memberPw" id="memberPw" required placeholder="비밀번호" ><br> 
+					<form action="/login.do" method="post" class="customInput">
+					<div>
+					<input type="text" name="memberId" id="memberId" required autocomplete="off">
+					<label>아이디</label>
+					<span></span>
+					</div>
+					<div>
+					<input type="password" name="memberPw" id="memberPw" required>
+					<label>비밀번호</label>
+					<span></span>
+					</div> 
 					<input class="btn btn-success " type="submit" value ="로그인">
 					</form>
 				</div>
@@ -42,7 +50,7 @@
 		</div>
 		<div class="main-bottom">
 				<a id="findIdBtn">아이디 찾기</a>
-				<a href="/findMemberPw.do" id="findMemberPw">비밀번호 찾기</a>
+				<a id="findPwBtn" data-target="#findPw">비밀번호 찾기</a>
 				<a href="/joinMemberFrm.do" id="joinMember">회원가입</a>
 			</div>
 				</div><!-- end row -->
@@ -60,16 +68,22 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
         	<div class="findMemberId">
-        	<div class="form-group">
-            <form action="/findMemberId.do" method="post" >
-              <label for="findMemberName">이름</label>
-              <input type="text" class="form-control" name="findMemberName" id="findMemberName" placeholder="이름을 입력하세요">
-              <label for="findMemberEmail">이메일</label>
-              <input type="text" class="form-control" name="findMemberEmail" id="findMemberEmail" placeholder="이메일을 입력하세요">
-              <span class="dataNull"></span><br>
-              <button type="button" class="btn btn-success btn-block selectIdBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
-              </form>
-            </div>
+	        	<div class="form-group">
+	            <form action="/findMemberId.do" method="post" class="customInputLong">
+	            <div>
+	              <input type="text" name="findMemberName" id="findMemberName" required>
+	              <label for="findMemberName">이름</label>
+				  <span></span>            
+	            </div>
+	            <div>
+	              <input type="text" name="findMemberEmail" id="findMemberEmail" required>
+	              <label for="findMemberEmail">이메일</label>
+				  <span></span>            
+	            </div>
+	              <span class="dataNull"></span><br>
+	              <button type="button" class="btn btn-success btn-block selectIdBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
+	              </form>
+	            </div>
             </div>
             <div class="selectId">
             <div class="form-group">
@@ -83,10 +97,44 @@
           <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
         </div>
       </div>
-      
     </div>
   </div>
-
+      <!-- id찾기 모달 끝 -->
+<div class="modal fade" id="findPw" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>Lonely Suffers</h4><br>
+          <span>비밀번호 찾기</span>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+        	<div class="findMemberPw">
+        	<div class="form-group">
+            <form action="/findMemberPw.do" class="findMemberPwForm" method="post" >
+              <div>
+              <input type="text" name="memberId" class="findMemberPwId" required>
+              <label>아이디</label>
+              <span></span>
+              </div>
+              <div>
+              <input type="text" name="memberEmail" class="findMemberPwEmail" required>
+              <label>이메일</label>
+              <span></span>
+              </div>
+              <button type="submit" class="btn btn-success btn-block selectPwBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
+              </form>
+            </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
