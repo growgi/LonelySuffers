@@ -187,7 +187,7 @@
 											</tr>
 											<tr>
 												<th>상품 설명</th>
-												<td><textarea name="houseDescription" placeholder="한글 최대 1000자"></textarea></td>
+												<td><textarea name="houseDescription" placeholder="한글 최대 1000자" required></textarea></td>
 											</tr>
 											<tr>
 												<td colspan="2"><button type="submit">숙박 상품 등록 요청</button></td>

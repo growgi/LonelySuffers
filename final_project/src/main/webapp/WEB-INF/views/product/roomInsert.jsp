@@ -55,7 +55,7 @@
 									<td><input type="number" name="roomCapa" value="${house.roomCapa }" readonly>명</td>
 								</tr>
 								<tr>
-									<th>객실 이름 <button type="button" onclick="insertNextRoom(this)">추가</button></th>
+									<th style="vertical-align: top;">객실 이름 <button type="button" onclick="insertNextRoom(this)">추가</button></th>
 									<td id="here"><div id="defaultRoom"><input type="text" name="roomNames" placeholder="한글 최대 10자" required></div></td>
 								</tr>
 								<tr>

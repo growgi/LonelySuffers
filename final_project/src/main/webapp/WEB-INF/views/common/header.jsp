@@ -73,7 +73,7 @@
 <!-- 상단 메뉴바  영역 시작 -->
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="index.html">홈</a></li>
+						<li class="active"><a href="index.jsp">홈</a></li>
 						<li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">드롭다운메뉴 <span class="fa fa-angle-down"></span></a>
 							<ul class="dropdown-menu">
 								<li>

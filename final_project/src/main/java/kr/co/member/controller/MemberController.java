@@ -242,13 +242,21 @@ public class MemberController {
 	@RequestMapping(value = "/productInsert.do")
 	public String productInsert(HttpSession session, Model model) {
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberGrade()==2) {
-			return "product/productInsert";
+		if(me != null) {
+			if(me.getMemberGrade()==2) {
+				return "product/productInsert";
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","판매자만 사용할 수 있는 기능입니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/myPage.do");
+				return "common/msg";
+			}
 		}else {
 			model.addAttribute("title","접근 제한됨");
-			model.addAttribute("msg","판매자만 사용할 수 있는 기능입니다.");
+			model.addAttribute("msg","로그인을 해주십시오.");
 			model.addAttribute("icon","error");
-			model.addAttribute("loc","/myPage.do");
+			model.addAttribute("loc","/loginFrm.do");
 			return "common/msg";
 		}
 	}
