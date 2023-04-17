@@ -46,7 +46,7 @@
 		insert into carpool values(
 		carpool_seq.nextval, #{driverNo}, #{capacity}, #{onewayRound},  #{departureRegion}, #{departureDistrict}, #{arrivalRegion}, #{arrivalDistrict},
 		#{departureDate}, #{departureTime}, #{returnDate}, #{returnTime},#{driverMsg}, #{carpoolPrice}, #{surfboardRoom}, 
-		TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'),1)
+		TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'),2)
 	</insert>	
 	
 <!-- 
@@ -86,6 +86,7 @@
 			m.member_email,
 			c.departure_date,
 			c.capacity,
+			c.closure,
 			(select count(*) from passenger p where p.carpool_no = carpool_no and match_status=2) as reserved
 		from carpool c
 			join member_tbl m on (driver_no = member_no)
@@ -118,6 +119,7 @@
 			<result column="member_email" property="driverEmail"/>
 			<result column="departure_date" property="departureDate"/>
 			<result column="capacity" property="capacity"/>
+			<result column="closure" property="closure"/>
 			<result column="reserved" property="reserved"/>
 			<result column="departure_date" property="departureDate"/>
 		<collection property="passengerList"
@@ -137,6 +139,16 @@
 			<when test="matchStatus == 2">set match_status=2</when>
 		</choose>
 		where match_no=#{matchNo}
+	</update>
+	
+	<!-- 운전자가 자기의 카풀 마감시키거나 삭제하능 기능 -->
+	<update id="updateDriverClosing" parameterType="c">
+		update carpool
+		<choose>
+			<when test="closure == 1">set closure=1</when>
+			<when test="closure == 3">set closure=3</when>
+		</choose>
+		where carpool_no=#{carpoolNo}
 	</update>
 
 	

@@ -31,7 +31,7 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<section class="section" style="padding-top: 50px; padding-bottom: 10px;" >
 			<div class="container">
-				<div class="row" style="border-bottom: 2.5px solid rgba(101, 112, 123, 0.833);">
+				<div class="row" style="border-bottom: 1px solid rgba(101, 112, 123, 0.833);">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="head">
 						<p class="title" style="  font-size: 30px; font-weight: bold; color: #303030;
@@ -45,15 +45,15 @@
 
 		<section class="section" style="padding-top: 0px; padding-bottom: 30px;">
 			<div class="container"style="width: 850px; margin-top: 20px; padding: 20px;">
-				<div class="row" style="border: 1px solid black; border-radius: 20px;">
-					 <form action="/registerCarpool.do" method="post"> 
+				<div class="row" style="border: 1px solid #FFB4B4; border-radius: 20px; padding:20px; background-color: #FFF3E2;">
+					 <form action="/registerCarpool.do" method="post" style="margin-top: 20px;"> 
 					    <table style="border: 1px solid #fff; width: 500px;"> 
 					        <tbody> 
 					  
 					            <tr> 
-					                <th rowspan="2" style="width:30%; text-align:center;">출발</th> 
-					                <td>
-					                    <select class="form-control" name="departureRegion" id="city" style="width:70%;">
+					                <th rowspan="2" style="width:30%; text-align:center; border: 1px solid #FFF3E2">출발</th> 
+					                <td style="border: 1px solid #FFF3E2">
+					                    <select class="form-control" name="departureRegion" id="city" style="width:70%; ">
 					                        <option value="" selected disabled>시/도</option>
 					                        <option value="서울">서울</option>
 					                        <option value="경기">경기</option>
@@ -75,8 +75,8 @@
 					        </tbody> 
 					        <tbody> 
 					            <tr> 
-					                <th rowspan="2"  style="width:30%; text-align:center;">도착</th> 
-					                <td>
+					                <th rowspan="2"  style="width:30%; text-align:center; border: 1px solid #FFF3E2"">도착</th> 
+					                <td style="border: 1px solid #FFF3E2">
 					                    <select class="form-control" name="arrivalRegion" id="city" style="width:70%;">
 					                        <option value="" selected disabled>시/도</option>
 					                        <option value="서울">서울</option>
@@ -152,7 +152,7 @@
 					                                <option value="" selected disabled>탑승인원</option>
 					                                <option value="1">1명</option>
 					                                <option value="2">2명</option>
-					                                <option value="3">3명</option>
+					                                <option value="3">3명</option>	
 					                                <option value="4">4명</option>
 					                                <option value="5">5명</option>
 					                                <option value="6">6명</option>
@@ -241,6 +241,7 @@
 	<script>
 	/*	편도, 왕복 로직을 바꿨기 때문에 필요없어짐. '복귀'만 뺐다꼈다 하는 로직이 더 좋은거다!
 		왜냐하면 그러면 탭을 왔다갔다 해도 선택한게 남아있기 때문이다!
+		
         $(".tabs>li").on("click",function(){
         $(".tabs>li").removeClass("active-tab");
         $(this).addClass("active-tab");
@@ -258,29 +259,33 @@
     //왕복을 누르면 들어가게 하는거
     $(".round").on("click", function(){
     	$("[name=onewayRound]").val(2);
-    	$(".depart").after(
-    			  '<tr class="arrive">' +
-    	            '<th style="width:35%; text-align:center;">복귀</th>' +
-    	            '<td>' +
-    	                '<input type="text" id="returnDate" name="returnDate" required>' +
-    	                '<div id="calendar-area2"></div>'+
-    	            '</td>' +
-    	            '<td>' +
-    	                '<input type="radio" id="am" name="returnTime" value="0" required>' +
-    	                '<label for="am-time">오전</label>' +
-    	                '<input type="radio" id="pm" name="returnTime" value="1" required>' +
-    	                '<label for="pm-time">오후</label>' +
-    	            '</td>' +
-    	        '</tr>'
-            	)	
+    	if(!$(".depart").next().hasClass("arrive")){
+	    	$(".depart").after(
+	    			  '<tr class="arrive">' +
+	    	            '<th style="width:35%; text-align:center;">복귀</th>' +
+	    	            '<td>' +
+	    	                '<input type="text" id="returnDate" name="returnDate" required>' +
+	    	                '<div id="calendar-area2"></div>'+
+	    	            '</td>' +
+	    	            '<td>' +
+	    	                '<input type="radio" id="am" name="returnTime" value="0" required>' +
+	    	                '<label for="am-time">오전</label>' +
+	    	                '<input type="radio" id="pm" name="returnTime" value="1" required>' +
+	    	                '<label for="pm-time">오후</label>' +
+	    	            '</td>' +
+	    	        '</tr>'
+	            	)	
+    	}else{
+    		$(".arrive").show();
+    	}
+    	
   	  });
     $(".oneway").on("click", function(){
-    	$(".arrive").remove();
+    	$(".arrive").hide();
     	$("[name=onewayRound]").val(1);
     });
     
     $('#departureDate').daterangepicker({
-	    parentEl: "#calendar-area",
 		locale: {
 			format: "YYYY-MM-DD",
 			fromLabel: "시작",
@@ -296,8 +301,12 @@
     
  // 시작일 input의 value가 바뀌면, 적절하게 minDate와 maxDate를 구성해서 종료일 date range picker를 생성  
 	$("#departureDate").on("change", function(){
-		const departureDate = $("#departureDate").val();	// 시작일+1을 minDate로 사용할 예정
-	// maxDate는 시작일+3개월로 초기화 
+		//위치조정
+		
+		
+		// 시작일+1을 minDate로 사용
+		const departureDate = $("#departureDate").val();	
+		//maxDate는 시작일+3개월로 초기화 
 		var maxLimit = moment(departureDate).add(15, 'days').format("YYYY-MM-DD");
 
 		$('#returnDate').daterangepicker({

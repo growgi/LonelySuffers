@@ -70,6 +70,6 @@ public class CarpoolDao {
 		return result;
 	}
 	
-	//더보기 버튼 구현을 위한 카풀수 구하기
+	
 
 }
