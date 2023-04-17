@@ -59,31 +59,40 @@
 													<label for="memberId">아이디</label><br>
 													<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
 													<input type="hidden" name="memberGrade" id="memberGrade" value="${sessionScope.m.memberGrade }">
-													<input type="text" name="memberId" id="memberId" class="longinput" required value="${sessionScope.m.memberId }" readonly><br>
+													<input type="text" name="memberId" id="memberId" class="longInput" required value="${sessionScope.m.memberId }" readonly><br>
 													<label for="memberName">이름</label><br>
-													<input type="text" name="memberName" id="memberName" class="longinput" required value="${sessionScope.m.memberName }"><br>
+													<input type="text" name="memberName" id="memberName" class="longInput" required value="${sessionScope.m.memberName }"><br>
 													<label for="memberName">전화번호</label><br>
-													<input type="text" name="memberPhone" id="memberPhone" class="longinput" required value="${sessionScope.m.memberPhone }"><br>
+													<input type="text" name="memberPhone" id="memberPhone" class="longInput" required value="${sessionScope.m.memberPhone }"><br>
 													<label for="memberEmail">이메일</label><br>
-													<input type="text" name="email" class="longinput" id="email" required value="${sessionScope.m.memberEmail }"><br>
+													<input type="text" name="email" class="longInput" id="email" required value="${sessionScope.m.memberEmail }"><br>
 													<label for="enrollDate">가입일</label><br>
-													<input type="text" name="enrollDate" class="longinput" id="enrollDate" readonly value="${sessionScope.m.enrollDate }">
+													<input type="text" name="enrollDate" class="longInput" id="enrollDate" readonly value="${sessionScope.m.enrollDate }">
 												</form>
 											</div>
 										</li>
 										<li>비밀번호 변경</li>
 										<li class="hidden-li">
 											<div>
-												<div class="beforePassWordFrm">
-													<label for="beforePassWord">이전 비밀번호</label><br>
-													<input type="password" id="beforePassWord" name="beforePassWord" required placeholder="이전 비밀번호"><br>
+												<div class="beforePassWordFrm customInput">
+													<div>
+													<input type="password" id="beforePassWord" name="beforePassWord" required>
+													<label for="beforePassWord">이전 비밀번호</label>
+													<span></span>													
+													</div>
 													<button type="button" class="beforePassWordBtn">확인</button>
 													</div>
-												<div class="updatePassWordFrm">
-													<label for="afterPassWord">새 비밀번호</label><br>
-													<input type="password" id="afterPassWord" name="afterPassWord" required placeholder="새 비밀번호"><br>
-													<label for="afterPassWordRe">비밀번호 확인</label><br>
-													<input type="password" name="afterPassWordRe" id="afterPassWordRe" required placeholder="새 비밀번호 확인"><br>
+												<div class="updatePassWordFrm customInput">
+													<div>
+													<input type="password" id="afterPassWord" name="afterPassWord" required>
+													<label for="afterPassWord">새 비밀번호</label>
+													<span></span>													
+													</div>
+													<div>
+													<input type="password" name="afterPassWordRe" id="afterPassWordRe" required>
+													<label for="afterPassWordRe">비밀번호 확인</label>
+													<span></span>													
+													</div>
 													<button type="button" class="passWordChangeBtn">변경</button>
 												</div>
 											</div>

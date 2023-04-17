@@ -175,7 +175,7 @@
 
     /*채팅*/
 
-    .adminMessageArea,.messageArea{
+/*     .adminMessageArea,.messageArea{
         overflow-y: auto;
         border : 1px solid black;
         height: 550px;
@@ -184,38 +184,51 @@
         background-color: #b2c7d9; 
     }
 
-    .idDiv{
-        margin-left: 5px;
-    }
-
-    .chat_left{
-        margin-bottom: 10px;
-        padding: 8px;
-        border-radius: 3px;
-        position: relative;
-        max-width: 300px;
-        line-height : 20px;
-        align-self: flex-start;
-        background-color: #fff;
-        border-radius: 10px;
-        margin-left: 5px;
-        padding: 5px;
-    } 
-
-    .chat_right{
-        margin-bottom: 10px;
-        padding: 8px;
-        border-radius: 3px;
-        position: relative;
-        max-width: 300px;
-        align-self: flex-end;
-        line-height : 20px;
-        background-color: #ffeb33;
-        border-radius: 10px;
-        margin-right: 5px;
-        padding: 5px;
-    }
-
+	.chat_right{
+	    margin-bottom: 10px;
+	    padding: 8px;
+	    border-radius: 3px;
+	    position: relative;
+	    max-width: 60%;
+	    align-self: flex-end;
+	    line-height: 20px;
+	    background-color: #ffeb33;
+	    border-radius: 10px;
+	    margin-right: 5px;
+	    padding: 5px;
+	}
+	
+	.chat_left {
+	    margin-bottom: 10px;
+	    padding: 8px;
+	    border-radius: 3px;
+	    position: relative;
+	    max-width: 300px;
+	    line-height: 20px;
+	    background-color: #fff;
+	    border-radius: 10px;
+	    margin-left: 5px;
+	    padding: 5px;
+	    display: inline-block;
+	  }
+	  
+	  .dateDiv {
+	    margin-left: 5px;
+	    font-size: 12px;
+	  }
+	  
+	  .chatLeft {
+	    font-size: 12px;
+	    color: gray;
+	    margin-bottom: 3px;
+	  }
+	  
+	  .containerDiv {
+	    display: flex;
+	    align-items: center;
+	    margin-bottom: 10px;
+	  }
+	 */
 
 </style>
 <div class="admin-menu-wrapper">
@@ -254,8 +267,8 @@
                         <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
                     </div>
                     <ul class="menu-detail">
-                        <li><a href="/newProductLesson.do">신규 상품 승인</a></li>
-                        <li><a href="/productListLesson.do">등록된 상품 관리</a></li>
+                        <li><a href="/newProductAll.do">신규 상품 승인</a></li>
+                        <li><a href="/productListAll.do">등록된 상품 관리</a></li>
                         <li><a href="/salesDetails.do">판매 내역</a></li>
                     </ul>
                 </li>

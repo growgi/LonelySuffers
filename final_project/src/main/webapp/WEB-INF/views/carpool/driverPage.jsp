@@ -26,6 +26,25 @@
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<style>
+.buttons button {
+	background-color: #FFACAC;
+	color: #fff;
+	border: none;
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-right: 30px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	color: white;
+}
+
+.buttons button:hover {
+	background-color: #FBFFB1;
+	color: black;
+}
+</style>
 </head>
 
 <body>
@@ -93,11 +112,10 @@
 						<div
 							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;">태워주세요
 							신청을 보내온 회원들입니다.</div>
-						<div class="">
+						<div class="big-wrapper">
 							<c:forEach items="${list}" var="c">
-								<hr>
 								<div class="wrapper"
-									style="background-color: #FFF3E2; border-radius: 30px; width:800px; margin: 0 auto;">
+									style="background-color: #FFF3E2; border-radius: 30px; width: 800px; margin: 0 auto;">
 									<div class="head-info"
 										style="text-align: center; background-color: #FFDEB4; padding: 10px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
 										<h3 style=>${c.departureDate }(${c.returnTimeRange })</h3>
@@ -105,99 +123,124 @@
 									</div>
 									<c:forEach items="${c.passengerList }" var='p'>
 										<table
-											style="border-collapse: initial; border: 1px solid #FFB4B4; border-top:0; padding: 15px; width: 100%;">
+											style="border-collapse: initial; border: 1px solid #FFB4B4; border-top: 0; padding: 15px; width: 100%;">
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">아이디</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">아이디</th>
 												<td>${p.passengerId }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">성별</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">성별</th>
 												<td>${p.passengerMaFe }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">이름</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">이름</th>
 												<td>${p.passengerName }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">전화번호</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">전화번호</th>
 												<td>${p.passengerPhone }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">이메일</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">이메일</th>
 												<td>${p.passengerEmail }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">요청사항</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">요청사항</th>
 												<td>${p.passengerMsg }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">요청일</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">요청일</th>
 												<td>${p.requestDate }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">수락상태</th>
-												<td class="matchResultMsg">
-													<c:choose>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">수락상태</th>
+												<td class="matchResultMsg"><c:choose>
 														<c:when test="${p.matchStatus==1}">매칭을 거부하셨습니다.</c:when>
 														<c:when test="${p.matchStatus==2}">매칭을 수락하셨습니다.</c:when>
 														<c:otherwise>수락 혹은 거절을 선택해주세요.</c:otherwise>
-													</c:choose>
-												</td>
+													</c:choose></td>
 											</tr>
-											<tr>	
-												<td colspan="2" style="text-align:right";>
+											<tr>
+												<td colspan="2" style="text-align: right";>
 													<div class="passenger-mng">
 														<div class="decision-wrapper">
 															<input type="hidden" name="matchNo" value="${p.matchNo }">
-															<input type="hidden" id="matchStatus" value="${p.matchStatus }">
-																<c:choose>
-																	<c:when test="${p.matchStatus eq 0 }">
-																			<button type="button"  class="btn btn-success accept" value="2" 
-																			onclick="decides(this)">수락</button>
-																			<button type="button" class="btn btn-danger reject" style="background-color: #F15A59;" value="1"
-																			onclick="decides(this)">거절</button>
-																	</c:when>
-																	<c:otherwise>
-																			<button type="button"  class="btn btn-success accept" value="2" 
-																			onclick="decides(this)" style="cursor:not-allowed;" disabled>수락</button>
-																			<button type="button" class="btn btn-danger reject" style="background-color: #F15A59;" value="1"
-																			onclick="decides(this)" style="cursor:not-allowed;" disabled>거절</button>
-																	
-																	</c:otherwise>
-																</c:choose>
+															<input type="hidden" id="matchStatus"
+																value="${p.matchStatus }">
+															<c:choose>
+																<c:when test="${p.matchStatus eq 0 }">
+																	<button type="button" class="btn btn-success accept"
+																		value="2" onclick="decides(this)">수락</button>
+																	<button type="button" class="btn btn-danger reject"
+																		style="background-color: #F15A59;" value="1"
+																		onclick="decides(this)">거절</button>
+																</c:when>
+																<c:otherwise>
+																	<button type="button" class="btn btn-success accept"
+																		value="2" onclick="decides(this)"
+																		style="cursor: not-allowed;" disabled>수락</button>
+																	<button type="button" class="btn btn-danger reject"
+																		style="background-color: #F15A59;" value="1"
+																		onclick="decides(this)" style="cursor:not-allowed;"
+																		disabled>거절</button>
+																</c:otherwise>
+															</c:choose>
 														</div>
 													</div>
 												</td>
-											</tr>	
+											</tr>
 										</table>
-										
 									</c:forEach>
-									<div class="buttons"
-										style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
-										<a href="/closeCarpool.do"
-											title="이 버튼을 누르면 해당 건은 마감처리되어 더 이상 신청을 받을 수 없습니다."
-											data-toggle="popover" data-trigger="hover"
-											style="margin-right: 30px;">마감</a> <a
-											href="/deleteCarpool.do"
-											title="해당 건의 카풀을 취소하시면 탑승자들에게 탑승불가 알림이 가고 이 건은 사라집니다."
-											data-toggle="popover" data-trigger="hover">카풀취소</a>
-									</div>
+									<c:choose>
+										<c:when test="${c.closure eq 2}">
+											<div class="buttons"
+												style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
+												<input type="hidden" name="carpoolNo"
+													value="${c.carpoolNo }">
+												<button type="button"
+													title="이 버튼을 누르면 해당 건은 마감처리되어 더 이상 신청을 받을 수 없습니다."
+													value="1" data-toggle="popover" data-trigger="hover"
+													style="margin-right: 30px;" onclick="closing(this)">마감</button>
+												<button type="button"
+													title="해당 건의 카풀을 삭제하시면 탑승자들에게 탑승불가 알림이 가고 이 건은 삭제됩니다."
+													value="3" data-toggle="popover" data-trigger="hover"
+													onclick="closing(this)">삭제</button>
+											</div>
+										</c:when>
+										<c:when test="${c.closure eq 1}">
+											<div class="buttons"
+												style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
+												<div class="closureMsg" style="font-weight: 900;">마감되었습니다.</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="buttons"
+												style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
+												<div class="closureMsg" style="font-weight: 900;">삭제되었습니다.</div>
+											</div>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</c:forEach>
 						</div>
 					</div>
 				</div>
-				<hr>
-
+				<!-- end row -->
 			</div>
-			<!-- end row -->
-	</div>
-	<!-- end container -->
-	</section>
-	<!-- end section -->
+			<!-- end container -->
+		</section>
+		<!-- end section -->
 
 
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 	<!-- end wrapper -->
 
@@ -212,36 +255,88 @@
 
 
 	<script>
-	function decides(obj){
-		const matchNo = Number($(obj).parent().children().eq(0).val()); //input에 matchNo라는 키값을 넣어 보내줘야한다. 
-		console.log("매치넘버jsp페이지 matchNo: "+matchNo,$(obj).val());
-		  $.ajax({
-		    url: "/driverDecide.do",
-		    type: "post",
-		    data: {matchStatus: $(obj).val(), matchNo:matchNo},
-		    success : function(decision){
-		      console.log(decision);
-		      if(decision=="success"){
-		        $(obj).parent().children().prop("disabled",true);
-		        $(obj).parent().children().css("cursor","now-allowed");
-		        
-		        $(".reject").on("click", function(){
-		        	$(this).parent().parent().parent().parent().prev().children().next().text("매칭을 거부하셨습니다.");
-		        });
-		        $(".accept").on("click", function(){
-		        	$(this).parent().parent().parent().parent().prev().children().next().text("매칭을 수락하셨습니다.");
-		        });
-		      }else{
-		        alert("다시 시도해주세요.");
-		      }
-		    },
-		    error: function(){
-		      alert("에러났습니다.");
-		    }
-		  });
-		 
+		function decides(obj) {
+			const matchNo = Number($(obj).parent().children().eq(0).val()); //input에 matchNo라는 키값을 넣어 보내줘야한다. 
+			console.log("매치넘버jsp페이지 matchNo: " + matchNo, $(obj).val());
+			$
+					.ajax({
+						url : "/driverDecide.do",
+						type : "post",
+						data : {
+							matchStatus : $(obj).val(),
+							matchNo : matchNo
+						},
+						success : function(decision) {
+							console.log(decision);
+							if (decision == "success") {
+								//한번 버튼 선택하면 버튼 비활성화 
+								$(obj).parent().children().prop("disabled",
+										true);
+								$(obj).parent().children().css("cursor",
+										"now-allowed");
+
+								//내가 선택한거에 따라서 메세지 바뀌게 해준다. 페이지를 새로고침해도 남아있다. 
+								$(obj).parent().parent().parent().parent()
+										.prev().children().next().text(
+												"매칭을 거부하셨습니다.");
+								$(obj).parent().parent().parent().parent()
+										.prev().children().next().text(
+												"매칭을 수락하셨습니다.");
+
+							} else {
+								alert("다시 시도해주세요.");
+							}
+						},
+						error : function() {
+							alert("decision 에러났습니다.");
+						}
+					});
+		}
+
+		//closure 상태 update 두개 해주기 carpoolNo 보내주면된다.
+		//마감1 모집중2 삭제함3 : 운전자가 강제 마감했는지 안했는지에 따른 변수 , 기한만료와 정원 찬것과는 상관없는 변수임.
+		function closing(obj) {
+			//carpoolNo 키값으로 보내주기
+			const carpoolNo = Number($(obj).parent().children().eq(0).val());
+			console.log("driverPage.jsp의 carpoolNo : " + carpoolNo
+					+ ",1:마감 3:삭제" + $(obj).val());
+			$.ajax({
+				url : "driverClosing.do",
+				type : "post",
+				data : {
+					closure : $(obj).val(),
+					carpoolNo : carpoolNo
+				},
+				success : function(closeit) {
+					console.log(closeit);
+					if (closeit == "success") {
+						$(obj).parent().children().hide();
+						//<div class="closureMsg" style="background-color: red;"></div>
+						const div = $("<div>");
+						div.addClass("closureMsg").css("font-weight", "900");
+						if ($(obj).val() == "1") {
+							div.text("이 건은 마감되었습니다.");
+						} else if ($(obj).val() == "3") {
+							div.text("이 건은 삭제되었습니다.");
+						} else {
+							div.text("매칭 중입니다.");
+						}
+						$(obj).parent().append(div);
+						//한번 버튼 선택하면 버튼 사라진다.
+						//새로고침해도 상태 메세지 그대로 뜨도록
+
+					} else {
+						alert("다시 시도해주세요.");
+					}
+				},
+				error : function() {
+					alert("closeit 에러났습니다")
+				}
+
+			});
+
 		}
 	</script>
-	
+
 </body>
 </html>

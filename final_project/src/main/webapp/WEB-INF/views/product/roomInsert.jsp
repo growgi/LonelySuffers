@@ -42,7 +42,7 @@
 			<div class="container">
 				<div class="row">
 					<input type="hidden" name="checkFail" value="-1">
-					<form action="/insertRooms.do" onsubmit="return checkDuplicate();" method="post">
+					<form action="/insertRooms.do" method="post">
 						<fieldset>
 							<table>
 								<input type="hidden" name="houseNo" value="${house.houseNo }">
@@ -64,7 +64,7 @@
 								</tr>
 								<tr>
 									<td colspan="2"><button type="button" onclick="checkDuplicate()">객실 이름 중복 확인</button>
-									<button type="submit">객실 등록</button></td>
+									<button id="hiddenSubmit" type="submit" style="display: none;">객실 등록</button></td>
 								</tr>
 							</table>
 						</fieldset>
@@ -141,13 +141,7 @@
 			$("[name=checkFail]").val("1");
 			alert('중복된 객실 이름이 있습니다');
 		}else{
-			$.when(checkRoomNameInSameRoomTitle()).done(function(){
-				if($("[name=checkFail]").val() != 0){
-					return false;
-				}else{
-					return true;
-				}
-			});
+			checkRoomNameInSameRoomTitle();
 		}
 	}
 
@@ -176,9 +170,8 @@
 	    			}
 					if(List.length>0){
 						alert('이 숙박소에 속한 객실들 중에 이미 동일한 이름이 있습니다');
-						return false;
 					}else{
-						return true;
+						$("#hiddenSubmit").click();
 					}
 				}
 		});

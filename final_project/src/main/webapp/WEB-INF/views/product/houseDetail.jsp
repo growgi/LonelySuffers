@@ -48,6 +48,7 @@
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>숙박 상품</h2>
 						<p class="lead">
+						<input type="hidden" name="houseStatus" value="${house.houseStatus }">
 						<c:if test="${house.houseStatus == 0}">판매 중지된 상품입니다.
 						</c:if>
 						</p>
@@ -106,6 +107,7 @@
 					<div class="col-md-1"></div>
 
 					<div class="col-md-6 product-detail">
+							<input type="hidden" name="houseNo" value="${house.houseNo }">
 							<input type="hidden" name="roomTitle" value="${house.roomTitle }">
 							<p>${house.roomTitle }</p>
 							<div class="row">
@@ -131,9 +133,14 @@
 							</div>
 							<p>주소지 <span>${house.houseAddress }</span></p>
 						<div>
-							<button>관심상품</button>
+							<button onclick="goWishList()">관심상품</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 						</div>
+						<c:if test="${sessionScope.m.memberGrade == 2}">
+						<div>
+							<a class="btn btn-default" href="/roomInsert.do?houseNo=${house.houseNo}">객실 추가</a>
+						</div>
+						</c:if>
 					</div>
 					<!-- end col -->
 				</div>
@@ -421,6 +428,28 @@
 		}
 		console.log("옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
 		$("[name=roomBookPrice]").val(result);
+	}
+
+
+	// 나의 관심상품
+	function goWishList(){
+		const houseNo = $("[name=houseNo]").val();
+		const houseStatus = $("[name=houseStatus]").val();
+			if(houseStatus==1){
+				$.ajax({
+					url : "/insertWishList.do",
+					data: {house_no : houseNo, lesson_no : 0},
+					dataType : "text",
+					success : function(message){
+						alert(message);
+					},
+					error : function(){
+						alert("알 수 없는 오류가 발생했습니다.");
+					}
+				});
+			}else{
+				alert("판매중인 상품이 아닙니다.");
+			}
 	}
 
 	</script>

@@ -64,7 +64,12 @@ public class CarpoolDao {
 		int result = sqlSession.update("carpool.updateDriverDecision", passenger);
 		return result;
 	}
+
+	public int updateDriverClosing(Carpool carpool) {
+		int result = sqlSession.update("carpool.updateDriverClosing", carpool);
+		return result;
+	}
 	
-	//더보기 버튼 구현을 위한 카풀수 구하기
+	
 
 }

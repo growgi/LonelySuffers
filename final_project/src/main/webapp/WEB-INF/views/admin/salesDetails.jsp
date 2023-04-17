@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,14 @@
 <title>Insert title here</title>
 </head>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
+<style>
+	table th:last-child{
+		width: 180px;
+	}
+	.orderList-top .btn-r{
+		width: 150px;
+	}	
+</style>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
@@ -43,10 +52,10 @@
                             <td>${o.orderNo }</td>
                             <td>${o.memberId }</td>
                             <td>${o.orderProductString }</td>
-                            <td><span>${o.orderAllPrice }</span>원</td>
+                            <td><span><fmt:formatNumber value="${o.orderAllPrice }" pattern="#,###" /></span>원</td>
                             <td>${o.orderDate }</td>
                             <td>${o.orderStatusString }</td>
-                            <td><a href="/orderDetail.do?orderNo=${o.orderNo }">주문 상세 내역</a></td>
+                            <td><a href="/orderDetail.do?orderNo=${o.orderNo }" class="btn-r bc5">주문 상세 내역</a></td>
                         </tr>
                         </c:forEach>
                     </table>
