@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.admin.model.dao.AdminDao;
+import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
-import kr.co.member.model.vo.OrderDetail;
 import kr.co.member.model.vo.WishList;
 
 @Service
@@ -444,5 +444,24 @@ public class AdminService {
 		return dao.selectHouseWishListCount(memberId);
 	}
 
+	public ArrayList<Product> selectAllProduct() {
+		
+		return dao.selectAllProduct();
+	}
+	
+	public ArrayList<Product> selectSearchProduct(Search sp) {
+		
+		return dao.selectSearchProduct(sp);
+	}
+
+	public ArrayList<Product> selectAllNewProduct() {
+		
+		return dao.selectAllNewProduct();
+	}
+
+	public int selectNewProductCount() {
+		
+		return dao.selectNewProductCount();
+	}
 
 }

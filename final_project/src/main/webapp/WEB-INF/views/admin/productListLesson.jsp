@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
+<link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <style>
 /*별점*/
 .rating-color{
@@ -31,7 +31,7 @@ th:last-child, td-last-child{
 			<div class="lesson-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="#">전체</a>
+						<a href="/productListAll.do">전체</a>
 						<a href="/productListLesson.do" style="background-color:#ecb534; color:#fff">강습</a>
 						<a href="/productListHouse.do">숙박</a>
 					</div>
@@ -61,6 +61,7 @@ th:last-child, td-last-child{
 								<tr>
 									<th><input type="checkbox" name="memberCheck"
 										class="lesson-all-check chk"></th>
+									<th>사진</th>
 									<th>강습명</th>
 									<th>판매자</th>
 									<th>강습 레벨</th>
@@ -86,9 +87,19 @@ th:last-child, td-last-child{
 									<tr>
 										<td><input type="checkbox" name="memberCheck"
 											class="lesson-check chk" value="${l.lessonNo }"></td>
+										<td>
+										<c:choose>
+	                                		<c:when test="${l.lessonInfoPic eq null}">
+	                                			<div class="material-symbols-outlined no-pic">quiz</div>
+	                                		</c:when>
+	                                		<c:otherwise>
+			                                	<img src="resources/upload/lesson/${l.lessonInfoPic }">
+                                			</c:otherwise>
+                                		</c:choose>
+										</td>
 										<td><a href="#">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
-										<td>Level ${l.lessonNameLevel }</td>
+										<td>Level ${l.lessonLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
 										<td>
