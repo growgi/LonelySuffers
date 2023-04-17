@@ -93,3 +93,65 @@ input[type=text],input[type=password]{
     text-align: center;
 }
 
+.longInput{
+
+}
+
+
+   
+.customInput>div {
+    position: relative;
+    width: 300px;
+    margin-left: 0px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.customInput>div>input {
+    font-size: 15px;
+    color: #222222;
+    width: 300px;
+    border: none;
+    border-bottom: solid #aaaaaa 1px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    position: relative;
+    background: none;
+    z-index: 5;
+}
+
+.customInput>div>input::placeholder { color: #aaaaaa; }
+
+.customInput>div>input:focus { outline: none; }
+
+.customInput>div>span {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0%;  /* right로만 바꿔주면 오 - 왼 */
+    background-color: #666;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    transition: 0.5s;
+}
+
+.customInput>div>label {
+    position: absolute;
+    color: #aaa;
+    left: 10px;
+    font-size: 20px;
+    bottom: 8px;
+    transition: all .2s;
+}
+
+.customInput>div>input:focus ~ label, .customInput>div>input:valid ~ label {
+    font-size: 16px;
+    bottom: 40px;
+    color: #666;
+    font-weight: bold;
+}
+
+.customInput>div>input:focus ~ span, .customInput>div>input:valid ~ span {
+    width: 100%;
+}

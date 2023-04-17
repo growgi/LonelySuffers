@@ -77,5 +77,6 @@
 	<context:component-scan base-package="kr.co.admin"/>
 	<context:component-scan base-package="kr.co.faq"/>
 	<context:component-scan base-package="kr.co.chat"/>
+	<context:component-scan base-package="kr.co.review"/>
 
 </beans:beans>

@@ -39,3 +39,8 @@ $('.selectIdBtn').on('click',function(){
 $('.idOkBtn').on('click',function(){
     $('.close').click();
 })
+
+$('#findPwBtn').on('click',function(){
+    $('#findPw').modal();
+})
+

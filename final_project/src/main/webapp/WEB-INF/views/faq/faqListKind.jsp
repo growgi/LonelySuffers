@@ -19,8 +19,45 @@
 <meta name="author" content="KH정보교육원">
 
 </head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+<style>
+.search-bar {
+    display: flex;
+    margin-bottom: 15px;
+}
+.search-bar>.search-icon{
+    /*width: 45px;
+    height: 45px;*/
+    width: 80px;
+    background-color: rgb(238, 238, 238);
+    color: rgb(156, 156, 156);
+    line-height: 45px;
+    text-align: center;
+    border: 1px solid #dddd;
+    /*border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid #dddd;
+    border-right: none;*/
+}
+.search-bar>input{
+    outline: none;
+    border: 1px solid #dddd;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 45vh;
+    /*border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;*/
+    cursor: auto;
+    font-size: 16px;
+}
+
+.active-search-bar{
+    box-shadow: inset 0 0 2px rgb(235, 235, 235);
+}
 
 
+
+</style>
 
 <body>
 	<div id="wrapper">
@@ -30,6 +67,14 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
+				<c:if test="${sessionScope.m.memberGrade == 1}">
+					<a href="/faqWriterFrm.do">글쓰기</a>
+				</c:if>	
+				<form action="/searchFaqTitle.do" method="get" class="search-bar" name="searchTitle">
+					<span class="material-symbols-outlined search-icon">search</span>
+					<input type="text" placeholder="제목으로 검색" name="searchFaqTitle" onkeyup="enterkey();">
+					<input type="submit" style="display:none;">				
+				</form>
 					<table>
 						<tr>
 							<th>번호</th>
@@ -38,9 +83,9 @@
 						</tr>
 					</table>
 					<table>	
-						<c:forEach items="${list }" var="fq">
+						<c:forEach items="${list }" var="fq" varStatus="faqNoCt">
 							<tr>
-								<td>${fq.faqNo }</td>
+								<td>${faqNoCt.count }</td>
 									<c:if test="${fq.categoryNo == 1}">
 										<td>예약취소</td>
 									</c:if>
@@ -65,7 +110,6 @@
 							</tr>
 						</c:forEach>
 					</table>
-
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->
@@ -80,6 +124,30 @@
 	<script src="resources/js/animate.js"></script>
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	
+<script>
+$(".search-bar>input").on("click",function(){
+    $(this).toggleClass("active-search-bar");
+});
 
+function enterkey() {
+    if (window.event.keyCode == 13) {
+         // 엔터키가 눌렸을 때 실행할 내용
+        $("#frm").submit();
+        $(".count").text("");
+    }
+}
+
+$(".search-icon").on("click",function(){
+    $(".search-bar").submit();
+});
+
+
+
+
+
+
+
+</script>
 </body>
 </html>
