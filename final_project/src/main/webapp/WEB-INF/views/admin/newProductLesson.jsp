@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<link rel="stylesheet" href="resources/css/adminCommon.css"></link>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <body>
@@ -16,13 +17,13 @@
 			<div class="lesson-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="#">전체</a>
+						<a href="/newProductAll.do">전체</a>
 						<a href="/newProductLesson.do" style="background-color:#ecb534; color:#fff">강습</a>
 						<a href="/newProductHouse.do">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<form action="/adminSearchLesson.do" method="get"
-						id="frm" class="search-bar" name="search-product">
+						id="frm" class="search-bar search-box" name="search-product">
 						<input type="hidden" name="jspPage" value="nl">
 						<select name="lessonSearchType" class="search-type">
 							<option value="n">강습명</option>
@@ -33,8 +34,8 @@
 						<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 						<input
 							type="text" placeholder="검색어를 입력하세요" name="lessonSearchKeyword"
-							onkeyup="enterkey();"> 
-						<div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
+							onkeyup="enterkey();" class="search-input"> 
+						<div class="material-symbols-outlined search-icon search-btn"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
 					</form>
 						<div id="lessonResult"></div>
 						<div class="newProduct-top list-top">
@@ -46,6 +47,7 @@
 								<tr>
 									<th><input type="checkbox" name="lessonCheck"
 										class="lesson-all-check chk"></th>
+									<th>사진</th>
 									<th>상품명</th>
 									<th>판매자</th>
 									<th>강습 레벨</th>
@@ -55,7 +57,7 @@
 									<th></th>
 								</tr>
 								<c:choose>
-								<c:when test="${houseList eq null }">
+								<c:when test="${lessonList eq null }">
 								<tr>
 									<td colspan="8">
 									    <div class="noInfo-wrapper">
@@ -73,15 +75,25 @@
 									<tr>
 										<td><input type="checkbox" name="lessonCheck"
 											class="lesson-check chk check" value="${l.lessonNo }"></td>
+										<td>
+                                		<c:choose>
+	                                		<c:when test="${l.lessonInfoPic eq null}">
+	                                			<div class="material-symbols-outlined no-pic">quiz</div>
+	                                		</c:when>
+	                                		<c:otherwise>
+		                                		<img src="resources/upload/lesson/${l.lessonInfoPic }">
+                                			</c:otherwise>
+                                		</c:choose>
+                                		</td>
 										<td><a href="#">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
-										<td>${l.lessonNameLevel }</td>
+										<td>Level ${l.lessonLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
 										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
-										<td><button class="approveProduct btn bc1">승인</button>
+										<td><button class="approveProduct btn-s bc1">승인</button>
 										<input type="hidden" value="${l.lessonNo }" name="productNo">
-										<button class="returnProduct btn bc1">반려</button></td>
+										<button class="returnProduct btn-s bc2">반려</button></td>
 									</tr>
 									</c:if>
 								</c:forEach>
