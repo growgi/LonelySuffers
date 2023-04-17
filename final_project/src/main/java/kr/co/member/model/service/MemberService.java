@@ -77,6 +77,7 @@ public class MemberService {
 
 
 
+
 // 관심상품에 추가하기 전에, 이미 관심상품에 있거나 가득찼는지 확인하는 함수
 	public String selectMyWishlist(WishList w) {
 		int wishNo = 0;
@@ -102,5 +103,11 @@ public class MemberService {
 	public int insertMyWishlist(WishList w) {
 		return dao.insertMyWishlist(w);
 	}
+
+
+	public Member selectOneMember(Member m) {
+		return dao.selectOneMember(m);
+	}
+
 
 }

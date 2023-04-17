@@ -63,6 +63,7 @@ public class MemberDao {
 		return sqlSession.update("member.deleteMember", memberNo);
 	}
 
+
 	public ArrayList<Order> selectOrderList(int memberNo) {
 		List list = sqlSession.selectList("member.selectOrderList", memberNo);
 		return (ArrayList<Order>) list;
@@ -88,4 +89,15 @@ public class MemberDao {
 	public int insertMyWishlist(WishList w) {
 		return sqlSession.insert("member.insertMyWishlist", w);
 	}
+
+		public ArrayList<Order> selectOrderList(int memberNo) {
+			List list = sqlSession.selectList("member.selectOrderList",memberNo);
+			return (ArrayList<Order>)list;
+		}
+
+		public Member selectOneMember(Member m) {
+			return sqlSession.selectOne("member.selectOneMember",m);
+		}
+		
+
 }
