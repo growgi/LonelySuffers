@@ -43,7 +43,7 @@
 
 
 input[type=submit]{
-    margin-top: 50px;
+    margin-top: 20px;
     width: 398px;
     height: 40px;
     border: none;
@@ -262,3 +262,9 @@ input[type=submit]{
 .customInputLong>div>input:focus ~ span, .customInputLong>div>input:valid ~ span {
     width: 100%;
 }
+
+#findPwBtn{
+    cursor: pointer;
+}
+
+  
