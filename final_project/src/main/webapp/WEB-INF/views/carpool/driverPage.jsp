@@ -26,6 +26,26 @@
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<style>
+   .buttons button {
+        background-color: #FFACAC;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        margin-right: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        color: white;
+    }
+
+    .buttons button:hover {
+        background-color: #FBFFB1;
+        color: black;
+    }
+
+</style>	
 </head>
 
 <body>
@@ -172,15 +192,11 @@
 										</table>
 										
 									</c:forEach>
-									<div class="buttons"
-										style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
-										<a href="/closeCarpool.do"
-											title="이 버튼을 누르면 해당 건은 마감처리되어 더 이상 신청을 받을 수 없습니다."
-											data-toggle="popover" data-trigger="hover"
-											style="margin-right: 30px;">마감</a> <a
-											href="/deleteCarpool.do"
-											title="해당 건의 카풀을 취소하시면 탑승자들에게 탑승불가 알림이 가고 이 건은 사라집니다."
-											data-toggle="popover" data-trigger="hover">카풀취소</a>
+									<div class="buttons" style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
+										<button type="button" title="이 버튼을 누르면 해당 건은 마감처리되어 더 이상 신청을 받을 수 없습니다."
+											data-toggle="popover" data-trigger="hover" style="margin-right: 30px;" onclick="closing(this)">마감</button> 
+										<button type="button" title="해당 건의 카풀을 취소하시면 탑승자들에게 탑승불가 알림이 가고 이 건은 사라집니다."
+											data-toggle="popover" data-trigger="hover" onclick="closing(this)">취소</button>
 									</div>
 								</div>
 							</c:forEach>
@@ -225,12 +241,10 @@
 		        $(obj).parent().children().prop("disabled",true);
 		        $(obj).parent().children().css("cursor","now-allowed");
 		        
-		        $(".reject").on("click", function(){
-		        	$(this).parent().parent().parent().parent().prev().children().next().text("매칭을 거부하셨습니다.");
-		        });
-		        $(".accept").on("click", function(){
-		        	$(this).parent().parent().parent().parent().prev().children().next().text("매칭을 수락하셨습니다.");
-		        });
+		        //클릭했을 때 도는게 아니라, 
+	        	$(obj).parent().parent().parent().parent().prev().children().next().text("매칭을 거부하셨습니다.");
+	        	$(obj).parent().parent().parent().parent().prev().children().next().text("매칭을 수락하셨습니다.");
+	        	
 		      }else{
 		        alert("다시 시도해주세요.");
 		      }
@@ -239,8 +253,11 @@
 		      alert("에러났습니다.");
 		    }
 		  });
-		 
 		}
+	
+	//update 두개 해주기 carpoolNo 보내주면된다.
+	
+	
 	</script>
 	
 </body>
