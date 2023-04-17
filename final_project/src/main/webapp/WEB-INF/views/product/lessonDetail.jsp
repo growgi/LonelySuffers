@@ -43,6 +43,7 @@
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>강습 상품</h2>
 						<p class="lead">
+						<input type="hidden" name="lessonStatus" value="${lesson.lessonStatus }">
 						<c:if test="${lesson.lessonStatus == 0}">판매 중지된 상품입니다.
 						</c:if>
 						</p>
@@ -114,7 +115,7 @@
 							</div>
 							<p>지역 <span>${lesson.lessonCity }</span></p>
 						<div>
-							<button>관심상품</button>
+							<button onclick="goWishList()">관심상품</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 						</div>
 					</div>
@@ -324,6 +325,28 @@ console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므
 	const onePersonPrice = $("[name=lessonPrice]").val();
 	function fullPrice(){
 		return Number(onePersonPrice) * Number($("[name=lessonPeople]").val());
+	}
+
+
+	// 나의 관심상품
+	function goWishList(){
+		const lessonNo = $("[name=lessonNo]").val();
+		const lessonStatus = $("[name=lessonStatus]").val();
+			if(lessonStatus==1){
+				$.ajax({
+					url : "/insertWishList.do",
+					data: {house_no : 0, lesson_no : lessonNo},
+					dataType : "text",
+					success : function(message){
+						alert(message);
+					},
+					error : function(){
+						alert("알 수 없는 오류가 발생했습니다.");
+					}
+				});
+			}else{
+				alert("판매중인 상품이 아닙니다.");
+			}
 	}
 
 	</script>

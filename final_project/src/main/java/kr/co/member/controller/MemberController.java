@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
+import kr.co.member.model.vo.WishList;
 
 @Controller
 public class MemberController {
@@ -226,5 +227,36 @@ public class MemberController {
 		}
 	}
 
+
+
+// 관심상품 등록
+	@ResponseBody
+	@RequestMapping(value="/insertWishList.do", produces = "application/json;charset=utf-8")
+	public String insertWishList(HttpSession session, int house_no, int lesson_no) {
+		String message = "";
+		Member me = (Member)session.getAttribute("m");
+		if(me == null) {
+			message = "로그인이 필요합니다.";
+		}else {
+			if(me.getMemberGrade()!=3) {
+				message = "일반회원 로그인이 필요합니다.";
+			}else {
+				WishList w = new WishList();
+				w.setMemberId(me.getMemberId());
+				w.setHouse_no(house_no);
+				w.setLesson_no(lesson_no);
+				message = service.selectMyWishlist(w);
+				if(message.equals("ok")) {
+					int result = service.insertMyWishlist(w);
+					if(result > 0) {
+						message = "관심상품에 등록했습니다.";
+					}else {
+						message = "알 수 없는 이유로 관심상품 등록에 실패했습니다.";
+					}
+				}
+			}
+		}
+		return message;
+	}
 
 }

@@ -109,4 +109,42 @@
  		where
  			member_no = #{_parameter}
  	</select>
+
+
+
+
+
+<!-- 나의 관심상품에 이미 존재하는지 확인  -->
+	<select id="selectOneMyWishlist" parameterType="w" resultType="_int">
+		SELECT COUNT(*) FROM WISHLIST WHERE (MEMBER_ID = #{memberId})
+        <choose>
+			<when test="lesson_no == 0">
+				 AND (HOUSE_NO = #{house_no})
+			</when>
+			<when test="house_no == 0">
+				 AND (LESSON_NO = #{lesson_no})
+			</when>
+		</choose>
+	</select>
+
+
+<!-- 나의 관심상품이 몇 개나 있는지 확인  -->
+	<select id="selectCountMyWishlist" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM WISHLIST WHERE (MEMBER_ID = #{_parameter})
+	</select>
+
+
+<!-- 나의 관심상품에 추가하기 -->
+ 	 <insert id="insertMyWishlist" parameterType="w">
+ 	 	INSERT INTO WISHLIST VALUES (WISHLIST_SEQ.NEXTVAL, #{memberId},
+        <choose>
+			<when test="lesson_no == 0">
+				#{house_no}, '')
+			</when>
+			<when test="house_no == 0">
+				'', #{lesson_no})
+			</when>
+		</choose>
+ 	</insert>
+ 
 </mapper>
