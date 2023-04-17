@@ -63,14 +63,23 @@ public class MemberDao {
 		return sqlSession.update("member.deleteMember", memberNo);
 	}
 
-
 	public ArrayList<Order> selectOrderList(int memberNo) {
 		List list = sqlSession.selectList("member.selectOrderList", memberNo);
-		return (ArrayList<Order>) list;
+		return (ArrayList<Order>)list;
+	}
+
+	public Member selectOneMember(Member m) {
+		return sqlSession.selectOne("member.selectOneMember",m);
 	}
 
 
 
+
+
+
+
+
+// 관심상품 관련 함수들 시작 ///////////////////////////////////////////////////////////////
 // 나의 관심상품에 이미 존재하는지 확인하는 함수. 있으면 개수를 반환함
 	public int selectOneMyWishlist(WishList w) {
 		return sqlSession.selectOne("member.selectOneMyWishlist", w);
@@ -89,11 +98,6 @@ public class MemberDao {
 	public int insertMyWishlist(WishList w) {
 		return sqlSession.insert("member.insertMyWishlist", w);
 	}
-
-
-		public Member selectOneMember(Member m) {
-			return sqlSession.selectOne("member.selectOneMember",m);
-		}
-		
+// 관심상품 관련 함수들 끝 ///////////////////////////////////////////////////////////////
 
 }
