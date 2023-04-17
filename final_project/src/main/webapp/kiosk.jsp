@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- naver map -->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34&submodules=geocoder" ></script>
+<script src="resources/js/MarkerClustering.js"></script>
+<!-- daterangepicker -->
 <style>
 	*{
 		margin:0;
@@ -339,10 +343,6 @@
 	
 
 </style>
-<!-- naver map -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34&submodules=geocoder" ></script>
-<script src="resources/js/MarkerClustering.js"></script>
-<!-- daterangepicker -->
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 </head>
 <body>
@@ -615,24 +615,28 @@
 
 
 <script>
-//markers배열
-var markers = [];
+
 
 //네이버지도 스크립트
-var map = new naver.maps.Map("map",{
-	center : new naver.maps.LatLng(35.469676269413,127.65758671095),
-	zoom : 6,
-	maxZoom : 7,
-	zoomControl : true,
-	zoomControlOptions : {
-		position : naver.maps.Position.TOP_RIGHT,
-		style : naver.maps.ZoomControlStyle.SMALL
-	}
-});
+$(document).ready(function(){
+	var map = new naver.maps.Map("map",{
+		center : new naver.maps.LatLng(35.469676269413,127.65758671095),
+		zoom : 6,
+		maxZoom : 7,
+		zoomControl : true,
+		zoomControlOptions : {
+			position : naver.maps.Position.TOP_RIGHT,
+			style : naver.maps.ZoomControlStyle.SMALL
+		}
+	});
+
+})
 
 
 
 $(document).ready(function(){
+	//markers배열
+	var markers = [];
 	var htmlMarker1 = {
 	        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:40px;font-size:20px;color:white;text-align:center;font-weight:bold;background:url(https://raw.githubusercontent.com/navermaps/marker-tools.js/master/marker-clustering/images/cluster-marker-1.png);background-size:contain;"></div>',
 	        size: N.Size(40, 40),
