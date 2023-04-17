@@ -99,8 +99,8 @@
 	}
 	
 	.circle-wrap{
-		width: 1100px;
-		height: 1100px;
+		width: 1200px;
+		height: 1300px;
 		margin-right:100px;
 		padding-top:50px;
 	}
@@ -114,6 +114,20 @@
 		height:1000px;
 		margin-left: 285px;
 		padding-top: 65px
+	}
+	.location-info{
+		width:1200px;
+	}
+	#travel-location{
+		width:396px;
+		height:60px;
+		font-size:25px;
+		text-align:center;
+		margin-left:85px;
+		margin-top: 300px;
+		border: 2px solid;
+		border-radius:10px;
+		font-weight:800;
 	}
 	.calendar-wrap{
 		width:1200px;
@@ -340,7 +354,7 @@
 
 </style>
 <!-- naver map -->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34&submodules=geocoder" ></script>
 <script src="resources/js/MarkerClustering.js"></script>
 <!-- daterangepicker -->
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
@@ -364,9 +378,9 @@
 			<div class="content-wrapper">
 				<div class="title-wrapper">
 					<img src="/resources/images/wave.png">	
-					<img src="/resources/images/palm-tree.png">
-					<span class="title">어디로 떠나볼까요~?</span>
-					<img src="/resources/images/palm-tree.png">
+					<img src="/resources/images/palm-tree.png" style="margin-right: 10px">
+					<span class="title">어디로 떠나볼까요?</span>
+					<img src="/resources/images/palm-tree.png" style="margin-left: 10px">
 					<img src="/resources/images/wave.png">
 					<div class="values-wrapper">
 						
@@ -381,9 +395,10 @@
 							<div class="circle-wrap">
 								<div class="circle" style="background-image:url(/resources/images/magnify.png)">
 									<div class="map">
-									<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
-										</div>
+										<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
+										<input type="text" id="travel-location" value="원하시는 지역을 클릭해주세요"readonly>
 									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -666,8 +681,8 @@ $(document).ready(function(){
 			for(let i=0;i<data.length;i++){
 				const marker = new naver.maps.Marker({
 					position : new naver.maps.LatLng(data[i].houseLat,data[i].houseLng),
-					map : map
-					
+					map : map,
+					title : data[i].houseCity
 				})
 				 markers.push(marker);
 			}	
@@ -683,13 +698,7 @@ $(document).ready(function(){
         gridSize: 120,
         icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
         indexGenerator: [10, 100, 200, 500, 1000],
-    	getCenter: function() {
-    		
-    		
-    		
-       		return this._clusterCenter;
-       		
-       		},
+    	
        	 getClusterMember: function() {
        	    return this._clusterMember;
        	  },
@@ -697,41 +706,70 @@ $(document).ready(function(){
             $(clusterMarker.getElement()).find('div:first-child').text(count);
             //클러스터를 클릭했을 때 동작하는 이벤트
             naver.maps.Event.addListener(clusterMarker, 'click', function(e) {
+            	
             	const mar = markers;
             	console.log(mar);
             	//lat, lng 초기화
-            	let lat = 0;
-            	let lng = 0;
-            	for(let i=0;i<markers.length;i++){
-            		//position이 해당 위치의 경도, 위도를 담고있음
-            		lat += markers[i].position.y;
-            		lng += markers[i].position.x;
-            	console.log(lat,lng);
-            	}
-            	//중심 경도 위도 = 클러스터 내부의 모든 경도 위도를 합한 값에 markers.length만큼 나눈 것
-            	const centerLat = lat/markers.length;
-            	const centerLng = lng/markers.length;
-            	console.log(centerLat,centerLng);
-            	const mapCenter = new naver.maps.LatLng(centerLat,centerLng);
-            	map.setCenter("평균 위도 경도"+mapCenter);
-               	//alert(test1);
-            });
-            
-       		}
-       
-       
-       		 
- 		});
-	console.log("마커클러스터"+markerClustering);
-	var test1 = markerClustering.getCenter;
-	console.log(test1());
-
-	
-			/*
-			naver.maps.Event.addListener(map, "click", function(e){
-			alert("클릭함");
-			});
-			*/
+	           	let lat = 0;
+	           	let lng = 0;
+	           	let count = 0;
+	           	console.log(clusterMarker);
+	           	console.log(clusterMarker.position.y);
+	           	console.log(clusterMarker.position.x);
+	           	lat = clusterMarker.position.y;
+	           	lng = clusterMarker.position.x;
+            	
+            	const mapCenter = new naver.maps.LatLng(lat,lng);
+    
+            	
+	            	//위경도를 통해서 해당 위치의 주소를 알아내기(reverseGeocode)
+	    			naver.maps.Service.reverseGeocode({ //주소를 주면 위경도를 구해주는건 Geocode의 반대
+	    				location : new naver.maps.LatLng(lat,lng)
+	    			}, function(status, response){
+	    				if(status != naver.maps.Service.Status.OK){
+	    					return alert("주소를 찾을 수 없습니다");
+	    				}
+	    				console.log(response);
+	    				const address = response.result.items[0].address;
+	    				console.log("주소"+address);
+		    				if(address.includes('서울')){
+		    					$("#travel-location").attr("value",'서울');
+		    				}else if(address.includes('제주')){
+		    					$("#travel-location").attr("value",'제주');
+		    				}else if(address.includes('부산')){
+		    					$("#travel-location").attr("value",'부산');
+		    				}else if(address.includes('인천')){
+		    					$("#travel-location").attr("value",'인천');
+		    				}else if(address.includes('대구')){
+		    					$("#travel-location").attr("value",'대구');
+		    				}else if(address.includes('대전')){
+		    					$("#travel-location").attr("value",'대전');
+		    				}else if(address.includes('광주')){
+		    					$("#travel-location").attr("value",'광주');
+		    				}else if(address.includes('울산')){
+	    						$("#travel-location").attr("value",'울산');
+		    				}else if(address.includes('경기도')){
+		    					$("#travel-location").attr("value",'경기');
+		    				}else if(address.includes('충청북도')){
+		    					$("#travel-location").attr("value",'충북');
+		    				}else if(address.includes('충청남도')){
+		    					$("#travel-location").attr("value",'충남');
+		    				}else if(address.includes('강원도')){
+		    					$("#travel-location").attr("value",'강원');
+		    				}else if(address.includes('경상북도')){
+		    					$("#travel-location").attr("value",'경북');
+		    				}else if(address.includes('경상남도')){
+		    					$("#travel-location").attr("value",'경남');
+		    				}else if(address.includes('전라북도')){
+		    					$("#travel-location").attr("value",'전남');
+		    				}else if(address.includes('전라남도')){
+		    					$("#travel-location").attr("value",'전남');
+		    				};
+	    				});
+            	
+           			});
+       			}
+ 			});
 		}
 	});
 	
@@ -869,11 +907,15 @@ $("document").ready(function() {
 //페이지별 버튼 동작
 //page1 지역 선택
 	$(".page1-okay").on('click',function(){
-		//아예 다 한번 hide하고 show 하자
-		$(".pages").hide();
-		$(".page2").show();
-		$(".title").text("언제 떠나실건가요~?")
-		$("#current-page").attr("value",2);
+		if($("#travel-location").val()=="원하시는 지역을 클릭해주세요"){
+			alert("지도에서 원하시는 지역을 클릭해주세요:)")
+		}else{
+			//아예 다 한번 hide하고 show 하자
+			$(".pages").hide();
+			$(".page2").show();
+			$(".title").text("떠날 날짜를 골라주세요")
+			$("#current-page").attr("value",2);
+		}
 	})
 	$(".page1-pass").on('click',function(){
 		alert("지역은 꼭 정해주셔야해요:)")
@@ -882,7 +924,7 @@ $("document").ready(function() {
 	$(".page2-before").on('click',function(){
 		$(".pages").hide();
 		$(".page1").show();
-		$(".title").text("어디로 떠나볼까요~?")
+		$(".title").text("어디로 떠나볼까요?")
 		$("#current-page").attr("value",1);
 	})
 	$(".page2-okay").on('click',function(){
@@ -892,7 +934,7 @@ $("document").ready(function() {
 		}else{
 			$(".pages").hide();
 			$(".page3").show();
-			$(".title").text("몇 명이신가요~?");
+			$(".title").text("몇 명이신가요?");
 			$("#current-page").attr("value",3);
 		}
 	});
@@ -903,7 +945,7 @@ $("document").ready(function() {
 	$(".page3-before").on('click',function(){
 		$(".pages").hide();
 		$(".page2").show();
-		$(".title").text("언제 떠나실건가요~?");
+		$(".title").text("떠날 날짜를 골라주세요");
 		$("#current-page").attr("value",2);
 		
 	})
@@ -914,7 +956,7 @@ $("document").ready(function() {
 		}else{
 			$(".pages").hide();
 			$(".page4").show();
-			$(".title").text("옵션을 골라주세요~!");
+			$(".title").text("옵션을 골라주세요");
 			$("#current-page").attr("value",4);
 		}
 	});
@@ -925,14 +967,14 @@ $("document").ready(function() {
 	$(".page4-before").on('click',function(){
 		$(".pages").hide();
 		$(".page3").show();
-		$(".title").text("옵션을 골라주세요~!")
+		$(".title").text("옵션을 골라주세요")
 		$("#current-page").attr("value",3);
 	})
 	$(".page4-okay").on('click',function(){
 		//아예 다 한번 hide하고 show 하자
 			$(".pages").hide();
 			$(".page5").show();
-			$(".title").text("조건에 맞는 방 리스트예요~!")
+			$(".title").text("조건에 맞는 방 리스트예요")
 		//숙소 리스트 ajax
 			const result = $(".rooms-wrap");
 			const bookStartDate = $("#bookStartDate").val();
@@ -940,11 +982,12 @@ $("document").ready(function() {
 			const roomCapa = $("#people-value").val();
 			const houseBarbecue = $("#barbecue-choice").val();
 			const houseParty = $("#party-choice").val();
+			const houseCity = $("#travel-location").val();
 			result.empty();
 			$.ajax({
 				url : "/roomList.do",
 				type : "get",
-				data : {bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomCapa : roomCapa, houseBarbecue : houseBarbecue, houseParty : houseParty},
+				data : {bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomCapa : roomCapa, houseBarbecue : houseBarbecue, houseParty : houseParty, houseCity : houseCity},
 				dataType : "json",
 				success : function(data){
 					console.log(data);
@@ -985,13 +1028,14 @@ $("document").ready(function() {
 	});
 	$(".page4-pass").on('click',function(){
 		
-		var result = confirm("숙소 옵션은 필요없으신가요?");
+		var result = confirm("숙소 옵션은 필요없으신가요?\n클릭하시면 옵션 선택이 불가능한 숙소만 표시됩니다.");
 		if(result == true){
 			alert("옵션선택을 건너뜁니다");
 			$(".pages").hide();
-			$(".page6").show();
-			$(".title").text("조건에 맞는 방 리스트예요~!");
-			$("#current-page").attr("value",5);
+			$(".page4-okay").click();
+			//$(".page5").show();
+			//$(".title").text("조건에 맞는 방 리스트예요~!");
+			//$("#current-page").attr("value",5);
 		}else{
 			alert("숙소를 골라주세요");
 		}
@@ -1046,6 +1090,7 @@ $("document").ready(function() {
 			const level1 = $("#level1-choice").val();
 			const level2 = $("#level2-choice").val();
 			const level3 = $("#level3-choice").val();
+			const lessonCity = $("#travel-location").val();
 			//console.log("레벨1:"+level1);
 			//console.log("레벨2:"+level2);
 			//console.log("레벨3:"+level3);
@@ -1054,7 +1099,7 @@ $("document").ready(function() {
 				$.ajax({
 					url : "/lessonList.do",
 					type : "get",
-					data : {lessonMaxNo : lessonMaxNo, level1 : level1, level2 : level2, level3 : level3},
+					data : {lessonMaxNo : lessonMaxNo, level1 : level1, level2 : level2, level3 : level3, lessonCity : lessonCity},
 					dataType : "json",
 					success : function(data){
 						console.log(data);
@@ -1078,7 +1123,7 @@ $("document").ready(function() {
 							}else if(data[i].lessonLevel == 3){
 								infoWrap.append("<p>고급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
 							}
-							infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원</p>");
+							infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원, 모집정원 : "+data[i].lessonMaxNo+"명</p>");
 							div.append(infoWrap);
 							
 							result.append(div);
@@ -1098,7 +1143,7 @@ $("document").ready(function() {
 			
 	});
 	$(".page6-pass").on('click',function(){
-		alert("강습레벨은 꼭 정해주셔야해요:)");
+		alert("강습레벨은 꼭 정해주셔야해요");
 	});
 	
 	
