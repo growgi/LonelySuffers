@@ -99,8 +99,8 @@
 	}
 	
 	.circle-wrap{
-		width: 1100px;
-		height: 1100px;
+		width: 1200px;
+		height: 1300px;
 		margin-right:100px;
 		padding-top:50px;
 	}
@@ -114,6 +114,20 @@
 		height:1000px;
 		margin-left: 285px;
 		padding-top: 65px
+	}
+	.location-info{
+		width:1200px;
+	}
+	#travel-location{
+		width:396px;
+		height:60px;
+		font-size:25px;
+		text-align:center;
+		margin-left:85px;
+		margin-top: 300px;
+		border: 2px solid;
+		border-radius:10px;
+		font-weight:800;
 	}
 	.calendar-wrap{
 		width:1200px;
@@ -364,9 +378,9 @@
 			<div class="content-wrapper">
 				<div class="title-wrapper">
 					<img src="/resources/images/wave.png">	
-					<img src="/resources/images/palm-tree.png">
-					<span class="title">어디로 떠나볼까요~?</span>
-					<img src="/resources/images/palm-tree.png">
+					<img src="/resources/images/palm-tree.png" style="margin-right: 10px">
+					<span class="title">어디로 떠나볼까요?</span>
+					<img src="/resources/images/palm-tree.png" style="margin-left: 10px">
 					<img src="/resources/images/wave.png">
 					<div class="values-wrapper">
 						
@@ -379,12 +393,12 @@
 					<div class="row">
 						<div class="col-md-8">
 							<div class="circle-wrap">
-								<input type="text" id="travel-location" value=""readonly>
 								<div class="circle" style="background-image:url(/resources/images/magnify.png)">
 									<div class="map">
-									<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
-										</div>
+										<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
+										<input type="text" id="travel-location" value="원하시는 지역을 클릭해주세요"readonly>
 									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -893,11 +907,15 @@ $("document").ready(function() {
 //페이지별 버튼 동작
 //page1 지역 선택
 	$(".page1-okay").on('click',function(){
-		//아예 다 한번 hide하고 show 하자
-		$(".pages").hide();
-		$(".page2").show();
-		$(".title").text("언제 떠나실건가요~?")
-		$("#current-page").attr("value",2);
+		if($("#travel-location").val()=="원하시는 지역을 클릭해주세요"){
+			alert("지도에서 원하시는 지역을 클릭해주세요:)")
+		}else{
+			//아예 다 한번 hide하고 show 하자
+			$(".pages").hide();
+			$(".page2").show();
+			$(".title").text("떠날 날짜를 골라주세요")
+			$("#current-page").attr("value",2);
+		}
 	})
 	$(".page1-pass").on('click',function(){
 		alert("지역은 꼭 정해주셔야해요:)")
@@ -906,7 +924,7 @@ $("document").ready(function() {
 	$(".page2-before").on('click',function(){
 		$(".pages").hide();
 		$(".page1").show();
-		$(".title").text("어디로 떠나볼까요~?")
+		$(".title").text("어디로 떠나볼까요?")
 		$("#current-page").attr("value",1);
 	})
 	$(".page2-okay").on('click',function(){
@@ -916,7 +934,7 @@ $("document").ready(function() {
 		}else{
 			$(".pages").hide();
 			$(".page3").show();
-			$(".title").text("몇 명이신가요~?");
+			$(".title").text("몇 명이신가요?");
 			$("#current-page").attr("value",3);
 		}
 	});
@@ -927,7 +945,7 @@ $("document").ready(function() {
 	$(".page3-before").on('click',function(){
 		$(".pages").hide();
 		$(".page2").show();
-		$(".title").text("언제 떠나실건가요~?");
+		$(".title").text("떠날 날짜를 골라주세요");
 		$("#current-page").attr("value",2);
 		
 	})
@@ -938,7 +956,7 @@ $("document").ready(function() {
 		}else{
 			$(".pages").hide();
 			$(".page4").show();
-			$(".title").text("옵션을 골라주세요~!");
+			$(".title").text("옵션을 골라주세요");
 			$("#current-page").attr("value",4);
 		}
 	});
@@ -949,14 +967,14 @@ $("document").ready(function() {
 	$(".page4-before").on('click',function(){
 		$(".pages").hide();
 		$(".page3").show();
-		$(".title").text("옵션을 골라주세요~!")
+		$(".title").text("옵션을 골라주세요")
 		$("#current-page").attr("value",3);
 	})
 	$(".page4-okay").on('click',function(){
 		//아예 다 한번 hide하고 show 하자
 			$(".pages").hide();
 			$(".page5").show();
-			$(".title").text("조건에 맞는 방 리스트예요~!")
+			$(".title").text("조건에 맞는 방 리스트예요")
 		//숙소 리스트 ajax
 			const result = $(".rooms-wrap");
 			const bookStartDate = $("#bookStartDate").val();
@@ -1010,13 +1028,14 @@ $("document").ready(function() {
 	});
 	$(".page4-pass").on('click',function(){
 		
-		var result = confirm("숙소 옵션은 필요없으신가요?");
+		var result = confirm("숙소 옵션은 필요없으신가요?\n클릭하시면 옵션 선택이 불가능한 숙소만 표시됩니다.");
 		if(result == true){
 			alert("옵션선택을 건너뜁니다");
 			$(".pages").hide();
-			$(".page6").show();
-			$(".title").text("조건에 맞는 방 리스트예요~!");
-			$("#current-page").attr("value",5);
+			$(".page4-okay").click();
+			//$(".page5").show();
+			//$(".title").text("조건에 맞는 방 리스트예요~!");
+			//$("#current-page").attr("value",5);
 		}else{
 			alert("숙소를 골라주세요");
 		}
@@ -1104,7 +1123,7 @@ $("document").ready(function() {
 							}else if(data[i].lessonLevel == 3){
 								infoWrap.append("<p>고급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
 							}
-							infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원</p>");
+							infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원, 모집정원 : "+data[i].lessonMaxNo+"명</p>");
 							div.append(infoWrap);
 							
 							result.append(div);
@@ -1124,7 +1143,7 @@ $("document").ready(function() {
 			
 	});
 	$(".page6-pass").on('click',function(){
-		alert("강습레벨은 꼭 정해주셔야해요:)");
+		alert("강습레벨은 꼭 정해주셔야해요");
 	});
 	
 	
