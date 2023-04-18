@@ -300,4 +300,10 @@ public class AdminDao {
 		return newProductCount;
 	}
 
+	public int selectAllProductCount() {
+		int productCount = sqlSession.selectOne("admin.selectAllProductCount");
+		
+		return productCount;
+	}
+
 }

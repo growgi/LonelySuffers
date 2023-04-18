@@ -59,7 +59,9 @@
                         </tr>
                         </c:forEach>
                     </table>
-                    <div></div>
+                    <div id="pageNavi">
+                    	${pageNavi }
+                    </div>
                 </div>
                 <div class="list-bottom">
                     <div>
@@ -74,7 +76,7 @@
 <script>
     /*메뉴 제목*/
     $(document).ready(function(){
-        $(".top-menu-title").text("판매 내역");
+        $(".top-menu-title").text("상품 판매내역");
     });
     
     /*내역 삭제*/

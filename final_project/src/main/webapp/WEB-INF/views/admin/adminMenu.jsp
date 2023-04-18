@@ -4,6 +4,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="resources/css/adminCommon.css"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap" rel="stylesheet">
 <style>
@@ -256,8 +257,8 @@
                         <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
                     </div>
                     <ul class="menu-detail">
-                        <li><a href="/memberList.do">회원 목록</a></li>
-                        <li><a href="/sellerApplicationList.do">판매자 신청 회원 조회</a></li>
+                        <li><a href="/memberList.do?reqPage=1">회원 목록</a></li>
+                        <li><a href="/sellerApplicationList.do?reqPage=1">판매자 신청 회원 조회</a></li>
                     </ul>
                 </li>
                 <li>
@@ -267,9 +268,9 @@
                         <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
                     </div>
                     <ul class="menu-detail">
-                        <li><a href="/newProductAll.do">신규 상품 승인</a></li>
-                        <li><a href="/productListAll.do">등록된 상품 관리</a></li>
-                        <li><a href="/salesDetails.do">판매 내역</a></li>
+                        <li><a href="/newProductAll.do?reqPage=1">신규 상품 승인</a></li>
+                        <li><a href="/productListAll.do?reqPage=1">등록된 상품 관리</a></li>
+                        <li><a href="/salesDetails.do?reqPage=1">상품 판매내역</a></li>
                     </ul>
                 </li>
                 <li>
