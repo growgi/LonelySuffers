@@ -41,12 +41,20 @@ input[type=radio]{
     /* background-color: #666; */
 }
 
-.modal-header, h4, .close {
-    background-color: #5cb85c;
+.modal-header, .close {
+    background: -webkit-linear-gradient(45deg, #3ac5c8 1%, #0b509e 100%);
+    background: linear-gradient(45deg, #3ac5c8 1%, #0b509e 100%);
     color:white !important;
     text-align: center;
     font-size: 30px;
-  }
+}
+
+.modal-header>h4{
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+
   .modal-footer {
     background-color: #f9f9f9;
   }
@@ -151,7 +159,7 @@ input[type=radio]{
     }
 
     .customInput > .customShort > input:focus ~ span, .customInput > .customShort > input:valid ~ span {
-        width: 364.59px;
+        width: 369.45px;
     }
 
     .customInput > .customShort > label {
@@ -187,7 +195,8 @@ input[type=radio]{
         margin: 0px;
         height: 41px;
         font-size: 20px;
-        line-height: 41px;
+        line-height: 29px;
+        padding-bottom: 10px;
         border-bottom: 1px solid #aaa;
     }
 
@@ -201,3 +210,10 @@ input[type=radio]{
         margin-left: 5px;
         margin-right: 5px;
     }
+
+    .modal-body>form>.btn-success,.customInput>.btn-success{
+        background: -webkit-linear-gradient(45deg, #3ac5c8 1%, #0b509e 100%);
+        background: linear-gradient(45deg, #3ac5c8 1%, #0b509e 100%);
+        border-color: rgba(255, 255, 255, .15);
+      }
+    

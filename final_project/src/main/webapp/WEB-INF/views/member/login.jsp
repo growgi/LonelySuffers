@@ -42,17 +42,17 @@
 					<input type="password" name="memberPw" id="memberPw" required>
 					<label>비밀번호</label>
 					<span></span>
-					</div> 
-					<div style="display: flex; flex-direction: column; margin-bottom: 5px;">
-					  <div style="margin-right: 10px; display: flex;align-items: flex-start;">
-					    <input type="checkbox" name="saveId" id="saveId">
-					    <label for="saveId" style="margin-left: 5px;">아이디 저장</label>
-					  </div>
-					  <div style="display: flex;align-items: flex-start;">
-					    <input type="checkbox" name="savePw" id="savePw">
-					    <label for="savePw" style="margin-left: 5px;">비밀번호 저장</label>
-					  </div>
 					</div>
+					  <fieldset>
+					  <label class="toggleSwitch">
+					   <input role="switch" type ="checkbox" name="saveId" id="saveId"/>
+					   <span>아이디 저장</span>
+					  </label>
+					   <label class="toggleSwitch">
+					   <input role="switch" type ="checkbox"  name="savePw" id="savePw"/>
+					   <span>비밀번호 저장</span>
+					  </label>
+					  </fieldset>
 					<input class="btn btn-success " type="submit" value ="로그인">
 					</form>
 				</div>

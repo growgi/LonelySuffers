@@ -114,9 +114,12 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form role="form">
-            <div class="form-group">
+            <div class="form-group customInput">
+           	 <div>
+              <input type="text" class="form-control" id="emailCode" required>
               <label for="emailCode">인증코드</label>
-              <input type="text" class="form-control" id="emailCode" placeholder="인증번호">
+              <span></span>
+              </div>
               <input type="text" class="form-control" name="emailCode">
             </div>
               <button type="button" class="btn btn-success btn-block" name="emailCodeChk"><span class="glyphicon glyphicon-off"></span> 인증</button>
