@@ -131,16 +131,16 @@ public class CarpoolController {
 			return "error";
 		}
 	}
-	//capacity가 차면 더 신청 할 수 없도록 -> carpoolMain에도 capacity 뒤에 뜨게 <td>하나 더 넣는다.
-		
-
-		
-	
 	
 	//탑승자의 내 카풀 리스트 보기!!!
 	//탑승자의 카풀 수락, 거절 관리하기
 		@RequestMapping(value="/passengerPage.do")
-		public String mycarpoolPassenger() {
+		public String mycarpoolPassenger(Model model, int memberNo) {
+			System.out.println(memberNo);
+			//Request processing failed; nested exception is java.lang.IllegalStateException: Optional int parameter 'memberNo' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
+			ArrayList<Carpool> list = service.getMyRequests(memberNo);
+			System.out.println("passengerPage.do의 controller: " + list);
+			model.addAttribute("list", list);
 			return "carpool/passengerPage";
 		}
 

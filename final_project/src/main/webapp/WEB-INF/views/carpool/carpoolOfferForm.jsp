@@ -310,7 +310,6 @@
 		var maxLimit = moment(departureDate).add(15, 'days').format("YYYY-MM-DD");
 
 		$('#returnDate').daterangepicker({
-		    parentEl: "#calendar-area2",
 			locale: {
 				format: "YYYY-MM-DD",
 				fromLabel: "시작",

@@ -1,6 +1,7 @@
 package kr.co.carpool.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,9 +51,11 @@ public class CarpoolService {
 	public int totalCount(CarpoolFilter cf) {
 		return dao.totalCount(cf);
 	}
-
+	//운전자의 마이페이지 
 	public ArrayList<Carpool> getMyLists(int driverNo) {
-		ArrayList<Carpool> clist = dao.getMyLists(driverNo);
+		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		param.put("driverNo",driverNo);
+		ArrayList<Carpool> clist = dao.getMyLists(param);
 		return clist;
 	}
 	// 운전자페이지 : matchNo로 카풀 수락, 거절 
@@ -64,6 +67,18 @@ public class CarpoolService {
 	@Transactional
 	public int updateDriverClosing(Carpool carpool) {
 		return dao.updateDriverClosing(carpool);
+	}
+	//탑승자의 마이페이지
+	public ArrayList<Carpool> getMyRequests(int memberNo) {
+		System.out.println("getMyRequest의 memberNo: "+memberNo);
+		//카풀 리스트로 값 반환해주고~
+		HashMap<String, Integer> param = new HashMap<String, Integer>();
+		param.put("memberNo", memberNo);
+		ArrayList<Carpool> list = dao.getMyLists(param);
+		//반환한 값을 꺼내주는데, carpoolNo와 memberNo 두개를 받아와야하니까
+		//HashMap으로 받아온다.
+			
+		return list;
 	}
 
 

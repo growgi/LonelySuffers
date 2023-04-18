@@ -64,9 +64,9 @@ public class Carpool {
 	
 	public String getBoardRoomCapacity() {
 		if(surfboardRoom == 0) {
-			return "수납불가";
+			return "보드 수납불가";
 		}else {
-			return "수납가능";
+			return "보드 수납가능";
 		}
 	}
 	//1:마감 2:모집중 3:삭제
