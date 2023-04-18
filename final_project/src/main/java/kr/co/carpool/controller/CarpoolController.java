@@ -86,15 +86,29 @@ public class CarpoolController {
 	
 	//carpoolRequest.jsp에서 '태워주세요' 누르면 passenger 테이블에 insert
 	@RequestMapping(value="/carpoolMatch.do")
-	public String carpoolMatch(int carpoolNo, @SessionAttribute(required = false) Member m ) {
+	public String carpoolMatch(Model model,int carpoolNo, @SessionAttribute(required = false) Member m ) {
 		CarpoolMatch match = new CarpoolMatch();
 		match.setCarpoolNo(carpoolNo);
 		match.setPassengerNo(m.getMemberNo());
 		int result = service.insertPassenger(match);
 		if(result>0) {
-			return "carpool/passengerPage";
+			model.addAttribute("title","카풀 신청 완료");
+			model.addAttribute("msg","카풀 신청을 완료했습니다.");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/passengerPage.do?memberNo="+m.getMemberNo());
+			return "common/msg";
+		}else if(result==0){
+			model.addAttribute("title","카풀 신청 실패");
+			model.addAttribute("msg","카풀 신청을 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/passengerPage.do?memberNo="+m.getMemberNo());
+			return "common/msg";
 		}else {
-			return "carpool/carpoolMain";
+			model.addAttribute("title","카풀 신청 실패");
+			model.addAttribute("msg","이미 신청하셨습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/carpoolRequest.do?carpoolNo="+carpoolNo);
+			return "common/msg";
 		}
 	}
 	//운전자의 내 카풀 리스트 보기!!!

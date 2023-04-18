@@ -525,9 +525,8 @@
 				 for(let i=0; i<data.length; i++){
 					 	const hr = $("<hr>");
 					 
-			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor","pointer").click(function(){
-			                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
-			            });
+			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor","pointer");
+			            
 			            const td1 = $("<td>").text(data[i].departureDate);
 			            
 			            const td2 = $("<td>");
@@ -556,7 +555,15 @@
 	
 			            const td6 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""));
 			            		td6.append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));			            
-			           
+			           	if(data[i].reserved === data[i].capacity){
+			           		tr.click(function(){
+				              alert("정원이 다 찼습니다.");
+				            });
+			           	}else{
+				            tr.click(function(){
+				                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
+				            });
+			           	}
 			           	tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 			            $(".carpoolListWrapper").append(tr);
 			    }

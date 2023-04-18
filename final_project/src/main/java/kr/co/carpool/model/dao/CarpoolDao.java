@@ -77,8 +77,18 @@ public class CarpoolDao {
 		return (ArrayList<Carpool>)list;
 	}
 
-	public ArrayList<Passenger> selectPassengerList(HashMap<String, Integer> param) {
-		List list = sqlSession.selectList("carpool.selectPassengerList", param);
+	public ArrayList<Carpool> selectPassengerList(HashMap<String, Integer> param) {
+		List list = sqlSession.selectList("carpool.selectMyRequests", param);
+		return (ArrayList<Carpool>)list;
+	}
+
+	public int selectPassenger(CarpoolMatch match) {
+		int result = sqlSession.selectOne("carpool.selectPassenger", match);
+		return result;
+	}
+
+	public ArrayList<Passenger> selectPassengerOne(HashMap<String, Integer> param) {
+		List list = sqlSession.selectList("carpool.selectPassengerOne",param);
 		return (ArrayList<Passenger>)list;
 	}
 

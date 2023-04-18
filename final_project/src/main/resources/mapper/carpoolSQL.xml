@@ -78,7 +78,7 @@
 -->
 	<select id="selectMyLists"  parameterType="map" resultMap="getMyLists">
 		select
-			carpool_no,
+			c.carpool_no,
 			c.driver_no,
 			m.member_name,
 			m.member_gender,
@@ -87,10 +87,9 @@
 			c.departure_date,
 			c.capacity,
 			c.closure,
-			(select count(*) from passenger p where p.carpool_no = carpool_no and match_status=2) as reserved
+			(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
 		from carpool c
-			join member_tbl m on (driver_no = member_no)
-			join passenger p using (carpool_no)
+			join member_tbl m on (c.driver_no = m.member_no)
 				<if test="driverNo!=null">
 					where driver_no=#{driverNo}
 				</if>
@@ -159,7 +158,7 @@
 	</update>
 	
 	<!-- 탑승자의 마이페이지 -->
-	<select id="selectMyRequests" parameterType="_int" resultType="c">
+	<select id="selectMyRequests" parameterType="map" resultType="c">
 		select 
 			m.member_no as driverNo,
 	 		carpool_no as carpoolNo,
@@ -180,12 +179,19 @@
 	 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
 	     FROM CARPOOL c
 	     left join member_tbl m on(member_no=driver_no) 
-	      where carpool_no in (select carpool_no from passenger where passenger_no=#{_parameter})
+	      where carpool_no in (select carpool_no from passenger where passenger_no=#{memberNo})
 	</select>
 
+	<select id="selectPassenger" parameterType="match" resultType="_int" >
+		select count(*) from passenger where carpool_no=#{carpoolNo} and passenger_no=#{passengerNo}
+	</select>
 	
 	
- 
+ 	<select id="selectPassengerOne" parameterType="map" resultType="p">
+ 		select match_no as matchNo, 
+ 		match_status as matchStatus
+ 		from passenger where carpool_no=#{carpoolNo} and passenger_no=#{memberNo} 
+ 	</select>
  
  
  
