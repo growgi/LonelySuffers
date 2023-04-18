@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,7 +117,7 @@
 					<div class="price-box"
 						style="margin: 0 auto; text-align: center; font-size: 20px; font-weight: 600;">
 						희망가격 <span class="price"
-							style="color: #82CD47; font-size: 30px; font-weight: 900;">${c.carpoolPrice}원</span>(편도/인당)
+							style="color: #82CD47; font-size: 30px; font-weight: 900;"><fmt:formatNumber value= "${c.carpoolPrice}"  pattern="#,###"/>원</span>(편도/인당)
 					</div>
 					<hr>
 

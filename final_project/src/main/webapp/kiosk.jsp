@@ -12,6 +12,35 @@
 		padding:0;
 	}
 	
+	.modal-dialog {
+    position: absolute !important;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    }
+	
+	.modal-content{
+		width: 1200px;
+		height: 920px;
+		margint-right:200px;
+	}
+	.clickToLarger {
+	width: 80px;
+	height: 80px;
+	}
+	.clickToLarger:hover { cursor: pointer; }
+	.onViewing { border: 4px solid #3ac5c8; }
+	.product-detail>div{
+		margin-top:20px;
+		margin-bottom:20px;
+	}
+	.nav-item { background-color: #3ac5c8;}
+	.nav-link { color: #ffffff; }
+	h4.modal-title {
+    text-align: center;
+	}
+	
+	
 	#daterangepicker{
 	width:596px;
 	height:80px;
@@ -390,18 +419,20 @@
 				<!-- 돋보기 모양으로 해보기 -->
 				<div class="pages page1">
 					<div class="map-wrapper">
-					<div class="row">
-						<div class="col-md-8">
-							<div class="circle-wrap">
-								<div class="circle" style="background-image:url(/resources/images/magnify.png)">
-									<div class="map">
-										<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
-										<input type="text" id="travel-location" value="원하시는 지역을 클릭해주세요"readonly>
+						<div class="row">
+							<div class="col-md-8">
+								<div class="circle-wrap">
+									<div class="circle" style="background-image:url(/resources/images/magnify.png)">
+										<div class="map">
+											<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
+											<input type="text" id="travel-location" value="원하시는 지역을 클릭해주세요"readonly>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<div>
 					</div>
 					<div class="btn-wrap" id="page1">
 						<button class="page1-before" onClick="location.href='/'"><p>메인으로</p></button>
@@ -495,6 +526,156 @@
 					<div class="rooms-wrap">
 					
 					</div>
+					<!-- Modal -->
+						<div id="myModal" class="modal fade" role="dialog">
+							
+						  <div class="modal-dialog">
+						
+						    <!-- Modal content-->
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal">&times;</button>
+						        <h4 class="modal-title">숙소 상세정보</h4>
+						      </div>
+						      <div class="modal-body">
+							       <section class="section">
+									<div class="container">
+										<div class="row">
+											<div class="col-md-5">
+												
+												
+												<div class="row photo-check" style="height: 450px;display: none;">
+													<div class="col-md-2"></div>
+													<div class="col-md-8">
+														<div class="waveEffect" style="margin: 0 auto;">
+															<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+															<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+														</div>
+													</div>
+												</div>
+											
+												
+												<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/house/${house.housePhoto1 }" style="width: 100%;"></div>
+												<div class="row">
+													<div class="col-md-1"></div>
+													<div class="col-md-10">
+													<ul class="pagination" style="text-align: center;">
+														<li style="margin: 5px;"><img class="clickToLarger onViewing photo1" src="resources/upload/house/${house.housePhoto1 }"></li>
+													</ul>
+													</div>
+												</div>
+												
+												
+											</div>
+											<!-- end col -->
+						
+											<div class="col-md-1"></div>
+						
+											<div class="col-md-6 product-detail">
+													<input type="hidden" name="roomTitle" value="">
+													<p class="modal-room-title">${house.roomTitle }</p>
+													<div class="row">
+														<h1 class="modal-house-title" style="padding-bottom: 40px;"></h1>
+														<input type="hidden" name="housePrice" value="">
+														<h3><span class="modal-house-price" style="font-size: 36px; font-weight: bold;"></span>원/1박</h3>
+														<div class="col-md-9">
+															<p style="text-indent: 10px;"><a href="#" data-toggle="tooltip" data-placement="right" title="주말(입실일 기준 금/토)에는 1.5배의 할증이 있습니다. 성수기(6월~8월)에는 1.2배의 할증이 추가로 붙습니다.">( ※ 비성수기 평일 기준 )</a></p>
+														</div>
+														<div class="col-md-3">
+															<input type="hidden" name="roomCapa" value="">
+															<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary modal-house-roomCapa"></span></p>
+														</div>
+													</div>
+													<div class="row" style="margin-top: 30px;">
+														<div class="col-md-3">
+															판매량 ()숫자
+														</div>
+														<div class="col-md-1"></div>
+														<div class="col-md-5">
+															별평점넣을자리
+														</div>
+													</div>
+													<p>주소지 <span class="modal-house-roomAddress"></span></p>
+												<div>
+													<button>관심상품</button>
+													<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
+												</div>
+											</div>
+											<!-- end col -->
+										</div>
+										<!-- end row -->
+											<!-- 예약모달 -->
+											<div class="row">
+											<!-- 예약 진행용 Modal -->
+												  <div class="modal fade bd-example-modal-lg" id="bookingModal" role="dialog">
+												    <div class="modal-dialog modal-lg">
+												    
+												      <!-- Modal content-->
+												      <div id="bookingArea" class="modal-content">
+												        <div class="modal-header">
+												          <button type="button" class="close" data-dismiss="modal">&times;</button>
+												          <h4 class="modal-title">예약하기</h4>
+												        </div>
+												        <div class="modal-body">
+												        <form action="/orderRoom.do" onsubmit="return checkOrder();" method="post">
+												        	<fieldset>
+																<input type="hidden" name="houseNo" value="${house.houseNo }">
+																<select name="roomNo"></select>
+												        		<div class="row">
+													        		<div class="col-md-4">
+																		<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required disabled>
+																	</div>
+												        			<div class="col-md-2"></div>
+												        			<div class="col-md-4">
+																		<input type="text" name="bookEndDate" id="bookEnd" placeholder="숙박 퇴실일" required disabled>
+																	</div>
+												        		</div>
+													        	<div class="row">
+														        	<c:if test="${house.houseBarbecue eq 1}">
+																		<input type="hidden" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }">
+												    		    		<input type="checkbox" name="optionDetail" id="houseBarbecue" value="바베큐 ${house.houseBarbecuePrice }원">
+												        				<label for="houseBarbecue">바베큐 ${house.houseBarbecuePrice }원</label>
+												        			</c:if>
+												        			<c:if test="${house.houseParty eq 1}">
+																		<input type="hidden" name="housePartyPrice" value="${house.housePartyPrice }">
+												        				<input type="checkbox" name="optionDetail" id="houseParty" value="파티 ${house.housePartyPrice }원">
+														        		<label for="houseParty">파티 ${house.housePartyPrice }원</label>
+												    		    	</c:if>
+												        		</div>
+																<input type="hidden" name="roomBookPrice">
+																<button type="submit">주문</button>
+												        	</fieldset>
+												        </form>
+												        </div>
+												        <div class="modal-footer">
+												          <button type="button" data-dismiss="modal">닫기</button>
+												        </div>
+												      </div>
+												      
+												    </div>
+												  </div>
+											</div>
+											<!-- 예약모달 row 끝-->
+											<!-- 상품설명, 상품평, 상품문의 -->
+											<div class="row">
+											
+											
+											</div>
+											<!-- 상품설명, 상품평, 상품문의 row 끝-->
+									</div>
+									<!-- end container -->
+								</section>
+								<!-- end section -->
+		
+		
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						
 					<div class="btn-wrap" id="page5">
 						<button class="page5-before"><p>이전으로</p></button>
 						<button class="page5-okay"><p>확정</p></button>
@@ -1014,6 +1195,10 @@ $("document").ready(function() {
 							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(X)</p>");
 						}
 						infoWrap.append("<p>기본 1박 : "+data[i].housePrice+"원</p>");
+						
+						//모달 테스트
+						infoWrap.append("<button onclick=getRoom("+data[i].houseNo+") class=btn btn-info btn-lg data-toggle=modal data-target=#myModal>Open Modal</button>");
+					
 						div.append(infoWrap);
 						
 						result.append(div);
@@ -1026,6 +1211,237 @@ $("document").ready(function() {
 			});
 			$("#current-page").attr("value",5);
 	});
+
+//버튼 클릭하면 모달 띄워주는 function
+	function getRoom(houseNo){
+		console.log("하우스넘버"+houseNo);
+		
+		$.ajax({
+			url : "/houseModalView.do",
+			type : "get",
+			data : {houseNo : houseNo},
+			dataType : "json",
+			success : function(data){
+				console.log(data);
+				console.log("데이터체크:"+data.housePhoto1);
+				const url = "resources/upload/house/";
+				//모달 사진 부분
+				if(data.housePhoto1 == null){
+					$(".photo-check").css("display","block");
+				};
+				$(".bigThumbnailImage").attr("src",url+data.housePhoto1);
+				$(".photo1").attr("src",url+data.housePhoto1);
+				if(data.housePhoto2!=null){
+					$(".pagination").append("<li style=margin: 5px;><img class=clickToLarger photo2 src="+url+data.housePhoto2+">");
+					$(".photo2").attr("src",url+data.housePhoto2);
+					console.log("데이터체크2:"+data.housePhoto2);
+				}
+				if(data.housePhoto3!=null){
+					$(".pagination").append("<li style=margin: 5px;><img class=clickToLarger photo3 src="+url+data.housePhoto3+">");
+					$(".photo3").attr("src",url+data.housePhoto3);
+					console.log("데이터체크3:"+data.housePhoto3);
+				}
+				if(data.housePhoto4!=null){
+					$(".pagination").append("<li style=margin: 5px;><img class=clickToLarger photo4 src="+url+data.housePhoto4+">");
+					$(".photo4").attr("src",url+data.housePhoto4);
+					console.log("데이터체크4:"+data.housePhoto4);
+				}
+				//모달 글부분
+				//방, 숙소이름
+				$(".modal-room-title").text(data.roomTitle);
+				$("input[name=roomTitle]").attr("value",data.houseTitle);
+				$(".modal-house-title").text(data.houseTitle);
+				//숙박가격
+				let housePrice = data.housePrice;
+				//console.log("가격테스트 : "+housePrice.toLocaleString("ko-KR"));
+				$("input[name=housePrice]").attr("value,data.housePrice");
+				$(".modal-house-price").text(housePrice.toLocaleString("ko-KR"));
+				//인원수
+				$("input[name=roomCapa]").attr("value",data.roomCapa);
+				$(".modal-house-roomCapa").text(data.roomCapa+"인실");
+				//주소
+				$(".modal-house-roomAddress").text(data.roomAddres);
+				
+				
+				// 부트스트랩 tooltip(비성수기 평일기준 그거 나오는거)
+				$(document).ready(function(){
+					$('[data-toggle="tooltip"]').tooltip();   
+				});
+				//모달의 조그만 사진 클릭하면 그 사진 확대 해주는거
+				$(function(){
+					$(".clickToLarger").click(function () {
+						$(".clickToLarger").removeClass("onViewing");
+						$(this).addClass("onViewing");
+						$(".bigThumbnailImage").attr("src",$(this).attr("src"));
+					});
+				});
+				
+				
+				// (숙박업소 & 인원 수) 조건에 맞는 객실들을 받는 ajax
+				const roomTitleVal = data.roomTitle;
+				const roomCapaVal = data.roomCapa;
+				$.ajax({
+						url : "/availableModalRooms.do",
+						data: {roomTitle : roomTitleVal, roomCapa : roomCapaVal},
+						dataType : "json",
+						success : function(List){
+							$("[name=roomNo]").empty();
+							$("[name=roomNo]").append($("<option>").text("객실을 먼저 선택해주세요"));
+							for(let i=0; i<List.length; i++){
+								const option = $("<option>");
+								option.val(List[i].roomNo);
+								option.text(List[i].roomName);
+								$("[name=roomNo]").append(option);
+			    			}
+						}
+				});
+
+
+			// 예약하기 modal 띄우면 실행되는 함수 시작
+				$("#goBooking").on("click", function(){
+					alert("go booking lick");
+					$("[name=roomNo]").on("change", function(){
+					// 이미 결제완료된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax 
+						$.ajax({
+							url : "/bookOneRoom.do",
+							data: {roomNo : $(this).val()},
+							dataType : "json",
+							success : function(List){
+								console.log(List);
+								let invalidDateRanges = [];
+								for(let i=0; i<List.length; i++){
+									invalidDateRanges[i] = { 'start': moment(List[i].bookStartDate), 'end': moment(List[i].bookEndDate) };
+			    				}
+
+							// 선택된 객실 바뀔 때마다 날짜 관련 데이터들 모두 초기화
+								$("#bookStart").val("");
+								$("#bookStart").attr("value", null);
+								$("#bookEnd").val("");
+								$("#bookEnd").attr("value", null);
+
+								$("#bookStart").prop("disabled", false);
+								$("#bookEnd").prop("disabled", false);
+
+								// 객실예약의 시작일을 선택하는 date range picker 생성
+									$('#bookStart').daterangepicker({
+									    parentEl: "#bookingArea .modal-body",
+										locale: {
+											format: "YYYY-MM-DD",
+											fromLabel: "시작",
+											toLabel: "종료"
+									    },
+									    alwaysShowCalendars: true,
+										autoApply: true,
+										singleDatePicker: true,
+										showDropdowns: true,
+										minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
+										maxDate: moment().add(3, 'months'),	// 시작일은 3개월 이내에서 지정 가능
+										isInvalidDate: function(date) {
+											return invalidDateRanges.reduce(function(bool, range) {
+												return bool || (date >= range.start && date <= range.end);
+											}, false);
+										}
+									});
+									$("#bookStart").val("");
+									$("#bookStart").attr("value", null);	// value 없는 상태로 생성 필요
+
+								// 시작일 input의 value가 바뀌면, 적절하게 minDate와 maxDate를 구성해서 종료일 date range picker를 생성  
+									$("#bookStart").on("change", function(){
+										const bookStartDate = $("#bookStart").val();	// 시작일+1을 minDate로 사용할 예정
+									// maxDate는 시작일+3개월로 초기화 
+										var maxLimit = moment(bookStartDate).add(3, 'months').format("YYYY-MM-DD");
+									// bookStartDate로부터 가장 가까운 미래의 invalidDateRanges로 maxDate를 좁혀줌
+										for(let i=invalidDateRanges.length-1; i>=0; i--){
+											if(bookStartDate < invalidDateRanges[i].start.format("YYYY-MM-DD")){
+												maxLimit = invalidDateRanges[i].start.format("YYYY-MM-DD");
+											}
+										}
+
+										$('#bookEnd').daterangepicker({
+										    parentEl: "#bookingArea .modal-body",
+											locale: {
+												format: "YYYY-MM-DD",
+												fromLabel: "시작",
+												toLabel: "종료"
+										    },
+										    alwaysShowCalendars: true,
+											autoApply: true,
+											singleDatePicker: true,
+											showDropdowns: true,
+											minDate: moment($("#bookStart").val()).add(1, 'days'),
+											maxDate: maxLimit
+										});
+										$("#bookEnd").val("");
+										$("#bookEnd").attr("value", null);	// value 없는 상태로 생성시킴
+									});
+
+								},
+						// 드롭다운 input이 특정 객실일이 아니라, "객실을 먼저 선택해주세요"에 focus 되었을 때 처리를  ajax error에서 처리함 
+							error : function(){
+								console.log("객실을 먼저 선택해주세요에 focus됨");
+								$(".daterangepicker").remove();
+								$("#bookStart").val("");
+								$("#bookStart").attr("value", null);
+								$("#bookStart").prop("disabled", true);
+								$("#bookEnd").val("");
+								$("#bookEnd").attr("value", null);
+								$("#bookEnd").prop("disabled", true);
+							}
+						});
+					});
+				});
+			// 예약하기 modal 띄우면 실행되는 함수 끝
+
+
+			// input에 값이 없으면 form 제출을 막는 함수
+			function checkOrder(){
+				if ( $("[name=bookStartDate]").val() == "" || $("[name=bookEndDate]").val() == "" ) {
+					alert('시작일과 퇴실일을 선택해주십시오.');
+					return false;
+				}
+				fullPrice();
+				return true;
+			}
+
+
+			// roomBookPrice를 계산하는 함수
+			const onedayPrice = $("[name=housePrice]").val();
+			function fullPrice(){
+				let result = 0;
+				let days = moment($("#bookEnd").val()).diff(moment($("#bookStart").val()), 'days');
+				for(let i=0; i<days; i++){
+					let adjustment = 1;
+					if(moment($("#bookStart").val()).add(i, 'days').format('M')>=6 && moment($("#bookStart").val()).add(i, 'days').format('M')<=8){
+						console.log("6~8월은 성수기 할증으로 요금이 1.2배가 됩니다.");
+						adjustment *= 1.2;
+					}
+					if(moment($("#bookStart").val()).add(i, 'days').isoWeekday() == 5 || moment($("#bookStart").val()).add(i, 'days').isoWeekday() == 6){
+						console.log("주말은 할증으로 요금이 1.5배가 됩니다.");
+						adjustment *= 1.5;
+					}
+					result += onedayPrice * adjustment;
+					console.log((i+1)+"일째까지 누계 "+result+"원");
+				}
+				if($("#houseBarbecue").prop("checked")){
+					result += Number($("[name=houseBarbecuePrice]").val());
+				}
+				if($("#houseParty").prop("checked")){
+					result += Number($("[name=housePartyPrice]").val());
+				}
+				console.log("옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
+				$("[name=roomBookPrice]").val(result);
+			}
+
+			},
+			error : function(){
+				console.log("모달 에러났음");
+			}
+		}); //숙소 상세정보 ajax끝
+	} //function 끝
+
+	
+	
+	
 	$(".page4-pass").on('click',function(){
 		
 		var result = confirm("숙소 옵션은 필요없으신가요?\n클릭하시면 옵션 선택이 불가능한 숙소만 표시됩니다.");
@@ -1175,6 +1591,8 @@ window.onpopstate = function() {
 		  $(".page5-before").trigger("click");
 	}else if($("#current-page").val() == 6){
 		  $(".page6-before").trigger("click");
+	}else if($("#current-page").val() == 7){
+		  $(".page7-before").trigger("click");	  
 	};
 	history.pushState(null, null, location.href); 
 	//history.go(1);

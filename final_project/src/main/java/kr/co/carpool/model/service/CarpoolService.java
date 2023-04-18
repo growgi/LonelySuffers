@@ -38,7 +38,16 @@ public class CarpoolService {
 	//카풀 신청하기(승객)
 	@Transactional
 	public int insertPassenger(CarpoolMatch match) {
-		return dao.insertPassenger(match);
+		//select count(*) passenger where carpool_no=? and passengerNo=?
+		//0이면 insert진행
+		//1이면 이미 신청한 사람
+		int result = dao.selectPassenger(match);
+		if(result==0) {
+			return dao.insertPassenger(match);
+		}else {
+			return -1;
+		}
+		
 	}
 	
 	//운전자의 카풀 등록하기(controller에서는 registerCarpool)
@@ -68,14 +77,21 @@ public class CarpoolService {
 	public int updateDriverClosing(Carpool carpool) {
 		return dao.updateDriverClosing(carpool);
 	}
-	//탑승자의 마이페이지
+	//탑승자의 마이페이지(운전자의 마이페이지에서 Carpool VO에 있는 passengerList를 
+	//HashMap으로 받아오기 때문에 여기서 운전자마이페이지의 getMyLists를 다시 활용한다.
 	public ArrayList<Carpool> getMyRequests(int memberNo) {
 		System.out.println("getMyRequest의 memberNo: "+memberNo);
-		//카풀 리스트로 값 반환해주고~
+		//반환한 값을 꺼내주는데, carpoolNo와 memberNo 두개를 받아와야하니까 HashMap 쓴다.
 		HashMap<String, Integer> param = new HashMap<String, Integer>();
 		param.put("memberNo", memberNo);
-		ArrayList<Carpool> list = dao.getMyLists(param);
-		//반환한 값을 꺼내주는데, carpoolNo와 memberNo 두개를 받아와야하니까
+		//카풀 리스트로 값 반환해주고~
+		ArrayList<Carpool> list = dao.selectPassengerList(param);
+		
+		for(Carpool c : list) {
+			param.put("carpoolNo", c.getCarpoolNo());
+			ArrayList<Passenger> passengerList = dao.selectPassengerOne(param);
+			c.setPassengerList(passengerList);
+		}
 		//HashMap으로 받아온다.
 			
 		return list;

@@ -23,6 +23,40 @@
 <link rel="stylesheet" href="/src/main/webapp/resources/css/carpool/carpoolReg.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
+<style>
+/*오전, 오후 radio 효과주기*/
+[type=radio]{
+	display: none;
+}
+
+[for="am"],[for="pm"]{
+	display: inline-block;
+	width: 124px;
+	height: 38px;
+	padding: 5px 10px;
+	line-height: 28px;
+	border: 1px solid pink;
+	background-color: pink;
+	color: white;
+	border-radius: 4px;
+	cursor:pointer;
+	text-align: center;
+	width: 100px;
+	height: 40px;
+	border-radius: 20px;
+}
+[type="radio"]:checked+label{
+	color: #fff;
+	background-color:#FFDEB4 ;
+	color: black;
+	transition-duration: 0.3s;
+	border: none;
+}
+
+/*surfboard checkbox 효과주기*/
+
+
+</style>
 
 </head>
 
@@ -51,7 +85,7 @@
 					        <tbody> 
 					  
 					            <tr> 
-					                <th rowspan="2" style="width:30%; text-align:center; border: 1px solid #FFF3E2">출발</th> 
+					                <th rowspan="2" style="width:30%; text-align:center; border: 1px solid #FFF3E2; height:80px;">출발</th> 
 					                <td style="border: 1px solid #FFF3E2">
 					                    <select class="form-control" name="departureRegion" id="city" style="width:70%; ">
 					                        <option value="" selected disabled>시/도</option>
@@ -69,13 +103,13 @@
 					                <td>
 								<input type="hidden" id="driverNo" name="driverNo" value="${sessionScope.m.memberNo }">
 								<input type="hidden" name="onewayRound" value="1">
-							    <input type="text" id="details" name="departureDistrict" placeholder="0/20" style="text-align: right; width:100%;" required>
+							    <input type="text" id="details" name="departureDistrict" placeholder="0/20" style="text-align: right; width:100%; height: 35px; border-radius: 10px; border:1px solid pink; " required>
 					                </td>
 					            </tr>
 					        </tbody> 
 					        <tbody> 
 					            <tr> 
-					                <th rowspan="2"  style="width:30%; text-align:center; border: 1px solid #FFF3E2"">도착</th> 
+					                <th rowspan="2"  style="width:30%; text-align:center; border: 1px solid #FFF3E2; height:80px;">도착</th> 
 					                <td style="border: 1px solid #FFF3E2">
 					                    <select class="form-control" name="arrivalRegion" id="city" style="width:70%;">
 					                        <option value="" selected disabled>시/도</option>
@@ -91,7 +125,7 @@
 					            </tr> 
 					            <tr> 
 					                <td>
-							    <input type="text" id="details" name="arrivalDistrict" placeholder="0/20" style="text-align: right; width: 100%;" required>
+							    <input type="text" id="details" name="arrivalDistrict" placeholder="0/20" style="text-align: right; width: 100%; height: 35px; border-radius: 10px; border:1px solid pink;" required>
 					                </td>
 					            </tr>
 					        </tbody> 
@@ -111,20 +145,20 @@
 					            <table> 
 					                <tbody> 
 					                    <tr class="depart"> 
-					                        <th style="width:35%; text-align:center;">출발</th> 
+					                        <th style="width:35%; height: 50px; text-align:center;">출발</th> 
 					                        <td>
 					                        	<div>
 					                            <!--daterangepicker-->
-					                            <input type="text" id="departureDate" name="departureDate" required>
+					                            <input type="text" id="departureDate" name="departureDate" style=" border:1px solid pink; height:40px; border-radius: 10px;" required>
 					                            <div id="calendar-area"></div>
 					                        	</div>
 					                        </td>
 					                        <td>
 					                            <!--오전 오후 중에 체크하는 radio-->
 					                            <input type="radio" id="am" name="departureTime" value="0" required>
-					                            <label for="am-time">오전</label>
+					                            <label for="am">오전</label>
 					                            <input type="radio" id="pm" name="departureTime" value="1" required>
-					                            <label for="pm-time">오후</label>		
+					                            <label for="pm">오후</label>		
 					                        </td>
 					                    </tr> 
 					                    <!-- 
@@ -146,9 +180,9 @@
 					                    </tr>
 					                     -->
 					                    <tr>
-					                        <th style="text-align:center;">인원</th>
+					                        <th style="text-align:center; height: 50px;">인원</th>
 					                        <td>
-					                            <select class="form-control" name="capacity" id="capacity">
+					                            <select class="form-control" name="capacity" id="capacity" style="height:40px;; border:1px solid pink; border-radius: 10px;">
 					                                <option value="" selected disabled>탑승인원</option>
 					                                <option value="1">1명</option>
 					                                <option value="2">2명</option>
@@ -158,20 +192,21 @@
 					                                <option value="6">6명</option>
 					                            </select>	
 					                        </td>
-					                        <td>
-					                            <label for="surfboardRoom" onclick="toggleStorage()" style="cursor: pointer;">보드 수납가능</label>
-					                            <input type="checkbox" id="surfboardRoom" name="surfboardRoom"  value="1"> 
+					                        <td style=" border-radius:20px; background-color:pink;  color: white;">
+					                            <label for="surfboardRoom" onclick="toggleStorage()" style="cursor: pointer; width:100%; text-align: center; height: 25px; line-height: 25px;">보드 수납가능
+					                             <img src="/resources/images/carpool/checked.png"alt="img" style="width: 30px; height: 30px;"></label>
+					                            <input type="checkbox" id="surfboardRoom" name="surfboardRoom"  value="1" style="display:none;"> 
 					                        </td>
 					                    </tr>
 					                    <tr>
-					                        <th style="text-align:center;">금액</th>
+					                        <th style="text-align:center; height: 50px;">금액</th>
 					                        <td>
-					                            <input type="number" id="carpoolPrice" name="carpoolPrice" placeholder="원" style="text-align: right;">
+					                            <input type="number" id="carpoolPrice" name="carpoolPrice" placeholder="원" style="text-align: right; height:40px; border:1px solid pink; border-radius: 10px;">
 					                        </td>
 					                    </tr>
 					                    <tr>
-					                        <th style="text-align:center;">상세</th>
-					                        <td rowspan="4"><input type="text" id="driverMsg" name="driverMsg" placeholder="0/60" style="text-align: right;" required></td>
+					                        <th style="text-align:center; height: 50px;">상세</th>
+					                        <td rowspan="4" colspan="8"><input type="text" id="driverMsg" name="driverMsg" placeholder="0/60" style="text-align: right; ; width: 100%; height:100px;border-radius: 10px; border:1px solid pink;" required></td>
 					                    </tr>
 					                </table>
 											
@@ -269,9 +304,9 @@
 	    	            '</td>' +
 	    	            '<td>' +
 	    	                '<input type="radio" id="am" name="returnTime" value="0" required>' +
-	    	                '<label for="am-time">오전</label>' +
+	    	                '<label for="am">오전</label>' +
 	    	                '<input type="radio" id="pm" name="returnTime" value="1" required>' +
-	    	                '<label for="pm-time">오후</label>' +
+	    	                '<label for="pm">오후</label>' +
 	    	            '</td>' +
 	    	        '</tr>'
 	            	)	

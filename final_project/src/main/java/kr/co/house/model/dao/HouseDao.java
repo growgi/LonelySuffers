@@ -47,6 +47,26 @@ public class HouseDao {
 
 
 
+// 기존 객실의 이름을 변경하기 전에 중복 검사. roomTitle과 roomName을 WHERE 조건으로 Room 테이블에서 조회 후 count를 반환
+	public int checkRoomNewName(Room r) {
+		return sqlSession.selectOne("r.checkRoomNewName", r);
+	}
+
+
+// 기존 객실의 이름을 변경하는 함수. Room 테이블에서 update
+	public int updateRoomName(Room r) {
+		return sqlSession.update("r.updateRoomName", r);
+	}
+
+
+
+// 객실의 활성 상태값을 변경
+	public int updateRoomEnable(Room r) {
+		return sqlSession.update("r.updateRoomEnable", r);
+	}
+
+
+
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<Room> selectAllAvailableRoom(FindRoomByCondition condition) {
 		List list = sqlSession.selectList("r.selectAllAvailableRoom", condition);
@@ -54,7 +74,15 @@ public class HouseDao {
 	}
 
 
-	
+
+// 하나의 houseNo에 대한 모든 객실들을 조회. 사용 중지된 객실도 포함하여 Room 테이블에서 Row 여러개 조회 후 반환
+	public ArrayList<Room> selectAllRoomsByHouseNo(int houseNo) {
+		List list = sqlSession.selectList("r.selectAllRoomsByHouseNo", houseNo);
+		return (ArrayList<Room>)list;
+	}
+
+
+
 // 객실 이름들 중복 여부 조회. roomTitle을 WHERE 조건으로 Room 테이블에서 Row 0개 이상 조회 후 반환
 	public ArrayList<String> checkRoomNameInSameRoomTitle(FindRoomByCondition condition) {
 		List list = sqlSession.selectList("r.checkRoomName", condition);

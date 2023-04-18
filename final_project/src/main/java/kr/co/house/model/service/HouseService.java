@@ -1,6 +1,7 @@
 package kr.co.house.model.service;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,10 +53,53 @@ public class HouseService {
 	}
 
 
+// 기존 객실의 이름을 변경하기 전에 중복 검사. roomTitle과 roomName을 WHERE 조건으로 Room 테이블에서 조회 후 count를 반환
+	public int checkRoomNewName(String roomTitle, String roomName) {
+		Room r = new Room();
+		r.setRoomTitle(roomTitle);
+		r.setRoomName(roomName);
+		return dao.checkRoomNewName(r);
+	}
+
+
+
+	@Transactional
+// 기존 객실의 이름을 변경하는 함수. Room 테이블에서 update
+	public int updateRoomName(Room r) {
+		return dao.updateRoomName(r);
+	}
+
+
+
+	@Transactional
+// 모든 객실들의 활성 상태값을 일괄적으로 변경.  Room 테이블에 Row 여러개 변경
+	public int updateRoomEnable(String roomNo, String roomEnable) {
+		StringTokenizer roomNoString = new StringTokenizer(roomNo,"/");
+		StringTokenizer roomEnableString = new StringTokenizer(roomEnable,"/");
+		int result = 0;
+		Room r = new Room();
+		while(roomNoString.hasMoreTokens()) {
+			int roomNoToken = Integer.parseInt(roomNoString.nextToken());
+			int roomEnableToken = Integer.parseInt(roomEnableString.nextToken());
+			r.setRoomNo(roomNoToken);
+			r.setRoomEnable(roomEnableToken);
+			result += dao.updateRoomEnable(r);
+		}
+		return result;
+	}
+
+
 
 // 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<Room> selectAllAvailableRoom(FindRoomByCondition condition) {
 		return dao.selectAllAvailableRoom(condition);
+	}
+
+
+
+// 하나의 houseNo에 대한 모든 객실들을 조회. 사용 중지된 객실도 포함하여 Room 테이블에서 Row 여러개 조회 후 반환
+	public ArrayList<Room> selectAllRoomsByHouseNo(int houseNo) {
+		return dao.selectAllRoomsByHouseNo(houseNo);
 	}
 
 
