@@ -90,7 +90,9 @@
                         </c:if>
                         </c:forEach>
                     </table>
-                    <div></div>
+                    <div id="pageNavi">
+                        ${pageNavi }
+                    </div>
                 </div>
                 <div class="list-bottom">
                     <div>

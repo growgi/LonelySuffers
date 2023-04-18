@@ -92,7 +92,7 @@
 							<input type="radio" name="memberGender" id="m" value = 1>
 							<input type="radio" name="memberGender" id="f" value = 2><br><br>
 							<div class="joinBtn">
-							<button type="reset">취소</button>
+							<button type="button" onclick="cancel();">취소</button>
 							<button type="submit" onclick="return notsubmit();">가입</button> 
 							</div>
 							
@@ -114,10 +114,10 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form role="form">
-            <div class="form-group">
+            <div class="form-group" style="text-align: center">
               <label for="emailCode">인증코드</label>
-              <input type="text" class="form-control" id="emailCode" placeholder="인증번호">
-              <input type="text" class="form-control" name="emailCode">
+              <input type="text" maxlength='8'class="customEmailCode"id="emailCode" required>
+                             <!--  <input type="text" class="form-control" name="emailCode"> -->
             </div>
               <button type="button" class="btn btn-success btn-block" name="emailCodeChk"><span class="glyphicon glyphicon-off"></span> 인증</button>
           </form>
@@ -149,7 +149,7 @@
 			  <span></span>        		
         	 </div>
               <span>사용 가능한 아이디 입니다</span>
-              <button type="button" class="btn btn-success btn-block successId"><span class="glyphicon glyphicon-off"></span> 사용하기</button>
+              <button type="button" class="btn btn-success btn-block successId"><span class="glyphicon glyphicon-off"></span>사용하기</button>
             </div>
             </div>
             <div class="useId">
@@ -159,7 +159,7 @@
 	              <input type="text" class="form-control" name="userIdInput" id="userIdInput" placeholder="아이디">
 	              <span>이미 사용중인 아이디 입니다</span>
 	            </div>
-	              <button type="button" class="btn btn-success btn-block idChkBtn"><span class="glyphicon glyphicon-off"></span> 중복체크</button>
+	              <button type="button" class="btn btn-success btn-block idChkBtn"><span class="glyphicon glyphicon-off"></span>중복체크</button>
 	          </form>
         	</div>
         </div>

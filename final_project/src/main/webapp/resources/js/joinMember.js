@@ -105,7 +105,7 @@ $('[name=emailChk]').on('click',function(){
                 }else{
                     const mailCode = data;
                     $("#myModal").modal();
-                    $('[name=emailCode]').val(mailCode);
+                    // $('[name=emailCode]').val(mailCode);
                 }
             }
         });
@@ -220,3 +220,7 @@ $("[name=emailCodeChk]").click(function(){
     // $('.email2').on('focusin',function(){
     //     $(this).css('border-bottom','2px solid #aaaaaa');
     // })
+
+    function cancel(){
+        location.href="/";
+    }

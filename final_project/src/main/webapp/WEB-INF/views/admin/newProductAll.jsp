@@ -33,9 +33,9 @@
 			<div class="newProduct-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="/newProductAll.do" style="background-color:#19A7CE; color:#fff">전체</a>
-						<a href="/newProductLesson.do">강습</a>
-						<a href="/newProductHouse.do">숙박</a>
+						<a href="/newProductAll.do?reqPage=1" style="background-color:#19A7CE; color:#fff">전체</a>
+						<a href="/newProductLesson.do?reqPage=1">강습</a>
+						<a href="/newProductHouse.do?reqPage=1">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<form action="/adminSearchProduct.do" method="get"
@@ -111,9 +111,11 @@
 										<td>${n.productCity }</td>
 										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
 										<td>
-											<button class="approveProduct btn-s bc1">승인</button>
-											<input type="hidden" value="${n.productNo }" name="productNo">
-											<button class="returnProduct btn-s bc2">반려</button>
+											<div>
+												<button class="approveProduct btn-s bc1">승인</button>
+												<input type="hidden" value="${n.productNo }" name="productNo">
+												<button class="btn-open btn-s bc2">반려</button>
+											</div>
 										</td>
 									</tr>
 								</c:if>
@@ -121,7 +123,9 @@
 								</c:otherwise>
 								</c:choose>
 							</table>
-							<div></div>
+							<div id="pageNavi">
+								${pageNavi }
+							</div>
 						</div>
 						<div class="list-bottom">
 							<div>
@@ -129,15 +133,38 @@
 								<button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button>
 							</div>
 						</div>
-					</div>
+					</div>    
 				</div>
 			</div>
 		</div>
 	</div>
+	<section class="modal hidden">
+		<div class="flex">
+		  <img src="https://avatars.githubusercontent.com/u/62628408?s=96&v=4" width="50px" height="50px" alt="user" />
+		  <button class="btn-close">⨉</button>
+		</div>
+		<div>
+		  <h3>Stay in touch</h3>
+		  <p>
+			This is a dummy newsletter form so don't bother trying to test it. Not
+			that I expect you to, anyways. :)
+		  </p>
+		</div>
+		<input type="email" id="email" placeholder="brendaneich@js.com" />
+		<button class="btn returnProduct">Do Something</button>
+	</section>
 	<script src="resources/js/admin.js"></script>
 	<script src="resources/js/adminNewProduct.js"></script>
 </body>
 <script>
-
+	/*모달*/
+	$(".btn-open").on("click",function(){
+		$(".modal").toggle();
+	});
+	$(".btn-close").on("click",function(){
+		$(".modal").hide();
+	});
+	
+	
 </script>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,19 +61,35 @@
 						</p>
 					</div>
 					<div class="col-md-2">
-						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="driverPage.do">함께가요</a>
-						</p>
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="/driverPage.do?driverNo=${sessionScope.m.memberNo }">태워드려요</a>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="#" onclick="alert('로그인하고 이용해주세요.');">태워드려요</a>
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="col-md-2">
-						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="passengerPage.do">태워주세요</a>
-						</p>
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="/passengerPage.do?memberNo=${sessionScope.m.memberNo }">태워주세요</a>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="#" onclick="alert('로그인하고 이용해주세요.');">태워주세요</a>
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="menu" style="float: right;">
-						<h3
-							style="color: #1A5F7A; text-shadow: 0 0 2px #fff; font-weight: 900;">탑승자
-							페이지</h3>
+						<h3 style="color: #1A5F7A; text-shadow: 0 0 2px #fff; font-weight: 900;">탑승자 페이지</h3>
 					</div>
 				</div>
 				<!-- end row -->
@@ -80,8 +97,9 @@
 			<!-- end container -->
 		</section>
 		<!-- end section -->
-		
-		
+
+
+
 		<section class="section" style="padding: 20px 0 20px 0;">
 			<div class="container" style="margin-top: 10px; margin-bottom: 10px;">
 				<div class="row">
@@ -89,75 +107,63 @@
 						<div
 							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;">태워드려요
 							회원들의 답변입니다.</div>
-						<div class="">
+						<div>
 							<c:forEach items="${list}" var="c">
 								<hr>
 								<div class="wrapper"
-									style="background-color: #FFF3E2; border-radius: 30px; width:800px; margin: 0 auto;">
+									style="background-color: #FDE2F3; border-radius: 30px; width: 800px; margin: 0 auto;">
 									<div class="head-info"
-										style="text-align: center; background-color: #FFDEB4; padding: 10px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
-										<h3 style=>${c.departureDate }(${c.returnTimeRange })</h3>
-										<h3>탑승인원/모집인원 : ${c.reserved }/${c.capacity }명</h3>
+										style="text-align: center; background-color: #E5BEEC; padding: 10px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+										<div class="main-info"><span style="font-weight:900;">${c.driverName }</span>님이 제공하는 카풀입니다. <br>
+											${c.tripType }, ${c.departureDate }(${c.returnTimeRange }) <br>
+											탑승인원/모집인원 : ${c.reserved }/${c.capacity }명 <br>
+										</div>
 									</div>
-									<c:forEach items="${c.passengerList }" var='p'>
 										<table
-											style="border-collapse: initial; border: 1px solid #FFB4B4; border-top:0; padding: 15px; width: 100%;">
+											style="border-collapse: initial; border: 1px solid #FDE2F3;  border-top: 0; padding: 15px; width: 100%;">
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">아이디</th>
-												<td>${c.driverId }</td>
-											</tr>
-											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">성별</th>
-												<td>${c.driverMaFe }</td>
-											</tr>
-											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">이름</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">이름</th>
 												<td>${c.driverName }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">전화번호</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">성별</th>
+												<td>${c.maleFemale }</td>
+											</tr>
+											<tr class="table-wrapper">
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">전화번호</th>
 												<td>${c.driverPhone }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">이메일</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">이메일</th>
 												<td>${c.driverEmail }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">요청사항</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">요청사항</th>
 												<td>${c.driverMsg }</td>
 											</tr>
 											<tr class="table-wrapper">
-												<th style="padding-right: 40px; width: 200px; text-align: right;">수락상태</th>
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">보드수납</th>
+												<td>${c.boardRoomCapacity }</td>
+											</tr>
+											
+											<tr class="table-wrapper">
+												<th
+													style="padding-right: 40px; width: 200px; text-align: right;">수락상태</th>
 												<td class="matchResultMsg">
-													<c:choose>
-														<c:when test="${p.matchStatus==1}">매칭을 거부하셨습니다.</c:when>
-														<c:when test="${p.matchStatus==2}">매칭을 수락하셨습니다.</c:when>
-													</c:choose>
+												<c:forEach items="${c.passengerList }" var="p">
+													${p.matchResult }
+												</c:forEach>
+												
+												
 												</td>
 											</tr>
-											<tr>	
-												<td colspan="2" style="text-align:right";>
-													<div class="passenger-mng">
-														<div class="decision-wrapper">
-															<input type="hidden" name="matchNo" value="${p.matchNo }">
-															<input type="hidden" id="matchStatus" value="${p.matchStatus }">
-																<c:choose>
-																	<c:when test="${p.matchStatus eq 0 }">
-																			<div class="accepted">매칭이 수락되었습니다.</div>
-																	</c:when>
-																	<c:when test="${p.matchStatus eq 1 }">
-																			<div class="rejected">매칭이 거부되었습니다.</div>
-																	</c:when>
-																	<c:otherwise>
-																			<div class="ing">매칭중입니다.</div>
-																	</c:otherwise>
-																</c:choose>
-														</div>
-													</div>
-												</td>
-											</tr>	
 										</table>
-									</c:forEach>
 								</div>
 							</c:forEach>
 						</div>
@@ -166,15 +172,14 @@
 				<hr>
 			</div>
 			<!-- end row -->
-	</div>
-	<!-- end container -->
-	</section>
-	<!-- end section -->
-		
-		
-		
-		
-			<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+			<!-- end container -->
+		</section>
+		<!-- end section -->
+
+
+
+
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 	<!-- end wrapper -->
 
@@ -187,10 +192,9 @@
 
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
-	
+
 	<script>
-	
-	
-	</script>	
-		</body>
+		
+	</script>
+</body>
 </html>

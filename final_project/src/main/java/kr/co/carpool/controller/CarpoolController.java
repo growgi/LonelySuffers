@@ -86,15 +86,29 @@ public class CarpoolController {
 	
 	//carpoolRequest.jsp에서 '태워주세요' 누르면 passenger 테이블에 insert
 	@RequestMapping(value="/carpoolMatch.do")
-	public String carpoolMatch(int carpoolNo, @SessionAttribute(required = false) Member m ) {
+	public String carpoolMatch(Model model,int carpoolNo, @SessionAttribute(required = false) Member m ) {
 		CarpoolMatch match = new CarpoolMatch();
 		match.setCarpoolNo(carpoolNo);
 		match.setPassengerNo(m.getMemberNo());
 		int result = service.insertPassenger(match);
 		if(result>0) {
-			return "carpool/passengerPage";
+			model.addAttribute("title","카풀 신청 완료");
+			model.addAttribute("msg","카풀 신청을 완료했습니다.");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/passengerPage.do?memberNo="+m.getMemberNo());
+			return "common/msg";
+		}else if(result==0){
+			model.addAttribute("title","카풀 신청 실패");
+			model.addAttribute("msg","카풀 신청을 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/passengerPage.do?memberNo="+m.getMemberNo());
+			return "common/msg";
 		}else {
-			return "carpool/carpoolMain";
+			model.addAttribute("title","카풀 신청 실패");
+			model.addAttribute("msg","이미 신청하셨습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/carpoolRequest.do?carpoolNo="+carpoolNo);
+			return "common/msg";
 		}
 	}
 	//운전자의 내 카풀 리스트 보기!!!
@@ -131,16 +145,16 @@ public class CarpoolController {
 			return "error";
 		}
 	}
-	//capacity가 차면 더 신청 할 수 없도록 -> carpoolMain에도 capacity 뒤에 뜨게 <td>하나 더 넣는다.
-		
-
-		
-	
 	
 	//탑승자의 내 카풀 리스트 보기!!!
 	//탑승자의 카풀 수락, 거절 관리하기
 		@RequestMapping(value="/passengerPage.do")
-		public String mycarpoolPassenger() {
+		public String mycarpoolPassenger(Model model, int memberNo) {
+			System.out.println(memberNo);
+			//Request processing failed; nested exception is java.lang.IllegalStateException: Optional int parameter 'memberNo' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
+			ArrayList<Carpool> list = service.getMyRequests(memberNo);
+			System.out.println("passengerPage.do의 controller: " + list);
+			model.addAttribute("list", list);
 			return "carpool/passengerPage";
 		}
 

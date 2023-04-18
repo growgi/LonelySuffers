@@ -44,6 +44,13 @@
 .load-more:hover {
   background-color: #e6e6e6;
 }
+
+.carpool-wrap>td{
+	padding: 20px;
+	border-bottom: 1px solid #FFB4B4;
+	padding-bottom: 40px;
+}
+
 </style>
 
 <body>
@@ -98,7 +105,7 @@
 						<c:choose>
 							<c:when test="${not empty sessionScope.m }">
 								<p class="category" style="font-weight: 900; font-size: 20px;">
-									<a href="passengerPage.do">태워주세요</a>
+									<a href="/passengerPage.do?memberNo=${sessionScope.m.memberNo }">태워주세요</a>
 								</p>
 							</c:when>
 							<c:otherwise>
@@ -150,13 +157,13 @@
 					<table id="carpoolTable" class="tablesorter" style="border-collapse: initial; padding: 30px;
 						border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
 						<thead>
-							<tr>
-								<th data-sort-method='thead' style="width:15%; ">출발일</th>
-								<th data-sort-method='thead' style="width:10%;">등록일</th>
-								<th data-sort-method='none' style="width:20%;"></th>
-								<th data-sort-method='none' style="width:30%;"></th>
-								<th data-sort-method='none' style="width:10%"></th>
-								<th data-sort-method='none' style="width:10%"></th>
+							<tr style="color: #B2A4FF;">
+								<th data-sort-method='thead' style="width:15%; text-indent: 35px;  line-height: 500%;">출발일</th>
+								<th data-sort-method='thead' style="width:15%;">등록일</th>
+								<th data-sort-method='none' style="width:15%;">출발/도착</th>
+								<th data-sort-method='none' style="width:15%;">도시</th>
+								<th data-sort-method='none' style="width:20%;">상세지역</th>
+								<th data-sort-method='none' style="width:10%">인원</th>
 							</tr>
 						</thead>
 						
@@ -518,31 +525,46 @@
 				 for(let i=0; i<data.length; i++){
 					 	const hr = $("<hr>");
 					 
-			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor","pointer").click(function(){
-			                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
-			            });
+			            const tr = $("<tr>").addClass("carpool-wrap").css("cursor","pointer");
+			            
 			            const td1 = $("<td>").text(data[i].departureDate);
 			            
-			            const td2 = $("<td>").append($("<span>").css("display", "none").text(data[i].regDate))
-			            .append($("<img>").attr("src", "/resources/images/carpool/destination.png").attr("alt", "img").css("width", "45px").css("height", "50px"));
-			            const td3 = $("<td>");
+			            const td2 = $("<td>");
 			            if(data[i].onewayRound == 1){
-			            	 td3.append($("<div>").addClass("row onewayRound").text("편도"))
-					            .append($("<div>").addClass("row region").text(data[i].departureRegion))
-					            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            	 td2.append($("<div>").addClass("row onewayRound").text("편도"))
 			            }else if(data[i].onewayRound == 2){
-			            	 td3.append($("<div>").addClass("row onewayRound").text("왕복"))
-					            .append($("<div>").addClass("row region").text(data[i].departureRegion))
-					            .append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            	 td2.append($("<div>").addClass("row onewayRound").text("왕복"))
 			            }
-			            const td4 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""))
-			            .append($("<div>").addClass("row district").text(data[i].departureDistrict))
-			             .append($("<div>").addClass("row district").text(data[i].arrivalDistrict));
+			            td2.append($("<span>").css("display", "none").text(data[i].regDate)).append($("<img>").attr("src", "/resources/images/carpool/destination.png").attr("alt", "img").css("width", "45px").css("height", "50px"));
+			            
+			            const td3 = $("<td>");
+				            td3.append($("<div>").addClass("row region").text("출발지: "));
+				            td3.append($("<div>").addClass("row region").text("도착지: "));
+			            
+			            const td4 = $("<td>");
+			            if(data[i].onewayRound == 1){
+					            td4.append($("<div>").addClass("row region").text(data[i].departureRegion));
+					            td4.append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            }else if(data[i].onewayRound == 2){
+					            td4.append($("<div>").addClass("row region").text(data[i].departureRegion));
+					            td4.append($("<div>").addClass("row region").text(data[i].arrivalRegion));
+			            }
+			            const td5 = $("<td>");
+			            		td5.append($("<div>").addClass("row district").text(data[i].departureDistrict));
+			             		td5.append($("<div>").addClass("row district").text(data[i].arrivalDistrict));
 	
-			            const td5 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""))
-			            .append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));			            
-			           
-			           	tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+			            const td6 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""));
+			            		td6.append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));			            
+			           	if(data[i].reserved === data[i].capacity){
+			           		tr.click(function(){
+				              alert("정원이 다 찼습니다.");
+				            });
+			           	}else{
+				            tr.click(function(){
+				                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
+				            });
+			           	}
+			           	tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 			            $(".carpoolListWrapper").append(tr);
 			    }
 				 //화면에 추가 완료 시점

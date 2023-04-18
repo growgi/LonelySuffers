@@ -58,9 +58,9 @@
 			<div class="lesson-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="/productListAll.do" style="background-color:#19A7CE; color:#fff">전체</a>
-						<a href="/productListLesson.do">강습</a>
-						<a href="/productListHouse.do">숙박</a>
+						<a href="/productListAll.do?reqPage=1" style="background-color:#19A7CE; color:#fff">전체</a>
+						<a href="/productListLesson.do?reqPage=1">강습</a>
+						<a href="/productListHouse.do?reqPage=1">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<form action="/adminSearchProduct.do" method="get"
@@ -222,7 +222,9 @@
 								</c:otherwise>
 								</c:choose>
 							</table>
-							<div></div>
+							<div id="pageNavi">
+								${pageNavi }
+							</div>
 						</div>
 						<div class="list-bottom">
 							<div>

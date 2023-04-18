@@ -40,6 +40,19 @@ public class HouseController {
 		model.addAttribute("house", h);
 		return "product/houseDetail";
 	}
+	
+
+// 숙박 상품 상세페이지 모달.
+	@ResponseBody
+	@RequestMapping(value="/houseModalView.do", produces = "application/text; charset=utf8")
+	public String houseModalView(int houseNo, Model model) {
+		House h = service.selectOneHouse(houseNo);
+		model.addAttribute("house", h);
+		Gson gson = new Gson();
+		String result = gson.toJson(h);
+		System.out.println("숙박상품페이지 모달 컨트롤러 결과"+result.length());
+		return result;
+	}
 
 
 
@@ -190,6 +203,17 @@ public class HouseController {
 	@ResponseBody
 	@RequestMapping(value="/availableRooms.do", produces = "application/json;charset=utf-8")
 	public String availableRooms(String roomTitle, int roomCapa) {
+		FindRoomByCondition condition = new FindRoomByCondition();
+		condition.setRoomTitle(roomTitle);
+		condition.setRoomCapa(roomCapa);
+		ArrayList<Room> list = service.selectAllAvailableRoom(condition);
+		return new Gson().toJson(list);
+	}
+
+// 하나의 숙박 상품에 대한 객실들 조회.  숙박 상품이 갖고 있는 roomTitle과 roomCapa를 WHERE 조건으로 가져와서 Room 테이블에서 Row 여러개 조회 후 반환
+	@ResponseBody
+	@RequestMapping(value="/availableModalRooms.do", produces = "application/json;charset=utf-8")
+	public String availableModalRooms(String roomTitle, int roomCapa) {
 		FindRoomByCondition condition = new FindRoomByCondition();
 		condition.setRoomTitle(roomTitle);
 		condition.setRoomCapa(roomCapa);

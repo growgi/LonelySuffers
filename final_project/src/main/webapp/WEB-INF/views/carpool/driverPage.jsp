@@ -83,19 +83,35 @@
 						</p>
 					</div>
 					<div class="col-md-2">
-						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="driverPage.do">태워드려요</a>
-						</p>
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="/driverPage.do?driverNo=${sessionScope.m.memberNo }">태워드려요</a>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="#" onclick="alert('로그인하고 이용해주세요.');">태워드려요</a>
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="col-md-2">
-						<p class="category" style="font-weight: 900; font-size: 20px;">
-							<a href="passengerPage.do">태워주세요</a>
-						</p>
+						<c:choose>
+							<c:when test="${not empty sessionScope.m }">
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="/passengerPage.do?memberNo=${sessionScope.m.memberNo }">태워주세요</a>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<p class="category" style="font-weight: 900; font-size: 20px;">
+									<a href="#" onclick="alert('로그인하고 이용해주세요.');">태워주세요</a>
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="menu" style="float: right;">
-						<h3
-							style="color: #1A5F7A; text-shadow: 0 0 2px #fff; font-weight: 900;">운전자
-							페이지</h3>
+						<h3 style="color: #1A5F7A; text-shadow: 0 0 2px #fff; font-weight: 900;">운전자 페이지</h3>
 					</div>
 				</div>
 				<!-- end row -->
@@ -114,6 +130,7 @@
 							신청을 보내온 회원들입니다.</div>
 						<div class="big-wrapper">
 							<c:forEach items="${list}" var="c">
+							<hr>
 								<div class="wrapper"
 									style="background-color: #FFF3E2; border-radius: 30px; width: 800px; margin: 0 auto;">
 									<div class="head-info"
@@ -203,8 +220,7 @@
 										<c:when test="${c.closure eq 2}">
 											<div class="buttons"
 												style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
-												<input type="hidden" name="carpoolNo"
-													value="${c.carpoolNo }">
+												<input type="hidden" name="carpoolNo" value="${c.carpoolNo }">
 												<button type="button"
 													title="이 버튼을 누르면 해당 건은 마감처리되어 더 이상 신청을 받을 수 없습니다."
 													value="1" data-toggle="popover" data-trigger="hover"
@@ -218,13 +234,13 @@
 										<c:when test="${c.closure eq 1}">
 											<div class="buttons"
 												style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
-												<div class="closureMsg" style="font-weight: 900;">마감되었습니다.</div>
+												<div class="closureMsg" style="font-weight: 900;  color: red;">마감되었습니다.</div>
 											</div>
 										</c:when>
 										<c:otherwise>
 											<div class="buttons"
 												style="padding: 20px; background-color: #FFDEB4; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center;">
-												<div class="closureMsg" style="font-weight: 900;">삭제되었습니다.</div>
+												<div class="closureMsg" style="font-weight: 900; color: red;">삭제되었습니다.</div>
 											</div>
 										</c:otherwise>
 									</c:choose>

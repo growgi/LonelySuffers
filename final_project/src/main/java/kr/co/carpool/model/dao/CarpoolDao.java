@@ -1,6 +1,7 @@
 package kr.co.carpool.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -52,9 +53,9 @@ public class CarpoolDao {
 	}
 
 
-	public ArrayList<Carpool> getMyLists(int driverNo) {
+	public ArrayList<Carpool> getMyLists(HashMap<String, Integer> param) {
 		// TODO Auto-generated method stub
-		List list = sqlSession.selectList("carpool.selectMyLists", driverNo);
+		List list = sqlSession.selectList("carpool.selectMyLists", param);
 		System.out.println("dao");
 		System.out.println(list);
 		return (ArrayList<Carpool>)list;
@@ -69,6 +70,30 @@ public class CarpoolDao {
 		int result = sqlSession.update("carpool.updateDriverClosing", carpool);
 		return result;
 	}
+
+	public ArrayList<Carpool> selectMyRequests(int memberNo) {
+		List list = sqlSession.selectList("carpool.selectMyRequests", memberNo);
+		//System.out.println("selectMyRequest Dao의 memberNo: "+memberNo);
+		return (ArrayList<Carpool>)list;
+	}
+
+	public ArrayList<Carpool> selectPassengerList(HashMap<String, Integer> param) {
+		List list = sqlSession.selectList("carpool.selectMyRequests", param);
+		return (ArrayList<Carpool>)list;
+	}
+
+	public int selectPassenger(CarpoolMatch match) {
+		int result = sqlSession.selectOne("carpool.selectPassenger", match);
+		return result;
+	}
+
+	public ArrayList<Passenger> selectPassengerOne(HashMap<String, Integer> param) {
+		List list = sqlSession.selectList("carpool.selectPassengerOne",param);
+		return (ArrayList<Passenger>)list;
+	}
+
+	//탑승자 마이페이지에 보여줄 Passenger 정보를 가져오기위한 Dao
+
 	
 	
 

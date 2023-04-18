@@ -17,9 +17,9 @@
 			<div class="lesson-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="/newProductAll.do">전체</a>
-						<a href="/newProductLesson.do" style="background-color:#ecb534; color:#fff">강습</a>
-						<a href="/newProductHouse.do">숙박</a>
+						<a href="/newProductAll.do?reqPage=1">전체</a>
+						<a href="/newProductLesson.do?reqPage=1" style="background-color:#ecb534; color:#fff">강습</a>
+						<a href="/newProductHouse.do?reqPage=1">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<form action="/adminSearchLesson.do" method="get"
@@ -100,7 +100,9 @@
 								</c:otherwise>
 								</c:choose>
 							</table>
-							<div></div>
+							<div id="pageNavi">
+								${pageNavi }
+							</div>
 						</div>
 						<div class="list-bottom">
 							<div>

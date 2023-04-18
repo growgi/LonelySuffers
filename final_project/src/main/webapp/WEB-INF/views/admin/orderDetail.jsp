@@ -57,7 +57,7 @@
         box-shadow: 1px 2px 2px 2px rgba(231, 231, 231, 0.19), 1px 2px 2px 2px rgba(214, 214, 214, 0.23);
     }
     .product-box{
-        width: 100%;
+        width: 96%;
         padding-bottom: 20px;
         border-bottom: 2px solid rgb(223, 223, 223);
         margin-top: 30px;
@@ -109,7 +109,7 @@
     <div class="orderDetail-wrapper admin-content">
         <div>
             <div class="orderDetail-title">
-                <a href="/salesDetails.do" class="material-symbols-outlined">arrow_back_ios</a>
+                <a href="/salesDetails.do?reqPage=1" class="material-symbols-outlined">arrow_back_ios</a>
                 <div class="bold">주문 상세</div>
             </div>
             <div class="orderDetail-info">
@@ -120,7 +120,7 @@
                 <div class="bold">주문날짜 <span class="order-date">${orderDetailInfo.orderDate }</span></div>
             </div>
             <div class="orderDetail-product">
-                <div class="produtc-count bold">주문상품 <span>${orderDetailCount }</span>개</div>
+                <div class="product-count bold">주문상품 <span>${orderDetailCount }</span>개</div>
                 <div class="orderDetail-product-list">
                 	<c:forEach items="${orderDetailList }" var="od">
                 	<c:choose>
@@ -134,7 +134,7 @@
 	                            <div class="product-img"></div>
 	                            <div>
 	                                <div class="product-info">
-	                                    <div class="product-name bold">${od.lessonNameLevel }</div>
+	                                    <div class="product-name bold">Level ${od.lessonNameLevel }</div>
 	                                    <div><span class="product-start-time">${od.lessonStartTime }</span> ~ <span class="product-end-time">${od.lessonEndTime }</span></div>
 	                                    <div class="product-etc">강사명 : <span class="product-etc-val">${od.lessonTeacher }</span></div>
 	                                </div>
@@ -145,7 +145,7 @@
 	                            </div>
 	                        </div>
                     	</div>
-                		</c:when> 
+                		</c:when>
                 		<c:when test="${od.houseNo ne 0}">
                 		<div class="product-box">
 	                        <div class="product-box-top">
