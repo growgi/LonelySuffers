@@ -100,17 +100,19 @@ public class HouseController {
 
 
 
-// 객실 등록 페이지 roomInsert.jsp를 방문하는 함수.  작성자(숙박 상품 등록자)만 허용됨
-	@RequestMapping(value = "/roomInsert.do")
-	public String roomInsert(int houseNo, HttpSession session, Model model) {
+// 객실 관리 페이지 roomManage.jsp를 방문하는 함수.  작성자(숙박 상품 등록자)만 허용됨
+	@RequestMapping(value = "/roomManage.do")
+	public String roomManage(int houseNo, HttpSession session, Model model) {
 		House h = service.selectOneHouse(houseNo);
 		Member me = (Member)session.getAttribute("m");
 		if(me.getMemberId().equals(h.getWriter())) {
+			ArrayList<Room> list = service.selectAllRoomsByHouseNo(houseNo);
 			model.addAttribute("house", h);
-			return "product/roomInsert";
+			model.addAttribute("rooms", list);
+			return "product/roomManage";
 		}else {
 			model.addAttribute("title","접근 제한됨");
-			model.addAttribute("msg","상품 등록자만이 해당 상품에 대한 객실들을 추가할 수 있습니다.");
+			model.addAttribute("msg","상품 등록자만이 해당 상품에 대한 객실들을 관리할 수 있습니다.");
 			model.addAttribute("icon","error");
 			model.addAttribute("loc","/houseView.do?houseNo="+houseNo);
 			return "common/msg";
@@ -121,15 +123,64 @@ public class HouseController {
 
 // 객실 등록.  Room 테이블에 Row 여러개 추가
 	@RequestMapping(value="/insertRooms.do")
-	public String insertRooms(Room r, HttpSession session) {
+	public String insertRooms(Room r, HttpSession session, Model model) {
 		Member me = (Member)session.getAttribute("m");
 		r.setMemberId(me.getMemberId());
 		int result = service.insertRooms(r);
 		if(result > 0) {
-			return "redirect:/houseView.do?houseNo="+r.getHouseNo();
+			return "redirect:/roomManage.do?houseNo="+r.getHouseNo();
 		}else {
-	// 실패 시 처리내용 작성 필요
-			return "member/myPage";
+			model.addAttribute("title","실패");
+			model.addAttribute("msg","알 수 없는 이유로 인해 객실 등록이 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/roomManage.do?houseNo="+r.getHouseNo());
+			return "common/msg";
+		}
+	}
+
+
+
+// 기존 객실의 이름을 변경하기 전에 중복 검사. roomTitle과 roomName을 WHERE 조건으로 Room 테이블에서 조회 후 count를 반환
+	@ResponseBody
+	@RequestMapping(value="/checkRoomNewName.do")
+	public String checkRoomNewName(String roomTitle, String roomName) {
+		int result = service.checkRoomNewName(roomTitle, roomName);
+		return String.valueOf(result);
+	}
+
+
+// 기존 객실의 이름을 변경하는 함수. Room 테이블에서 update
+	@RequestMapping(value="/renameRoom.do")
+	public String renameRoom(int houseNo, int roomNo, String roomNewName, Model model) {
+		Room r = new Room();
+		r.setRoomNo(roomNo);
+		r.setRoomName(roomNewName);
+		int result = service.updateRoomName(r);
+		if(result > 0) {
+			return "redirect:/roomManage.do?houseNo="+houseNo;
+		}else {
+			model.addAttribute("title","실패");
+			model.addAttribute("msg","알 수 없는 이유로 인해 객실 이름 변경이 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/roomManage.do?houseNo="+houseNo);
+			return "common/msg";
+		}
+	}
+
+
+
+// 모든 객실들의 활성 상태값을 일괄적으로 변경
+	@RequestMapping(value="/updateRoomEnable.do")
+	public String updateRoomEnable(int houseNo, String roomNo, String roomEnable, Model model) {
+		int result = service.updateRoomEnable(roomNo, roomEnable);
+		if(result > 0) {
+			return "redirect:/roomManage.do?houseNo="+houseNo;
+		}else {
+			model.addAttribute("title","실패");
+			model.addAttribute("msg","알 수 없는 이유로 인해 객실 상태 변경이 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/roomManage.do?houseNo="+houseNo);
+			return "common/msg";
 		}
 	}
 

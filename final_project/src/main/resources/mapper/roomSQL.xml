@@ -10,7 +10,7 @@
 		ROOM_TITLE as roomTitle,
 		ROOM_CAPA as roomCapa,
 		ROOM_NAME as roomName
-		FROM ROOM WHERE (ROOM_TITLE = #{roomTitle}) AND (ROOM_CAPA = #{roomCapa}) AND (ROOM_ENABLE = 1)
+		FROM ROOM WHERE (ROOM_TITLE = #{roomTitle}) AND (ROOM_CAPA = #{roomCapa}) AND (ROOM_ENABLE = 1) ORDER BY ROOM_NAME
 	</select>
 
 
@@ -22,13 +22,43 @@
   		<foreach collection="roomNames" item="roomName" open="(" close=")" separator=",">
   			#{roomName}
   		</foreach>
+  		 ORDER BY ROOM_NAME
 	</select>
+
+
+<!-- 특정 houseNo에 대응하는 모든 Row들을 SELECT  -->
+	<select id="selectAllRoomsByHouseNo" parameterType="_int" resultType="r">
+		SELECT
+		ROOM_NO as roomNo,
+		ROOM_NAME as roomName,
+		ROOM_ENABLE as roomEnable,
+		ROOM_DESCRIPTION as roomDescription
+		FROM ROOM WHERE (HOUSE_NO = #{_parameter}) ORDER BY ROOM_NAME
+	</select>
+
+
+<!-- 기존 객실의 이름을 변경하기 전에 중복 검사  -->
+	<select id="checkRoomNewName" parameterType="r" resultType="_int">
+		SELECT COUNT(*) FROM ROOM WHERE (ROOM_TITLE = #{roomTitle}) AND (ROOM_NAME = #{roomName})
+	</select>
+
+
+<!-- 객실 이름 변경 -->
+	<update id="updateRoomName" parameterType="r">
+		UPDATE ROOM SET ROOM_NAME = #{roomName} WHERE ROOM_NO = #{roomNo}
+	</update>
 
 
 <!-- 객실 신규 등록 -->
 	<insert id="insertRoom" parameterType="r">
 		INSERT INTO ROOM VALUES (ROOM_SEQ.NEXTVAL, #{roomTitle}, #{roomCapa}, #{memberId}, #{roomName}, #{roomDescription}, 1, #{houseNo})
 	</insert>
+
+
+<!-- 객실 활성 상태 변경 -->
+	<update id="updateRoomEnable" parameterType="r">
+		UPDATE ROOM SET ROOM_ENABLE = #{roomEnable} WHERE ROOM_NO = #{roomNo}
+	</update>
 
 
 

@@ -1000,15 +1000,6 @@ hr.invis2 {
     margin: 0!important
 }
 
-.panel,
-.panel-body,
-.panel-info {
-    box-shadow: none !important;
-    border: 0 !important;
-    padding: 0 !important;
-    background-color: transparent !important;
-}
-
 .comments .text-success {
     color: #333;
     margin-bottom: 5px;
@@ -2918,11 +2909,6 @@ MISC
 
 .btn {
     border-radius: 500px;
-}
-
-.form-control {
-    box-shadow: none !important;
-    border: 1px solid rgba(255, 255, 255, 0.55);
 }
 
 .contactv2 {

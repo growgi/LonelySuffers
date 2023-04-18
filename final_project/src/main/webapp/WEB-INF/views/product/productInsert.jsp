@@ -19,8 +19,22 @@
 <meta name="author" content="KH정보교육원">
 
 <style>
-.nav-item { background-color: #3ac5c8;}
+.nav-item {
+	width: 50%;
+	background-color: #3ac5c8;
+	text-align: center;
+}
 .nav-link { color: #ffffff; }
+table {
+	margin-top: 20px;
+}
+th, td {
+	height: 60px;
+	text-indent: 15px;
+}
+input[type="number"], input[type="time"] {
+	text-align: right;
+}
 </style>
 </head>
 
@@ -46,158 +60,161 @@
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<div class="card mt-2 tab-card">
-						<div class="row tab-card-header">
-							<ul class="nav nav-tabs card-header-tabs">
-								<li class="nav-item active">
-									<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">강습</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">숙박</a>
-								</li>
-							</ul>
-						</div>
-						<div class="tab-content" id="myTabContent">
-							<div class="tab-pane fade p-2 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
-								<form action="/insertLesson.do" onsubmit="return checkLessonCity();" method="post" enctype="multipart/form-data">
-									<fieldset>
-										<table id="lessonInsertForm">
-											<tr>
-												<th>지역</th>
-												<td>
-													<select name="lessonCity">
-														<option selected disabled>- 광역시/도 -</option>
-														<option value="강원">강원도</option>
-														<option value="경기">경기도</option>
-														<option value="경북">경상북도</option>
-														<option value="경남">경상남도</option>
-														<option value="광주">광주광역시</option>
-														<option value="대구">대구광역시</option>
-														<option value="대전">대전광역시</option>
-														<option value="부산">부산광역시</option>
-														<option value="서울">서울특별시</option>
-														<option value="세종">세종특별자치시</option>
-														<option value="울산">울산광역시</option>
-														<option value="인천">인천광역시</option>
-														<option value="전북">전라북도</option>
-														<option value="전남">전라남도</option>
-														<option value="제주">제주도</option>
-														<option value="충북">충청북도</option>
-														<option value="충남">충청남도</option>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<th>강습 수준</th>
-												<td>
-													<select name="lessonLevel">
-														<option value="1">초급</option>
-														<option value="2">중급</option>
-														<option value="3">상급</option>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<th>상품 제목</th>
-												<td><input type="text" name="lessonTitle" placeholder="한글 최대 20자" required></td>
-											</tr>
-											<tr>
-												<th>강사명</th>
-												<td><input type="text" name="lessonTeacher" placeholder="한글 최대 6자" required></td>
-											</tr>
-											<tr>
-												<th>강습 소요시간<br>(최소 30분, 최대 300분)</th>
-												<td><input type="number" id="lessonTimeLength" name="lessonTimeLength" min="30" max="300" step="5" required>분</td>
-											</tr>
-											<tr>
-												<th>강습시작 시각<br>(이전 강습의 종료시각+10분부터 지정가능<br>최소 오전 6시, 최대 오후 5시)</th>
-												<td id="here"><div><input type="time" name="lessonStartTimes" min="06:00" max="17:00" step="300" pattern="[0-9]{2}:[0-9]{2}" required>
-												<input type="hidden" name="lessonEndTimes"><button type="button" onclick="insertNextLesson(this)">추가</button></div></td>
-											</tr>
-											<tr>
-												<th>상품 가격</th>
-												<td><input type="number" name="lessonPrice" min="0" max="10000000" step="100" required>원</td>
-											</tr>
-											<tr>
-												<th>강습 정원</th>
-												<td><input type="number" name="lessonMaxNo" min="1" max="100" required>명</td>
-											</tr>
-											<tr>
-												<th>상품 사진</th>
-												<td><input type="file" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
-											</tr>
-											<tr>
-												<th>상품 설명</th>
-												<td><textarea name="lessonInfo" placeholder="한글 최대 1000자" required></textarea></td>
-											</tr>
-											<tr>
-												<td colspan="2"><button type="submit">강습 상품 등록 요청</button></td>
-											</tr>
-										</table>
-									</fieldset>
-								</form>
+					<div class="col-md-3"></div>
+					<div class="col-md-6">
+						<div class="card mt-2 tab-card">
+							<div class="row tab-card-header">
+								<ul class="nav nav-tabs card-header-tabs">
+									<li class="nav-item active">
+										<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">강습상품 등록</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">숙박상품 등록</a>
+									</li>
+								</ul>
 							</div>
-							<div class="tab-pane fade p-2" id="two" role="tabpanel" aria-labelledby="two-tab">
-								<form action="/insertHouse.do" method="post" enctype="multipart/form-data">
-									<fieldset>
-										<table id="houseInsertForm">
-											<tr>
-												<th>주소</th>
-												<td><button>주소 입력 api로 작성</button></td>
-											</tr>
-											<tr>
-												<th>숙박소 이름</th>
-												<td><input type="text" name="roomTitle" required></td>
-											</tr>
-											<tr>
-												<th>객실 정원</th>
-												<td><input type="number" name="roomCapa" min="1" max="20" step="1" required>명</td>
-											</tr>
-											<tr>
-												<th>상품 제목</th>
-												<td><input type="text" name="houseTitle" placeholder="한글 최대 20자" required></td>
-											</tr>
-											<tr>
-												<th>상품 가격</th>
-												<td><input type="number" name="housePrice" min="0" max="10000000" step="100" required>원</td>
-											</tr>
-											<tr>
-												<th><label><input type="checkbox" name="houseBarbecue" value="1" style="width: 25px; height: 25px; margin-left: 20px;"> 바베큐</label></th>
-												<td><input type="number" name="houseBarbecuePrice" min="0" max="10000000" step="100" required disabled>원</td>
-											</tr>
-											<tr>
-												<th><label><input type="checkbox" name="houseParty" value="1" style="width: 25px; height: 25px; margin-left: 20px;"> 파티</label></th>
-												<td><input type="number" name="housePartyPrice" min="0" max="10000000" step="100" required disabled>원</td>
-											</tr>
-											<tr>
-												<th>상품 대표사진<br>(최소 0개, 최대 4개)</th>
-												<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
-											</tr>
-											<tr>
-												<th>상품 사진2</th>
-												<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
-											</tr>
-											<tr>
-												<th>상품 사진3</th>
-												<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
-											</tr>
-											<tr>
-												<th>상품 사진4</th>
-												<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
-											</tr>
-											<tr>
-												<th>상품 설명</th>
-												<td><textarea name="houseDescription" placeholder="한글 최대 1000자" required></textarea></td>
-											</tr>
-											<tr>
-												<td colspan="2"><button type="submit">숙박 상품 등록 요청</button></td>
-											</tr>
-										</table>
-									</fieldset>
-								</form>
+							<div class="tab-content" id="myTabContent">
+								<div class="tab-pane fade p-2 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
+									<form action="/insertLesson.do" onsubmit="return checkLessonCity();" method="post" enctype="multipart/form-data">
+										<fieldset>
+											<table class="table-striped" id="lessonInsertForm">
+												<tr>
+													<th width=50%;>지역</th>
+													<td width=50%;>
+														<select name="lessonCity" class="form-control">
+															<option selected disabled>- 광역시/도 -</option>
+															<option value="강원">강원도</option>
+															<option value="경기">경기도</option>
+															<option value="경북">경상북도</option>
+															<option value="경남">경상남도</option>
+															<option value="광주">광주광역시</option>
+															<option value="대구">대구광역시</option>
+															<option value="대전">대전광역시</option>
+															<option value="부산">부산광역시</option>
+															<option value="서울">서울특별시</option>
+															<option value="세종">세종특별자치시</option>
+															<option value="울산">울산광역시</option>
+															<option value="인천">인천광역시</option>
+															<option value="전북">전라북도</option>
+															<option value="전남">전라남도</option>
+															<option value="제주">제주도</option>
+															<option value="충북">충청북도</option>
+															<option value="충남">충청남도</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<th>강습 수준</th>
+													<td>
+														<select name="lessonLevel" class="form-control">
+															<option value="1">초급</option>
+															<option value="2">중급</option>
+															<option value="3">상급</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<th>상품 제목</th>
+													<td><input type="text" class="form-control" name="lessonTitle" placeholder="한글 최대 20자" required></td>
+												</tr>
+												<tr>
+													<th>강사명</th>
+													<td><input type="text" class="form-control" name="lessonTeacher" placeholder="한글 최대 6자" required></td>
+												</tr>
+												<tr>
+													<th>강습 소요시간 (분)</th>
+													<td><input type="number" class="form-control" id="lessonTimeLength" name="lessonTimeLength" placeholder="최소 30분 ~ 최대 300분" min="30" max="300" step="5" required></td>
+												</tr>
+												<tr>
+													<th>강습시작 시각<br><span class="help-block" style="font-size: 12px;">최소 오전 6시, 최대 오후 5시.</span><span class="help-block" style="font-size: 12px;">이전 강습의 종료시각+10분부터 가능</span></th>
+													<td id="here"><div><input type="time" class="form-control" name="lessonStartTimes" min="06:00" max="17:00" step="300" pattern="[0-9]{2}:[0-9]{2}" required>
+													<input type="hidden" name="lessonEndTimes"><button type="button" onclick="insertNextLesson(this)">추가</button></div></td>
+												</tr>
+												<tr>
+													<th>상품 가격 (원)</th>
+													<td><input type="number" class="form-control" name="lessonPrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required></td>
+												</tr>
+												<tr>
+													<th>강습 정원 (명)</th>
+													<td><input type="number" class="form-control" name="lessonMaxNo" min="1" max="100" placeholder="(단위: 명)" required></td>
+												</tr>
+												<tr>
+													<th>상품 사진</th>
+													<td><input type="file" class="form-control" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												</tr>
+												<tr>
+													<th>상품 설명</th>
+													<td><textarea class="form-control" rows="4" name="lessonInfo" placeholder="한글 최대 1000자" required></textarea></td>
+												</tr>
+												<tr>
+													<td colspan="2" style="text-align: center;"><button type="submit" class="btn btn-default">강습상품 등록 요청</button></td>
+												</tr>
+											</table>
+										</fieldset>
+									</form>
+								</div>
+								<div class="tab-pane fade p-2" id="two" role="tabpanel" aria-labelledby="two-tab">
+									<form action="/insertHouse.do" method="post" enctype="multipart/form-data">
+										<fieldset>
+											<table class="table-striped" id="houseInsertForm">
+												<tr>
+													<th width=50%;>주소</th>
+													<td width=50%;><button>주소 입력 api로 작성</button></td>
+												</tr>
+												<tr>
+													<th>숙박소 이름</th>
+													<td><input type="text" class="form-control" name="roomTitle" required></td>
+												</tr>
+												<tr>
+													<th>객실 정원 (명)</th>
+													<td><input type="number" class="form-control" name="roomCapa" min="1" max="20" step="1" placeholder="(단위: 명)" required></td>
+												</tr>
+												<tr>
+													<th>상품 제목</th>
+													<td><input type="text" class="form-control" name="houseTitle" placeholder="한글 최대 20자" required></td>
+												</tr>
+												<tr>
+													<th>상품 가격 (원)</th>
+													<td><input type="number" class="form-control" name="housePrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required></td>
+												</tr>
+												<tr>
+													<th><label><input type="checkbox" name="houseBarbecue" value="1" style="width: 25px; height: 25px; margin-left: -15px; vertical-align: bottom;"> 바베큐</label></th>
+													<td><input type="number" class="form-control" name="houseBarbecuePrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required disabled></td>
+												</tr>
+												<tr>
+													<th><label><input type="checkbox" name="houseParty" value="1" style="width: 25px; height: 25px; margin-left: -15px; vertical-align: bottom;"> 파티</label></th>
+													<td><input type="number" class="form-control" name="housePartyPrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required disabled></td>
+												</tr>
+												<tr>
+													<th>상품 사진1</th>
+													<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												</tr>
+												<tr>
+													<th>상품 사진2</th>
+													<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												</tr>
+												<tr>
+													<th>상품 사진3</th>
+													<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												</tr>
+												<tr>
+													<th>상품 사진4</th>
+													<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+												</tr>
+												<tr>
+													<th>상품 설명</th>
+													<td><textarea class="form-control" rows="4" name="houseDescription" class="form-control" placeholder="한글 최대 1000자" required></textarea></td>
+												</tr>
+												<tr>
+													<td colspan="2" style="text-align: center;"><button type="submit" class="btn btn-default">숙박상품 등록 요청</button></td>
+												</tr>
+											</table>
+										</fieldset>
+									</form>
+								</div>
 							</div>
 						</div>
-					</div>
+					</div><!-- end col -->
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->
@@ -267,6 +284,7 @@
 
 				const startInput = $("<input>");
 				startInput.attr("type", "time");
+				startInput.attr("class", "form-control");
 				startInput.attr("name", "lessonStartTimes");
 				startInput.attr("min", nextMin);
 				startInput.attr("max", "17:00");

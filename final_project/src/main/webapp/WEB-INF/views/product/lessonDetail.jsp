@@ -86,6 +86,7 @@
 
 					<div class="col-md-6 product-detail">
 							<p>${lesson.lessonTeacher } 강사</p>
+							<hr>
 							<div class="row">
 								<h1 style="padding-bottom: 40px;">${lesson.lessonTitle }</h1>
 								<input type="hidden" name="lessonPrice" value="${lesson.lessonPrice }">
@@ -196,7 +197,7 @@
 						</div>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
-								상품 설명 div</div>
+								${lesson.lessonInfo }</div>
 							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
 								상품 평 div</div>
 							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
@@ -204,7 +205,9 @@
 						</div>
 					</div>
 					<div class="col-md-3">
-					광고 등 배너 영역 column
+						<div class="panel panel-default">
+							<div class="panel-body" style="height: 600px; overflow: clip">광고 등 배너 영역<br>높이 600px을 넘는 사진은 종횡비는 고정하되 아래쪽을 잘라서 출력됨</div>
+						</div>
 					</div>
 				</div><!-- end row -->
 			</div><!-- end container -->
