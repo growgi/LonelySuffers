@@ -217,3 +217,27 @@ input[type=radio]{
         border-color: rgba(255, 255, 255, .15);
       }
     
+
+      .customEmailCode {
+        display: block;
+        width: 100%;
+        margin: 2em auto;
+        border: none;
+        outline: none;
+        padding: 0 !important;
+        padding-bottom: 5px !important;
+        width: calc(8 * (1ch + 0.7ch));
+        background: repeating-linear-gradient(90deg, 
+            dimgrey 0, dimgrey 1ch, 
+            transparent 0, transparent 1.7ch) 
+            0 100%/ calc(8 * (1ch + 0.7ch) - 0.7ch) 2px no-repeat;
+        font: 5ch droid sans mono, consolas, monospace;
+        letter-spacing: 0.7ch;
+        
+        :focus {
+            outline: none;
+            color: dodgerblue;
+        }
+    }
+
+    

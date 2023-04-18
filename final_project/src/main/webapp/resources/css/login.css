@@ -14,15 +14,19 @@
 }
 
 .main{
-    margin: 0 auto;
+    box-sizing: border-box;
     width: 500px;
-    border: 1px solid black;
+    margin: 0px auto ;
+    box-shadow: 3px 3px 8px 3px rgba(0,0,0,0.5);
+    padding-bottom: 40px;
+    border-radius: 3px;
 
 }
 .content-top>.waveEffectWord-back,.content-top>.waveEffectWord-front{
     width: 500px;
     margin: 0 auto;
     text-align: center;
+    
 }
 
 .content-top{
@@ -155,6 +159,7 @@ input[type=submit]{
     .findMemberPwForm>div>input:focus ~ span, .findMemberPwForm>div>input:valid ~ span {
         width: 100%;
     }
+
 
     .customInput>div {
         position: relative;

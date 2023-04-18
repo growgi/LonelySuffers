@@ -57,12 +57,12 @@
 					</form>
 				</div>
 			</div>
-		</div>
 		<div class="main-bottom">
 				<a id="findIdBtn">아이디 찾기</a>
 				<a id="findPwBtn" data-target="#findPw">비밀번호 찾기</a>
 				<a href="/joinMemberFrm.do" id="joinMember">회원가입</a>
 			</div>
+		</div>
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->
