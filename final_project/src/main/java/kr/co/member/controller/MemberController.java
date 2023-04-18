@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
+import kr.co.member.model.vo.WishList;
 
 @Controller
 public class MemberController {
@@ -150,14 +151,14 @@ public class MemberController {
 	public String sellerApplication(int memberNo,Model model) {
 		int result = service.sellerApplication(memberNo); 
 		if(result == 0) {
-			model.addAttribute("title","판매자 신청 취소 실패");
-			model.addAttribute("msg","판매자 신청 취소에 실패했습니다.");
+			model.addAttribute("title","판매자 신청 실패");
+			model.addAttribute("msg","판매자 신청에 실패했습니다.");
 			model.addAttribute("icon","error");
 			model.addAttribute("loc","/myPage.do");
 			return "common/msg";
 		}else {
-			model.addAttribute("title","판매자 신청 취소 성공");
-			model.addAttribute("msg","판매자 신청을 취소했습니다.");
+			model.addAttribute("title","판매자 신청 성공");
+			model.addAttribute("msg","판매자 신청을 완료했습니다.");
 			model.addAttribute("icon","success");
 			model.addAttribute("loc","/myPage.do");
 			return "common/msg";
@@ -209,22 +210,89 @@ public class MemberController {
 			return "common/msg";
 		}
 	}
+	
+	@RequestMapping(value =  "/findMemberPw.do")
+	public String findMemberPw(Member m,Model model) {
+		Member member = service.selectOneMember(m);
+		if(member != null) {
+			String memberPw = mailSender.sendPw(member.getMemberEmail());
+			System.out.println("memberPw : "+memberPw);
+			if(memberPw != null) {
+				member.setMemberPw(memberPw);
+				int result = service.updatePwMember(member);
+				if(result != 0) {
+					model.addAttribute("title","임시비밀번호 전송완료");
+					model.addAttribute("msg","해당 이메일로 임시비밀번호를 전송했습니다.");
+					model.addAttribute("icon","success");
+					model.addAttribute("loc","/loginFrm.do");
+					return "common/msg";
+				}
+				
+			}
+		}
+		model.addAttribute("title","임시비밀번호 전송실패");
+		model.addAttribute("msg","해당 이메일로 임시 비밀번호전송에 실패했습니다.");
+		model.addAttribute("icon","error");
+		model.addAttribute("loc","/loginFrm.do");
+		return "common/msg";
+	}
 
 
 // 상품 등록 페이지 productInsert.jsp를 방문하는 함수.  판매자(grade 2)만 허용됨
 	@RequestMapping(value = "/productInsert.do")
 	public String productInsert(HttpSession session, Model model) {
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberGrade()==2) {
-			return "product/productInsert";
+		if(me != null) {
+			if(me.getMemberGrade()==2) {
+				return "product/productInsert";
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","판매자만 사용할 수 있는 기능입니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/myPage.do");
+				return "common/msg";
+			}
 		}else {
 			model.addAttribute("title","접근 제한됨");
-			model.addAttribute("msg","판매자만 사용할 수 있는 기능입니다.");
+			model.addAttribute("msg","로그인을 해주십시오.");
 			model.addAttribute("icon","error");
-			model.addAttribute("loc","/myPage.do");
+			model.addAttribute("loc","/loginFrm.do");
 			return "common/msg";
 		}
 	}
+	
+	
 
+
+
+// 관심상품 등록
+	@ResponseBody
+	@RequestMapping(value="/insertWishList.do", produces = "application/json;charset=utf-8")
+	public String insertWishList(HttpSession session, int house_no, int lesson_no) {
+		String message = "";
+		Member me = (Member)session.getAttribute("m");
+		if(me == null) {
+			message = "로그인이 필요합니다.";
+		}else {
+			if(me.getMemberGrade()!=3) {
+				message = "일반회원 로그인이 필요합니다.";
+			}else {
+				WishList w = new WishList();
+				w.setMemberId(me.getMemberId());
+				w.setHouse_no(house_no);
+				w.setLesson_no(lesson_no);
+				message = service.selectMyWishlist(w);
+				if(message.equals("ok")) {
+					int result = service.insertMyWishlist(w);
+					if(result > 0) {
+						message = "관심상품에 등록했습니다.";
+					}else {
+						message = "알 수 없는 이유로 관심상품 등록에 실패했습니다.";
+					}
+				}
+			}
+		}
+		return message;
+	}
 
 }

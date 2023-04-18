@@ -97,3 +97,5 @@ function enterkey() {
 $(".search-icon").on("click",function(){
     $(".search-bar").submit();
 });
+
+

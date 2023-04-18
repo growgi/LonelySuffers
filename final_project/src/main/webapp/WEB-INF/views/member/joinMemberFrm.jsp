@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <link rel="stylesheet" href="/resources/css/joinMember.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200" />
 
 <head>
 <!-- Basic -->
@@ -40,22 +41,41 @@
 				<div class="row">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="content">
-						<form action="/joinMember.do" autocomplete="off" method="post" >
-							<label for="memberId">아이디</label><button type="button" name="idChk">중복체크</button><br>
-							<input type="text" name="memberId" id="memberId" class="longinput" required placeholder="아이디"><br>
-							<span id="idChkSpan"></span><br>
-							<label for="memberPw">비밀번호</label><br>
-							<input type="password" name="memberPw" id="memberPw" class="longinput" required placeholder="비밀번호"><br><br>
-							<label for="memberPwRe">비밀번호 확인</label><br>
-							<input type="password" name="memberPwRe" id="memberPwRe" class="longinput" required placeholder="비밀번호 확인"><br>
-							<span id="pwChkSpan"></span><br>
-							<label for="memberName">이름</label><br>
-							<input type="text" name="memberName" id="memberName" class="longinput" required placeholder="이름"><br><br>
-							<label for="memberPhone">전화번호</label><br>
-							<input type="text" name="memberPhone" id="memberPhone" class="longinput" required placeholder="010-0000-0000"><br><br>
-							<label for="email1">이메일</label><br>
-							<input type="text" name="email1" class="email1" id="email1"><span>@</span><input type="text" class="email2" name="email2" id="email2"><select class="emailSelect">
-								<option value="">직접입력</option>
+						<form action="/joinMember.do" autocomplete="off" method="post" class="customInput">
+							<div>
+							<input type="text" name="memberId" id="memberId" class="longinput" required><button type="button" name="idChk">중복체크</button>
+							<label for="memberId">아이디</label>
+							<span></span>
+							</div>
+							<div>
+							<input type="password" name="memberPw" id="memberPw" class="longinput" required>
+							<label for="memberPw">비밀번호</label>
+							<span></span>
+							</div>
+							<div>
+							<input type="password" name="memberPwRe" id="memberPwRe" class="longinput" required>
+							<label for="memberPwRe">비밀번호 확인</label>
+							<span></span>
+							</div>
+							<span id="pwChkSpan"></span>
+							<div>
+							<input type="text" name="memberName" id="memberName" class="longinput" required>
+							<label for="memberName">이름</label>
+							<span></span>
+							</div>
+							<div>
+							<input type="text" name="memberPhone" id="memberPhone" class="longinput" required>
+							<label for="memberPhone">전화번호</label>
+							<span></span>
+							</div>
+							<div class="customShort">
+							<input type="text" name="email1" class="email1 customShortInput " id="email1" required>
+							<label for="email1">이메일</label>
+							<span></span>
+							<p>@</p>
+							<input type="text" class="email2" name="email2" id="email2">
+							<select class="emailSelect">
+								<option value="" selected>직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="nate.com">nate.com</option>
 								<option value="daum.net">daum.net</option>
@@ -63,15 +83,18 @@
 								<option value="hanmail.net">hanmail.net</option>
 							</select>
 							<button type="button" name="emailChk" id="myBtn">이메일인증</button>
+							</div>
 							<input type="hidden" class="emailChk" value="0">
 							<input type="hidden" name="memberEmail">
-							<br><br>
 							<label>성별</label><br>
-							<label for="m" class="memberGender">남성</label><label for="f" class="memberGender">여성</label>
+							<label for="m" class="memberGender"><span class="material-symbols-outlined">man</span></label>
+							<label for="f" class="memberGender"><span class="material-symbols-outlined">woman</span></label>
 							<input type="radio" name="memberGender" id="m" value = 1>
 							<input type="radio" name="memberGender" id="f" value = 2><br><br>
+							<div class="joinBtn">
+							<button type="reset">취소</button>
 							<button type="submit" onclick="return notsubmit();">가입</button> 
-							
+							</div>
 							
 	
 						</form>
@@ -119,9 +142,12 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
         	<div class="notUseId">
-        	<div class="form-group">
+        	<div class="form-group customInput">
+        		<div>
+              <input type="text" class="form-control" id="notUseIdInput" required>
               <label for="notUseIdInput">아이디</label>
-              <input type="text" class="form-control" id="notUseIdInput" readonly >
+			  <span></span>        		
+        	 </div>
               <span>사용 가능한 아이디 입니다</span>
               <button type="button" class="btn btn-success btn-block successId"><span class="glyphicon glyphicon-off"></span> 사용하기</button>
             </div>

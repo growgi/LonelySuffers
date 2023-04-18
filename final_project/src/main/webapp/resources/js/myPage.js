@@ -85,3 +85,8 @@ $('.dropMember').on('click',function(){
     }
 });
 
+$('.email2').on('focusin',function(){
+    if($(this).val() != ''){
+        $(this).css('border-bottom','2px');
+    }
+})

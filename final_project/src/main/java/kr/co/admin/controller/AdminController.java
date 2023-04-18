@@ -9,7 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.admin.model.vo.HousePageData;
+import kr.co.admin.model.vo.LessonPageData;
+import kr.co.admin.model.vo.MemberPageData;
+import kr.co.admin.model.vo.OrderPageData;
 import kr.co.admin.model.vo.Product;
+import kr.co.admin.model.vo.ProductPageData;
 import kr.co.admin.model.vo.Search;
 import kr.co.chat.model.service.ChatService;
 import kr.co.chat.model.vo.ChatActive;
@@ -30,12 +35,15 @@ public class AdminController {
 	
 	/**1. 회원목록*/
 	@RequestMapping(value="/memberList.do")
-	public String memberList(Model model) {
-		ArrayList<Member> memberList = service.selectAllMember();
+	public String memberList(int reqPage, Model model) {
+		MemberPageData mpd = service.selectAllMember(reqPage);
 		int memberCount = service.selectMemberCount(); //전체 사용자 수
 		
-		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberList", mpd.getMemberList());
+		model.addAttribute("pageNavi", mpd.getPageNavi());
+		model.addAttribute("start", mpd.getStart());
 		model.addAttribute("memberCount", memberCount);
+		
 		return "admin/memberList";
 	}
 	
@@ -97,11 +105,13 @@ public class AdminController {
 	
 	/**2. 판매자 신청 회원 목록*/
 	@RequestMapping(value="/sellerApplicationList.do")
-	public String sellerApplicationList(Model model) {
-		ArrayList<Member> sellerAppList = service.selectAllSellerApplication();
+	public String sellerApplicationList(int reqPage, Model model) {
+		MemberPageData mpd = service.selectAllSellerApplication(reqPage);
 		int sellerAppCount = service.selectSellerAppCount();
 		
-		model.addAttribute("sellerAppList", sellerAppList);
+		model.addAttribute("sellerAppList", mpd.getMemberList());
+		model.addAttribute("pageNavi", mpd.getPageNavi());
+		model.addAttribute("start", mpd.getStart());
 		model.addAttribute("sellerAppCount", sellerAppCount);
 		
 		return "admin/sellerApplicationList";
@@ -139,33 +149,39 @@ public class AdminController {
 	
 	/**3. 신규 상품 승인*/
 	@RequestMapping(value="/newProductAll.do")
-	public String newProductAll(Model model) {
-		ArrayList<Product> productList = service.selectAllNewProduct(); //신규 전체 상품 목록
+	public String newProductAll(int reqPage, Model model) {
+		ProductPageData ppd = service.selectAllNewProduct(reqPage); //신규 전체 상품 목록
 		int newProductCount = service.selectNewProductCount(); //신규 강습 상품 수
 		
-		model.addAttribute("productList", productList);
+		model.addAttribute("productList", ppd.getProductList());
+		model.addAttribute("pageNavi", ppd.getPageNavi());
+		model.addAttribute("start", ppd.getStart());
 		model.addAttribute("newProductCount", newProductCount);
 		
 		return "admin/newProductAll";
 	}
 	
 	@RequestMapping(value="/newProductLesson.do")
-	public String newProductLesson(Model model) {
-		ArrayList<Lesson> lessonList = service.selectNewLesson(); //신규 강습 상품 목록
+	public String newProductLesson(int reqPage, Model model) {
+		LessonPageData lpd = service.selectNewLesson(reqPage); //신규 강습 상품 목록
 		int newLessonCount = service.selectNewLessonCount(); //신규 강습 상품 수
 		
-		model.addAttribute("lessonList", lessonList);
+		model.addAttribute("lessonList", lpd.getLessonList());
+		model.addAttribute("pageNavi", lpd.getPageNavi());
+		model.addAttribute("start", lpd.getStart());
 		model.addAttribute("newLessonCount", newLessonCount);
 		
 		return "admin/newProductLesson";
 	}
 	
 	@RequestMapping(value="/newProductHouse.do")
-	public String newProductHouse(Model model) {
-		ArrayList<House> houseList = service.selectNewHouse(); //신규 숙박 상품 목록
+	public String newProductHouse(int reqPage, Model model) {
+		HousePageData hpd = service.selectNewHouse(reqPage); //신규 숙박 상품 목록
 		int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
 		
-		model.addAttribute("houseList", houseList);
+		model.addAttribute("houseList", hpd.getHouseList());
+		model.addAttribute("pageNavi", hpd.getPageNavi());
+		model.addAttribute("start", hpd.getStart());
 		model.addAttribute("newHouseCount", newHouseCount);
 		
 		return "admin/newProductHouse";
@@ -309,14 +325,14 @@ public class AdminController {
 
 	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productListAll.do")
-	public String productListAll(Model model) {
-		ArrayList<Product> productList = service.selectAllProduct(); //모든 상품 목록
-		int productCount = service.selectLessonCount() + service.selectHouseCount(); //모든 상품 수
+	public String productListAll(int reqPage, Model model) {
+		ProductPageData ppd = service.selectAllProduct(reqPage); //모든 상품 목록
+		int productCount = service.selectAllProductCount(); //모든 상품 수
 		
-		System.out.println(productList);
-		
-		if(productList != null) {	
-			model.addAttribute("productList", productList);
+		if(ppd != null) {	
+			model.addAttribute("productList", ppd.getProductList());
+			model.addAttribute("pageNavi", ppd.getPageNavi());
+			model.addAttribute("start", ppd.getStart());
 			model.addAttribute("productCount", productCount);
 			
 			return "admin/productListAll";
@@ -326,12 +342,14 @@ public class AdminController {
 		
 	}
 	@RequestMapping(value="/productListLesson.do")
-	public String productListLesson(Model model) {
-		ArrayList<Lesson> lessonList = service.selectAllLesson(); //강습 상품 목록
+	public String productListLesson(int reqPage, Model model) {
+		LessonPageData lpd = service.selectAllLesson(reqPage); //강습 상품 목록
 		int lessonCount = service.selectLessonCount(); //강습 상품 수
 		
-		if(lessonList != null) {	
-			model.addAttribute("lessonList", lessonList);
+		if(lpd != null) {	
+			model.addAttribute("lessonList", lpd.getLessonList());
+			model.addAttribute("pageNavi", lpd.getPageNavi());
+			model.addAttribute("start", lpd.getStart());
 			model.addAttribute("lessonCount", lessonCount);
 			
 			return "admin/productListLesson";
@@ -342,12 +360,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/productListHouse.do")
-	public String productListHouse(Model model) {
-		ArrayList<House> houseList = service.selectAllHouse(); //숙박 상품 목록
+	public String productListHouse(int reqPage, Model model) {
+		HousePageData hpd = service.selectAllHouse(reqPage); //숙박 상품 목록
 		int houseCount = service.selectHouseCount(); //숙박 상품 수
 		
-		if(houseList != null) {	
-			model.addAttribute("houseList", houseList);
+		if(hpd != null) {	
+			model.addAttribute("houseList", hpd.getHouseList());
+			model.addAttribute("pageNavi", hpd.getPageNavi());
+			model.addAttribute("start", hpd.getStart());
 			model.addAttribute("houseCount", houseCount);
 			
 			return "admin/productListHouse";
@@ -397,11 +417,13 @@ public class AdminController {
 	
 	/**5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
-	public String salesDetails(Model model) {
-		ArrayList<Order> orderList = service.selectAllOrder();
+	public String salesDetails(int reqPage, Model model) {
+		OrderPageData opd = service.selectAllOrder(reqPage);
 		int orderCount = service.selectOrderCount();
 		
-		model.addAttribute("orderList", orderList);
+		model.addAttribute("orderList", opd.getOrderList());
+		model.addAttribute("pageNavi", opd.getPageNavi());
+		model.addAttribute("start", opd.getStart());
 		model.addAttribute("orderCount", orderCount);
 		
 		return "admin/salesDetails";

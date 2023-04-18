@@ -170,15 +170,14 @@ th:first-child, td:first-child{
 
 }
 
-table{
+.list-top>table{
     width: 100%;
     table-layout: fixed;
     text-align: center;
     border-spacing: 0;
-
+    margin-bottom: 25px;
 }
 table th{
-    font-size: 18px;
     background-color: #F6F1F1;
     color: #333536;
 }

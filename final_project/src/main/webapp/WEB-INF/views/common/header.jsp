@@ -20,8 +20,8 @@
 
 
 <!-- 프레임워크에서 제공해준 CSS들은 임의 수정 금지 -->
-<link rel="stylesheet" href="resources/css/font-awesome.css">			<!--  font awesome CSS -->
-<link rel="stylesheet" href="resources/css/bootstrap.css">			<!-- 부트스트랩 제공 CSS -->
+<link rel="stylesheet" href="resources/css/font-awesome.css">			<!-- font awesome CSS -->
+<link rel="stylesheet" href="resources/css/bootstrap.css">				<!-- 부트스트랩 제공 CSS -->
 <link rel="stylesheet" href="resources/css/animate.css">				<!-- 애니메이션 효과용 CSS -->
 <link rel="stylesheet" href="resources/css/carousel.css">				<!-- 캐러셀용 CSS -->	
 
@@ -73,7 +73,7 @@
 <!-- 상단 메뉴바  영역 시작 -->
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="index.html">홈</a></li>
+						<li class="active"><a href="index.jsp">홈</a></li>
 						<li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">드롭다운메뉴 <span class="fa fa-angle-down"></span></a>
 							<ul class="dropdown-menu">
 								<li>
@@ -95,7 +95,7 @@
 											<div class="col-md-4">
 												<ul>
 													<li><a href="page-services.html">All Services</a></li>
-													<li><a href="page-pricing.html">Pricing & Plans</a></li>
+													<li><a href="/productInsert.do">상품 등록 페이지</a></li>
 													<li><a href="page-clients.html">Our Clients</a></li>
 													<li><a href="page-testimonials.html">Testimonials</a></li>
 													<li><a href="page-ebooks.html">Free E-Books</a></li>
@@ -108,7 +108,7 @@
 											<div class="col-md-4">
 												<ul>
 													<li><a href="blog.html">Blog & News</a></li>
-													<li><a href="productDetail.jsp">상품페이지</a></li>
+													<li><a href="/lessonView.do?lessonNo=">강습 상품 페이지</a></li>
 													<li><a href="/houseView.do?houseNo=">숙박 상품 페이지</a></li>
 													<li><a href="page.html">Default Page</a></li>
 													<li><a href="page-fullwidth.html">Fullwidth Page</a></li>

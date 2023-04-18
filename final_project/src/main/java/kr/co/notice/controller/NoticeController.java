@@ -126,6 +126,11 @@ public class NoticeController {
 	public String company() {
 		return "company/company";
 	}
+
+	@RequestMapping(value="/credit.do")
+	public String credit() {
+		return "company/credit";
+	}
 	
 	@RequestMapping(value="/searchNoticeTitle.do")
 	public String searchNoticeTitle(String searchNtTitle, Model model) {

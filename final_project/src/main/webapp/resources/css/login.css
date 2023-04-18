@@ -36,19 +36,18 @@
     text-align: center;
     padding-bottom: 50px;
     border-top: none;
+    margin-left: 50px;
+    margin-right: 50px;
 
 }
 
-#memberId,#memberPw{
-    height: 40px;
-    width: 300px;
-}
 
 input[type=submit]{
-    margin-top: 100px;
-    width: 400px;
+    margin-top: 20px;
+    width: 398px;
     height: 40px;
     border: none;
+    transition: all .2s;
 }
 
 .main-bottom{
@@ -65,12 +64,15 @@ input[type=submit]{
     margin: 10px;
 }
 
+#findMemberName,#findMemberEmail{
+    width: 498px;
+}
 #joinMember{
     margin: 10px;
 
 }
 
-.modal-header, h4, .close {
+.modal-header,.modal-header>h4,  .close {
     background-color: #5cb85c;
     color:white !important;
     text-align: center;
@@ -88,3 +90,181 @@ input[type=submit]{
     .loginBtn{
         width: 80%;
     }
+
+    .findMemberPwForm>div {
+        position: relative;
+        width: 300px;
+        margin-left: 20px;
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .findMemberPwForm>div>input {
+        font-size: 15px;
+        color: #222222;
+        width: 300px;
+        border: none;
+        border-radius: 0px;
+        border-bottom: solid #aaaaaa 1px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        position: relative;
+        background: none;
+        z-index: 5;
+    }
+    
+    .findMemberPwForm>div>input::placeholder { color: #aaaaaa; }
+
+    .findMemberPwForm>div>input:focus { outline: none; }
+    
+    .findMemberPwForm>div>span {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0%;  /* right로만 바꿔주면 오 - 왼 */
+        background-color: #666;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        transition: 0.5s;
+    }
+    
+    .findMemberPwForm>div>label {
+        position: absolute;
+        color: #aaa;
+        left: 10px;
+        font-size: 20px;
+        bottom: 8px;
+        transition: all .2s;
+    }
+    
+    .findMemberPwForm>div>input:focus ~ label, .findMemberPwForm>div>input:valid ~ label {
+        font-size: 16px;
+        bottom: 40px;
+        color: #666;
+        font-weight: bold;
+    }
+    
+    .findMemberPwForm>div>input:focus ~ span, .findMemberPwForm>div>input:valid ~ span {
+        width: 100%;
+    }
+
+    .customInput>div {
+        position: relative;
+        width: 398px;
+        margin-left: 0px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+    
+    .customInput>div>input {
+        font-size: 15px;
+        color: #222222;
+        width: 398px;
+        border: none;
+        border-bottom: solid #aaaaaa 1px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        position: relative;
+        background: none;
+        z-index: 5;
+    }
+    
+    .customInput>div>input::placeholder { color: #aaaaaa; }
+    
+    .customInput>div>input:focus { outline: none; }
+    
+    .customInput>div>span {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0%;  /* right로만 바꿔주면 오 - 왼 */
+        background-color: #666;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        transition: 0.5s;
+    }
+    
+    .customInput>div>label {
+        position: absolute;
+        color: #aaa;
+        left: 10px;
+        font-size: 20px;
+        bottom: 8px;
+        transition: all .2s;
+    }
+    
+    .customInput>div>input:focus ~ label, .customInput>div>input:valid ~ label {
+        font-size: 16px;
+        bottom: 40px;
+        color: #666;
+        font-weight: bold;
+    }
+    
+    .customInput>div>input:focus ~ span, .customInput>div>input:valid ~ span {
+        width: 100%;
+    }
+
+   .customInputLong>div {
+    position: relative;
+    width: 498px;
+    margin-left: 0px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.customInputLong>div>input {
+    font-size: 15px;
+    color: #222222;
+    width: 498px;
+    border: none;
+    border-bottom: solid #aaaaaa 1px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    position: relative;
+    background: none;
+    z-index: 5;
+}
+
+.customInputLong>div>input::placeholder { color: #aaaaaa; }
+
+.customInputLong>div>input:focus { outline: none; }
+
+.customInputLong>div>span {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0%;  /* right로만 바꿔주면 오 - 왼 */
+    background-color: #666;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    transition: 0.5s;
+}
+
+.customInputLong>div>label {
+    position: absolute;
+    color: #aaa;
+    left: 10px;
+    font-size: 20px;
+    bottom: 8px;
+    transition: all .2s;
+}
+
+.customInputLong>div>input:focus ~ label, .customInputLong>div>input:valid ~ label {
+    font-size: 16px;
+    bottom: 40px;
+    color: #666;
+    font-weight: bold;
+}
+
+.customInputLong>div>input:focus ~ span, .customInputLong>div>input:valid ~ span {
+    width: 100%;
+}
+
+#findPwBtn{
+    cursor: pointer;
+}
+
+  

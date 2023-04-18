@@ -14,19 +14,31 @@ input[type=radio]{
     display: none;
 }
 
-.memberGender{
-    width: 100px;
-    height: 40px;
-    border: 1px solid black;
-    background-color: rgb(248, 248, 226);
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-    font-size: 1.05em;
+#pwChkSpan{
+        color : red;
 }
 
-.genderClick{
-    background-color: rgb(193, 193, 196);
+.memberGender{
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;
+}
+.memberGender>.material-symbols-outlined{
+    transition: all 0.5s;
+ font-size: 60px;
+ color : #aaaaaa;
+}
+
+.memberGender>.material-symbols-outlined:hover{
+ color : #666666;
+
+}
+
+.genderClick>.material-symbols-outlined{
+    color : #222222;
+    /* background-color: #666; */
 }
 
 .modal-header, h4, .close {
@@ -45,4 +57,147 @@ input[type=radio]{
         margin: 0 auto;
         border: 0.3px solid black;
         box-shadow: 5px 3px 3px #303135;
+    }
+
+    .customInput > div {
+        position: relative;
+        margin-left: 0px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        display: flex; /* 요소를 수평으로 배치할 수 있게 합니다. */
+        align-items: center; /* 요소들을 수직 방향으로 정렬합니다. */
+    }
+    
+    .customInput > div > input {
+        font-size: 15px;
+        color: #222222;
+        width: 300px;
+        border: none;
+        border-bottom: solid #aaaaaa 1px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        position: relative;
+        background: none;
+        z-index: 5;
+        margin-right: 10px; /* input과 button 사이의 간격 조절 */
+    }
+    
+    .customInput > div > button ,.joinBtn>button{
+        font-size: 15px;
+        color: #fff;
+        background-color: #333;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        
+    }
+    
+    .customInput > div > input::placeholder { color: #aaaaaa; }
+    
+    .customInput > div > input:focus { outline: none; }
+    
+    .customInput > div > span {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0%;
+        background-color: #666;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        transition: 0.5s;
+    }
+    
+    .customInput > div > label {
+        position: absolute;
+        color: #aaa;
+        left: 10px;
+        font-size: 20px;
+        bottom: 8px;
+        transition: all .2s;
+    }
+    
+    .customInput > div > input:focus ~ label, .customInput > div > input:valid ~ label {
+        font-size: 16px;
+        bottom: 40px;
+        color: #666;
+        font-weight: bold;
+    }
+    
+    .customInput > div > input:focus ~ span, .customInput > div > input:valid ~ span {
+        width: 300px;
+
+    }
+
+    .customInput > .customShort > .customShortInput {
+        font-size: 15px;
+        color: #222222;
+        width: 175px;
+        border: none;
+        border-bottom: solid #aaaaaa 1px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        position: relative;
+        background: none;
+        z-index: 5;
+        margin-right: 0px; /*input과 button 사이의 간격 조절*/
+    }
+
+    .customInput > .customShort > input:focus ~ label, .customInput > .customShort > input:valid ~ label {
+        font-size: 16px;
+        bottom: 40px;
+        color: #666;
+        font-weight: bold;
+    }
+
+    .customInput > .customShort > input:focus ~ span, .customInput > .customShort > input:valid ~ span {
+        width: 364.59px;
+    }
+
+    .customInput > .customShort > label {
+        position: absolute;
+        color: #aaa;
+        left: 10px;
+        font-size: 20px;
+        bottom: 8px;
+        transition: all .2s;
+    }
+
+    .emailSelect{
+        margin-right: 5px;
+    }
+
+    .customInput > .customShort > .email2 {
+        font-size: 15px;
+        color: #222222;
+        width: 175px;
+        border: none;
+        border-bottom: solid #aaaaaa 1px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        position: relative;
+        background: none;
+        z-index: 5;
+        margin-right: 10px; /*input과 button 사이의 간격 조절*/
+        left: 0%;
+        transition: all .2s;
+    }
+
+    .customShort>p{
+        margin: 0px;
+        height: 41px;
+        font-size: 20px;
+        line-height: 41px;
+        border-bottom: 1px solid #aaa;
+    }
+
+    .customInput>.joinBtn{
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .customInput>.joinBtn>button{
+        width: 100px;
+        margin-left: 5px;
+        margin-right: 5px;
     }

@@ -34,7 +34,11 @@ public class FaqService {
 		return dao.deleteFaq(faqNo);
 	}
 
-	public ArrayList<Faq> selectOneFaqCancel(int categoryNo) {
-		return dao.selectOneFaqCancel(categoryNo);
+	public ArrayList<Faq> selectOneFaqListKind(int categoryNo) {
+		return dao.selectOneFaqListKind(categoryNo);
+	}
+
+	public ArrayList<Faq> selectSearchFaq(String searchFaqTitle) {
+		return dao.selectSearchFaq(searchFaqTitle);
 	}
 }

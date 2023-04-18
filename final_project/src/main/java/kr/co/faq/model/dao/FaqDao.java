@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.faq.model.vo.Category;
 import kr.co.faq.model.vo.Faq;
+import kr.co.notice.model.vo.Notice;
 
 @Repository
 public class FaqDao {
@@ -40,8 +41,13 @@ public class FaqDao {
 		return result;
 	}
 
-	public ArrayList<Faq> selectOneFaqCancel(int categoryNo) {
-		List list = sqlSession.selectList("faq.selectOneFaqCancel", categoryNo);
+	public ArrayList<Faq> selectOneFaqListKind(int categoryNo) {
+		List list = sqlSession.selectList("faq.selectOneFaqListKind", categoryNo);
 		return (ArrayList<Faq>)list;
+	}
+
+	public ArrayList<Faq> selectSearchFaq(String searchFaqTitle) {
+		List searchFaq = sqlSession.selectList("faq.selectSearchFaq", searchFaqTitle);
+		return (ArrayList<Faq>)searchFaq;
 	}
 }
