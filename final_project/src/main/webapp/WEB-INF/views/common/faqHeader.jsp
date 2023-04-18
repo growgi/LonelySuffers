@@ -12,12 +12,17 @@
 	width: calc(100%/6);
    	float: left;
    	height: 50px;
-   	line-height: 30px;
-   	border: 1px solid #ccc;
+   	line-height: 50px;
    	box-sizing: border-box;
    	text-align: center;
    	cursor: pointer;
 }
+
+.tabs>ul>li>a{
+	font-weight: bold;
+}
+
+
 </style>
 
 		<section class="section normalhead lb">
@@ -36,17 +41,17 @@
 		<!-- end section -->
 
 
-		<section class="section">
+		<section class="section" style="padding-bottom: 0;">
 			<div class="container">
 				<div class="row">
 					<div class="tabs">
 						<ul>
-							<li><a href="/faqListKind.do?categoryNo=1">예약취소</a></li>
-							<li><a href="/faqListKind.do?categoryNo=2">숙박</a></li>
-							<li><a href="/faqListKind.do?categoryNo=3">강습</a></li>
-							<li><a href="/faqListKind.do?categoryNo=4">카풀</a></li>
-							<li><a href="/faqListKind.do?categoryNo=5">후기</a></li>
-							<li><a href="/faqListKind.do?categoryNo=6">회원서비스</a></li>
+							<li><a href="/faqListKind.do?categoryNo=1" class="btn btn-primary">예약취소</a></li>
+							<li><a href="/faqListKind.do?categoryNo=2" class="btn btn-primary">숙박</a></li>
+							<li><a href="/faqListKind.do?categoryNo=3" class="btn btn-primary">강습</a></li>
+							<li><a href="/faqListKind.do?categoryNo=4" class="btn btn-primary">카풀</a></li>
+							<li><a href="/faqListKind.do?categoryNo=5" class="btn btn-primary">후기</a></li>
+							<li><a href="/faqListKind.do?categoryNo=6" class="btn btn-primary">회원서비스</a></li>
 						</ul>
 					</div>	
 				</div><!-- end row -->

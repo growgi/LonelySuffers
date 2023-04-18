@@ -17,7 +17,7 @@ public class NoticeService {
 	private NoticeDao dao;
 
 	public NoticePageData selectAllNotice(int reqPage) {
-		int numPerPage = 5;
+		int numPerPage = 10;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage + 1;
 		

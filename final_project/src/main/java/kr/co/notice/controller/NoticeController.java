@@ -104,7 +104,7 @@ public class NoticeController {
 		}else if(fileNo == null && (result == fileList.size()+1)) {
 			return "redirect:/noticeView.do?noticeNo="+n.getNoticeNo();
 		}else {
-			return "redirect:/noticeList.do";
+			return "redirect:/noticeList.do?reqPage=1";
 		}
 	}
 	

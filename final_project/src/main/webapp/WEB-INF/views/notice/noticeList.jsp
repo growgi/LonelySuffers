@@ -24,6 +24,7 @@
 .search-bar {
     display: flex;
     margin-bottom: 15px;
+    margin-left: 240px;
 }
 .search-bar>.search-icon{
     /*width: 45px;
@@ -54,6 +55,7 @@
 .active-search-bar{
     box-shadow: inset 0 0 2px rgb(235, 235, 235);
 }
+
 </style>
 <body>
 	<div id="wrapper">
@@ -63,7 +65,7 @@
 				<div class="row">
 					<h1 style="text-align: center;">공지사항</h1>
 					<c:if test="${sessionScope.m.memberGrade == 1}">
-					<a href="/noticeWriteFrm.do">글쓰기</a>
+					<a class="btn btn-default" href="/noticeWriteFrm.do" role="button">글쓰기</a>
 					</c:if>
 					<form action="/searchNoticeTitle.do" method="get" class="search-bar" name="searchTitle">
 						<span class="material-symbols-outlined search-icon">search</span>
@@ -71,14 +73,12 @@
 						<input type="submit" style="display:none;">				
 					</form>
 					<br>
-					<table class="table">
+					<table class="table table-striped">
 						<tr>
 							<th class="nt" style="width:15%">번호</th>
 							<th class="nt" style="width:60%">제목</th>
 							<th class="nt" style="width:25%">작성일</th>
 						</tr>
-					</table>	
-					<table class="table table-hover">
 						<c:forEach items="${list }" var="n">
 							<tr>
 								<td class="nt" style="width:15%">${n.noticeNo }</td>

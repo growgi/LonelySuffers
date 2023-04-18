@@ -18,6 +18,10 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet" href="/resources/css/notice.css">
+
+<style>
+
+</style>
 </head>
 <body>
 	<div id="wrapper">
@@ -31,7 +35,7 @@
 						<table border="1">
 							<tr>
 								<th>제목</th>
-								<td><input type="text" name="noticeTitle"></td>
+								<td><input type="text" name="noticeTitle" required></td>
 							</tr>
 							<tr>	
 								<th>첨부파일</th>
@@ -46,7 +50,7 @@
 							</tr>
 							<tr>	
 								<th>내용</th>
-								<td><textarea name="noticeContent"></textarea></td>
+								<td><textarea name="noticeContent" required></textarea></td>
 							</tr>	
 							<tr>
 								<th colspan="2"><input type="submit" value="등록하기"></th>

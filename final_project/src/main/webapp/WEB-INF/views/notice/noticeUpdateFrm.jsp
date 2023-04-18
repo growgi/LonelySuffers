@@ -30,9 +30,28 @@
 					<form action="/noticeUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
 					<table border="1">
 						<tr>
-							<th>제목</th>
-							<td><input type="text" name="noticeTitle" value="${n.noticeTitle }"></td>
+							<th>번호</th>
+							<td><input type="text" name="noticeNo" value="${n.noticeNo }" readonly></td>
 						</tr>
+						<tr>
+							<th>제목</th>
+							<td><input type="text" name="noticeTitle" value="${n.noticeTitle }" required></td>
+						</tr>
+						<tr>
+							<th>작성일</th>
+							<td><input type="text" name="noticeDate" value="${n.noticeDate }" readonly></td>
+						</tr>
+						<tr>
+			            <th>첨부파일</th>
+			               <td>
+			                  <c:forEach items="${n.fileList }" var="f">
+			                     <p>
+			                        ${f.filename }
+			                        <button type="button" onclick="deleteFile(this,${f.fileNo},'${f.filepath }');">삭제</button>                                                          
+			                     </p>
+			                  </c:forEach>
+			               </td> 
+			        	</tr>
 						<tr>	
 							<th>첨부파일 추가</th>
 							<td><input type="file" name="noticeFile" multiple onchange="loadImgs(this);"></td>
@@ -44,7 +63,7 @@
 						</tr>
 						<tr>	
 							<th>내용</th>
-							<td><textarea name="noticeContent">${n.noticeContent }</textarea></td>
+							<td><textarea name="noticeContent" required>${n.noticeContent }</textarea></td>
 						</tr>
 					</table>
 					<table>
@@ -67,6 +86,25 @@
 	<script src="resources/js/animate.js"></script>
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-
+<script>
+      function deleteFile(obj,fileNo,filepath){
+         //<input>
+         const fileNoInput = $("<input>");
+         //<input name="fileNo">
+         fileNoInput.attr("name","fileNo");
+         //<input name="fileNo" value="fileNo">
+         fileNoInput.val(fileNo);
+         //<input name="fileNo" value="10" style="display:none;">
+         fileNoInput.hide();
+         
+         const filepathInput = $("<input>");
+         filepathInput.attr("name","filepath");
+         filepathInput.val(filepath);
+         filepathInput.hide();
+         
+         $("#updateFrm").append(fileNoInput).append(filepathInput);
+         $(obj).parent().remove();
+      }
+   </script>
 </body>
 </html>
