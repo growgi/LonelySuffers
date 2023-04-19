@@ -554,7 +554,7 @@
 											<div class="col-md-5">
 												
 												
-												<div class="row photo-check" style="height: 450px;display: none;">
+												<div class="row photo-check" style="height: 450px; display: none;">
 													<div class="col-md-2"></div>
 													<div class="col-md-8">
 														<div class="waveEffect" style="margin: 0 auto;">
@@ -567,10 +567,9 @@
 												
 												<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/house/${house.housePhoto1 }" style="width: 100%;"></div>
 												<div class="row">
-													<div class="col-md-1"></div>
-													<div class="col-md-10">
+													<div class="col-md-12">
 													<ul class="pagination" style="text-align: center;">
-														<li style="margin: 5px;"><img class="clickToLarger onViewing photo1" src="resources/upload/house/${house.housePhoto1 }"></li>
+														<li><img class="clickToLarger onViewing photo1" src=""></li>
 													</ul>
 													</div>
 												</div>
@@ -615,12 +614,38 @@
 										</div>
 										<!-- end row -->
 											
-											<!-- 상품설명, 상품평, 상품문의 -->
-											<div class="row">
-											
-											
-											</div>
-											<!-- 상품설명, 상품평, 상품문의 row 끝-->
+											<!-- 상품 정보 표시 시작 -->
+														<div class="row">
+															<div class="col-md-9 card mt-3 tab-card">
+																<div class="row tab-card-header">
+																	<ul class="nav nav-tabs card-header-tabs">
+																		<li class="nav-item active">
+																			<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
+																		</li>
+																		<li class="nav-item">
+																			<a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
+																		</li>
+																	</ul>
+																</div>
+																<div class="tab-content" id="myTabContent">
+																	<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
+																		${house.houseDescription}</div>
+																	<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+																		상품 평 div</div>
+																	<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+																		상품 문의 div</div>
+																</div>
+															</div>
+															<div class="col-md-3">
+																<div class="panel panel-default">
+																	<div class="panel-body" style="height: 600px; overflow: clip">광고 등 배너 영역<br>높이 600px을 넘는 사진은 종횡비는 고정하되 아래쪽을 잘라서 출력됨</div>
+																</div>
+															</div>
+														</div><!-- end row -->
+												<!-- 상품 정보 표시 끝 -->
 									</div>
 									<!-- end container -->
 								</section>
@@ -756,61 +781,61 @@
 	</section>
 	
 	<!-- 예약모달 -->
-											<div class="row">
-											<!-- 예약 진행용 Modal -->
-												  <div class="modal fade bd-example-modal-lg" id="bookingModal" role="dialog">
-												    <div class="modal-dialog modal-lg">
-												    
-												      <!-- Modal content-->
-												      <div id="bookingArea" class="modal-content">
-												        <div class="modal-header">
-												          <button type="button" class="close" data-dismiss="modal">&times;</button>
-												          <h4 class="modal-title">예약하기</h4>
-												        </div>
-												        <div class="modal-body">
-												        <!--  
-												        <form action="/orderRoom.do" onsubmit="return checkOrder();" method="post">
-												        -->
-												        	<!-- <fieldset> -->
-												        	
-																<input type="hidden" name="houseNo" value="${house.houseNo }">
-																<select name="roomNo"></select>
-												        		<div class="row">
-													        		<div class="col-md-4">
-																		<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required disabled>
-																	</div>
-												        			<div class="col-md-2"></div>
-												        			<div class="col-md-4">
-																		<input type="text" name="bookEndDate" id="bookEnd" placeholder="숙박 퇴실일" required disabled>
-																	</div>
-												        		</div>
-													        	<div class="row">
-														        	<c:if test="${house.houseBarbecue eq 1}">
-																		<input type="hidden" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }">
-												    		    		<input type="checkbox" name="optionDetail" id="houseBarbecue" value="바베큐 ${house.houseBarbecuePrice }원">
-												        				<label for="houseBarbecue">바베큐 ${house.houseBarbecuePrice }원</label>
-												        			</c:if>
-												        			<c:if test="${house.houseParty eq 1}">
-																		<input type="hidden" name="housePartyPrice" value="${house.housePartyPrice }">
-												        				<input type="checkbox" name="optionDetail" id="houseParty" value="파티 ${house.housePartyPrice }원">
-														        		<label for="houseParty">파티 ${house.housePartyPrice }원</label>
-												    		    	</c:if>
-												        		</div>
-																<input type="hidden" name="roomBookPrice">
-																<button type="submit">주문</button>
-												       	 <!-- </fieldset> -->	
-												       <!-- </form> --> 
-												        </div>
-												        <div class="modal-footer">
-												          <button type="button" data-dismiss="modal">닫기</button>
-												        </div>
-												      </div>
-												      
-												    </div>
-												  </div>
-											</div>
-											<!-- 예약모달 row 끝-->
-	
+		<div class="row">
+		<!-- 예약 진행용 Modal -->
+			  <div class="modal fade bd-example-modal-lg" id="bookingModal" role="dialog">
+			    <div class="modal-dialog modal-lg">
+			    
+			      <!-- Modal content-->
+			      <div id="bookingArea" class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">예약하기</h4>
+			        </div>
+			        <div class="modal-body">
+			        <!--  
+			        <form action="/orderRoom.do" onsubmit="return checkOrder();" method="post">
+			        -->
+			        	<!-- <fieldset> -->
+			        	
+							<input type="hidden" name="houseNo" value="${house.houseNo }">
+							<select name="roomNo"></select>
+			        		<div class="row">
+				        		<div class="col-md-4">
+									<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required disabled>
+								</div>
+			        			<div class="col-md-2"></div>
+			        			<div class="col-md-4">
+									<input type="text" name="bookEndDate" id="bookEnd" placeholder="숙박 퇴실일" required disabled>
+								</div>
+			        		</div>
+				        	<div class="row">
+					        	<c:if test="${house.houseBarbecue eq 1}">
+									<input type="hidden" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }">
+			    		    		<input type="checkbox" name="optionDetail" id="houseBarbecue" value="바베큐 ${house.houseBarbecuePrice }원">
+			        				<label for="houseBarbecue">바베큐 ${house.houseBarbecuePrice }원</label>
+			        			</c:if>
+			        			<c:if test="${house.houseParty eq 1}">
+									<input type="hidden" name="housePartyPrice" value="${house.housePartyPrice }">
+			        				<input type="checkbox" name="optionDetail" id="houseParty" value="파티 ${house.housePartyPrice }원">
+					        		<label for="houseParty">파티 ${house.housePartyPrice }원</label>
+			    		    	</c:if>
+			        		</div>
+							<input type="hidden" name="roomBookPrice">
+							<button type="submit">주문</button>
+			       	 <!-- </fieldset> -->	
+			       <!-- </form> --> 
+			        </div>
+			        <div class="modal-footer">
+			          <button type="button" data-dismiss="modal">닫기</button>
+			        </div>
+			      </div>
+			      
+			    </div>
+			  </div>
+		</div>
+	<!-- 예약모달 row 끝-->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
 <!-- 기본 .js 파일들 -->
@@ -1231,7 +1256,10 @@ $("document").ready(function() {
 //버튼 클릭하면 모달 띄워주는 function
 	function getRoom(houseNo){
 		console.log("하우스넘버"+houseNo);
-		
+		$(".photo-check").css("display","none");
+		$(".bigThumbnailImage").parent().css("display","none");
+		$(".photo1").css("display","none");
+		$(".extra-photo").remove();
 		$.ajax({
 			url : "/houseModalView.do",
 			type : "get",
@@ -1244,24 +1272,31 @@ $("document").ready(function() {
 				//모달 사진 부분
 				if(data.housePhoto1 == null){
 					$(".photo-check").css("display","block");
-				};
-				$(".bigThumbnailImage").attr("src",url+data.housePhoto1);
-				$(".photo1").attr("src",url+data.housePhoto1);
-				if(data.housePhoto2!=null){
-					$(".pagination").append("<li style=margin: 5px;><img class=clickToLarger photo2 src="+url+data.housePhoto2+">");
-					$(".photo2").attr("src",url+data.housePhoto2);
-					console.log("데이터체크2:"+data.housePhoto2);
+				}else {
+					$(".bigThumbnailImage").parent().css("display","block");
+					$(".photo1").css("display","inline");
+					
+					$(".bigThumbnailImage").attr("src",url+data.housePhoto1);
+					$(".photo1").attr("src",url+data.housePhoto1);
+					
+					if(data.housePhoto2!=null){
+						$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo2 src="+url+data.housePhoto2+">");
+						$(".photo2").attr("src",url+data.housePhoto2);
+						console.log("데이터체크2:"+data.housePhoto2);
+					}
+					if(data.housePhoto3!=null){
+						$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo3 src="+url+data.housePhoto3+">");
+						$(".photo3").attr("src",url+data.housePhoto3);
+						console.log("데이터체크3:"+data.housePhoto3);
+					}
+					if(data.housePhoto4!=null){
+						$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo4 src="+url+data.housePhoto4+">");
+						$(".photo4").attr("src",url+data.housePhoto4);
+						console.log("데이터체크4:"+data.housePhoto4);
+					}
+					
 				}
-				if(data.housePhoto3!=null){
-					$(".pagination").append("<li style=margin: 5px;><img class=clickToLarger photo3 src="+url+data.housePhoto3+">");
-					$(".photo3").attr("src",url+data.housePhoto3);
-					console.log("데이터체크3:"+data.housePhoto3);
-				}
-				if(data.housePhoto4!=null){
-					$(".pagination").append("<li style=margin: 5px;><img class=clickToLarger photo4 src="+url+data.housePhoto4+">");
-					$(".photo4").attr("src",url+data.housePhoto4);
-					console.log("데이터체크4:"+data.housePhoto4);
-				}
+				
 				//모달 글부분
 				//방, 숙소이름
 				$(".modal-room-title").text(data.roomTitle);
