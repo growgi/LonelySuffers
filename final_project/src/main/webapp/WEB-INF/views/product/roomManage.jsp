@@ -138,7 +138,7 @@ input[type="number"], input[type="time"] {
 			                                		<td style="text-indent: 10px;">${r.roomName }</td>
 			                                		<td><button type="button" onclick="renameRoom(this)" data-toggle="modal" data-target="#renamer">이름 변경</button></td>
 													<td>
-														<select class="form-control" style="text-align: center;">
+														<select class="form-control roomEnable" style="text-align: center;">
 														<c:choose>
 															<c:when test="${r.roomEnable == 1}">
 																<option value="1" selected>사용</option>
@@ -157,7 +157,7 @@ input[type="number"], input[type="time"] {
 											</tbody>
 										</table>
 										<div>
-											<button class="btn btn-default" onclick="saveAllRoomsStstus()">각 객실들의 활성 상태를 현재 선택한 값들로 저장하기</button>
+											<button class="btn btn-default" id="saveEnables" onclick="saveAllRoomsStstus()" style="display: none;">각 객실들의 활성 상태를 현재 선택한 값들로 저장하기</button>
 										</div>
 										</c:otherwise>
 									</c:choose>
@@ -253,6 +253,12 @@ input[type="number"], input[type="time"] {
 	const rtrim = /[&]\S{0,}$/;
 	const houseNoFromUrl = needRtrim.replace(rtrim, "");
 //url로부터 lessonNo 도출 끝
+
+
+// 활성 상태의 값 변경을 감지하여 저장 버튼 표시
+	$(".roomEnable").on("change", function(){
+		$("#saveEnables").css("display", "block");
+	});
 
 
 // 모든 객실들의 활성 상태값 저장
