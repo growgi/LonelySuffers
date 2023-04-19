@@ -26,36 +26,49 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-		<section class="section">
+		
+		<section class="section normalhead lb">
 			<div class="container">
 				<div class="row">
-					<h1 style="text-align: center;">공지사항 작성</h1>
-					<hr>
+					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+						<h2>공지사항 작성</h2>
+						<hr>
+					</div>
+					<!-- end col -->
+				</div>
+				<!-- end row -->
+			</div>
+			<!-- end container -->
+		</section>
+		<!-- end section -->
+		
+		
+		
+		<section class="section" style="padding-top: 0;">
+			<div class="container">
+				<div class="row" style="margin-top: 20px;">
 					<form action="/noticeWrite.do" method="post" enctype="multipart/form-data">
-						<table border="1">
+						<table class="noticeWriteContent">
 							<tr>
-								<th>제목</th>
+								<th style="text-align: center;">제목</th>
 								<td><input type="text" name="noticeTitle" required></td>
 							</tr>
 							<tr>	
-								<th>첨부파일</th>
+								<th style="text-align: center;">첨부파일</th>
 								<td><input type="file" name="noticeFile" multiple onchange="loadImgs(this);"></td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td>
 									<div id="img-viewer2">
-                    
                        				</div>
 								</td>
 							</tr>
 							<tr>	
-								<th>내용</th>
+								<th style="text-align: center;">내용</th>
 								<td><textarea name="noticeContent" required></textarea></td>
 							</tr>	
-							<tr>
-								<th colspan="2"><input type="submit" value="등록하기"></th>
-							</tr>
 						</table>	
+						<p><input class="submitBt" type="submit" value="등록하기"></p>
 					</form>
 				</div>
 			</div>

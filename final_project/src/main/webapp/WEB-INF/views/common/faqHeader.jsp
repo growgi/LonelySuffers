@@ -46,11 +46,11 @@
 				<div class="row">
 					<div class="tabs">
 						<ul>
-							<li><a href="/faqListKind.do?categoryNo=1" class="btn btn-primary">예약취소</a></li>
-							<li><a href="/faqListKind.do?categoryNo=2" class="btn btn-primary">숙박</a></li>
-							<li><a href="/faqListKind.do?categoryNo=3" class="btn btn-primary">강습</a></li>
-							<li><a href="/faqListKind.do?categoryNo=4" class="btn btn-primary">카풀</a></li>
-							<li><a href="/faqListKind.do?categoryNo=5" class="btn btn-primary">후기</a></li>
+							<li style="border-right: 1px solid #eee;"><a href="/faqListKind.do?categoryNo=1" class="btn btn-primary">예약취소</a></li>
+							<li style="border-right: 1px solid #eee;"><a href="/faqListKind.do?categoryNo=2" class="btn btn-primary">숙박</a></li>
+							<li style="border-right: 1px solid #eee;"><a href="/faqListKind.do?categoryNo=3" class="btn btn-primary">강습</a></li>
+							<li style="border-right: 1px solid #eee;"><a href="/faqListKind.do?categoryNo=4" class="btn btn-primary">카풀</a></li>
+							<li style="border-right: 1px solid #eee;"><a href="/faqListKind.do?categoryNo=5" class="btn btn-primary">후기</a></li>
 							<li><a href="/faqListKind.do?categoryNo=6" class="btn btn-primary">회원서비스</a></li>
 						</ul>
 					</div>	

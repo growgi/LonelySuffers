@@ -17,7 +17,7 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-
+<link rel="stylesheet" href="/resources/css/faq.css">
 </head>
 
 
@@ -41,21 +41,19 @@
 		</section>
 		<!-- end section -->
 		
-		<section class="section">
-			<div class="container">
-				<div class="row">
-					<table border="1">
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>카테고리</th>
-							<th>내용</th>
-						</tr>		
-					</table>
-					<table>
-						<tr>
-							<td>${faq.faqNo }</td>
-							<td>${faq.faqTitle }</td>
+		<section class="section" style="padding-top: 0;">
+			<div class="container" >
+				<div class="row" style="margin-top: 20px;">
+					<div class="faqViewWrap">
+						<p style="margin-bottom: 5px;">제목</p>
+						<p style="font-size: 30px;">${faq.faqTitle }</p>
+						<ul class="faqViewheader">
+							<li style="font-size: 20px;">번호</li>
+							<span>|</span>
+							<li>${faq.faqNo }</li>
+							<li style="font-size: 20px;">카테고리</li>
+							<span>|</span>
+							<li>
 								<c:choose>
 									<c:when test="${faq.categoryNo == 1}">
 										<td>예약취소</td>
@@ -76,29 +74,30 @@
 										<td>회원서비스</td>
 									</c:when>
 								</c:choose>
-							<td>${faq.faqContent }</td>
-						</tr>
-					</table>
-					<table>
-						<tr>
-							<th colspan="6">
-								<c:if test="${sessionScope.m.memberGrade == 1}">
-									<a href="/faqUpdateFrm.do?faqNo=${faq.faqNo }">수정하기</a>
-									<a href="/deleteFaq.do?faqNo=${faq.faqNo }">삭제</a>
-								</c:if>
-							</th>
-						</tr>
-					</table>
-					<a href="/">메인으로</a>
-				</div><!-- end row -->
-			</div><!-- end container -->
-		</section><!-- end section -->
-
-		
-
-
-
-
+							</li>
+						</ul>
+					</div>
+					<div class="faqContentWrap">
+						<table class="faqViewContent">
+							<tr>
+								<td>${faq.getFaqContentBr() }</td>
+							</tr>
+						</table>
+					</div>
+						<table class="faqViewContent">
+							<tr>
+								<th class="faqViewBtn">
+									<c:if test="${sessionScope.m.memberGrade == 1}">
+										<a class="btn btn-primary btn-sm active" href="/faqUpdateFrm.do?faqNo=${faq.faqNo }">수정하기</a>
+										<a class="btn btn-primary btn-sm active" href="/deleteFaq.do?faqNo=${faq.faqNo }">삭제</a>
+									</c:if>
+								</th>
+							</tr>
+						</table>
+				</div>
+			<a href="/" style="margin: 0 auto;">메인으로</a>
+			</div>
+		</section>		
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
