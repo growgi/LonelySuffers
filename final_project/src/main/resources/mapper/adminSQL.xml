@@ -430,16 +430,18 @@
 		where house_no=#{_parameter}
 	</update>
 	
-	<update id="updateReturnLesson" parameterType="_int">
+	<update id="updateReturnLesson" parameterType="kr.co.admin.model.vo.RejectProduct">
 		update lesson set
-			lesson_status=-2
-		where lesson_no=#{_parameter}
+			lesson_status=-2,
+			reject_comment=#{returnReason}
+		where lesson_no=#{productNo}
 	</update>
 	
-	<update id="updateReturnHouse" parameterType="_int">
+	<update id="updateReturnHouse" parameterType="kr.co.admin.model.vo.RejectProduct">
 		update house set
-			house_status=-2
-		where house_no=#{_parameter}
+			house_status=-2,
+			reject_comment=#{returnReason}
+		where house_no=#{productNo}
 	</update>
 	
 	<select id="selectAllOrder" resultType="order">
