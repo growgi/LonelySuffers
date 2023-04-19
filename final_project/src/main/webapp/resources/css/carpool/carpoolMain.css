@@ -147,6 +147,9 @@
 
 
   /* 모달 */
+  input[type="checkbox"]{
+  	display:none;
+  }
 
   input[type="checkbox"]:checked  + label{
     font-weight: 900;
@@ -177,25 +180,24 @@
 	}
   
     .check-box-wrap{
-        overflow: hidden;
         width: 600px;
-        height: 100px;
+        height:120px;
+        overflow :hidden;
     }
     
     .check-box{
-        width: 250px;
+        width: 235px;
         height: 40px;
         border: 1px solid #f2f2f2;
-        margin-bottom: 10px;
         margin-left:25px;
         text-align: center;
         float: left;
         background-color: #F0F0F0;
+        line-height: 40px;
     }
+    
 	.lb-class{
 		display: inline-block;
-		width: 124px;
-		height: 38px;
 		padding: 5px 10px;
 		color: grey;
 		text-align: center;

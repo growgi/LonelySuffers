@@ -140,6 +140,7 @@
 
 
 			<c:if test="${not empty sessionScope.m }">
+			<div class="submit-btn-wrapper" style="width: 100%; margin-top: 30px;">
 				<button type="submit" id="wrapper-cool-btn">
 					<div class="my-super-cool-btn">
 						<div class="dots-container">
@@ -150,6 +151,7 @@
 						</div> <span style="color: #F16767; font-size: 25px; font-weight: 800;">태워주세요</span>
 					</div>
 				</button>
+			</div>
 			</c:if>
 			</form>
 				</div>
