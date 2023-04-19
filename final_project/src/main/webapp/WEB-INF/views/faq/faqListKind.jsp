@@ -24,6 +24,7 @@
 .search-bar {
     display: flex;
     margin-bottom: 15px;
+    margin-left: 270px;
 }
 .search-bar>.search-icon{
     /*width: 45px;
@@ -55,7 +56,13 @@
     box-shadow: inset 0 0 2px rgb(235, 235, 235);
 }
 
+.table-bordered>tbody>tr>th{
+	text-align: center;
+}
 
+.table-bordered>tbody>tr>td{
+	text-align: center;
+}
 
 </style>
 
@@ -68,41 +75,41 @@
 			<div class="container">
 				<div class="row">
 				<c:if test="${sessionScope.m.memberGrade == 1}">
-					<a href="/faqWriterFrm.do">글쓰기</a>
+					<a class="btn btn-default" href="/faqWriterFrm.do" role="button">글쓰기</a>
 				</c:if>	
 				<form action="/searchFaqTitle.do" method="get" class="search-bar" name="searchTitle">
 					<span class="material-symbols-outlined search-icon">search</span>
 					<input type="text" placeholder="제목으로 검색" name="searchFaqTitle" onkeyup="enterkey();">
 					<input type="submit" style="display:none;">				
 				</form>
-					<table>
+					<table class="table table-bordered">
 						<tr>
-							<th>번호</th>
-							<th>카테고리</th>
+							<th style="width:15%">번호</th>
+							<th style="width:15%">카테고리</th>
 							<th>제목</th>
 						</tr>
 					</table>
-					<table>	
+					<table class="table table-bordered">	
 						<c:forEach items="${list }" var="fq" varStatus="faqNoCt">
 							<tr>
-								<td>${faqNoCt.count }</td>
+								<td style="width:15%">${faqNoCt.count }</td>
 									<c:if test="${fq.categoryNo == 1}">
-										<td>예약취소</td>
+										<td style="width:15%">예약취소</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 2}">
-										<td>숙박</td>
+										<td style="width:15%">숙박</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 3}">
-										<td>강습</td>
+										<td style="width:15%">강습</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 4}">
-										<td>카풀</td>
+										<td style="width:15%">카풀</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 5}">
-										<td>후기</td>
+										<td style="width:15%">후기</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 6}">
-										<td>회원서비스</td>
+										<td style="width:15%">회원서비스</td>
 									</c:if>
 								<td>
 									<a href="/faqView.do?faqNo=${fq.faqNo }">${fq.faqTitle }</a>

@@ -31,20 +31,6 @@
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>공지사항</h2>
 						<hr>
-						<p class="lead">${n.noticeTitle }</p>
-						<table>
-							<tr>
-								<td>${n.noticeDate }</td>
-								<td>${n.noticeContent }</td>
-							</tr>
-							<tr>
-					        	<td colspan="5">
-					            <c:forEach items="${n.fileList }" var="f">
-					            	<img src="/resources/upload/notice/${f.filepath }">
-					            </c:forEach>
-					        	</td>
-					        </tr>
-						</table>
 					</div>
 					<!-- end col -->
 				</div>
@@ -56,6 +42,20 @@
 		<section class="section normalhead">
 			<div class="container">
 				<div class="row">
+					<p>${n.noticeTitle }</p>
+					<table>
+						<tr>
+							<td>${n.noticeDate }</td>
+							<td>${n.noticeContent }</td>
+						</tr>
+						<tr>
+				        	<td colspan="5">
+				            <c:forEach items="${n.fileList }" var="f">
+				            	<img src="/resources/upload/notice/${f.filepath }">
+				            </c:forEach>
+				        	</td>
+				        </tr>
+					</table>
 					<table>
 						<tr>
 							<th colspan="6">
