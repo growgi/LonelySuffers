@@ -8,10 +8,17 @@ body{
 }
 #wrapper-cool-btn{
 	margin: 40px;
-  box-sizing:border-box;
+  	box-sizing:border-box;
   display:flex;
   align-items:center;
   justify-content:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .my-super-cool-btn{
   position:relative;
