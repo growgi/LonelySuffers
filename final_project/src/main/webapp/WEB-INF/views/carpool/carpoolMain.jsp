@@ -24,7 +24,7 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <style>
-	.load-more {
+.load-more {
   display: block;
   margin: 0 auto;
   margin-top: 30px;
@@ -47,9 +47,10 @@
 
 .carpool-wrap>td{
 	padding: 20px;
-	border-bottom: 1px solid #FFB4B4;
+	border-bottom: 2px dotted #FFB4B4;
 	padding-bottom: 40px;
 }
+
 
 </style>
 
@@ -81,7 +82,7 @@
 		<section class="section"
 			style="padding-top: 50px; padding-bottom: 10px;">
 			<div class="container">
-				<div class="row" style="padding-left: 90px; padding-bottom: 20px; padding-right: 140px;">
+				<div class="row" style="padding-left: 120px; padding-bottom: 20px; padding-right: 140px;">
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">
 							<a href="/carpoolMain.do">전체보기</a>
@@ -154,8 +155,8 @@
 			style="padding-top: 0px; padding-bottom: 0px; margin-left: 80px;">
 			<div class="container">
 				<div class="row">
-					<table id="carpoolTable" class="tablesorter" style="border-collapse: initial; padding: 30px;
-						border-radius: 20px; width: 900px; margin-left: 70px; background-color: none; border: 3px solid #39B5E0;">
+					<table id="carpoolTable" class="tablesorter" style="background-color:#FFFBEB; border-collapse: initial; padding: 30px;
+						border-radius: 20px; width: 900px; margin-left: 70px; border: 3px solid #E3F6FF;">
 						<thead>
 							<tr style="color: #B2A4FF;">
 								<th data-sort-method='thead' style="width:15%; text-indent: 35px;  line-height: 500%;">출발일</th>
@@ -222,14 +223,14 @@
 									</select> 
 								</div>
 								<div class="check-box-wrap">
-									<div class="check-box left">
+									<label class="lb-class lb-left"><div class="check-box left">
 										<input type="checkbox" id="am" name="departureTime" value="0" >
-										<label for="am-time"><span class="material-symbols-outlined">check</span>오전</label>
-									</div>
-									<div class="check-box right">
+										<span class="material-symbols-outlined">check</span>오전
+									</div></label>
+									<label class="lb-class lb-right"><div class="check-box right">
 										<input type="checkbox" id="pm" name="departureTime" value="1" >
-										<label for="pm-time"><span class="material-symbols-outlined">check</span>오후</label><br>
-									</div>
+										<span class="material-symbols-outlined">check</span>오후<br>
+									</div></label>
 								</div>
 								<div class="form-group">
 									<label for="usrname">도착</label> 
@@ -259,26 +260,22 @@
 									</div>
 								</div>
 								<div class="check-box-wrap">
-									<div class="check-box left">
-										<input type="checkbox" id="oneway" name="onewayRound" value="1"
-											><label for="one-way">
-											<span class="material-symbols-outlined">check</span>편도</label>
-									</div>
-									<div class="check-box right">
-										<input type="checkbox" id="round" name="onewayRound" value="2" 
-											><label for="round-trip">
-											<span class="material-symbols-outlined">check</span>왕복</label><br>
-									</div>
-									<div class="check-box left">
-										<input type="checkbox" id="opened" name="closure" value="1"
-											><label for="recruiting">
-											<span class="material-symbols-outlined">check</span>모집중</label>
-									</div>
-									<div class="check-box right">
-										<input type="checkbox" id="closed" name="closure" value="0"
-											><label for="closed">
-											<span class="material-symbols-outlined">check</span>모집완료</label>
-									</div>
+									<label class="lb-class"><div class="check-box left">
+										<input type="checkbox" id="oneway" name="onewayRound" value="1">
+										<span class="material-symbols-outlined">check</span>편도
+									</div></label>
+									<label class="lb-class"><div class="check-box right">
+										<input type="checkbox" id="round" name="onewayRound" value="2"> 
+										<span class="material-symbols-outlined">check</span>왕복<br>
+									</div></label><br>
+									<label class="lb-class"><div class="check-box left">
+										<input type="checkbox" id="opened" name="closure" value="1">
+										<span class="material-symbols-outlined">check</span>모집중</label>
+									</div></label>
+									<label class="lb-class"><div class="check-box right">
+										<input type="checkbox" id="closed" name="closure" value="0">
+										<span class="material-symbols-outlined">check</span>모집완료</label>
+									</div></label>
 								</div>
 								<hr>
 								<div class="btn-pack" style="margin-left: 25px;">
@@ -611,6 +608,26 @@
 									});
 						});
 			});
+	
+	/*
+	$("input[type=checkbox]").on("change", function(){
+		if($(this).is(":checked")){
+			//체크박스가 체크되었을 때
+			$(this).parent().parent().css({
+				color: "#fff",
+				color: "grey",
+				transition-duration: "0.3s",
+				border: "none"
+			});
+		}else{
+			$(this).parent().parent().css({
+			      color: "",
+			      backgroundColor: "",
+			      transitionDuration: "",
+			      border: ""
+			    });
+		}
+	});*/
 
 	
 		//출발일, 등록일 기준으로 table sort out기능
