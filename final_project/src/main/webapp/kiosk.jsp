@@ -14,15 +14,15 @@
 	
 	.modal-dialog {
     position: absolute !important;
-    top: 50%;
+    top: 2.5%;
     left: 20%;
     transform: translate(-50%, -50%);
+    margin: 0 auto !important;
     }
 	
 	.modal-content{
 		width: 1200px;
-		height: 920px;
-		margint-right:200px;
+		margin-right:200px;
 	}
 	.clickToLarger {
 	width: 80px;
@@ -39,7 +39,17 @@
 	h4.modal-title {
     text-align: center;
 	}
-	
+	.modal-open .modal {
+    width: 1500px;
+   	}
+   	#myModal{
+   	overflow-y: hidden;
+   	}
+   	div#bookingArea {
+    width: 800px;
+    margin-left: 200px;
+    margin-top: 70px;
+	}
 	
 	#daterangepicker{
 	width:596px;
@@ -604,58 +614,7 @@
 											<!-- end col -->
 										</div>
 										<!-- end row -->
-											<!-- 예약모달 -->
-											<div class="row">
-											<!-- 예약 진행용 Modal -->
-												  <div class="modal fade bd-example-modal-lg" id="bookingModal" role="dialog">
-												    <div class="modal-dialog modal-lg">
-												    
-												      <!-- Modal content-->
-												      <div id="bookingArea" class="modal-content">
-												        <div class="modal-header">
-												          <button type="button" class="close" data-dismiss="modal">&times;</button>
-												          <h4 class="modal-title">예약하기</h4>
-												        </div>
-												        <div class="modal-body">
-												        <form action="/orderRoom.do" onsubmit="return checkOrder();" method="post">
-												        	<fieldset>
-																<input type="hidden" name="houseNo" value="${house.houseNo }">
-																<select name="roomNo"></select>
-												        		<div class="row">
-													        		<div class="col-md-4">
-																		<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required disabled>
-																	</div>
-												        			<div class="col-md-2"></div>
-												        			<div class="col-md-4">
-																		<input type="text" name="bookEndDate" id="bookEnd" placeholder="숙박 퇴실일" required disabled>
-																	</div>
-												        		</div>
-													        	<div class="row">
-														        	<c:if test="${house.houseBarbecue eq 1}">
-																		<input type="hidden" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }">
-												    		    		<input type="checkbox" name="optionDetail" id="houseBarbecue" value="바베큐 ${house.houseBarbecuePrice }원">
-												        				<label for="houseBarbecue">바베큐 ${house.houseBarbecuePrice }원</label>
-												        			</c:if>
-												        			<c:if test="${house.houseParty eq 1}">
-																		<input type="hidden" name="housePartyPrice" value="${house.housePartyPrice }">
-												        				<input type="checkbox" name="optionDetail" id="houseParty" value="파티 ${house.housePartyPrice }원">
-														        		<label for="houseParty">파티 ${house.housePartyPrice }원</label>
-												    		    	</c:if>
-												        		</div>
-																<input type="hidden" name="roomBookPrice">
-																<button type="submit">주문</button>
-												        	</fieldset>
-												        </form>
-												        </div>
-												        <div class="modal-footer">
-												          <button type="button" data-dismiss="modal">닫기</button>
-												        </div>
-												      </div>
-												      
-												    </div>
-												  </div>
-											</div>
-											<!-- 예약모달 row 끝-->
+											
 											<!-- 상품설명, 상품평, 상품문의 -->
 											<div class="row">
 											
@@ -795,6 +754,63 @@
 			</div><!-- content-wrapper 종료 -->
 		</div>
 	</section>
+	
+	<!-- 예약모달 -->
+											<div class="row">
+											<!-- 예약 진행용 Modal -->
+												  <div class="modal fade bd-example-modal-lg" id="bookingModal" role="dialog">
+												    <div class="modal-dialog modal-lg">
+												    
+												      <!-- Modal content-->
+												      <div id="bookingArea" class="modal-content">
+												        <div class="modal-header">
+												          <button type="button" class="close" data-dismiss="modal">&times;</button>
+												          <h4 class="modal-title">예약하기</h4>
+												        </div>
+												        <div class="modal-body">
+												        <!--  
+												        <form action="/orderRoom.do" onsubmit="return checkOrder();" method="post">
+												        -->
+												        	<!-- <fieldset> -->
+												        	
+																<input type="hidden" name="houseNo" value="${house.houseNo }">
+																<select name="roomNo"></select>
+												        		<div class="row">
+													        		<div class="col-md-4">
+																		<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required disabled>
+																	</div>
+												        			<div class="col-md-2"></div>
+												        			<div class="col-md-4">
+																		<input type="text" name="bookEndDate" id="bookEnd" placeholder="숙박 퇴실일" required disabled>
+																	</div>
+												        		</div>
+													        	<div class="row">
+														        	<c:if test="${house.houseBarbecue eq 1}">
+																		<input type="hidden" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }">
+												    		    		<input type="checkbox" name="optionDetail" id="houseBarbecue" value="바베큐 ${house.houseBarbecuePrice }원">
+												        				<label for="houseBarbecue">바베큐 ${house.houseBarbecuePrice }원</label>
+												        			</c:if>
+												        			<c:if test="${house.houseParty eq 1}">
+																		<input type="hidden" name="housePartyPrice" value="${house.housePartyPrice }">
+												        				<input type="checkbox" name="optionDetail" id="houseParty" value="파티 ${house.housePartyPrice }원">
+														        		<label for="houseParty">파티 ${house.housePartyPrice }원</label>
+												    		    	</c:if>
+												        		</div>
+																<input type="hidden" name="roomBookPrice">
+																<button type="submit">주문</button>
+												       	 <!-- </fieldset> -->	
+												       <!-- </form> --> 
+												        </div>
+												        <div class="modal-footer">
+												          <button type="button" data-dismiss="modal">닫기</button>
+												        </div>
+												      </div>
+												      
+												    </div>
+												  </div>
+											</div>
+											<!-- 예약모달 row 끝-->
+	
 	</div>
 
 <!-- 기본 .js 파일들 -->
@@ -1299,7 +1315,7 @@ $("document").ready(function() {
 
 			// 예약하기 modal 띄우면 실행되는 함수 시작
 				$("#goBooking").on("click", function(){
-					alert("go booking lick");
+					//alert("go booking lick");
 					$("[name=roomNo]").on("change", function(){
 					// 이미 결제완료된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax 
 						$.ajax({
@@ -1436,7 +1452,7 @@ $("document").ready(function() {
 			error : function(){
 				console.log("모달 에러났음");
 			}
-		}); //숙소 상세정보 ajax끝
+		}); //숙소 상세정보 모달 ajax끝
 	} //function 끝
 
 	
