@@ -28,8 +28,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/loginFrm.do")
-	public String loginFrm() {
-		return "member/login";
+	public String loginFrm(HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me == null) {
+			return "member/login";
+		}else {
+			return "redirect:/";
+		}
 	}
 	
 	@RequestMapping(value = "/login.do")
