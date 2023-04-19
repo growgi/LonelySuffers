@@ -23,140 +23,159 @@ import kr.co.member.model.vo.Member;
 public class CarpoolController {
 	@Autowired
 	private CarpoolService service;
-	
-	//카풀 메인으로 가기(selectAll)
-	@RequestMapping(value="/carpoolMain.do")
+
+	// 카풀 메인으로 가기(selectAll)
+	@RequestMapping(value = "/carpoolMain.do")
 	public String carpoolMain(Model model) {
 		ArrayList<Carpool> list = service.selectAllCarpool();
-		model.addAttribute("list",list);
-		//model.addAttribute("totalNumber", list.size());
+		model.addAttribute("list", list);
+		// model.addAttribute("totalNumber", list.size());
 		return "carpool/carpoolMain";
 	}
-	//카풀 메인에서 '더보기'버튼 구현을 위한 등록된 카풀 갯수 구하기(필터해서 볼때도 필터된 리스트 사이에서 구현된다.)
+
+	// 카풀 메인에서 '더보기'버튼 구현을 위한 등록된 카풀 갯수 구하기(필터해서 볼때도 필터된 리스트 사이에서 구현된다.)
 	@ResponseBody
-	@RequestMapping(value="/carpoolCount.do")
+	@RequestMapping(value = "/carpoolCount.do")
 	public String carpoolCount(CarpoolFilter cf, Model model) {
 		System.out.println(cf);
-		int totalCount = service.totalCount(cf);		
+		int totalCount = service.totalCount(cf);
 		return String.valueOf(totalCount);
 	}
-	
-	//탑승자의 카풀 신청하기! 카풀 메인의 개별 하나를 클릭 했을때 신청하는 상세 페이지로 넘어가기
-	@RequestMapping(value="/carpoolRequest.do")
-	public String carpoolRequest(Carpool carpool, Model model) {
-		Carpool c = service.selectOneCarpool(carpool);
-		if(c!=null) {
+
+	// 탑승자의 카풀 신청하기! 카풀 메인의 개별 하나를 클릭 했을때 신청하는 상세 페이지로 넘어가기
+	@RequestMapping(value = "/carpoolRequest.do")
+	public String carpoolRequest(int carpoolNo, Model model) {
+		Carpool c = service.selectOneCarpool(carpoolNo);
+		if (c != null) {
 			model.addAttribute("c", c);
 			return "carpool/carpoolRequest";
-		}else {
-			return "carpool/carpoolMain";			
+		} else {
+			return "carpool/carpoolMain";
 		}
-		
+
 	}
-	//운전자의 카풀 등록하는 페이지로 넘어가기 carpoolOfferForm.do
-	@RequestMapping(value="/carpoolOfferForm.do")
+
+	// 운전자의 카풀 등록하는 페이지로 넘어가기 carpoolOfferForm.do
+	@RequestMapping(value = "/carpoolOfferForm.do")
 	public String carpoolOfferForm() {
 		return "carpool/carpoolOfferForm";
 	}
-	
-	//운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
-	@RequestMapping(value="/registerCarpool.do")
+
+	// 운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
+	@RequestMapping(value = "/registerCarpool.do")
 	public String registerCarpool(Carpool carpool) {
-		//운전자가 한달에 4개 이상의 카풀을 등록하지 못하게
-		//날짜가 겹치지 않게
-		//날짜가 지나면 등록하지 못하게 
+		// 운전자가 한달에 4개 이상의 카풀을 등록하지 못하게
+		// 날짜가 겹치지 않게
+		// 날짜가 지나면 등록하지 못하게
 		int result = service.insertCarpool(carpool);
-		if(result>0){
+		if (result > 0) {
 			return "redirect:/carpoolMain.do";
-		}else {
+		} else {
 			return "redirect:/carpoolOfferForm.do";
 		}
 	}
-	
-	
-	@ResponseBody //ajax쓸때는 ResponseBody 꼭 써야하지!!
-	@RequestMapping(value="/filterCarpool.do", produces="application/json;charset=utf-8")
-	public String filterCarpool(CarpoolFilter cf,int amount) {
+
+	@ResponseBody // ajax쓸때는 ResponseBody 꼭 써야하지!!
+	@RequestMapping(value = "/filterCarpool.do", produces = "application/json;charset=utf-8")
+	public String filterCarpool(CarpoolFilter cf, int amount) {
 		ArrayList<Carpool> list = service.filterCarpool(cf, amount);
 		Gson gson = new Gson();
-		String result= gson.toJson(list);
+		String result = gson.toJson(list);
 		System.out.println(result);
 		return result;
 	}
-	
-	//carpoolRequest.jsp에서 '태워주세요' 누르면 passenger 테이블에 insert
-	@RequestMapping(value="/carpoolMatch.do")
-	public String carpoolMatch(Model model,int carpoolNo, @SessionAttribute(required = false) Member m ) {
-		CarpoolMatch match = new CarpoolMatch();
-		match.setCarpoolNo(carpoolNo);
-		match.setPassengerNo(m.getMemberNo());
-		int result = service.insertPassenger(match);
-		if(result>0) {
-			model.addAttribute("title","카풀 신청 완료");
-			model.addAttribute("msg","카풀 신청을 완료했습니다.");
-			model.addAttribute("icon","success");
-			model.addAttribute("loc","/passengerPage.do?memberNo="+m.getMemberNo());
+
+	// carpoolRequest.jsp에서 '태워주세요' 누르면 passenger 테이블에 insert
+	@RequestMapping(value = "/carpoolMatch.do")
+	public String carpoolMatch(Model model, int carpoolNo, String passengerMsg,
+			@SessionAttribute(required = false) Member m) {
+		Carpool c = service.selectOneCarpool(carpoolNo);
+		if (c.getDriverNo() == m.getMemberNo()) {
+			//작성자와 신청자가 같지 않도록, 본인이 작성한 글에는 본인이 신청할 수 없도록 한다. 
+			model.addAttribute("title", "카풀 신청 실패");
+			model.addAttribute("msg", "본인의 카풀에 신청할 수 없습니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/carpoolRequest.do?carpoolNo=" + carpoolNo);
 			return "common/msg";
-		}else if(result==0){
-			model.addAttribute("title","카풀 신청 실패");
-			model.addAttribute("msg","카풀 신청을 실패했습니다.");
-			model.addAttribute("icon","error");
-			model.addAttribute("loc","/passengerPage.do?memberNo="+m.getMemberNo());
-			return "common/msg";
-		}else {
-			model.addAttribute("title","카풀 신청 실패");
-			model.addAttribute("msg","이미 신청하셨습니다.");
-			model.addAttribute("icon","error");
-			model.addAttribute("loc","/carpoolRequest.do?carpoolNo="+carpoolNo);
-			return "common/msg";
+			} else {
+			CarpoolMatch match = new CarpoolMatch();
+			match.setCarpoolNo(carpoolNo);
+			match.setPassengerMsg(passengerMsg);
+			match.setPassengerNo(m.getMemberNo());
+			int result = service.insertPassenger(match);
+			if (result > 0) {
+				model.addAttribute("title", "카풀 신청 완료");
+				model.addAttribute("msg", "카풀 신청을 완료했습니다.");
+				model.addAttribute("icon", "success");
+				model.addAttribute("loc", "/passengerPage.do?memberNo=" + m.getMemberNo());
+				return "common/msg";
+			} else if (result == 0) {
+				model.addAttribute("title", "카풀 신청 실패");
+				model.addAttribute("msg", "카풀 신청을 실패했습니다.");
+				model.addAttribute("icon", "error");
+				model.addAttribute("loc", "/passengerPage.do?memberNo=" + m.getMemberNo());
+				return "common/msg";
+			} else {
+				model.addAttribute("title", "카풀 신청 실패");
+				model.addAttribute("msg", "이미 신청하셨습니다.");
+				model.addAttribute("icon", "error");
+				model.addAttribute("loc", "/carpoolRequest.do?carpoolNo=" + carpoolNo);
+				return "common/msg";
+			}
 		}
 	}
-	//운전자의 내 카풀 리스트 보기!!!
-	//운전자의 카풀 수락, 거절, 마감 등 관리하기
-	@RequestMapping(value="/driverPage.do")
+
+	// 운전자의 내 카풀 리스트 보기!!!
+	// 운전자의 카풀 수락, 거절, 마감 등 관리하기
+	@RequestMapping(value = "/driverPage.do")
 	public String mycarpoolDriver(Model model, int driverNo) {
 		ArrayList<Carpool> list = service.getMyLists(driverNo);
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
 		return "carpool/driverPage";
 	}
-	//운전자 페이지 : 거절, 수락(번복없다!)
-	@ResponseBody	
-	@RequestMapping(value="driverDecide.do")
+
+	// 운전자 페이지 : 거절, 수락(번복없다!)
+	@ResponseBody
+	@RequestMapping(value = "driverDecide.do")
 	public String driverDecide(Passenger passenger) {
-		System.out.println("운전자페이지 테스트"+passenger);
+		System.out.println("운전자페이지 테스트" + passenger);
 		int result = service.updateDriverDecision(passenger);
 		System.out.println(result);
-		if(result>0) {
-			return "success"; //success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
-		}else {
+		if (result > 0) {
+			return "success"; // success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
+		} else {
 			return "error";
 		}
 	}
-	//운전자 페이지 : 마감, 취소(번복없다)
-	@ResponseBody
-	@RequestMapping(value="driverClosing.do")
-	public String driverClosing(Carpool carpool) {
-		System.out.println("운전자 closure 페이지 컨트롤러테스트: "+carpool);
-		int result= service.updateDriverClosing(carpool);
-		System.out.println("운전자 closure 페이지 컨트롤러 result 테스트: "+result);
-		if(result>0) {
-			return "success"; //success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
-		}else {
-			return "error";
-		}
-	}
-	
-	//탑승자의 내 카풀 리스트 보기!!!
-	//탑승자의 카풀 수락, 거절 관리하기
-		@RequestMapping(value="/passengerPage.do")
-		public String mycarpoolPassenger(Model model, int memberNo) {
-			System.out.println(memberNo);
-			//Request processing failed; nested exception is java.lang.IllegalStateException: Optional int parameter 'memberNo' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
-			ArrayList<Carpool> list = service.getMyRequests(memberNo);
-			System.out.println("passengerPage.do의 controller: " + list);
-			model.addAttribute("list", list);
-			return "carpool/passengerPage";
-		}
 
-	
+	// 운전자 페이지 : 마감, 취소(번복없다)
+	@ResponseBody
+	@RequestMapping(value = "driverClosing.do")
+	public String driverClosing(Carpool carpool) {
+		System.out.println("운전자 closure 페이지 컨트롤러테스트: " + carpool);
+		int result = service.updateDriverClosing(carpool);
+		System.out.println("운전자 closure 페이지 컨트롤러 result 테스트: " + result);
+		if (result > 0) {
+			return "success"; // success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
+		} else {
+			return "error";
+		}
+	}
+
+	// 탑승자의 내 카풀 리스트 보기!!!
+	// 탑승자의 카풀 수락, 거절 관리하기
+	@RequestMapping(value = "/passengerPage.do")
+	public String mycarpoolPassenger(Model model, int memberNo) {
+		System.out.println(memberNo);
+		// Request processing failed; nested exception is
+		// java.lang.IllegalStateException: Optional int parameter 'memberNo' is present
+		// but cannot be translated into a null value due to being declared as a
+		// primitive type. Consider declaring it as object wrapper for the corresponding
+		// primitive type.
+		ArrayList<Carpool> list = service.getMyRequests(memberNo);
+		System.out.println("passengerPage.do의 controller: " + list);
+		model.addAttribute("list", list);
+		return "carpool/passengerPage";
+	}
+
 }

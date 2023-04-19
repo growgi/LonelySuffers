@@ -22,8 +22,8 @@ public class CarpoolService {
 		return dao.selectAllCarpool();
 	}
 
-	public Carpool selectOneCarpool(Carpool carpool) {
-		return dao.selectOneCarpool(carpool);
+	public Carpool selectOneCarpool(int carpoolNo) {
+		return dao.selectOneCarpool(carpoolNo);
 		
 	}
 

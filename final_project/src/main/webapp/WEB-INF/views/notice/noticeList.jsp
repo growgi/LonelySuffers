@@ -99,7 +99,6 @@
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>	
 	<!-- 기본 .js 파일들 -->
-	<script src="resources/js/jquery.min.js"></script>
 	<script src="resources/js/bootstrap.js"></script>
 	<script src="resources/js/parallax.js"></script>
 	<script src="resources/js/animate.js"></script>

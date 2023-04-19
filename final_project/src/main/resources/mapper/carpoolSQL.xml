@@ -22,23 +22,24 @@
 	</select>
 	
 <!-- 한개의 카풀 조회(상세페이지용) -->
-	<select id="selectOneCarpool" parameterType="c" resultType="c">
+	<select id="selectOneCarpool" parameterType="_int" resultType="c">
 	select
-		driver_no as driverNo,
+		c.driver_no as driverNo,
 		member_name as driverName,
 		member_gender as driverGender,
-		reg_date as regDate,
-		carpool_no as carpoolNo,
-		departure_date as departureDate,
-		departure_region as departureRegion,
-		departure_district as departureDistrict,
-		arrival_region as arrivalRegion,
-		arrival_district as arrivalDistrict,
-		capacity as capacity,
-		carpool_price as carpoolPrice
-		from carpool
+		c.reg_date as regDate,
+		c.carpool_no as carpoolNo,
+		c.departure_date as departureDate,
+		c.departure_region as departureRegion,
+		c.departure_district as departureDistrict,
+		c.arrival_region as arrivalRegion,
+		c.arrival_district as arrivalDistrict,
+		c.capacity as capacity,
+		c.carpool_price as carpoolPrice,
+		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
+		from carpool c
 		left join member_tbl on(member_no=driver_no) 
-		where carpool_no=#{carpoolNo}
+		where carpool_no=#{_parameter}
 	</select>
 	
 <!-- 운전자의 카풀 제공 등록 확인할 것 : 편도/왕복에 따라 화면이 다른데 그럼 mapper 다르게 구현하는게 맞는지??-->
@@ -76,6 +77,11 @@
 			where driver_no=#{_parameter}
 	</select>
 -->
+
+
+	<!-- 아래 세개가 한 세트이다. 드라이버가 카풀 신청을 받은 마이페이지를 보는 것인데
+	 carpool VO 안에 list array로 passenger을 받아왔다. 카풀 VO와 함께 그 안의 
+	 passenger list도 받아오기때문에 --> 
 	<select id="selectMyLists"  parameterType="map" resultMap="getMyLists">
 		select
 			c.carpool_no,
@@ -96,7 +102,6 @@
 				<if test="memberNo!=null">
 					where member_no=#{memberNo}
 				</if>
-			
 	</select>
 	
 	<select id="selectPassengerList" parameterType="_int" resultType="p">
