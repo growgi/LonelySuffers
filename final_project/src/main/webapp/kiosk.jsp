@@ -11,18 +11,47 @@
 		margin:0;
 		padding:0;
 	}
-	
+	.modal{
+	z-index:1200 !important;
+	}
+	.modal-content{
+	overflow-y: initial !important;
+	}
+	#modal-body{
+	height: 800px;
+	overflow-y: auto;
+	}
+	.fade.in{
+	z-index:1180;
+	}
 	.modal-dialog {
     position: absolute !important;
-    top: 2.5%;
+    top: 1.5%;
     left: 20%;
     transform: translate(-50%, -50%);
     margin: 0 auto !important;
     }
 	
 	.modal-content{
-		width: 1200px;
-		margin-right:200px;
+	width: 1200px;
+	margin-right:200px;
+	}
+	h4.modal-title {
+    text-align: center;
+	}
+	.modal-open .modal {
+    width: 1500px;
+   	}
+   	#myModal{
+   	overflow-y: hidden;
+   	}
+   	div#bookingArea {
+    width: 800px;
+    margin-left: 200px;
+    margin-top: 69px;
+	}
+	.product-info{
+	margin-top:15px;
 	}
 	.clickToLarger {
 	width: 80px;
@@ -36,20 +65,7 @@
 	}
 	.nav-item { background-color: #3ac5c8;}
 	.nav-link { color: #ffffff; }
-	h4.modal-title {
-    text-align: center;
-	}
-	.modal-open .modal {
-    width: 1500px;
-   	}
-   	#myModal{
-   	overflow-y: hidden;
-   	}
-   	div#bookingArea {
-    width: 800px;
-    margin-left: 200px;
-    margin-top: 70px;
-	}
+	
 	
 	#daterangepicker{
 	width:596px;
@@ -547,7 +563,7 @@
 						        <button type="button" class="close" data-dismiss="modal">&times;</button>
 						        <h4 class="modal-title">숙소 상세정보</h4>
 						      </div>
-						      <div class="modal-body">
+						      <div class="modal-body" id="modal-body">
 							       <section class="section">
 									<div class="container">
 										<div class="row">
@@ -569,8 +585,7 @@
 												<div class="row">
 													<div class="col-md-12">
 													<ul class="pagination" style="text-align: center;">
-														<li><img class="clickToLarger onViewing photo1" src=""></li>
-													</ul>
+														<li><img class="clickToLarger onViewing photo1" src=""></li></ul>
 													</div>
 												</div>
 												
@@ -582,7 +597,7 @@
 						
 											<div class="col-md-6 product-detail">
 													<input type="hidden" name="roomTitle" value="">
-													<p class="modal-room-title">${house.roomTitle }</p>
+													<p class="modal-room-title"></p>
 													<div class="row">
 														<h1 class="modal-house-title" style="padding-bottom: 40px;"></h1>
 														<input type="hidden" name="housePrice" value="">
@@ -615,7 +630,7 @@
 										<!-- end row -->
 											
 											<!-- 상품 정보 표시 시작 -->
-														<div class="row">
+														<div class="row product-info">
 															<div class="col-md-9 card mt-3 tab-card">
 																<div class="row tab-card-header">
 																	<ul class="nav nav-tabs card-header-tabs">
@@ -730,13 +745,13 @@
 						<form action="#">
 							<fieldset>
 								<legend>00님의 주문내역</legend>
-									<ul>
+									<ul class="roomBook-info">
 										<li>숙소정보</li>
 										<li>숙박소이름,호수</li>
 										<li>숙박 날짜</li>
 										<li>옵션</li>
 										<li>가격</li>
-									</ul>
+									</ul class="lessonBook-info">
 									<ul>
 										<li>강습정보</li>
 										<li>강슴이름</li>
@@ -802,11 +817,11 @@
 							<select name="roomNo"></select>
 			        		<div class="row">
 				        		<div class="col-md-4">
-									<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required disabled>
+									<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required readonly>
 								</div>
 			        			<div class="col-md-2"></div>
 			        			<div class="col-md-4">
-									<input type="text" name="bookEndDate" id="bookEnd" placeholder="숙박 퇴실일" required disabled>
+									<input type="text" name="bookEndDate" id="bookEnd" placeholder="숙박 퇴실일" required readonly>
 								</div>
 			        		</div>
 				        	<div class="row">
@@ -1215,7 +1230,7 @@ $("document").ready(function() {
 					console.log(data);
 					for(let i=0;i<data.length;i++){
 						const div=$("<div class=roomList></div>");
-						console.log(data[i].houseTitle);
+						console.log(data[i].houseTitle+","+data[i].roomNo);
 						console.log(data[i].roomCapa+"명");
 						console.log("바베큐값:"+data[i].houseBarbecuePrice+"원");
 						console.log("ajax");
@@ -1294,7 +1309,6 @@ $("document").ready(function() {
 						$(".photo4").attr("src",url+data.housePhoto4);
 						console.log("데이터체크4:"+data.housePhoto4);
 					}
-					
 				}
 				
 				//모달 글부분
@@ -1312,7 +1326,8 @@ $("document").ready(function() {
 				$(".modal-house-roomCapa").text(data.roomCapa+"인실");
 				//주소
 				$(".modal-house-roomAddress").text(data.roomAddres);
-				
+				//숙소 설명
+				$(".tab-pane").text(data.houseDescription);
 				
 				// 부트스트랩 tooltip(비성수기 평일기준 그거 나오는거)
 				$(document).ready(function(){
@@ -1350,7 +1365,15 @@ $("document").ready(function() {
 
 			// 예약하기 modal 띄우면 실행되는 함수 시작
 				$("#goBooking").on("click", function(){
-					//alert("go booking lick");
+					
+					//키오스크 2페이지에서 받아온 예약시작일과 종료일
+					let bookStartDate = $("#bookStartDate").val();
+					$("#bookStart").val(bookStartDate);
+					console.log("키오스크2페이지"+bookStartDate);
+					let bookEndDate = $("#bookEndDate").val();
+					$("#bookEnd").val(bookEndDate);
+					
+					//alert("go booking click");
 					$("[name=roomNo]").on("change", function(){
 					// 이미 결제완료된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax 
 						$.ajax({
@@ -1363,39 +1386,9 @@ $("document").ready(function() {
 								for(let i=0; i<List.length; i++){
 									invalidDateRanges[i] = { 'start': moment(List[i].bookStartDate), 'end': moment(List[i].bookEndDate) };
 			    				}
-
-							// 선택된 객실 바뀔 때마다 날짜 관련 데이터들 모두 초기화
-								$("#bookStart").val("");
-								$("#bookStart").attr("value", null);
-								$("#bookEnd").val("");
-								$("#bookEnd").attr("value", null);
-
-								$("#bookStart").prop("disabled", false);
-								$("#bookEnd").prop("disabled", false);
-
-								// 객실예약의 시작일을 선택하는 date range picker 생성
-									$('#bookStart').daterangepicker({
-									    parentEl: "#bookingArea .modal-body",
-										locale: {
-											format: "YYYY-MM-DD",
-											fromLabel: "시작",
-											toLabel: "종료"
-									    },
-									    alwaysShowCalendars: true,
-										autoApply: true,
-										singleDatePicker: true,
-										showDropdowns: true,
-										minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
-										maxDate: moment().add(3, 'months'),	// 시작일은 3개월 이내에서 지정 가능
-										isInvalidDate: function(date) {
-											return invalidDateRanges.reduce(function(bool, range) {
-												return bool || (date >= range.start && date <= range.end);
-											}, false);
-										}
-									});
-									$("#bookStart").val("");
-									$("#bookStart").attr("value", null);	// value 없는 상태로 생성 필요
-
+							
+								
+									
 								// 시작일 input의 value가 바뀌면, 적절하게 minDate와 maxDate를 구성해서 종료일 date range picker를 생성  
 									$("#bookStart").on("change", function(){
 										const bookStartDate = $("#bookStart").val();	// 시작일+1을 minDate로 사용할 예정
@@ -1456,7 +1449,10 @@ $("document").ready(function() {
 
 
 			// roomBookPrice를 계산하는 함수
-			const onedayPrice = $("[name=housePrice]").val();
+			//let onedayPrice = $("[name=housePrice]").val();
+			console.log("하루 방값"+data.housePrice);
+			console.log("시작일"+$("#bookEnd").val());
+			console.log("끝나는 날"+$("#bookStart").val());
 			function fullPrice(){
 				let result = 0;
 				let days = moment($("#bookEnd").val()).diff(moment($("#bookStart").val()), 'days');
@@ -1484,11 +1480,12 @@ $("document").ready(function() {
 			}
 
 			},
+			//getroom function success 끝
 			error : function(){
 				console.log("모달 에러났음");
 			}
 		}); //숙소 상세정보 모달 ajax끝
-	} //function 끝
+	} //getroom function 끝
 
 	
 	
