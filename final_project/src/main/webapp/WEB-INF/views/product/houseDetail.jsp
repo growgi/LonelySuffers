@@ -132,7 +132,10 @@
 									별평점넣을자리
 								</div>
 							</div>
-							<p>주소지 <span>${house.houseAddress }</span></p>
+							<div class="row" style="margin-top: 30px;">
+								<div class="col-md-2">주소지 :</div>
+								<div class="col-md-10">${house.houseAddress }</div>
+							</div>
 						<div>
 							<button onclick="goWishList()">관심상품</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
@@ -226,7 +229,7 @@
 						</div>
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
-								${house.houseDescription}</div>
+								${house.getHouseDescriptionBr()}</div>
 							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
 								상품 평 div</div>
 							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">

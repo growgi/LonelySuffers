@@ -26,10 +26,19 @@ public class HouseService {
 	}
 
 
+
 	@Transactional
 // 숙박 상품 등록.  House 테이블에 Row 1개 추가
 	public int insertHouse(House h) {
 		return dao.insertHouse(h);
+	}
+
+
+
+	@Transactional
+// 숙박 상품 수정.  House 테이블에서 Row 1개 수정
+	public int updateHouse(House h) {
+		return dao.updateHouse(h);
 	}
 
 

@@ -28,6 +28,21 @@
 	</update>
 
 
+<!-- 숙박 상품 수정 -->
+	<update id="updateHouse" parameterType="h">
+		UPDATE HOUSE SET 
+		HOUSE_TITLE = #{houseTitle},
+		HOUSE_ADDRESS = #{houseAddress},
+		HOUSE_DESCRIPTION = #{houseDescription},
+		HOUSE_PRICE = #{housePrice},
+		HOUSE_BARBECUE = #{houseBarbecue},
+		HOUSE_BARBECUE_PRICE = #{houseBarbecuePrice},
+		HOUSE_PARTY = #{houseParty},
+		HOUSE_PARTY_PRICE = #{housePartyPrice}
+  		WHERE HOUSE_NO = #{houseNo}
+	</update>
+
+
 <!-- 키오스크에서, 지역이나 인원 수 조건 없이 숙박 상품 Row들 조회용  -->
 	<select id="selectHouseList" resultType="h">
 		SELECT
