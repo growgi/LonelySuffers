@@ -46,7 +46,9 @@
 
 		<section class="section">
 			<div class="container">
+				<hr class="invis1">
 				<div class="row">
+  					<p class="quotes">- 후기 -</p>
   					<p class="quotes">술 한잔 마셨습니다...</p>
   					<p class="quotes">버그가 있을 수도 있습니다.</p>
   					<p class="quotes">하지만 론리서퍼스 하나는 기억해주세요.</p>
@@ -55,6 +57,7 @@
   					<p class="quotes">고맙습니다...</p>
   					<p class="quotes">- 론리서퍼스 드림- </p>
 				</div><!-- end row -->
+				<hr class="invis1">
 			</div><!-- end container -->
 		</section><!-- end section -->
 
@@ -72,19 +75,21 @@
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 
 	<script type="text/javascript">
-	var quotes = $(".quotes");
-	var quoteIndex = -1;
+	$(document).ready(function(){
+		var quotes = $(".quotes");
+		var quoteIndex = -1;
 
-	function showNextQuote() {
-		++quoteIndex;
-		if(quoteIndex < (quotes.length - 1)){
-			quotes.eq(quoteIndex % quotes.length).fadeIn(2000).delay(1000).fadeOut(1500, showNextQuote);
-    	}else{
-      		quotes.eq(quoteIndex).fadeIn(2000);
-    	}
-  	}
+		function showNextQuote() {
+			++quoteIndex;
+			if(quoteIndex < (quotes.length - 1)){
+				quotes.eq(quoteIndex % quotes.length).fadeIn(1500).delay(500).fadeOut(1500, showNextQuote);
+	    	}else{
+	      		quotes.eq(quoteIndex).fadeIn(3000);
+	    	}
+	  	}
 
-	showNextQuote();
+		showNextQuote();
+	});
 	</script>
 
 </body>
