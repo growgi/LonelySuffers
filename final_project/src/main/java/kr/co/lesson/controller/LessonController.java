@@ -40,6 +40,19 @@ public class LessonController {
 
 
 
+// 키오스크에서 강습 상품 상세페이지 modal에 반환해줄 함수.  Lesson 테이블에서 Row 1개 전체 조회 후 반환
+	@ResponseBody
+	@RequestMapping(value="/lessonModalView.do", produces = "application/text; charset=utf8")
+	public String lessonModalView(int lessonNo, Model model) {
+		Lesson l = service.selectOneLesson(lessonNo);
+		model.addAttribute("lesson", l);
+		Gson gson = new Gson();
+		String result = gson.toJson(l);
+		return result;
+	}
+
+
+
 // 강습 상품 등록.  Lesson 테이블에 Row 여러개 추가
 	@RequestMapping(value="/insertLesson.do")
 	public String insertLesson(Lesson l, MultipartFile lessonPhoto, HttpServletRequest request, HttpSession session) {

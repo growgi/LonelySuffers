@@ -20,6 +20,93 @@
 
 }
 
+/*모달*/
+.modal-bg {
+    background-color: rgba(51, 52, 59, 0.3);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    align-items: center;
+}
+.modal-wrap {
+    margin-top: 300px;
+    width: 600px;
+    background: #fff;
+    height: auto;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+.modal-wrap div {
+    padding: 1.2rem;
+}
+.modal-wrap>.modal-head{
+    padding-top: 1.5rem;
+}
+.modal-wrap>.modal-head>h2{
+    font-family: ns-bold;
+}
+.modal-wrap div:not(:last-child) {
+    border-bottom: 1px solid #cecece;
+}
+.modal-wrap .modal-foot {
+    text-align: right;
+}
+.modal-wrap div.modal-head {
+    position: relative;
+
+}
+.modal-wrap div.modal-head>h2{
+    font-size: 20px;
+}
+.modal-content{
+	text-align: center;
+}
+.modal-content>p{
+	font-size: 0.9rem;
+	margin: 0.4rem 0 0.9rem;
+}
+.modal-content>input{
+	outline: none;
+	width: 80%;
+	padding: 0.7rem 1rem;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 0.9em;
+}
+.close-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 25px;
+    border-radius: 50%;
+    transition-duration : 0.4s;
+    padding: 3px;
+}
+.close-icon:hover {
+    cursor: pointer; 
+    background-color: rgba(194, 194, 194, 0.3);
+}
+.modal-wrap>.modal-content>.product-info {
+	border: none;
+	width: 300px;
+	margin: 0 auto;
+}
+.modal-wrap>.modal-content>.product-info>div:first-child{
+	font-weight: 900;
+}
+
+.modal-bg>.modal-wrap .modal-design2{
+    background-color: #3a4f7a;
+    color: #fff;
+}
+.modal-wrap .modal-btn2{
+    text-align: center;
+}
+.bs6{
+    width: 100%;
+}
+
 /*페이지 네비*/
 /* 페이징 디자인 */
 .pagination {

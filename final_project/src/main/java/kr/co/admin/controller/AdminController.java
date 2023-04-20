@@ -15,6 +15,7 @@ import kr.co.admin.model.vo.MemberPageData;
 import kr.co.admin.model.vo.OrderPageData;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.ProductPageData;
+import kr.co.admin.model.vo.RejectProduct;
 import kr.co.admin.model.vo.Search;
 import kr.co.chat.model.service.ChatService;
 import kr.co.chat.model.vo.ChatActive;
@@ -58,9 +59,9 @@ public class AdminController {
 		int result = service.updateMemberGrade(m);
 		
 		if(result>0) {
-			return "redirect:/memberList.do";
+			return "redirect:/memberList.do?reqPage=1";
 		} else {
-			return "redirect:/sellerApplicationList.do";
+			return "redirect:/sellerApplicationList.do?reqPage=1";
 		}
 	}
 	
@@ -71,9 +72,9 @@ public class AdminController {
 		boolean result = service.checkedChangeGrade(id, grade);
 		
 		if(result) {
-			return "redirect:/memberList.do";
+			return "redirect:/memberList.do?reqPage=1";
 		} else {
-			return "redirect:/sellerApplicationList.do";
+			return "redirect:/sellerApplicationList.do?reqPage=1";
 		}
 	}
 	
@@ -83,9 +84,9 @@ public class AdminController {
 		boolean result = service.deleteMember(id);
 		
 		if(result) {
-			return "redirect:/memberList.do";
+			return "redirect:/memberList.do?reqPage=1";
 		} else {
-			return "redirect:/sellerApplicationList.do";
+			return "redirect:/sellerApplicationList.do?reqPage=1";
 		}
 	}
 	
@@ -140,9 +141,9 @@ public class AdminController {
 		boolean result = service.updateMemberGradeSeller(id, no);
 		
 		if(result) {
-			return "redirect:/sellerApplicationList.do";
+			return "redirect:/sellerApplicationList.do?reqPage=1";
 		} else {
-			return "redirect:/memberList.do";
+			return "redirect:/memberList.do?reqPage=1";
 		}
 	}
 	
@@ -189,70 +190,75 @@ public class AdminController {
 
 	//승인
 	@RequestMapping(value="/approveProduct.do")
-	public String approveProduct(int productType, int productNo) {
+	public String approveProduct(String productType, int productNo) {
 		//상품 1개
 		int result = service.updateApproveProduct(productType, productNo);
 		
 		if(result>0) {
-			if(productType == 2) {
-				return "redirect:/newProductHouse.do";
+			if(productType.equals("숙박")) {
+				return "redirect:/newProductHouse.do?reqPage=1";
 			} else {
-				return "redirect:/newProductLesson.do";
+				return "redirect:/newProductLesson.do?reqPage=1";
 			}
 		} else {
-			return "redirect:/productListLesson.do";
+			return "redirect:/productListLesson.do?reqPage=1";
 		}
 	}
 	
 	@RequestMapping(value="/checkedApproveProduct.do")
-	public String checkedApproveProduct(int productType, String no) {
+	public String checkedApproveProduct(String productType, String no) {
 		//체크된 상품
 		boolean result = service.updateCheckedApproveProduct(productType, no);
 		
 		if(result) {
-			if(productType == 2) {
-				return "redirect:/newProductHouse.do";
+			if(productType.equals("숙박")) {
+				return "redirect:/newProductHouse.do?reqPage=1";
 			} else {
-				return "redirect:/newProductLesson.do";
+				return "redirect:/newProductLesson.do?reqPage=1";
 			}
 		} else {
-			return "redirect:/productListLesson.do";
+			return "redirect:/productListLesson.do?reqPage=1";
 		}
 	}
 	
 	//반려
 	@RequestMapping(value="/returnProduct.do")
-	public String returnProduct(int productType, int productNo) {
+	public String returnProduct(String productType, int productNo, String returnReason) {
+//		System.out.println(productType);
+//		System.out.println(productNo);
+//		System.out.println(returnReason);
+		RejectProduct rp = new RejectProduct(productNo, returnReason);
+		
 		//상품 1개
-		int result = service.updateReturnProduct(productType, productNo);
+		int result = service.updateReturnProduct(productType, rp);
 		
 		if(result>0) {
-			if(productType == 2) {
-				return "redirect:/newProductHouse.do";
+			if(productType.equals("숙박")) {
+				return "redirect:/newProductHouse.do?reqPage=1";
 			} else {
-				return "redirect:/newProductLesson.do";
+				return "redirect:/newProductLesson.do?reqPage=1";
 			}
 		} else {
-			return "redirect:/productListLesson.do";
+			return "redirect:/productListLesson.do?reqPage=1";
 		}
 	}
 	
 	@RequestMapping(value="/checkedReturnProduct.do")
-	public String checkedReturnProduct(int productType, String no) {
-		System.out.println("productType:"+productType);
-		System.out.println("no:"+no);
+	public String checkedReturnProduct(String productType, String no) {
+//		System.out.println("productType:"+productType);
+//		System.out.println("no:"+no);
 		
 		//체크된 상품
 		boolean result = service.updateCheckedReturnProduct(productType, no);
 		
 		if(result) {
-			if(productType == 2) {
-				return "redirect:/newProductHouse.do";
+			if(productType.equals("숙박")) {
+				return "redirect:/newProductHouse.do?reqPage=1";
 			} else {
-				return "redirect:/newProductLesson.do";
+				return "redirect:/newProductLesson.do?reqPage=1";
 			}
 		} else {
-			return "redirect:/productListLesson.do";
+			return "redirect:/productListLesson.do?reqPage=1";
 		}
 	}
 	
@@ -271,10 +277,10 @@ public class AdminController {
 			} else if(jspPage.equals("pl")) {
 				return "admin/productListLesson";
 			} else {
-				return "redirect:/memberList.do"; 
+				return "redirect:/memberList.do?reqPage=1"; 
 			}
 		} else { 
-			return "redirect:/memberList.do"; 
+			return "redirect:/memberList.do?reqPage=1"; 
 		}
 		
 	}
@@ -293,10 +299,10 @@ public class AdminController {
 			} else if(jspPage.equals("pl")) {
 				return "admin/productListHouse";
 			} else {
-				return "redirect:/memberList.do"; 
+				return "redirect:/memberList.do?reqPage=1"; 
 			}
 		} else {
-			return "redirect:/memberList.do";
+			return "redirect:/memberList.do?reqPage=1";
 		}
 		
 	}
@@ -315,7 +321,7 @@ public class AdminController {
 			} else if(jspPage.equals("pl")) {
 				return "admin/productListAll";
 			} else {
-				return "redirect:/memberList.do"; 
+				return "redirect:/memberList.do?reqPage=1"; 
 			}
 		} else {
 			return "redirect:/memberList.do";
@@ -337,7 +343,7 @@ public class AdminController {
 			
 			return "admin/productListAll";
 		} else {
-			return "redirect:/newProductLesson.do";
+			return "redirect:/newProductLesson.do?reqPage=1";
 		}
 		
 	}
@@ -354,7 +360,7 @@ public class AdminController {
 			
 			return "admin/productListLesson";
 		} else {
-			return "redirect:/newProductLesson.do";
+			return "redirect:/newProductLesson.do?reqPage=1";
 		}
 		
 	}
@@ -372,7 +378,7 @@ public class AdminController {
 			
 			return "admin/productListHouse";
 		} else {
-			return "redirect:/newProductLesson.do";
+			return "redirect:/newProductLesson.do?reqPage=1";
 		}
 
 	}
@@ -384,9 +390,9 @@ public class AdminController {
 		boolean result = service.updateLessonStatus(no, status);
 		
 		if(result) {
-			return "redirect:/productListLesson.do";
+			return "redirect:/productListLesson.do?reqPage=1";
 		} else {
-			return "redirect:/memberList.do";
+			return "redirect:/memberList.do?reqPage=1";
 		}
 	}
 	
@@ -397,9 +403,9 @@ public class AdminController {
 		boolean result = service.updateHouseStatus(no, status);
 		
 		if(result) {
-			return "redirect:/productListLesson.do";
+			return "redirect:/productListLesson.do?reqPage=1";
 		} else {
-			return "redirect:/memberList.do";
+			return "redirect:/memberList.do?reqPage=1";
 		}
 	}
 	
@@ -409,9 +415,9 @@ public class AdminController {
 		int result = service.updateProductStopSelling(no, productType);
 		
 		if(result>0) {
-			return "redirect:/newProductLesson.do";
+			return "redirect:/newProductLesson.do?reqPage=1";
 		} else {
-			return "redirect:/productListLesson.do";
+			return "redirect:/productListLesson.do?reqPage=1";
 		}
 	}
 	
@@ -436,9 +442,9 @@ public class AdminController {
 		int result = service.deleteOrder(orderNo);
 		
 		if(result>0) {
-			return "redirect:/salesDetails.do";
+			return "redirect:/salesDetails.do?reqPage=1";
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productList.do?reqPage=1";
 		}
 	}
 	
@@ -447,9 +453,9 @@ public class AdminController {
 		boolean result = service.deleteCheckedOrder(no);
 		
 		if(result) {
-			return "redirect:/salesDetails.do";
+			return "redirect:/salesDetails.do?reqPage=1";
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productList.do?reqPage=1";
 		}
 	}
 	//검색
@@ -462,7 +468,7 @@ public class AdminController {
 			model.addAttribute("orderList", orderList);
 			return "admin/salesDetails";
 		} else {
-			return "redirect:/productList.do";
+			return "redirect:/productList.do?reqPage=1";
 		}
 	}
 
