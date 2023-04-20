@@ -113,6 +113,42 @@ public class HouseController {
 
 
 
+// 숙박 상품 수정페이지 보기.  houseStatus에 따라 수정가능한 항목들 다르게 출력
+	@RequestMapping(value="/houseUpdate.do")
+	public String houseUpdate(int houseNo, HttpSession session, Model model) {
+		House h = service.selectOneHouse(houseNo);
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberId().equals(h.getWriter())) {		
+			model.addAttribute("house", h);
+			return "product/houseUpdate";
+		}else {
+			model.addAttribute("title","접근 제한됨");
+			model.addAttribute("msg","상품 등록자만이 수정할 수 있습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/houseView.do?houseNo="+houseNo);
+			return "common/msg";
+		}
+	}
+
+
+
+// 숙박 상품 수정하기.   House 테이블에서 Row 1개 수정
+	@RequestMapping(value="/updateHouse.do")
+	public String updateHouse(House h, Model model) {
+		int result = service.updateHouse(h);
+		if(result > 0) {
+			return "redirect:/houseView.do?houseNo="+h.getHouseNo();
+		}else {
+			model.addAttribute("title","실패");
+			model.addAttribute("msg","알 수 없는 이유로 인해 상품 정보 변경이 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/houseUpdate.do?houseNo="+h.getHouseNo());
+			return "common/msg";
+		}
+	}
+
+
+
 // 객실 관리 페이지 roomManage.jsp를 방문하는 함수.  작성자(숙박 상품 등록자)만 허용됨
 	@RequestMapping(value = "/roomManage.do")
 	public String roomManage(int houseNo, HttpSession session, Model model) {
@@ -218,6 +254,16 @@ public class HouseController {
 		condition.setRoomTitle(roomTitle);
 		condition.setRoomCapa(roomCapa);
 		ArrayList<Room> list = service.selectAllAvailableRoom(condition);
+		return new Gson().toJson(list);
+	}
+	
+	
+//모달용으로 복사, 예약이 없는(예약테이블에는 있어도 결제완료는 되어있지 않은 방들)을 조회
+	@ResponseBody
+	@RequestMapping(value="/availableModalRoomsList.do", produces = "application/json;charset=utf-8")
+	public String availableModalRoomsList(House h) {
+		ArrayList<House> list = service.selectAllAvailableRoomList(h);
+		System.out.println("모달룸 리스트 테스트 : "+list.size());
 		return new Gson().toJson(list);
 	}
 

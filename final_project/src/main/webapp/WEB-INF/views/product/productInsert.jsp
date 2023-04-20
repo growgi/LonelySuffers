@@ -140,7 +140,7 @@ input[type="number"], input[type="time"] {
 												</tr>
 												<tr>
 													<th>상품 사진</th>
-													<td><input type="file" class="form-control" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+													<td><div style="width: 100%;"></div><input type="file" class="form-control" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
 													<th>상품 설명</th>
@@ -187,19 +187,19 @@ input[type="number"], input[type="time"] {
 												</tr>
 												<tr>
 													<th>상품 사진1</th>
-													<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+													<td><div style="width: 100%;"></div><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
 													<th>상품 사진2</th>
-													<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+													<td><div style="width: 100%;"></div><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
 													<th>상품 사진3</th>
-													<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+													<td><div style="width: 100%;"></div><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
 													<th>상품 사진4</th>
-													<td><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+													<td><div style="width: 100%;"></div><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
 													<th>상품 설명</th>
@@ -233,26 +233,6 @@ input[type="number"], input[type="time"] {
 	<script src="resources/js/moment.min.js"></script>
 
 	<script type="text/javascript">
-// 바베큐 옵션 유무에 따라 가격입력란 활성/비활성화
-	$("[name=houseBarbecue]").on("change", function(){
-		if($(this).prop("checked")){
-			$("[name=houseBarbecuePrice]").prop("disabled", false);
-		}else{
-			$("[name=houseBarbecuePrice]").prop("disabled", true);
-		}
-	});
-
-// 파티 옵션 유무에 따라 가격입력란 활성/비활성화
-	$("[name=houseParty]").on("change", function(){
-		if($(this).prop("checked")){
-			$("[name=housePartyPrice]").prop("disabled", false);
-		}else{
-			$("[name=housePartyPrice]").prop("disabled", true);
-		}
-	});
-
-
-
 // 강습시간대 추가 함수
 	function insertNextLesson(obj){	
 		const period = Number($("[name=lessonTimeLength]").val());
@@ -369,6 +349,38 @@ input[type="number"], input[type="time"] {
 		}
 	}
 
+
+
+// 첨부된 이미지 업로드 전 미리보기
+	$("[type=file]").on("change",function(){
+		const attached = $(this);
+		const reader = new FileReader();
+		reader.onload = function(){
+			attached.prev().children().remove();
+			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "90%"));
+		}
+		reader.readAsDataURL(attached[0].files[0]);
+	});
+
+
+
+// 바베큐 옵션 유무에 따라 가격입력란 활성/비활성화
+	$("[name=houseBarbecue]").on("change", function(){
+		if($(this).prop("checked")){
+			$("[name=houseBarbecuePrice]").prop("disabled", false);
+		}else{
+			$("[name=houseBarbecuePrice]").prop("disabled", true);
+		}
+	});
+
+// 파티 옵션 유무에 따라 가격입력란 활성/비활성화
+	$("[name=houseParty]").on("change", function(){
+		if($(this).prop("checked")){
+			$("[name=housePartyPrice]").prop("disabled", false);
+		}else{
+			$("[name=housePartyPrice]").prop("disabled", true);
+		}
+	});
 	</script>
 </body>
 </html>

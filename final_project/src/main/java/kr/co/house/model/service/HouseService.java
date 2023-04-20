@@ -26,10 +26,19 @@ public class HouseService {
 	}
 
 
+
 	@Transactional
 // 숙박 상품 등록.  House 테이블에 Row 1개 추가
 	public int insertHouse(House h) {
 		return dao.insertHouse(h);
+	}
+
+
+
+	@Transactional
+// 숙박 상품 수정.  House 테이블에서 Row 1개 수정
+	public int updateHouse(House h) {
+		return dao.updateHouse(h);
 	}
 
 
@@ -94,6 +103,11 @@ public class HouseService {
 	public ArrayList<Room> selectAllAvailableRoom(FindRoomByCondition condition) {
 		return dao.selectAllAvailableRoom(condition);
 	}
+	
+//모달용으로 복사, 예약이 없는(예약테이블에는 있어도 결제완료는 되어있지 않은 방들)을 조회	
+	public ArrayList<House> selectAllAvailableRoomList(House h) {
+		return dao.selectAllAvailableRoomList(h);
+	}
 
 
 
@@ -126,4 +140,7 @@ public class HouseService {
 	public ArrayList<House> selectRoomList(House house) {
 		return dao.selectRoomList(house);
 	}
+
+
+	
 }

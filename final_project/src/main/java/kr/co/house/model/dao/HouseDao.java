@@ -40,6 +40,13 @@ public class HouseDao {
 
 
 
+// 숙박 상품 수정.  House 테이블에서 Row 1개 수정
+	public int updateHouse(House h) {
+		return sqlSession.update("h.updateHouse", h);
+	}
+
+
+
 // 객실 등록.  Room 테이블에 Row 1개 추가
 	public int insertRoom(Room r) {
 		return sqlSession.insert("r.insertRoom", r);
@@ -73,6 +80,12 @@ public class HouseDao {
 		return (ArrayList<Room>)list;
 	}
 
+//모달용으로 복사, 예약이 없는(예약테이블에는 있어도 결제완료는 되어있지 않은 방들)을 조회	
+	public ArrayList<House> selectAllAvailableRoomList(House h) {
+		System.out.println(h);
+		List list = sqlSession.selectList("h.selectAllAvailableRoomList", h);
+		return (ArrayList<House>)list;
+	}
 
 
 // 하나의 houseNo에 대한 모든 객실들을 조회. 사용 중지된 객실도 포함하여 Room 테이블에서 Row 여러개 조회 후 반환
@@ -112,4 +125,7 @@ public class HouseDao {
 		List list = sqlSession.selectList("h.selectRoomList", house);
 		return(ArrayList<House>)list;
 	}
+
+
+
 }

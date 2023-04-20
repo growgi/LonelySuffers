@@ -25,10 +25,26 @@
 	</update>
 
 
+<!-- 강습 상품 수정 -->
+	<update id="updateLesson" parameterType="l">
+		UPDATE LESSON SET
+		<if test='lessonLevel != 0'>LESSON_LEVEL = #{lessonLevel},</if>
+		<if test='lessonTitle != null'>LESSON_TITLE = #{lessonTitle},</if>
+		<if test='lessonCity != null'>LESSON_CITY = #{lessonCity},</if>
+		<if test='lessonInfo != null'>LESSON_INFO = #{lessonInfo},</if>
+		<if test='lessonTeacher != null'>LESSON_TEACHER = #{lessonTeacher},</if>
+		<if test='lessonMaxNo != 0'>LESSON_MAX_NO = #{lessonMaxNo},</if>
+		<if test='lessonStartTime != null'>LESSON_START_TIME = #{lessonStartTime},</if>
+		<if test='lessonEndTime != null'>LESSON_END_TIME = #{lessonEndTime},</if>
+		LESSON_PRICE = #{lessonPrice}
+  		WHERE LESSON_NO = #{lessonNo}
+	</update>
+
+
 <!-- 조건에 맞는 레슨리스트 불러오기 -->
 	<select id="selectLessonList" parameterType="l" resultMap="getLesson">
-		SELECT L.LESSON_NO, LESSON_TITLE, LESSON_INFO_PIC, LESSON_LEVEL, LESSON_MAX_NO, LESSON_START_TIME, LESSON_END_TIME, LESSON_PRICE 
-		FROM LESSON L LEFT JOIN LESSON_BOOK B ON L.LESSON_NO = B.LESSON_NO WHERE LESSON_MAX_NO>#{lessonMaxNo} AND LESSON_CITY = #{lessonCity} AND LESSON_STATUS = 1
+		SELECT LESSON_NO, LESSON_TITLE, LESSON_INFO_PIC, LESSON_LEVEL, LESSON_MAX_NO, LESSON_START_TIME, LESSON_END_TIME, LESSON_PRICE 
+		FROM LESSON WHERE LESSON_MAX_NO>=#{lessonMaxNo} AND LESSON_CITY = #{lessonCity} AND LESSON_STATUS = 1
 		
 		<if test='level1 == 1'>AND LESSON_LEVEL = 1</if>
 

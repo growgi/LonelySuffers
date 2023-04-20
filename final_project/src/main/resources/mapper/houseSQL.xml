@@ -28,6 +28,21 @@
 	</update>
 
 
+<!-- 숙박 상품 수정 -->
+	<update id="updateHouse" parameterType="h">
+		UPDATE HOUSE SET 
+		<if test='houseTitle != null'>HOUSE_TITLE = #{houseTitle},</if>
+		<if test='houseAddress != null'>HOUSE_ADDRESS = #{houseAddress},</if>
+		<if test='houseDescription != null'>HOUSE_DESCRIPTION = #{houseDescription},</if>
+		<if test='houseBarbecuePrice != 0'>HOUSE_BARBECUE_PRICE = #{houseBarbecuePrice},</if>
+		<if test='housePartyPrice != 0'>HOUSE_PARTY_PRICE = #{housePartyPrice},</if>
+		HOUSE_PRICE = #{housePrice},
+		HOUSE_BARBECUE = #{houseBarbecue},
+		HOUSE_PARTY = #{houseParty}
+  		WHERE HOUSE_NO = #{houseNo}
+	</update>
+
+
 <!-- 키오스크에서, 지역이나 인원 수 조건 없이 숙박 상품 Row들 조회용  -->
 	<select id="selectHouseList" resultType="h">
 		SELECT
@@ -68,11 +83,9 @@
 		AND H.ROOM_CAPA>=#{roomCapa}
 		<choose>
 			<when test='houseBarbecue==1'>AND HOUSE_BARBECUE = 1</when>
-			
 		</choose>
 		<choose>
 			<when test='houseParty==1'>AND  HOUSE_PARTY = 1</when>
-			
 		</choose>
 				
 		AND ROOM_NO NOT IN
@@ -84,7 +97,24 @@
 	</select>
 
 
-
+<!-- 모달용으로 복사, 숙박 상품 House로부터 받은 houseNo이면서 예약일이 겹치지 않고 혹여나 예약일이 겹치더라도 결제취소가 일어난 방들을 조회  -->
+	<select id="selectAllAvailableRoomList" parameterType = "h" resultMap = "getHouse">
+		SELECT R.ROOM_NO, R.ROOM_TITLE, R.ROOM_NAME, R.HOUSE_NO, HOUSE_PRICE, HOUSE_BARBECUE_PRICE, HOUSE_PARTY_PRICE
+		FROM ROOM R
+		LEFT JOIN HOUSE H ON R.HOUSE_NO=H.HOUSE_NO
+		WHERE R.ROOM_CAPA>=#{roomCapa}
+		AND R.HOUSE_NO=#{houseNo}
+		AND ROOM_NO NOT IN(
+		SELECT ROOM_NO FROM ROOM_BOOK
+		WHERE ROOM_BOOK_NO IN (
+		SELECT ROOM_BOOK_NO FROM
+		ORDER_TBL JOIN ORDER_DETAIL USING(ORDER_NO)
+		WHERE ORDER_STATUS=1 AND ROOM_BOOK_NO IS NOT NULL
+		AND (#{bookStartDate} BETWEEN BOOK_START_DATE AND BOOK_END_DATE OR #{bookEndDate} BETWEEN BOOK_START_DATE AND BOOK_END_DATE)
+		                        )
+		                    )ORDER BY R.ROOM_NO
+	</select>
+		
 
 <!-- 숙박 상품 House 의 모든 column에 대한 resultMap -->
 	<resultMap type="h" id="getHouse">
@@ -109,6 +139,7 @@
 		<result column="HOUSE_PARTY_PRICE" property="housePartyPrice"></result>
 		<result column="REJECT_COMMNET" property="rejectComment"></result>
 		<result column="ROOM_NO" property="roomNo"></result>
+		<result column="ROOM_NAME" property="roomName"></result>
 	</resultMap>
 
 	

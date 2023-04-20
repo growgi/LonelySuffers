@@ -33,7 +33,7 @@
 
 
 <!-- 화면 우측 하단 네비게이션 버튼 영역 시작 -->
-<button onclick="scrollToTop()" id="toTopButton" style="background-color:white;"><img alt="gallery" src="/resources/images/up-arrow.png" style="width: 40px; height: 40px;">Λ</button>
+<button onclick="scrollToTop()" id="toTopButton" style="background-color:white;"><img alt="gallery" src="/resources/images/up-arrow.png" style="width: 40px; height: 40px;"></button>
 <!-- 화면 우측 하단 네비게이션 버튼 영역 끝 -->
 
 
@@ -145,7 +145,7 @@
 							<c:choose>
 								<c:when test="${sessionScope.m.memberGrade ==1}">
 						<li>
-							<a href="/memberList.do">
+							<a href="/memberList.do?reqPage=1">
 							<span style="line-height: 25px; vertical-align: middle;">관리자페이지</span></a>
 						</li>								
 								</c:when>
