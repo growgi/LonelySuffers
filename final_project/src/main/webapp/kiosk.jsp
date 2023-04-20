@@ -79,7 +79,7 @@
 	#booking-modal{
 	height:150px;
 	}
-	#modal-okay, #modal-cancel{
+	#modal-okay, #modal-cancel, #modal-okay2, #modal-cancel2{
 	width:70px;
 	
 	}
@@ -640,25 +640,24 @@
 				<!-- 키오스크 8페이지 -->
 				<div class="pages page8">
 					<div class="receipt-wrap">
-						<form action="#">
+						<form action="receipt-submit">
 							<fieldset>
 								<legend>00님의 주문내역</legend>
 									<ul class="roomBook-info">
-										<li>숙소정보</li>
-										<li>숙박소이름,호수</li>
-										<li>숙박 날짜</li>
-										<li>옵션</li>
-										<li>가격</li>
+										<li>숙소정보 : <input type="text" id="houseTitle-choice" value="hd" readonly></li>
+										<li>숙박소이름,호수 : <input type="text" id="roomTitleNo-choice" value="hd" readonly></li>
+										<li>숙박 날짜 : <input type="text" id="bookDate-choice" value="hd" readonly></li>
+										<li>옵션 : <input type="text" id="options-choice" value="hd" readonly></li>
+										<li>숙소 총액: <input type="text" id="roomTotalPrice-choice" value="hd" readonly></li>
 									</ul class="lessonBook-info">
 									<ul>
-										<li>강습정보</li>
-										<li>강슴이름</li>
-										<li>강습날짜</li>
-										<li>강습시간</li>
-										<li>인원</li>
-										<li>가격</li>
+										<li>강습명 : <input type="text" id="lessonTitle-choice" value="hd" readonly></li>
+										<li>강습날짜 : <input type="text" id="lessonDate-choice" value="hd" readonly></li></li>
+										<li>강습시간 : <input type="text" id="lessonTime-choice" value="hd" readonly></li></li>
+										<li>인원 : <input type="text" id="lessonMaxNo-choice" value="hd" readonly></li></li>
+										<li>강습 총액 : <input type="text" id="lessonTotalPrice-choice" value="hd" readonly></li></li>
 									</ul>
-									<p>총액</p>
+									<p>총액 : <input type="text" id="TotalPrice-choice" value="hd" readonly></p>
 							</fieldset>
 						</form>
 					</div>
@@ -903,8 +902,10 @@
 									<p><span id="modal-lesson-teacher"></span> 강사</p>
 									<hr>
 									<div class="row">
-										<h1 id="modal-lesson-title" style="padding-bottom: 40px;"></h1>
-										<input type="hidden" name="lessonPrice">
+										<h1 id="modal-lesson-title"></h1>
+										<h1 id="modal-lesson-time" style="padding-bottom: 40px;"></h1>
+										<input type="hidden" name="lessonPrice" value="">
+										<input type="hidden" name="lessonTotalPrice" value="">
 										<h3><span id="modal-lesson-price" style="font-size: 36px; font-weight: bold;"></span>원</h3>
 										<div class="col-md-6">
 										</div>
@@ -989,15 +990,15 @@
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
 			          <h4 class="modal-title">예약하기</h4>
 			        </div>
-			        <div class="modal-body">
+			        <div class="modal-body" id="booking-modal">
 						<select name="lessonPeople">
 						</select>
 						<input type="text" name="lessonBookDate" placeholder="강습일" required>
 						<input type="hidden" name="lessonBookPrice">
-						<button type="button" onclick="">주문</button>
+						<button type="button" id="modal-okay2">주문</button>
 			        </div>
 			        <div class="modal-footer">
-			          <button type="button" data-dismiss="modal">닫기</button>
+			          <button type="button" id="modal-cancel2" data-dismiss="modal">닫기</button>
 			        </div>
 			      </div>
 			      
@@ -1592,7 +1593,23 @@ $("document").ready(function() {
 						$("[name=roomBookPrice]").val(result);
 						$(".stat-count").text("0");
 						$(".stat-count").text(result);
-					
+						//주문내역에 숙소 총액,숙소 호수&이름,예약날짜 넣어주는 함수
+						$("#houseTitle-choice").attr("value",$("input[name=roomTitle]").val());
+						$("#roomTitleNo-choice").attr("value",$("[name=roomTitle]").val()+","+$("[name=roomNo] option:selected").val()+"호");
+						$("#bookDate-choice").attr("value",$("#bookStartDate").val()+"~"+$("#bookEndDate").val());
+						$("#roomTotalPrice-choice").attr("value","옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
+						// 주문내역에 옵션 가격 및 정보 전달		
+						const houseBarbecue = $("#barbecue-choice").val();
+						const houseParty = $("#party-choice").val();
+						if(houseBarbecue == 1 && houseParty != 1){
+							$("#options-choice").attr("value","바베큐 "+$("[name=modalOptionPrice1]").val()+"원");
+						}else if(houseBarbecue != 1 && houseParty == 1){
+							$("#options-choice").attr("value","파티"+$("[name=modalOptionPrice2]").val()+"원");
+						}else if(houseBarbecue != 1 && houseParty == 1){
+							$("#options-choice").attr("value","바베큐 "+$("[name=modalOptionPrice1]").val()+"원","value","파티"+$("[name=modalOptionPrice2]").val()+"원");
+						}else{
+							$("#options-choice").attr("value","선택하신 옵션이 없습니다.");
+						}
 				})
 			},
 			//getroom function success 끝
@@ -1726,7 +1743,29 @@ $("document").ready(function() {
 	$(".page6-pass").on('click',function(){
 		alert("강습레벨은 꼭 정해주셔야해요");
 	});
-	
+//page7 강습선택
+	$(".page7-before").on('click',function(){
+		$(".pages").hide();
+		$(".page6").show();
+		$(".title").text("원하시는 강습레벨을 골라주세요");
+		$("#current-page").attr("value",6);
+		
+	})
+	$(".page7-okay").on('click',function(){
+		let result = confirm("주문하신 내역이 맞으신가요?");
+		if(result == true){
+			$(".pages").hide();
+			$(".page8").show();
+			$(".title").text("주문내역을 확인해주세요");
+			$("#current-page").attr("value",8);
+		}else{
+			alert("원하시는 강습을 선택해주세요");
+		}
+		
+	});
+	$(".page7-pass").on('click',function(){
+			alert("강습은 꼭 선택해주셔야해요");
+	})
 
 //강습상품의 상세정보 보기 버튼 클릭하면 modal을 띄워주는 function
 	function getLesson(lessonNo){
@@ -1752,6 +1791,7 @@ $("document").ready(function() {
 				//강사이름, 강습제목 
 				$("#modal-lesson-teacher").text(data.lessonTeacher);
 				$("#modal-lesson-title").text(data.lessonTitle);
+				$("#modal-lesson-time").text("("+data.lessonStartTime+"~"+data.lessonEndTime+")")
 				//강습가격
 				let lessonPrice = data.lessonPrice;
 				$("input[name=lessonPrice]").attr("value",data.lessonPrice);
@@ -1796,6 +1836,8 @@ $("document").ready(function() {
 			console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므로 "+ List[i].lessonBookDate +"는 막음");
 										invalidDateRanges[i] = { 'start': moment(List[i].lessonBookDate), 'end': moment(List[i].lessonBookDate) };}
 									}
+								//강습 1인 가격 넘겨줌
+								$("[name=lessonPrice]").attr("value", List[0].lessonPrice);
 
 								// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
 									$("[name=lessonBookDate]").val("");
@@ -1823,6 +1865,7 @@ $("document").ready(function() {
 									});
 									$("[name=lessonBookDate]").val("");
 									$("[name=lessonBookDate]").attr("value", null);	// value 없는 상태로 생성 필요
+								
 								},
 								error : function(){
 									console.log("인원 수를 먼저 선택해주세요에 focus됨");
@@ -1835,6 +1878,11 @@ $("document").ready(function() {
 							$("[name=lessonBookDate]").val("");
 							$("[name=lessonBookDate]").attr("value", null);
 						}
+						//가격을 계산 하는 곳
+						const result = $("[name=lessonPrice]").val()*$("[name=lessonPeople]").val();
+						console.log(result);
+						$("[name=lessonTotalPrice]").attr("value",result);
+					
 					}); // 예약하기 modal 띄우면 실행되는 함수 끝
 				});
 			},
@@ -1842,6 +1890,17 @@ $("document").ready(function() {
 				console.log("모달 에러났음");
 			}
 		}); //상품 상세정보 모달 ajax끝
+		//stat-count 총합 올려주는 함수
+		$("#modal-okay2").on("click", function(){
+			const currentVal = $(".stat-count").text();
+			console.log("현재 총액 : "+currentVal);
+			const result = Number($(".stat-count").text())+Number($("[name=lessonTotalPrice]").val());
+			console.log("업데이트된 결과 : "+result);
+			$(".stat-count").text("0");
+			$(".stat-count").text(result);
+			//receipt에 총액 넘겨주는 함수
+			$("#TotalPrice-choice").attr("value",result);
+		});
 	}
 //강습상품의 상세정보 보기 modal 함수 끝
 

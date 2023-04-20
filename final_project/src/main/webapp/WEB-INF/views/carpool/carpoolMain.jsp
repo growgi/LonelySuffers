@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <head>
 
@@ -47,7 +48,7 @@
 
 .carpool-wrap>td{
 	padding: 20px;
-	border-bottom: 2px dotted #FFB4B4;
+	border-top: 2px dotted #FFB4B4;
 	padding-bottom: 40px;
 }
 
@@ -62,7 +63,7 @@
 		<!-- section은 위아래로 margin이 크게 잡혀 있습니다. -->
 		<!-- class를 section 이 아니라 section nopad 로 하시면, 좌우 여백 없이 화면 너비 크기 전체에다가 section의 background-color를 부여할 수 있습니다. -->
 		<section class="section transheader homepage parallax"
-			style="background-image: url('resources/images/carpool/surftruck2.png'); opacity: 0.7">
+			style="background-image: url('resources/images/carpool/surftruck2.png'); opacity: 0.7;">
 			<!--  container는 구현 내용물들을 담는 div입니다. -->
 			<div class="container">
 				<div class="row">
@@ -158,9 +159,9 @@
 					<table id="carpoolTable" class="tablesorter" style="background-color:#FFFBEB; border-collapse: initial; padding: 30px;
 						border-radius: 20px; width: 900px; margin-left: 70px; border: 3px solid #E3F6FF;">
 						<thead>
-							<tr style="color: #B2A4FF;">
-								<th data-sort-method='thead' style="width:15%; text-indent: 35px;  line-height: 500%;">출발일</th>
-								<th data-sort-method='thead' style="width:15%;">등록일</th>
+							<tr style="color: #B2A4FF; ">
+								<th data-sort-method='thead' style="width:15%; text-indent: 35px;  line-height: 500%; cursor:pointer;"><img alt="mypage" src="/resources/images/carpool/up-arrow.png" style="width: 25px; height: 24px;">출발일</th>
+								<th data-sort-method='thead' style="width:15%; cursor:pointer;"><img alt="mypage" src="/resources/images/carpool/up-arrow.png" style="width: 25px; height: 24px;">등록일</th>
 								<th data-sort-method='none' style="width:15%;">출발/도착</th>
 								<th data-sort-method='none' style="width:15%;">도시</th>
 								<th data-sort-method='none' style="width:20%;">상세지역</th>
@@ -284,16 +285,16 @@
 								<hr>
 								<div class="btn-pack" style="margin-left: 25px;">
 									<button type="button" class="btn btn-block" id="reset-btn"
-										style="width: 250px; height: 40px; border-radius: 10px; float: left; margin-right: 25px; background-color: #9f9f9f; color: white; font-weight: 900;">초기화</button>
+										style="width: 250px; height: 40px; border-radius: 10px; float: left; margin-right: 25px; background-color: #FDE2F3; color: grey; font-weight: 900;">초기화</button>
 									<button type="button" class="btn btn-block" id="apply-btn" 	style="width: 250px; height: 40px; border-radius: 10px; 
-									background-color: #EA5455; color: white; font-weight: 900;">적용</button>
+									background-color: #E5BEEC; color: grey; font-weight: 900;">적용</button>
 								</div>
 								<br>
 							<div class="modal-footer">
 								<button type="submit" id="exit-mymodal"
 									class="btn btn-danger btn-default pull-left"
 									data-dismiss="modal"
-									style="font-size: 14px; text-align: center; width: 40px; border-radius: 10px; background-color: #D2DAFF; display: flex; justify-content: center; align-items: center;">
+									style="font-size: 14px; text-align: center; width: 40px; border-radius: 10px; background-color: #AEE2FF; color:white;display: flex; justify-content: center; align-items: center;">
 									<span class="glyphicon glyphicon-remove">나가기</span>
 								</button>
 							</div>
@@ -612,13 +613,18 @@
 						});
 			});
 	
+	//필터검색 
+	//input checkbox 다음에오는 span check img 처음에 안보이게하고
 	$("input[type=checkbox]").next().hide();
+	
 	$("input[type=checkbox]").on("change", function(){
 		console.log($(this).is(":checked"))
+		//input의 체크박스가 체크되면
 		if($(this).is(":checked")){
-			//체크박스가 체크되었을 때
+			//check img 보이게하고
 			$(this).next().show();
-			$(this).parent().css({				
+			//input checkbox를 싸고있는 부모가 보이게한다. 
+			$(this).parent().css({
 				backgroundColor: "#DAF5FF",
 				color:"#FF78F0",
 				transitionDuration: "0.3s",
@@ -645,7 +651,6 @@
 		var cellName = row.insertCell(0);	
 		cellName.innerHTML = 0;
 		refresh.refresh();
-	
 
 
 		

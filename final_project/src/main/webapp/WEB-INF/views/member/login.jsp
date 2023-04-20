@@ -25,7 +25,7 @@
 			<div class="container">
 				<div class="row">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
-						<div class="main">
+			<div class="main">
 			<div class="content-top">
 							<p class="waveEffectWord-back" style="font-family: 'Courgette-Regular' !important; ">Lonely Surfers</p>
 							<p class="waveEffectWord-front" style="font-family: 'Courgette-Regular' !important;">Lonely Surfers</p>
@@ -34,14 +34,12 @@
 				<div class="main-top">
 					<form action="/login.do" method="post" class="customInput" onsubmit="return frm_check();">
 					<div>
-					<input type="text" name="memberId" id="memberId" required autocomplete="off">
+					<input type="text" name="memberId" id="memberId" class="inputVaild " required autocomplete="off">
 					<label>아이디</label>
-					<span></span>
 					</div>
 					<div>
-					<input type="password" name="memberPw" id="memberPw" required>
+					<input type="password" name="memberPw" id="memberPw" class="inputVaild" required>
 					<label>비밀번호</label>
-					<span></span>
 					</div>
 					  <fieldset>
 					  <label class="toggleSwitch">
@@ -53,14 +51,14 @@
 					   <span>비밀번호 저장</span>
 					  </label>
 					  </fieldset>
-					<input class="btn btn-success " type="submit" value ="로그인">
+					<input class=" btn-success " type="submit" value ="로그인">
 					</form>
 				</div>
 			</div>
 		<div class="main-bottom">
-				<a id="findIdBtn">아이디 찾기</a>
-				<a id="findPwBtn" data-target="#findPw">비밀번호 찾기</a>
-				<a href="/joinMemberFrm.do" id="joinMember">회원가입</a>
+				<a id="findIdBtn" class="btn-success">아이디 찾기</a>
+				<a id="findPwBtn" data-target="#findPw" class="btn-success">비밀번호 찾기</a>
+				<a href="/joinMemberFrm.do" id="joinMember" class="btn-success">회원가입</a>
 			</div>
 		</div>
 				</div><!-- end row -->
@@ -81,17 +79,15 @@
 	        	<div class="form-group">
 	            <form action="/findMemberId.do" method="post" class="customInputLong">
 	            <div>
-	              <input type="text" name="findMemberName" id="findMemberName" required>
+	              <input type="text" name="findMemberName" id="findMemberName" class="inputVaild " required>
 	              <label for="findMemberName">이름</label>
-				  <span></span>            
 	            </div>
 	            <div>
-	              <input type="text" name="findMemberEmail" id="findMemberEmail" required>
+	              <input type="text" name="findMemberEmail" id="findMemberEmail" class="inputVaild " required>
 	              <label for="findMemberEmail">이메일</label>
-				  <span></span>            
 	            </div>
 	              <span class="dataNull"></span><br>
-	              <button type="button" class="btn btn-success btn-block selectIdBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
+	              <button type="button" class="btn-successs btn-block selectIdBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
 	              </form>
 	            </div>
             </div>
@@ -100,11 +96,11 @@
               <h3>조회된 아이디는</h3>
               <h3>[ <span class="findIdInput"></span> ]입니다.</h3>
             </div>
-              <button type="button" class="btn btn-success btn-block idOkBtn"><span class="glyphicon glyphicon-off"></span> 확인</button>
+              <button type="button" class="btn-successs btn-block idOkBtn"><span class="glyphicon glyphicon-off"></span> 확인</button>
         	</div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          <button type="submit" class="btn btn-danger btn-successs btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
         </div>
       </div>
     </div>
@@ -125,31 +121,28 @@
         	<div class="form-group">
             <form action="/findMemberPw.do" class="customInputLong" method="post" >
               <div>
-              <input type="text" name="memberId" class="findMemberPwId" required>
+              <input type="text" name="memberId" class="findMemberPwId inputVaild" required>
               <label>아이디</label>
-              <span></span>
               </div>
               <div>
-              <input type="text" name="memberEmail" class="findMemberPwEmail" required>
+              <input type="text" name="memberEmail" class="findMemberPwEmail inputVaild" required>
               <label>이메일</label>
-              <span></span>
               </div>
-              <button type="submit" class="btn btn-success btn-block selectPwBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
+              <button type="submit" class="btn-successs btn-block selectPwBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
               </form>
             </div>
             </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          <button type="submit" class="btn btn-danger btn-default pull-right btn-successs" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
         </div>
       </div>
     </div>
   </div>
 
 
-
-
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
 	</div>
 	<!-- end wrapper -->
 
