@@ -313,4 +313,16 @@ public class AdminDao {
 		return result;
 	}
 
+	public ArrayList<Lesson> selectTopLesson() {
+		List lessonList = sqlSession.selectList("admin.selectTopLesson");
+		
+		return (ArrayList<Lesson>)lessonList;
+	}
+
+	public ArrayList<House> selectTopHouse() {
+		List houseList = sqlSession.selectList("admin.selectTopHouse");
+		
+		return (ArrayList<House>)houseList;
+	}
+
 }

@@ -34,6 +34,17 @@ public class AdminController {
 	@Autowired
 	private ChatService cService;
 	
+	@RequestMapping(value="/main.do")
+	public String main(Model model) {
+		ArrayList<Lesson> lessonList = service.selectTopLesson();
+		ArrayList<House> houseList = service.selectTopHouse();
+		
+		model.addAttribute("lessonList", lessonList);
+		model.addAttribute("houseList", houseList);
+		
+		return "main";
+	}
+	
 	/**1. 회원목록*/
 	@RequestMapping(value="/memberList.do")
 	public String memberList(int reqPage, Model model) {

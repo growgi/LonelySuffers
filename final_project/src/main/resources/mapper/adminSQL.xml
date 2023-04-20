@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
+	<select id="selectTopLesson" resultType="l">
+	    <![CDATA[
+		select lessonNo, lessonScore, lessonInfoPic
+  		from (
+         select lesson_no as lessonNo,
+			lesson_score as lessonScore,
+			lesson_info_pic as lessonInfoPic
+           FROM lesson
+          order by lesson_score desc nulls last
+      	)
+ 		where rownum<=4
+ 		]]>
+	</select>
+	
+	<select id="selectTopHouse" resultType="h">
+		<![CDATA[
+		select houseNo, houseScore, housePhoto1
+  		from (
+         select
+			house_no as houseNo,
+			house_score as houseScore,
+			house_photo1 as housePhoto1
+			from house
+          order by house_score desc nulls last
+      	)
+ 		where rownum<=4
+ 		]]>
+	</select>
+
 	<select id="selectAllMember" resultType="m">
 		select
 			member_name as memberName,
