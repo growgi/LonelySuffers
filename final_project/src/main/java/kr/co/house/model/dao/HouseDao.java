@@ -45,6 +45,8 @@ public class HouseDao {
 		return sqlSession.update("h.updateHouse", h);
 	}
 
+
+
 // 객실 등록.  Room 테이블에 Row 1개 추가
 	public int insertRoom(Room r) {
 		return sqlSession.insert("r.insertRoom", r);

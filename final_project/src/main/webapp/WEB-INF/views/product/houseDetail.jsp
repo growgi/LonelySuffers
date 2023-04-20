@@ -142,6 +142,7 @@
 						</div>
 						<c:if test="${sessionScope.m.memberGrade == 2}">
 						<div>
+							<a class="btn btn-default" href="/houseUpdate.do?houseNo=${house.houseNo}">상품 수정</a>
 							<a class="btn btn-default" href="/roomManage.do?houseNo=${house.houseNo}">객실 관리</a>
 						</div>
 						</c:if>

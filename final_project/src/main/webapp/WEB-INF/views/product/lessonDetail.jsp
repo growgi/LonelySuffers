@@ -102,7 +102,7 @@
 										<c:when test="${lesson.lessonLevel == 3}">상급</c:when>
 									</c:choose>
 									</span>&nbsp;
-									<span class="label label-info">${lesson.lessonStartTime } ~ ${lesson.lessonEndTime }</span></p>
+									<span class="label label-info">${lesson.getLessonStartTime5() } ~ ${lesson.getLessonEndTime5() }</span></p>
 								</div>
 							</div>
 							<div class="row">
@@ -119,6 +119,11 @@
 							<button onclick="goWishList()">관심상품</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 						</div>
+						<c:if test="${sessionScope.m.memberGrade == 2}">
+						<div>
+							<a class="btn btn-default" href="/lessonUpdate.do?lessonNo=${lesson.lessonNo}">상품 수정</a>
+						</div>
+						</c:if>
 					</div>
 					<!-- end col -->
 				</div>

@@ -50,7 +50,7 @@ input[type="number"], input[type="time"] {
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>숙박 상품 수정</h2>
-						<p class="lead">일부 내용만 수정하실 수 있습니다.</p>
+						<p class="lead">일부 내용만 수정하실 수 있습니다.<br>수정하실 수 없는 부분들은, 새 상품으로 재등록을 하셔야 합니다.</p>
 					</div>
 					<!-- end col -->
 				</div>
@@ -119,7 +119,7 @@ input[type="number"], input[type="time"] {
 								<h1 style="padding-bottom: 40px;">${house.houseTitle }</h1>
 							</c:otherwise>
 						</c:choose>
-								<h3><input type="number" name="housePrice" min="0" max="10000000" step="100"value="${house.housePrice }" placeholder="(단위: 원)" required>원/1박</h3>
+								<h3><input type="number" name="housePrice" min="0" max="10000000" step="100" value="${house.housePrice }" placeholder="최고 100만" required>원/1박</h3>
 								<div class="col-md-9">
 									<p style="text-indent: 10px;"><a href="#" data-toggle="tooltip" data-placement="right" title="주말(입실일 기준 금/토)에는 1.5배의 할증이 있습니다. 성수기(6월~8월)에는 1.2배의 할증이 추가로 붙습니다.">( ※ 비성수기 평일 기준 )</a></p>
 								</div>
@@ -136,7 +136,7 @@ input[type="number"], input[type="time"] {
 										<input type="text" class="form-control" name="houseAddress" value="${house.houseAddress }" required>
 									</c:when>
 									<c:otherwise>
-										<input type="hidden" name="houseAddress" value="${house.houseAddress }">${house.houseAddress }
+										${house.houseAddress }
 									</c:otherwise>
 								</c:choose>
 								</div>
@@ -146,11 +146,11 @@ input[type="number"], input[type="time"] {
 								<c:choose>
 									<c:when test="${house.houseBarbecue == 1 }">
 									<label><input type="checkbox" name="houseBarbecue" value="1" checked style="width: 25px; height: 25px; margin-left: -15px; vertical-align: bottom;"> 바베큐</label>
-									<input type="number" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }" min="0" max="10000000" step="100" placeholder="(단위: 원)" required>원
+									<input type="number" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }" min="0" max="10000000" step="100" placeholder="최고 100만" required>원
 									</c:when>
 									<c:otherwise>
 									<label><input type="checkbox" name="houseBarbecue" value="1" style="width: 25px; height: 25px; margin-left: -15px; vertical-align: bottom;"> 바베큐</label>
-									<input type="number" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }" min="0" max="10000000" step="100" placeholder="(단위: 원)" required disabled>원
+									<input type="number" name="houseBarbecuePrice" value="${house.houseBarbecuePrice }" min="0" max="10000000" step="100" placeholder="최고 100만" required disabled>원
 									</c:otherwise>
 								</c:choose>
 								</div>
@@ -159,17 +159,17 @@ input[type="number"], input[type="time"] {
 								<c:choose>
 									<c:when test="${house.houseParty == 1 }">
 									<label><input type="checkbox" name="houseParty" value="1" checked style="width: 25px; height: 25px; margin-left: -15px; vertical-align: bottom;"> 파티</label>
-									<input type="number" name="housePartyPrice" value="${house.housePartyPrice }" min="0" max="10000000" step="100" placeholder="(단위: 원)" required>원
+									<input type="number" name="housePartyPrice" value="${house.housePartyPrice }" min="0" max="10000000" step="100" placeholder="최고 100만" required>원
 									</c:when>
 									<c:otherwise>
 									<label><input type="checkbox" name="houseParty" value="1" style="width: 25px; height: 25px; margin-left: -15px; vertical-align: bottom;"> 파티</label>
-									<input type="number" name="housePartyPrice" value="${house.housePartyPrice }" min="0" max="10000000" step="100" placeholder="(단위: 원)" required disabled>원
+									<input type="number" name="housePartyPrice" value="${house.housePartyPrice }" min="0" max="10000000" step="100" placeholder="최고 100만" required disabled>원
 									</c:otherwise>
 								</c:choose>
 								</div>
 							</div>
 						<div>
-							<button type="submit" class="btn btn-default">상품 정보 수정</button>
+							<button type="submit" class="btn btn-danger" style="font-size: 18px; padding: 12px 40px;">상품 정보 수정</button>
 						</div>
 					</div>
 					<!-- end col -->

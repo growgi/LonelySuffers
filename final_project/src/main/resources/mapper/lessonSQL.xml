@@ -25,6 +25,22 @@
 	</update>
 
 
+<!-- 강습 상품 수정 -->
+	<update id="updateLesson" parameterType="l">
+		UPDATE LESSON SET
+		LESSON_LEVEL = #{lessonLevel},
+		LESSON_TITLE = #{lessonTitle},
+		LESSON_CITY = #{lessonCity},
+		LESSON_PRICE = #{lessonPrice},
+		LESSON_INFO = #{lessonInfo},
+		LESSON_TEACHER = #{lessonTeacher},
+		LESSON_MAX_NO = #{lessonMaxNo},
+		LESSON_START_TIME = #{lessonStartTime},
+		LESSON_END_TIME = #{lessonEndTime}
+  		WHERE LESSON_NO = #{lessonNo}
+	</update>
+
+
 <!-- 조건에 맞는 레슨리스트 불러오기 -->
 	<select id="selectLessonList" parameterType="l" resultMap="getLesson">
 		SELECT L.LESSON_NO, LESSON_TITLE, LESSON_INFO_PIC, LESSON_LEVEL, LESSON_MAX_NO, LESSON_START_TIME, LESSON_END_TIME, LESSON_PRICE 

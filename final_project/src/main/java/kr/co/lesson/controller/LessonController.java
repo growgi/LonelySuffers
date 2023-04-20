@@ -86,6 +86,42 @@ public class LessonController {
 
 
 
+// 강습 상품 수정페이지 보기.  lessonStatus에 따라 수정가능한 항목들 다르게 출력
+	@RequestMapping(value="/lessonUpdate.do")
+	public String lessonUpdate(int lessonNo, HttpSession session, Model model) {
+		Lesson l = service.selectOneLesson(lessonNo);
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberId().equals(l.getWriter())) {		
+			model.addAttribute("lesson", l);
+			return "product/lessonUpdate";
+		}else {
+			model.addAttribute("title","접근 제한됨");
+			model.addAttribute("msg","상품 등록자만이 수정할 수 있습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/lessonView.do?lessonNo="+lessonNo);
+			return "common/msg";
+		}
+	}
+
+
+
+// 숙박 상품 수정하기.   House 테이블에서 Row 1개 수정
+	@RequestMapping(value="/updateLesson.do")
+	public String updateLesson(Lesson l, Model model) {
+		int result = service.updateLesson(l);
+		if(result > 0) {
+			return "redirect:/lessonView.do?lessonNo="+l.getLessonNo();
+		}else {
+			model.addAttribute("title","실패");
+			model.addAttribute("msg","알 수 없는 이유로 인해 상품 정보 변경이 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/lessonUpdate.do?lessonNo="+l.getLessonNo());
+			return "common/msg";
+		}
+	}
+
+
+
 // 하나의 강습에 대한 예약 내역(결제 완료 상태) 조회.    LESSON_BOOK 테이블에서 Row 여러개 조회 후 반환
 	@ResponseBody
 	@RequestMapping(value="/bookOneLesson.do")

@@ -45,4 +45,14 @@ public class Lesson {
 	private int level1;
 	private int level2;
 	private int level3;
+
+	public String getLessonInfoBr() {
+		return lessonInfo.replaceAll("\r\n","<br>");
+	}
+	public String getLessonStartTime5() {
+		return lessonStartTime.trim();
+	}
+	public String getLessonEndTime5() {
+		return lessonEndTime.trim();
+	}
 }

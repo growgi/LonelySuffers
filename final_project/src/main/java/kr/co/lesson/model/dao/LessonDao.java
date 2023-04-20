@@ -30,6 +30,12 @@ public class LessonDao {
 	}
 
 
+// 강습 상품 수정.  Lesson 테이블에서 Row 1개 수정
+	public int updateLesson(Lesson l) {
+		return sqlSession.update("l.updateLesson", l);
+	}
+
+
 
 // 상품 등록 후 강습 상품 업로드
 	public int uploadLessonPhoto(Lesson l) {
