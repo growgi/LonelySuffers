@@ -140,7 +140,7 @@ input[type="number"], input[type="time"] {
 												</tr>
 												<tr>
 													<th>상품 사진</th>
-													<td><div style="width: 100%;"></div><input type="file" class="form-control" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
+													<td><div style="width: 100%;"></div><input type="file" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
 													<th>상품 설명</th>

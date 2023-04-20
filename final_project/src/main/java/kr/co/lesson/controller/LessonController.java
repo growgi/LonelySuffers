@@ -60,7 +60,6 @@ public class LessonController {
 		l.setWriter(me.getMemberId());
 
 		int result = 0;
-		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
 		for(int i=0; i<l.getLessonStartTimes().length; i++) {
 			result = 0;
 			l.setLessonStartTime(l.getLessonStartTimes()[i]);
@@ -68,6 +67,7 @@ public class LessonController {
 			result += service.insertLesson(l);
 			if(result > 0) {
 				if(!lessonPhoto.isEmpty()) {
+					String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
 					l.setLessonInfoPic(fileManager.uploadLessonPhoto(savePath, lessonPhoto, l.getLessonNo()));
 					service.uploadLessonPhoto(l);
 				}
@@ -108,10 +108,10 @@ public class LessonController {
 // 숙박 상품 수정하기.   House 테이블에서 Row 1개 수정
 	@RequestMapping(value="/updateLesson.do")
 	public String updateLesson(Lesson l, MultipartFile lessonPhoto, HttpServletRequest request, Model model) {
-		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
 		int result = service.updateLesson(l);
 		if(result > 0) {
 			if(!lessonPhoto.isEmpty()) {
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
 				l.setLessonInfoPic(fileManager.uploadLessonPhoto(savePath, lessonPhoto, l.getLessonNo()));
 				service.uploadLessonPhoto(l);
 			}
