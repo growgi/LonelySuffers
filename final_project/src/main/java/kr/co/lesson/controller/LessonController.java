@@ -110,10 +110,12 @@ public class LessonController {
 	public String updateLesson(Lesson l, MultipartFile lessonPhoto, HttpServletRequest request, Model model) {
 		int result = service.updateLesson(l);
 		if(result > 0) {
-			if(!lessonPhoto.isEmpty()) {
-				String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
-				l.setLessonInfoPic(fileManager.uploadLessonPhoto(savePath, lessonPhoto, l.getLessonNo()));
-				service.uploadLessonPhoto(l);
+			if(lessonPhoto != null) {
+				if(!lessonPhoto.isEmpty()) {
+					String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
+					l.setLessonInfoPic(fileManager.uploadLessonPhoto(savePath, lessonPhoto, l.getLessonNo()));
+					service.uploadLessonPhoto(l);
+				}
 			}
 			return "redirect:/lessonView.do?lessonNo="+l.getLessonNo();
 		}else {

@@ -139,7 +139,7 @@ input[type="number"], input[type="time"] {
 													<td><input type="number" class="form-control" name="lessonMaxNo" min="1" max="100" placeholder="(단위: 명)" required></td>
 												</tr>
 												<tr>
-													<th>상품 사진</th>
+													<th>상품 사진<br><span class="help-block" style="font-size: 12px;">미리보기 사진을 누르면 첨부가 취소됨.</span></th>
 													<td><div style="width: 100%;"></div><input type="file" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
@@ -186,7 +186,7 @@ input[type="number"], input[type="time"] {
 													<td><input type="number" class="form-control" name="housePartyPrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required disabled></td>
 												</tr>
 												<tr>
-													<th>상품 사진1</th>
+													<th>상품 사진<br><span class="help-block" style="font-size: 12px;">미리보기 사진을 누르면 첨부가 취소됨.</span></th>
 													<td><div style="width: 100%;"></div><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
@@ -357,10 +357,18 @@ input[type="number"], input[type="time"] {
 		const reader = new FileReader();
 		reader.onload = function(){
 			attached.prev().children().remove();
-			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "90%"));
+			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "90%").attr("onclick", "getRidOf(this)"));
 		}
 		reader.readAsDataURL(attached[0].files[0]);
 	});
+
+
+
+// 미리보기 이미지를 클릭하면, input의 value를 비움
+	function getRidOf(obj){
+		$(obj).parent().next().val("");
+		$(obj).remove();
+	}
 
 
 

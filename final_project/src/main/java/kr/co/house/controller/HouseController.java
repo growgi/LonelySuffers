@@ -138,21 +138,23 @@ public class HouseController {
 		int result = service.updateHouse(h);
 		if(result > 0) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
-			int filled = 4;
-			if(!newPhoto1.isEmpty()) {
-				h.setHousePhoto1(fileManager.uploadHousePhoto1(savePath, newPhoto1, h.getHouseNo()));
-			} else { filled--; }
-			if(!newPhoto2.isEmpty()) {
-				h.setHousePhoto2(fileManager.uploadHousePhoto2(savePath, newPhoto2, h.getHouseNo()));
-			} else { filled--; }
-			if(!newPhoto3.isEmpty()) {
-				h.setHousePhoto3(fileManager.uploadHousePhoto3(savePath, newPhoto3, h.getHouseNo()));
-			} else { filled--; }
-			if(!newPhoto4.isEmpty()) {
-				h.setHousePhoto4(fileManager.uploadHousePhoto4(savePath, newPhoto4, h.getHouseNo()));
-			} else { filled--; }
-			if(filled > 0) {
-			service.uploadHousePhotos(h);
+			if(newPhoto1 != null) {
+				int filled = 4;
+				if(!newPhoto1.isEmpty()) {
+					h.setHousePhoto1(fileManager.uploadHousePhoto1(savePath, newPhoto1, h.getHouseNo()));
+				} else { filled--; }
+				if(!newPhoto2.isEmpty()) {
+					h.setHousePhoto2(fileManager.uploadHousePhoto2(savePath, newPhoto2, h.getHouseNo()));
+				} else { filled--; }
+				if(!newPhoto3.isEmpty()) {
+					h.setHousePhoto3(fileManager.uploadHousePhoto3(savePath, newPhoto3, h.getHouseNo()));
+				} else { filled--; }
+				if(!newPhoto4.isEmpty()) {
+					h.setHousePhoto4(fileManager.uploadHousePhoto4(savePath, newPhoto4, h.getHouseNo()));
+				} else { filled--; }
+				if(filled > 0) {
+				service.uploadHousePhotos(h);
+				}
 			}
 			return "redirect:/houseView.do?houseNo="+h.getHouseNo();
 		}else {

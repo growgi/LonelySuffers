@@ -313,11 +313,21 @@ input[type="number"], input[type="time"] {
 		const attached = $(this);
 		const reader = new FileReader();
 		reader.onload = function(){
-			attached.prev().children().remove();
-			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%"));
+			attached.prev().children().eq(0).css("display", "none");
+			attached.prev().children().eq(1).remove();
+			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
 		}
 		reader.readAsDataURL(attached[0].files[0]);
 	});
+
+
+
+// 미리보기 이미지를 클릭하면, input의 value를 비움
+	function getRidOf(obj){
+		$(obj).prev().css("display", "block");
+		$(obj).parent().next().val("");
+		$(obj).remove();
+	}
 
 
 
