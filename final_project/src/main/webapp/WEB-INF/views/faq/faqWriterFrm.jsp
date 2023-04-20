@@ -29,7 +29,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>공지사항 작성</h2>
+						<h2>자주묻는질문 작성</h2>
 						<hr>
 					</div>
 					<!-- end col -->

@@ -24,7 +24,7 @@
 .search-bar {
     display: flex;
     margin-bottom: 15px;
-    margin-left: 270px;
+    margin-left: 330px;
 }
 .search-bar>.search-icon{
     /*width: 45px;
@@ -56,13 +56,54 @@
     box-shadow: inset 0 0 2px rgb(235, 235, 235);
 }
 
-.table-bordered>tbody>tr>th{
+.table>tbody>tr>th{
 	text-align: center;
+	border-bottom: 3px solid rgba(221,221,221,0.867);
 }
 
-.table-bordered>tbody>tr>td{
+.table-hover>tbody>tr>td{
 	text-align: center;
+	padding-left: 10px;
 }
+
+
+
+.button-74 {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-74:hover {
+  background-color: #fff;
+}
+
+.button-74:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+
+
 
 </style>
 
@@ -75,41 +116,41 @@
 			<div class="container">
 				<div class="row">
 				<c:if test="${sessionScope.m.memberGrade == 1}">
-					<a class="btn btn-default" href="/faqWriterFrm.do" role="button">글쓰기</a>
+					<a class="button-74" href="/faqWriterFrm.do" role="button">글쓰기</a>
 				</c:if>	
 				<form action="/searchFaqTitle.do" method="get" class="search-bar" name="searchTitle">
 					<span class="material-symbols-outlined search-icon">search</span>
 					<input type="text" placeholder="제목으로 검색" name="searchFaqTitle" onkeyup="enterkey();">
 					<input type="submit" style="display:none;">				
 				</form>
-					<table class="table table-bordered">
+					<table class="table">
 						<tr>
-							<th style="width:15%">번호</th>
-							<th style="width:15%">카테고리</th>
-							<th>제목</th>
+							<th style="width:20%">번호</th>
+							<th style="width:20%">카테고리</th>
+							<th style="width:60%">제목</th>
 						</tr>
 					</table>
-					<table class="table table-bordered">	
+					<table class="table table-hover">	
 						<c:forEach items="${list }" var="fq" varStatus="faqNoCt">
 							<tr>
-								<td style="width:15%">${faqNoCt.count }</td>
+								<td style="width:20%">${faqNoCt.count }</td>
 									<c:if test="${fq.categoryNo == 1}">
-										<td style="width:15%">예약취소</td>
+										<td>예약취소</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 2}">
-										<td style="width:15%">숙박</td>
+										<td>숙박</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 3}">
-										<td style="width:15%">강습</td>
+										<td>강습</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 4}">
-										<td style="width:15%">카풀</td>
+										<td>카풀</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 5}">
-										<td style="width:15%">후기</td>
+										<td>후기</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 6}">
-										<td style="width:15%">회원서비스</td>
+										<td>회원서비스</td>
 									</c:if>
 								<td>
 									<a href="/faqView.do?faqNo=${fq.faqNo }">${fq.faqTitle }</a>
