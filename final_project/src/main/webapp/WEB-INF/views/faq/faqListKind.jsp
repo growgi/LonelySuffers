@@ -104,7 +104,6 @@
 }
 
 
-
 </style>
 
 <body>
@@ -135,29 +134,32 @@
 							<tr>
 								<td style="width:20%">${faqNoCt.count }</td>
 									<c:if test="${fq.categoryNo == 1}">
-										<td>예약취소</td>
+										<td style="width:20%">예약취소</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 2}">
-										<td>숙박</td>
+										<td style="width:20%">숙박</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 3}">
-										<td>강습</td>
+										<td style="width:20%">강습</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 4}">
-										<td>카풀</td>
+										<td style="width:20%">카풀</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 5}">
-										<td>후기</td>
+										<td style="width:20%">후기</td>
 									</c:if>
 									<c:if test="${fq.categoryNo == 6}">
-										<td>회원서비스</td>
+										<td style="width:20%">회원서비스</td>
 									</c:if>
-								<td>
+								<td style="width:60%">
 									<a href="/faqView.do?faqNo=${fq.faqNo }">${fq.faqTitle }</a>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
+					<div>
+						<div style="text-align: center;">${pageNavi }</div>
+					</div>
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->
