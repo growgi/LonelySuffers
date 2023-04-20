@@ -256,6 +256,16 @@ public class HouseController {
 		ArrayList<Room> list = service.selectAllAvailableRoom(condition);
 		return new Gson().toJson(list);
 	}
+	
+	
+//모달용으로 복사, 예약이 없는(예약테이블에는 있어도 결제완료는 되어있지 않은 방들)을 조회
+	@ResponseBody
+	@RequestMapping(value="/availableModalRoomsList.do", produces = "application/json;charset=utf-8")
+	public String availableModalRoomsList(House h) {
+		ArrayList<House> list = service.selectAllAvailableRoomList(h);
+		System.out.println("모달룸 리스트 테스트 : "+list.size());
+		return new Gson().toJson(list);
+	}
 
 
 
