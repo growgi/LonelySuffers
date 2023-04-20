@@ -222,15 +222,19 @@
 										<option value="광주">광주</option>
 									</select> 
 								</div>
-								<div class="check-box-wrap">
-									<label class="lb-class lb-left"><div class="check-box left">
-										<input type="checkbox" id="am" name="departureTime" value="0" >
-										<span class="material-symbols-outlined">check</span>오전
-									</div></label>
-									<label class="lb-class lb-right"><div class="check-box right">
-										<input type="checkbox" id="pm" name="departureTime" value="1" >
-										<span class="material-symbols-outlined">check</span>오후<br>
-									</div></label>
+								<div class="check-box-wrap-one" style="margin-bottom: 10px;">
+									<label class="lb-class lb-left">
+										<div class="check-box left">
+											<input type="checkbox" id="am" name="departureTime" value="0" >
+											<span class="material-symbols-outlined">check</span>오전
+										</div>
+									</label>
+									<label class="lb-class lb-right">
+										<div class="check-box right">
+											<input type="checkbox" id="pm" name="departureTime" value="1" >
+											<span class="material-symbols-outlined">check</span>오후<br>
+										</div>
+									</label>
 								</div>
 								<div class="form-group">
 									<label for="usrname">도착</label> 
@@ -243,12 +247,12 @@
 										<option value="부산">부산</option>
 										<option value="대구">대구</option>
 										<option value="광주">광주</option>
-									</select> 
+									</select><br>
 									<div class="row">
 										<div class="col-sm-6">
 											<div class="input-group">
 												<input type="text" class="form-control" id="minPrice" name="carpoolPrice" placeholder="최저가"> 
-												<span class="input-group-addon" style="background-color: none; border: none;">(원)</span>
+												<span class="input-group-addon"  style="background-color: none; border: none;">(원)</span>
 											</div>
 										</div>
 										<div class="col-sm-6">
@@ -259,7 +263,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="check-box-wrap">
+								<div class="check-box-wrap"> 
 									<label class="lb-class"><div class="check-box left">
 										<input type="checkbox" id="oneway" name="onewayRound" value="1">
 										<span class="material-symbols-outlined">check</span>편도
@@ -267,7 +271,7 @@
 									<label class="lb-class"><div class="check-box right">
 										<input type="checkbox" id="round" name="onewayRound" value="2"> 
 										<span class="material-symbols-outlined">check</span>왕복<br>
-									</div></label><br>
+									</div></label>
 									<label class="lb-class"><div class="check-box left">
 										<input type="checkbox" id="opened" name="closure" value="1">
 										<span class="material-symbols-outlined">check</span>모집중</label>
@@ -289,7 +293,7 @@
 								<button type="submit" id="exit-mymodal"
 									class="btn btn-danger btn-default pull-left"
 									data-dismiss="modal"
-									style="font-size: 14px; text-align: center; width: 40px; border-radius: 10px; background-color: rgb(255, 174, 0); display: flex; justify-content: center; align-items: center;">
+									style="font-size: 14px; text-align: center; width: 40px; border-radius: 10px; background-color: #D2DAFF; display: flex; justify-content: center; align-items: center;">
 									<span class="glyphicon glyphicon-remove">나가기</span>
 								</button>
 							</div>
@@ -608,25 +612,28 @@
 						});
 			});
 	
-	/*
+	$("input[type=checkbox]").next().hide();
 	$("input[type=checkbox]").on("change", function(){
+		console.log($(this).is(":checked"))
 		if($(this).is(":checked")){
 			//체크박스가 체크되었을 때
-			$(this).parent().parent().css({
-				color: "#fff",
-				color: "grey",
-				transition-duration: "0.3s",
+			$(this).next().show();
+			$(this).parent().css({				
+				backgroundColor: "#DAF5FF",
+				color:"#FF78F0",
+				transitionDuration: "0.3s",
 				border: "none"
 			});
 		}else{
-			$(this).parent().parent().css({
+			$(this).next().hide()
+			$(this).parent().css({
 			      color: "",
 			      backgroundColor: "",
 			      transitionDuration: "",
 			      border: ""
 			    });
 		}
-	});*/
+	});
 
 	
 		//출발일, 등록일 기준으로 table sort out기능

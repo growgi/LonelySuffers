@@ -29,7 +29,7 @@
 	display: none;
 }
 
-[for="am"],[for="pm"]{
+[for="am"],[for="pm"],[for="return-am"],[for="return-pm"]{
 	display: inline-block;
 	width: 124px;
 	height: 38px;
@@ -63,6 +63,13 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+		<div class="container">
+				<div class="row" style="display: flex; align-items: center;">
+					<a href="carpoolMain.do"><img
+						src="/resources/images/carpool/left-arrow.png" alt="img"
+						style="width: 45px; height: 50px;"></a>
+				</div>
+			</div>
 		<section class="section" style="padding-top: 50px; padding-bottom: 10px;" >
 			<div class="container">
 				<div class="row" style="border-bottom: 1px solid rgba(101, 112, 123, 0.833);">
@@ -87,7 +94,7 @@
 					            <tr> 
 					                <th rowspan="2" style="width:30%; text-align:center; border: 1px solid #FFF3E2; height:80px;">출발</th> 
 					                <td style="border: 1px solid #FFF3E2">
-					                    <select class="form-control" name="departureRegion" id="city" style="width:70%; ">
+					                    <select class="form-control" name="departureRegion" id="city" style="width:70%; border-radius: 10px; border:1px solid pink;  ">
 					                        <option value="" selected disabled>시/도</option>
 					                        <option value="서울">서울</option>
 					                        <option value="경기">경기</option>
@@ -111,7 +118,7 @@
 					            <tr> 
 					                <th rowspan="2"  style="width:30%; text-align:center; border: 1px solid #FFF3E2; height:80px;">도착</th> 
 					                <td style="border: 1px solid #FFF3E2">
-					                    <select class="form-control" name="arrivalRegion" id="city" style="width:70%;">
+					                    <select class="form-control" name="arrivalRegion" id="city" style="width:70%;  border-radius: 10px; border:1px solid pink; ">
 					                        <option value="" selected disabled>시/도</option>
 					                        <option value="서울">서울</option>
 					                        <option value="경기">경기</option>
@@ -298,14 +305,14 @@
 	    			  '<tr class="arrive">' +
 	    	            '<th style="width:35%; text-align:center;">복귀</th>' +
 	    	            '<td>' +
-	    	                '<input type="text" id="returnDate" name="returnDate" required>' +
+	    	                '<input type="text" id="returnDate" name="returnDate" style="border:1px solid pink; height:40px; border-radius: 10px;" required>' +
 	    	                '<div id="calendar-area2"></div>'+
 	    	            '</td>' +
 	    	            '<td>' +
-	    	                '<input type="radio" id="am" name="returnTime" value="0" required>' +
-	    	                '<label for="am">오전</label>' +
-	    	                '<input type="radio" id="pm" name="returnTime" value="1" required>' +
-	    	                '<label for="pm">오후</label>' +
+	    	                '<input type="radio" id="return-am" name="returnTime" value="0" required>' +
+	    	                '<label for="return-am">오전</label>' +
+	    	                '<input type="radio" id="return-pm" name="returnTime" value="1" required>' +
+	    	                '<label for="return-pm">오후</label>' +
 	    	            '</td>' +
 	    	        '</tr>'
 	            	)	
@@ -363,11 +370,14 @@
 	function toggleStorage() {
 	    var surfboardRoom = document.getElementById("surfboardRoom");
 	    if (surfboardRoom.checked) {
-	        surfboardRoom.parentNode.style.backgroundColor = ""; // 선택 해제 시 배경색 투명색으로 변경
+	        surfboardRoom.parentNode.style.backgroundColor = "pink"; // 선택 해제 시 배경색 투명색으로 변경
+	        surfboardRoom.parentNode.style.color = "white"; // 선택 시 배경색 초록색으로 변경
 	        console.log(surfboardRoom.checked);
 	    } else {
-	        surfboardRoom.parentNode.style.backgroundColor = "#a3e8af"; // 선택 시 배경색 초록색으로 변경
+	        surfboardRoom.parentNode.style.backgroundColor = "#FFDEB4"; // 선택 시 배경색 초록색으로 변경
+	        surfboardRoom.parentNode.style.color = "black"; // 선택 시 배경색 초록색으로 변경
 	        console.log(surfboardRoom.checked);
+	        
 	    }
 	};
 

@@ -60,8 +60,8 @@
 <!-- 로고 영역 시작 -->
 					<a class="navbar-brand" href="/">
 						<div class="waveEffect">
-							<p class="waveEffectWord-back" style="font-family: 'Courgette-Regular' !important; ">Lonely Surfers</p>
-							<p class="waveEffectWord-front" style="font-family: 'Courgette-Regular' !important;">Lonely Surfers</p>
+							<p class="waveEffectWord-back" style="font-family: 'Delicious Handrawn', cursive; !important; font-size:50px; ">Lonely Surfers</p>
+							<p class="waveEffectWord-front" style="font-family:'Delicious Handrawn', cursive; !important;  font-size:50px; ">Lonely Surfers</p>
 						</div>
 					</a>
 <!-- 로고 영역 끝 -->
@@ -159,7 +159,7 @@
 								</c:otherwise>
 							</c:choose>
 							
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary logout"><input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }"> 로그아웃</a></li>
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary logout" style="padding-left:30px;"><input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }""> 로그아웃</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="lastlink hidden-xs hidden-sm" "><a class="btn btn-primary" href="/loginFrm.do">
