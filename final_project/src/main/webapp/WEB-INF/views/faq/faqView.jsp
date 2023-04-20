@@ -43,7 +43,8 @@
 		
 		<section class="section" style="padding-top: 0;">
 			<div class="container" >
-				<div class="row" style="margin-top: 20px;">
+				<div class="row">
+					<a href="/" class="btn btn-primary btn-sm active" style="margin-top: 20px">메인으로</a>
 					<div class="faqViewWrap">
 						<p style="margin-bottom: 5px;">제목</p>
 						<p style="font-size: 30px;">${faq.faqTitle }</p>
@@ -95,7 +96,7 @@
 							</tr>
 						</table>
 				</div>
-			<a href="/" style="margin: 0 auto;">메인으로</a>
+			
 			</div>
 		</section>		
 

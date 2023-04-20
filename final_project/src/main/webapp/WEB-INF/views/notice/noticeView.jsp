@@ -45,7 +45,7 @@
 		<section class="section normalhead" style="padding-top: 0;">
 			<div class="container">
 				<div class="row" style="margin-top: 20px;">
-					<a class="btn btn-primary btn-lg active" href="/noticeList.do?reqPage=1">목록보기</a>
+					<a class="btn btn-primary btn-sm active" href="/noticeList.do?reqPage=1">목록보기</a>
 					<div class="noticeViewWrap">
 						<p style="margin-bottom: 5px;">제목</p>
 						<p style="font-size: 30px;">${n.noticeTitle }</p>
