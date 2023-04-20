@@ -31,14 +31,14 @@
 <!-- 숙박 상품 수정 -->
 	<update id="updateHouse" parameterType="h">
 		UPDATE HOUSE SET 
-		HOUSE_TITLE = #{houseTitle},
-		HOUSE_ADDRESS = #{houseAddress},
-		HOUSE_DESCRIPTION = #{houseDescription},
+		<if test='houseTitle != null'>HOUSE_TITLE = #{houseTitle},</if>
+		<if test='houseAddress != null'>HOUSE_ADDRESS = #{houseAddress},</if>
+		<if test='houseDescription != null'>HOUSE_DESCRIPTION = #{houseDescription},</if>
+		<if test='houseBarbecuePrice != 0'>HOUSE_BARBECUE_PRICE = #{houseBarbecuePrice},</if>
+		<if test='housePartyPrice != 0'>HOUSE_PARTY_PRICE = #{housePartyPrice},</if>
 		HOUSE_PRICE = #{housePrice},
 		HOUSE_BARBECUE = #{houseBarbecue},
-		HOUSE_BARBECUE_PRICE = #{houseBarbecuePrice},
-		HOUSE_PARTY = #{houseParty},
-		HOUSE_PARTY_PRICE = #{housePartyPrice}
+		HOUSE_PARTY = #{houseParty}
   		WHERE HOUSE_NO = #{houseNo}
 	</update>
 

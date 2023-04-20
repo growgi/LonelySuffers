@@ -28,15 +28,15 @@
 <!-- 강습 상품 수정 -->
 	<update id="updateLesson" parameterType="l">
 		UPDATE LESSON SET
-		LESSON_LEVEL = #{lessonLevel},
-		LESSON_TITLE = #{lessonTitle},
-		LESSON_CITY = #{lessonCity},
-		LESSON_PRICE = #{lessonPrice},
-		LESSON_INFO = #{lessonInfo},
-		LESSON_TEACHER = #{lessonTeacher},
-		LESSON_MAX_NO = #{lessonMaxNo},
-		LESSON_START_TIME = #{lessonStartTime},
-		LESSON_END_TIME = #{lessonEndTime}
+		<if test='lessonLevel != 0'>LESSON_LEVEL = #{lessonLevel},</if>
+		<if test='lessonTitle != null'>LESSON_TITLE = #{lessonTitle},</if>
+		<if test='lessonCity != null'>LESSON_CITY = #{lessonCity},</if>
+		<if test='lessonInfo != null'>LESSON_INFO = #{lessonInfo},</if>
+		<if test='lessonTeacher != null'>LESSON_TEACHER = #{lessonTeacher},</if>
+		<if test='lessonMaxNo != 0'>LESSON_MAX_NO = #{lessonMaxNo},</if>
+		<if test='lessonStartTime != null'>LESSON_START_TIME = #{lessonStartTime},</if>
+		<if test='lessonEndTime != null'>LESSON_END_TIME = #{lessonEndTime},</if>
+		LESSON_PRICE = #{lessonPrice}
   		WHERE LESSON_NO = #{lessonNo}
 	</update>
 
