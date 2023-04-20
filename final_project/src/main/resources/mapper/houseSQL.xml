@@ -83,11 +83,9 @@
 		AND H.ROOM_CAPA>#{roomCapa}
 		<choose>
 			<when test='houseBarbecue==1'>AND HOUSE_BARBECUE = 1</when>
-			<otherwise>AND HOUSE_BARBECUE = 0</otherwise>
 		</choose>
 		<choose>
 			<when test='houseParty==1'>AND  HOUSE_PARTY = 1</when>
-			<otherwise>AND HOUSE_PARTY = 0</otherwise>
 		</choose>
 				
 		AND ROOM_NO NOT IN

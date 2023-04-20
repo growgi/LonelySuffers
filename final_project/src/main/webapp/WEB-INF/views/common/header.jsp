@@ -33,7 +33,7 @@
 
 
 <!-- 화면 우측 하단 네비게이션 버튼 영역 시작 -->
-<button onclick="scrollToTop()" id="toTopButton" style="background-color:white;"><img alt="gallery" src="/resources/images/up-arrow.png" style="width: 40px; height: 40px;">Λ</button>
+<button onclick="scrollToTop()" id="toTopButton" style="background-color:white;"><img alt="gallery" src="/resources/images/up-arrow.png" style="width: 40px; height: 40px;"></button>
 <!-- 화면 우측 하단 네비게이션 버튼 영역 끝 -->
 
 

@@ -94,7 +94,7 @@
 								<div class="col-md-6">
 								</div>
 								<div class="col-md-6">
-									<input type="hidden" name="lessonLevel" value="${lesson.lessonMaxNo }">
+									<input type="hidden" name="lessonMaxNo" value="${lesson.lessonMaxNo }">
 									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">
 									<c:choose>
 										<c:when test="${lesson.lessonLevel == 1}">초급</c:when>

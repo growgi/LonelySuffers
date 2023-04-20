@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>어디로 떠나볼까요? - Lonely Suffers</title>
 <style>
 	*{
 		margin:0;
@@ -19,6 +19,11 @@
     transform: translate(-50%, -50%);
     margin: 0 auto !important;
     }
+
+    .modal-body{
+	height: 700px;
+	overflow-y: auto;
+	}
 	
 	.modal-content{
 		width: 1200px;
@@ -42,7 +47,7 @@
 	.modal-open .modal {
     width: 1500px;
    	}
-   	#myModal{
+   	#myModal, #lessonModal{
    	overflow-y: hidden;
    	}
    	div#bookingArea {
@@ -536,130 +541,7 @@
 					<div class="rooms-wrap">
 					
 					</div>
-					<!-- Modal -->
-						<div id="myModal" class="modal fade" role="dialog">
-							
-						  <div class="modal-dialog">
-						
-						    <!-- Modal content-->
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal">&times;</button>
-						        <h4 class="modal-title">숙소 상세정보</h4>
-						      </div>
-						      <div class="modal-body">
-							       <section class="section">
-									<div class="container">
-										<div class="row">
-											<div class="col-md-5">
-												
-												
-												<div class="row photo-check" style="height: 450px; display: none;">
-													<div class="col-md-2"></div>
-													<div class="col-md-8">
-														<div class="waveEffect" style="margin: 0 auto;">
-															<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
-															<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
-														</div>
-													</div>
-												</div>
-											
-												
-												<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/house/${house.housePhoto1 }" style="width: 100%;"></div>
-												<div class="row">
-													<div class="col-md-12">
-													<ul class="pagination" style="text-align: center;">
-														<li><img class="clickToLarger onViewing photo1" src=""></li>
-													</ul>
-													</div>
-												</div>
-												
-												
-											</div>
-											<!-- end col -->
-						
-											<div class="col-md-1"></div>
-						
-											<div class="col-md-6 product-detail">
-													<input type="hidden" name="roomTitle" value="">
-													<p class="modal-room-title">${house.roomTitle }</p>
-													<div class="row">
-														<h1 class="modal-house-title" style="padding-bottom: 40px;"></h1>
-														<input type="hidden" name="housePrice" value="">
-														<h3><span class="modal-house-price" style="font-size: 36px; font-weight: bold;"></span>원/1박</h3>
-														<div class="col-md-9">
-															<p style="text-indent: 10px;"><a href="#" data-toggle="tooltip" data-placement="right" title="주말(입실일 기준 금/토)에는 1.5배의 할증이 있습니다. 성수기(6월~8월)에는 1.2배의 할증이 추가로 붙습니다.">( ※ 비성수기 평일 기준 )</a></p>
-														</div>
-														<div class="col-md-3">
-															<input type="hidden" name="roomCapa" value="">
-															<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary modal-house-roomCapa"></span></p>
-														</div>
-													</div>
-													<div class="row" style="margin-top: 30px;">
-														<div class="col-md-3">
-															판매량 ()숫자
-														</div>
-														<div class="col-md-1"></div>
-														<div class="col-md-5">
-															별평점넣을자리
-														</div>
-													</div>
-													<p>주소지 <span class="modal-house-roomAddress"></span></p>
-												<div>
-													<button>관심상품</button>
-													<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
-												</div>
-											</div>
-											<!-- end col -->
-										</div>
-										<!-- end row -->
-											
-											<!-- 상품 정보 표시 시작 -->
-														<div class="row">
-															<div class="col-md-9 card mt-3 tab-card">
-																<div class="row tab-card-header">
-																	<ul class="nav nav-tabs card-header-tabs">
-																		<li class="nav-item active">
-																			<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
-																		</li>
-																		<li class="nav-item">
-																			<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
-																		</li>
-																		<li class="nav-item">
-																			<a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
-																		</li>
-																	</ul>
-																</div>
-																<div class="tab-content" id="myTabContent">
-																	<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
-																		${house.houseDescription}</div>
-																	<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-																		상품 평 div</div>
-																	<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-																		상품 문의 div</div>
-																</div>
-															</div>
-															<div class="col-md-3">
-																<div class="panel panel-default">
-																	<div class="panel-body" style="height: 600px; overflow: clip">광고 등 배너 영역<br>높이 600px을 넘는 사진은 종횡비는 고정하되 아래쪽을 잘라서 출력됨</div>
-																</div>
-															</div>
-														</div><!-- end row -->
-												<!-- 상품 정보 표시 끝 -->
-									</div>
-									<!-- end container -->
-								</section>
-								<!-- end section -->
-		
-		
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						
+					
 					<div class="btn-wrap" id="page5">
 						<button class="page5-before"><p>이전으로</p></button>
 						<button class="page5-okay"><p>확정</p></button>
@@ -716,7 +598,7 @@
 				<div class="pages page7">
 					<div class="lessons-wrap">
 						
-					</div>
+					</div>						
 					<div class="btn-wrap" id="page7">
 						<button class="page7-before"><p>이전으로</p></button>
 						<button class="page7-okay"><p>확정</p></button>
@@ -779,8 +661,130 @@
 			</div><!-- content-wrapper 종료 -->
 		</div>
 	</section>
-	
-	<!-- 예약모달 -->
+
+
+
+		<!-- 숙박 상품 상세보기용 Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">숙소 상세정보</h4>
+					</div>
+					<div class="modal-body">
+						<section class="section">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-5">
+										<div class="row photo-check"
+											style="height: 450px; display: none;">
+											<div class="col-md-2"></div>
+											<div class="col-md-8">
+												<div class="waveEffect" style="margin: 0 auto;">
+													<p class="waveEffectWord-back"
+														style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+													<p class="waveEffectWord-front"
+														style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+												</div>
+											</div>
+										</div>
+
+										<div style="height: 450px; overflow: clip">
+											<img class="bigThumbnailImage" src="" style="width: 100%;">
+										</div>
+										
+										<div class="row">
+											<div class="col-md-12">
+												<ul class="pagination" style="text-align: center;">
+													<li><img class="clickToLarger onViewing photo1" src=""></li></ul>
+											</div>
+										</div>
+
+									</div>
+									<!-- end col -->
+
+									<div class="col-md-1"></div>
+
+									<div class="col-md-6 product-detail">
+										<input type="hidden" name="roomTitle">
+										<p class="modal-room-title"></p>
+										<div class="row">
+											<h1 class="modal-house-title" style="padding-bottom: 40px;"></h1>
+											<input type="hidden" name="housePrice">
+											<h3><span class="modal-house-price" style="font-size: 36px; font-weight: bold;"></span>원/1박</h3>
+											<div class="col-md-9">
+												<p style="text-indent: 10px;">
+													<a href="#" data-toggle="tooltip" data-placement="right" title="주말(입실일 기준 금/토)에는 1.5배의 할증이 있습니다. 성수기(6월~8월)에는 1.2배의 할증이 추가로 붙습니다.">(※ 비성수기 평일 기준 )</a>
+												</p>
+											</div>
+											<div class="col-md-3">
+												<input type="hidden" name="roomCapa">
+												<p style="text-align: left; font-size: 22px; font-weight: bold">
+													<span class="label label-primary modal-house-roomCapa"></span>
+												</p>
+											</div>
+										</div>
+										<div class="row" style="margin-top: 30px;">
+											<div class="col-md-3">판매량 ()숫자</div>
+											<div class="col-md-1"></div>
+											<div class="col-md-5">별평점넣을자리</div>
+										</div>
+										<p>
+											주소지 <span class="modal-house-roomAddress"></span>
+										</p>
+										<div>
+											<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
+										</div>
+									</div>
+									<!-- end col -->
+								</div>
+								<!-- end row -->
+								<hr class="invis">
+								<!-- 상품 정보 표시 시작 -->
+								<div class="row">
+									<div class="col-md-9 card mt-3 tab-card">
+										<div class="row tab-card-header">
+											<ul class="nav nav-tabs card-header-tabs">
+												<li class="nav-item active"><a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a></li>
+												<li class="nav-item"><a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a></li>
+												<li class="nav-item"><a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a></li>
+											</ul>
+										</div>
+										<div class="tab-content" id="myTabContent">
+											<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab"></div>
+											<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">상품 평 div</div>
+											<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">상품 문의 div</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="panel panel-default">
+											<div class="panel-body" style="height: 600px; overflow: clip">
+												광고 등 배너 영역<br>높이 600px을 넘는 사진은 종횡비는 고정하되 아래쪽을 잘라서 출력됨
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- end row -->
+								<!-- 상품 정보 표시 끝 -->
+							</div>
+							<!-- end container -->
+						</section>
+						<!-- end section -->
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div><!-- 숙박 상품 상세보기용 Modal 끝 -->
+
+
+
+	<!-- 숙박 예약모달 -->
 		<div class="row">
 		<!-- 예약 진행용 Modal -->
 			  <div class="modal fade bd-example-modal-lg" id="bookingModal" role="dialog">
@@ -834,7 +838,151 @@
 			    </div>
 			  </div>
 		</div>
-	<!-- 예약모달 row 끝-->
+	<!-- 숙박 예약모달 row 끝-->
+
+
+
+	<!-- 강습 상세보기용 modal 시작 -->
+		<div id="lessonModal" class="modal fade" role="dialog">
+			
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">강습 상세정보</h4>
+		      </div>
+		      <div class="modal-body">
+				<section class="section">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-5">
+								<div class="row lessonPic-check" style="height: 450px;">
+									<div class="col-md-2"></div>
+									<div class="col-md-8">
+										<div class="waveEffect" style="margin: 0 auto;">
+											<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+											<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+										</div>
+									</div>
+								</div>
+								<div style="height: 450px; overflow: clip"><img id="modal-lesson-pic" src="" style="width: 100%;"></div>
+							</div>
+							<!-- end col -->
+		
+							<div class="col-md-1"></div>
+		
+							<div class="col-md-6 product-detail">
+									<p><span id="modal-lesson-teacher"></span> 강사</p>
+									<hr>
+									<div class="row">
+										<h1 id="modal-lesson-title" style="padding-bottom: 40px;"></h1>
+										<input type="hidden" name="lessonPrice">
+										<h3><span id="modal-lesson-price" style="font-size: 36px; font-weight: bold;"></span>원</h3>
+										<div class="col-md-6">
+										</div>
+										<div class="col-md-6">
+											<input type="hidden" name="lessonMaxNo">
+											<p style="text-align: left; font-size: 22px; font-weight: bold">
+											<span id="modal-lesson-level" class="label label-primary"></span>&nbsp;
+											<span id="modal-lesson-time" class="label label-info"></span></p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-3">
+											판매량 ()숫자
+										</div>
+										<div class="col-md-1"></div>
+										<div class="col-md-5">
+											별평점넣을자리
+										</div>
+									</div>
+									<p>지역 <span id="modal-lesson-city"></span></p>
+								<div>
+									<button type="button" data-toggle="modal" data-target="#lessonBookModal" id="goLessonBook">예약하기</button>
+								</div>
+							</div>
+							<!-- end col -->
+						</div>
+						<!-- end row -->
+						<hr class="invis">
+						<div class="row">
+							<div class="col-md-9 card mt-3 tab-card">
+								<div class="row tab-card-header">
+									<ul class="nav nav-tabs card-header-tabs">
+										<li class="nav-item active">
+											<a class="nav-link" id="tab1" data-toggle="tab" href="#modal-lesson-info" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="tab2" data-toggle="tab" href="#modal-lesson-rating" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="tab3" data-toggle="tab" href="#modal-lesson-qna" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
+										</li>
+									</ul>
+								</div>
+								<div class="tab-content" id="lessonTabContent">
+									<div class="tab-pane fade p-3 active in" id="modal-lesson-info" role="tabpanel" aria-labelledby="tab1">
+										</div>
+									<div class="tab-pane fade p-3" id="modal-lesson-rating" role="tabpanel" aria-labelledby="tab2">
+										상품 평 div</div>
+									<div class="tab-pane fade p-3" id="modal-lesson-qna" role="tabpanel" aria-labelledby="tab3">
+										상품 문의 div</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="panel panel-default">
+									<div class="panel-body" style="height: 600px; overflow: clip">광고 등 배너 영역<br>높이 600px을 넘는 사진은 종횡비는 고정하되 아래쪽을 잘라서 출력됨</div>
+								</div>
+							</div>
+						</div><!-- end row -->
+					</div>
+					<!-- end container -->
+				</section>
+				<!-- end section -->
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div><!-- 강습 상세보기용 modal 끝 -->
+
+
+
+	<!-- 강습 예약 modal 시작 -->
+		<div class="row">
+		
+			  <div class="modal fade bd-example-modal-lg" id="lessonBookModal" role="dialog">
+			    <div class="modal-dialog modal-lg">
+			    
+			      <!-- Modal content-->
+			      <div id="lessonBookModalContent" class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">예약하기</h4>
+			        </div>
+			        <div class="modal-body">
+						<select name="lessonPeople">
+							<option selected disabled>인원 수를 먼저 선택해주세요.</option>
+						</select>
+						<input type="text" name="lessonBookDate" placeholder="강습일" required>
+						<input type="hidden" name="lessonBookPrice">
+						<button type="button" onclick="">주문</button>
+			        </div>
+			        <div class="modal-footer">
+			          <button type="button" data-dismiss="modal">닫기</button>
+			        </div>
+			      </div>
+			      
+			    </div>
+			  </div>
+		</div>
+	<!-- 강습 예약 modal 끝-->
+
+
+
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 
@@ -1140,7 +1288,8 @@ $("document").ready(function() {
 		}
 	})
 	$(".page1-pass").on('click',function(){
-		alert("지역은 꼭 정해주셔야해요:)")
+		$(".pages").hide();
+		$(".page2").show();
 	})
 //page2 날짜 선택
 	$(".page2-before").on('click',function(){
@@ -1204,7 +1353,7 @@ $("document").ready(function() {
 			const roomCapa = $("#people-value").val();
 			const houseBarbecue = $("#barbecue-choice").val();
 			const houseParty = $("#party-choice").val();
-			const houseCity = $("#travel-location").val();
+			const houseCity = "강원";
 			result.empty();
 			$.ajax({
 				url : "/roomList.do",
@@ -1305,13 +1454,15 @@ $("document").ready(function() {
 				//숙박가격
 				let housePrice = data.housePrice;
 				//console.log("가격테스트 : "+housePrice.toLocaleString("ko-KR"));
-				$("input[name=housePrice]").attr("value,data.housePrice");
+				$("input[name=housePrice]").attr("value",data.housePrice);
 				$(".modal-house-price").text(housePrice.toLocaleString("ko-KR"));
 				//인원수
 				$("input[name=roomCapa]").attr("value",data.roomCapa);
 				$(".modal-house-roomCapa").text(data.roomCapa+"인실");
 				//주소
 				$(".modal-house-roomAddress").text(data.roomAddres);
+				//상품설명
+				$("#one").text(data.houseDescription);
 				
 				
 				// 부트스트랩 tooltip(비성수기 평일기준 그거 나오는거)
@@ -1557,7 +1708,7 @@ $("document").ready(function() {
 			const level1 = $("#level1-choice").val();
 			const level2 = $("#level2-choice").val();
 			const level3 = $("#level3-choice").val();
-			const lessonCity = $("#travel-location").val();
+			const lessonCity = "강원";
 			//console.log("레벨1:"+level1);
 			//console.log("레벨2:"+level2);
 			//console.log("레벨3:"+level3);
@@ -1592,7 +1743,9 @@ $("document").ready(function() {
 							}
 							infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원, 모집정원 : "+data[i].lessonMaxNo+"명</p>");
 							div.append(infoWrap);
-							
+
+							//모달 테스트
+							infoWrap.append("<button onclick=getLesson("+data[i].lessonNo+") class=btn btn-info btn-lg data-toggle=modal data-target=#lessonModal>예약하기</button>");
 							result.append(div);
 						}
 					},
@@ -1600,6 +1753,7 @@ $("document").ready(function() {
 							console.log("레슨리스트 불러오기 에러");
 						}
 				});
+
 				$("#current-page").attr("value",5);
 			}else {
 				alert("강습레벨은 꼭 정해주셔야해요:)");
@@ -1613,6 +1767,122 @@ $("document").ready(function() {
 		alert("강습레벨은 꼭 정해주셔야해요");
 	});
 	
+
+//강습상품의 상세정보 보기 버튼 클릭하면 modal을 띄워주는 function
+	function getLesson(lessonNo){
+		console.log("레슨넘버"+lessonNo);
+		$(".lessonPic-check").css("display","none");
+		$("#modal-lesson-pic").parent().css("display","none");
+
+		$.ajax({
+			url : "/lessonModalView.do",
+			data : {lessonNo : lessonNo},
+			dataType : "json",
+			success : function(data){
+				const photoUrl = "resources/upload/lesson/";
+				//모달 사진 부분
+				if(data.lessonInfoPic == null){
+					$(".lessonPic-check").css("display","block");
+				}else {
+					$("#modal-lesson-pic").parent().css("display","block");
+					$("#modal-lesson-pic").attr("src",photoUrl+data.lessonInfoPic);						
+				}
+				
+				//모달 글부분
+				//강사이름, 강습제목 
+				$("#modal-lesson-teacher").text(data.lessonTeacher);
+				$("#modal-lesson-title").text(data.lessonTitle);
+				//강습가격
+				let lessonPrice = data.lessonPrice;
+				$("input[name=lessonPrice]").attr("value",data.lessonPrice);
+				$("#modal-lesson-price").text(lessonPrice.toLocaleString("ko-KR"));
+				//정원 수
+				$("input[name=lessonMaxNo]").attr("value",data.lessonMaxNo);
+				//강습레벨
+				if(data.lessonLevel == 1){ $("#modal-lesson-level").text("초급"); }
+				else if(data.lessonLevel == 2){ $("#modal-lesson-level").text("중급"); }
+				else if(data.lessonLevel == 3){ $("#modal-lesson-level").text("고급"); }
+				$("#modal-lesson-time").text(data.lessonStartTime+"~ "+data.lessonEndTime.trim());
+				//지역
+				$("#modal-lesson-city").text(data.lessonCity);
+				//상품설명
+				$("#modal-lesson-info").text(data.lessonInfo);
+				
+				const maxLessonPeople = $("#people-value").val();
+				const lessonPeopleInput = $("[name=lessonPeople]");
+				for(let i=1; i<=maxLessonPeople; i++){
+					lessonPeopleInput.append($("<option>").attr("value", i).text(i+"명"));
+				}
+
+			// 예약하기 modal 띄우면 실행되는 함수 시작
+				$("#goLessonBook").on("click", function(){
+					$("[name=lessonPeople]").on("change", function(){
+						const lessonCapa = $("input[name=lessonMaxNo]").val() - $("[name=lessonPeople]").val();
+			console.log($("[name=lessonPeople]").val() +"명을 예약하려고 함");
+			console.log("강습정원 - 지금 예약할 인원 수 = " + lessonCapa +"(필요한 남은 자리 수)");
+					// 이미 결제완료 인원 된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax
+						if($("[name=lessonPeople]").val()>=1){
+							$.ajax({
+								url : "/bookOneLesson.do",
+								data: {lessonNo : lessonNo},
+								dataType : "json",
+								success : function(List){
+									let invalidDateRanges = [];
+									for(let i=0; i<List.length; i++){
+			console.log(List[i].lessonBookDate +"에는 결제완료 상태의 인원이 이미 "+ List[i].lessonPeople +"명 있음");
+										if(List[i].lessonPeople > lessonCapa){
+			console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므로 "+ List[i].lessonBookDate +"는 막음");
+										invalidDateRanges[i] = { 'start': moment(List[i].lessonBookDate), 'end': moment(List[i].lessonBookDate) };}
+									}
+
+								// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
+									$("[name=lessonBookDate]").val("");
+									$("[name=lessonBookDate]").attr("value", null);
+
+								// 예약일을 선택하는 date range picker 생성
+									$('[name=lessonBookDate]').daterangepicker({
+									    parentEl: "#lessonBookModalContent .modal-body",
+										locale: {
+										format: "YYYY-MM-DD",
+										fromLabel: "시작",
+										toLabel: "종료"
+							    		},
+								    	alwaysShowCalendars: true,
+										autoApply: true,
+										singleDatePicker: true,
+										showDropdowns: true,
+										minDate: moment($("#bookStartDate").val()),
+										maxDate: moment($("#bookEndDate").val()),
+										isInvalidDate: function(date) {
+											return invalidDateRanges.reduce(function(bool, range) {
+												return bool || (date >= range.start && date <= range.end);
+											}, false);
+										}
+									});
+									$("[name=lessonBookDate]").val("");
+									$("[name=lessonBookDate]").attr("value", null);	// value 없는 상태로 생성 필요
+								},
+								error : function(){
+									console.log("인원 수를 먼저 선택해주세요에 focus됨");
+									$(".daterangepicker").remove();
+									$("[name=lessonBookDate]").val("");
+									$("[name=lessonBookDate]").attr("value", null);
+								}
+							});
+						}else{
+							$("[name=lessonBookDate]").val("");
+							$("[name=lessonBookDate]").attr("value", null);
+						}
+					}); // 예약하기 modal 띄우면 실행되는 함수 끝
+				});
+			},
+			error : function(){
+				console.log("모달 에러났음");
+			}
+		}); //상품 상세정보 모달 ajax끝
+	}
+//강습상품의 상세정보 보기 modal 함수 끝
+
 	
 //뒤로가기 막기
 
