@@ -50,4 +50,5 @@ public class House {
 	public String getHouseDescriptionBr() {
 		return houseDescription.replaceAll("\r\n","<br>");
 	}
+
 }

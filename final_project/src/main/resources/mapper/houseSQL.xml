@@ -76,11 +76,11 @@
 <!-- 키오스크 조건에 맞는 숙소리스트 -->
 	<select id="selectRoomList" parameterType = "h" resultMap="getHouse">
 	
-		SELECT R.HOUSE_NO, HOUSE_PHOTO1, H.HOUSE_TITLE, H.HOUSE_PRICE, H.ROOM_CAPA, NVL(HOUSE_BARBECUE_PRICE,0) AS HOUSE_BARBECUE_PRICE, NVL(HOUSE_PARTY_PRICE,0) AS HOUSE_PARTY_PRICE
+		SELECT DISTINCT R.HOUSE_NO, HOUSE_PHOTO1, H.HOUSE_TITLE, H.HOUSE_PRICE, H.ROOM_CAPA, NVL(HOUSE_BARBECUE_PRICE,0) AS HOUSE_BARBECUE_PRICE, NVL(HOUSE_PARTY_PRICE,0) AS HOUSE_PARTY_PRICE
 		FROM ROOM R LEFT JOIN HOUSE H ON R.HOUSE_NO = H.HOUSE_NO 
 		WHERE ROOM_ENABLE = 1
 		AND HOUSE_CITY=#{houseCity}
-		AND H.ROOM_CAPA>#{roomCapa}
+		AND H.ROOM_CAPA>=#{roomCapa}
 		<choose>
 			<when test='houseBarbecue==1'>AND HOUSE_BARBECUE = 1</when>
 		</choose>
@@ -121,6 +121,7 @@
 		<result column="HOUSE_PARTY" property="houseParty"></result>
 		<result column="HOUSE_PARTY_PRICE" property="housePartyPrice"></result>
 		<result column="REJECT_COMMNET" property="rejectComment"></result>
+		<result column="ROOM_NO" property="roomNo"></result>
 	</resultMap>
 
 	
