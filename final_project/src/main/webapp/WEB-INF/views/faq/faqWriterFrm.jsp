@@ -17,10 +17,11 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-
+<link rel="stylesheet" href="/resources/css/faq.css">
 </head>
+<style>
 
-
+</style>
 
 <body>
 	<div id="wrapper">
@@ -45,6 +46,9 @@
 			<div class="container">
 				<div class="row">
 					<form action="/faqWrite.do" method="post">
+					<div class="letter">
+					dddddddddddddddddddddd
+					</div>
 						<table>
 							<tr>
 								<th>제목</th>

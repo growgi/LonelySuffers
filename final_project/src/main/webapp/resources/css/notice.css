@@ -1,30 +1,40 @@
 @charset "UTF-8";
 
-.nt{
+.button-74 {
+    background-color: #fbeee0;
+    border: 2px solid #422800;
+    border-radius: 30px;
+    box-shadow: #422800 4px 4px 0 0;
+    color: #422800;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 50px;
     text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
-.table>tbody>tr>th{
-    margin-bottom: 50px;
+.button-74:hover {
+    background-color: #fff;
 }
 
-.ntFile{
-    width: 100px;
+.button-74:active {
+    box-shadow: #422800 2px 2px 0 0;
+    transform: translate(2px, 2px);
 }
 
-.noticeViewWrap{
-    text-align: center;
+@media (min-width: 768px) {
+    .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+    }
 }
 
-.noticeViewContent{
-    margin: 0 auto;
-}
-
-.noticeContentWrap{
-    border: 1px solid #eee;
-    margin-bottom: 20px;
-    text-align: center;
-}
 
 .img-preview {
     display: inline-block;
@@ -37,7 +47,6 @@
     max-width: 200px;
     height: auto;
 }
-
 
 
 .paper {

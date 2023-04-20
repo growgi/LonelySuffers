@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+<link rel="stylesheet" href="/resources/css/faq.css">
 <style>
 
 .tabs>ul{
