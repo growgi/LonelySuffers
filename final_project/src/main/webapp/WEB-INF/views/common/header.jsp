@@ -145,7 +145,7 @@
 							<c:choose>
 								<c:when test="${sessionScope.m.memberGrade ==1}">
 						<li>
-							<a href="/memberList.do">
+							<a href="/memberList.do?reqPage=1">
 							<span style="line-height: 25px; vertical-align: middle;">관리자페이지</span></a>
 						</li>								
 								</c:when>

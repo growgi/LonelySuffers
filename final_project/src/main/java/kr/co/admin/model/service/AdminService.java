@@ -13,6 +13,7 @@ import kr.co.admin.model.vo.MemberPageData;
 import kr.co.admin.model.vo.OrderPageData;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.ProductPageData;
+import kr.co.admin.model.vo.RejectProduct;
 import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
@@ -793,14 +794,14 @@ public class AdminService {
 		return result;
 	}
 
-	public int updateApproveProduct(int productType, int productNo) {
+	public int updateApproveProduct(String productType, int productNo) {
 		int result = 0;
 		
-		if(productType == 1) {
+		if(productType.equals("강습")) {
 			//강습
 			result = dao.updateApproveLesson(productNo); //해당 상품 상태 1로 변경
 			
-		} else if(productType == 2) {
+		} else if(productType.equals("숙박")) {
 			//숙박
 			result = dao.updateApproveHouse(productNo);
 		}
@@ -808,13 +809,13 @@ public class AdminService {
 		return result;
 	}
 
-	public boolean updateCheckedApproveProduct(int productType, String no) {
+	public boolean updateCheckedApproveProduct(String productType, String no) {
 		//no 구분자 "/" 분리
 		StringTokenizer sT1 = new StringTokenizer(no,"/");
 		
 		boolean result = true;
 		
-		if(productType == 1) {
+		if(productType.equals("강습")) {
 			while(sT1.hasMoreTokens()) {
 				int lessonNo = Integer.parseInt(sT1.nextToken());
 				
@@ -827,7 +828,7 @@ public class AdminService {
 				}
 			}
 			
-		} else if(productType == 2) {
+		} else if(productType.equals("숙박")) {
 			while(sT1.hasMoreTokens()) {
 				int houseNo = Integer.parseInt(sT1.nextToken());
 				
@@ -844,51 +845,51 @@ public class AdminService {
 		return result;
 	}
 
-	public int updateReturnProduct(int productType, int productNo) {
+	public int updateReturnProduct(String productType, RejectProduct rp) {
 		int result = 0;
 		
-		if(productType == 1) {
+		if(productType.equals("강습")) {
 			//강습
-			result = dao.updateReturnLesson(productNo); //해당 상품 상태 1로 변경
+			result = dao.updateReturnLesson(rp); //해당 상품 상태 1로 변경
 			
-		} else if(productType == 2) {
+		} else if(productType.equals("숙박")) {
 			//숙박
-			result = dao.updateReturnHouse(productNo);
+			result = dao.updateReturnHouse(rp);
 		}
 		
 		return result;
 	}
 
-	public boolean updateCheckedReturnProduct(int productType, String no) {
+	public boolean updateCheckedReturnProduct(String productType, String no) {
 		//no 구분자 "/" 분리
 		StringTokenizer sT1 = new StringTokenizer(no,"/");
 		
 		boolean result = true;
 		
-		if(productType == 1) {
+		if(productType.equals("강습")) {
 			while(sT1.hasMoreTokens()) {
 				int lessonNo = Integer.parseInt(sT1.nextToken());
 				
-				int changeResult = dao.updateReturnLesson(lessonNo); //상품 상태 변경
+				/*int changeResult = dao.updateReturnLesson(lessonNo); //상품 상태 변경
 				
 				if(changeResult == 0) {
 					//실패
 					result = false;
 					break;
-				}
+				}*/
 			}
 			
-		} else if(productType == 2) {
+		} else if(productType.equals("숙박")) {
 			while(sT1.hasMoreTokens()) {
 				int houseNo = Integer.parseInt(sT1.nextToken());
 				
-				int changeResult = dao.updateReturnHouse(houseNo); //상품 상태 변경
+				/*int changeResult = dao.updateReturnHouse(houseNo); //상품 상태 변경
 				
 				if(changeResult == 0) {
 					//실패
 					result = false;
 					break;
-				}
+				}*/
 			}
 		}
 

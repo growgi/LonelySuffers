@@ -27,8 +27,26 @@
 }
 </style>
 <body>
+	<!-- Modal -->
+    <div id="test-modal" class="modal-bg" style="z-index:1">
+      <div class="modal-wrap">
+        <div class="modal-head">
+          <h2>상품 반려</h2>
+          <span class="material-icons close-icon modal-close">close</span>
+        </div>
+        <div class="modal-content">
+	        	<div class="product-info"></div>
+	          	<p>해당 상품을 반려하는 이유를 작성해주세요.</p>
+	          	<input type="text" class="return-reason">
+        </div>
+        <div class="modal-foot">
+          <button class="returnProduct btn-m bc4 btn-pill">확인</button>
+          <button class="btn-m bc5 modal-close btn-pill">취소</button>
+        </div>
+      </div>
+    </div>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
-	<div class="newProduct-wrapper product-wrapper admin-content">
+	<div class="newProduct-wrapper product-wrapper admin-content container">
 		<div>
 			<div class="newProduct-list">
 				<div class="table-content">
@@ -97,10 +115,10 @@
 	                                		<c:otherwise>
 		                                		<c:choose>
 		                                		<c:when test="${n.productType == '강습'}">
-			                                		<img src="resources/upload/lesson/${n.productPic }">
+			                                		<div><img src="resources/upload/lesson/${n.productPic }"></div>
 		                                		</c:when>
 		                                		<c:when test="${n.productType == '숙박'}">
-			                                		<img src="resources/upload/house/${n.productPic }">
+			                                		<div><img src="resources/upload/house/${n.productPic }"></div>
 		                                		</c:when>
 		                                		</c:choose>
                                 			</c:otherwise>
@@ -111,11 +129,9 @@
 										<td>${n.productCity }</td>
 										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
 										<td>
-											<div>
-												<button class="approveProduct btn-s bc1">승인</button>
-												<input type="hidden" value="${n.productNo }" name="productNo">
-												<button class="btn-open btn-s bc2">반려</button>
-											</div>
+											<button class="approveProduct btn-s bc1">승인</button>
+											<input type="hidden" value="${n.productNo }" name="productNo">
+											<button class="modal-open-btn btn-s bc2" target="#test-modal">반려</button>
 										</td>
 									</tr>
 								</c:if>
@@ -130,41 +146,19 @@
 						<div class="list-bottom">
 							<div>
 								<button class="checkedApproveProduct btn-m bc1">선택 상품 승인</button>
-								<button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button>
+								<!-- <button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button> -->
 							</div>
 						</div>
 					</div>    
 				</div>
 			</div>
+
 		</div>
 	</div>
-	<section class="modal hidden">
-		<div class="flex">
-		  <img src="https://avatars.githubusercontent.com/u/62628408?s=96&v=4" width="50px" height="50px" alt="user" />
-		  <button class="btn-close">⨉</button>
-		</div>
-		<div>
-		  <h3>Stay in touch</h3>
-		  <p>
-			This is a dummy newsletter form so don't bother trying to test it. Not
-			that I expect you to, anyways. :)
-		  </p>
-		</div>
-		<input type="email" id="email" placeholder="brendaneich@js.com" />
-		<button class="btn returnProduct">Do Something</button>
-	</section>
 	<script src="resources/js/admin.js"></script>
 	<script src="resources/js/adminNewProduct.js"></script>
 </body>
 <script>
-	/*모달*/
-	$(".btn-open").on("click",function(){
-		$(".modal").toggle();
-	});
-	$(".btn-close").on("click",function(){
-		$(".modal").hide();
-	});
-	
-	
+
 </script>
 </html>
