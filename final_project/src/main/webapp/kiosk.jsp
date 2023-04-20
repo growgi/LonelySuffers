@@ -1597,7 +1597,7 @@ $("document").ready(function() {
 							console.log("레슨리스트 불러오기 에러");
 						}
 				});
-				$("#current-page").attr("value",5);
+				$("#current-page").attr("value",7);
 			}else {
 				alert("강습레벨은 꼭 정해주셔야해요:)");
 				$(".pages").hide();
