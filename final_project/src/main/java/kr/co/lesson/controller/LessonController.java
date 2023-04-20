@@ -107,9 +107,14 @@ public class LessonController {
 
 // 숙박 상품 수정하기.   House 테이블에서 Row 1개 수정
 	@RequestMapping(value="/updateLesson.do")
-	public String updateLesson(Lesson l, Model model) {
+	public String updateLesson(Lesson l, MultipartFile lessonPhoto, HttpServletRequest request, Model model) {
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/lesson/");
 		int result = service.updateLesson(l);
 		if(result > 0) {
+			if(!lessonPhoto.isEmpty()) {
+				l.setLessonInfoPic(fileManager.uploadLessonPhoto(savePath, lessonPhoto, l.getLessonNo()));
+				service.uploadLessonPhoto(l);
+			}
 			return "redirect:/lessonView.do?lessonNo="+l.getLessonNo();
 		}else {
 			model.addAttribute("title","실패");

@@ -64,7 +64,7 @@ input[type="number"], input[type="time"] {
 					<div class="col-md-5">
 						<c:choose>
 						<c:when test="${lesson.lessonInfoPic == null }">
-						<div class="row" style="height: 450px;">
+						<div id="previewImg" class="row" style="height: 450px; overflow: clip">
 							<div class="col-md-2"></div>
 							<div class="col-md-8">
 								<div class="waveEffect" style="margin: 0 auto;">
@@ -75,8 +75,13 @@ input[type="number"], input[type="time"] {
 						</div>
 						</c:when>
 						<c:otherwise>
-						<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/lesson/${lesson.lessonInfoPic }" style="width: 100%;"></div>
+						<div id="previewImg" style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/lesson/${lesson.lessonInfoPic }" style="width: 100%;"></div>
 						</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${lesson.lessonStatus <= 0 }">
+								<div style="width: 100%;"></div><input type="file" class="form-control" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp">
+							</c:when>
 						</c:choose>
 					</div>
 					<!-- end col -->
@@ -270,6 +275,19 @@ input[type="number"], input[type="time"] {
 
 
 	<script type="text/javascript">
+// 첨부된 이미지 업로드 전 미리보기
+	$("[type=file]").on("change",function(){
+		const attached = $(this);
+		const reader = new FileReader();
+		reader.onload = function(){
+			$("#previewImg").children().remove();
+			$("#previewImg").append($("<img>").attr("src", reader.result).attr("width", "100%"));
+		}
+		reader.readAsDataURL(attached[0].files[0]);
+	});
+
+
+
 // name이 lessonCity인 select 태그의 option에 selected 속성을 자동으로 부여
 	$(document).ready(function(){
 		const lessonCityVal = $("#lookupLessonCity").text();
