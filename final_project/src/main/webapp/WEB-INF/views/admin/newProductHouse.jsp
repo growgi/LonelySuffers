@@ -126,7 +126,7 @@
 						<div class="list-bottom">
 							<div>
 								<button class="checkedApproveProduct btn-m bc1">선택 상품 승인</button>
-								<button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button>
+								<!-- <button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button> -->
 							</div>
 						</div>
 					</div>

@@ -248,16 +248,16 @@
  	    <choose>
 	      <when test='searchType.equals("n")'>
 	      	<!-- 한 글자는 문자 취급될 수 있기 때문에 ""큰따옴표로 묶어야함 -->
-	        where lesson_title like '%'||#{searchKeyword}||'%'
+	        where (lesson_status in(1,0)) and (lesson_title like '%'||#{searchKeyword}||'%')
 	      </when>
 	      <when test='searchType.equals("s")'>
-	        where writer like '%'||#{searchKeyword}||'%'
+	        where (lesson_status in(1,0)) and (writer like '%'||#{searchKeyword}||'%')
 	      </when>
 	      <when test="searchType.equals('le')">
-	        where lesson_level like '%'||#{searchKeyword}||'%'
+	        where (lesson_status in(1,0)) and (lesson_level like '%'||#{searchKeyword}||'%')
 	      </when>
 	      <when test="searchType.equals('lo')">
-	        where lesson_city like '%'||#{searchKeyword}||'%'
+	        where (lesson_status in(1,0)) and (lesson_city like '%'||#{searchKeyword}||'%')
 	      </when>
 	    </choose>
 	    order by lesson_status desc, lesson_no desc 
@@ -279,16 +279,16 @@
 		from house
 		<choose>
 			<when test='searchType.equals("n")'>
-				where house_title like '%'||#{searchKeyword}||'%'
+				where (house_status in(0,1)) and (house_title like '%'||#{searchKeyword}||'%')
 			</when>
 			<when test='searchType.equals("s")'>
-				where writer like '%'||#{searchKeyword}||'%'
+				where (house_status in(0,1)) and (writer like '%'||#{searchKeyword}||'%')
 			</when>
 			<when test="searchType.equals('rt')">
-				where room_title like '%'||#{searchKeyword}||'%'
+				where (house_status in(0,1)) and (room_title like '%'||#{searchKeyword}||'%')
 			</when>
 			<when test="searchType.equals('lo')">
-				where house_address like '%'||#{searchKeyword}||'%'
+				where (house_status in(0,1)) and (house_address like '%'||#{searchKeyword}||'%')
 			</when>
 		</choose>
 		order by house_status desc, house_no desc
