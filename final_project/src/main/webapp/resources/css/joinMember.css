@@ -39,6 +39,8 @@ input[type=radio]{
 .genderClick>.material-symbols-outlined{
     color : #222222;
     /* background-color: #666; */
+    border-radius: 10px;
+    box-shadow: -2px -2px 5px #f5f4f4, 2px 2px 5px #000;
 }
 
 .modal-header, .close {
@@ -233,11 +235,11 @@ input[type=radio]{
             0 100%/ calc(8 * (1ch + 0.7ch) - 0.7ch) 2px no-repeat;
         font: 5ch droid sans mono, consolas, monospace;
         letter-spacing: 0.7ch;
-        
-        :focus {
-            outline: none;
+    
+    }
+    .customEmailCode:focus{
+        outline: none;
             color: dodgerblue;
-        }
     }
 
     

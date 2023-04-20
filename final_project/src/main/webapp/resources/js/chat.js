@@ -85,9 +85,9 @@ let memberId;
                         console.log("chatDate : "+chatDate);
                         const dateDiv = $("<div class='dateDiv'>");
                         dateDiv.text(chatDate);
-                        console.log("chatDateDiv : "+dateDiv);
+                        console.log("chatDateDiv : "+dateDiv);                       
                         const idDiv = $("<div class='chatLeft'>");
-                        idDiv.text("admin");
+                        idDiv.html("<span class='material-symbols-outlined'>account_circle</span>admin");
                         const contentDiv = $('<div class="chat_left">');
                         contentDiv.text(chatContent);
                         const containerDiv = $('<div class="containerDiv">');
@@ -116,7 +116,5 @@ let memberId;
             ws.send(JSON.stringify(data));
         }
         $('#sendMsg').val('');
-    } ;  
-    
-
+    }  
    

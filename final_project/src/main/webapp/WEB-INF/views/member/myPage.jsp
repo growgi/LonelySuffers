@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/resources/css/chat.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,-25" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,-25" />
 
 </head>
 <body>
@@ -39,7 +40,7 @@
 								<ul class="tab-content">
 									<li>프로필관리</li>
 									<li>구매내역</li>
-									<li class="chatList">1대1문의</li>
+									<li class="chatList">1대1문의<span class="chatChkSpan">[1]</span></li>
 									<c:if test="${sessionScope.m.memberGrade == 2}">
 									<li>판매자전용</li>
 									</c:if>
@@ -170,6 +171,11 @@
 								<div class="adminChat hide-div">
 									<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
 									<div class="chatting">
+										<div class="searchInput">
+											<input type="text" class="searchInputText">
+											<button type="button" class="searchBtn">찾기</button>
+											<button type="button" class="nextBtn">다음</button>
+										</div> 
 										<div class="messageArea">
 											<button type="button" name="endChatBtn" onclick="endChatBtn('${sesionScope.m.memberId}')">채팅종료</button>
 										</div>
@@ -199,6 +205,7 @@
 
 
 
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 	<!-- end wrapper -->
 
@@ -214,6 +221,3 @@
 </body>
 </html>
 	
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
-</html>
