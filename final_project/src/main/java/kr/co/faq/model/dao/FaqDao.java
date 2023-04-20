@@ -1,6 +1,7 @@
 package kr.co.faq.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -41,13 +42,19 @@ public class FaqDao {
 		return result;
 	}
 
-	public ArrayList<Faq> selectOneFaqListKind(int categoryNo) {
-		List list = sqlSession.selectList("faq.selectOneFaqListKind", categoryNo);
+	public ArrayList<Faq> selectOneFaqListKind(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("faq.selectOneFaqListKind", map);
 		return (ArrayList<Faq>)list;
 	}
 
+	public int selectFaqCount(int categoryNo) {
+		int totalCount = sqlSession.selectOne("faq.totalCount", categoryNo);
+		return totalCount;
+	}
+	
 	public ArrayList<Faq> selectSearchFaq(String searchFaqTitle) {
 		List searchFaq = sqlSession.selectList("faq.selectSearchFaq", searchFaqTitle);
 		return (ArrayList<Faq>)searchFaq;
 	}
+
 }

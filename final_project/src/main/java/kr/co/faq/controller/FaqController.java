@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.faq.model.service.FaqService;
 import kr.co.faq.model.vo.Category;
 import kr.co.faq.model.vo.Faq;
+import kr.co.faq.model.vo.FaqPageData;
 
 @Controller
 public class FaqController {
@@ -83,9 +84,10 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/faqListKind.do")
-	public String faqListKind(int categoryNo, Model model) {
-		ArrayList<Faq> list = service.selectOneFaqListKind(categoryNo);
-		model.addAttribute("list", list);
+	public String faqListKind(int reqPage, int categoryNo, Model model) {
+		FaqPageData fpd = service.selectOneFaqListKind(reqPage, categoryNo);
+		model.addAttribute("list", fpd.getList());
+		model.addAttribute("pageNavi", fpd.getPageNavi());
 		return "faq/faqListKind";
 	}
 	

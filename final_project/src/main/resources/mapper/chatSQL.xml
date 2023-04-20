@@ -52,4 +52,25 @@
 		from
 			chat_active
 	</select>
+	
+	<select id="selectChatData" parameterType="string" resultType="cc">
+		select 
+			chat_content_no as chatContentNo,
+			chat_active_no as chatActiveNo,
+			member_id as memberId,
+			chat_content as chatContent,
+			chat_date	as chatDate,
+			sender_check as senderCheck
+		from
+			chat_content
+		where
+			chat_content_no = 
+			(select
+				max(chat_content_no)
+			from 
+				chat_content
+			where
+				member_id = #{_parameter}) 
+			
+	</select>
 </mapper>

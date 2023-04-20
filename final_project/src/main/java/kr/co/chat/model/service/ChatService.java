@@ -53,4 +53,8 @@ public class ChatService {
 	public ArrayList<ChatActive> selectAllChatActive() {
 		return dao.selectAllChatActive();
 	}
+
+	public ChatContent selectChatData(String memberId) {
+		return dao.selectChatData(memberId);
+	}
 }

@@ -46,5 +46,9 @@ public class ChatDao {
 		List list = sqlSession.selectList("chat.selectAllChatActive");
 		return (ArrayList<ChatActive>)list;
 	}
+
+	public ChatContent selectChatData(String memberId) {
+		return sqlSession.selectOne("chat.selectChatData",memberId);
+	}
 	
 }
