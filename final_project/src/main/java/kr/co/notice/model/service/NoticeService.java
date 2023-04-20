@@ -39,7 +39,7 @@ public class NoticeService {
 		
 		if(pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a href='/noticeList.do?reqPage="+(pageNo-1)+"'>[이전]</a>";
+			pageNavi += "<a href='/noticeList.do?reqPage="+(pageNo-1)+"'>◀</a>";
 			pageNavi += "</li>";
 		}
 		
@@ -61,7 +61,9 @@ public class NoticeService {
 		}
 		
 		if(pageNo <= totalPage) {
-			pageNavi += "<a href='noticeList.do?reqPage="+pageNo+"'>[다음]</a>";
+			pageNavi += "<li>";
+			pageNavi += "<a href='noticeList.do?reqPage="+pageNo+"'>▶</a>";
+			pageNavi += "</li>";
 		}
 		pageNavi += "</ul>";
 		

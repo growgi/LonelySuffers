@@ -18,6 +18,43 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet" href="/resources/css/notice.css">
+
+<style>
+.button-74 {
+    background-color: #fbeee0;
+    border: 2px solid #422800;
+    border-radius: 30px;
+    box-shadow: #422800 4px 4px 0 0;
+    color: #422800;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-74:hover {
+    background-color: #fff;
+}
+
+.button-74:active {
+    box-shadow: #422800 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+    .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+    }
+}
+</style>
 </head>
 <body>
 	<div id="wrapper">
@@ -26,8 +63,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>공지사항 수정</h2>
-						<hr>
+						<h2 style="border-bottom: 5px solid #006bd6">공지사항 수정</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -37,55 +73,52 @@
 		</section>
 		<!-- end section -->
 		
-		<section class="section">
+		<section class="section" style="padding-top: 0;">
 			<div class="container">
-				<div class="row">
+				<div class="row" style="margin-top: 20px;">
 					<form action="/noticeUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
-					<table border="1">
-						<tr>
-							<th>번호</th>
-							<td><input type="text" name="noticeNo" value="${n.noticeNo }" readonly></td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td><input type="text" name="noticeTitle" value="${n.noticeTitle }" required></td>
-						</tr>
-						<tr>
-							<th>작성일</th>
-							<td><input type="text" name="noticeDate" value="${n.noticeDate }" readonly></td>
-						</tr>
-						<tr>
-			            <th>첨부파일</th>
-			               <td>
-			                  <c:forEach items="${n.fileList }" var="f">
-			                     <p>
-			                        ${f.filename }
-			                        <button type="button" onclick="deleteFile(this,${f.fileNo},'${f.filepath }');">삭제</button>                                                          
-			                     </p>
-			                  </c:forEach>
-			               </td> 
-			        	</tr>
-						<tr>	
-							<th>첨부파일 추가</th>
-							<td><input type="file" name="noticeFile" multiple onchange="loadImgs(this);"></td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div id="img-viewer2"></div>
-							</td>
-						</tr>
-						<tr>	
-							<th>내용</th>
-							<td><textarea name="noticeContent" required>${n.noticeContent }</textarea></td>
-						</tr>
-					</table>
-					<table>
-						<tr>
-							<th colspan="2"><input type="submit" value="수정하기"></th>
-							<th colspan="2"><input type="submit" value="취소"></th>
-						</tr>
-					</table>		
-					</form>	
+						<div class="paper">
+							<div class="paper-content">
+								<ul>
+									<li>번호<input id="noticeNo" type="text" name="noticeNo" value="${n.noticeNo }" readonly></li>
+								</ul>
+								<ul>
+									<li>제목<input id="noticeTitle2" type="text" name="noticeTitle" value="${n.noticeTitle }" required></li>
+								</ul>
+								<ul>
+									<li>작성일<input id="noticeDate" type="text" name="noticeDate" value="${n.noticeDate }" readonly></li>
+								</ul>
+								<ul>
+									<li>첨부파일</li>
+								</ul>	
+								<div class="noticeFileList">
+								<ul>
+									<c:forEach items="${n.fileList }" var="f">
+					                    <p>
+					                       ${f.filename }
+					                       <button type="button" onclick="deleteFile(this,${f.fileNo},'${f.filepath }');">삭제</button>                                                          
+					                    </p>
+					                </c:forEach>
+								</ul>
+								</div>
+								<ul>
+									<li style="border: none;">첨부파일 추가</li>
+									<li style="border: none;"><input type="file" name="noticeFile" multiple onchange="loadImgs(this);"></li>
+								</ul>
+								<ul>
+									<li id="img-viewer2"></li>
+								</ul>
+								<ul>
+									<li>내용</li>
+									<li><textarea name="noticeContent" required>${n.noticeContent }</textarea></li>
+								</ul>
+							</div>
+						</div>
+						<div style="text-align: center; margin-top: 15px;">
+							<input class="button-74" type="submit" value="수정하기">
+							<input class="button-74" type="submit" value="취소">							
+						</div>
+					</form>
 				</div>
 			</div>
 		</section>
