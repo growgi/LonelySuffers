@@ -19,8 +19,8 @@
 <meta name="author" content="KH정보교육원">
 
 </head>
-
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+<link rel="stylesheet" href="resources/css/main.css">
 
 <body>
 	<div id="wrapper">
@@ -43,7 +43,7 @@
 												name="url" placeholder="검색하세요">
 										</div>
 									</div>
-									<input type="submit" name="send" value="제출"
+									<input type="submit" name="send" value="Search"
 										class="btn btn-default" />
 								</div>
 							</div>
@@ -61,37 +61,45 @@
 			<div class="container-fluid">
 				<div class="row text-center">
 					<div class="col-md-3 col-sm-6 nopad first">
-						<div class="home-service c1">
-							<i class="flaticon-competition"></i>
-							<p>마우스 호버 시<br>색깔 변경</p>
-						</div>
+						<a href="/company.do">
+							<div class="home-service c1">
+								<i class="flaticon-competition"></i>
+								<p>WhatSurf 소개</p>
+							</div>
+						</a>
 						<!-- end home-service -->
 					</div>
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad">
-						<div class="home-service c2">
-							<i class="flaticon-chat"></i>
-							<p>마우스 호버 시<br>색깔 변경</p>
-						</div>
+						<a href="#">
+							<div class="home-service c2">
+								<i class="flaticon-chat"></i>
+								<p>강습</p>
+							</div>
+						</a>
 						<!-- end home-service -->
 					</div>
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad">
-						<div class="home-service c3">
-							<i class="flaticon-domain"></i>
-							<p>마우스 호버 시<br>색깔 변경</p>
-						</div>
+						<a href="#">
+							<div class="home-service c3">
+								<i class="flaticon-domain"></i>
+								<p>숙박</p>
+							</div>
+						</a>
 						<!-- end home-service -->
 					</div>
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad last">
-						<div class="home-service c4">
-							<i class="flaticon-medal"></i>
-							<p>마우스 호버 시<br>색깔 변경</p>
-						</div>
+						<a href="#">
+							<div class="home-service c4">
+								<i class="flaticon-medal"></i>
+								<p>카풀</p>
+							</div>
+						</a>
 						<!-- end home-service -->
 					</div>
 					<!-- end col -->
@@ -107,274 +115,55 @@
 			</div>
 		</section>
 
+		<section class="section lb overfree">
+			<div class="container">
+				<div class="row wow fadeIn">
+					<div class="col-md-6">
+						<div class="design-title">
+							<small style="font-weight: bold;">WhatSurf</small>
+							<h3 style="font-size:50px; font-weight: 600; margin-top: 5px;">Lonely Surfers</h3>
+							<p class="lead" style="font-weight: 400">대한민국 서퍼들에게 <br>서핑과 숙소, 즐길거리를 제공하는 소셜 플랫폼</p>
 
+							<p>Lonely Surfers는 서핑 초심자, 숙련자 모두 사용할 수 있는 <br>서퍼들을 위한 소셜 통합 플랫폼을 구성하고 있습니다.<br> 
+								서핑을 사랑하는 사람들이 모여서 서핑, 파티 등을 함께 즐기며 <br>친목을 도모할 수 있는 연결고리를 만들어내는 것을 목적으로 하고 있습니다.</p>
 
+							<a href="#" class="btn btn-transparent">Get a Quote</a>
+
+						</div>
+						<!-- end website-design -->
+					</div>
+					<!-- end col -->
+
+					<div class="col-md-6">
+						<div class="post-media">
+							<img src="resources/upload/main/surf1.jpg" alt="" class="img-responsive">
+						</div>
+						<!-- end media -->
+					</div>
+					<!-- end col -->
+				</div>
+				<!-- end row -->
+			</div>
+		</section>
+		
 		<section class="section overfree">
-			<div class="section-title text-center">
-				<h3>숫자 카운터</h3>
-				<p>숫자값이 크든 작든, 카운팅은 동시에 끝납니다. 새로고침(F5) 눌러서 숫자를 보세요.</p>
-			</div>
-			<!-- end section-title -->
 			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="milestone-counter c1">
-							<img src="resources/images/icon_07.png" alt="" class="alignleft">
-							<h3 class="stat-count">2901</h3>
-							<p>Happy Customers</p>
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="milestone-counter c2">
-							<img src="resources/images/icon_08.png" alt="" class="alignleft">
-							<h3 class="stat-count">304</h3>
-							<p>Online Strategy</p>
-						</div>
-					</div>
-
-					<div class="col-md-4">
-						<div class="milestone-counter c3">
-							<img src="resources/images/icon_09.png" alt="" class="alignleft">
-							<h3 class="stat-count">890</h3>
-							<p>Great Results</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- end container -->
-		</section>
-		<!-- end section -->
-
-
-
-		<section class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-5">
-						<div class="about-widget">
-							<i class="flaticon-cup"></i>
-							<h3>Progress bar</h3>
-							<p>
-								게이지 바에 차오르는 애니메이션이 있습니다. 새로고침(F5) 눌러서 게이지 바를 보세요.<br>다른 CSS
-								디자인은 <a href="https://freefrontend.com/css-progress-bars/">https://freefrontend.com/css-progress-bars/</a>에서
-								찾아보시면 됩니다.
-							</p>
-
-							<div class="skills-style">
-								<div class="skills-wrapper">
-									<h3>게이지 78% 까지 상승</h3>
-									<div class="progress">
-										<div class="progress-bar progress-bar-primary wow slideInLeft"
-											role="progressbar" aria-valuenow="78" aria-valuemin="0"
-											aria-valuemax="100" style="width: 78%"></div>
-									</div>
-								</div>
-								<!-- end skills-wrapper -->
-
-								<div class="skills-wrapper">
-									<h3>게이지 90% 까지 상승</h3>
-									<div class="progress">
-										<div class="progress-bar progress-bar-primary wow slideInLeft"
-											role="progressbar" aria-valuenow="90" aria-valuemin="0"
-											aria-valuemax="100" style="width: 90%"></div>
-									</div>
-								</div>
-								<!-- end skills-wrapper -->
-
-								<div class="skills-wrapper">
-									<h3>게이지 60% 까지 상승</h3>
-									<div class="progress">
-										<div class="progress-bar progress-bar-primary wow slideInLeft"
-											role="progressbar" aria-valuenow="60" aria-valuemin="0"
-											aria-valuemax="100" style="width: 60%"></div>
-									</div>
-								</div>
-								<!-- end skills-wrapper -->
-
-								<div class="skills-wrapper">
-									<h3>게이지 95% 까지 상승</h3>
-									<div class="progress">
-										<div class="progress-bar progress-bar-primary wow slideInLeft"
-											role="progressbar" aria-valuenow="95" aria-valuemin="0"
-											aria-valuemax="100" style="width: 95%"></div>
-									</div>
-								</div>
-								<!-- end skills-wrapper -->
-							</div>
-							<!-- end skills -->
-						</div>
-						<!-- end about-widget -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-7">
-						<div class="about-img">
-							<img src="resources/upload/browser_01.png" alt="" class="img-responsive">
-						</div>
-					</div>
-				</div>
-				<!-- end row -->
-			</div>
-			<!-- end container -->
-		</section>
-		<!-- end section -->
-
-
-
-		<section class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="seo-score">
-							<div class="website-screen">
-								<img src="resources/upload/seo_screen.png" alt="" class="img-responsive">
-							</div>
-							<!-- end website-screen -->
-
-							<div>색깔이 움직이는 게이지</div>
-							<div class="circle-detail">
-								<div class="progress">
-									<div class="progress-bar progress-bar-striped active"
-										role="progressbar" aria-valuenow="67" aria-valuemin="0"
-										aria-valuemax="100" style="width: 67%">
-										<span>67</span>
-									</div>
-								</div>
-							</div>
-							<!-- end circle -->
-
-							<div class="seo-details">
-								<table class="table">
-									<tbody>
-										<tr class="row">
-											<td class="first-col col-md-4 good">Good</td>
-											<td class="col-md-8">12/24</td>
-										</tr>
-										<tr class="row">
-											<td class="first-col col-md-4 bad">Bad</td>
-											<td class="col-md-8">3/24</td>
-										</tr>
-									</tbody>
-								</table>
-								<a href="#" class="btn btn-primary btn-block btn-lg">Increase
-									Your SEO Score</a>
-							</div>
-						</div>
-						<!-- end score -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-8">
-						<div class="seo-details">
-							<table class="table">
-								<thead>
-									<tr class="row">
-										<th class="col-md-4"><i class="fa fa-search"></i> SEO
-											Analysis</th>
-										<th class="col-md-8">Site Details</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="row">
-										<td class="first-col col-md-4 good">HTML Version</td>
-										<td class="col-md-8">Perfect! You are using the HTML5
-											version</td>
-									</tr>
-									<tr class="row">
-										<td class="first-col col-md-4 good">Character encoding</td>
-										<td class="col-md-8">Perfect! Your character encoding
-											supports all languages</td>
-									</tr>
-									<tr class="row">
-										<td class="first-col col-md-4 good">Site Title</td>
-										<td class="col-md-8">Fantastic! Title tag is fully
-											compatible with SEO</td>
-									</tr>
-									<tr class="row">
-										<td class="first-col col-md-4 good">Site Description</td>
-										<td class="col-md-8">Fantastic! Site description is fully
-											compatible with SEO</td>
-									</tr>
-									<tr class="row">
-										<td class="first-col col-md-4 good">Canonical</td>
-										<td class="col-md-8">Perfect! The "Canonical" tags on
-											your site are mukvut and url is structured correctly</td>
-									</tr>
-									<tr class="row">
-										<td class="first-col col-md-4 good">Favicon</td>
-										<td class="col-md-8">Awesome! Your site provide a favicon</td>
-									</tr>
-									<tr class="row">
-										<td class="first-col col-md-4 good">H1 Heading Elements</td>
-										<td class="col-md-8">Good! There is (1) H1 tag on your
-											web site.
-											<ul>
-												<li>A real time search engine optimization</li>
-											</ul>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<!-- end details -->
-					</div>
-					<!-- end col -->
-				</div>
-				<!-- end row -->
-			</div>
-			<!-- end container -->
-		</section>
-		<!-- end section -->
-
-
-
-		<section class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="feature-widget">
-							<h3>위쪽에서 날아오며 등장</h3>
-							<p>
-								Morbi quis porta dolor. Nullam feugiat sapien et libero
-								elementum faucibus. Praesent sagittis venenatis ipsum, eget
-								tristique odio pharetra quis. Sed maximus a eros quis ornare.
-								Proin tempor dolor a auctor convallis. The screen from <a
-									href="https://moz.com/explorer">Moz</a> thanks for the awesome
-								tool!
-							</p>
-						</div>
-						<!-- end about-widget -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-6">
-						<div class="feature-img">
-							<img src="resources/upload/screen_04.jpg" alt=""
-								class="img-responsive wow fadeInDown">
-						</div>
-					</div>
-				</div>
-				<!-- end row -->
-
 				<hr class="invis1">
 
 				<div class="row">
 					<div class="col-md-6">
 						<div class="feature-img">
-							<img src="resources/upload/screen_05.jpg" alt=""
+							<img src="resources/upload/main/surf5.jpg" alt=""
 								class="img-responsive wow fadeInLeft">
 						</div>
 					</div>
 
 					<div class="col-md-6">
 						<div class="feature-widget">
-							<h3>왼쪽에서 날아오며 등장</h3>
-							<p>Morbi quis porta dolor. Nullam feugiat sapien et libero
-								elementum faucibus. Praesent sagittis venenatis ipsum, eget
-								tristique odio pharetra quis. Sed maximus a eros quis ornare.
-								Proin tempor dolor a auctor convallis. Nam accumsan commodo
-								elit..</p>
+							<h3 class="ex-bold">초급부터 고급까지 <br>서핑 강습</h3>
+							<p>서핑은 자전거 배우기와 같아서<br> 한번만 제대로 배우면 어느정도 휴식기에 들어가더라도 <br>다음에 다시 충분히 즐길 수 있습니다.
+								<br><br>타 지역, 타 서핑교육 샵에서 강습 받은 분은 <br>Lonely Surfers 강습의 Level을 확인하시고, <br>원하는 강습을 신청하면 됩니다.
+							</p>
 						</div>
 						<!-- end about-widget -->
 					</div>
@@ -387,7 +176,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="feature-widget">
-							<h3>오른쪽에서 날아오며 등장</h3>
+							<h3 class="ex-bold">다양한 숙박 시설</h3>
 							<p>Morbi quis porta dolor. Nullam feugiat sapien et libero
 								elementum faucibus. Praesent sagittis venenatis ipsum, eget
 								tristique odio pharetra quis. Sed maximus a eros quis ornare.
@@ -400,7 +189,7 @@
 
 					<div class="col-md-6">
 						<div class="feature-img">
-							<img src="resources/upload/screen_06.jpg" alt=""
+							<img src="resources/upload/main/hotel3.jpg" alt=""
 								class="img-responsive wow fadeInRight">
 						</div>
 					</div>
@@ -412,20 +201,17 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="feature-img">
-							<img src="resources/upload/screen_07.jpg" alt=""
+							<img src="resources/upload/main/car1.jpg" alt=""
 								class="img-responsive wow fadeInUp">
 						</div>
 					</div>
 
 					<div class="col-md-6">
 						<div class="feature-widget">
-							<h3>아래쪽에서 날아오며 등장</h3>
-							<p>
-								Morbi quis porta dolor. Nullam feugiat sapien et libero
-								elementum faucibus. Praesent sagittis venenatis ipsum, eget
-								tristique odio pharetra quis. Sed maximus a eros quis ornare.
-								Proin tempor dolor a auctor convallis. Check the awesome tool <a
-									href="https://moz.com/researchtools/ose/">Moz Search</a>
+							<h3 class="ex-bold">쉽고 편리한 카풀 서비스</h3>
+							<p>카풀이란 <br>자동차 운행을 공유하여 한 명 이상의 사람이 자동차를 타고 이동하며 다른 사람이 직접 운전해야 할 필요성을 없애주는 것입니다.
+								<br><br>카풀은 한 대의 차량을 더 많이 사용하게 함으로써 <br>연료비, 통행료, 운전 스트레스 등 각 개인의 여행 비용을 줄여줍니다. 
+								 카풀은 운행을 공유함으로써 대기 오염, 탄소 배출, 도로 교통 <br>혼잡, 주차 공간 필요성을 감소시키기 때문에 더 환경 친화적이고 <br>지속 가능한 운행 방법입니다.
 							</p>
 						</div>
 						<!-- end about-widget -->
@@ -433,72 +219,18 @@
 					<!-- end col -->
 				</div>
 				<!-- end row -->
-
-				<hr class="invis1">
-
-				<div class="row callout bgcolor">
-					<div class="col-md-9">
-						<p class="lead">가로형(row) 배너 디자인<br>그림자 효과 들어가 있음<br>애니메이션 효과 없음</p>
-					</div>
-					<div class="col-md-3">
-						<div class="button-wrap text-center">
-							<a href="#" class="btn btn-transparent btn-light btn-lg">A태그가 포함된 버튼</a>
-						</div>
-					</div>
-				</div>
 			</div>
 		</section>
 
-
-
 		<section class="section overfree">
-			<div class="icon-center">
-				<i class="fa fa-code"></i>
-			</div>
 			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="design-title">
-							<small>Quality Website Templates</small>
-							<h4>옆의 사진이 서서히 등장 (Fade in)</h4>
-							<p class="lead">Quisque eget nisl id nulla quis id. Aliquam
-								quis vehicula enim, non aliquam risus. Sed a tellus quis mi
-								rhoncus dignissim.</p>
-
-							<p>Integer rutrum ligula eu dignissim laoreet. Pellentesque
-								venenatis nibh sed tellus faucibus bibendum. Sed fermentum est
-								vitae rhoncus molestie. Cum sociis natoque penatibus et magnis
-								dis parturient montes, nascetur ridiculus mus. Sed vitae rutrum
-								neque. Ut id erat sit amet libero bibendum aliquam. Donec ac
-								egestas libero, eu bibendum risus. Phasellus et congue justo.</p>
-
-							<a href="#" class="btn btn-transparent">Get a Quote</a>
-
-						</div>
-						<!-- end website-design -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-6">
-						<div class="post-media wow fadeIn">
-							<img src="resources/upload/seo_screen.png" alt="" class="img-responsive">
-						</div>
-						<!-- end media -->
-					</div>
-					<!-- end col -->
-				</div>
-				<!-- end row -->
-
-				<hr class="invis">
-
 				<div class="row">
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
 							data-wow-delay="0.2s">
-							<i class="flaticon-content alignleft"></i>
-							<h3>가로 3개 객체들이</h3>
-							<p>Our Landigoo responsive site template elements 100%
-								compatible with all mobile devices and modern browsers!</p>
+							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">surfing</i>
+							<h3 class="bold">Lesson</h3>
+							<p class="btn btn-transparent">강습 페이지로 이동</p>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -507,10 +239,9 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
 							data-wow-delay="0.4s">
-							<i class="flaticon-html alignleft"></i>
-							<h3>차례로</h3>
-							<p>We offer pixel perfect icons, graphic sources for
-								high-resolution devices! Landigoo compatible retina display!</p>
+							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">apartment</i>
+							<h3>Lodgment</h3>
+							<p class="btn btn-transparent">숙박 페이지로 이동</p>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -519,10 +250,9 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="icon-wrapper wow fadeIn" data-wow-duration="1s"
 							data-wow-delay="0.6s">
-							<i class="flaticon-chat alignleft"></i>
-							<h3>서서히 등장</h3>
-							<p>When you need anything about for Landigoo template, just
-								drop an email or leave a feedback from TF!</p>
+							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">directions_car</i>
+							<h3>Carpool</h3>
+							<p class="btn btn-transparent">카풀 페이지로 이동</p>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -534,112 +264,105 @@
 		</section>
 		<!-- end section -->
 
+		<hr class="invis1">
+
+		<section class="section bt">
+			<div class="container">
+				<div class="section-title text-center">
+					<h3>Lonely Products</h3>
+					<hr>
+					<p class="lead">Lonely Surfers 회원들이 인정한 높은 평점의 상품들</p>
+				</div>
+				<!-- end section-title -->
+
+				<div class="row clientv2">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="client-box">
+							<a href="#"><img src="resources/upload/client_01.png" alt=""
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<!-- end col -->
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="client-box">
+							<a href="#"><img src="resources/upload/client_02.png" alt=""
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<!-- end col -->
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="client-box">
+							<a href="#"><img src="resources/upload/client_08.png" alt=""
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<!-- end col -->
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="client-box">
+							<a href="#"><img src="resources/upload/client_04.png" alt=""
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<!-- end col -->
+				</div>
+				<!-- end row -->
+
+				<div class="product-name-lesson" style="text-align: center; padding: 10px 10px;"><div class="btn btn-transparent">강습</div></div>
+
+				<br><br><br>
+
+				<div class="row clientv2">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="client-box">
+							<a href="#"><img src="resources/upload/client_01.png" alt=""
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<!-- end col -->
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="client-box">
+							<a href="#"><img src="resources/upload/client_02.png" alt=""
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<!-- end col -->
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="client-box">
+							<a href="#"><img src="resources/upload/client_08.png" alt=""
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<!-- end col -->
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="client-box">
+							<a href="#"><img src="resources/upload/client_04.png" alt=""
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<!-- end col -->
+				</div>
+				<!-- end row -->
+
+				<div class="product-name-house" style="text-align: center; padding: 10px 10px;"><div class="btn btn-transparent">숙박</div></div>
+
+			</div>
+			<!-- end container -->
+		</section>
+		<!-- end section -->
 
 
 		<section class="section bt">
 			<div class="container">
 				<div class="section-title text-center">
-					<small>Our search engine optimization works and happy
-						customers in the past.</small>
-					<h3>캐러셀(Carousel)</h3>
-					<p>자동 슬라이드는 따로 스크립트 더 넣어줘야 가능<br>사진 위에 마우스 호버 시 효과 있음</p>
-				</div>
-				<!-- end section-title -->
-
-				<div class="owl-carousel owl-theme lightcasestudies withhover">
-					<div class="item-carousel">
-						<div class="case-box">
-							<img src="resources/upload/case_01.png" alt="" class="img-responsive">
-							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel">
-						<div class="case-box">
-							<img src="resources/upload/case_07.jpg" alt="" class="img-responsive">
-							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel">
-						<div class="case-box">
-							<img src="resources/upload/case_03.png" alt="" class="img-responsive">
-							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel">
-						<div class="case-box">
-							<img src="resources/upload/case_02.png" alt="" class="img-responsive">
-							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel">
-						<div class="case-box">
-							<img src="resources/upload/case_05.jpg" alt="" class="img-responsive">
-							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="item-carousel">
-						<div class="case-box">
-							<img src="resources/upload/case_06.jpg" alt="" class="img-responsive">
-							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
-							</div>
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-				</div>
-			</div>
-		</section>
-
-		<section class="section lb nopad spotlight style1">
-			<div class="content">
-				<h2>등장 애니메이션 없음</h2>
-				<p>Donec congue odio in mi finibus dignissim. Etiam faucibus
-					pharetra euismod. Pellentesque malesuada et ligula et scelerisque.
-					Pellentesque aliquet magna ut dolor consequat, luctus tincidunt
-					metus consequat. Nam eu mattis ante, nec facilisis purus. Praesent
-					ac venenatis erat. Interdum et malesuada fames ac ante ipsum primis
-					in faucibus. Integer tincidunt finibus.</p>
-				<a href="#" class="btn btn-transparent">Learn More</a>
-			</div>
-			<div class="image col-md-4 hidden-sm hidden-xs">
-				<img src="resources/upload/blog_alt_01.jpg" alt="" />
-			</div>
-		</section>
-
-
-
-		<section class="section">
-			<div class="container">
-				<div class="section-title text-center">
-					<h3>말풍선 디자인</h3>
+					<h3>Lonely Review</h3>
 					<hr>
-					<p class="lead">고객들의 후기 등</p>
+					<p class="lead">Lonely Surfers 회원들의 솔직한 후기들</p>
 				</div>
 				<!-- end section-title -->
 				<div class="row">
@@ -742,204 +465,98 @@
 		</section>
 		<!-- end section -->
 
-
-
-
 		<section class="section bt">
 			<div class="container">
 				<div class="section-title text-center">
-					<h3>마우스 호버 시 커지는 객체들</h3>
-					<hr>
-					<p class="lead">SeoTime is recognized as a Top Search Engine Optimization Agency by;</p>
+					<small>WhatSurf</small>
+					<h3>Lonely Gallery</h3>
 				</div>
 				<!-- end section-title -->
 
-				<div class="row clientv2">
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box">
-							<a href="#"><img src="resources/upload/client_01.png" alt=""
-								class="img-responsive"></a>
+				<div class="owl-carousel owl-theme lightcasestudies withhover">
+					<div class="item-carousel">
+						<div class="case-box">
+							<img src="resources/upload/main/surf7.jpg" alt="" class="img-responsive">
+							<div class="magnifier">
+								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+							</div>
 						</div>
+						<!-- end case-box -->
 					</div>
 					<!-- end col -->
 
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box">
-							<a href="#"><img src="resources/upload/client_02.png" alt=""
-								class="img-responsive"></a>
+					<div class="item-carousel">
+						<div class="case-box">
+							<img src="resources/upload/main/surf2.jpg" alt="" class="img-responsive">
+							<div class="magnifier">
+								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+							</div>
 						</div>
+						<!-- end case-box -->
 					</div>
 					<!-- end col -->
 
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box">
-							<a href="#"><img src="resources/upload/client_08.png" alt=""
-								class="img-responsive"></a>
+					<div class="item-carousel">
+						<div class="case-box">
+							<img src="resources/upload/main/surf10.jpg" alt="" class="img-responsive">
+							<div class="magnifier">
+								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+							</div>
 						</div>
+						<!-- end case-box -->
+					</div>
+					<!-- end col -->
+					
+					<div class="item-carousel">
+						<div class="case-box">
+							<img src="resources/upload/main/surf9.jpg" alt="" class="img-responsive">
+							<div class="magnifier">
+								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+							</div>
+						</div>
+						<!-- end case-box -->
 					</div>
 					<!-- end col -->
 
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box">
-							<a href="#"><img src="resources/upload/client_04.png" alt=""
-								class="img-responsive"></a>
+					<div class="item-carousel">
+						<div class="case-box">
+							<img src="resources/upload/main/surf11.jpg" alt="" class="img-responsive">
+							<div class="magnifier">
+								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+							</div>
 						</div>
+						<!-- end case-box -->
+					</div>
+					<!-- end col -->
+
+					<div class="item-carousel">
+						<div class="case-box">
+							<img src="resources/upload/main/surf12.jpg" alt="" class="img-responsive">
+							<div class="magnifier">
+								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+							</div>
+						</div>
+						<!-- end case-box -->
 					</div>
 					<!-- end col -->
 				</div>
-				<!-- end row -->
 			</div>
-			<!-- end container -->
 		</section>
-		<!-- end section -->
 
 
 		<section class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 mb30">
-						<div class="faqs-template">
-							<div class="panel-group" id="accordion">
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="#collapseOne">
-											<h4 class="panel-title">
-												1. 아코디언 메뉴 <i class="fa fa-angle-down"></i>
-											</h4>
-										</a>
-									</div>
-									<div id="collapseOne" class="panel-collapse collapse in">
-										<div class="panel-body">
-											<p>All major search engines such as Google, Bing and
-												Yahoo have primary search results, where web pages and other
-												content such as videos or local listings are shown and
-												ranked based on what the search engine considers most
-												relevant to users. Payment isn’t involved, as it is with
-												paid search ads.</p>
-										</div>
-									</div>
-								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="#collapseTwo">
-											<h4 class="panel-title">
-												2. 동시에 펼쳐지지 않는 방식 <i class="fa fa-angle-down"></i>
-											</h4>
-										</a>
-									</div>
-									<div id="collapseTwo" class="panel-collapse collapse">
-										<div class="panel-body">
-											<p>
-												Bootstrap is a powerful front-end framework for faster and
-												easier web development. It is a collection of CSS and HTML
-												conventions. <a href="#" target="_blank">Learn more.</a>
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<a data-toggle="collapse" data-parent="#accordion"
-											href="#collapseThree">
-											<h4 class="panel-title">
-												3. 하나가 펼쳐지면 나머지는 자동으로 접힘 <i class="fa fa-angle-down"></i>
-											</h4>
-										</a>
-									</div>
-									<div id="collapseThree" class="panel-collapse collapse">
-										<div class="panel-body">
-											<p>
-												CSS stands for Cascading Style Sheet. CSS allows you to
-												specify various style properties for a given HTML element
-												such as colors, backgrounds, fonts etc. <a href="#"
-													target="_blank">Learn more.</a>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- end faqs-template -->
+				<div class="row callout bgcolor" style="background: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%); width: 90%; margin: 0 auto;">
+					<div class="col-md-9">
+						<p style="font-size:40px; padding:0; font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
 					</div>
-					<!-- end col -->
+					<div class="col-md-3">
+						<div class="text-right">
+							<div class="btn btn-transparent btn-light btn-lg" onclick="window.scrollTo({top:0,left:0,behavior:'smooth'});">TOP</div>
+						</div>
+					</div>
 				</div>
-				<!-- end row -->
 			</div>
-			<!-- end container -->
 		</section>
-		<!-- end section -->
-
-
-
-		<section class="section lb">
-			<div class="container">
-				<div class="section-title text-center">
-					<h3>포토 카드</h3>
-					<hr>
-					<p class="lead">Our search engine optimization works and happy customers in the past.</p>
-				</div>
-				<!-- end section-title -->
-
-				<div class="row lightcasestudies">
-					<div class="col-md-4">
-						<div class="case-box">
-							<img src="resources/upload/case_04.jpg" alt="" class="img-responsive">
-							<div class="case-info clearfix">
-								<div class="pull-left">
-									<h4>Carbon Beauty</h4>
-									<small>Backlink Service</small>
-								</div>
-								<span class="case-link pull-right"><a
-									href="case-studies-single.html"><i class="fa fa-link"></i></a></span>
-							</div>
-							<!-- end case-info -->
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-4">
-						<div class="case-box">
-							<img src="resources/upload/case_05.jpg" alt="" class="img-responsive">
-							<div class="case-info clearfix">
-								<div class="pull-left">
-									<h4>Denicler</h4>
-									<small>1nd Place Success</small>
-								</div>
-								<span class="case-link pull-right"><a
-									href="case-studies-single.html"><i class="fa fa-link"></i></a></span>
-							</div>
-							<!-- end case-info -->
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-4">
-						<div class="case-box">
-							<img src="resources/upload/case_06.jpg" alt="" class="img-responsive">
-							<div class="case-info clearfix">
-								<div class="pull-left">
-									<h4>KendPark</h4>
-									<small>SEO / SEM</small>
-								</div>
-								<span class="case-link pull-right"><a
-									href="case-studies-single.html"><i class="fa fa-link"></i></a></span>
-							</div>
-							<!-- end case-info -->
-						</div>
-						<!-- end case-box -->
-					</div>
-					<!-- end col -->
-				</div>
-				<!-- end row -->
-			</div>
-			<!-- end container -->
-		</section>
-		<!-- end section -->
-
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
