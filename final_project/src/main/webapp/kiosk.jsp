@@ -1345,12 +1345,16 @@ $("document").ready(function() {
 				
 				// (숙박업소 & 인원 수) 조건에 맞는 객실들을 받는 ajax
 				const roomTitleVal = data.roomTitle;
-				const roomCapaVal = data.roomCapa;
+				//const roomCapaVal = data.roomCapa;
+				const bookStartDate = $("#bookStartDate").val();
+				const bookEndDate = $("#bookEndDate").val();
+				
 				$.ajax({
-						url : "/availableModalRooms.do",
-						data: {roomTitle : roomTitleVal, roomCapa : roomCapaVal},
+						url : "/availableModalRoomsList.do",
+						data: {roomTitle : roomTitleVal, houseNo : houseNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate},
 						dataType : "json",
 						success : function(List){
+							console.log(List)
 							$("[name=roomNo]").empty();
 							$("[name=roomNo]").append($("<option>").text("객실을 먼저 선택해주세요"));
 							for(let i=0; i<List.length; i++){

@@ -94,6 +94,11 @@ public class HouseService {
 	public ArrayList<Room> selectAllAvailableRoom(FindRoomByCondition condition) {
 		return dao.selectAllAvailableRoom(condition);
 	}
+	
+//모달용으로 복사, 예약이 없는(예약테이블에는 있어도 결제완료는 되어있지 않은 방들)을 조회	
+	public ArrayList<House> selectAllAvailableRoomList(House h) {
+		return dao.selectAllAvailableRoomList(h);
+	}
 
 
 
@@ -126,4 +131,7 @@ public class HouseService {
 	public ArrayList<House> selectRoomList(House house) {
 		return dao.selectRoomList(house);
 	}
+
+
+	
 }
