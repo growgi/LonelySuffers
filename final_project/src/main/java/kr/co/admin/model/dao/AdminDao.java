@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.admin.model.vo.Product;
+import kr.co.admin.model.vo.RejectProduct;
 import kr.co.admin.model.vo.Search;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
@@ -177,14 +178,14 @@ public class AdminDao {
 		return result;
 	}
 
-	public int updateReturnLesson(int productNo) {
-		int result = sqlSession.update("admin.updateReturnLesson", productNo);
+	public int updateReturnLesson(RejectProduct rp) {
+		int result = sqlSession.update("admin.updateReturnLesson", rp);
 		
 		return result;
 	}
 
-	public int updateReturnHouse(int productNo) {
-		int result = sqlSession.update("admin.updateReturnHouse", productNo);
+	public int updateReturnHouse(RejectProduct rp) {
+		int result = sqlSession.update("admin.updateReturnHouse", rp);
 		
 		return result;
 	}
@@ -304,6 +305,12 @@ public class AdminDao {
 		int productCount = sqlSession.selectOne("admin.selectAllProductCount");
 		
 		return productCount;
+	}
+
+	public int updateRejectComment(String returnReason) {
+		int result = sqlSession.update("admin.updateRejectComment", returnReason);
+		
+		return result;
 	}
 
 }

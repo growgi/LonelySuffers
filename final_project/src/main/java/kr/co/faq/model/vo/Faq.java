@@ -12,4 +12,8 @@ public class Faq {
 	private int categoryNo;
 	private String faqTitle;
 	private String faqContent;
+	
+	public String getFaqContentBr() {
+		return faqContent.replaceAll("\r\n", "<br>");
+	}
 }

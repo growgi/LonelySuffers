@@ -18,6 +18,10 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet" href="/resources/css/notice.css">
+<style>
+
+
+</style>
 
 </head>
 <body>
@@ -30,7 +34,6 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2>공지사항</h2>
-						<hr>
 					</div>
 					<!-- end col -->
 				</div>
@@ -39,34 +42,42 @@
 			<!-- end container -->
 		</section>
 		<!-- end section -->
-		<section class="section normalhead">
+		<section class="section normalhead" style="padding-top: 0;">
 			<div class="container">
-				<div class="row">
-					<p>${n.noticeTitle }</p>
-					<table>
-						<tr>
-							<td>${n.noticeDate }</td>
-							<td>${n.noticeContent }</td>
-						</tr>
-						<tr>
-				        	<td colspan="5">
-				            <c:forEach items="${n.fileList }" var="f">
-				            	<img src="/resources/upload/notice/${f.filepath }">
-				            </c:forEach>
-				        	</td>
-				        </tr>
-					</table>
-					<table>
+				<div class="row" style="margin-top: 20px;">
+					<a class="btn btn-primary btn-sm active" href="/noticeList.do?reqPage=1">목록보기</a>
+					<div class="noticeViewWrap">
+						<p style="margin-bottom: 5px;">제목</p>
+						<p style="font-size: 30px;">${n.noticeTitle }</p>
+						<hr>
+						<p style="margin-bottom: 5px;">작성일</p>
+						<p>${n.noticeDate }</p>
+						<hr>
+					</div>	
+					<div class="noticeContentWrap">
+						<table class="noticeViewContent">
+							<tr>
+					        	<td class="ntFile">
+					            <c:forEach items="${n.fileList }" var="f">
+					            	<img src="/resources/upload/notice/${f.filepath }" width="100" height="100">
+					            </c:forEach>
+					        	</td>
+					        </tr>
+							<tr>
+								<td style="width: 1170px;">${n.getNoticeContentBr() }</td>
+							</tr>
+						</table>
+					</div>
+					<table class="noticeViewContent">
 						<tr>
 							<th colspan="6">
 								<c:if test="${sessionScope.m.memberGrade == 1}">
-									<a href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a>
-									<a href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>
+									<a class="btn btn-primary btn-sm active" href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a>
+									<a class="btn btn-primary btn-sm active" href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>
 								</c:if>
 							</th>
 						</tr>
 					</table>
-					<a href="/noticeList.do?reqPage=1">목록보기</a>	
 				</div>
 			</div>
 		</section>

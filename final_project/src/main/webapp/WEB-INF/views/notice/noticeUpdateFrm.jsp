@@ -22,11 +22,24 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+		<section class="section normalhead lb">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+						<h2>공지사항 수정</h2>
+						<hr>
+					</div>
+					<!-- end col -->
+				</div>
+				<!-- end row -->
+			</div>
+			<!-- end container -->
+		</section>
+		<!-- end section -->
+		
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<h1>공지사항 수정</h1>
-					<hr>
 					<form action="/noticeUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
 					<table border="1">
 						<tr>

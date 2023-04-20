@@ -24,7 +24,7 @@
 .search-bar {
     display: flex;
     margin-bottom: 15px;
-    margin-left: 240px;
+    margin-left: 300px;
 }
 .search-bar>.search-icon{
     /*width: 45px;
@@ -56,6 +56,41 @@
     box-shadow: inset 0 0 2px rgb(235, 235, 235);
 }
 
+.button-74 {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-74:hover {
+  background-color: #fff;
+}
+
+.button-74:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+
 </style>
 <body>
 	<div id="wrapper">
@@ -65,7 +100,7 @@
 				<div class="row">
 					<h1 style="text-align: center;">공지사항</h1>
 					<c:if test="${sessionScope.m.memberGrade == 1}">
-					<a class="btn btn-default" href="/noticeWriteFrm.do" role="button">글쓰기</a>
+					<a class="button-74" href="/noticeWriteFrm.do" role="button">글쓰기</a>
 					</c:if>
 					<form action="/searchNoticeTitle.do" method="get" class="search-bar" name="searchTitle">
 						<span class="material-symbols-outlined search-icon">search</span>

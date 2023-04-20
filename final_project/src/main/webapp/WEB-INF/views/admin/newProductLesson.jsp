@@ -11,6 +11,24 @@
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <body>
+	<!-- Modal -->
+    <div id="test-modal" class="modal-bg" style="z-index:1">
+      <div class="modal-wrap">
+        <div class="modal-head">
+          <h2>상품 반려</h2>
+          <span class="material-icons close-icon modal-close">close</span>
+        </div>
+        <div class="modal-content">
+	        	<div class="product-info"></div>
+	          	<p>해당 상품을 반려하는 이유를 작성해주세요.</p>
+	          	<input type="text" class="return-reason">
+        </div>
+        <div class="modal-foot">
+          <button class="returnProduct btn-m bc4 btn-pill">확인</button>
+          <button class="btn-m bc5 modal-close btn-pill">취소</button>
+        </div>
+      </div>
+    </div>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="newProduct-wrapper product-wrapper admin-content">
 		<div>
@@ -42,11 +60,12 @@
 							<div class="count">
 								강습 전체 상품 <span>${newLessonCount }</span>
 							</div>
-							<input type="hidden" value="1" class="lesson-product-type">
+							<input type="hidden" value="강습" class="lesson-product-type">
 							<table>
 								<tr>
 									<th><input type="checkbox" name="lessonCheck"
 										class="lesson-all-check chk"></th>
+									<th style="display:none"></th> <!-- 모달 정보 가져오기 위해... eq 조정 -->
 									<th>사진</th>
 									<th>상품명</th>
 									<th>판매자</th>
@@ -75,6 +94,7 @@
 									<tr>
 										<td><input type="checkbox" name="lessonCheck"
 											class="lesson-check chk check" value="${l.lessonNo }"></td>
+										<td style="display:none">강습</td>
 										<td>
                                 		<c:choose>
 	                                		<c:when test="${l.lessonInfoPic eq null}">
@@ -93,7 +113,7 @@
 										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
 										<td><button class="approveProduct btn-s bc1">승인</button>
 										<input type="hidden" value="${l.lessonNo }" name="productNo">
-										<button class="returnProduct btn-s bc2">반려</button></td>
+										<button class="modal-open-btn btn-s bc2" target="#test-modal">반려</button></td>
 									</tr>
 									</c:if>
 								</c:forEach>

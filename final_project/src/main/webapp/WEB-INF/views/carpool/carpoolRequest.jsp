@@ -111,13 +111,19 @@
 							style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center; margin-top: 20px; background-color: #F0EEED; width: 800px; height: 50px; line-height: 52px; margin-top: 20px;">모집인원
 							${c.reserved}/${c.capacity }명</div>
 					</div>
-					<br>
+					<br><br>
+					<form action="/carpoolMatch.do">	
+					<input type="hidden" value="${c.carpoolNo }" name="carpoolNo">
+						<div class="passenger-msg" style="margin-left:180px;">
+							<label for="msg">드라이버에게:</label>
+							<input type="text" name="passengerMsg" placeholder="0/100" style="width:700px; height: 40px; border: 1px solid pink; border-radius:10px; ">
+						</div>
+					
 					<br>
 					<hr>
-					<div class="price-box"
-						style="margin: 0 auto; text-align: center; font-size: 20px; font-weight: 600;">
-						희망가격 <span class="price"
-							style="color: #82CD47; font-size: 30px; font-weight: 900;"><fmt:formatNumber value= "${c.carpoolPrice}"  pattern="#,###"/>원</span>(편도/인당)
+					<div class="price-box"style="margin: 0 auto; text-align: center; font-size: 20px; font-weight: 600;">
+						희망가격 
+						<span class="price" style="color: #82CD47; font-size: 30px; font-weight: 900;"><fmt:formatNumber value= "${c.carpoolPrice}"  pattern="#,###"/>원</span>(편도/인당)
 					</div>
 					<hr>
 
@@ -127,10 +133,37 @@
 						style="width: 500px; margin: 0 auto; text-align: center;">
 						<button type="button" class="btn btn-info btn-lg"
 							data-toggle="modal" data-target="#myModal">
-							<img src="/resources/images/carpool/warning.png" alt="img"
-								style="width: 30px; height: 30px;"> 꼭 읽어주세요 ! 아름다운 문화 만들기
+							<img src="/resources/images/carpool/warning.png" alt="img" style="width: 30px; height: 30px;"> 
+							꼭 읽어주세요 ! 아름다운 문화 만들기
 						</button>
 					</div>
+
+
+			<c:if test="${not empty sessionScope.m }">
+			<div class="submit-btn-wrapper" style="width: 100%; margin-top: 30px;">
+				<button type="submit" id="wrapper-cool-btn">
+					<div class="my-super-cool-btn">
+						<div class="dots-container">
+							<div class="dot"></div>
+							<div class="dot"></div>
+							<div class="dot"></div>
+							<div class="dot"></div>
+						</div> <span style="color: #F16767; font-size: 25px; font-weight: 800;">태워주세요</span>
+					</div>
+				</button>
+			</div>
+			</c:if>
+			</form>
+				</div>
+			</div>
+			<!-- end row -->
+
+			<!-- section ＞ container 안에 class가 invis1인 hr 태그를 넣으시면, 가로로 큰 공백이 생깁니다. 이 태그를 여러 개를 넣으면 그만큼 공백 높이가 더 높아집니다. -->
+			<hr class="invis1">
+	</div>
+	<!-- end container -->
+	</section>
+	<!-- end section -->
 
 
 					<!-- Modal -->
@@ -158,30 +191,6 @@
 
 						</div>
 					</div>
-				</div>
-			</div>
-			<c:if test="${not empty sessionScope.m }">
-				<div id="wrapper-cool-btn">
-					<a href="/carpoolMatch.do?carpoolNo=${c.carpoolNo }"
-						class="my-super-cool-btn">
-						<div class="dots-container">
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-						</div> <span style="color: #F16767; font-size: 25px; font-weight: 800;">태워주세요</span>
-					</a>
-				</div>
-			</c:if>
-			<!-- end row -->
-
-			<!-- section ＞ container 안에 class가 invis1인 hr 태그를 넣으시면, 가로로 큰 공백이 생깁니다. 이 태그를 여러 개를 넣으면 그만큼 공백 높이가 더 높아집니다. -->
-			<hr class="invis1">
-	</div>
-	<!-- end container -->
-	</section>
-	<!-- end section -->
-
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<!-- end wrapper -->
