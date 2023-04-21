@@ -547,6 +547,14 @@
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	<script src="resources/js/owl.carousel.js"></script>
-
 </body>
+<script>
+	function slideOn(){
+		const slide = $(".transheader");
+    
+	}
+
+	slideOn();
+
+</script>
 </html>

@@ -9,6 +9,22 @@
 </head>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <body>
+	<!-- Modal -->
+    <div id="test-modal" class="modal-bg" style="z-index:1">
+      <div class="modal-wrap">
+        <div class="modal-head">
+          <h2>판매자 전환</h2>
+          <span class="material-icons close-icon modal-close">close</span>
+        </div>
+        <div class="modal-content">
+	          	<p>해당 회원을 정말로 탈퇴시키겠습니까?</p>
+        </div>
+        <div class="modal-foot">
+          <button class="deleteMember btn-m bc4 btn-pill">확인</button>
+          <button class="btn-m bc5 modal-close btn-pill">취소</button>
+        </div>
+      </div>
+    </div>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
     	<div>
