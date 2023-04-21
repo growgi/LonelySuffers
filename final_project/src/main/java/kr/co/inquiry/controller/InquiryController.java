@@ -99,4 +99,24 @@ public class InquiryController {
 		return new Gson().toJson(i);
 	}
 
+
+	
+// 신규 문의 추가.  Inquiry 테이블에 Row 1개 추가
+	@ResponseBody
+	@RequestMapping(value="/insertInquiry.do", produces = "application/text; charset=utf8")
+	public String insertInquiry(Inquiry i, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberGrade() != 3) {
+			return "일반회원만이 문의글을 등록할 수 있습니다.";
+		}else {
+			i.setInquirer(me.getMemberId());
+			int result = service.insertInquiry(i);
+			if(result>0) {
+				return "문의글을 등록했습니다.";
+			}else {
+				return "알 수 없는 이유로 문의글 등록에 실패했습니다.";
+			}
+		}
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.inquiry.model.dao.InquiryDao;
 import kr.co.inquiry.model.vo.Answer;
@@ -88,4 +89,50 @@ public class InquiryService {
 		return dao.selectAllAnswerByInquiry(inquiryNo);
 	}
 
+
+	@Transactional
+// 신규 문의 추가.  Inquiry 테이블에 Row 1개 추가
+	public int insertInquiry(Inquiry i) {
+		return dao.insertInquiry(i);
+	}
+
+
+
+	@Transactional
+// 문의 수정.  Inquiry 테이블에서 Row 1개 수정
+	public int updateInquiry(Inquiry i) {
+		return dao.updateInquiry(i);
+	}
+
+
+
+	@Transactional
+// 문의 삭제.  Inquiry 테이블에서 Row 1개 삭제
+	public int deleteInquiry(int inquiryNo) {
+		return dao.deleteInquiry(inquiryNo);
+	}
+
+
+
+	@Transactional
+// 신규 답변 추가.  Answer 테이블에 Row 1개 추가
+	public int insertAnswer(Answer ia) {
+		return dao.insertAnswer(ia);
+	}
+
+
+
+	@Transactional
+// 답변 수정.  Answer 테이블에서 Row 1개 수정
+	public int updateAnswer(Answer ia) {
+		return dao.updateAnswer(ia);
+	}
+
+
+
+	@Transactional
+// 답변 삭제.  Answer 테이블에서 Row 1개 삭제
+	public int deleteAnswer(int answerNo) {
+		return dao.deleteAnswer(answerNo);
+	}
 }

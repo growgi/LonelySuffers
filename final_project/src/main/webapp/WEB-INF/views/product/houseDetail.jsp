@@ -248,30 +248,32 @@
 <!-- 별점 후기 영역 끝  -->
 							</div>
 							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-<!-- 상품 문의 영역 시작  -->
-	<div class="inquiryBoard">
-		<h4 style="line-height: 400%;"><span id="numberOfCount"></span>개의 문의글이 있습니다.</h4>
-		<div class="row" style="margin: 20px;">
-		<button type="button" class="btn">문의하기</button>
-	 		<div class="btn-group">
-				<button type="button" class="btn btn-info" onclick="getInquiries(1, 1)">내 문의보기</button>
-				<button type="button" class="btn btn-info" onclick="getInquiries(1, 0)">전체 문의보기</button>
-			</div>
-		</div>
-		<table class="table table-hover"><thead>
-			<tr>
-				<th width="8%">번호</th>
-				<th style="display: none;">inquiryNo</th>
-				<th width="15%">답변상태</th>
-				<th width="42%">제목</th>
-				<th width="17%">문의자</th>
-				<th width="18%">등록일</th>
-			</tr>
-		</thead>
-		<tbody id="forInquiries"></tbody></table>
-		<div class="row" style="margin: 20px;" id="forPageNavi"></div>
-	</div>
-<!-- 상품 문의 영역 끝  -->
+							<!-- 상품 문의 영역 시작  -->
+								<div class="inquiryBoard">
+									<h4 style="line-height: 400%;"><span id="numberOfCount"></span>개의 문의글이 있습니다.</h4>
+									<div class="row" style="margin: 20px;">
+								 		<div class="btn-group">
+											<button type="button" class="btn btn-info" onclick="getInquiries(1, 1)">내 문의보기</button>
+											<button type="button" class="btn btn-info" onclick="getInquiries(1, 0)">전체 문의보기</button>
+										</div>
+									<c:if test="${sessionScope.m.memberGrade == 3}">
+										<button type="button" class="btn" data-toggle="modal" data-target="#inquiryWrite">문의하기</button>
+									</c:if>
+									</div>
+									<table class="table table-hover"><thead>
+										<tr>
+											<th width="8%">번호</th>
+											<th style="display: none;">inquiryNo</th>
+											<th width="15%">답변상태</th>
+											<th width="42%">제목</th>
+											<th width="17%">문의자</th>
+											<th width="18%">등록일</th>
+										</tr>
+									</thead>
+									<tbody id="forInquiries"></tbody></table>
+									<div class="row" style="margin: 20px;" id="forPageNavi"></div>
+								</div>
+							<!-- 상품 문의 영역 끝  -->
 							</div>
 						</div>
 					</div>
@@ -286,7 +288,32 @@
 <!-- 상품 정보 표시 끝 -->
 
 
-
+<!-- 문의글 등록 Modal -->
+  <div class="modal fade" id="inquiryWrite" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="javascript:;" onsubmit="insertInquiryAjax(this)" method="post">
+          <fieldset>
+	        <div class="modal-header">
+	          <button type="button" id="writeModalClose" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">문의하기</h4>
+	        </div>
+        	<div class="modal-body">
+          		<label><input type="checkbox" name="privately" value="1" style="width: 25px; height: 25px; vertical-align: bottom;"> 비밀글</label>
+          		<input type="text" class="form-control" name="inquiryTitle" placeholder="제목: 한글 최대 100자" required>
+          		<textarea class="form-control" rows="6" name="inquiryContent" placeholder="본문: 한글 최대 333자" required></textarea>
+          		<input type="hidden" name="productCategory" value="2">
+          		<input type="hidden" name="productNo" value="${house.houseNo}">
+	        </div>
+	        <div class="modal-footer">
+          		<button type="reset" id="writeFormReset" style="display: none;">reset</button>
+          		<button type="submit" class="btn btn-info" style="float: right;">문의글 등록</button>
+        	</div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
 
 
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
@@ -503,6 +530,7 @@
 				}
 		}
 
+
 	// 문의글 목록을 <tr>단위로 불러오는 ajax
 		function getInquiries(reqPage, range){
 			$.ajax({
@@ -510,45 +538,49 @@
 					data: {reqPage : reqPage, productCategory : 2, productNo : $("[name=houseNo]").val(), range : range},
 					dataType : "json",
 					success : function(InquiryPagination){
-						$("#numberOfCount").text(InquiryPagination.totalCount);
 						$("#forInquiries").empty();
 						$("#forPageNavi").empty();
-						for(let i=0; i<InquiryPagination.list.length; i++){
-							const td1 = $("<td>").text((InquiryPagination.start)+i);
-							
-							const td2 = $("<td>").css("display", "none").text(InquiryPagination.list[i].inquiryNo);
-							
-							const td3 = $("<td>");
-							if( InquiryPagination.list[i].answered > 0 ){
-								td3.text("답변완료");
-							}else{ td3.text("미답변"); }
-							
-							const td4 = $("<td>");
-							if( InquiryPagination.list[i].privately > 0 ){
-								td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text((InquiryPagination.list[i].inquiryTitle) + " 🔒 "));
-							}else{
-								td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text(InquiryPagination.list[i].inquiryTitle));
-							}
-							
-							const idLength = InquiryPagination.list[i].inquirer.length;
-							const td5 = $("<td>");
-							let blurred = InquiryPagination.list[i].inquirer;
-							for(let j = 3; j<idLength; j++){
-								blurred = blurred.replaceAt(j, "*");
-							}
-							td5.text(blurred);
-							
-							const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
-	
-							const tr = $("<tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
-							$("#forInquiries").append(tr);
-		    			}
+						$("#numberOfCount").text(InquiryPagination.totalCount);
+						if(InquiryPagination.totalCount == 0){
+							$("#forInquiries").append( $("<tr>").addClass("hasNoInquiry").append($("<td>").attr("colspan", "6").css("text-align", "center").text("조회된 문의 내역이 없습니다.") ) );
+						}else{
+							for(let i=0; i<InquiryPagination.list.length; i++){
+								const td1 = $("<td>").text((InquiryPagination.start)+i);
+								
+								const td2 = $("<td>").css("display", "none").text(InquiryPagination.list[i].inquiryNo);
+								
+								const td3 = $("<td>");
+								if( InquiryPagination.list[i].answered > 0 ){
+									td3.text("답변완료");
+								}else{ td3.text("미답변"); }
+								
+								const td4 = $("<td>");
+								if( InquiryPagination.list[i].privately > 0 ){
+									td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text((InquiryPagination.list[i].inquiryTitle) + " 🔒 "));
+								}else{
+									td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text(InquiryPagination.list[i].inquiryTitle));
+								}
+								
+								const idLength = InquiryPagination.list[i].inquirer.length;
+								const td5 = $("<td>");
+								let blurred = InquiryPagination.list[i].inquirer;
+								for(let j = 3; j<idLength; j++){
+									blurred = blurred.replaceAt(j, "*");
+								}
+								td5.text(blurred);
+								
+								const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
+		
+								const tr = $("<tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								$("#forInquiries").append(tr);
+			    			}
 						$("#forPageNavi").append(InquiryPagination.pageNavi);
 					}
+				}
 			});
 		}
 
-	// 이 .jsp 페이지를 첫 방문할 때 문의글 첫 페이지 조회
+	// 이 .jsp 페이지를 방문할 때 문의글 첫 페이지 조회로 시작
 		$(document).ready(function() {
 			getInquiries(1, 0);
 		});
@@ -580,6 +612,26 @@
 				});
 			}
 		}
+
+
+	// 문의글 등록 폼 제출
+	function insertInquiryAjax(obj){
+		let privately = 0;
+		if($(obj).find("[name=privately]").prop("checked")){
+			privately = 1;
+		}
+		$.ajax({
+			url : "/insertInquiry.do",
+			data: {privately : privately , inquiryTitle : $(obj).find("[name=inquiryTitle]").val() , inquiryContent : $(obj).find("[name=inquiryContent]").val(), productCategory : 2, productNo : $("[name=houseNo]").val()},
+			dataType : "text",
+			success : function(result){
+				alert(result);
+				$("#writeFormReset").click();
+				$("#writeModalClose").click();
+				getInquiries(1, 0);
+			}
+		});
+	}
 	</script>
 
 </body>

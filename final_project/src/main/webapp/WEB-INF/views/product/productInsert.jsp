@@ -203,7 +203,7 @@ input[type="number"], input[type="time"] {
 												</tr>
 												<tr>
 													<th>상품 설명</th>
-													<td><textarea class="form-control" rows="4" name="houseDescription" class="form-control" placeholder="한글 최대 1000자" required></textarea></td>
+													<td><textarea class="form-control" rows="4" name="houseDescription" placeholder="한글 최대 1000자" required></textarea></td>
 												</tr>
 												<tr>
 													<td colspan="2" style="text-align: center;"><button type="submit" class="btn btn-default">숙박상품 등록 요청</button></td>

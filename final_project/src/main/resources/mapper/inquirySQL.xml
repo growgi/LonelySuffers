@@ -49,4 +49,50 @@
 		ANSWER_WRITER as answerWriter
 		FROM ANSWER WHERE INQUIRY_NO = ${_parameter} ORDER BY ANSWER_NO DESC
 	</select>
+
+
+<!-- 문의 신규 등록 -->
+	<insert id="insertInquiry" parameterType="i">
+		INSERT INTO INQUIRY VALUES (INQUIRY_SEQ.NEXTVAL, #{inquirer}, #{inquiryTitle}, #{inquiryContent}, TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:mi:SS'), #{privately}, #{productCategory}, #{productNo})
+		<selectKey resultType="_int" order="AFTER" keyProperty="inquiryNo">
+			SELECT MAX(INQUIRY_NO) FROM INQUIRY
+		</selectKey>
+	</insert>
+
+
+<!-- 문의 수정 -->
+	<update id="updateInquiry" parameterType="i">
+		UPDATE INQUIRY SET
+		INQUIRY_TITLE = #{inquiryTitle},
+		INQUIRY_CONTENT = #{inquiryContent},
+		PRIVATELY = #{privately}
+  		WHERE INQUIRY_NO = #{inquiryNo}
+	</update>
+
+
+<!-- 문의 삭제 -->
+     <delete id="deleteInquiry" parameterType="_int">
+		DELETE FROM INQUIRY WHERE INQUIRY_NO = ${_parameter}	
+     </delete>
+
+
+<!-- 답변 신규 등록 -->
+	<insert id="insertAnswer" parameterType="ia">
+		INSERT INTO ANSWER VALUES (ANSWER_SEQ.NEXTVAL, #{inquiryNo}, #{answerContent}, #{answerWriter})
+		<selectKey resultType="_int" order="AFTER" keyProperty="answerNo">
+			SELECT MAX(ANSWER_NO) FROM ANSWER
+		</selectKey>
+	</insert>
+
+
+<!-- 답변 수정 -->
+	<update id="updateAnswer" parameterType="ia">
+		UPDATE ANSWER SET ANSWER_CONTENT = #{answerContent} WHERE ANSWER_NO = #{answerNo}
+	</update>
+
+
+<!-- 답변 삭제 -->
+     <delete id="deleteAnswer" parameterType="_int">
+		DELETE FROM ANSWER WHERE ANSWER_NO = ${_parameter}
+     </delete>
 </mapper>

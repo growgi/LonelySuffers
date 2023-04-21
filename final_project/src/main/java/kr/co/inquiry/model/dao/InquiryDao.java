@@ -45,4 +45,45 @@ public class InquiryDao {
 		List list = sqlSession.selectList("i.selectAllAnswer", inquiryNo);
 		return (ArrayList<Answer>)list;
 	}
+
+
+// 신규 문의 추가.  Inquiry 테이블에 Row 1개 추가
+	public int insertInquiry(Inquiry i) {
+		return sqlSession.insert("i.insertInquiry", i);
+	}
+
+
+
+// 문의 수정.  Inquiry 테이블에서 Row 1개 수정
+	public int updateInquiry(Inquiry i) {
+		return sqlSession.update("i.updateInquiry", i);
+	}
+
+
+
+// 문의 삭제.  Inquiry 테이블에서 Row 1개 삭제
+	public int deleteInquiry(int inquiryNo) {
+		return sqlSession.delete("i.deleteInquiry", inquiryNo);
+	}
+
+
+
+// 신규 답변 추가.  Answer 테이블에 Row 1개 추가
+	public int insertAnswer(Answer ia) {
+		return sqlSession.insert("i.insertAnswer", ia);
+	}
+
+
+
+// 답변 수정.  Answer 테이블에서 Row 1개 수정
+	public int updateAnswer(Answer ia) {
+		return sqlSession.update("i.updateAnswer", ia);
+	}
+
+
+
+// 답변 삭제.  Answer 테이블에서 Row 1개 삭제
+	public int deleteAnswer(int answerNo) {
+		return sqlSession.delete("i.deleteAnswer", answerNo);
+	}
 }
