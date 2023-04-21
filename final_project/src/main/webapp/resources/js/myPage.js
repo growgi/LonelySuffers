@@ -90,3 +90,44 @@ $('.email2').on('focusin',function(){
         $(this).css('border-bottom','2px');
     }
 })
+
+//페이지 로드가 되면 상대방이 보낸 1대1 대화가 있는지 체크하는 구문
+$(function(){
+    const memberId = $('#memberId').val();
+    const chatChkSpan = $('.chatChkSpan');
+    $.ajax({
+        url : "selectChatData.do",
+        type : "POST",
+        data : {memberId : memberId},
+        success : function(data){
+            console.log("data : "+data);
+            console.log("data senderCheck : "+data.senderCheck);
+            if(data != null && data.senderCheck != 1){
+                chatChkSpan.text("[1]");
+            }else{
+                chatChkSpan.text("");
+            }
+        }
+    })
+    console.log("$(function(){}) : "+memberId);
+
+})
+
+
+$('.searchBtn').on('click',function(){
+    const searchKeyword = $('.searchInputText').val();
+    console.log("data : "+searchKeyword);
+    var messageArea = $('.messageArea');
+    var currentElement = $('div.chat_left:contains('+searchKeyword+')').first();
+    
+    if (currentElement.length) {
+        messageArea.animate({
+            scrollTop: currentElement.offset().top - messageArea.offset().top + messageArea.scrollTop()
+        }, 1000);
+        
+        currentElement.addClass('highlight');
+        setTimeout(function() {
+            currentElement.removeClass('highlight');
+        }, 1000);
+    }
+});

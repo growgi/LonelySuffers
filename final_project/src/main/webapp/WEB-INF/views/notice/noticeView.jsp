@@ -33,7 +33,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>공지사항</h2>
+						<h2 style="border-bottom: 5px solid #006bd6">공지사항</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -45,39 +45,36 @@
 		<section class="section normalhead" style="padding-top: 0;">
 			<div class="container">
 				<div class="row" style="margin-top: 20px;">
-					<a class="btn btn-primary btn-sm active" href="/noticeList.do?reqPage=1">목록보기</a>
-					<div class="noticeViewWrap">
-						<p style="margin-bottom: 5px;">제목</p>
-						<p style="font-size: 30px;">${n.noticeTitle }</p>
-						<hr>
-						<p style="margin-bottom: 5px;">작성일</p>
-						<p>${n.noticeDate }</p>
-						<hr>
-					</div>	
-					<div class="noticeContentWrap">
-						<table class="noticeViewContent">
-							<tr>
-					        	<td class="ntFile">
-					            <c:forEach items="${n.fileList }" var="f">
+					<div style="text-align: center; margin-bottom: 15px;">
+						<a class="button-74" href="/noticeList.do?reqPage=1">목록보기</a>
+					</div>
+					<div class="paper">
+						<div class="paper-content">
+							<ul>
+								<li>제목</li>
+								<li>${n.noticeTitle }</li>
+							</ul>
+							<ul>
+								<li>작성일</li>
+								<li>${n.noticeDate }</li>
+							</ul>
+							<ul>
+								<c:forEach items="${n.fileList }" var="f">
 					            	<img src="/resources/upload/notice/${f.filepath }" width="100" height="100">
 					            </c:forEach>
-					        	</td>
-					        </tr>
-							<tr>
-								<td style="width: 1170px;">${n.getNoticeContentBr() }</td>
-							</tr>
-						</table>
+							</ul>
+							<ul>
+								<li>내용</li>
+								<li>${n.getNoticeContentBr() }</li>
+							</ul>
+						</div>
 					</div>
-					<table class="noticeViewContent">
-						<tr>
-							<th colspan="6">
-								<c:if test="${sessionScope.m.memberGrade == 1}">
-									<a class="btn btn-primary btn-sm active" href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a>
-									<a class="btn btn-primary btn-sm active" href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>
-								</c:if>
-							</th>
-						</tr>
-					</table>
+					<div style="text-align: center; margin-top: 15px;">
+						<c:if test="${sessionScope.m.memberGrade == 1}">
+							<a class="button-74" href="/noticeUpdateFrm.do?noticeNo=${n.noticeNo }">수정하기</a>
+							<a class="button-74" href="/deleteNotice.do?noticeNo=${n.noticeNo }">삭제</a>
+						</c:if>
+					</div>	
 				</div>
 			</div>
 		</section>

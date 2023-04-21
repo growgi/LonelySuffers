@@ -18,6 +18,8 @@ $('.selectIdBtn').on('click',function(){
         data : {memberName : memberName,memberEmail : memberEmail},
         success : function(data){
             console.log(data)
+            $('#findMemberName').val('');
+            $('#findMemberEmail').val('');
             if(data == 'null'){
                 $('.dataNull').text('아이디 또는 이메일을 확인하세요.');
                 $('.dataNull').css('color','#f00');
@@ -117,3 +119,9 @@ $(function() {
       setCookie("savepw", $("#memberPw").val(), expdate);
     }
   }
+
+  $('#findMemberEmail').on('keyup',function(e){
+    if(e.keyCode == 13){
+    $('.selectIdBtn').click();
+    }
+  })

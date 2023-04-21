@@ -41,39 +41,34 @@
 				<div class="row">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="content">
+						<div class="content-title">회원가입</div>
 						<form action="/joinMember.do" autocomplete="off" method="post" class="customInput">
 							<div>
-							<input type="text" name="memberId" id="memberId" class="longinput" required><button type="button" name="idChk">중복체크</button>
+							<input type="text" name="memberId" id="memberId" class="longinput inputVaild" required><button type="button" name="idChk">중복체크</button>
 							<label for="memberId">아이디</label>
-							<span></span>
 							</div>
 							<div>
-							<input type="password" name="memberPw" id="memberPw" class="longinput" required>
+							<input type="password" name="memberPw" id="memberPw" class="longinput inputVaild" required>
 							<label for="memberPw">비밀번호</label>
-							<span></span>
 							</div>
 							<div>
-							<input type="password" name="memberPwRe" id="memberPwRe" class="longinput" required>
+							<input type="password" name="memberPwRe" id="memberPwRe" class="longinput inputVaild" required>
 							<label for="memberPwRe">비밀번호 확인</label>
-							<span></span>
 							</div>
 							<span id="pwChkSpan"></span>
 							<div>
-							<input type="text" name="memberName" id="memberName" class="longinput" required>
+							<input type="text" name="memberName" id="memberName" class="longinput inputVaild" required>
 							<label for="memberName">이름</label>
-							<span></span>
 							</div>
 							<div>
-							<input type="text" name="memberPhone" id="memberPhone" class="longinput" required>
+							<input type="text" name="memberPhone" id="memberPhone" class="longinput inputVaild" required>
 							<label for="memberPhone">전화번호</label>
-							<span></span>
 							</div>
 							<div class="customShort">
-							<input type="text" name="email1" class="email1 customShortInput " id="email1" required>
+							<input type="text" name="email1" class="email1 customShortInput inputVaild" id="email1" required>
 							<label for="email1">이메일</label>
-							<span></span>
 							<p>@</p>
-							<input type="text" class="email2" name="email2" id="email2">
+							<input type="text" class="email2 inputVaild" name="email2" id="email2" required>
 							<select class="emailSelect">
 								<option value="" selected>직접입력</option>
 								<option value="naver.com">naver.com</option>
@@ -82,6 +77,7 @@
 								<option value="gmail.com">gmail.com</option>
 								<option value="hanmail.net">hanmail.net</option>
 							</select>
+							
 							<button type="button" name="emailChk" id="myBtn">이메일인증</button>
 							</div>
 							<input type="hidden" class="emailChk" value="0">

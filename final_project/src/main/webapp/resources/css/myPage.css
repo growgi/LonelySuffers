@@ -95,12 +95,7 @@ input[type=text],input[type=password]{
     text-align: center;
 }
 
-.longInput{
 
-}
-
-
-   
 .customInput>div {
     position: relative;
     width: 300px;

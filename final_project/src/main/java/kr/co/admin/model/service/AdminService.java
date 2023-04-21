@@ -1285,6 +1285,16 @@ public class AdminService {
 		return dao.selectNewProductCount();
 	}
 
+	public ArrayList<Lesson> selectTopLesson() {
+
+		return dao.selectTopLesson();
+	}
+
+	public ArrayList<House> selectTopHouse() {
+
+		return dao.selectTopHouse();
+	}
+
 
 
 }

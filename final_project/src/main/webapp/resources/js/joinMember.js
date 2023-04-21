@@ -224,3 +224,4 @@ $("[name=emailCodeChk]").click(function(){
     function cancel(){
         location.href="/";
     }
+
