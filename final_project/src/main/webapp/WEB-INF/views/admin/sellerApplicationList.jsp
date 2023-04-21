@@ -9,6 +9,22 @@
 </head>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <body>
+	<!-- Modal -->
+    <div id="test-modal" class="modal-bg" style="z-index:1">
+      <div class="modal-wrap">
+        <div class="modal-head">
+          <h2>판매자 전환</h2>
+          <span class="material-icons close-icon modal-close">close</span>
+        </div>
+        <div class="modal-content">
+          	<p>해당 회원을 판매자로 전환하시겠습니까?</p>
+        </div>
+        <div class="modal-foot">
+          <button class="checkedChangeGradeSeller btn-m bc4 btn-pill">확인</button>
+          <button class="btn-m bc5 modal-close btn-pill">취소</button>
+        </div>
+      </div>
+    </div>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
     	<div>
@@ -69,7 +85,7 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="checkedChangeGradeSeller btn-m bc1">선택회원 판매자로 전환</button>
+                        <button class="modal-open-btn btn-m bc1" target="#test-modal">선택회원 판매자로 전환</button>
                     </div>
                 </div>
 	        </div>
@@ -83,8 +99,53 @@
         $(".top-menu-title").text("판매자 신청 회원 조회");
         $(".product-choice>div").first().click();
     });
+  	
+    /*모달*/
+    $(function () {
+      $(document).on("click", ".modal-open-btn", function () {
+        //전달할 값
+		const check = $(".check:checked");
+		
+		if(check.length == 0) {
+		    alert("선택된 회원이 없습니다.");
+		    return;
+		}
+		
+        $($(this).attr("target")).css("display", "flex"); //모달 보이기
+		
+		//체크된 회원아이디 저장 배열
+		const id = new Array();
+		const no = new Array();
+		
+		//체크된 체크박스 기준으로 회원아이디를 배열에 넣는 작업
+		check.each(function(index,item){
+		    const memberId = $(item).parent().parent().children().eq(2).text();
+		    console.log(memberId);
+		    id.push(memberId);
+            
+            const checkMemberNo = $(item).val();
+            no.push(checkMemberNo);
+		});
+        
+        //console.log(productType);
+        //console.log(productNo);
+        
+    	  $(".checkedChangeGradeSeller").on("click",function(){
+    		  console.log(id);
+    		  console.log(no);
+    		  
+    		  location.href="/checkedChangeGradeSeller.do?id="+id.join("/")+"&no="+no.join("/");
+    	  });
+      });
+      
+      $(document).on("click", ".modal-close", function () {
+        $(this).parents(".modal-wrap").parent().css("display", "none");
+      });  
+      
+      $(".sub-navi").prev().after("<span class='material-icons dropdown'>expand_more</span>");
+    });
     
-  	//체크박스 선택회원
+  	/*체크박스 선택회원
     $(".checkedChangeGradeSeller").on("click",function(){
         const check = $(".check:checked");
 
@@ -107,11 +168,6 @@
         });
 
         location.href="/checkedChangeGradeSeller.do?id="+id.join("/")+"&no="+no.join("/");
-    });
-  	
-  	$(".check").on("click",function(){
-  		const check = $(".check:checked").val();
-        console.log(check);
-  	});
+    });*/
 </script>
 </html>
