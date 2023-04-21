@@ -5,6 +5,18 @@ input[type=text],input[type=password]{
     padding: 4px 8px;
 }
 
+.content-title{
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    FONT-WEIGHT: 900;
+    width: 200px;
+    height: 70px;
+    line-height: 70px;
+    border-radius: 10px;
+    box-shadow: -5px -5px 15px #FFF, 5px 5px 15px #a8aaaf;
+}
+
 .longinput{
     width: 300px;
 
@@ -27,8 +39,9 @@ input[type=radio]{
 }
 .memberGender>.material-symbols-outlined{
     transition: all 0.5s;
- font-size: 60px;
- color : #aaaaaa;
+    border-radius: 10px;
+    font-size: 60px;
+    color : #aaaaaa;
 }
 
 .memberGender>.material-symbols-outlined:hover{
@@ -65,8 +78,9 @@ input[type=radio]{
         width: 700px;
         padding: 30px 30px;
         margin: 0 auto;
-        border: 0.3px solid black;
-        box-shadow: 5px 3px 3px #303135;
+        background-color: #efeded8c;
+        border-radius: 10px;
+        box-shadow: -5px -5px 15px #FFF, 5px 5px 15px #a8aaaf;
     }
 
     .customInput > div {
@@ -84,27 +98,40 @@ input[type=radio]{
         width: 300px;
         border: none;
         border-bottom: solid #aaaaaa 1px;
-        padding-bottom: 10px;
-        padding-left: 10px;
+        padding-bottom: 7px;
+        padding-top: 5px;
+        padding-left: 20px;
         position: relative;
         background: none;
         z-index: 5;
+        border-radius: 10px;
+        box-shadow: inset 2px 2px 5px #cbced1, inset -6px -6px 6px white;
         margin-right: 10px; /* input과 button 사이의 간격 조절 */
     }
     
-    .customInput > div > button ,.joinBtn>button{
+    .customInput > div > button ,.joinBtn>button,select{
         font-size: 15px;
-        color: #fff;
-        background-color: #333;
+        color: #000;
+        background-color: #efeded8c;
         border: none;
         padding: 5px 10px;
-        border-radius: 5px;
-        
+        font-weight: 600;
+        border-radius: 10px;
+        box-shadow: -5px -5px 15px #FFF, 5px 5px 15px #a8aaaf;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .customInput > div > button:hover ,.joinBtn>button:hover,select:hover,{
+        box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #000;
+    }
+    .customInput > div > button:active ,.joinBtn>button:active,select:active,.memberGender>span:hover{
+    box-shadow: inset 1px 1px 2px #a8aaaf, inset -1px -1px 2px #FFF;
+    }
+    .customInput > div > input::placeholder { color: #aaaaaa; 
     }
     
-    .customInput > div > input::placeholder { color: #aaaaaa; }
-    
-    .customInput > div > input:focus { outline: none; }
+    .customInput > div > input:focus { outline: none; 
+    }
     
     .customInput > div > span {
         display: block;
@@ -123,7 +150,7 @@ input[type=radio]{
         color: #aaa;
         left: 10px;
         font-size: 20px;
-        bottom: 8px;
+        bottom: 2px;
         transition: all .2s;
     }
     
@@ -145,11 +172,14 @@ input[type=radio]{
         width: 175px;
         border: none;
         border-bottom: solid #aaaaaa 1px;
-        padding-bottom: 10px;
-        padding-left: 10px;
+        padding-bottom: 7px;
+        padding-top: 5px;
+        padding-left: 20px;
         position: relative;
         background: none;
         z-index: 5;
+        border-radius: 10px;
+        box-shadow: inset 2px 2px 5px #cbced1, inset -6px -6px 6px white;
         margin-right: 0px; /*input과 button 사이의 간격 조절*/
     }
 
@@ -169,7 +199,7 @@ input[type=radio]{
         color: #aaa;
         left: 10px;
         font-size: 20px;
-        bottom: 8px;
+        bottom: 2px;
         transition: all .2s;
     }
 
@@ -183,8 +213,7 @@ input[type=radio]{
         width: 175px;
         border: none;
         border-bottom: solid #aaaaaa 1px;
-        padding-bottom: 10px;
-        padding-left: 10px;
+        padding-bottom: 7px;
         position: relative;
         background: none;
         z-index: 5;
@@ -199,7 +228,9 @@ input[type=radio]{
         font-size: 20px;
         line-height: 29px;
         padding-bottom: 10px;
-        border-bottom: 1px solid #aaa;
+        margin-left: 7px;
+        margin-right: 7px;
+        font-weight: 600;
     }
 
     .customInput>.joinBtn{
@@ -219,7 +250,6 @@ input[type=radio]{
         border-color: rgba(255, 255, 255, .15);
       }
     
-
       .customEmailCode {
         display: block;
         width: 100%;
@@ -239,7 +269,21 @@ input[type=radio]{
     }
     .customEmailCode:focus{
         outline: none;
-            color: dodgerblue;
+        color: dodgerblue;
     }
 
-    
+    .inputVaild:valid{
+        transition: all .2s;
+        box-shadow: -2px -2px 5px #f5f4f4, 2px 2px 5px #000 !important;
+        font-weight: 600;
+      }
+
+      .email1:valid{
+        transition: all .2s;
+        box-shadow: -2px -2px 5px #f5f4f4, 2px 2px 5px #000 !important;
+      }
+
+      select{
+       font-weight: 600;
+      }
+

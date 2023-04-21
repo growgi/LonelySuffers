@@ -40,7 +40,7 @@
 								<ul class="tab-content">
 									<li>프로필관리</li>
 									<li>구매내역</li>
-									<li class="chatList">1대1문의<span class="chatChkSpan">[1]</span></li>
+									<li class="chatList">1대1문의<span class="chatChkSpan"></span></li>
 									<c:if test="${sessionScope.m.memberGrade == 2}">
 									<li>판매자전용</li>
 									</c:if>
