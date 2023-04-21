@@ -33,6 +33,15 @@
 }
 .nav-item { background-color: #3ac5c8;}
 .nav-link { color: #ffffff; }
+.inquiryTitleText:hover {
+	cursor: pointer;
+}
+.inquiryTd {
+	text-align: right;
+}
+.pagination {
+	text-align: center;
+}
 </style>
 </head>
 
@@ -232,9 +241,38 @@
 							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
 								${house.getHouseDescriptionBr()}</div>
 							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-								상품 평 div</div>
+<!-- 별점 후기 영역 시작  -->
+
+								상품 평 div
+
+<!-- 별점 후기 영역 끝  -->
+							</div>
 							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-								상품 문의 div</div>
+<!-- 상품 문의 영역 시작  -->
+	<div class="inquiryBoard">
+		<h4 style="line-height: 400%;"><span id="numberOfCount"></span>개의 문의글이 있습니다.</h4>
+		<div class="row" style="margin: 20px;">
+		<button type="button" class="btn">문의하기</button>
+	 		<div class="btn-group">
+				<button type="button" class="btn btn-info" onclick="getInquiries(1, 1)">내 문의보기</button>
+				<button type="button" class="btn btn-info" onclick="getInquiries(1, 0)">전체 문의보기</button>
+			</div>
+		</div>
+		<table class="table table-hover"><thead>
+			<tr>
+				<th width="8%">번호</th>
+				<th style="display: none;">inquiryNo</th>
+				<th width="15%">답변상태</th>
+				<th width="42%">제목</th>
+				<th width="17%">문의자</th>
+				<th width="18%">등록일</th>
+			</tr>
+		</thead>
+		<tbody id="forInquiries"></tbody></table>
+		<div class="row" style="margin: 20px;" id="forPageNavi"></div>
+	</div>
+<!-- 상품 문의 영역 끝  -->
+							</div>
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -267,20 +305,27 @@
 
 
 	<script type="text/javascript">
+	// replaceAt 함수 정의
+		String.prototype.replaceAt = function(index, replacement) {
+		    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+		}
+
+
 	// 부트스트랩 tooltip
-	$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip();   
-	});
-
-
-	$(function(){
-		$(".clickToLarger").click(function () {
-			$(".clickToLarger").removeClass("onViewing");
-			$(this).addClass("onViewing");
-			$(".bigThumbnailImage").attr("src",$(this).attr("src"));
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();   
 		});
 
-	})
+
+	// 작은 이미지를 누르면, 위에 큰 이미지 자리가 대체됨
+		$(function(){
+			$(".clickToLarger").click(function () {
+				$(".clickToLarger").removeClass("onViewing");
+				$(this).addClass("onViewing");
+				$(".bigThumbnailImage").attr("src",$(this).attr("src"));
+			});
+	
+		})
 
 
 	// (숙박업소 & 인원 수) 조건에 맞는 객실들을 받는 ajax
@@ -398,66 +443,143 @@
 
 
 	// input에 값이 없으면 form 제출을 막는 함수
-	function checkOrder(){
-		if ( $("[name=bookStartDate]").val() == "" || $("[name=bookEndDate]").val() == "" ) {
-			alert('시작일과 퇴실일을 선택해주십시오.');
-			return false;
+		function checkOrder(){
+			if ( $("[name=bookStartDate]").val() == "" || $("[name=bookEndDate]").val() == "" ) {
+				alert('시작일과 퇴실일을 선택해주십시오.');
+				return false;
+			}
+			fullPrice();
+			return true;
 		}
-		fullPrice();
-		return true;
-	}
 
 
 	// roomBookPrice를 계산하는 함수
-	const onedayPrice = $("[name=housePrice]").val();
-	function fullPrice(){
-		let result = 0;
-		let days = moment($("#bookEnd").val()).diff(moment($("#bookStart").val()), 'days');
-		for(let i=0; i<days; i++){
-			let adjustment = 1;
-			if(moment($("#bookStart").val()).add(i, 'days').format('M')>=6 && moment($("#bookStart").val()).add(i, 'days').format('M')<=8){
-				console.log("6~8월은 성수기 할증으로 요금이 1.2배가 됩니다.");
-				adjustment *= 1.2;
+		const onedayPrice = $("[name=housePrice]").val();
+		function fullPrice(){
+			let result = 0;
+			let days = moment($("#bookEnd").val()).diff(moment($("#bookStart").val()), 'days');
+			for(let i=0; i<days; i++){
+				let adjustment = 1;
+				if(moment($("#bookStart").val()).add(i, 'days').format('M')>=6 && moment($("#bookStart").val()).add(i, 'days').format('M')<=8){
+					console.log("6~8월은 성수기 할증으로 요금이 1.2배가 됩니다.");
+					adjustment *= 1.2;
+				}
+				if(moment($("#bookStart").val()).add(i, 'days').isoWeekday() == 5 || moment($("#bookStart").val()).add(i, 'days').isoWeekday() == 6){
+					console.log("주말은 할증으로 요금이 1.5배가 됩니다.");
+					adjustment *= 1.5;
+				}
+				result += onedayPrice * adjustment;
+				console.log((i+1)+"일째까지 누계 "+result+"원");
 			}
-			if(moment($("#bookStart").val()).add(i, 'days').isoWeekday() == 5 || moment($("#bookStart").val()).add(i, 'days').isoWeekday() == 6){
-				console.log("주말은 할증으로 요금이 1.5배가 됩니다.");
-				adjustment *= 1.5;
+			if($("#houseBarbecue").prop("checked")){
+				result += Number($("[name=houseBarbecuePrice]").val());
 			}
-			result += onedayPrice * adjustment;
-			console.log((i+1)+"일째까지 누계 "+result+"원");
+			if($("#houseParty").prop("checked")){
+				result += Number($("[name=housePartyPrice]").val());
+			}
+			console.log("옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
+			$("[name=roomBookPrice]").val(result);
 		}
-		if($("#houseBarbecue").prop("checked")){
-			result += Number($("[name=houseBarbecuePrice]").val());
-		}
-		if($("#houseParty").prop("checked")){
-			result += Number($("[name=housePartyPrice]").val());
-		}
-		console.log("옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
-		$("[name=roomBookPrice]").val(result);
-	}
 
 
 	// 나의 관심상품
-	function goWishList(){
-		const houseNo = $("[name=houseNo]").val();
-		const houseStatus = $("[name=houseStatus]").val();
-			if(houseStatus==1){
+		function goWishList(){
+			const houseNo = $("[name=houseNo]").val();
+			const houseStatus = $("[name=houseStatus]").val();
+				if(houseStatus==1){
+					$.ajax({
+						url : "/insertWishList.do",
+						data: {house_no : houseNo, lesson_no : 0},
+						dataType : "text",
+						success : function(message){
+							alert(message);
+						},
+						error : function(){
+							alert("알 수 없는 오류가 발생했습니다.");
+						}
+					});
+				}else{
+					alert("판매중인 상품이 아닙니다.");
+				}
+		}
+
+	// 문의글 목록을 <tr>단위로 불러오는 ajax
+		function getInquiries(reqPage, range){
+			$.ajax({
+					url : "/getInquiries.do",
+					data: {reqPage : reqPage, productCategory : 2, productNo : $("[name=houseNo]").val(), range : range},
+					dataType : "json",
+					success : function(InquiryPagination){
+						$("#numberOfCount").text(InquiryPagination.totalCount);
+						$("#forInquiries").empty();
+						$("#forPageNavi").empty();
+						for(let i=0; i<InquiryPagination.list.length; i++){
+							const td1 = $("<td>").text((InquiryPagination.start)+i);
+							
+							const td2 = $("<td>").css("display", "none").text(InquiryPagination.list[i].inquiryNo);
+							
+							const td3 = $("<td>");
+							if( InquiryPagination.list[i].answered > 0 ){
+								td3.text("답변완료");
+							}else{ td3.text("미답변"); }
+							
+							const td4 = $("<td>");
+							if( InquiryPagination.list[i].privately > 0 ){
+								td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text((InquiryPagination.list[i].inquiryTitle) + " 🔒 "));
+							}else{
+								td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text(InquiryPagination.list[i].inquiryTitle));
+							}
+							
+							const idLength = InquiryPagination.list[i].inquirer.length;
+							const td5 = $("<td>");
+							let blurred = InquiryPagination.list[i].inquirer;
+							for(let j = 3; j<idLength; j++){
+								blurred = blurred.replaceAt(j, "*");
+							}
+							td5.text(blurred);
+							
+							const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
+	
+							const tr = $("<tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+							$("#forInquiries").append(tr);
+		    			}
+						$("#forPageNavi").append(InquiryPagination.pageNavi);
+					}
+			});
+		}
+
+	// 이 .jsp 페이지를 첫 방문할 때 문의글 첫 페이지 조회
+		$(document).ready(function() {
+			getInquiries(1, 0);
+		});
+
+
+	// 문의글의 제목을 누르면 아래에 tr로 문의글 내용이 삽입되면서 펼쳐지는 효과로 출력
+		function expandIt(obj){
+			const targetInquiryNo = $(obj).parent().prev().prev().text();
+			if( $(obj).parent().parent().next().children().eq(2).attr("colspan") == 4 ){
+				 $(obj).parent().parent().parent().find(".expandedTr").remove();
+			}else{
 				$.ajax({
-					url : "/insertWishList.do",
-					data: {house_no : houseNo, lesson_no : 0},
-					dataType : "text",
-					success : function(message){
-						alert(message);
-					},
-					error : function(){
-						alert("알 수 없는 오류가 발생했습니다.");
+					url : "/inquiryView.do",
+					data: {inquiryNo : targetInquiryNo, productCategory : 2, productNo : $("[name=houseNo]").val()},
+					dataType : "json",
+					async : false,
+					success : function(Inquiry){
+						if(Inquiry.inquiryNo <= 0){
+							alert(Inquiry.inquiryContent);
+						}else{
+							if(Inquiry.answerList.length>0){
+								for(let j=0; j<Inquiry.answerList.length; j++){
+									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").text(Inquiry.answerList[j].answerContent) ) );
+								}
+							}
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").text(Inquiry.inquiryContent) ) );
+						}
 					}
 				});
-			}else{
-				alert("판매중인 상품이 아닙니다.");
 			}
-	}
-
+		}
 	</script>
 
 </body>

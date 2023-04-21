@@ -27,6 +27,15 @@
 }
 .nav-item { background-color: #3ac5c8;}
 .nav-link { color: #ffffff; }
+.inquiryTitleText:hover {
+	cursor: pointer;
+}
+.inquiryTd {
+	text-align: right;
+}
+.pagination {
+	text-align: center;
+}
 </style>
 </head>
 
@@ -204,9 +213,38 @@
 							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
 								${lesson.lessonInfo }</div>
 							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-								상품 평 div</div>
+<!-- 별점 후기 영역 시작  -->
+
+								상품 평 div
+
+<!-- 별점 후기 영역 끝  -->
+							</div>
 							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-								상품 문의 div</div>
+<!-- 상품 문의 영역 시작  -->
+	<div class="inquiryBoard">
+		<h4 style="line-height: 400%;"><span id="numberOfCount"></span>개의 문의글이 있습니다.</h4>
+		<div class="row" style="margin: 20px;">
+		<button type="button" class="btn">문의하기</button>
+	 		<div class="btn-group">
+				<button type="button" class="btn btn-info" onclick="getInquiries(1, 1)">내 문의보기</button>
+				<button type="button" class="btn btn-info" onclick="getInquiries(1, 0)">전체 문의보기</button>
+			</div>
+		</div>
+		<table class="table table-hover"><thead>
+			<tr>
+				<th width="8%">번호</th>
+				<th style="display: none;">inquiryNo</th>
+				<th width="15%">답변상태</th>
+				<th width="42%">제목</th>
+				<th width="17%">문의자</th>
+				<th width="18%">등록일</th>
+			</tr>
+		</thead>
+		<tbody id="forInquiries"></tbody></table>
+		<div class="row" style="margin: 20px;" id="forPageNavi"></div>
+	</div>
+<!-- 상품 문의 영역 끝  -->
+							</div>
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -239,6 +277,12 @@
 
 
 	<script type="text/javascript">
+	// replaceAt 함수 정의
+		String.prototype.replaceAt = function(index, replacement) {
+		    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+		}
+
+
 	//url로부터 lessonNo값 알아내기
 		const ltrim = /^\S{0,}lessonNo=/;
 		const currentUrl = window.location.href;
@@ -248,114 +292,191 @@
 	//url로부터 lessonNo 도출 끝
 
 		const lessonPeopleMax = $("[name=lessonMaxNo]").val();
-console.log("★ 강습 정원 "+ lessonPeopleMax+"명 ★");
 
 	// 예약하기 modal 띄우면 실행되는 함수 시작
-	$("#goBooking").on("click", function(){
-		$("[name=lessonPeople]").on("change", function(){
-			const lessonCapa = lessonPeopleMax - $("[name=lessonPeople]").val();
-console.log($("[name=lessonPeople]").val() +"명을 예약하려고 함");
-console.log("강습정원 - 지금 예약할 인원 수 = " + lessonCapa +"(필요한 남은 자리 수)");
-		// 이미 결제완료 인원 된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax
-			if($("[name=lessonPeople]").val()>=1){
-				$.ajax({
-					url : "/bookOneLesson.do",
-					data: {lessonNo : lessonNoFromUrl},
-					dataType : "json",
-					success : function(List){
-						let invalidDateRanges = [];
-						for(let i=0; i<List.length; i++){
-console.log(List[i].lessonBookDate +"에는 결제완료 상태의 인원이 이미 "+ List[i].lessonPeople +"명 있음");
-							if(List[i].lessonPeople > lessonCapa){
-console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므로 "+ List[i].lessonBookDate +"는 막음");
-							invalidDateRanges[i] = { 'start': moment(List[i].lessonBookDate), 'end': moment(List[i].lessonBookDate) };}
-						}
-
-					// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
-						$("#bookStart").val("");
-						$("#bookStart").attr("value", null);
-						$("#bookStart").prop("disabled", false);
-
-					// 예약일을 선택하는 date range picker 생성
-						$('#bookStart').daterangepicker({
-						    parentEl: "#bookingArea .modal-body",
-							locale: {
-							format: "YYYY-MM-DD",
-							fromLabel: "시작",
-							toLabel: "종료"
-				    		},
-					    	alwaysShowCalendars: true,
-							autoApply: true,
-							singleDatePicker: true,
-							showDropdowns: true,
-							minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
-							maxDate: moment().add(3, 'months'),	// 시작일은 3개월 이내에서 지정 가능
-							isInvalidDate: function(date) {
-								return invalidDateRanges.reduce(function(bool, range) {
-									return bool || (date >= range.start && date <= range.end);
-								}, false);
+		$("#goBooking").on("click", function(){
+			$("[name=lessonPeople]").on("change", function(){
+				const lessonCapa = lessonPeopleMax - $("[name=lessonPeople]").val();
+	console.log($("[name=lessonPeople]").val() +"명을 예약하려고 함");
+	console.log("강습정원 - 지금 예약할 인원 수 = " + lessonCapa +"(필요한 남은 자리 수)");
+			// 이미 결제완료 인원 된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax
+				if($("[name=lessonPeople]").val()>=1){
+					$.ajax({
+						url : "/bookOneLesson.do",
+						data: {lessonNo : lessonNoFromUrl},
+						dataType : "json",
+						success : function(List){
+							let invalidDateRanges = [];
+							for(let i=0; i<List.length; i++){
+	console.log(List[i].lessonBookDate +"에는 결제완료 상태의 인원이 이미 "+ List[i].lessonPeople +"명 있음");
+								if(List[i].lessonPeople > lessonCapa){
+	console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므로 "+ List[i].lessonBookDate +"는 막음");
+								invalidDateRanges[i] = { 'start': moment(List[i].lessonBookDate), 'end': moment(List[i].lessonBookDate) };}
 							}
-						});
-						$("#bookStart").val("");
-						$("#bookStart").attr("value", null);	// value 없는 상태로 생성 필요
-					},
-					error : function(){
-						console.log("인원 수를 먼저 선택해주세요에 focus됨");
-						$(".daterangepicker").remove();
-						$("#bookStart").val("");
-						$("#bookStart").attr("value", null);
-						$("#bookStart").prop("disabled", true);
-					}
-				});
-			}else{
-				$("#bookStart").val("");
-				$("#bookStart").attr("value", null);
-				$("#bookStart").prop("disabled", true);
-			}
+	
+						// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
+							$("#bookStart").val("");
+							$("#bookStart").attr("value", null);
+							$("#bookStart").prop("disabled", false);
+	
+						// 예약일을 선택하는 date range picker 생성
+							$('#bookStart').daterangepicker({
+							    parentEl: "#bookingArea .modal-body",
+								locale: {
+								format: "YYYY-MM-DD",
+								fromLabel: "시작",
+								toLabel: "종료"
+					    		},
+						    	alwaysShowCalendars: true,
+								autoApply: true,
+								singleDatePicker: true,
+								showDropdowns: true,
+								minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
+								maxDate: moment().add(3, 'months'),	// 시작일은 3개월 이내에서 지정 가능
+								isInvalidDate: function(date) {
+									return invalidDateRanges.reduce(function(bool, range) {
+										return bool || (date >= range.start && date <= range.end);
+									}, false);
+								}
+							});
+							$("#bookStart").val("");
+							$("#bookStart").attr("value", null);	// value 없는 상태로 생성 필요
+						},
+						error : function(){
+							console.log("인원 수를 먼저 선택해주세요에 focus됨");
+							$(".daterangepicker").remove();
+							$("#bookStart").val("");
+							$("#bookStart").attr("value", null);
+							$("#bookStart").prop("disabled", true);
+						}
+					});
+				}else{
+					$("#bookStart").val("");
+					$("#bookStart").attr("value", null);
+					$("#bookStart").prop("disabled", true);
+				}
+			});
 		});
-	});
 	// 예약하기 modal 띄우면 실행되는 함수 끝
 
 
 	// input에 값이 없으면 form 제출을 막는 함수
-	function checkOrder(){
-		if ( $("[name=lessonBookDate]").val() == "" ) {
-			alert('강습일을 선택해주십시오.');
-			return false;
+		function checkOrder(){
+			if ( $("[name=lessonBookDate]").val() == "" ) {
+				alert('강습일을 선택해주십시오.');
+				return false;
+			}
+			fullPrice();
+			return true;
 		}
-		fullPrice();
-		return true;
-	}
 
 
 	// lessonBookPrice를 계산하는 함수
-	const onePersonPrice = $("[name=lessonPrice]").val();
-	function fullPrice(){
-		return Number(onePersonPrice) * Number($("[name=lessonPeople]").val());
-	}
+		const onePersonPrice = $("[name=lessonPrice]").val();
+		function fullPrice(){
+			return Number(onePersonPrice) * Number($("[name=lessonPeople]").val());
+		}
 
 
 	// 나의 관심상품
-	function goWishList(){
-		const lessonNo = $("[name=lessonNo]").val();
-		const lessonStatus = $("[name=lessonStatus]").val();
-			if(lessonStatus==1){
+		function goWishList(){
+			const lessonNo = $("[name=lessonNo]").val();
+			const lessonStatus = $("[name=lessonStatus]").val();
+				if(lessonStatus==1){
+					$.ajax({
+						url : "/insertWishList.do",
+						data: {house_no : 0, lesson_no : lessonNo},
+						dataType : "text",
+						success : function(message){
+							alert(message);
+						},
+						error : function(){
+							alert("알 수 없는 오류가 발생했습니다.");
+						}
+					});
+				}else{
+					alert("판매중인 상품이 아닙니다.");
+				}
+		}
+
+
+	// 문의글 목록을 <tr>단위로 불러오는 ajax
+		function getInquiries(reqPage, range){
+			$.ajax({
+					url : "/getInquiries.do",
+					data: {reqPage : reqPage, productCategory : 1, productNo : $("[name=lessonNo]").val(), range : range},
+					dataType : "json",
+					success : function(InquiryPagination){
+						$("#numberOfCount").text(InquiryPagination.totalCount);
+						$("#forInquiries").empty();
+						$("#forPageNavi").empty();
+						for(let i=0; i<InquiryPagination.list.length; i++){
+							const td1 = $("<td>").text((InquiryPagination.start)+i);
+							
+							const td2 = $("<td>").css("display", "none").text(InquiryPagination.list[i].inquiryNo);
+							
+							const td3 = $("<td>");
+							if( InquiryPagination.list[i].answered > 0 ){
+								td3.text("답변완료");
+							}else{ td3.text("미답변"); }
+							
+							const td4 = $("<td>");
+							if( InquiryPagination.list[i].privately > 0 ){
+								td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text((InquiryPagination.list[i].inquiryTitle) + " 🔒 "));
+							}else{
+								td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text(InquiryPagination.list[i].inquiryTitle));
+							}
+							
+							const idLength = InquiryPagination.list[i].inquirer.length;
+							const td5 = $("<td>");
+							let blurred = InquiryPagination.list[i].inquirer;
+							for(let j = 3; j<idLength; j++){
+								blurred = blurred.replaceAt(j, "*");
+							}
+							td5.text(blurred);
+							
+							const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
+	
+							const tr = $("<tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+							$("#forInquiries").append(tr);
+		    			}
+						$("#forPageNavi").append(InquiryPagination.pageNavi);
+					}
+			});
+		}
+
+	// 이 .jsp 페이지를 첫 방문할 때 문의글 첫 페이지 조회
+		$(document).ready(function() {
+			getInquiries(1, 0);
+		});
+
+
+	// 문의글의 제목을 누르면 아래에 tr로 문의글 내용이 삽입되면서 펼쳐지는 효과로 출력
+		function expandIt(obj){
+			const targetInquiryNo = $(obj).parent().prev().prev().text();
+			if( $(obj).parent().parent().next().children().eq(2).attr("colspan") == 4 ){
+				 $(obj).parent().parent().parent().find(".expandedTr").remove();
+			}else{
 				$.ajax({
-					url : "/insertWishList.do",
-					data: {house_no : 0, lesson_no : lessonNo},
-					dataType : "text",
-					success : function(message){
-						alert(message);
-					},
-					error : function(){
-						alert("알 수 없는 오류가 발생했습니다.");
+					url : "/inquiryView.do",
+					data: {inquiryNo : targetInquiryNo, productCategory : 1, productNo : $("[name=lessonNo]").val()},
+					dataType : "json",
+					async : false,
+					success : function(Inquiry){
+						if(Inquiry.inquiryNo <= 0){
+							alert(Inquiry.inquiryContent);
+						}else{
+							if(Inquiry.answerList.length>0){
+								for(let j=0; j<Inquiry.answerList.length; j++){
+									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").text(Inquiry.answerList[j].answerContent) ) );
+								}
+							}
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").text(Inquiry.inquiryContent) ) );
+						}
 					}
 				});
-			}else{
-				alert("판매중인 상품이 아닙니다.");
 			}
-	}
-
+		}
 	</script>
 
 </body>

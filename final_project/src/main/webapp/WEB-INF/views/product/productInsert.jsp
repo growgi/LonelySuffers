@@ -356,7 +356,7 @@ input[type="number"], input[type="time"] {
 		const attached = $(this);
 		const reader = new FileReader();
 		reader.onload = function(){
-			attached.prev().children().remove();
+			attached.prev().empty();
 			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "90%").attr("onclick", "getRidOf(this)"));
 		}
 		reader.readAsDataURL(attached[0].files[0]);

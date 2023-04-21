@@ -12,6 +12,8 @@
 		<typeAlias type="kr.co.carpool.model.vo.Passenger" alias="p"/>
 		<typeAlias type="kr.co.carpool.model.vo.CarpoolMatch" alias="match"/>
 		<typeAlias type="kr.co.house.model.vo.House" alias="h"/>			<!-- House      as h -->
+		<typeAlias type="kr.co.inquiry.model.vo.Inquiry" alias="i"/>		<!-- Inquiry    as i -->
+		<typeAlias type="kr.co.inquiry.model.vo.Answer" alias="ia"/>		<!-- Answer     as ia -->
 		<typeAlias type="kr.co.lesson.model.vo.Lesson" alias="l"/>			<!-- Lesson     as l -->
 		<typeAlias type="kr.co.lesson.model.vo.LessonBook" alias="lb"/>	 	<!-- LessonBook as lb -->
 		<typeAlias type="kr.co.member.model.vo.Member" alias="m"/>			<!-- Member     as m -->
