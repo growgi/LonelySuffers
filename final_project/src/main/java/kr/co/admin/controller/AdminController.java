@@ -254,7 +254,7 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping(value="/checkedReturnProduct.do")
+	/*	@RequestMapping(value="/checkedReturnProduct.do")
 	public String checkedReturnProduct(String productType, String no) {
 //		System.out.println("productType:"+productType);
 //		System.out.println("no:"+no);
@@ -271,7 +271,7 @@ public class AdminController {
 		} else {
 			return "redirect:/productListLesson.do?reqPage=1";
 		}
-	}
+	}*/
 	
 	//검색
 	@RequestMapping(value="/adminSearchLesson.do")

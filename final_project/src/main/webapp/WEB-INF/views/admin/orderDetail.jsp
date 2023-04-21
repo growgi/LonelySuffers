@@ -57,7 +57,6 @@
         box-shadow: 1px 2px 2px 2px rgba(231, 231, 231, 0.19), 1px 2px 2px 2px rgba(214, 214, 214, 0.23);
     }
     .product-box{
-        width: 96%;
         padding-bottom: 20px;
         border-bottom: 2px solid rgb(223, 223, 223);
         margin-top: 30px;
@@ -107,7 +106,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="orderDetail-wrapper admin-content">
-        <div>
+        <div style="width:75%;">
             <div class="orderDetail-title">
                 <a href="/salesDetails.do?reqPage=1" class="material-symbols-outlined">arrow_back_ios</a>
                 <div class="bold">주문 상세</div>
@@ -131,7 +130,7 @@
 	                            <div><span class="product-type">강습</span> | <span class="product-location">${od.lessonCity }</span></div>
 	                        </div>
 	                        <div class="product-box-bottom">
-	                            <div class="product-img"></div>
+	                            <div><img src="resources/upload/lesson/${od.lessonInfoPic }" class="product-img"></div>
 	                            <div>
 	                                <div class="product-info">
 	                                    <div class="product-name bold">Level ${od.lessonNameLevel }</div>
@@ -153,7 +152,7 @@
 	                            <div><span class="product-type">숙박</span> | <span class="product-location">${od.houseCity }</span></div>
 	                        </div>
 	                        <div class="product-box-bottom">
-	                            <div class="product-img"></div>
+	                            <div><img src="resources/upload/house/${od.housePhoto1 }" class="product-img"></div>
 	                            <div>
 	                                <div class="product-info">
 	                                    <div class="product-name bold">${od.roomTitle }</div>

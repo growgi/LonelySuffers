@@ -42,6 +42,7 @@
 						<form action="/adminSearchHouse.do" method="get"
 							id="frm" class="search-bar" name="search-product">
 							<input type="hidden" name="jspPage" value="nl">
+							<input type="hidden" name="reqPage" value="1">
 							<select name="houseSearchType" class="search-type">
 								<option value="n">상품명</option>
 								<option value="s">판매자</option>

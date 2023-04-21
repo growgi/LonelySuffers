@@ -32,9 +32,9 @@
                             <th><input type="checkbox" name="memberCheck" class="all-check"></th>
                             <th>이름</th>
                             <th>아이디</th>
-                            <th>성별</th>
+                            <th style="width:80px;">성별</th>
                             <th>전화번호</th>
-                            <th>이메일</th>
+                            <th style="width:20%;">이메일</th>
                             <th>가입일</th>
                             <th>회원 등급</th>
                             <th></th>

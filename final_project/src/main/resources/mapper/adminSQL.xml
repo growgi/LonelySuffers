@@ -524,6 +524,7 @@
 		    lesson_start_time as lessonStartTime, 
 		    lesson_end_time as lessonEndTime,
 		    lesson_teacher as lessonTeacher,
+		    lesson_info_pic as lessonInfoPic,
             h.house_no as houseNo,
 		    house_title as houseTitle,
 		    house_city as houseCity,
@@ -531,6 +532,7 @@
 		    room_title as roomTitle,
 		    house_barbecue as houseBarbecue,
 		    house_party as houseParty,
+		    house_photo1 as housePhoto1,
 		    book_start_date as bookStartDate,
 		    book_end_date as bookEndDate,
 		    product_price as productPrice

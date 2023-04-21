@@ -43,6 +43,7 @@
 						<form action="/adminSearchLesson.do" method="get"
 						id="frm" class="search-bar search-box" name="search-product">
 						<input type="hidden" name="jspPage" value="nl">
+						<input type="hidden" name="reqPage" value="1">
 						<select name="lessonSearchType" class="search-type">
 							<option value="n">강습명</option>
 							<option value="s">판매자</option>
