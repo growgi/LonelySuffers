@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
+	<select id="selectTopLesson" resultType="l">
+	    <![CDATA[
+		select lessonNo, lessonScore, lessonInfoPic
+  		from (
+         select lesson_no as lessonNo,
+			lesson_score as lessonScore,
+			lesson_info_pic as lessonInfoPic
+           FROM lesson
+          order by lesson_score desc nulls last
+      	)
+ 		where rownum<=4
+ 		]]>
+	</select>
+	
+	<select id="selectTopHouse" resultType="h">
+		<![CDATA[
+		select houseNo, houseScore, housePhoto1
+  		from (
+         select
+			house_no as houseNo,
+			house_score as houseScore,
+			house_photo1 as housePhoto1
+			from house
+          order by house_score desc nulls last
+      	)
+ 		where rownum<=4
+ 		]]>
+	</select>
+
 	<select id="selectAllMember" resultType="m">
 		select
 			member_name as memberName,
@@ -219,16 +248,16 @@
  	    <choose>
 	      <when test='searchType.equals("n")'>
 	      	<!-- 한 글자는 문자 취급될 수 있기 때문에 ""큰따옴표로 묶어야함 -->
-	        where lesson_title like '%'||#{searchKeyword}||'%'
+	        where (lesson_status in(1,0)) and (lesson_title like '%'||#{searchKeyword}||'%')
 	      </when>
 	      <when test='searchType.equals("s")'>
-	        where writer like '%'||#{searchKeyword}||'%'
+	        where (lesson_status in(1,0)) and (writer like '%'||#{searchKeyword}||'%')
 	      </when>
 	      <when test="searchType.equals('le')">
-	        where lesson_level like '%'||#{searchKeyword}||'%'
+	        where (lesson_status in(1,0)) and (lesson_level like '%'||#{searchKeyword}||'%')
 	      </when>
 	      <when test="searchType.equals('lo')">
-	        where lesson_city like '%'||#{searchKeyword}||'%'
+	        where (lesson_status in(1,0)) and (lesson_city like '%'||#{searchKeyword}||'%')
 	      </when>
 	    </choose>
 	    order by lesson_status desc, lesson_no desc 
@@ -250,16 +279,16 @@
 		from house
 		<choose>
 			<when test='searchType.equals("n")'>
-				where house_title like '%'||#{searchKeyword}||'%'
+				where (house_status in(0,1)) and (house_title like '%'||#{searchKeyword}||'%')
 			</when>
 			<when test='searchType.equals("s")'>
-				where writer like '%'||#{searchKeyword}||'%'
+				where (house_status in(0,1)) and (writer like '%'||#{searchKeyword}||'%')
 			</when>
 			<when test="searchType.equals('rt')">
-				where room_title like '%'||#{searchKeyword}||'%'
+				where (house_status in(0,1)) and (room_title like '%'||#{searchKeyword}||'%')
 			</when>
 			<when test="searchType.equals('lo')">
-				where house_address like '%'||#{searchKeyword}||'%'
+				where (house_status in(0,1)) and (house_address like '%'||#{searchKeyword}||'%')
 			</when>
 		</choose>
 		order by house_status desc, house_no desc
@@ -495,6 +524,7 @@
 		    lesson_start_time as lessonStartTime, 
 		    lesson_end_time as lessonEndTime,
 		    lesson_teacher as lessonTeacher,
+		    lesson_info_pic as lessonInfoPic,
             h.house_no as houseNo,
 		    house_title as houseTitle,
 		    house_city as houseCity,
@@ -502,6 +532,7 @@
 		    room_title as roomTitle,
 		    house_barbecue as houseBarbecue,
 		    house_party as houseParty,
+		    house_photo1 as housePhoto1,
 		    book_start_date as bookStartDate,
 		    book_end_date as bookEndDate,
 		    product_price as productPrice

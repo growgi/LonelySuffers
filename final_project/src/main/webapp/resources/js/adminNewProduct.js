@@ -58,7 +58,10 @@ $(function () {
 //1개
 $(".approveProduct").on("click", function() {
     //상품 종류
-    const productType = $(this).parents(".list-top").children("[type=hidden]").val();
+    //const productType = $(this).parents(".list-top").children("[type=hidden]").val();
+    const productType = $(this).parent().parent().find("td").eq(1).text(); //상품 종류
+    
+    console.log(productType);
     
     //클릭한 버튼 기준으로 해당 상품 번호
     const productNo = $(this).next().val();
@@ -69,9 +72,9 @@ $(".approveProduct").on("click", function() {
 //체크박스 선택상품
 $(".checkedApproveProduct").on("click", function() {
     //상품 종류
-    const productType = $(this).parent().parent().parent().children(".list-top").children("[type=hidden]").val();
+    const productType = $(this).parent().parent().prev().find("td").eq(1).text();
     
-    console.log(productType);
+    //console.log(productType);
     
     const check = $(".check:checked");
 

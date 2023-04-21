@@ -34,6 +34,17 @@ public class AdminController {
 	@Autowired
 	private ChatService cService;
 	
+	@RequestMapping(value="/main.do")
+	public String main(Model model) {
+		ArrayList<Lesson> lessonList = service.selectTopLesson();
+		ArrayList<House> houseList = service.selectTopHouse();
+		
+		model.addAttribute("lessonList", lessonList);
+		model.addAttribute("houseList", houseList);
+		
+		return "main";
+	}
+	
 	/**1. 회원목록*/
 	@RequestMapping(value="/memberList.do")
 	public String memberList(int reqPage, Model model) {
@@ -243,7 +254,7 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping(value="/checkedReturnProduct.do")
+	/*	@RequestMapping(value="/checkedReturnProduct.do")
 	public String checkedReturnProduct(String productType, String no) {
 //		System.out.println("productType:"+productType);
 //		System.out.println("no:"+no);
@@ -260,7 +271,7 @@ public class AdminController {
 		} else {
 			return "redirect:/productListLesson.do?reqPage=1";
 		}
-	}
+	}*/
 	
 	//검색
 	@RequestMapping(value="/adminSearchLesson.do")

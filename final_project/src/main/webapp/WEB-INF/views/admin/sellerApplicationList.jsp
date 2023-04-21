@@ -24,9 +24,9 @@
                             <th><input type="checkbox" name="memberCheck" class="all-check"></th>
                             <th>이름</th>
                             <th>아이디</th>
-                            <th>성별</th>
+                            <th style="width:80px;">성별</th>
                             <th>전화번호</th>
-                            <th>이메일</th>
+                            <th style="width:20%;">이메일</th>
                             <th>가입일</th>
                             <th>신청일</th>
                             <th>현재 등급</th>
@@ -50,19 +50,13 @@
 						    <td>${s.memberEmail }</td>
 						    <td>${s.enrollDate }</td>
 						    <td>${s.applicationDate }</td>
-						    <td>
+						    <td style="color:#19A7CE">
 						    <c:choose>
 						    <c:when test="${s.memberGrade == 2}">
-						        <select class="grade-change">
-						            <option value="2" selected>판매자</option>
-						            <option value="3">사용자</option>
-						        </select>
+						    	판매자
 						    </c:when>
 						    <c:otherwise>
-						        <select class="grade-change">
-						            <option value="2">판매자</option>
-						            <option value="3" selected>사용자</option>
-						        </select>
+								사용자
 						    </c:otherwise>
 						    </c:choose>
 						    </td>

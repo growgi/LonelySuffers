@@ -42,6 +42,7 @@
 						<form action="/adminSearchHouse.do" method="get"
 							id="frm" class="search-bar" name="search-product">
 							<input type="hidden" name="jspPage" value="nl">
+							<input type="hidden" name="reqPage" value="1">
 							<select name="houseSearchType" class="search-type">
 								<option value="n">상품명</option>
 								<option value="s">판매자</option>
@@ -126,7 +127,7 @@
 						<div class="list-bottom">
 							<div>
 								<button class="checkedApproveProduct btn-m bc1">선택 상품 승인</button>
-								<button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button>
+								<!-- <button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button> -->
 							</div>
 						</div>
 					</div>

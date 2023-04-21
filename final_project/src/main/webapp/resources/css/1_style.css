@@ -1951,11 +1951,11 @@ SERVICES & CASE
 .home-service i {
     font-size: 160px;
     position: absolute;
-    top: 100px;
+    top: 40px;
     opacity: 0.03;
     color: #212121;
     left: 30px;
-    transform: rotate(-20deg);
+    transform: rotate(-10deg);
     z-index: 1;
 }
 
