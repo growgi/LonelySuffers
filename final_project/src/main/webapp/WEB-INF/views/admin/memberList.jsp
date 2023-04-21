@@ -25,7 +25,10 @@
           <span class="material-icons close-icon modal-close">close</span>
         </div>
         <div class="modal-content">
-	          	<p>해당 회원을 정말로 탈퇴시키겠습니까?</p>
+	        <div class="waveEffect" style="border:none;">
+	            <p class="waveEffectWord-back" style="font-family: 'Delicious Handrawn', cursive; color:black; font-weight:600;">Lonely Surfers</p>
+	        </div>
+	   		<p>선택한 회원을 정말로 탈퇴시키겠습니까?</p>
         </div>
         <div class="modal-foot">
           <button class="deleteMember btn-m bc4 btn-pill">확인</button>
@@ -165,23 +168,6 @@
       $(".sub-navi").prev().after("<span class='material-icons dropdown'>expand_more</span>");
     });
     
-    function returnProduct(productType,productNo,returnReason) {
-        //상품 종류
-        //const productType = $(this).parents(".list-top").children("[type=hidden]").val();
-        //const productType = $(this).parent().parent().parent().next().next().find(".list-top").children("[type=hidden]").val();
-        console.log(productType);
-        
-        //클릭한 버튼 기준으로 해당 상품 번호
-        //const productNo = $(this).prev().val();
-        console.log(productNo);
-        
-        //반려하는 이유
-    	//const returnReason = $(".return-reason");
-    	console.log(returnReason);
-
-        location.href = "/returnProduct.do?productType="+productType+"&productNo="+productNo+"&returnReason="+returnReason;
-    };
-
     /*체크박스 체크 회원 탈퇴*/
     $(".deleteMember").on("click",function(){
         const check = $(".check:checked");

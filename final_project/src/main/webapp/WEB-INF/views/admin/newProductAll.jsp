@@ -28,7 +28,7 @@
 </style>
 <body>
 	<!-- Modal -->
-    <div id="test-modal" class="modal-bg" style="z-index:1">
+    <div id="return-modal" class="modal-bg" style="z-index:1">
       <div class="modal-wrap">
         <div class="modal-head">
           <h2>상품 반려</h2>
@@ -41,6 +41,23 @@
         </div>
         <div class="modal-foot">
           <button class="returnProduct btn-m bc4 btn-pill">확인</button>
+          <button class="btn-m bc5 modal-close btn-pill">취소</button>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div id="approve-modal" class="modal-bg" style="z-index:1">
+      <div class="modal-wrap">
+        <div class="modal-head">
+          <h2>상품 승인</h2>
+          <span class="material-icons close-icon modal-close">close</span>
+        </div>
+        <div class="modal-content">
+	        	<div class="product-info"></div>
+	          	<p>해당 상품을 승인하시겠습니까?</p>
+        </div>
+        <div class="modal-foot">
+          <button class="approveProduct btn-m bc4 btn-pill">확인</button>
           <button class="btn-m bc5 modal-close btn-pill">취소</button>
         </div>
       </div>
@@ -130,9 +147,9 @@
 										<td>${n.productCity }</td>
 										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
 										<td>
-											<button class="approveProduct btn-s bc1">승인</button>
+											<button class="btn-s bc1" id="approve-btn" target="#approve-modal">승인</button>
 											<input type="hidden" value="${n.productNo }" name="productNo">
-											<button class="modal-open-btn btn-s bc2" target="#test-modal">반려</button>
+											<button class="modal-open-btn btn-s bc2" target="#return-modal">반려</button>
 										</td>
 									</tr>
 								</c:if>
