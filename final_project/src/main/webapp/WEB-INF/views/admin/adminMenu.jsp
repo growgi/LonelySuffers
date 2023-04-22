@@ -273,6 +273,16 @@
                         <li><a href="/salesDetails.do?reqPage=1">상품 판매내역</a></li>
                     </ul>
                 </li>
+                 <li>
+                    <div class="menu-detail-title">
+                        <span class="material-symbols-outlined">directions_car</span>
+                        <div>카풀 관리</div>
+                        <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
+                    </div>
+                    <ul class="menu-detail">
+                        <li><a href="/carpoolList.do?reqPage=1">게시물 관리</a></li>
+                    </ul>
+                </li>
                 <li>
                     <div class="menu-detail-title">
                         <span class="material-symbols-outlined">fact_check</span>
