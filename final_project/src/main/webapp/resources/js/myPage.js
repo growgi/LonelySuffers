@@ -101,7 +101,7 @@ $(function(){
         data : {memberId : memberId},
         success : function(data){
             console.log("data : "+data);
-            console.log("data senderCheck : "+data.senderCheck);
+            // console.log("data senderCheck : "+data.senderCheck);
             if(data != null && data.senderCheck != 1){
                 chatChkSpan.text("[1]");
             }else{
@@ -131,3 +131,9 @@ $('.searchBtn').on('click',function(){
         }, 1000);
     }
 });
+
+$('.orderDetailBtn').on('click',function(){
+    const orderNo = $(this).val();
+    console.log("orderNo : "+orderNo);
+    location.href= "/myOrderDetail.do?orderNo="+orderNo;
+})

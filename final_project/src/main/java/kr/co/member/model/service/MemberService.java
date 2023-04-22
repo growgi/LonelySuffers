@@ -108,6 +108,11 @@ public class MemberService {
 	public Member selectOneMember(Member m) {
 		return dao.selectOneMember(m);
 	}
+	
+	@Transactional
+	public int updateMember(Member m) {
+		return dao.updateMember(m);
+	}
 
 
 }

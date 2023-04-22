@@ -87,7 +87,7 @@ let memberId;
                         dateDiv.text(chatDate);
                         console.log("chatDateDiv : "+dateDiv);                       
                         const idDiv = $("<div class='chatLeft'>");
-                        idDiv.html("<span class='material-symbols-outlined'>account_circle</span>admin");
+                        idDiv.text("admin");
                         const contentDiv = $('<div class="chat_left">');
                         contentDiv.text(chatContent);
                         const containerDiv = $('<div class="containerDiv">');

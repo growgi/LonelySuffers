@@ -71,6 +71,5 @@
 				chat_content
 			where
 				member_id = #{_parameter}) 
-			
 	</select>
 </mapper>

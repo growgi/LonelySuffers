@@ -100,4 +100,8 @@ public class MemberDao {
 	}
 // 관심상품 관련 함수들 끝 ///////////////////////////////////////////////////////////////
 
+	public int updateMember(Member m) {
+		return sqlSession.update("member.updateMember",m);
+	}
+
 }

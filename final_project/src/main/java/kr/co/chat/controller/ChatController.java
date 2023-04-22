@@ -64,7 +64,9 @@ public class ChatController {
 	@RequestMapping(value = "/selectChatData.do",produces = "application/json;charset=utf-8")
 	public String selectChatData(String memberId) {
 		ChatActive ca = service.selectChatActive(memberId);
-		if(ca != null && ca.getChatActivation() == 1) {
+		if(ca == null) {
+			return null;
+		}else if(ca != null && ca.getChatActivation() == 1) {
 			ChatContent cc = service.selectChatData(memberId);
 			return new Gson().toJson(cc);
 		}else {

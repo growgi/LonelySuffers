@@ -496,6 +496,7 @@ public class AdminController {
 		model.addAttribute("orderDetailCount", orderDetailCount);
 		
 		return "admin/orderDetail";
+		
 	}
 
 	/**7. 관심상품*/
