@@ -90,7 +90,7 @@
 								<th class="faqViewBtn">
 									<c:if test="${sessionScope.m.memberGrade == 1}">
 										<a class="button-74" href="/faqUpdateFrm.do?faqNo=${faq.faqNo }">수정하기</a>
-										<a class="button-74" href="/deleteFaq.do?faqNo=${faq.faqNo }">삭제</a>
+										<a class="button-74" href="/deleteFaq.do?faqNo=${faq.faqNo }&categoryNo=${faq.categoryNo}">삭제</a>
 									</c:if>
 								</th>
 							</tr>

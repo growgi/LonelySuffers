@@ -57,6 +57,8 @@
 </style>
 </head>
 <body>
+	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
+	
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<section class="section normalhead lb">
@@ -110,13 +112,13 @@
 								</ul>
 								<ul>
 									<li class="paper2">내용</li>
-									<li><textarea name="noticeContent" required>${n.noticeContent }</textarea></li>
+									<li><textarea id="summernote" name="noticeContent" required>${n.noticeContent }</textarea></li>
 								</ul>
 							</div>
 						</div>
 						<div style="text-align: center; margin-top: 15px;">
-							<input class="button-74" type="submit" value="수정하기">
-							<input class="button-74" type="submit" value="취소">							
+							<input class="button-74" type="submit" value="수정">
+							<input class="button-74 cancelBtn" type="button" value="취소">							
 						</div>
 					</form>
 				</div>
@@ -131,25 +133,62 @@
 	<script src="resources/js/animate.js"></script>
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
 <script>
-      function deleteFile(obj,fileNo,filepath){
-         //<input>
-         const fileNoInput = $("<input>");
-         //<input name="fileNo">
-         fileNoInput.attr("name","fileNo");
-         //<input name="fileNo" value="fileNo">
-         fileNoInput.val(fileNo);
-         //<input name="fileNo" value="10" style="display:none;">
-         fileNoInput.hide();
-         
-         const filepathInput = $("<input>");
-         filepathInput.attr("name","filepath");
-         filepathInput.val(filepath);
-         filepathInput.hide();
-         
-         $("#updateFrm").append(fileNoInput).append(filepathInput);
-         $(obj).parent().remove();
-      }
-   </script>
+function deleteFile(obj,fileNo,filepath){
+   //<input>
+   const fileNoInput = $("<input>");
+   //<input name="fileNo">
+   fileNoInput.attr("name","fileNo");
+   //<input name="fileNo" value="fileNo">
+   fileNoInput.val(fileNo);
+   //<input name="fileNo" value="10" style="display:none;">
+   fileNoInput.hide();
+   
+   const filepathInput = $("<input>");
+   filepathInput.attr("name","filepath");
+   filepathInput.val(filepath);
+   filepathInput.hide();
+   
+   $("#updateFrm").append(fileNoInput).append(filepathInput);
+   $(obj).parent().remove();
+}
+   
+   $(document).ready(function() {
+	$('#summernote').summernote({
+		  width: 725,				   // 에디터 넓이	
+		  height: 420,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+			  toolbar: [
+				    // 글꼴 설정
+				    ['fontname', ['fontname']],
+				    // 글자 크기 설정
+				    ['fontsize', ['fontsize']],
+				    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+				    // 글자색
+				    ['color', ['forecolor','color']],
+				    // 표만들기
+				    ['table', ['table']],
+				    // 줄간격
+				    ['height', ['height']],
+				    // 그림첨부, 링크만들기, 동영상첨부
+				    // 코드보기, 확대해서보기, 도움말
+				    ['view', ['help']]
+				  ],
+			});
+		});
+   
+$('.cancelBtn').on('click', function(){
+ const noticeNo = $('#noticeNo').val();
+ location.href = "/noticeView.do?noticeNo="+noticeNo;
+})
+</script>
 </body>
 </html>

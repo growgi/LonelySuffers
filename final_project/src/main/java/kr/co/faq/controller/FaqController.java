@@ -33,7 +33,7 @@ public class FaqController {
 	public String faqWrite(Faq faq) {
 		int result = service.insertFaq(faq);
 		if(result > 0) {
-			return "redirect:/faqList.do";
+			return "redirect:/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1";
 		}else {
 			return "redirect:/faqWriterFrm.do";
 		}
@@ -53,7 +53,7 @@ public class FaqController {
 		if(faq != null) {
 			return "faq/faqUpdateFrm";
 		}else {
-			return "redirect:/faqList.do";
+			return "redirect:/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1";
 		}
 	}
 	
@@ -63,15 +63,15 @@ public class FaqController {
 		if(result > 0) {
 			return "redirect:/faqView.do?faqNo="+faq.getFaqNo();
 		}else {
-			return "redirect:/faqList.do";
+			return "redirect:/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1";
 		}
 	}
 	
 	@RequestMapping(value="/deleteFaq.do")
-	public String deleteFaq(int faqNo) {
+	public String deleteFaq(int faqNo, int categoryNo) {
 		int result = service.deleteFaq(faqNo);
 		if(result > 0) {
-			return "redirect:/faqList.do";
+			return "redirect:/faqListKind.do?categoryNo="+categoryNo+"&reqPage=1";
 		}else {
 			return "redirect:/";
 		}

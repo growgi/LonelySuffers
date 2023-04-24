@@ -49,7 +49,7 @@
 					<form action="/faqWrite.do" method="post">
 						<div class="faqViewWrap">
 							<p style="margin-bottom: 5px;">제목</p>
-							<p style="font-size: 30px;"><input type="text" name="faqTitle"></p>
+							<p style="font-size: 30px;"><input style="border: none; border-bottom: 1px solid #595959" type="text" name="faqTitle"></p>
 							<ul class="faqViewheader">
 								<li>카테고리</li>
 								<li>
