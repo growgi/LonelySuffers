@@ -32,7 +32,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2 style="border-bottom: 5px solid #006bd6">자주묻는질문 작성</h2>
+						<h2 style="border-bottom: 5px solid #006bd6">Lonely Suffers 자주묻는질문 작성</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -48,7 +48,7 @@
 				<div class="row">
 					<form action="/faqWrite.do" method="post">
 						<div class="faqViewWrap">
-							<p style="margin-bottom: 5px;">제목</p>
+							<p style="font-size: 20px; margin-bottom: 5px;">제목</p>
 							<p style="font-size: 30px;"><input style="border: none; border-bottom: 1px solid #595959" type="text" name="faqTitle"></p>
 							<ul class="faqViewheader">
 								<li>카테고리</li>
@@ -64,7 +64,7 @@
 								</li>
 							</ul>
 						</div>
-						<p style="text-align: center; font-weight: bold;">내용</p>
+						<p style="text-align: center; font-size: 20px; font-weight: bold;">내용</p>
 						<div class="faqContentWrap">
 							<table class="faqViewContent">
 								<tr>	

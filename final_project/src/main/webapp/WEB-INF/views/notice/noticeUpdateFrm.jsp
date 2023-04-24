@@ -65,7 +65,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2 style="border-bottom: 5px solid #006bd6">공지사항 수정</h2>
+						<h2 style="border-bottom: 5px solid #006bd6">Lonely Suffers 공지사항 수정</h2>
 					</div>
 					<!-- end col -->
 				</div>
