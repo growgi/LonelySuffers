@@ -160,7 +160,7 @@
 								</c:otherwise>
 							</c:choose>
 							
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary logout" style="padding-left:30px;"><input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }""> 로그아웃</a></li>
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary logout" style="padding-left:30px;"><input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }"> 로그아웃</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/loginFrm.do">
