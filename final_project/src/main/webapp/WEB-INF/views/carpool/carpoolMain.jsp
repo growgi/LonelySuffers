@@ -615,8 +615,7 @@
 						});
 			});*/
 	
-	document.getElementById("reset-btn").addEventListener(
-		    "click",
+	document.getElementById("reset-btn").addEventListener( "click",
 		    function() {
 		        // input 값 초기화
 		        document.querySelectorAll("input").forEach(function(input) {
@@ -629,6 +628,8 @@
 		        // 체크박스 초기화
 		        document.querySelectorAll("input[type=checkbox]").forEach(function(checkbox) {
 		            checkbox.checked = false;
+		            $(checkbox).parent().removeClass("active-checkbox");
+		            $(checkbox).next().hide();
 		        });
 		    }
 		);
@@ -644,20 +645,10 @@
 			//check img 보이게하고
 			$(this).next().show();
 			//input checkbox를 싸고있는 부모가 보이게한다. 
-			$(this).parent().css({
-				backgroundColor: "#DAF5FF",
-				color:"#FF78F0",
-				transitionDuration: "0.3s",
-				border: "none"
-			});
+			$(this).parent().addClass("active-checkbox");
 		}else{
 			$(this).next().hide()
-			$(this).parent().css({
-			      color: "",
-			      backgroundColor: "",
-			      transitionDuration: "",
-			      border: ""
-			    });
+			$(this).parent().removeClass("active-checkbox");
 		}
 	});
 

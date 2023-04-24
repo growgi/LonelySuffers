@@ -200,7 +200,7 @@
 					                            </select>	
 					                        </td>
 					                        <td style=" border-radius:20px; background-color:pink;  color: white;">
-					                            <label for="surfboardRoom" onclick="toggleStorage()" style="cursor: pointer; width:100%; text-align: center; height: 25px; line-height: 25px;">보드 수납가능
+					                            <label for="surfboardRoom" onclick="toggleStorage()" style="cursor: pointer; width:100%; text-align: center; height: 23px; line-height: 25px;">보드 수납가능
 					                             <img src="/resources/images/carpool/checked.png"alt="img" style="width: 30px; height: 30px;"></label>
 					                            <input type="checkbox" id="surfboardRoom" name="surfboardRoom"  value="1" style="display:none;"> 
 					                        </td>
@@ -250,7 +250,7 @@
 					    <div class="button-wrap"  style="text-align: center; margin-bottom:20px;">
 					    <hr>
 					        <button type="button" class="btn cancel" style="margin-right:20px; width: 150px; height:50px;"><a href="carpoolMain.do">취소하기</a></button>
-					        <button type="submit" class="btn btn-primary" style="width: 150px; height:50px; text-align:center;">등록</button>
+					        <button type="submit" onclick="return checkValue();" class="btn btn-primary" style="width: 150px; height:50px; text-align:center;">등록</button>
 					    </div>
 					 </form>
 					 
@@ -370,17 +370,22 @@
 	function toggleStorage() {
 	    var surfboardRoom = document.getElementById("surfboardRoom");
 	    if (surfboardRoom.checked) {
-	        surfboardRoom.parentNode.style.backgroundColor = "pink"; // 선택 해제 시 배경색 투명색으로 변경
-	        surfboardRoom.parentNode.style.color = "white"; // 선택 시 배경색 초록색으로 변경
-	        console.log(surfboardRoom.checked);
+	        surfboardRoom.parentNode.style.backgroundColor = "pink"; // 기본: 배경색 핑크
+	        surfboardRoom.parentNode.style.color = "white"; // 기본: 글자색 흰색
 	    } else {
-	        surfboardRoom.parentNode.style.backgroundColor = "#FFDEB4"; // 선택 시 배경색 초록색으로 변경
-	        surfboardRoom.parentNode.style.color = "black"; // 선택 시 배경색 초록색으로 변경
-	        console.log(surfboardRoom.checked);
+	        surfboardRoom.parentNode.style.backgroundColor = "#FFDEB4"; // 선택 시 배경색 오렌지 변경
+	        surfboardRoom.parentNode.style.color = "black"; // 선택시 글자색 검정
 	        
 	    }
+	    console.log(surfboardRoom.checked);
+	    const surfboardRoomchecked = $("[name=surfboardRoom]:checked").val();
+	    console.log(surfboardRoomchecked);
+	    
 	};
-
+	function checkValue(){
+		const onewayRound = $("[name=departureTime]:checked").val();
+		//console.log(onewayRound);
+	}
 
 		
 	</script>

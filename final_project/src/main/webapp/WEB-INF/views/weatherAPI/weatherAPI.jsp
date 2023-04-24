@@ -153,7 +153,7 @@
             }
         );
     }
-    //async가 뭐지요....
+    //async, await : 비동기식 코드를 동기식으로 표현하여 간단하게 나타내는 것.
     async function checkWeather(lon,lat, city){
     
         const apiKey = "80a42e54d066998bbe2a5c38181c7196";

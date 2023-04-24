@@ -1,3 +1,8 @@
+.category:hover a{
+	font-size: 1.1em;
+	font-weight: 800;
+}
+
 #carpoolTable tbody tr {
   margin-bottom: 100px;
   border: 2px solid #ccc;
@@ -148,7 +153,6 @@
 
   /* 모달 */
   input[type="checkbox"]{
-  	display:none;
   }
 
   input[type="checkbox"]:checked  + label{
@@ -184,16 +188,25 @@
         height:120px;
         overflow :hidden;
     }
+    input[type="checkbox"]{
+  	  display:none;
+    }
     
     .check-box{
-        width: 235px;
-        height: 40px;
-        border: 1px solid #f2f2f2;
-        margin-left:25px;
-        text-align: center;
-        float: left;
-        background-color: #F0F0F0;
-        line-height: 40px;
+	     width: 235px;
+	     height: 40px;
+	     border: 1px solid #f2f2f2;
+	     margin-left:25px;
+	     text-align: center;
+	     float: left;
+	     background-color: #F0F0F0;
+	     line-height: 40px;
+    }
+    .active-checkbox{
+		background-color: #DAF5FF;
+		color:#FF78F0;
+		transitionDuration: 0.3s;
+		border: none;
     }
     
 	.lb-class{

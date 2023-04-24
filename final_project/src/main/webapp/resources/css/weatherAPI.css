@@ -11,7 +11,7 @@ body{
 /*searchit.png size width: 30px, height: 30px*/
 
 .card{
-	width: 1250px;
+	width: 1300px;
     background: linear-gradient(135deg, #E5D1FA,#62CDFF, #FFBFA9);
     color: #fff;
     margin: 100px auto 0;
@@ -51,7 +51,7 @@ body{
 }
 .weather{
 	clear:both;
-	width: 180px;
+	width: 200px;
 	display: inline-block;
 	margin: 0px 20px;
 }
