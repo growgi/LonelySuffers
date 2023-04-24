@@ -9,7 +9,101 @@
 <title>Lonly Suffers</title>
 <link rel="stylesheet" href="/resources/css/login.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
+<style>
 
+ .bold{
+        font-weight: 900;
+    }
+
+    .orderDetail-info, .orderDetail-product, .pay-info{
+        border-top: 1px solid rgb(245, 245, 245);
+    }
+
+    .orderDetail-title{
+        display: flex;
+        padding-bottom: 10px;
+        margin-bottom: 50px;
+        border-bottom: 2px solid rgb(223, 223, 223);
+        
+    }
+    .orderDetail-title>a {
+        font-size: 18px;
+        font-weight: 900;
+    }
+    .orderDetail-title>div{
+        font-size: 18px;
+    }
+    .orderDetail-info{
+        padding: 30px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        box-shadow: 1px 2px 2px 2px rgba(231, 231, 231, 0.19), 1px 2px 2px 2px rgba(214, 214, 214, 0.23);
+    }
+    .orderDetail-info span{
+        font-weight: 400;
+    }
+    .orderDetail-info>div:first-child{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    .orderDetail-info>div:last-child, .orderDetail-info>div>span{
+        font-size: 14px;
+    }
+
+    /*주문상품 리스트*/
+    .orderDetail-product{
+        padding: 30px;
+        margin-bottom: 20px;
+        box-shadow: 1px 2px 2px 2px rgba(231, 231, 231, 0.19), 1px 2px 2px 2px rgba(214, 214, 214, 0.23);
+    }
+    .product-box{
+        padding-bottom: 20px;
+        border-bottom: 2px solid rgb(223, 223, 223);
+        margin-top: 30px;
+    }
+    .product-box-top{
+        margin-bottom: 10px;
+    }
+    .product-title{
+        font-size: 20px;
+    }
+    .product-img{
+        width: 100px;
+        height: 110px;
+        background-color: blue;
+        margin-right: 10px;
+    }
+    .product-box-bottom{
+        display: flex;
+    }
+    .product-name{
+        font-size: 18px;
+    }
+    .product-info>div:nth-child(2)>span{
+        font-size: 14px;
+    }
+    .product-box-bottom>div:last-child{
+        width: 90%;
+    }
+    .product-box-bottom>div>div:last-child{
+        text-align: right;
+    }
+    .product-price{
+        font-size: 18px;
+    }
+
+    /*결제정보*/
+    .pay-info{
+        padding: 30px;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 1px 2px 2px 2px rgba(231, 231, 231, 0.19), 1px 2px 2px 2px rgba(214, 214, 214, 0.23);
+    }
+    .pay-info>div>:last-child{
+        font-size: 18px;
+    }
+    </style>
 </head>
 <body>
 	<div id="wrapper">
@@ -27,10 +121,10 @@
 			<div class="container">
 				<div class="row">
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
-		<%-- 	<div class="orderDetail-wrapper admin-content">
+ 			<div class="orderDetail-wrapper admin-content">
         <div style="width:75%;">
             <div class="orderDetail-title">
-                <a href="/salesDetails.do?reqPage=1" class="material-symbols-outlined">arrow_back_ios</a>
+                <a href="/myPage.do" class="material-symbols-outlined">arrow_back_ios</a>
                 <div class="bold">주문 상세</div>
             </div>
             <div class="orderDetail-info">
@@ -98,7 +192,7 @@
                 <div>총 <span class="all-price"><fmt:formatNumber value="${orderDetailInfo.orderAllPrice }" pattern="#,###" /></span>원</div>
             </div>
         </div>
-    </div> --%>
+    </div>
 				</div><!-- end row -->
 			</div><!-- end container -->
 		</section><!-- end section -->

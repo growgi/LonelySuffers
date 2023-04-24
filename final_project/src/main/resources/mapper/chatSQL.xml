@@ -72,4 +72,8 @@
 			where
 				member_id = #{_parameter}) 
 	</select>
+	
+	<update id="endChat" parameterType="string">
+		update chat_active set chat_activation = 2 where member_id = #{_parameter}
+	</update>
 </mapper>

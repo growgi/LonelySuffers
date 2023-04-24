@@ -180,10 +180,8 @@ table th{
 }
 table th:first-child{
     border-top-left-radius: 10px;
-    border-top-left-radius: 10px;
 }
 table th:last-child{
-    border-top-right-radius: 10px;
     border-top-right-radius: 10px;
 }
 table td:nth-child(3){
@@ -221,3 +219,49 @@ table tr:hover{
     bottom: 30px;
 }
 
+.myProfile>ul>li{
+    padding: 3px 3px;
+}
+
+
+.myProfile>ul>li:first-child,.myProfile>ul>li:nth-child(3),.myProfile>ul>li:nth-child(5),.myProfile>ul>li:nth-child(7){
+    background-color: #252525;
+    color: #fff;
+    width: 300px;
+}
+
+.myProfile>ul>li:first-child:hover,.myProfile>ul>li:nth-child(3):hover,.myProfile>ul>li:nth-child(5):hover,.myProfile>ul>li:nth-child(7):hover{
+    background-color: #424242;
+}
+.myProfile>ul>li:nth-child(2),.myProfile>ul>li:nth-child(4),.myProfile>ul>li:nth-child(6).myProfile>ul>li:last-child{
+}
+
+button{
+    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+    width: 175px;
+}
+
+#sendMsg{
+    width: 390px;
+
+}
+
+#sendBtn{
+    width: 100px;
+}
+
+.endBtnDiv{
+    position: relative;
+    width: 500px;
+  }
+  
+  [name=endChatBtn]{
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background-color: rgba(141, 180, 214, 0.1);
+  }

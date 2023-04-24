@@ -137,3 +137,45 @@ $('.orderDetailBtn').on('click',function(){
     console.log("orderNo : "+orderNo);
     location.href= "/myOrderDetail.do?orderNo="+orderNo;
 })
+
+function endChatBtn(param){
+    const endMemberId = param;
+    $.ajax({
+        url : "/endChat.do",
+        type : "POST",
+        data : {memberId:endMemberId},
+        success : function(param){
+            if(param == "ok"){
+                $('.chatting').slideUp();
+                $('[name=startChatBtn]').show();
+                const data = {type:"endChatBtn",msg:endMemberId};
+                ws.send(JSON.stringify(data));
+                console.log('endChatBtn 전송완료');
+            }else{
+                alert('잠시후 다시 시도해주세요.');
+            }
+        }
+    })
+}  
+
+function startChatBtn(myPageMemberId){
+    const jsMemberId = myPageMemberId;
+    $.ajax({
+        url : "/chat.do",
+        type : "POST",
+        data : {memberId:jsMemberId},
+        success : function(result){
+            console.log(result);
+            if(result !="caOk"){
+                alert("관리자에게 문의하세요");
+            }else{
+                chatList(jsMemberId);
+                $('[name=startChatBtn]').hide();
+                $('.chatting').slideDown();
+                const data = {type:"startChatBtn",msg:jsMemberId};
+                ws.send(JSON.stringify(data));
+                console.log("data 전송 완료 startChatBtn");
+            }
+        }
+    })
+}

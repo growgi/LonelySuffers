@@ -40,7 +40,8 @@ public class ChatService {
 		// TODO Auto-generated method stub
 		return dao.insertChatStart(ca);
 	}
-
+	
+	@Transactional
 	public int updateChatActivation(int chatActiveNo) {
 		return dao.updateChatActivation(chatActiveNo);
 	}
@@ -56,5 +57,10 @@ public class ChatService {
 
 	public ChatContent selectChatData(String memberId) {
 		return dao.selectChatData(memberId);
+	}
+
+	@Transactional
+	public int endChat(String memberId) {
+		return dao.endChat(memberId);
 	}
 }

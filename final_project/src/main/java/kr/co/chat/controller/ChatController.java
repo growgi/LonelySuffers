@@ -29,7 +29,7 @@ public class ChatController {
 			int result = service.updateChatActivation(ca.getChatActiveNo());
 			if(result == 0) {
 				return "caNo";
-			}else {
+			}else {       
 				return "caOk";
 			}
 		}else {
@@ -73,5 +73,18 @@ public class ChatController {
 			return null;
 		}
 		}
+	
+	@ResponseBody
+	@RequestMapping(value = "/endChat.do")
+	public String endChat(String memberId) {
+		System.out.println("memberId : "+memberId);
+		int result = service.endChat(memberId);
+		if(result != 0) {
+			return "ok";
+		}else {
+			return "no";
+		}
+	}
+	
 	}
 

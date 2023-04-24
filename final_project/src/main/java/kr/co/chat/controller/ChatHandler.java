@@ -112,6 +112,28 @@ public class ChatHandler extends TextWebSocketHandler {
 
 				}
 			}
+		}else if(type.equals("endChatBtn")) {
+			//String endMemberId = element.getAsJsonObject().get("memberId").getAsString();
+			//수정내역 : memberId 키값이 없어서 에러발생하면서 여기서 소켓이 종료되었음
+			String endMemberId = element.getAsJsonObject().get("msg").getAsString();
+			JsonObject obj = new JsonObject();
+			obj.addProperty("type", "endChat");
+			obj.addProperty("memberId", endMemberId);
+			String resultStr = new Gson().toJson(obj);
+			TextMessage tm = new TextMessage(resultStr);
+			for(WebSocketSession admin : adminList) {
+				admin.sendMessage(tm);
+			}
+		}else if(type.equals("startChatBtn")) {
+			String startMemberId = element.getAsJsonObject().get("msg").getAsString();
+			JsonObject obj = new JsonObject();
+			obj.addProperty("type", "startChat");
+			obj.addProperty("memberId", startMemberId);
+			String resultStr = new Gson().toJson(obj);
+			TextMessage tm = new TextMessage(resultStr);
+			for(WebSocketSession admin : adminList) {
+				admin.sendMessage(tm);
+			}
 		}
 	}
 

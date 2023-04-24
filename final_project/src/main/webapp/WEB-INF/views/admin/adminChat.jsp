@@ -46,6 +46,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="admin-content">
+	<input type="hidden" class="hiddenMemberGrade" value="${sessionScope.m.memberGrade }">
 		<div class="adminChatContent">
 			<c:if test="${not empty sessionScope.m }">
 				<input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }">

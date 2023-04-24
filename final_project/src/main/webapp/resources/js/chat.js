@@ -21,8 +21,15 @@ let memberId;
     
     function startChat(){
         console.log("memberId : "+memberId);
-        const data = {type:"login",memberId:memberId}
-        ws.send(JSON.stringify(data));
+        const hiddenMemberGrade = $('input[type=hidden].hiddenMemberGrade');
+        console.log("grade : "+hiddenMemberGrade.val());
+        if(hiddenMemberGrade.val() == 1){
+            const data = {type:"login",memberId:"admin"}; 
+            ws.send(JSON.stringify(data));
+        }else if(hiddenMemberGrade.val() != 1){
+            const data = {type:"login",memberId:memberId};
+            ws.send(JSON.stringify(data));
+        }
     }
 
     function receiveMsg(param){
@@ -41,32 +48,30 @@ let memberId;
                     adminChatList(data.senderId,i);
                 }
             }
-        }
-    }
-    function endChat(){
-        const data = {type:"logout",memberId:memberId}
-        ws.send(JSON.stringify(data));
-    }
-
-    function startChatBtn(myPageMemberId){
-        const jsMemberId = myPageMemberId;
-        $.ajax({
-            url : "/chat.do",
-            type : "POST",
-            data : {memberId:jsMemberId},
-            success : function(result){
-                console.log(result);
-                if(result !="caOk"){
-                    alert("관리자에게 문의하세요");
-                }else{
-                    chatList(jsMemberId);
-                    $('[name=startChatBtn]').hide();
-                    $('.chatting').slideDown();
-
+        }else if(data.type == "endChat"){
+            const input = $('input[type=hidden].memberId');
+            console.log(input);
+            for(let i=0 ;i<input.length;i++){
+                if(input.eq(i).val()== data.memberId){
+                    console.log(input);
+                    input.eq(i).next().next().next().text('채팅종료');
                 }
             }
-        })
+        }else if(data.type == "startChat"){
+            const input = $('input[type=hidden].memberId');
+            console.log(input);
+            for(let i=0 ;i<input.length;i++){
+                if(input.eq(i).val()== data.memberId){
+                    console.log(input);
+                    input.eq(i).next().next().next().text('채팅중');
+                }
+            }
+        }
     }
+
+  
+
+ 
 
     function chatList(myPageMemberId){
         const jsMemberId = myPageMemberId;
@@ -93,6 +98,7 @@ let memberId;
                         const containerDiv = $('<div class="containerDiv">');
                         containerDiv.append(contentDiv).append(dateDiv);
                         $('.messageArea').append(idDiv).append(containerDiv);
+                        $('.chatChkSpan').text('[1]');
                     }else if(msg.senderCheck == 1){
                         const chatContent = list[i].chatContent;
                         const chatDate = list[i].chatDate;
@@ -100,6 +106,7 @@ let memberId;
                         contentDiv.text(chatContent);
                         $('.messageArea').append(contentDiv);
                         console.log("senderCheck : "+msg.senderCheck);
+                        $('.chatChkSpan').text('');
                     }
                 }
                 $('.messageArea').scrollTop($('.messageArea')[0].scrollHeight);
@@ -118,3 +125,8 @@ let memberId;
         $('#sendMsg').val('');
     }  
    
+
+    function endChat(){
+        const data = {type:"logout",memberId:memberId}
+        ws.send(JSON.stringify(data));
+    }

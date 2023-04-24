@@ -68,7 +68,7 @@
 													<label for="memberEmail">이메일</label><br>
 													<input type="text"  class="longInput" id="email" required value="${sessionScope.m.memberEmail }" readonly><br>
 													<label for="enrollDate">가입일</label><br>
-													<input type="text" name="enrollDate" class="longInput" id="enrollDate" readonly value="${sessionScope.m.enrollDate }">
+													<input type="text" name="enrollDate" class="longInput" id="enrollDate" readonly value="${sessionScope.m.enrollDate }"><br>
 													<button type="submit" id="updateMemberBtn">변경</button>
 												</form>
 											</div>
@@ -175,8 +175,10 @@
 								<div class="adminChat hide-div">
 									<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
 									<div class="chatting">
+										<div class="endBtnDiv">
+										<button type="button" name="endChatBtn" onclick="endChatBtn('${sessionScope.m.memberId}');">채팅종료</button>
+										</div>
 										<div class="messageArea">
-											<button type="button" name="endChatBtn" onclick="endChatBtn('${sesionScope.m.memberId}')">채팅종료</button>
 										</div>
 										<div class="sendBox">
 											<input type="text" id="sendMsg">
