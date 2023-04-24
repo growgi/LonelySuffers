@@ -23,6 +23,7 @@ $(".house-all-check").on("click", function() {
 
 /*모달*/
 $(function () {
+	//반려
   $(document).on("click", ".modal-open-btn", function () {
     $(".product-info *").remove(); //모달 내용 초기화
     $($(this).attr("target")).css("display", "flex"); //모달 보이기
@@ -43,7 +44,33 @@ $(function () {
 	  $(".returnProduct").on("click",function(){
 		  const returnReason = $(".return-reason").val();
 		  //console.log(returnReason);
-		  returnProduct(productType, productNo, returnReason);
+		  //returnProduct(productType, productNo, returnReason);
+		  location.href = "/returnProduct.do?productType="+productType+"&productNo="+productNo+"&returnReason="+returnReason;
+	  });
+  });
+  
+  //승인
+    $(document).on("click", "#approve-btn", function () {
+    $(".product-info *").remove(); //모달 내용 초기화
+    $($(this).attr("target")).css("display", "flex"); //모달 보이기
+    //모달에 보이게 할 값들
+    const img = $(this).parent().parent().find("img").clone();
+    const title = $(this).parent().parent().find("a").eq(0).text();
+    const writer = $(this).parent().parent().find("td").eq(4).text();
+    //전달할 값
+    const productType = $(this).parent().parent().find("td").eq(1).text(); //상품 종류
+    const productNo = $(this).next().val();
+    
+    console.log(productType);
+    console.log(productNo);
+    
+    $(".product-info").append(img);
+    $(".product-info").append("<div>"+title+"</div><div>판매자 : "+writer+"</div>");
+	  
+	  $(".approveProduct").on("click",function(){
+	      console.log(productType);
+    	  console.log(productNo);
+		  //location.href = "/approveProduct.do?productType="+productType+"&productNo="+productNo;
 	  });
   });
   
@@ -58,7 +85,10 @@ $(function () {
 //1개
 $(".approveProduct").on("click", function() {
     //상품 종류
-    const productType = $(this).parents(".list-top").children("[type=hidden]").val();
+    //const productType = $(this).parents(".list-top").children("[type=hidden]").val();
+    const productType = $(this).parent().parent().find("td").eq(1).text(); //상품 종류
+    
+    console.log(productType);
     
     //클릭한 버튼 기준으로 해당 상품 번호
     const productNo = $(this).next().val();
@@ -69,9 +99,9 @@ $(".approveProduct").on("click", function() {
 //체크박스 선택상품
 $(".checkedApproveProduct").on("click", function() {
     //상품 종류
-    const productType = $(this).parent().parent().parent().children(".list-top").children("[type=hidden]").val();
+    const productType = $(this).parent().parent().prev().find("td").eq(1).text();
     
-    console.log(productType);
+    //console.log(productType);
     
     const check = $(".check:checked");
 
@@ -94,7 +124,7 @@ $(".checkedApproveProduct").on("click", function() {
     location.href = "/checkedApproveProduct.do?productType="+productType+"&no=" + no.join("/");
 });
 
-/*반려*/
+/*반려
 //1개
 function returnProduct(productType,productNo,returnReason) {
     //상품 종류
@@ -111,7 +141,7 @@ function returnProduct(productType,productNo,returnReason) {
 	console.log(returnReason);
 
     location.href = "/returnProduct.do?productType="+productType+"&productNo="+productNo+"&returnReason="+returnReason;
-};
+};*/
 
 //체크박스 선택상품
 $(".checkedReturnProduct").on("click", function() {

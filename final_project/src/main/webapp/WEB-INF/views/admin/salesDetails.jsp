@@ -38,9 +38,9 @@
                     <table>
                         <tr>
                             <th><input type="checkbox" name="orderCheck" class="all-check"></th>
-                            <th>주문번호</th>
+                            <th style="width:100px;">주문번호</th>
                             <th>아이디</th>
-                            <th>주문상품</th>
+                            <th style="width:100px;">주문상품</th>
                             <th>총 결제금액</th>
                             <th>주문날짜</th>
                             <th>처리상태</th>
@@ -54,7 +54,7 @@
                             <td>${o.orderProductString }</td>
                             <td><span><fmt:formatNumber value="${o.orderAllPrice }" pattern="#,###" /></span>원</td>
                             <td>${o.orderDate }</td>
-                            <td>${o.orderStatusString }</td>
+                            <td style="color:#19A7CE">${o.orderStatusString }</td>
                             <td><a href="/orderDetail.do?orderNo=${o.orderNo }" class="btn-r bc5">주문 상세 내역</a></td>
                         </tr>
                         </c:forEach>

@@ -113,7 +113,7 @@
         padding-top: 13px;
         padding-bottom: 10px;
     }
-    .wishList-box-bottom>.product-img{
+    .wishList-box-bottom>div>.product-img{
         width: 100px;
         height: 110px;
         background-color: blue;
@@ -230,7 +230,7 @@
 	                                                <div><span class="product-name">숙박</span> | <span class="location">${w.houseCity }</span></div>
 	                                            </div>
 	                                            <div class="wishList-box-bottom">
-	                                                <div class="product-img"></div>
+	                                                <div><img src="resources/upload/house/${w.housePhoto1 }" class="product-img"></div>
 	                                                <div class="wishList-box-detail">
 	                                                    <div><a href="#">${w.roomTitle }</a></div>
 	                                                    <div><span>${w.houseDescription}</span></div>
@@ -255,10 +255,10 @@
 	                                                <div><span class="product-name">강습</span> | <span class="location">${w.lessonCity }</span></div>
 	                                            </div>
 	                                            <div class="wishList-box-bottom">
-	                                           		<div class="product-img"></div>
+	                                           		<div><img src="resources/upload/lesson/${w.lessonInfoPic }" class="product-img"></div>
 	
 	                                                <div class="wishList-box-detail">
-	                                                    <div><a href="#">${w.lessonNameLevel }</a></div>
+	                                                    <div><a href="#">Level ${w.lessonNameLevel }</a></div>
 	                                                    <div><span>강습시간 ${w.lessonStartTime }</span> ~ <span>${w.lessonEndTime }</span></div>
 	                                                    <div>모집인원 <span>${w.lessonMaxNo }</span>명</div>
 	                                                    <div class="product-price"><span><fmt:formatNumber value="${w.lessonPrice }" pattern="#,###" /></span>원</div>
@@ -286,7 +286,7 @@
                                                 <div><span class="product-name">강습</span> | <span class="location">${lw.lessonCity }</span></div>
                                             </div>
                                             <div class="wishList-box-bottom">
-                                           		<div class="product-img"></div>
+                                           		<div><img src="resources/upload/lesson/${lw.lessonInfoPic }" class="product-img"></div>
 
                                                 <div class="wishList-box-detail">
                                                     <div><a href="#">${lw.lessonNameLevel }</a></div>
@@ -315,7 +315,7 @@
                                                 <div><span class="product-name">숙박</span> | <span class="location">${hw.houseCity }</span></div>
                                             </div>
                                             <div class="wishList-box-bottom">
-                                                <div class="product-img"></div>
+                                                <div><img src="resources/upload/house/${hw.housePhoto1 }" class="product-img"></div>
                                                 <div class="wishList-box-detail">
                                                     <div><a href="#">${hw.roomTitle }</a></div>
                                                     <div><span>${hw.houseDescription}</span></div>

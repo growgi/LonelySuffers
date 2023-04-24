@@ -63,7 +63,7 @@
 					<div class="col-md-3 col-sm-6 nopad first">
 						<a href="/company.do">
 							<div class="home-service c1">
-								<i class="material-symbols-outlined">surfing</i>
+								<i class="material-symbols-outlined">grade</i>
 								<p>WhatSurf 소개</p>
 							</div>
 						</a>
@@ -74,7 +74,7 @@
 					<div class="col-md-3 col-sm-6 nopad">
 						<a href="#">
 							<div class="home-service c2">
-								<i class="flaticon-chat"></i>
+								<i class="material-symbols-outlined">surfing</i>
 								<p>강습</p>
 							</div>
 						</a>
@@ -85,7 +85,7 @@
 					<div class="col-md-3 col-sm-6 nopad">
 						<a href="#">
 							<div class="home-service c3">
-								<i class="flaticon-domain"></i>
+								<i class="material-symbols-outlined">apartment</i>
 								<p>숙박</p>
 							</div>
 						</a>
@@ -96,7 +96,7 @@
 					<div class="col-md-3 col-sm-6 nopad last">
 						<a href="#">
 							<div class="home-service c4">
-								<i class="flaticon-medal"></i>
+								<i class="material-symbols-outlined">directions_car</i>
 								<p>카풀</p>
 							</div>
 						</a>
@@ -276,21 +276,22 @@
 				<!-- end section-title -->
 
 				<div class="row clientv2">
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box magnifier">
-							<a href="#"><img src="resources/upload/client_01.png" alt=""
-								class="img-responsive"></a>
+					<c:forEach items="${lessonList}" var="l">
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="client-box">
+								<a href="#"><img src="resources/upload/lesson/${l.lessonInfoPic }" alt=""
+									class="img-responsive" style="width:200px; height:150px;"></a>
+							</div>
 						</div>
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-3 col-sm-6 col-xs-12">
+						<!-- end col -->
+					</c:forEach>
+<!-- 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="client-box">
 							<a href="#"><img src="resources/upload/client_02.png" alt=""
 								class="img-responsive"></a>
 						</div>
 					</div>
-					<!-- end col -->
+					end col
 
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="client-box">
@@ -298,7 +299,7 @@
 								class="img-responsive"></a>
 						</div>
 					</div>
-					<!-- end col -->
+					end col
 
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="client-box">
@@ -306,50 +307,26 @@
 								class="img-responsive"></a>
 						</div>
 					</div>
-					<!-- end col -->
+					end col -->
 				</div>
 				<!-- end row -->
 
-				<div class="product-name-lesson" style="text-align: center; padding: 10px 10px;"><div class="btn btn-transparent">강습</div></div>
+				<div class="product-name-lesson" style="text-align: center; padding: 20px 10px;"><div class="btn btn-transparent">강습</div></div>
 
 				<br><br><br>
 
 				<div class="row clientv2">
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box">
-							<a href="#"><img src="resources/upload/client_01.png" alt=""
-								class="img-responsive"></a>
+					<c:forEach items="${houseList}" var="h">
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="client-box">
+								<a href="#"><img src="resources/upload/house/${h.housePhoto1 }" alt=""
+									class="img-responsive" style="width:200px; height:150px; opacity: 0.6; margin: auto;"></a>
+							</div>
 						</div>
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box">
-							<a href="#"><img src="resources/upload/client_02.png" alt=""
-								class="img-responsive"></a>
-						</div>
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box">
-							<a href="#"><img src="resources/upload/client_08.png" alt=""
-								class="img-responsive"></a>
-						</div>
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-3 col-sm-6 col-xs-12">
-						<div class="client-box">
-							<a href="#"><img src="resources/upload/client_04.png" alt=""
-								class="img-responsive"></a>
-						</div>
-					</div>
-					<!-- end col -->
+						<!-- end col -->
+					</c:forEach>
 				</div>
-				<!-- end row -->
-
-				<div class="product-name-house" style="text-align: center; padding: 10px 10px;"><div class="btn btn-transparent">숙박</div></div>
+				<div class="product-name-house" style="text-align: center; padding: 20px 10px;"><div class="btn btn-transparent">숙박</div></div>
 
 			</div>
 			<!-- end container -->
@@ -570,6 +547,14 @@
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	<script src="resources/js/owl.carousel.js"></script>
-
 </body>
+<script>
+	function slideOn(){
+		const slide = $(".transheader");
+    
+	}
+
+	slideOn();
+
+</script>
 </html>

@@ -1428,199 +1428,197 @@ $("document").ready(function() {
 	});
 
 //버튼 클릭하면 모달 띄워주는 function
-	function getRoom(houseNo){
-		console.log("하우스넘버"+houseNo);
-		$(".photo-check").css("display","none");
-		$(".bigThumbnailImage").parent().css("display","none");
-		$(".photo1").css("display","none");
-		$(".extra-photo").remove();
-		$.ajax({
-			url : "/houseModalView.do",
-			type : "get",
-			data : {houseNo : houseNo},
-			dataType : "json",
-			success : function(data){
-				console.log(data);
-				console.log("데이터체크:"+data.housePhoto1);
-				const url = "resources/upload/house/";
-				//모달 사진 부분
-				if(data.housePhoto1 == null){
-					$(".photo-check").css("display","block");
-				}else {
-					$(".bigThumbnailImage").parent().css("display","block");
-					$(".photo1").css("display","inline");
-					
-					$(".bigThumbnailImage").attr("src",url+data.housePhoto1);
-					$(".photo1").attr("src",url+data.housePhoto1);
-					
-					if(data.housePhoto2!=null){
-						$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo2 src="+url+data.housePhoto2+">");
-						$(".photo2").attr("src",url+data.housePhoto2);
-						console.log("데이터체크2:"+data.housePhoto2);
-					}
-					if(data.housePhoto3!=null){
-						$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo3 src="+url+data.housePhoto3+">");
-						$(".photo3").attr("src",url+data.housePhoto3);
-						console.log("데이터체크3:"+data.housePhoto3);
-					}
-					if(data.housePhoto4!=null){
-						$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo4 src="+url+data.housePhoto4+">");
-						$(".photo4").attr("src",url+data.housePhoto4);
-						console.log("데이터체크4:"+data.housePhoto4);
-					}
-				}
+					function getRoom(houseNo){
+						console.log("하우스넘버"+houseNo);
+						$(".photo-check").css("display","none");
+						$(".bigThumbnailImage").parent().css("display","none");
+						$(".photo1").css("display","none");
+						$(".extra-photo").remove();
+						$.ajax({
+							url : "/houseModalView.do",
+							type : "get",
+							data : {houseNo : houseNo},
+							dataType : "json",
+							success : function(data){
+								console.log(data);
+								console.log("데이터체크:"+data.housePhoto1);
+								const url = "resources/upload/house/";
+								//모달 사진 부분
+								if(data.housePhoto1 == null){
+									$(".photo-check").css("display","block");
+								}else {
+									$(".bigThumbnailImage").parent().css("display","block");
+									$(".photo1").css("display","inline");
+									
+									$(".bigThumbnailImage").attr("src",url+data.housePhoto1);
+									$(".photo1").attr("src",url+data.housePhoto1);
+									
+									if(data.housePhoto2!=null){
+										$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo2 src="+url+data.housePhoto2+">");
+										$(".photo2").attr("src",url+data.housePhoto2);
+										console.log("데이터체크2:"+data.housePhoto2);
+									}
+									if(data.housePhoto3!=null){
+										$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo3 src="+url+data.housePhoto3+">");
+										$(".photo3").attr("src",url+data.housePhoto3);
+										console.log("데이터체크3:"+data.housePhoto3);
+									}
+									if(data.housePhoto4!=null){
+										$(".pagination").append("<li class=extra-photo><img class=clickToLarger photo4 src="+url+data.housePhoto4+">");
+										$(".photo4").attr("src",url+data.housePhoto4);
+										console.log("데이터체크4:"+data.housePhoto4);
+									}
+								}
+								
+								//모달 글부분
+								//방, 숙소이름
+								$(".modal-room-title").text(data.roomTitle);
+								$("input[name=roomTitle]").attr("value",data.houseTitle);
+								$(".modal-house-title").text(data.houseTitle);
+								//숙박가격
+								let housePrice = data.housePrice;
+								//console.log("가격테스트 : "+housePrice.toLocaleString("ko-KR"));
+								$("input[name=housePrice]").attr("value",data.housePrice);
+								$(".modal-house-price").text(housePrice.toLocaleString("ko-KR"));
+								//인원수
+								$("input[name=roomCapa]").attr("value",data.roomCapa);
+								$(".modal-house-roomCapa").text(data.roomCapa+"인실");
+								//주소
+								$(".modal-house-roomAddress").text(data.roomAddres);
+								//숙소 상품설명
+								$("#one").text(data.houseDescription);
+								
+								// 부트스트랩 tooltip(비성수기 평일기준 그거 나오는거)
+								$(document).ready(function(){
+									$('[data-toggle="tooltip"]').tooltip();   
+								});
+								//모달의 조그만 사진 클릭하면 그 사진 확대 해주는거
+								$(function(){
+									$(".clickToLarger").click(function () {
+										$(".clickToLarger").removeClass("onViewing");
+										$(this).addClass("onViewing");
+										$(".bigThumbnailImage").attr("src",$(this).attr("src"));
+									});
+								});
 				
-				//모달 글부분
-				//방, 숙소이름
-				$(".modal-room-title").text(data.roomTitle);
-				$("input[name=roomTitle]").attr("value",data.houseTitle);
-				$(".modal-house-title").text(data.houseTitle);
-				//숙박가격
-				let housePrice = data.housePrice;
-				//console.log("가격테스트 : "+housePrice.toLocaleString("ko-KR"));
-				$("input[name=housePrice]").attr("value",data.housePrice);
-				$(".modal-house-price").text(housePrice.toLocaleString("ko-KR"));
-				//인원수
-				$("input[name=roomCapa]").attr("value",data.roomCapa);
-				$(".modal-house-roomCapa").text(data.roomCapa+"인실");
-				//주소
-				$(".modal-house-roomAddress").text(data.roomAddres);
-				//숙소 상품설명
-				$("#one").text(data.houseDescription);
 				
-				// 부트스트랩 tooltip(비성수기 평일기준 그거 나오는거)
-				$(document).ready(function(){
-					$('[data-toggle="tooltip"]').tooltip();   
-				});
-				//모달의 조그만 사진 클릭하면 그 사진 확대 해주는거
-				$(function(){
-					$(".clickToLarger").click(function () {
-						$(".clickToLarger").removeClass("onViewing");
-						$(this).addClass("onViewing");
-						$(".bigThumbnailImage").attr("src",$(this).attr("src"));
-					});
-				});
-				
-				
-				// (숙박업소 & 인원 수) 조건에 맞는 객실들을 받는 ajax
-				const roomTitleVal = data.roomTitle;
-				//const roomCapaVal = data.roomCapa;
-				const bookStartDate = $("#bookStartDate").val();
-				const bookEndDate = $("#bookEndDate").val();
-				
-				$.ajax({
-						url : "/availableModalRoomsList.do",
-						data: {roomTitle : roomTitleVal, houseNo : houseNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate},
-						dataType : "json",
-						success : function(List){
-							console.log(List)
-							$("[name=roomNo]").empty();
-							$("[name=roomNo]").append($("<option>").text("객실을 먼저 선택해주세요"));
-							$("[name=modalOptionPrice1]").attr("value",List[0].houseBarbecuePrice);
-							$("[name=modalOptionPrice2]").attr("value",List[0].housePartyPrice);
-							$("[name=housePrice]").attr("value",List[0].housePrice);
-							$("[name=houseroomTitle]").attr("value",List[0].roomTitle);
-							for(let i=0; i<List.length; i++){
-								const option = $("<option>");
-								option.val(List[i].roomNo);
-								option.text(List[i].roomName);
-								$("[name=roomNo]").append(option);
-			    			}
-						}
-				});
+// (숙박업소 & 인원 수) 조건에 맞는 객실들을 받는 ajax
+								const roomTitleVal = data.roomTitle;
+								//const roomCapaVal = data.roomCapa;
+								const bookStartDate = $("#bookStartDate").val();
+								const bookEndDate = $("#bookEndDate").val();
+								
+								$.ajax({
+										url : "/availableModalRoomsList.do",
+										data: {roomTitle : roomTitleVal, houseNo : houseNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate},
+										dataType : "json",
+										success : function(List){
+											console.log(List)
+											$("[name=roomNo]").empty();
+											$("[name=roomNo]").append($("<option>").text("객실을 먼저 선택해주세요"));
+											$("[name=modalOptionPrice1]").attr("value",List[0].houseBarbecuePrice);
+											$("[name=modalOptionPrice2]").attr("value",List[0].housePartyPrice);
+											$("[name=housePrice]").attr("value",List[0].housePrice);
+											$("[name=houseroomTitle]").attr("value",List[0].roomTitle);
+											for(let i=0; i<List.length; i++){
+												const option = $("<option>");
+												option.val(List[i].roomNo);
+												option.text(List[i].roomName);
+												$("[name=roomNo]").append(option);
+							    			}
+										}
+								});
 
 
-			// 예약하기 modal 띄우면 실행되는 함수 시작
-				$("#goBooking").on("click", function(){
-					
-					//키오스크 2페이지에서 받아온 예약시작일과 종료일
-					let bookStartDate = $("#bookStartDate").val();
-					$("#bookStart").val(bookStartDate);
-					console.log("키오스크2페이지"+bookStartDate);
-					let bookEndDate = $("#bookEndDate").val();
-					$("#bookEnd").val(bookEndDate);
-					
-					const houseBarbecue = $("#barbecue-choice").val();
-					const houseParty = $("#party-choice").val();
-					//선택한 옵션에 따른 옵션 dropdown메뉴
-					$("[name=modal-option]").empty();
-					$("[name=modal-option]").append($("<option>").text("선택하신 옵션입니다."));
-					if(houseBarbecue == 1){
-						const option = $("<option>");
-						//option.val(List[i].roomNo);
-						option.text("바베큐 "+$("[name=modalOptionPrice1]").val()+"원");
-						$("[name=modal-option]").append(option);
-					}
-					if(houseParty ==1){
-						const option = $("<option>");
-						//option.val(List[i].roomNo);
-						option.text("파티"+$("[name=modalOptionPrice2]").val()+"원");
-						$("[name=modal-option]").append(option);
-					}
-					
-				});
-			// 예약하기 modal 띄우면 실행되는 함수 끝
+// 예약하기 modal 띄우면 실행되는 함수 시작
+								$("#goBooking").on("click", function(){
+									
+									//키오스크 2페이지에서 받아온 예약시작일과 종료일
+									let bookStartDate = $("#bookStartDate").val();
+									$("#bookStart").val(bookStartDate);
+									console.log("키오스크2페이지"+bookStartDate);
+									let bookEndDate = $("#bookEndDate").val();
+									$("#bookEnd").val(bookEndDate);
+									
+									const houseBarbecue = $("#barbecue-choice").val();
+									const houseParty = $("#party-choice").val();
+									//선택한 옵션에 따른 옵션 dropdown메뉴
+									$("[name=modal-option]").empty();
+									$("[name=modal-option]").append($("<option>").text("선택하신 옵션입니다."));
+									if(houseBarbecue == 1){
+										const option = $("<option>");
+										//option.val(List[i].roomNo);
+										option.text("바베큐 "+$("[name=modalOptionPrice1]").val()+"원");
+										$("[name=modal-option]").append(option);
+									}
+									if(houseParty ==1){
+										const option = $("<option>");
+										//option.val(List[i].roomNo);
+										option.text("파티"+$("[name=modalOptionPrice2]").val()+"원");
+										$("[name=modal-option]").append(option);
+									}
+									
+								});
+							// 예약하기 modal 띄우면 실행되는 함수 끝
 
-			// roomBookPrice를 계산하는 함수
-				$("#modal-okay").on("click", function(){
-					let onedayPrice = data.housePrice;
-					console.log("하루 방값"+data.housePrice);
-					console.log("시작일"+$("#bookEndDate").val());
-					console.log("끝나는 날"+$("#bookStartDate").val());
-					
-						let result = 0;
-						let days = moment($("#bookEndDate").val()).diff(moment($("#bookStartDate").val()), 'days');
-						for(let i=0; i<days; i++){
-							let adjustment = 1;
-							if(moment($("#bookStartDate").val()).add(i, 'days').format('M')>=6 && moment($("#bookStartDate").val()).add(i, 'days').format('M')<=8){
-								console.log("6~8월은 성수기 할증으로 요금이 1.2배가 됩니다.");
-								adjustment *= 1.2;
+// roomBookPrice를 계산하는 함수
+								$("#modal-okay").on("click", function(){
+									let onedayPrice = data.housePrice;
+									console.log("하루 방값"+data.housePrice);
+									console.log("시작일"+$("#bookEndDate").val());
+									console.log("끝나는 날"+$("#bookStartDate").val());
+									
+										let result = 0;
+										let days = moment($("#bookEndDate").val()).diff(moment($("#bookStartDate").val()), 'days');
+										for(let i=0; i<days; i++){
+											let adjustment = 1;
+											if(moment($("#bookStartDate").val()).add(i, 'days').format('M')>=6 && moment($("#bookStartDate").val()).add(i, 'days').format('M')<=8){
+												console.log("6~8월은 성수기 할증으로 요금이 1.2배가 됩니다.");
+												adjustment *= 1.2;
+											}
+											if(moment($("#bookStartDate").val()).add(i, 'days').isoWeekday() == 5 || moment($("#bookStartDate").val()).add(i, 'days').isoWeekday() == 6){
+												console.log("주말은 할증으로 요금이 1.5배가 됩니다.");
+												adjustment *= 1.5;
+											}
+											result += onedayPrice * adjustment;
+											console.log((i+1)+"일째까지 누계 "+result+"원");
+										}
+										if($("#barbecue-choice").val()==1){
+											result += Number(data.houseBarbecuePrice);
+										}
+										if($("#party-choice").val()==1){
+											result += Number(housePartyPrice);
+										}
+										console.log("옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
+										$("[name=roomBookPrice]").val(result);
+										$(".stat-count").text("0");
+										$(".stat-count").text(result);
+										//주문내역에 숙소 총액,숙소 호수&이름,예약날짜 넣어주는 함수
+										$("#houseTitle-choice").attr("value",$("input[name=roomTitle]").val());
+										$("#roomTitleNo-choice").attr("value",$("[name=roomTitle]").val()+","+$("[name=roomNo] option:selected").val()+"호");
+										$("#bookDate-choice").attr("value",$("#bookStartDate").val()+"~"+$("#bookEndDate").val());
+										$("#roomTotalPrice-choice").attr("value","옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
+										// 주문내역에 옵션 가격 및 정보 전달		
+										const houseBarbecue = $("#barbecue-choice").val();
+										const houseParty = $("#party-choice").val();
+										if(houseBarbecue == 1 && houseParty != 1){
+											$("#options-choice").attr("value","바베큐 "+$("[name=modalOptionPrice1]").val()+"원");
+										}else if(houseBarbecue != 1 && houseParty == 1){
+											$("#options-choice").attr("value","파티"+$("[name=modalOptionPrice2]").val()+"원");
+										}else if(houseBarbecue != 1 && houseParty == 1){
+											$("#options-choice").attr("value","바베큐 "+$("[name=modalOptionPrice1]").val()+"원","value","파티"+$("[name=modalOptionPrice2]").val()+"원");
+										}else{
+											$("#options-choice").attr("value","선택하신 옵션이 없습니다.");
+										}
+								})
+							},
+							//getroom function success 끝
+							error : function(){
+								console.log("모달 에러났음");
 							}
-							if(moment($("#bookStartDate").val()).add(i, 'days').isoWeekday() == 5 || moment($("#bookStartDate").val()).add(i, 'days').isoWeekday() == 6){
-								console.log("주말은 할증으로 요금이 1.5배가 됩니다.");
-								adjustment *= 1.5;
-							}
-							result += onedayPrice * adjustment;
-							console.log((i+1)+"일째까지 누계 "+result+"원");
-						}
-						if($("#barbecue-choice").val()==1){
-							result += Number(data.houseBarbecuePrice);
-						}
-						if($("#party-choice").val()==1){
-							result += Number(housePartyPrice);
-						}
-						console.log("옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
-						$("[name=roomBookPrice]").val(result);
-						$(".stat-count").text("0");
-						$(".stat-count").text(result);
-						//주문내역에 숙소 총액,숙소 호수&이름,예약날짜 넣어주는 함수
-						$("#houseTitle-choice").attr("value",$("input[name=roomTitle]").val());
-						$("#roomTitleNo-choice").attr("value",$("[name=roomTitle]").val()+","+$("[name=roomNo] option:selected").val()+"호");
-						$("#bookDate-choice").attr("value",$("#bookStartDate").val()+"~"+$("#bookEndDate").val());
-						$("#roomTotalPrice-choice").attr("value","옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
-						// 주문내역에 옵션 가격 및 정보 전달		
-						const houseBarbecue = $("#barbecue-choice").val();
-						const houseParty = $("#party-choice").val();
-						if(houseBarbecue == 1 && houseParty != 1){
-							$("#options-choice").attr("value","바베큐 "+$("[name=modalOptionPrice1]").val()+"원");
-						}else if(houseBarbecue != 1 && houseParty == 1){
-							$("#options-choice").attr("value","파티"+$("[name=modalOptionPrice2]").val()+"원");
-						}else if(houseBarbecue != 1 && houseParty == 1){
-							$("#options-choice").attr("value","바베큐 "+$("[name=modalOptionPrice1]").val()+"원","value","파티"+$("[name=modalOptionPrice2]").val()+"원");
-						}else{
-							$("#options-choice").attr("value","선택하신 옵션이 없습니다.");
-						}
-				})
-			},
-			//getroom function success 끝
-			error : function(){
-				console.log("모달 에러났음");
-			}
-		}); //숙소 상세정보 모달 ajax끝
-	} //getroom function 끝
+						}); //숙소 상세정보 모달 ajax끝
+					} //getroom function 끝
 
-	
-	
 	
 	$(".page4-pass").on('click',function(){
 		
@@ -1636,6 +1634,8 @@ $("document").ready(function() {
 			alert("숙소를 골라주세요");
 		}
 	})
+	
+	
 //page5 숙소리스트
 	$(".page5-before").on('click',function(){
 		$(".pages").hide();
@@ -1657,7 +1657,8 @@ $("document").ready(function() {
 	$(".page5-pass").on('click',function(){
 		var result = confirm("숙소는 필요없으신가요?");
 		if(result == true){
-			alert("숙소선택을 건너뜁니다");
+			alert("숙소를 고르지 않고 숙소선택을 건너뜁니다");
+			$(".stat-count").text("0");
 			$(".pages").hide();
 			$(".page6").show();
 			$(".title").text("원하시는 강습레벨을 골라주세요");
@@ -1747,11 +1748,154 @@ $("document").ready(function() {
 	$(".page7-before").on('click',function(){
 		$(".pages").hide();
 		$(".page6").show();
-		$(".title").text("원하시는 강습레벨을 골라주세요");
+		$(".title").text("조건에 맞는 강습리스트예요~!");
 		$("#current-page").attr("value",6);
 		
 	})
 	$(".page7-okay").on('click',function(){
+		//여기다 if문 넣기(강습 안 고르고 제끼는 사람)	
+			$(".pages").hide();
+			$(".page8").show();
+			$(".title").text("주문내역을 확인해주세요");
+			$("#current-page").attr("value",8);
+	});
+	$(".page7-pass").on('click',function(){
+			alert("강습은 꼭 선택해주셔야해요");
+	})
+
+//강습상품의 상세정보 보기 버튼 클릭하면 modal을 띄워주는 function
+			function getLesson(lessonNo){
+				console.log("레슨넘버"+lessonNo);
+				$(".lessonPic-check").css("display","none");
+				$("#modal-lesson-pic").parent().css("display","none");
+		
+				$.ajax({
+					url : "/lessonModalView.do",
+					data : {lessonNo : lessonNo},
+					dataType : "json",
+					success : function(data){
+						const photoUrl = "resources/upload/lesson/";
+						//모달 사진 부분
+						if(data.lessonInfoPic == null){
+							$(".lessonPic-check").css("display","block");
+						}else {
+							$("#modal-lesson-pic").parent().css("display","block");
+							$("#modal-lesson-pic").attr("src",photoUrl+data.lessonInfoPic);						
+						}
+						
+						//모달 글부분
+						//강사이름, 강습제목 
+						$("#modal-lesson-teacher").text(data.lessonTeacher);
+						$("#modal-lesson-title").text(data.lessonTitle);
+						$("#modal-lesson-time").text("("+data.lessonStartTime+"~"+data.lessonEndTime+")")
+						//강습가격
+						let lessonPrice = data.lessonPrice;
+						$("input[name=lessonPrice]").attr("value",data.lessonPrice);
+						$("#modal-lesson-price").text(lessonPrice.toLocaleString("ko-KR"));
+						//정원 수
+						$("input[name=lessonMaxNo]").attr("value",data.lessonMaxNo);
+						//강습레벨
+						if(data.lessonLevel == 1){ $("#modal-lesson-level").text("초급"); }
+						else if(data.lessonLevel == 2){ $("#modal-lesson-level").text("중급"); }
+						else if(data.lessonLevel == 3){ $("#modal-lesson-level").text("고급"); }
+						$("#modal-lesson-time").text(data.lessonStartTime+"~ "+data.lessonEndTime.trim());
+						//지역
+						$("#modal-lesson-city").text(data.lessonCity);
+						//상품설명
+						$("#modal-lesson-info").text(data.lessonInfo);
+						
+						const maxLessonPeople = $("#people-value").val();
+						const lessonPeopleInput = $("[name=lessonPeople]");
+						lessonPeopleInput.children().remove();
+						lessonPeopleInput.append($("<option>").attr("selected", true).attr("disabled", true).text("인원 수를 먼저 선택해주세요."));
+						for(let i=1; i<=maxLessonPeople; i++){
+							lessonPeopleInput.append($("<option>").attr("value", i).text(i+"명"));
+						}
+		
+					// 예약하기 modal 띄우면 실행되는 함수 시작
+						$("#goLessonBook").on("click", function(){
+							$("[name=lessonPeople]").on("change", function(){
+								const lessonCapa = $("input[name=lessonMaxNo]").val() - $("[name=lessonPeople]").val();
+					console.log($("[name=lessonPeople]").val() +"명을 예약하려고 함");
+					console.log("강습정원 - 지금 예약할 인원 수 = " + lessonCapa +"(필요한 남은 자리 수)");
+							// 이미 결제완료 인원 된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax
+								if($("[name=lessonPeople]").val()>=1){
+									$.ajax({
+										url : "/bookOneLesson.do",
+										data: {lessonNo : lessonNo},
+										dataType : "json",
+										success : function(List){
+											let invalidDateRanges = [];
+											for(let i=0; i<List.length; i++){
+					console.log(List[i].lessonBookDate +"에는 결제완료 상태의 인원이 이미 "+ List[i].lessonPeople +"명 있음");
+												if(List[i].lessonPeople > lessonCapa){
+					console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므로 "+ List[i].lessonBookDate +"는 막음");
+												invalidDateRanges[i] = { 'start': moment(List[i].lessonBookDate), 'end': moment(List[i].lessonBookDate) };}
+											}
+										//강습 1인 가격 넘겨줌
+										$("[name=lessonPrice]").attr("value", List[0].lessonPrice);
+		
+										// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
+											$("[name=lessonBookDate]").val("");
+											$("[name=lessonBookDate]").attr("value", null);
+		
+										// 예약일을 선택하는 date range picker 생성
+											$('[name=lessonBookDate]').daterangepicker({
+											    parentEl: "#lessonBookModalContent .modal-body",
+												locale: {
+												format: "YYYY-MM-DD",
+												fromLabel: "시작",
+												toLabel: "종료"
+									    		},
+										    	alwaysShowCalendars: true,
+												autoApply: true,
+												singleDatePicker: true,
+												showDropdowns: true,
+												minDate: moment($("#bookStartDate").val()),
+												maxDate: moment($("#bookEndDate").val()),
+												isInvalidDate: function(date) {
+													return invalidDateRanges.reduce(function(bool, range) {
+													}, false);
+												}
+											});
+											$("[name=lessonBookDate]").val("");
+											$("[name=lessonBookDate]").attr("value", null);	// value 없는 상태로 생성 필요
+										
+										},
+										error : function(){
+											console.log("인원 수를 먼저 선택해주세요에 focus됨");
+											$(".daterangepicker").remove();
+											$("[name=lessonBookDate]").val("");
+											$("[name=lessonBookDate]").attr("value", null);
+										}
+									});
+								}else{
+									$("[name=lessonBookDate]").val("");
+									$("[name=lessonBookDate]").attr("value", null);
+								}
+								//가격을 계산 하는 곳
+								const result = $("[name=lessonPrice]").val()*$("[name=lessonPeople]").val();
+								console.log(result);
+								$("[name=lessonTotalPrice]").attr("value",result);
+							
+							}); // 예약하기 modal 띄우면 실행되는 함수 끝
+						});
+					},
+					error : function(){
+						console.log("모달 에러났음");
+					}
+				}); //상품 상세정보 모달 ajax끝
+//page8 주문내역
+	$(".page8-before").on('click',function(){
+		$(".pages").hide();
+		$(".page6").show();
+		$(".title").text("원하시는 강습레벨을 골라주세요");
+		$("#current-page").attr("value",7);
+		
+	})
+	$(".page8-okay").on('click',function(){
+		alert("여기다 ajax하시면 됩니다 병주님");
+		/*
 		let result = confirm("주문하신 내역이 맞으신가요?");
 		if(result == true){
 			$(".pages").hide();
@@ -1761,148 +1905,26 @@ $("document").ready(function() {
 		}else{
 			alert("원하시는 강습을 선택해주세요");
 		}
-		
+		*/
 	});
-	$(".page7-pass").on('click',function(){
-			alert("강습은 꼭 선택해주셔야해요");
+	$(".page8-pass").on('click',function(){
+			alert("주문내역을 확인하시고 확정버튼을 눌러주세요");
 	})
 
-//강습상품의 상세정보 보기 버튼 클릭하면 modal을 띄워주는 function
-	function getLesson(lessonNo){
-		console.log("레슨넘버"+lessonNo);
-		$(".lessonPic-check").css("display","none");
-		$("#modal-lesson-pic").parent().css("display","none");
-
-		$.ajax({
-			url : "/lessonModalView.do",
-			data : {lessonNo : lessonNo},
-			dataType : "json",
-			success : function(data){
-				const photoUrl = "resources/upload/lesson/";
-				//모달 사진 부분
-				if(data.lessonInfoPic == null){
-					$(".lessonPic-check").css("display","block");
-				}else {
-					$("#modal-lesson-pic").parent().css("display","block");
-					$("#modal-lesson-pic").attr("src",photoUrl+data.lessonInfoPic);						
-				}
 				
-				//모달 글부분
-				//강사이름, 강습제목 
-				$("#modal-lesson-teacher").text(data.lessonTeacher);
-				$("#modal-lesson-title").text(data.lessonTitle);
-				$("#modal-lesson-time").text("("+data.lessonStartTime+"~"+data.lessonEndTime+")")
-				//강습가격
-				let lessonPrice = data.lessonPrice;
-				$("input[name=lessonPrice]").attr("value",data.lessonPrice);
-				$("#modal-lesson-price").text(lessonPrice.toLocaleString("ko-KR"));
-				//정원 수
-				$("input[name=lessonMaxNo]").attr("value",data.lessonMaxNo);
-				//강습레벨
-				if(data.lessonLevel == 1){ $("#modal-lesson-level").text("초급"); }
-				else if(data.lessonLevel == 2){ $("#modal-lesson-level").text("중급"); }
-				else if(data.lessonLevel == 3){ $("#modal-lesson-level").text("고급"); }
-				$("#modal-lesson-time").text(data.lessonStartTime+"~ "+data.lessonEndTime.trim());
-				//지역
-				$("#modal-lesson-city").text(data.lessonCity);
-				//상품설명
-				$("#modal-lesson-info").text(data.lessonInfo);
-				
-				const maxLessonPeople = $("#people-value").val();
-				const lessonPeopleInput = $("[name=lessonPeople]");
-				lessonPeopleInput.children().remove();
-				lessonPeopleInput.append($("<option>").attr("selected", true).attr("disabled", true).text("인원 수를 먼저 선택해주세요."));
-				for(let i=1; i<=maxLessonPeople; i++){
-					lessonPeopleInput.append($("<option>").attr("value", i).text(i+"명"));
-				}
-
-			// 예약하기 modal 띄우면 실행되는 함수 시작
-				$("#goLessonBook").on("click", function(){
-					$("[name=lessonPeople]").on("change", function(){
-						const lessonCapa = $("input[name=lessonMaxNo]").val() - $("[name=lessonPeople]").val();
-			console.log($("[name=lessonPeople]").val() +"명을 예약하려고 함");
-			console.log("강습정원 - 지금 예약할 인원 수 = " + lessonCapa +"(필요한 남은 자리 수)");
-					// 이미 결제완료 인원 된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax
-						if($("[name=lessonPeople]").val()>=1){
-							$.ajax({
-								url : "/bookOneLesson.do",
-								data: {lessonNo : lessonNo},
-								dataType : "json",
-								success : function(List){
-									let invalidDateRanges = [];
-									for(let i=0; i<List.length; i++){
-			console.log(List[i].lessonBookDate +"에는 결제완료 상태의 인원이 이미 "+ List[i].lessonPeople +"명 있음");
-										if(List[i].lessonPeople > lessonCapa){
-			console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므로 "+ List[i].lessonBookDate +"는 막음");
-										invalidDateRanges[i] = { 'start': moment(List[i].lessonBookDate), 'end': moment(List[i].lessonBookDate) };}
-									}
-								//강습 1인 가격 넘겨줌
-								$("[name=lessonPrice]").attr("value", List[0].lessonPrice);
-
-								// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
-									$("[name=lessonBookDate]").val("");
-									$("[name=lessonBookDate]").attr("value", null);
-
-								// 예약일을 선택하는 date range picker 생성
-									$('[name=lessonBookDate]').daterangepicker({
-									    parentEl: "#lessonBookModalContent .modal-body",
-										locale: {
-										format: "YYYY-MM-DD",
-										fromLabel: "시작",
-										toLabel: "종료"
-							    		},
-								    	alwaysShowCalendars: true,
-										autoApply: true,
-										singleDatePicker: true,
-										showDropdowns: true,
-										minDate: moment($("#bookStartDate").val()),
-										maxDate: moment($("#bookEndDate").val()),
-										isInvalidDate: function(date) {
-											return invalidDateRanges.reduce(function(bool, range) {
-												return bool || (date >= range.start && date <= range.end);
-											}, false);
-										}
-									});
-									$("[name=lessonBookDate]").val("");
-									$("[name=lessonBookDate]").attr("value", null);	// value 없는 상태로 생성 필요
-								
-								},
-								error : function(){
-									console.log("인원 수를 먼저 선택해주세요에 focus됨");
-									$(".daterangepicker").remove();
-									$("[name=lessonBookDate]").val("");
-									$("[name=lessonBookDate]").attr("value", null);
-								}
-							});
-						}else{
-							$("[name=lessonBookDate]").val("");
-							$("[name=lessonBookDate]").attr("value", null);
-						}
-						//가격을 계산 하는 곳
-						const result = $("[name=lessonPrice]").val()*$("[name=lessonPeople]").val();
-						console.log(result);
-						$("[name=lessonTotalPrice]").attr("value",result);
-					
-					}); // 예약하기 modal 띄우면 실행되는 함수 끝
-				});
-			},
-			error : function(){
-				console.log("모달 에러났음");
-			}
-		}); //상품 상세정보 모달 ajax끝
-		//stat-count 총합 올려주는 함수
-		$("#modal-okay2").on("click", function(){
-			const currentVal = $(".stat-count").text();
-			console.log("현재 총액 : "+currentVal);
-			const result = Number($(".stat-count").text())+Number($("[name=lessonTotalPrice]").val());
-			console.log("업데이트된 결과 : "+result);
-			$(".stat-count").text("0");
-			$(".stat-count").text(result);
-			//receipt에 총액 넘겨주는 함수
-			$("#TotalPrice-choice").attr("value",result);
-		});
-	}
-//강습상품의 상세정보 보기 modal 함수 끝
+//stat-count 총합 올려주는 함수
+						$("#modal-okay2").on("click", function(){
+							const currentVal = $(".stat-count").text();
+							console.log("현재 총액 : "+currentVal);
+							const result = Number($(".stat-count").text())+Number($("[name=lessonTotalPrice]").val());
+							console.log("업데이트된 결과 : "+result);
+							$(".stat-count").text("0");
+							$(".stat-count").text(result);
+							//receipt에 총액 넘겨주는 함수
+							$("#TotalPrice-choice").attr("value",result);
+						});
+					}
+			//강습상품의 상세정보 보기 modal 함수 끝
 
 	
 //뒤로가기 막기
@@ -1935,6 +1957,8 @@ window.onpopstate = function() {
 		  $(".page6-before").trigger("click");
 	}else if($("#current-page").val() == 7){
 		  $(".page7-before").trigger("click");	  
+	}else if($("#current-page").val() == 8){
+		  $(".page8-before").trigger("click");	
 	};
 	history.pushState(null, null, location.href); 
 	//history.go(1);

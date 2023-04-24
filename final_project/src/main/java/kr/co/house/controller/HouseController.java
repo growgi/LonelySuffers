@@ -134,9 +134,28 @@ public class HouseController {
 
 // 숙박 상품 수정하기.   House 테이블에서 Row 1개 수정
 	@RequestMapping(value="/updateHouse.do")
-	public String updateHouse(House h, Model model) {
+	public String updateHouse(House h, MultipartFile newPhoto1, MultipartFile newPhoto2, MultipartFile newPhoto3, MultipartFile newPhoto4, HttpServletRequest request, Model model) {
 		int result = service.updateHouse(h);
 		if(result > 0) {
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
+			if(newPhoto1 != null) {
+				int filled = 4;
+				if(!newPhoto1.isEmpty()) {
+					h.setHousePhoto1(fileManager.uploadHousePhoto1(savePath, newPhoto1, h.getHouseNo()));
+				} else { filled--; }
+				if(!newPhoto2.isEmpty()) {
+					h.setHousePhoto2(fileManager.uploadHousePhoto2(savePath, newPhoto2, h.getHouseNo()));
+				} else { filled--; }
+				if(!newPhoto3.isEmpty()) {
+					h.setHousePhoto3(fileManager.uploadHousePhoto3(savePath, newPhoto3, h.getHouseNo()));
+				} else { filled--; }
+				if(!newPhoto4.isEmpty()) {
+					h.setHousePhoto4(fileManager.uploadHousePhoto4(savePath, newPhoto4, h.getHouseNo()));
+				} else { filled--; }
+				if(filled > 0) {
+				service.uploadHousePhotos(h);
+				}
+			}
 			return "redirect:/houseView.do?houseNo="+h.getHouseNo();
 		}else {
 			model.addAttribute("title","실패");

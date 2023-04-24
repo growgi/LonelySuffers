@@ -21,6 +21,9 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 <style>
+.previewImg {
+	width: 100%;
+}
 .clickToLarger {
 	width: 80px;
 	height: 80px;
@@ -67,6 +70,67 @@ input[type="number"], input[type="time"] {
 			<div class="container">
 				<div class="row">
 					<div class="col-md-5">
+					<c:choose>
+						<c:when test="${house.houseStatus <= 0 }">
+						<div class="row">
+							<div class="col-md-6">
+								<div style="width: 100%;">
+								<c:choose>
+									<c:when test="${house.housePhoto1 != null }">
+									<img class="previewImg" src="resources/upload/house/${house.housePhoto1 }">
+									</c:when>
+									<c:otherwise>
+									<p style="text-align: center;">사진1을<br>추가해<br>주십시오.</p>
+									</c:otherwise>
+								</c:choose>
+								</div>
+								<input type="file" name="newPhoto1" class="form-control" accept=".jpg,.jpeg,.gif,.png,.webp">
+							</div>
+							<div class="col-md-6">
+								<div style="width: 100%;">
+								<c:choose>
+									<c:when test="${house.housePhoto2 != null }">
+									<img class="previewImg" src="resources/upload/house/${house.housePhoto2 }">
+									</c:when>
+									<c:otherwise>
+									<p style="text-align: center;">사진2를<br>추가할 수<br>있습니다.</p>
+									</c:otherwise>
+								</c:choose>
+								</div>
+								<input type="file" name="newPhoto2" class="form-control" accept=".jpg,.jpeg,.gif,.png,.webp">
+							</div>
+						</div>
+						<hr class="invis2">
+						<div class="row">
+							<div class="col-md-6">
+								<div style="width: 100%;">
+								<c:choose>
+									<c:when test="${house.housePhoto3 != null }">
+									<img class="previewImg" src="resources/upload/house/${house.housePhoto3 }">
+									</c:when>
+									<c:otherwise>
+									<p style="text-align: center;">사진3을<br>추가할 수<br>있습니다.</p>
+									</c:otherwise>
+								</c:choose>
+								</div>
+								<input type="file" name="newPhoto3" class="form-control" accept=".jpg,.jpeg,.gif,.png,.webp">
+							</div>
+							<div class="col-md-6">
+								<div style="width: 100%;">
+								<c:choose>
+									<c:when test="${house.housePhoto4 != null }">
+									<img class="previewImg" src="resources/upload/house/${house.housePhoto4 }">
+									</c:when>
+									<c:otherwise>
+									<p style="text-align: center;">사진4를<br>추가할 수<br>있습니다.</p>
+									</c:otherwise>
+								</c:choose>
+								</div>
+								<input type="file" name="newPhoto4" class="form-control" accept=".jpg,.jpeg,.gif,.png,.webp">
+							</div>
+						</div>
+						</c:when>
+						<c:otherwise>
 						<c:choose>
 						<c:when test="${house.housePhoto1 == null }">
 						<div class="row" style="height: 450px;">
@@ -100,6 +164,8 @@ input[type="number"], input[type="time"] {
 						</div>
 						</c:otherwise>
 						</c:choose>
+						</c:otherwise>
+					</c:choose>
 					</div>
 					<!-- end col -->
 
@@ -242,6 +308,29 @@ input[type="number"], input[type="time"] {
 
 
 	<script type="text/javascript">
+// 첨부된 이미지 업로드 전 미리보기
+	$("[type=file]").on("change",function(){
+		const attached = $(this);
+		const reader = new FileReader();
+		reader.onload = function(){
+			attached.prev().children().eq(0).css("display", "none");
+			attached.prev().children().eq(1).remove();
+			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
+		}
+		reader.readAsDataURL(attached[0].files[0]);
+	});
+
+
+
+// 미리보기 이미지를 클릭하면, input의 value를 비움
+	function getRidOf(obj){
+		$(obj).prev().css("display", "block");
+		$(obj).parent().next().val("");
+		$(obj).remove();
+	}
+
+
+
 // 바베큐 옵션 유무에 따라 가격입력란 활성/비활성화
 	$("[name=houseBarbecue]").on("change", function(){
 		if($(this).prop("checked")){

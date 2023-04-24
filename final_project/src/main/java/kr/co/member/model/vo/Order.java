@@ -35,6 +35,7 @@ public class Order {
 	private String lessonTeacher;		// 강사이름. MEMBER_NAME을 가져오는게 아니라, 판매자가 임의로 적는 값		
 	private String lessonStartTime;		// "HH:MM " 시작시간만, default(선택시간) 로우  하나 더
 	private String lessonEndTime;		// "HH:MM " 종료시간만
+	private String lessonInfoPic;		// 첨부사진. 본문 첨부가 아니라 첨부파일임.
 	
 	//House
 	private String houseTitle;			// 상품 웹페이지에 노출될 제목
@@ -43,6 +44,7 @@ public class Order {
 	private String roomTitle;			// 숙박소이름      예) XX펜션, ABC하우스
 	private int houseBarbecue;			//0:안쓰는 것, 1:쓰는것
 	private int houseParty;				//0:안쓰는 것, 1:쓰는것
+	private String housePhoto1;
 	
 	//room_book
 	private String bookStartDate;		// 예약기간 첫날의 YYYY-MM-DD

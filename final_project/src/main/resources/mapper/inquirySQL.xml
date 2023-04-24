@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="i">
+
+
+<!-- 하나의 상품에 대한 문의글들 조회 -->
+<!-- productCategory와 productNo를 조건으로 Row들을 SELECT  -->
+	<select id="selectInquiriesByProduct" parameterType="kr.co.inquiry.model.vo.InquiryListing" resultType="i">
+		SELECT * FROM (SELECT ROWNUM AS RN, N. * FROM (
+			SELECT
+			INQUIRY_NO as inquiryNo,
+			NVL(ANSWERED, 0) as answered,
+			INQUIRER as inquirer,
+			INQUIRY_TITLE as inquiryTitle,
+			REG_DATE as regDate,
+			PRIVATELY as privately
+			FROM INQUIRY LEFT JOIN (SELECT INQUIRY_NO, COUNT(*) AS ANSWERED FROM ANSWER GROUP BY INQUIRY_NO) USING (INQUIRY_NO)
+			WHERE (PRODUCT_CATEGORY = #{productCategory}) AND (PRODUCT_NO = #{productNo})
+			<if test='range > 0'>AND (INQUIRER = #{loggedId})</if>
+			ORDER BY INQUIRY_NO DESC
+		)N) WHERE RN BETWEEN #{pagingStart} AND #{pagingEnd}
+	</select>
+
+
+<!-- 하나의 상품에 대한 문의글들의 개수  -->
+	<select id="totalNumberOfInquiriesByProduct" parameterType="kr.co.inquiry.model.vo.InquiryListing" resultType="_int">
+		SELECT COUNT(*) FROM INQUIRY WHERE (PRODUCT_CATEGORY = #{productCategory}) AND (PRODUCT_NO = #{productNo})
+		<if test='range > 0'>AND (INQUIRER = #{loggedId})</if>
+	</select>
+
+
+<!-- 문의 상세 보기 inquiryView.do -->
+	<select id="selectOneInquiry" parameterType="_int" resultType="i">
+		SELECT
+		INQUIRY_NO as inquiryNo,
+		INQUIRER as inquirer,
+		INQUIRY_CONTENT as inquiryContent,
+		PRIVATELY as privately
+		FROM INQUIRY WHERE INQUIRY_NO = ${_parameter}
+	</select>
+
+
+<!-- 문의에 대한 답변들 출력 -->
+	<select id="selectAllAnswer" parameterType="_int" resultType="ia">
+		SELECT
+		ANSWER_NO as answerNo,
+		INQUIRY_NO as inquiryNo,
+		ANSWER_CONTENT as answerContent,
+		ANSWER_WRITER as answerWriter
+		FROM ANSWER WHERE INQUIRY_NO = ${_parameter} ORDER BY ANSWER_NO DESC
+	</select>
+
+
+<!-- 문의 신규 등록 -->
+	<insert id="insertInquiry" parameterType="i">
+		INSERT INTO INQUIRY VALUES (INQUIRY_SEQ.NEXTVAL, #{inquirer}, #{inquiryTitle}, #{inquiryContent}, TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:mi:SS'), #{privately}, #{productCategory}, #{productNo})
+		<selectKey resultType="_int" order="AFTER" keyProperty="inquiryNo">
+			SELECT MAX(INQUIRY_NO) FROM INQUIRY
+		</selectKey>
+	</insert>
+
+
+<!-- 문의 수정 -->
+	<update id="updateInquiry" parameterType="i">
+		UPDATE INQUIRY SET
+		INQUIRY_TITLE = #{inquiryTitle},
+		INQUIRY_CONTENT = #{inquiryContent},
+		PRIVATELY = #{privately}
+  		WHERE INQUIRY_NO = #{inquiryNo}
+	</update>
+
+
+<!-- 문의 삭제 -->
+     <delete id="deleteInquiry" parameterType="_int">
+		DELETE FROM INQUIRY WHERE INQUIRY_NO = ${_parameter}	
+     </delete>
+
+
+<!-- 답변 신규 등록 -->
+	<insert id="insertAnswer" parameterType="ia">
+		INSERT INTO ANSWER VALUES (ANSWER_SEQ.NEXTVAL, #{inquiryNo}, #{answerContent}, #{answerWriter})
+		<selectKey resultType="_int" order="AFTER" keyProperty="answerNo">
+			SELECT MAX(ANSWER_NO) FROM ANSWER
+		</selectKey>
+	</insert>
+
+
+<!-- 답변 수정 -->
+	<update id="updateAnswer" parameterType="ia">
+		UPDATE ANSWER SET ANSWER_CONTENT = #{answerContent} WHERE ANSWER_NO = #{answerNo}
+	</update>
+
+
+<!-- 답변 삭제 -->
+     <delete id="deleteAnswer" parameterType="_int">
+		DELETE FROM ANSWER WHERE ANSWER_NO = ${_parameter}
+     </delete>
+</mapper>

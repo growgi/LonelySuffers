@@ -64,23 +64,25 @@ input[type="number"], input[type="time"] {
 					<div class="col-md-5">
 						<c:choose>
 						<c:when test="${lesson.lessonInfoPic == null }">
-						<div id="previewImg" class="row" style="height: 450px; overflow: clip">
-							<div class="col-md-2"></div>
-							<div class="col-md-8">
-								<div class="waveEffect" style="margin: 0 auto;">
-									<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
-									<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+						<div class="row" style="height: 450px; overflow: clip">
+							<div>
+								<div class="col-md-2"></div>
+								<div class="col-md-8">
+									<div class="waveEffect" style="margin: 0 auto;">
+										<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+										<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+									</div>
 								</div>
 							</div>
 						</div>
 						</c:when>
 						<c:otherwise>
-						<div id="previewImg" style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/lesson/${lesson.lessonInfoPic }" style="width: 100%;"></div>
+						<div style="height: 450px; overflow: clip"><img class="bigThumbnailImage" src="resources/upload/lesson/${lesson.lessonInfoPic }" style="width: 100%;"></div>
 						</c:otherwise>
 						</c:choose>
 						<c:choose>
 							<c:when test="${lesson.lessonStatus <= 0 }">
-								<div style="width: 100%;"></div><input type="file" class="form-control" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp">
+								<input type="file" class="form-control" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp">
 							</c:when>
 						</c:choose>
 					</div>
@@ -280,14 +282,24 @@ input[type="number"], input[type="time"] {
 		const attached = $(this);
 		const reader = new FileReader();
 		reader.onload = function(){
-			$("#previewImg").children().remove();
-			$("#previewImg").append($("<img>").attr("src", reader.result).attr("width", "100%"));
+			attached.prev().children().eq(0).css("display", "none");
+			attached.prev().children().eq(1).remove();
+			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
 		}
 		reader.readAsDataURL(attached[0].files[0]);
 	});
 
 
 
+	// 미리보기 이미지를 클릭하면, input의 value를 비움
+		function getRidOf(obj){
+			$(obj).prev().css("display", "block");
+			$(obj).parent().next().val("");
+			$(obj).remove();
+		}
+
+
+	
 // name이 lessonCity인 select 태그의 option에 selected 속성을 자동으로 부여
 	$(document).ready(function(){
 		const lessonCityVal = $("#lookupLessonCity").text();
