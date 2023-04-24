@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: column;
     background-color: #b2c7d9; 
+    position: relative;
 }
 
 .chat_right{
@@ -55,3 +56,4 @@
     align-items: center;
     margin-bottom: 10px;
   }
+

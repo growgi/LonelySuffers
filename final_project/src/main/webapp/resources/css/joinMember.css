@@ -5,12 +5,20 @@ input[type=text],input[type=password]{
     padding: 4px 8px;
 }
 
+.content-title>.waveEffectWord-back,.content-title>.waveEffectWord-front{
+    font-family: 'Delicious Handrawn', cursive !important;
+    font-size: 50px;
+    line-height: 50px;
+    padding-top: 10px;
+    padding-left: 25px;
+}
+
 .content-title{
     margin: 0 auto;
     text-align: center;
     font-size: 30px;
     FONT-WEIGHT: 900;
-    width: 200px;
+    width: 250px;
     height: 70px;
     line-height: 70px;
     border-radius: 10px;
@@ -45,7 +53,7 @@ input[type=radio]{
 }
 
 .memberGender>.material-symbols-outlined:hover{
- color : #666666;
+    color : #666666;
 
 }
 
@@ -105,7 +113,7 @@ input[type=radio]{
         background: none;
         z-index: 5;
         border-radius: 10px;
-        box-shadow: inset 2px 2px 5px #cbced1, inset -6px -6px 6px white;
+        box-shadow: -5px -5px 20px #FFF, 5px 5px 15px #a8aaaf;
         margin-right: 10px; /* input과 button 사이의 간격 조절 */
     }
     
@@ -121,16 +129,18 @@ input[type=radio]{
         transition: all 0.2s ease-in-out;
     }
 
-    .customInput > div > button:hover ,.joinBtn>button:hover,select:hover,{
+    .customInput > div > button:hover ,.joinBtn>button:hover,select:hover{
         box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #000;
     }
     .customInput > div > button:active ,.joinBtn>button:active,select:active,.memberGender>span:hover{
     box-shadow: inset 1px 1px 2px #a8aaaf, inset -1px -1px 2px #FFF;
     }
-    .customInput > div > input::placeholder { color: #aaaaaa; 
-    }
+    .customInput > div > input:hover ,.customInput > .customShort > .customShortInput:hover{ color: #aaaaaa; 
+        box-shadow: inset 1px 1px 2px #cdced1, inset -1px -1px 2px #FFF;
+    } 
     
-    .customInput > div > input:focus { outline: none; 
+    .customInput > div > input:focus ,.customInput > .customShort > .customShortInput:focus{ outline: none; 
+        box-shadow: inset 3px 3px 6px #cbced1, inset -6px -6px 6px white;
     }
     
     .customInput > div > span {
@@ -179,7 +189,7 @@ input[type=radio]{
         background: none;
         z-index: 5;
         border-radius: 10px;
-        box-shadow: inset 2px 2px 5px #cbced1, inset -6px -6px 6px white;
+        box-shadow: -5px -5px 20px #FFF, 5px 5px 15px #a8aaaf;
         margin-right: 0px; /*input과 button 사이의 간격 조절*/
     }
 

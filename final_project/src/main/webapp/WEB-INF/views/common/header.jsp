@@ -142,6 +142,7 @@
 						</li>
 						<c:choose>
 							<c:when test="${not empty sessionScope.m }">
+							<input type="hidden" class="hiddenMemberGrade" value="${sessionScope.m.memberGrade }">
 							<c:choose>
 								<c:when test="${sessionScope.m.memberGrade ==1}">
 						<li>
@@ -159,10 +160,10 @@
 								</c:otherwise>
 							</c:choose>
 							
-						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary logout" style="padding-left:30px;"><input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }""> 로그아웃</a></li>
+						<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary logout" style="padding-left:30px;"><input type="hidden" name="chatMemberId" value="${sessionScope.m.memberId }"> 로그아웃</a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="lastlink hidden-xs hidden-sm" "><a class="btn btn-primary" href="/loginFrm.do">
+								<li class="lastlink hidden-xs hidden-sm"><a class="btn btn-primary" href="/loginFrm.do">
 								<img alt="login" src="/resources/images/login(1).png" style="width:25px; length:25px; margin-right:5px;">로그인</a></li>
 							</c:otherwise>
 						</c:choose>
