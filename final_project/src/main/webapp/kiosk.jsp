@@ -656,7 +656,6 @@
 										<li>숙박소이름,호수 : <input type="text" id="roomTitleNo-choice" value="hd" readonly></li>
 										<li>숙박 날짜 : <input type="text" id="bookDate-choice" value="hd" readonly></li>
 										<li>옵션 : <input type="text" id="options-choice" value="hd" readonly></li>
-										<li>숙소 총액: <input type="text" id="roomTotalPrice-choice" value="hd" readonly></li>
 										<input type="text" id="roomTotalPrice" value="0" hidden>
 									</ul class="lessonBook-info">
 									<ul>
