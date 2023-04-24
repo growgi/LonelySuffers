@@ -8,7 +8,8 @@
     height: 550px;
     display: flex;
     flex-direction: column;
-    background-color: #b2c7d9; 
+    background-color: #fff;
+    /* background-color: #b2c7d9;  */
     position: relative;
 }
 
@@ -20,7 +21,7 @@
     max-width: 60%;
     align-self: flex-end;
     line-height: 20px;
-    background-color: #ffeb33;
+    background-color: #146C94;
     border-radius: 10px;
     margin-right: 5px;
     padding: 5px;
@@ -33,7 +34,7 @@
     position: relative;
     max-width: 300px;
     line-height: 20px;
-    background-color: #fff;
+    background-color: #F6F1F1;
     border-radius: 10px;
     margin-left: 5px;
     padding: 5px;

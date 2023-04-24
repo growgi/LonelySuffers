@@ -42,7 +42,7 @@
 									<li>구매내역</li>
 									<li class="chatList">1대1문의<span class="chatChkSpan"></span></li>
 									<c:if test="${sessionScope.m.memberGrade == 2}">
-									<li>판매자전용</li>
+									<li><a href="/productInsert.do">판매자전용</a></li>
 									</c:if>
 								</ul>
 							</div>
