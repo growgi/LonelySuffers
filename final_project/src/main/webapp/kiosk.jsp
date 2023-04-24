@@ -471,7 +471,7 @@
 									<div class="circle" style="background-image:url(/resources/images/magnify.png)">
 										<div class="map">
 											<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
-											<input type="text" id="travel-location" value="원하시는 지역을 클릭해주세요"readonly>
+											<input type="text" id="travel-location" value="강원"readonly>
 										</div>
 									</div>
 								</div>

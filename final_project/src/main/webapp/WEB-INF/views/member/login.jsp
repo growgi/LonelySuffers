@@ -27,8 +27,8 @@
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 			<div class="main">
 			<div class="content-top">
-							<p class="waveEffectWord-back" style="font-family: 'Courgette-Regular' !important; ">Lonely Surfers</p>
-							<p class="waveEffectWord-front" style="font-family: 'Courgette-Regular' !important;">Lonely Surfers</p>
+							<p class="waveEffectWord-back" >Lonely Surfers</p>
+							<p class="waveEffectWord-front">Lonely Surfers</p>
 			</div>
 			<div class="content-main">
 				<div class="main-top">

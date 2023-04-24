@@ -17,14 +17,15 @@
     box-sizing: border-box;
     width: 500px;
     margin: 0px auto ;
-    box-shadow: 3px 3px 8px 3px rgba(0,0,0,0.5);
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 15px #a8aaaf;
     padding-bottom: 40px;
     padding-top: 40px;
     border-radius: 15px;
     background-color: #efeded8c;
 
 }
-.content-top>.waveEffectWord-back,.content-top>.waveEffectWord-front{
+.waveEffectWord-back,.waveEffectWord-front{
+    font-family: 'Delicious Handrawn', cursive !important;
     width: 400px;
     margin: 0 auto;
     text-align: center;
@@ -193,16 +194,20 @@ input[type=submit]{
         background: none;
         z-index: 5;
         border-radius: 10px;
-        box-shadow: inset 2px 2px 5px #cbced1, inset -6px -6px 6px white;
+        box-shadow: -5px -5px 20px #FFF, 5px 5px 15px #a8aaaf;
     }
     
     .customInput>div>input::placeholder { color: #aaaaaa; 
         box-shadow: inset 1px 1px 2px #cdced1, inset -1px -1px 2px #FFF;
     }
+
+    .customInput > div > input:hover { color: #aaaaaa; 
+        box-shadow: inset 1px 1px 2px #cdced1, inset -1px -1px 2px #FFF;
+    } 
     
     .customInput>div>input:focus { 
         outline: none; 
-        box-shadow: inset 1px 1px 2px #cdced1, inset -1px -1px 2px #FFF;
+        box-shadow: inset 3px 3px 6px #cbced1, inset -6px -6px 6px white;
     }
     
     .customInput>div>span {
@@ -313,7 +318,7 @@ input[type=submit]{
     align-items: center;
     gap: 0.5rem;
     width: 160px;
-    color: #61677C;
+    color: #c3c3c3;
     box-shadow: -5px -5px 20px #FFF, 5px 5px 15px #a8aaaf;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
@@ -331,6 +336,7 @@ input[type=submit]{
   color: #61677C;
   }
 
+
   [type="checkbox"] {
     appearance: none;
     position: relative;
@@ -340,6 +346,7 @@ input[type=submit]{
     width: 2.25em;
     height: 1.25em;
     box-shadow: inset 1px 1px 2px #000, inset -1px -1px 2px #FFF;
+
   }
   
   [type="checkbox"]::before {
@@ -368,6 +375,11 @@ input[type=submit]{
     left: 1em;
     top: 2px;
   }
+
+    
+  [type="checkbox"]:checked+span{
+    color: #61677C;
+  }
   
   [type="checkbox"]:disabled {
     border-color: lightgray;
@@ -389,9 +401,6 @@ input[type=submit]{
     outline: none;
     /* outline: max(2px, 0.1em) solid rgb(82, 252, 3); */
   }
-  
-
-  
 
   /* Global CSS */
   body {
@@ -422,7 +431,7 @@ input[type=submit]{
     cursor: pointer;
     font-weight: 600;
     border: none;
-    background-color: #efeded8c;
+    background-color: #efeded8c !important;
     outline: none;
     border-radius: 10px;
   }
@@ -430,18 +439,19 @@ input[type=submit]{
   .main-top>form>.btn-success:hover,.customInputLong>.btn-successs:hover,.main-bottom>.btn-success:hover,.selectId>.btn-successs:hover,.modal-footer>.btn-successs:hover{
     box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #000;
     background-color: #efeded8c;
-    color: #61677C;
+    color: #61677C !important;
   }
   .main-top>form>.btn-success:active,.customInputLong>.btn-successs:active,.main-bottom>.btn-success:active,.selectId>.btn-successs:active,.modal-footer>.btn-successs:active{
     box-shadow: inset 1px 1px 2px #000, inset -1px -1px 2px #FFF;
     background-color : #efeded8c;
-    color: #61677C;
+    color: #61677C !important;
   }
 
   /*#a8aaaf*/
 
   .inputVaild:valid{
     box-shadow: -5px -5px 15px #FFF, 5px 5px 15px #a8aaaf;
+    font-weight: 600;
   }
 
   .modal-body,.modal-footer{

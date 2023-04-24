@@ -511,6 +511,7 @@ public class AdminController {
 		model.addAttribute("orderDetailCount", orderDetailCount);
 		
 		return "admin/orderDetail";
+		
 	}
 
 	/**카풀 관리*/

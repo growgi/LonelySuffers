@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import kr.co.admin.model.service.AdminService;
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
@@ -22,6 +23,8 @@ public class MemberController {
 	private MemberService service;
 	@Autowired
 	private MailSender mailSender;
+	@Autowired
+	private AdminService aService;
 
 	public MemberController() {
 		super();
@@ -298,6 +301,39 @@ public class MemberController {
 			}
 		}
 		return message;
+	}
+	
+	@RequestMapping(value = "/updateMember.do")
+	public String updateMember(Member member,Model model,@SessionAttribute(required = false) Member m) {
+		int result = service.updateMember(member);
+		if(result == 0) {
+			model.addAttribute("title","정보수정 실패");
+			model.addAttribute("msg","회원 정보 수정에 실패했습니다.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/myPage.do");
+			return "common/msg";
+		}else {
+			model.addAttribute("title","정보수정 성공");
+			model.addAttribute("msg","회원 정보 수정에 성공했습니다.");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/myPage.do");
+			m.setMemberName(member.getMemberName());
+			m.setMemberPhone(member.getMemberPhone());
+			return "common/msg";
+		}
+		
+	}
+	
+	@RequestMapping(value="/myOrderDetail.do")
+	public String myPageOrderDetail(int orderNo, Model model) {
+		Order orderDetailInfo = aService.selectOrderDetailInfo(orderNo);
+		ArrayList<Order> orderDetailList = aService.selectOrderDetail(orderNo);
+		int orderDetailCount = aService.selectOrderDetailCount(orderNo);
+		model.addAttribute("orderDetailInfo", orderDetailInfo);
+		model.addAttribute("orderDetailList", orderDetailList);
+		model.addAttribute("orderDetailCount", orderDetailCount);
+		
+		return "member/orderDetail";
 	}
 
 }
