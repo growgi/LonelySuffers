@@ -284,8 +284,8 @@
 								</div>
 								<hr>
 								<div class="btn-pack" style="margin-left: 25px;">
-									<button type="button" class="btn btn-block" id="reset-btn"
-										style="width: 250px; height: 40px; border-radius: 10px; float: left; margin-right: 25px; background-color: #FDE2F3; color: grey; font-weight: 900;">초기화</button>
+									<button type="button" class="btn btn-block" id="reset-btn" style="width: 250px; height: 40px; border-radius: 10px; float: left; margin-right: 25px; background-color: #FDE2F3; color: grey; font-weight: 900;">
+										초기화</button>
 									<button type="button" class="btn btn-block" id="apply-btn" 	style="width: 250px; height: 40px; border-radius: 10px; 
 									background-color: #E5BEEC; color: grey; font-weight: 900;">적용</button>
 								</div>
@@ -591,10 +591,12 @@
 			 }
 		});
 	});
-
 	$("#apply-btn").click();
+	
+	
+	
 	// 초기화 버튼 클릭 시
-	document.getElementById("reset-btn").addEventListener(
+	/*document.getElementById("reset-btn").addEventListener(
 			"click",
 			function() {
 				// input 값 초기화
@@ -611,7 +613,26 @@
 										checkbox.checked = false;
 									});
 						});
-			});
+			});*/
+	
+	document.getElementById("reset-btn").addEventListener( "click",
+		    function() {
+		        // input 값 초기화
+		        document.querySelectorAll("input").forEach(function(input) {
+		            input.value = "";
+		        });
+		        // select 값 초기화
+		        document.querySelectorAll("select").forEach(function(select) {
+		            select.selectedIndex = 0;
+		        });
+		        // 체크박스 초기화
+		        document.querySelectorAll("input[type=checkbox]").forEach(function(checkbox) {
+		            checkbox.checked = false;
+		            $(checkbox).parent().removeClass("active-checkbox");
+		            $(checkbox).next().hide();
+		        });
+		    }
+		);
 	
 	//필터검색 
 	//input checkbox 다음에오는 span check img 처음에 안보이게하고
@@ -624,20 +645,10 @@
 			//check img 보이게하고
 			$(this).next().show();
 			//input checkbox를 싸고있는 부모가 보이게한다. 
-			$(this).parent().css({
-				backgroundColor: "#DAF5FF",
-				color:"#FF78F0",
-				transitionDuration: "0.3s",
-				border: "none"
-			});
+			$(this).parent().addClass("active-checkbox");
 		}else{
 			$(this).next().hide()
-			$(this).parent().css({
-			      color: "",
-			      backgroundColor: "",
-			      transitionDuration: "",
-			      border: ""
-			    });
+			$(this).parent().removeClass("active-checkbox");
 		}
 	});
 

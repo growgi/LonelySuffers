@@ -1,0 +1,289 @@
+.dashboard-wrapper>*{
+    color: #25382f;
+}
+
+.dashboard-wrapper>div>div>div{
+    border-radius: 5px;
+    border: 2px solid rgb(238, 238, 238);
+    box-sizing: border-box;
+}
+.dashboard-wrapper>div>div>div>div{
+    border-radius: 5px;
+}
+.dashboard-wrapper>div>div{
+    width: 97%;
+    margin-bottom: 30px;
+}
+
+.title-bold{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.bold-s{
+    font-size: 18px;
+    font-weight: 600;
+}
+.bold-m{
+    font-size: 24px;
+    font-weight: 600;
+}
+.bold-l{
+    font-size: 32px;
+    font-weight: 600;
+}
+
+/*달력*/
+.calendar-wrap>div {
+    background-color : white;
+    height: auto;
+    /*width: 400px;*/
+    margin: 0px;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius:5px;
+    /* box-shadow:0px 40px 30px -20px rgba(0,0,0,0.3); */
+}
+
+.Calendar td {
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+
+.Calendar {
+    text-align: center;
+}
+
+.Calendar>thead>tr:first-child>td {
+    font-family: 'Questrial', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.Calendar>thead>tr:last-child>td {
+    font-family: 'Questrial', sans-serif;
+    font-weight: 600;     
+}
+
+.Calendar>tbody>tr>td>p {
+    font-family: 'Montserrat', sans-serif;
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    transition-duration: .2s;
+    line-height: 40px;
+    margin: 2.5px;
+    display: block;
+    text-align: center;
+    font-size: 1em;
+}        
+
+.pastDay {
+    color: lightgray;
+}
+
+.today {
+    background-color: #F5D042;            
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.futureDay {
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+.futureDay:hover{
+    background:#eee;
+}
+
+.futureDay.choiceDay,
+.today.choiceDay {
+    background: #0A174E;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/*1st*/
+.dashboard-1st{
+    display:flex;
+    justify-content: space-between;
+}
+.calendar{
+    width: 40%;
+    padding: 25px;
+}
+.dashboard-1st>.task-list{
+    width: 30%;
+    padding: 25px;
+}
+.default-task>div{
+    display: flex;
+    border-radius: 5px;
+    padding: 30px;
+    background-color: #f5f5f5;
+}
+.default-task>div>span{
+    margin-right: 10px;
+}
+.default-task>div{
+    margin-bottom: 10px;
+}
+.dashboard-1st>.sales-amount{
+    width: 45%;
+    border: none;
+}
+.sales-amount>div{
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    /* transition-duration: 0.3s; */
+}
+.sales-amount>div:first-child{
+    margin-bottom: 20px;
+}
+.sales-amount>div:last-child{
+    margin-bottom: 0;
+}
+.sales-amount>.logo{
+    background: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%);
+    border: none;
+    height: 40px;
+    margin: 0;
+    padding-top: 20px;
+}
+
+/*.sales-amount>div:hover, */.dashboard-wrapper>div>.dashboard-2nd>div:hover{
+    background-color: #ece1e1;
+}
+
+
+
+/*2nd*/
+.dashboard-2nd{
+    display: flex;
+    justify-content: space-between;
+}
+.dashboard-wrapper>div>.dashboard-2nd>div{
+    border: none;
+    background-color: #F6F1F1;
+    position: relative;
+    transition-duration: 0.3s;
+}
+.dashboard-2nd>div>div>.product-icon{
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+.dashboard-2nd>div>div>div:last-child{
+    font-size: 50px;
+}
+.dashboard-2nd>div>.bold-m{
+    color: #19A7CE;
+}
+.dashboard-2nd>.member-count{
+    width: 24%;
+    padding: 25px;
+}
+.dashboard-2nd>.lesson-count{
+    width: 24%;
+    padding: 25px;
+}
+.dashboard-2nd>.house-count{
+    width: 24%;
+    padding: 25px;
+}
+.dashboard-2nd>.carfool-count{
+    width: 24%;
+    padding: 25px;
+}
+.dashboard-2nd>div>div>.product-icon{
+    color: #146C94;
+}
+
+
+/*3rd*/
+.dashboard-3rd{
+    display: flex;
+    justify-content: space-between;
+}
+.visitant-graph{
+    width: 60%;
+    padding: 25px;
+}
+.gender-graph{
+    width: 38%;
+    padding: 25px;
+}
+
+
+/*4th*/
+.dashboard-4th{
+    display:flex;
+    justify-content: space-between;
+}
+.new-product{
+    width: 68%;
+    padding: 25px;
+}
+.new-member{
+    width: 30%;
+    padding: 25px;
+}
+.member-box{
+    display:flex;
+    margin-bottom: 10px;
+}
+.member-box>.member-img{
+    font-size: 50px;
+    margin-right: 5px;
+}
+.member-box>div:last-child{
+    padding: 5px;
+}
+.new-product>table{
+    width: 100%;
+    text-align: center;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+.new-product>table th{
+    background-color: #F6F1F1;
+    color: #333536;
+}
+.new-product>table th:first-child{
+    border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.new-product>table th:last-child{
+    border-top-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.new-product>table th, td{
+    height: 50px;
+    border-bottom: 1px solid rgb(202, 202, 202);
+    word-break:break-all;
+}
+
+/*5th*/
+.dashboard-5th{
+    display: flex;
+    justify-content: space-between;
+}
+.new-carpool{
+    width: 30%;
+    padding: 25px;
+}
+.sales-amount-graph{
+    width: 68%;
+    padding: 25px;
+}
+
+
+/*6th*/
+.admin-list{
+    padding: 25px;
+}

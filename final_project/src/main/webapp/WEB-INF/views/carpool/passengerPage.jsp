@@ -23,6 +23,12 @@
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<style>
+.category:hover a{
+	font-size: 1.1em;
+	font-weight: 800;
+}
+</style>	
 </head>
 
 <body>

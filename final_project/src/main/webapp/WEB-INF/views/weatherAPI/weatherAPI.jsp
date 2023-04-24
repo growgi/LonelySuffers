@@ -24,7 +24,7 @@
 			<p>도시명을 찾을 수 없습니다.</p>
 		</div>
 			<div class="weather">
-				<img src="/resources/images/weather/rain.png" class="weather-icon">
+				<img src="/resources/images/weather/loading.png" class="weather-icon">
 				<h1 class="temp"></h1>
 				<h2 class="city"></h2>
 				<div class="details">
@@ -45,7 +45,7 @@
 				</div>
 			</div>
 			<div class="weather">
-				<img src="/resources/images/weather/rain.png" class="weather-icon">
+				<img src="/resources/images/weather/loading.png" class="weather-icon">
 				<h1 class="temp">26°c</h1>
 				<h2 class="city">서울</h2>
 				<div class="details">
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 			<div class="weather">
-				<img src="/resources/images/weather/rain.png" class="weather-icon">
+				<img src="/resources/images/weather/loading.png" class="weather-icon">
 				<h1 class="temp">26°c</h1>
 				<h2 class="city">서울</h2>
 				<div class="details">
@@ -87,7 +87,7 @@
 				</div>
 			</div>
 			<div class="weather">
-				<img src="/resources/images/weather/rain.png" class="weather-icon">
+				<img src="/resources/images/weather/loading.png" class="weather-icon">
 				<h1 class="temp">26°c</h1>
 				<h2 class="city">서울</h2>
 				<div class="details">
@@ -108,7 +108,7 @@
 				</div>
 			</div>
 			<div class="weather">
-				<img src="/resources/images/weather/rain.png" class="weather-icon">
+				<img src="/resources/images/weather/loading.png" class="weather-icon">
 				<h1 class="temp">26°c</h1>
 				<h2 class="city">서울</h2>
 				<div class="details">
@@ -153,7 +153,7 @@
             }
         );
     }
-    //async가 뭐지요....
+    //async, await : 비동기식 코드를 동기식으로 표현하여 간단하게 나타내는 것.
     async function checkWeather(lon,lat, city){
     
         const apiKey = "80a42e54d066998bbe2a5c38181c7196";

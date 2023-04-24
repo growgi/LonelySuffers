@@ -36,6 +36,7 @@ public class Carpool {
 	//spring-workspace의 Board 참조
 	private ArrayList<Passenger> passengerList;
 	
+	private String driverId;
 	
 	
 	public String getTripType() {

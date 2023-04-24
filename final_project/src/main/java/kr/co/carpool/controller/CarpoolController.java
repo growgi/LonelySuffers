@@ -64,6 +64,7 @@ public class CarpoolController {
 	// 운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
 	@RequestMapping(value = "/registerCarpool.do")
 	public String registerCarpool(Carpool carpool) {
+		System.out.println(carpool);
 		// 운전자가 한달에 4개 이상의 카풀을 등록하지 못하게
 		// 날짜가 겹치지 않게
 		// 날짜가 지나면 등록하지 못하게

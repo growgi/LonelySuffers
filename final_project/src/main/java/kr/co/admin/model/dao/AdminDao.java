@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.RejectProduct;
 import kr.co.admin.model.vo.Search;
+import kr.co.carpool.model.vo.Carpool;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
@@ -323,6 +324,31 @@ public class AdminDao {
 		List houseList = sqlSession.selectList("admin.selectTopHouse");
 		
 		return (ArrayList<House>)houseList;
+	}
+
+	public ArrayList<Carpool> selectAllCarpool() {
+		List carpoolList = sqlSession.selectList("admin.selectAllCarpool");
+		
+		return (ArrayList<Carpool>)carpoolList;
+	}
+
+	public int selectCarpoolCount() {
+		int carpoolCount = sqlSession.selectOne("admin.selectCarpoolCount");
+		
+		return carpoolCount;
+	}
+
+	public int deleteCarpool(int carpoolNo) {
+		int result = sqlSession.update("admin.deleteCarpool", carpoolNo);
+		
+		return result;
+	}
+
+	public ArrayList<Carpool> selectSearchCarpool(String searchKeyword) {
+		System.out.println("dao:"+searchKeyword);
+		List carpoolList = sqlSession.selectList("admin.selectSearchCarpool", searchKeyword);
+		
+		return (ArrayList<Carpool>)carpoolList;
 	}
 
 }
