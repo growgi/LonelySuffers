@@ -336,6 +336,9 @@
     </div>
 </div>
 <script>
+    // $('[name=logout]').on('click',function(){
+    //     location.href="/logout.do";
+    // })
     /*admin-icon*/
     $(".admin-icon").on("click",function(){
         $(".link-box").fadeToggle(200);
