@@ -63,10 +63,24 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+		<section class="section normalhead lb">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+						<h2 style="border-bottom: 5px solid #006bd6">공지사항</h2>
+					</div>
+					<!-- end col -->
+				</div>
+				<!-- end row -->
+			</div>
+			<!-- end container -->
+		</section>
+		<!-- end section -->
+		
+		
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<h1 style="text-align: center;">공지사항</h1>
 					<c:if test="${sessionScope.m.memberGrade == 1}">
 					<a class="button-74" href="/noticeWriteFrm.do" role="button">글쓰기</a>
 					</c:if>

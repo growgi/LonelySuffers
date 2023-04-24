@@ -85,6 +85,9 @@
 
 .paper-content>ul>li{
     list-style-type: none;
+}
+
+.paper-content>ul> .paper2{
     border-bottom: 1px solid #595959;
 }
 

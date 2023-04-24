@@ -17,7 +17,7 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-
+<link rel="stylesheet" href="/resources/css/faq.css">
 </head>
 
 
@@ -29,8 +29,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>자주묻는질문 작성</h2>
-						<hr>
+						<h2 style="border-bottom: 5px solid #006bd6">자주묻는질문 작성</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -44,6 +43,106 @@
 			<div class="container">
 				<div class="row">
 				<form action="/faqUpdate.do" method="post">
+				<div class="faqViewWrap">
+					<p style="margin-bottom: 5px;">제목</p>
+					<p style="font-size: 30px;"><input style="text-align: center;" type="text" name="faqTitle" value="${faq.faqTitle }"></p>
+					<ul class="faqViewheader">
+						<li style="font-size: 20px;">번호</li>
+						<span>|</span>
+						<li><input type="text" name="faqNo" value="${faq.faqNo }" readonly></li>
+						<li style="font-size: 20px;">카테고리</li>
+						<span>|</span>
+						<li>
+							<c:choose>
+							<c:when test="${faq.categoryNo == 1 }">
+								<select name="categoryNo" id="categoryNo" class="input-form">
+									<option value="1" selected>예약취소</option>
+									<option value="2">숙박</option>
+									<option value="3">강습</option>
+									<option value="4">카풀</option>
+									<option value="5">후기</option>
+									<option value="6">회원서비스</option>
+								</select>
+							</c:when>
+							<c:when test="${faq.categoryNo == 2 }">
+								<select name="categoryNo" id="categoryNo" class="input-form">
+									<option value="1">예약취소</option>
+									<option value="2" selected>숙박</option>
+									<option value="3">강습</option>
+									<option value="4">카풀</option>
+									<option value="5">후기</option>
+									<option value="6">회원서비스</option>
+								</select>
+							</c:when>
+							<c:when test="${faq.categoryNo == 3 }">
+								<select name="categoryNo" id="categoryNo" class="input-form">
+									<option value="1">예약취소</option>
+									<option value="2">숙박</option>
+									<option value="3" selected>강습</option>
+									<option value="4">카풀</option>
+									<option value="5">후기</option>
+									<option value="6">회원서비스</option>
+								</select>
+							</c:when>
+							<c:when test="${faq.categoryNo == 4 }">
+								<select name="categoryNo" id="categoryNo" class="input-form">
+									<option value="1">예약취소</option>
+									<option value="2">숙박</option>
+									<option value="3">강습</option>
+									<option value="4" selected>카풀</option>
+									<option value="5">후기</option>
+									<option value="6">회원서비스</option>
+								</select>
+							</c:when>
+							<c:when test="${faq.categoryNo == 5 }">
+								<select name="categoryNo" id="categoryNo" class="input-form">
+									<option value="1">예약취소</option>
+									<option value="2">숙박</option>
+									<option value="3">강습</option>
+									<option value="4">카풀</option>
+									<option value="5" selected>후기</option>
+									<option value="6">회원서비스</option>
+								</select>
+							</c:when>
+							<c:when test="${faq.categoryNo == 6 }">
+								<select name="categoryNo" id="categoryNo" class="input-form">
+									<option value="1">예약취소</option>
+									<option value="2">숙박</option>
+									<option value="3">강습</option>
+									<option value="4">카풀</option>
+									<option value="5">후기</option>
+									<option value="6" selected>회원서비스</option>
+								</select>
+							</c:when>
+						</c:choose>
+						</li>
+					</ul>
+				</div>
+				<p style="text-align: center; font-weight: bold;">내용</p>
+					<div class="faqContentWrap">
+						<table class="faqViewContent">
+							<tr>
+								<td><textarea id="faqWriteContent" name="faqContent" >${faq.faqContent }</textarea></td>
+							</tr>
+						</table>
+					</div>
+					<table class="faqViewContent">
+						<tr>
+							<th class="faqViewBtn">
+								<input class="button-74" type="submit" value="수정하기">
+								<input class="button-74" type="submit" value="취소">
+							</th>
+						</tr>	
+					</table>
+					</form>
+				</div>
+			</div>
+		</section>		
+				
+				
+				
+				
+				----------------------------------------------
 				<table>
 					<tr>
 						<th>번호</th>

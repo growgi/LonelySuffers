@@ -30,8 +30,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>자주묻는질문</h2>
-						<hr>
+						<h2 style="border-bottom: 5px solid #006bd6">자주묻는질문</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -44,7 +43,7 @@
 		<section class="section" style="padding-top: 0;">
 			<div class="container" >
 				<div class="row">
-					<a href="/" class="btn btn-primary btn-sm active" style="margin-top: 20px">메인으로</a>
+					<a href="/" class="button-74" style="margin-top: 20px">메인으로</a>
 					<div class="faqViewWrap">
 						<p style="margin-bottom: 5px;">제목</p>
 						<p style="font-size: 30px;">${faq.faqTitle }</p>
@@ -78,6 +77,7 @@
 							</li>
 						</ul>
 					</div>
+					<p style="text-align: center; font-weight: bold;">내용</p>
 					<div class="faqContentWrap">
 						<table class="faqViewContent">
 							<tr>
@@ -89,8 +89,8 @@
 							<tr>
 								<th class="faqViewBtn">
 									<c:if test="${sessionScope.m.memberGrade == 1}">
-										<a class="btn btn-primary btn-sm active" href="/faqUpdateFrm.do?faqNo=${faq.faqNo }">수정하기</a>
-										<a class="btn btn-primary btn-sm active" href="/deleteFaq.do?faqNo=${faq.faqNo }">삭제</a>
+										<a class="button-74" href="/faqUpdateFrm.do?faqNo=${faq.faqNo }">수정하기</a>
+										<a class="button-74" href="/deleteFaq.do?faqNo=${faq.faqNo }">삭제</a>
 									</c:if>
 								</th>
 							</tr>

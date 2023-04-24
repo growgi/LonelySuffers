@@ -80,16 +80,16 @@
 						<div class="paper">
 							<div class="paper-content">
 								<ul>
-									<li>번호<input id="noticeNo" type="text" name="noticeNo" value="${n.noticeNo }" readonly></li>
+									<li class="paper2">번호<input id="noticeNo" type="text" name="noticeNo" value="${n.noticeNo }" readonly></li>
 								</ul>
 								<ul>
-									<li>제목<input id="noticeTitle2" type="text" name="noticeTitle" value="${n.noticeTitle }" required></li>
+									<li class="paper2">제목<input id="noticeTitle2" type="text" name="noticeTitle" value="${n.noticeTitle }" required></li>
 								</ul>
 								<ul>
-									<li>작성일<input id="noticeDate" type="text" name="noticeDate" value="${n.noticeDate }" readonly></li>
+									<li class="paper2">작성일<input id="noticeDate" type="text" name="noticeDate" value="${n.noticeDate }" readonly></li>
 								</ul>
 								<ul>
-									<li>첨부파일</li>
+									<li class="paper2">첨부파일</li>
 								</ul>	
 								<div class="noticeFileList">
 								<ul>
@@ -109,7 +109,7 @@
 									<li id="img-viewer2"></li>
 								</ul>
 								<ul>
-									<li>내용</li>
+									<li class="paper2">내용</li>
 									<li><textarea name="noticeContent" required>${n.noticeContent }</textarea></li>
 								</ul>
 							</div>

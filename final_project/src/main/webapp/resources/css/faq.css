@@ -14,6 +14,10 @@
     margin: 0 auto;
 }
 
+.faqViewContent>tr #faqContent{
+    outline: 0;
+}
+
 .faqContentWrap{
     border: 1px solid #eee;
     margin-bottom: 20px;
@@ -36,38 +40,55 @@
     height: auto;
 }
 
+
 .faqViewBtn>a{
     margin-top: 20px;
 }
 
-.letter {
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    margin: 26px auto 0;
-    max-width: 550px;
-    min-height: 300px;
-    padding: 24px;
-    position: relative;
-    width: 80%;
+.faqViewBtn>input{
+    margin-top: 20px;
 }
-.letter:before, .letter:after {
-    content: "";
-    height: 98%;
-    position: absolute;
-    width: 100%;
-    z-index: -1;
+
+#faqWriteContent{
+    width: 1070px;
 }
-.letter:before {
-    background: #fafafa;
-    box-shadow: 0 0 8px rgba(0,0,0,0.2);
-    left: -5px;
-    top: 4px;
-    transform: rotate(-2.5deg);
+
+.button-74 {
+    background-color: #fbeee0;
+    border: 2px solid #422800;
+    border-radius: 30px;
+    box-shadow: #422800 4px 4px 0 0;
+    color: #422800;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
-.letter:after {
-    background: #f6f6f6;
-    box-shadow: 0 0 3px rgba(0,0,0,0.2);
-    right: -3px;
-    top: 1px;
-    transform: rotate(1.4deg);
+
+.button-74:hover {
+    background-color: #fff;
+}
+
+.button-74:active {
+    box-shadow: #422800 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+    .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+    }
+}
+
+.faqViewBtn{
+    margin: 0 auto;
+    margin-top: 20px;
 }
