@@ -303,12 +303,6 @@
 
 
 	<script type="text/javascript">
-	// replaceAt 함수 정의
-		String.prototype.replaceAt = function(index, replacement) {
-		    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
-		}
-
-
 	//url로부터 lessonNo값 알아내기
 		const ltrim = /^\S{0,}lessonNo=/;
 		const currentUrl = window.location.href;
@@ -457,12 +451,7 @@
 								}
 								
 								const idLength = InquiryPagination.list[i].inquirer.length;
-								const td5 = $("<td>");
-								let blurred = InquiryPagination.list[i].inquirer;
-								for(let j = 3; j<idLength; j++){
-									blurred = blurred.replaceAt(j, "*");
-								}
-								td5.text(blurred);
+								const td5 = $("<td>").text(InquiryPagination.list[i].inquirer);
 								
 								const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
 		

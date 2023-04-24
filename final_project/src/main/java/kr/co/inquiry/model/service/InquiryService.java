@@ -18,13 +18,33 @@ public class InquiryService {
 	@Autowired
 	private InquiryDao dao;
 
-	
+
+
+// replaceAt 함수 정의. ID의 4번째 글자부터 *로 대체시킴.
+	public String replaceAt(String decrypted) {
+		String encrypted = decrypted;
+		for(int i=3; i<encrypted.length(); i++) {
+			String head = encrypted.substring(0, i);
+			String tail = encrypted.substring(i+1);
+			encrypted = head + "*" + tail;
+		}
+	    return encrypted;
+	}
+
+
+
 // 하나의 상품에 대한 문의글들 조회. productCategory와 productNo를 조건으로 Row 여러개 조회 후 반환
 	public InquiryPagination selectInquiriesByProduct(InquiryListing condition, int reqPage) {
 		int numPerPage = 10;	// 문의글 한 페이지 당 문의글 10개씩 출력
 		condition.setPagingEnd(numPerPage * reqPage);
 		condition.setPagingStart(numPerPage * (reqPage-1) + 1);
 		ArrayList<Inquiry> list = dao.selectInquiriesByProduct(condition);
+		
+		for(int i=0; i<list.size(); i++) {
+			Inquiry getInq = list.get(i);
+			getInq.setInquirer(replaceAt(list.get(i).getInquirer()));
+			list.set(i, getInq);
+		}
 		
 		int totalCount = dao.totalNumberOfInquiriesByProduct(condition);
 		
