@@ -14,6 +14,7 @@
 .admin-content>div{
     margin-left: 300px;
     margin-top: 50px;
+    margin-bottom: 150px;
 }
 
 .table-content{
@@ -179,6 +180,20 @@
 }
 
 .btn-m{
+    height: 50px;
+    display: inline-block;
+    outline: none;
+    font-size: 16px;
+    line-height: 50px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    padding: 0 16px;
+    border-radius: 5px;
+}
+
+.btn-l{
+    width: 100%;
     height: 50px;
     display: inline-block;
     outline: none;
