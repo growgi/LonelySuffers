@@ -47,6 +47,18 @@ public class AdminController {
 		return "main";
 	}
 	
+	@RequestMapping(value="/dashboard.do")
+	public String dashboard(Model model) {
+		/*
+		 * ArrayList<Lesson> lessonList = service.selectTopLesson(); ArrayList<House>
+		 * houseList = service.selectTopHouse();
+		 * 
+		 * model.addAttribute("lessonList", lessonList); model.addAttribute("houseList",
+		 * houseList);
+		 */
+		return "admin/adminDashboard";
+	}
+	
 	/**1. 회원목록*/
 	@RequestMapping(value="/memberList.do")
 	public String memberList(int reqPage, Model model) {
