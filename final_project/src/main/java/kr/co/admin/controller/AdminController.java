@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.admin.model.vo.CarpoolPageData;
 import kr.co.admin.model.vo.HousePageData;
 import kr.co.admin.model.vo.LessonPageData;
 import kr.co.admin.model.vo.MemberPageData;
@@ -17,6 +18,7 @@ import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.ProductPageData;
 import kr.co.admin.model.vo.RejectProduct;
 import kr.co.admin.model.vo.Search;
+import kr.co.carpool.model.vo.Carpool;
 import kr.co.chat.model.service.ChatService;
 import kr.co.chat.model.vo.ChatActive;
 import kr.co.house.model.vo.House;
@@ -43,6 +45,18 @@ public class AdminController {
 		model.addAttribute("houseList", houseList);
 		
 		return "main";
+	}
+	
+	@RequestMapping(value="/dashboard.do")
+	public String dashboard(Model model) {
+		/*
+		 * ArrayList<Lesson> lessonList = service.selectTopLesson(); ArrayList<House>
+		 * houseList = service.selectTopHouse();
+		 * 
+		 * model.addAttribute("lessonList", lessonList); model.addAttribute("houseList",
+		 * houseList);
+		 */
+		return "admin/adminDashboard";
 	}
 	
 	/**1. 회원목록*/
@@ -469,6 +483,7 @@ public class AdminController {
 			return "redirect:/productList.do?reqPage=1";
 		}
 	}
+	
 	//검색
 	@RequestMapping(value="/adminSearchMemberSalesDetails.do")
 	public String adminSearchMemberSalesDetails(String searchType,String searchKeyword, Model model) {
@@ -498,7 +513,45 @@ public class AdminController {
 		return "admin/orderDetail";
 	}
 
-	/**7. 관심상품*/
+	/**카풀 관리*/
+	@RequestMapping(value="/carpoolList.do")
+	public String carpoolList(int reqPage, Model model) {
+		CarpoolPageData cpd = service.selectAllCarpool(reqPage);
+		int carpoolCount = service.selectCarpoolCount();
+		
+		model.addAttribute("carpoolList", cpd.getCarpoolList());
+		model.addAttribute("pageNavi", cpd.getPageNavi());
+		model.addAttribute("start", cpd.getStart());
+		model.addAttribute("carpoolCount", carpoolCount);
+		
+		return "admin/carpoolList";
+	}
+	
+	//게시글 삭제
+	@RequestMapping(value="/deleteCheckedCarpool.do")
+	public String deleteCheckedCarpool(String no) {
+		boolean result = service.deleteCheckedCarpool(no);
+		
+		if(result) {
+			return "redirect:/carpoolList.do?reqPage=1";
+		} else {
+			return "redirect:/productList.do?reqPage=1";
+		}
+	}
+	
+	//검색
+	@RequestMapping(value="/adminSearchCarpool.do")
+	public String adminSearchCarpool(String searchKeyword, Model model) {
+		ArrayList<Carpool> carpoolList = service.selectSearchCarpool(searchKeyword);
+		if(carpoolList != null) {			
+			model.addAttribute("carpoolList", carpoolList);
+			return "admin/carpoolList";
+		} else {
+			return "redirect:/productList.do?reqPage=1";
+		}
+	}
+	
+	/**관심상품*/
 	@RequestMapping(value="/wishList.do")
 	public String wishList(String memberId, Model model) {
 		ArrayList<WishList> allWishList = service.selectAllWishList(memberId);

@@ -584,6 +584,49 @@
 		</choose>
 		order by order_no desc
 	</select>
+	
+	<select id="selectAllCarpool" resultType="c">
+		select
+			carpool_no as carpoolNo,
+			driver_no as driverNo,
+			member_id as driverId,
+			oneway_round as onewayRound,
+			departure_region as departureRegion,
+			arrival_region as arrivalRegion,
+			capacity,
+			departure_date as departureDate,
+			closure
+		from carpool
+		join member_tbl on(driver_no=member_no)
+	</select>
+	
+	<select id="selectCarpoolCount" resultType="_int">
+		select
+			count(*)
+		from carpool
+	</select>
+	
+	<update id="deleteCarpool" parameterType="_int">
+		update carpool
+		set closure=3
+		where carpool_no=#{_parameter}
+	</update>
+	
+	<select id="selectSearchCarpool" parameterType="string" resultType="c">
+		select
+			carpool_no as carpoolNo,
+			driver_no as driverNo,
+			member_id as driverId,
+			oneway_round as onewayRound,
+			departure_region as departureRegion,
+			arrival_region as arrivalRegion,
+			capacity,
+			departure_date as departureDate,
+			closure
+		from carpool
+		join member_tbl on(driver_no=member_no)
+		where member_id=#{searchKeyword}
+	</select>
 
  	<select id="selectLessonWishList" parameterType="string" resultType="w">
  		select

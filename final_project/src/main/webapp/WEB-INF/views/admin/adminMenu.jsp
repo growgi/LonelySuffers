@@ -167,6 +167,9 @@
     .menu-detail-title>li:hover{
         background-color: rgb(37, 37, 37);
     }
+    .first-menu:hover{
+    	background-color: rgb(22, 22, 22);
+    }
     .action-menu-detail{
         background-color: rgb(37, 37, 37);
     }
@@ -230,7 +233,6 @@
 	    margin-bottom: 10px;
 	  }
 	 */
-
 </style>
 <div class="admin-menu-wrapper">
 <div class="left-menu">
@@ -245,10 +247,13 @@
         <div class="left-menu-content">
             <ul class="left-menu-list">
                 <li>
-                    <div class="menu-detail-title">
-                        <span class="material-symbols-outlined">deployed_code</span>
-                        <div>Dashboard</div>
+                    <div class="menu-detail-title first-menu" style="cursor:pointer; color: rgb(173, 173, 173);">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <div style="cursor:pointer; color: rgb(173, 173, 173);">Dashboard</div>
                     </div>
+                </li>
+                <li>
+                	<div class="menu-detail-title" style="font-size:10px; padding-top:30px; padding-bottom:0; font-weight:400; color: rgb(173, 173, 173);">ADMIN MENU</div>
                 </li>
                 <li>
                     <div class="menu-detail-title">
@@ -271,6 +276,16 @@
                         <li><a href="/newProductAll.do?reqPage=1">신규 상품 승인</a></li>
                         <li><a href="/productListAll.do?reqPage=1">등록된 상품 관리</a></li>
                         <li><a href="/salesDetails.do?reqPage=1">상품 판매내역</a></li>
+                    </ul>
+                </li>
+                 <li>
+                    <div class="menu-detail-title">
+                        <span class="material-symbols-outlined">directions_car</span>
+                        <div>카풀 관리</div>
+                        <!-- <span class="material-symbols-outlined right-navi">chevron_right</span> -->
+                    </div>
+                    <ul class="menu-detail">
+                        <li><a href="/carpoolList.do?reqPage=1">게시물 관리</a></li>
                     </ul>
                 </li>
                 <li>
@@ -325,6 +340,11 @@
     $(".admin-icon").on("click",function(){
         $(".link-box").fadeToggle(200);
         $(this).toggleClass("active-admin-icon");
+    });
+    
+    //dashboard 이동
+    $(".first-menu").on("click",function(){
+    	location.href = "/dashboard.do";
     });
 
     /*왼쪽 메뉴
