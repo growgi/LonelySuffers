@@ -23,6 +23,10 @@
     background-color: #fffbe9;
     color: #ad8b73;
 }
+.tab-wrap>ul:hover li{
+	font-size: 1.1em;
+	font-weight: 800;
+}
 
 .content-wrap{
     background-color: #fffbe9;

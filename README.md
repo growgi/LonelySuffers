@@ -1,2 +1,2 @@
-# LonelySuffers
+# LonelySufers
 Spring legacy project

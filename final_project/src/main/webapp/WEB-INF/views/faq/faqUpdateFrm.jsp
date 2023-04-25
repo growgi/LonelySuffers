@@ -17,20 +17,21 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-
+<link rel="stylesheet" href="/resources/css/faq.css">
 </head>
 
 
 
 <body>
+	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
+
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<section class="section normalhead lb">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>자주묻는질문 작성</h2>
-						<hr>
+						<h2 style="border-bottom: 5px solid #006bd6">Lonely Suffers 자주묻는질문 수정</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -44,17 +45,17 @@
 			<div class="container">
 				<div class="row">
 				<form action="/faqUpdate.do" method="post">
-				<table>
-					<tr>
-						<th>번호</th>
-						<td><input type="text" name="faqNo" value="${faq.faqNo }" readonly></td>
-						<th>제목</th>
-						<td><input type="text" name="faqTitle" value="${faq.faqTitle }"></td>
-					</tr>
-					<tr>
-						<th>카테고리</th>
-						<td>
-						<c:choose>
+				<div class="faqViewWrap">
+					<p style="margin-bottom: 5px;">제목</p>
+					<p style="font-size: 30px;"><input style="text-align: center; border: none;" type="text" name="faqTitle" value="${faq.faqTitle }"></p>
+					<ul class="faqViewheader">
+						<li style="font-size: 20px;">번호</li>
+						<span>|</span>
+						<li><input type="text" id="faqNo" name="faqNo" value="${faq.faqNo }" readonly style="width: 30px; border: none;"></li>
+						<li style="font-size: 20px;">카테고리</li>
+						<span>|</span>
+						<li>
+							<c:choose>
 							<c:when test="${faq.categoryNo == 1 }">
 								<select name="categoryNo" id="categoryNo" class="input-form">
 									<option value="1" selected>예약취소</option>
@@ -116,31 +117,30 @@
 								</select>
 							</c:when>
 						</c:choose>
-						</td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td><textarea name="faqContent" >${faq.faqContent }</textarea></td>
-					</tr>	
-				</table>
-				<table>
-					<tr>
-						<th colspan="2"><input type="submit" value="수정하기"></th>
-						<th colspan="2"><input type="submit" value="취소"></th>
-					</tr>
-				</table>	
-				</form>
-				
-				</div><!-- end row -->
-			</div><!-- end container -->
-		</section><!-- end section -->
-
-
-
-
-
-
-
+						</li>
+					</ul>
+				</div>
+				<p style="text-align: center; font-weight: bold;">내용</p>
+					<div class="faqContentWrap">
+						<table class="faqViewContent">
+							<tr>
+								<td><textarea id="faqWriteContent" name="faqContent" >${faq.faqContent }</textarea></td>
+							</tr>
+						</table>
+					</div>
+					<table class="faqViewContent">
+						<tr>
+							<th class="faqViewBtn">
+								<input class="button-74" type="submit" value="수정">
+								<input class="button-74 cancelBtn" type="button" value="취소">
+							</th>
+						</tr>	
+					</table>
+					</form>
+				</div>
+			</div>
+		</section>		
+		
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
 	<!-- end wrapper -->
@@ -151,6 +151,45 @@
 	<script src="resources/js/animate.js"></script>
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
+<script>
+$(document).ready(function() {
+	$('#faqWriteContent').summernote({
+		  width: 1070,				   // 에디터 넓이
+		  height: 420,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+			  toolbar: [
+				    // 글꼴 설정
+				    ['fontname', ['fontname']],
+				    // 글자 크기 설정
+				    ['fontsize', ['fontsize']],
+				    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+				    // 글자색
+				    ['color', ['forecolor','color']],
+				    // 표만들기
+				    ['table', ['table']],
+				    // 줄간격
+				    ['height', ['height']],
+				    // 그림첨부, 링크만들기, 동영상첨부
+				    // 코드보기, 확대해서보기, 도움말
+				    ['view', ['help']]
+				  ],
+	});
+});
+
+$('.cancelBtn').on('click', function(){
+	 const faqNo = $('#faqNo').val();
+	 location.href = "/faqView.do?faqNo="+faqNo;
+	})
+</script>	
 
 </body>
 </html>

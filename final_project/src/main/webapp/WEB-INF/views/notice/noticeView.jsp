@@ -33,7 +33,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2 style="border-bottom: 5px solid #006bd6">공지사항</h2>
+						<h2 style="border-bottom: 5px solid #006bd6">Lonely Suffers 공지사항</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -51,11 +51,11 @@
 					<div class="paper">
 						<div class="paper-content">
 							<ul>
-								<li>제목</li>
+								<li class="paper2">제목</li>
 								<li>${n.noticeTitle }</li>
 							</ul>
 							<ul>
-								<li>작성일</li>
+								<li class="paper2">작성일</li>
 								<li>${n.noticeDate }</li>
 							</ul>
 							<ul>
@@ -64,7 +64,7 @@
 					            </c:forEach>
 							</ul>
 							<ul>
-								<li>내용</li>
+								<li class="paper2">내용</li>
 								<li>${n.getNoticeContentBr() }</li>
 							</ul>
 						</div>

@@ -79,7 +79,7 @@ input[type=text],input[type=password]{
 
 .active-div{
     display: block;
-    margin-left: 50px;
+    margin-left: 0px;
     box-sizing: border-box;
 
 }
@@ -152,3 +152,159 @@ input[type=text],input[type=password]{
 .customInput>div>input:focus ~ span, .customInput>div>input:valid ~ span {
     width: 100%;
 }
+
+.count{
+    font-weight: 900;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+.count>span{
+    color: #86C8BC;
+    font-size: 20px;
+}
+th:first-child, td:first-child{
+    width: 80px;
+
+}
+
+.list-top>table{
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+    border-spacing: 0;
+    margin-bottom: 25px;
+}
+table th{
+    background-color: #F6F1F1;
+    color: #333536;
+}
+table th:first-child{
+    border-top-left-radius: 10px;
+}
+table th:last-child{
+    border-top-right-radius: 10px;
+}
+table td:nth-child(3){
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+table th, td{
+    height: 70px;
+    border-bottom: 1px solid rgb(202, 202, 202);
+    word-break:break-all;
+}
+table tr:hover{
+    background-color: #fafafa;
+}
+.list-top{
+    padding: 35px;
+    border: 2px solid rgb(238, 238, 238);
+    border-bottom: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.list-bottom{
+    background-color: rgb(241, 241, 241);
+    height: 150px;
+    box-sizing: border-box;
+    text-align: right;
+    position: relative;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.list-bottom>div{
+    position: absolute; 
+    right: 30px; 
+    bottom: 30px;
+}
+
+.myProfile>ul>li{
+    padding: 3px 3px;
+}
+
+
+.myProfile>ul>li:first-child,.myProfile>ul>li:nth-child(3),.myProfile>ul>li:nth-child(5),.myProfile>ul>li:nth-child(7){
+    background-color: #252525;
+    color: #fff;
+    width: 300px;
+}
+
+.myProfile>ul>li:first-child:hover,.myProfile>ul>li:nth-child(3):hover,.myProfile>ul>li:nth-child(5):hover,.myProfile>ul>li:nth-child(7):hover{
+    background-color: #424242;
+}
+.myProfile>ul>li:nth-child(2),.myProfile>ul>li:nth-child(4),.myProfile>ul>li:nth-child(6).myProfile>ul>li:last-child{
+}
+
+button{
+    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+    width: 175px;
+}
+
+#sendMsg{
+    width: 390px;
+
+}
+
+#sendBtn{
+    width: 100px;
+}
+
+.endBtnDiv{
+    position: relative;
+    width: 500px;
+    
+  }
+  
+  [name=endChatBtn]{
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background-color: rgba(141, 180, 214, 0.1);
+    font-weight: 500;
+    font-size: 17px;
+  }
+
+  
+  [name=endChatBtn]:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경색 지정 */
+    color: #fff;
+    font-weight: 600;
+  }
+  .messageArea::-webkit-scrollbar{
+    border-radius: 5px;
+    width: 10px;
+    background-color: #ffffff;
+    border: 1px solid black;
+  }
+
+  .messageArea::-webkit-scrollbar-track{
+  }
+
+  .messageArea::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #222222;
+  }
+
+  table>tbody>tr:first-child>td{
+    background-color: #123;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+
+  }
+
+  table>tbody>tr:first-child>td:first-child{
+    border-top-left-radius: 10px;
+  }
+  table>tbody>tr:first-child>td:last-child{
+    border-top-right-radius: 10px;
+    width: 120px;
+  }
+  

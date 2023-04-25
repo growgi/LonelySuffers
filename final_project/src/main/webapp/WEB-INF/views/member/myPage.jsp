@@ -42,7 +42,7 @@
 									<li>구매내역</li>
 									<li class="chatList">1대1문의<span class="chatChkSpan"></span></li>
 									<c:if test="${sessionScope.m.memberGrade == 2}">
-									<li>판매자전용</li>
+									<li><a href="/productInsert.do">판매자전용</a></li>
 									</c:if>
 								</ul>
 							</div>
@@ -66,9 +66,10 @@
 													<label for="memberName">전화번호</label><br>
 													<input type="text" name="memberPhone" id="memberPhone" class="longInput" required value="${sessionScope.m.memberPhone }"><br>
 													<label for="memberEmail">이메일</label><br>
-													<input type="text" name="email" class="longInput" id="email" required value="${sessionScope.m.memberEmail }"><br>
+													<input type="text"  class="longInput" id="email" required value="${sessionScope.m.memberEmail }" readonly><br>
 													<label for="enrollDate">가입일</label><br>
-													<input type="text" name="enrollDate" class="longInput" id="enrollDate" readonly value="${sessionScope.m.enrollDate }">
+													<input type="text" name="enrollDate" class="longInput" id="enrollDate" readonly value="${sessionScope.m.enrollDate }"><br>
+													<button type="submit" id="updateMemberBtn">변경</button>
 												</form>
 											</div>
 										</li>
@@ -129,14 +130,16 @@
 									</ul>
 								</div><!-- myProfile -->
 								<div class="buyList hide-div">
+									<div class="content-top"></div>
 									<div>
 										<table>
 											<tr>
-												<td width="15%">번호</td>
-												<td width="15%">주문 상품</td>
-												<td width="20%">처리 상태</td>
-												<td width="20%">결제 금액</td>
-												<td width="30%">주문 날짜</td>
+												<td width="12%">번호</td>
+												<td width="12%">주문 상품</td>
+												<td width="17%">처리 상태</td>
+												<td width="17%">결제 금액</td>
+												<td width="27%">주문 날짜</td>
+												<td width="15%">주문상세내역</td>
 											</tr>
 											<c:forEach items="${list }" var="o" varStatus="s">
 												<tr>
@@ -162,6 +165,7 @@
 													</c:choose>
 													<td><fmt:formatNumber value="${o.orderAllPrice }" pattern="#,###" />원</td>
 													<td>${o.orderDate }</td>
+													<td><a href="/myOrderDetail.do?orderNo=${o.orderNo }">상세확인</a></td>
 												</tr>
 											</c:forEach>  
 										</table>
@@ -171,13 +175,10 @@
 								<div class="adminChat hide-div">
 									<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
 									<div class="chatting">
-										<div class="searchInput">
-											<input type="text" class="searchInputText">
-											<button type="button" class="searchBtn">찾기</button>
-											<button type="button" class="nextBtn">다음</button>
-										</div> 
+										<div class="endBtnDiv">
+										<button type="button" name="endChatBtn" onclick="endChatBtn('${sessionScope.m.memberId}');">채팅종료</button>
+										</div>
 										<div class="messageArea">
-											<button type="button" name="endChatBtn" onclick="endChatBtn('${sesionScope.m.memberId}')">채팅종료</button>
 										</div>
 										<div class="sendBox">
 											<input type="text" id="sendMsg">

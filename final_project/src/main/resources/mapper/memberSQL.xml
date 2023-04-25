@@ -166,6 +166,14 @@
  			member_tbl 
  		where
  			member_id = #{memberId} and member_email = #{memberEmail}
- 			
  	</select>
+ 	<update id="updateMember" parameterType="m">
+ 		update
+ 			 member_tbl
+ 		set
+ 			member_phone = #{memberPhone},
+ 			member_name = #{memberName}
+ 		where
+ 			member_no = #{memberNo} 
+ 	</update>
 </mapper>

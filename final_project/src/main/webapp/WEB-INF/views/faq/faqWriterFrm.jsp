@@ -24,14 +24,15 @@
 </style>
 
 <body>
+	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
+	
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		<section class="section normalhead lb">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>자주묻는질문 작성</h2>
-						<hr>
+						<h2 style="border-bottom: 5px solid #006bd6">Lonely Suffers 자주묻는질문 작성</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -46,17 +47,12 @@
 			<div class="container">
 				<div class="row">
 					<form action="/faqWrite.do" method="post">
-					<div class="letter">
-					dddddddddddddddddddddd
-					</div>
-						<table>
-							<tr>
-								<th>제목</th>
-								<td><input type="text" name="faqTitle"></td>
-							</tr>
-							<tr>
-								<th>카테고리</th>
-								<td>
+						<div class="faqViewWrap">
+							<p style="font-size: 20px; margin-bottom: 5px;">제목</p>
+							<p style="font-size: 30px;"><input style="border: none; border-bottom: 1px solid #595959" type="text" name="faqTitle"></p>
+							<ul class="faqViewheader">
+								<li>카테고리</li>
+								<li>
 									<select name="categoryNo" id="categoryNo" class="input-form">
 										<option value="1">예약취소</option>
 										<option value="2">숙박</option>
@@ -65,14 +61,24 @@
 										<option value="5">후기</option>
 										<option value="6">회원서비스</option>
 									</select>
-								</td>
-							</tr>
+								</li>
+							</ul>
+						</div>
+						<p style="text-align: center; font-size: 20px; font-weight: bold;">내용</p>
+						<div class="faqContentWrap">
+							<table class="faqViewContent">
+								<tr>	
+									<td><textarea id="faqWriteContent" name="faqContent"></textarea></td>
+								</tr>
+							</table>
+						</div>	
+						<table class="faqViewContent">
 							<tr>
-								<th>내용</th>
-								<td><textarea name="faqContent"></textarea></td>
+								<th class="faqViewBtn">
+									<input class="button-74" type="submit" value="작성하기">
+								</th>
 							</tr>
 						</table>
-						<input type="submit" value="작성하기">
 					</form>	
 				</div><!-- end row -->
 			</div><!-- end container -->
@@ -88,6 +94,39 @@
 	<script src="resources/js/animate.js"></script>
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
-
+	
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
+	<script>
+	$(document).ready(function() {
+		$('#faqWriteContent').summernote({
+			  width: 1070,				   // 에디터 넓이
+			  height: 420,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+				  toolbar: [
+					    // 글꼴 설정
+					    ['fontname', ['fontname']],
+					    // 글자 크기 설정
+					    ['fontsize', ['fontsize']],
+					    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+					    // 글자색
+					    ['color', ['forecolor','color']],
+					    // 표만들기
+					    ['table', ['table']],
+					    // 줄간격
+					    ['height', ['height']],
+					    // 그림첨부, 링크만들기, 동영상첨부
+					    // 코드보기, 확대해서보기, 도움말
+					    ['view', ['help']]
+					  ],
+		});
+	});
+	</script>
 </body>
 </html>

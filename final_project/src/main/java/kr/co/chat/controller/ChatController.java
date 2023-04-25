@@ -29,7 +29,7 @@ public class ChatController {
 			int result = service.updateChatActivation(ca.getChatActiveNo());
 			if(result == 0) {
 				return "caNo";
-			}else {
+			}else {       
 				return "caOk";
 			}
 		}else {
@@ -64,12 +64,27 @@ public class ChatController {
 	@RequestMapping(value = "/selectChatData.do",produces = "application/json;charset=utf-8")
 	public String selectChatData(String memberId) {
 		ChatActive ca = service.selectChatActive(memberId);
-		if(ca != null && ca.getChatActivation() == 1) {
+		if(ca == null) {
+			return null;
+		}else if(ca != null && ca.getChatActivation() == 1) {
 			ChatContent cc = service.selectChatData(memberId);
 			return new Gson().toJson(cc);
 		}else {
 			return null;
 		}
 		}
+	
+	@ResponseBody
+	@RequestMapping(value = "/endChat.do")
+	public String endChat(String memberId) {
+		System.out.println("memberId : "+memberId);
+		int result = service.endChat(memberId);
+		if(result != 0) {
+			return "ok";
+		}else {
+			return "no";
+		}
+	}
+	
 	}
 

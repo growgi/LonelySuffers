@@ -19,11 +19,14 @@
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet" href="/resources/css/notice.css">
 
+
 <style>
 
 </style>
 </head>
 <body>
+	<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
+	
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 		
@@ -31,7 +34,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2 style="border-bottom: 5px solid #006bd6">공지사항 작성</h2>
+						<h2 style="border-bottom: 5px solid #006bd6">Lonely Suffers 공지사항 작성</h2>
 					</div>
 					<!-- end col -->
 				</div>
@@ -50,14 +53,14 @@
 						<div class="paper">
 							<div class="paper-content">
 								<ul>
-									<li>제목<input id="noticeTitle" type="text" name="noticeTitle" required></li>
+									<li class="paper2">제목<input id="noticeTitle" type="text" name="noticeTitle" required></li>
 								</ul>
 								<ul>
-									<li>첨부파일<input id="noticeFile" type="file" name="noticeFile" multiple onchange="loadImgs(this);"></li>
+									<li class="paper2">첨부파일<input id="noticeFile" type="file" name="noticeFile" multiple onchange="loadImgs(this);"></li>
 								</ul>
 								<ul>
-									<li style="margin-top: 25px;">내용</li>
-									<li><textarea name="noticeContent" required></textarea></li>
+									<li class="paper2" style="margin-top: 25px;">내용</li>
+									<li><textarea id="summernote" name="noticeContent" required></textarea></li>
 								</ul>
 							</div>
 						</div>
@@ -78,6 +81,8 @@
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 	<script>
 	function loadImgs(input) {
         // 기존에 있는 이미지 삭제
@@ -93,6 +98,37 @@
           }
         }
       }
+	
+	$(document).ready(function() {
+		$('#summernote').summernote({
+			  width: 725,				   // 에디터 넓이	
+			  height: 420,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+				  toolbar: [
+					    // 글꼴 설정
+					    ['fontname', ['fontname']],
+					    // 글자 크기 설정
+					    ['fontsize', ['fontsize']],
+					    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+					    // 글자색
+					    ['color', ['forecolor','color']],
+					    // 표만들기
+					    ['table', ['table']],
+					    // 줄간격
+					    ['height', ['height']],
+					    // 그림첨부, 링크만들기, 동영상첨부
+					    // 코드보기, 확대해서보기, 도움말
+					    ['view', ['help']]
+					  ],
+		});
+	});
+	
+	
 	</script>
 	
 	

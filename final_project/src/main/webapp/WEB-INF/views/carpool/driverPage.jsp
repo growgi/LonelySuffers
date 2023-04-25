@@ -44,6 +44,11 @@
 	background-color: #FBFFB1;
 	color: black;
 }
+
+.category:hover a{
+	font-size: 1.1em;
+	font-weight: 800;
+}
 </style>
 </head>
 
