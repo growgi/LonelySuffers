@@ -120,21 +120,27 @@ public class InquiryController {
 	}
 
 
+
 // 문의 내용 수정.  Inquiry 테이블에서 Row 1개 수정
 	@ResponseBody
 	@RequestMapping(value="/updateInquiry.do", produces = "application/text; charset=utf8")
 	public String updateInquiry(Inquiry i, HttpSession session) {
 		Member me = (Member)session.getAttribute("m");
-		Inquiry compare = service.selectOneInquiry(i.getInquiryNo());
-		if(me.getMemberId().equals(compare.getInquirer())) {
-			int result = service.updateInquiry(i);
-			if(result>0) {
-				return "문의글을 수정했습니다.";
-			}else {
-				return "알 수 없는 이유로 문의글 수정에 실패했습니다.";
-			}
+		ArrayList<Answer> ia = service.selectAllAnswerByInquiry(i.getInquiryNo());
+		if(ia.size()>0) {
+			return "이미 답변이 등록되어 있습니다. 새로운 문의를 등록해주십시오.";
 		}else {
-			return "본인이 작성한 것만 수정할 수 있습니다.";
+			Inquiry compare = service.selectOneInquiry(i.getInquiryNo());
+			if(me.getMemberId().equals(compare.getInquirer())) {
+				int result = service.updateInquiry(i);
+				if(result>0) {
+					return "문의글을 수정했습니다.";
+				}else {
+					return "알 수 없는 이유로 문의글 수정에 실패했습니다.";
+				}
+			}else {
+				return "본인이 작성한 것만 수정할 수 있습니다.";
+			}
 		}
 	}
 
@@ -152,18 +158,108 @@ public class InquiryController {
 			}else {
 				return "알 수 없는 이유로 문의글 삭제에 실패했습니다.";
 			}
-		}
-		
-		Inquiry compare = service.selectOneInquiry(inquiryNo);
-		if(me.getMemberId().equals(compare.getInquirer())) {
-			int result = service.deleteInquiry(inquiryNo);
-			if(result>0) {
-				return "문의글을 삭제했습니다.";
+		}else {
+			Inquiry compare = service.selectOneInquiry(inquiryNo);
+			if(me.getMemberId().equals(compare.getInquirer())) {
+				int result = service.deleteInquiry(inquiryNo);
+				if(result>0) {
+					return "문의글을 삭제했습니다.";
+				}else {
+					return "알 수 없는 이유로 문의글 삭제에 실패했습니다.";
+				}
 			}else {
-				return "알 수 없는 이유로 문의글 삭제에 실패했습니다.";
+				return "본인이 작성한 것만 삭제할 수 있습니다.";
+			}
+		}
+	}
+
+
+
+// 신규 답변 추가.  Answer 테이블에 Row 1개 추가
+	@ResponseBody
+	@RequestMapping(value="/insertAnswer.do", produces = "application/text; charset=utf8")
+	public String insertAnswer(Answer ia, int productCategory, int productNo, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberGrade() != 2) {
+			return "판매자 회원만이 답변을 등록할 수 있습니다.";
+		}else {
+			if(productCategory==1) {
+				Lesson l = lService.selectOneLesson(productNo);
+				if(!me.getMemberId().equals(l.getWriter())) {
+					return "본인의 판매 상품에만 답변을 등록할 수 있습니다.";
+				}else {
+					ia.setAnswerWriter(me.getMemberId());
+					int result = service.insertAnswer(ia);
+					if(result>0) {
+						return "답변을 등록했습니다.";
+					}else {
+						return "알 수 없는 이유로 답변 등록에 실패했습니다.";
+					}
+				}
+			}else if(productCategory==2) {
+				House h = hService.selectOneHouse(productNo);
+				if(!me.getMemberId().equals(h.getWriter())) {
+					return "본인의 판매 상품에만 답변을 등록할 수 있습니다.";
+				}else {
+					ia.setAnswerWriter(me.getMemberId());
+					int result = service.insertAnswer(ia);
+					if(result>0) {
+						return "답변을 등록했습니다.";
+					}else {
+						return "알 수 없는 이유로 답변 등록에 실패했습니다.";
+					}
+				}
+			}else {
+				return "알 수 없는 이유로 답변 등록에 실패했습니다.";
+			}
+		}
+	}
+
+
+// 답변 내용 수정.  Answer 테이블에서 Row 1개 수정
+	@ResponseBody
+	@RequestMapping(value="/updateAnswer.do", produces = "application/text; charset=utf8")
+	public String updateAnswer(Answer ia, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		Answer compare = service.selectOneAnswer(ia.getAnswerNo());
+		if(me.getMemberId().equals(compare.getAnswerWriter())) {
+			int result = service.updateAnswer(ia);
+			if(result>0) {
+				return "답변을 수정했습니다.";
+			}else {
+				return "알 수 없는 이유로 답변 수정에 실패했습니다.";
 			}
 		}else {
-			return "본인이 작성한 것만 삭제할 수 있습니다.";
+			return "본인이 작성한 것만 수정할 수 있습니다.";
+		}
+	}
+
+
+
+// 문의 삭제.  Inquiry 테이블에서 Row 1개 삭제
+	@ResponseBody
+	@RequestMapping(value="/deleteAnswer.do", produces = "application/text; charset=utf8")
+	public String deleteAnswer(int answerNo, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberGrade()==1) {
+			int result = service.deleteAnswer(answerNo);
+			if(result>0) {
+				return "답변을 삭제했습니다.";
+			}else {
+				return "알 수 없는 이유로 답변 삭제에 실패했습니다.";
+			}
+		}else {
+			Answer compare = service.selectOneAnswer(answerNo);
+			if(me.getMemberId().equals(compare.getAnswerWriter())) {
+				int result = service.deleteAnswer(answerNo);
+				if(result>0) {
+					return "답변을 삭제했습니다.";
+				}else {
+					return "알 수 없는 이유로 답변 삭제에 실패했습니다.";
+				}
+			}else {
+				return "본인이 작성한 것만 삭제할 수 있습니다.";
+			}
 		}
 	}
 

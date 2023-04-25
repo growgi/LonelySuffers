@@ -19,23 +19,12 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 
+<link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 <style>
 .previewImg {
 	width: 100%;
 }
-.clickToLarger {
-	width: 80px;
-	height: 80px;
-}
-.clickToLarger:hover { cursor: pointer; }
-.onViewing { border: 4px solid #3ac5c8; }
-.product-detail>div{
-	margin-top:20px;
-	margin-bottom:20px;
-}
-.nav-item { background-color: #3ac5c8;}
-.nav-link { color: #ffffff; }
 input[type="number"], input[type="time"] {
 	text-align: right;
 }

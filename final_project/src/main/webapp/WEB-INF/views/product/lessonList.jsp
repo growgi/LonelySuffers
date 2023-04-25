@@ -18,24 +18,8 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-<style>
-.eachProduct {
-	height: 440px;
-	float: left;
-	padding: 30px;
-}
-.eachProduct:hover {
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
-  cursor: pointer;
-}
-.pagination {
-	text-align: center;
-}
-#shownForm * {
-	display: inline-block;
-	margin-bottom: 20px;
-}
-</style>
+
+<link rel="stylesheet" type="text/css" href="resources/css/product.css">
 </head>
 
 
