@@ -345,10 +345,70 @@ public class AdminDao {
 	}
 
 	public ArrayList<Carpool> selectSearchCarpool(String searchKeyword) {
-		System.out.println("dao:"+searchKeyword);
 		List carpoolList = sqlSession.selectList("admin.selectSearchCarpool", searchKeyword);
 		
 		return (ArrayList<Carpool>)carpoolList;
+	}
+
+	public int selectTotalSalesAmount() {
+		int totalSalesAmount = sqlSession.selectOne("admin.selectTotalSalesAmount");
+		
+		return totalSalesAmount;
+	}
+
+	public int selectTodaySalesAmount() {
+		int todaySalesAmount = sqlSession.selectOne("admin.selectTodaySalesAmount");
+		
+		return todaySalesAmount;
+	}
+
+	public int selectCarpoolRecruitingCount() {
+		int carpoolRecruitingCount = sqlSession.selectOne("admin.selectCarpoolRecruitingCount");
+		
+		return carpoolRecruitingCount;
+	}
+
+	public ArrayList<Product> selectNewProduct() {
+		List newProductList = sqlSession.selectList("admin.selectNewProduct");
+		
+		return (ArrayList<Product>)newProductList;
+	}
+
+	public ArrayList<Member> selectNewMember() {
+		List newMemberList = sqlSession.selectList("admin.selectNewMember");
+		
+		return (ArrayList<Member>)newMemberList;
+	}
+
+	public ArrayList<Carpool> selectNewCarpoolDriver() {
+		List newCarpoolDriverList = sqlSession.selectList("admin.selectNewCarpoolDriver");
+		
+		return (ArrayList<Carpool>)newCarpoolDriverList;
+	}
+
+	public ArrayList<Member> selectAllAdmin() {
+		List adminList = sqlSession.selectList("admin.selectAllAdmin");
+		
+		return (ArrayList<Member>)adminList;
+	}
+
+	//방문자수
+	public ArrayList<Integer> selectVisitant() {
+		List visitantList = sqlSession.selectList("admin.selectVisitant");
+		
+		return (ArrayList<Integer>)visitantList;
+	}
+
+	public ArrayList<Integer> selectGenderRatio() {
+		List genderRatio = sqlSession.selectList("admin.selectGenderRatio");
+		
+		return (ArrayList<Integer>)genderRatio;
+	}
+
+	public ArrayList<Integer> selectSalesAmount() {
+		List salesAmountList = sqlSession.selectList("admin.selectSalesAmount");
+		
+		return (ArrayList<Integer>)salesAmountList;
 	}
 
 }

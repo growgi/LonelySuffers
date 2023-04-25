@@ -1419,8 +1419,62 @@ public class AdminService {
 	}
 
 	public ArrayList<Carpool> selectSearchCarpool(String searchKeyword) {
-		System.out.println("service:"+searchKeyword);
 		return dao.selectSearchCarpool(searchKeyword);
+	}
+
+	public int selectNewAdminChatCount() {
+		
+		return 0;
+	}
+
+	public int selectTotalSalesAmount() {
+
+		return dao.selectTotalSalesAmount();
+	}
+
+	public int selectTodaySalesAmount() {
+		
+		return dao.selectTodaySalesAmount();
+	}
+
+	public int selectCarpoolRecruitingCount() {
+		
+		return dao.selectCarpoolRecruitingCount();
+	}
+
+	public ArrayList<Product> selectNewProduct() {
+		
+		return dao.selectNewProduct();
+	}
+
+	public ArrayList<Member> selectNewMember() {
+		
+		return dao.selectNewMember();
+	}
+
+	public ArrayList<Carpool> selectNewCarpoolDriver() {
+
+		return dao.selectNewCarpoolDriver();
+	}
+
+	public ArrayList<Member> selectAllAdmin() {
+		
+		return dao.selectAllAdmin();
+	}
+
+	public ArrayList<Integer> selectVisitant() {
+		
+		return dao.selectVisitant();
+	}
+
+	public ArrayList<Integer> selectGenderRatio() {
+		
+		return dao.selectGenderRatio();
+	}
+
+	public ArrayList<Integer> selectSalesAmount() {
+		
+		return dao.selectSalesAmount();
 	}
 
 
