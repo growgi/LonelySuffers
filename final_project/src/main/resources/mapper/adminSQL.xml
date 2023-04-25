@@ -799,4 +799,25 @@
  		where member_grade in(2,3)
  		order by member_no desc
  	</select>
+ 	
+ 	<select id="selectGenderRatio" resultType="_int">
+ 		select 
+			round(sum(man)/count(*)*100,0) as manRatio
+			,round(sum(woman)/count(*)*100,0) as womanRatio
+		from(
+			select 
+			(case when member_gender=1 then 1 else 0 end) as man
+			,(case when member_gender=2 then 1 else 0 end) as woman
+			from 
+			member_tbl)
+ 	</select>
+ 	
+ 	<select id="selectSalesAmount" resultType="order">
+	 	select substr(order_date,1,7) mm,
+		       sum(order_all_price) as sales
+		from order_tbl
+		where order_product=1
+		group by substr(order_date,1,7)
+		order by 1
+ 	</select>
 </mapper>

@@ -1472,7 +1472,7 @@ public class AdminService {
 		return dao.selectGenderRatio();
 	}
 
-	public ArrayList<Integer> selectSalesAmount() {
+	public ArrayList<Order> selectSalesAmount() {
 		
 		return dao.selectSalesAmount();
 	}
