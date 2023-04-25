@@ -1813,132 +1813,6 @@ $("document").ready(function() {
 	$(".page7-pass").on('click',function(){
 			alert("강습은 꼭 선택해주셔야해요");
 	})
-
-
-//강습상품의 상세정보 보기 버튼 클릭하면 modal을 띄워주는 function
-			function getLesson(lessonNo){
-				console.log("레슨넘버"+lessonNo);
-				$(".lessonPic-check").css("display","none");
-				$("#modal-lesson-pic").parent().css("display","none");
-		
-				$.ajax({
-					url : "/lessonModalView.do",
-					data : {lessonNo : lessonNo},
-					dataType : "json",
-					success : function(data){
-						const photoUrl = "resources/upload/lesson/";
-						//모달 사진 부분
-						if(data.lessonInfoPic == null){
-							$(".lessonPic-check").css("display","block");
-						}else {
-							$("#modal-lesson-pic").parent().css("display","block");
-							$("#modal-lesson-pic").attr("src",photoUrl+data.lessonInfoPic);						
-						}
-						
-						//모달 글부분
-						//강사이름, 강습제목 
-						$("#modal-lesson-teacher").text(data.lessonTeacher);
-						$("#modal-lesson-title").text(data.lessonTitle);
-						$("#modal-lesson-time").text("("+data.lessonStartTime+"~"+data.lessonEndTime+")")
-						//강습가격
-						let lessonPrice = data.lessonPrice;
-						$("input[name=lessonPrice]").attr("value",data.lessonPrice);
-						$("#modal-lesson-price").text(lessonPrice.toLocaleString("ko-KR"));
-						//정원 수
-						$("input[name=lessonMaxNo]").attr("value",data.lessonMaxNo);
-						//강습레벨
-						if(data.lessonLevel == 1){ $("#modal-lesson-level").text("초급"); }
-						else if(data.lessonLevel == 2){ $("#modal-lesson-level").text("중급"); }
-						else if(data.lessonLevel == 3){ $("#modal-lesson-level").text("고급"); }
-						$("#modal-lesson-time").text(data.lessonStartTime+"~ "+data.lessonEndTime.trim());
-						//지역
-						$("#modal-lesson-city").text(data.lessonCity);
-						//상품설명
-						$("#modal-lesson-info").text(data.lessonInfo);
-						
-						const maxLessonPeople = $("#people-value").val();
-						const lessonPeopleInput = $("[name=lessonPeople]");
-						lessonPeopleInput.children().remove();
-						lessonPeopleInput.append($("<option>").attr("selected", true).attr("disabled", true).text("인원 수를 먼저 선택해주세요."));
-						for(let i=1; i<=maxLessonPeople; i++){
-							lessonPeopleInput.append($("<option>").attr("value", i).text(i+"명"));
-						}
-		
-					// 예약하기 modal 띄우면 실행되는 함수 시작
-						$("#goLessonBook").on("click", function(){
-							$("[name=lessonPeople]").on("change", function(){
-								const lessonCapa = $("input[name=lessonMaxNo]").val() - $("[name=lessonPeople]").val();
-					console.log($("[name=lessonPeople]").val() +"명을 예약하려고 함");
-					console.log("강습정원 - 지금 예약할 인원 수 = " + lessonCapa +"(필요한 남은 자리 수)");
-							// 이미 결제완료 인원 된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax
-								if($("[name=lessonPeople]").val()>=1){
-									$.ajax({
-										url : "/bookOneLesson.do",
-										data: {lessonNo : lessonNo},
-										dataType : "json",
-										success : function(List){
-											let invalidDateRanges = [];
-											for(let i=0; i<List.length; i++){
-					console.log(List[i].lessonBookDate +"에는 결제완료 상태의 인원이 이미 "+ List[i].lessonPeople +"명 있음");
-												if(List[i].lessonPeople > lessonCapa){
-					console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므로 "+ List[i].lessonBookDate +"는 막음");
-												invalidDateRanges[i] = { 'start': moment(List[i].lessonBookDate), 'end': moment(List[i].lessonBookDate) };}
-											}
-										//강습 1인 가격 넘겨줌
-										$("[name=lessonPrice]").attr("value", List[0].lessonPrice);
-		
-										// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
-											$("[name=lessonBookDate]").val("");
-											$("[name=lessonBookDate]").attr("value", null);
-		
-										// 예약일을 선택하는 date range picker 생성
-											$('[name=lessonBookDate]').daterangepicker({
-											    parentEl: "#lessonBookModalContent .modal-body",
-												locale: {
-												format: "YYYY-MM-DD",
-												fromLabel: "시작",
-												toLabel: "종료"
-									    		},
-										    	alwaysShowCalendars: true,
-												autoApply: true,
-												singleDatePicker: true,
-												showDropdowns: true,
-												minDate: moment($("#bookStartDate").val()),
-												maxDate: moment($("#bookEndDate").val()),
-												isInvalidDate: function(date) {
-													return invalidDateRanges.reduce(function(bool, range) {
-													}, false);
-												}
-											});
-											$("[name=lessonBookDate]").val("");
-											$("[name=lessonBookDate]").attr("value", null);	// value 없는 상태로 생성 필요
-										
-										},
-										error : function(){
-											console.log("인원 수를 먼저 선택해주세요에 focus됨");
-											$(".daterangepicker").remove();
-											$("[name=lessonBookDate]").val("");
-											$("[name=lessonBookDate]").attr("value", null);
-										}
-									});
-								}else{
-									$("[name=lessonBookDate]").val("");
-									$("[name=lessonBookDate]").attr("value", null);
-								}
-								//가격을 계산 하는 곳
-								$("[name=lessonTotalPrice]").attr("value",0);
-								const result = $("[name=lessonPrice]").val()*$("[name=lessonPeople]").val();
-								console.log(result);
-								$("[name=lessonTotalPrice]").attr("value",result);
-								
-							}); // 예약하기 modal 띄우면 실행되는 함수 끝
-						});
-					},
-					error : function(){
-						console.log("모달 에러났음");
-					}
-				}); //상품 상세정보 모달 ajax끝
-
 //page8 주문내역
 	$(".page8-before").on('click',function(){
 		$(".pages").hide();
@@ -2020,6 +1894,136 @@ $("document").ready(function() {
 	})
 
 
+
+
+//강습상품의 상세정보 보기 버튼 클릭하면 modal을 띄워주는 function
+			function getLesson(lessonNo){
+				console.log("레슨넘버"+lessonNo);
+				$(".lessonPic-check").css("display","none");
+				$("#modal-lesson-pic").parent().css("display","none");
+		
+				$.ajax({
+					url : "/lessonModalView.do",
+					data : {lessonNo : lessonNo},
+					dataType : "json",
+					success : function(data){
+						const photoUrl = "resources/upload/lesson/";
+						//모달 사진 부분
+						if(data.lessonInfoPic == null){
+							$(".lessonPic-check").css("display","block");
+						}else {
+							$("#modal-lesson-pic").parent().css("display","block");
+							$("#modal-lesson-pic").attr("src",photoUrl+data.lessonInfoPic);						
+						}
+						
+						//모달 글부분
+						//강사이름, 강습제목 
+						$("#modal-lesson-teacher").text(data.lessonTeacher);
+						$("#modal-lesson-title").text(data.lessonTitle);
+						$("#modal-lesson-time").text("("+data.lessonStartTime+"~"+data.lessonEndTime+")")
+						//강습가격
+						let lessonPrice = data.lessonPrice;
+						$("input[name=lessonPrice]").attr("value",data.lessonPrice);
+						$("#modal-lesson-price").text(lessonPrice.toLocaleString("ko-KR"));
+						//정원 수
+						$("input[name=lessonMaxNo]").attr("value",data.lessonMaxNo);
+						//강습레벨
+						if(data.lessonLevel == 1){ $("#modal-lesson-level").text("초급"); }
+						else if(data.lessonLevel == 2){ $("#modal-lesson-level").text("중급"); }
+						else if(data.lessonLevel == 3){ $("#modal-lesson-level").text("고급"); }
+						$("#modal-lesson-time").text(data.lessonStartTime+"~ "+data.lessonEndTime.trim());
+						//지역
+						$("#modal-lesson-city").text(data.lessonCity);
+						//상품설명
+						$("#modal-lesson-info").text(data.lessonInfo);
+						
+						const maxLessonPeople = $("#people-value").val();
+						const lessonPeopleInput = $("[name=lessonPeople]");
+						lessonPeopleInput.children().remove();
+						lessonPeopleInput.append($("<option>").attr("selected", true).attr("disabled", true).text("인원 수를 먼저 선택해주세요."));
+						for(let i=1; i<=maxLessonPeople; i++){
+							lessonPeopleInput.append($("<option>").attr("value", i).text(i+"명"));
+						}
+		
+					
+					},
+					error : function(){
+						console.log("모달 에러났음");
+					}
+				}); //상품 상세정보 모달 ajax끝
+			} //강습상품의 상세정보 보기 modal 함수 끝
+			
+// 예약하기 modal 띄우면 실행되는 함수 시작
+				$("#goLessonBook").on("click", function(){
+					$("[name=lessonPeople]").on("change", function(){
+						const lessonCapa = $("input[name=lessonMaxNo]").val() - $("[name=lessonPeople]").val();
+			console.log($("[name=lessonPeople]").val() +"명을 예약하려고 함");
+			console.log("강습정원 - 지금 예약할 인원 수 = " + lessonCapa +"(필요한 남은 자리 수)");
+					// 이미 결제완료 인원 된 날짜들을 invalidDateRanges 변수에 넣어주는 ajax
+						if($("[name=lessonPeople]").val()>=1){
+							$.ajax({
+								url : "/bookOneLesson.do",
+								data: {lessonNo : lessonNo},
+								dataType : "json",
+								success : function(List){
+									let invalidDateRanges = [];
+									for(let i=0; i<List.length; i++){
+			console.log(List[i].lessonBookDate +"에는 결제완료 상태의 인원이 이미 "+ List[i].lessonPeople +"명 있음");
+										if(List[i].lessonPeople > lessonCapa){
+			console.log("남은 자리가 "+ $("[name=lessonPeople]").val() +"이 안 되므로 "+ List[i].lessonBookDate +"는 막음");
+										invalidDateRanges[i] = { 'start': moment(List[i].lessonBookDate), 'end': moment(List[i].lessonBookDate) };}
+									}
+								//강습 1인 가격 넘겨줌
+								$("[name=lessonPrice]").attr("value", List[0].lessonPrice);
+
+								// 선택된 인원 수 바뀔 때마다 날짜 관련 데이터들 모두 초기화
+									$("[name=lessonBookDate]").val("");
+									$("[name=lessonBookDate]").attr("value", null);
+
+								// 예약일을 선택하는 date range picker 생성
+									$('[name=lessonBookDate]').daterangepicker({
+									    parentEl: "#lessonBookModalContent .modal-body",
+										locale: {
+										format: "YYYY-MM-DD",
+										fromLabel: "시작",
+										toLabel: "종료"
+							    		},
+								    	alwaysShowCalendars: true,
+										autoApply: true,
+										singleDatePicker: true,
+										showDropdowns: true,
+										minDate: moment($("#bookStartDate").val()),
+										maxDate: moment($("#bookEndDate").val()),
+										isInvalidDate: function(date) {
+											return invalidDateRanges.reduce(function(bool, range) {
+											}, false);
+										}
+									});
+									$("[name=lessonBookDate]").val("");
+									$("[name=lessonBookDate]").attr("value", null);	// value 없는 상태로 생성 필요
+								
+								},
+								error : function(){
+									console.log("인원 수를 먼저 선택해주세요에 focus됨");
+									$(".daterangepicker").remove();
+									$("[name=lessonBookDate]").val("");
+									$("[name=lessonBookDate]").attr("value", null);
+								}
+							});
+						}else{
+							$("[name=lessonBookDate]").val("");
+							$("[name=lessonBookDate]").attr("value", null);
+						}
+						//가격을 계산 하는 곳
+						$("[name=lessonTotalPrice]").attr("value",0);
+						const result = $("[name=lessonPrice]").val()*$("[name=lessonPeople]").val();
+						console.log(result);
+						$("[name=lessonTotalPrice]").attr("value",result);
+						
+					}); // 예약하기 modal 띄우면 실행되는 함수 끝
+				});
+
+
 				
 //stat-count 총합 올려주는 함수
 						$("#modal-okay2").on("click", function(){
@@ -2063,8 +2067,6 @@ $("document").ready(function() {
 						    });
 							
 						});
-					}
-			//강습상품의 상세정보 보기 modal 함수 끝
 
 	
 //뒤로가기 막기
