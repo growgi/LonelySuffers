@@ -362,4 +362,17 @@ public class HouseController {
 		return result;
 		
 	}
+
+//roomBook insert
+	@ResponseBody
+	@RequestMapping(value="/roomBookInsert.do", produces = "application/json;charset=utf-8")
+	public String roomBookInsert(RoomBook rb) {
+		int result = service.roomBookInsert(rb);
+		if(result>0) {
+			String roomBookNo = Integer.toString(rb.getRoomBookNo());
+			return roomBookNo;
+		}else {
+			return "/kiosk.jsp";
+		}
+	}
 }
