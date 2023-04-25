@@ -774,7 +774,7 @@
 											주소지 <span class="modal-house-roomAddress"></span>
 										</p>
 										<div>
-											<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking"> </button>
+											<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 										</div>
 									</div>
 									<!-- end col -->
@@ -1957,7 +1957,7 @@ $("document").ready(function() {
 						console.log("모달 에러났음");
 					}
 				}); //상품 상세정보 모달 ajax끝
-<<<<<<< HEAD
+
 //page8 주문내역
 	$(".page8-before").on('click',function(){
 		$(".pages").hide();
@@ -1969,11 +1969,11 @@ $("document").ready(function() {
 	$(".page8-okay").on('click',function(){
 		alert("여기다 ajax하시면 됩니다 병주님");
 		
-		<!--
+		
 		if(confirm("결제 confirm창 ")){
 			
 		const price = 	//결제 금액
-		const priceCheck = isNaN(price); //결제금액 숫자인지 check
+		priceCheck = isNaN(price); //결제금액 숫자인지 check
 		const regExp = /^[0-9]+00$/;	
 		const regCheck = regExp.test(price);
 		
@@ -2011,9 +2011,9 @@ $("document").ready(function() {
 				alert("1000원 단위로 결제 가능합니다.");
 			}
 		}
-	});
 	}
-		-->
+	});
+		
 		
 		
 		
@@ -2028,12 +2028,11 @@ $("document").ready(function() {
 			alert("원하시는 강습을 선택해주세요");
 		}
 		*/
-	});
+
 	$(".page8-pass").on('click',function(){
 			alert("주문내역을 확인하시고 확정버튼을 눌러주세요");
 	})
-=======
->>>>>>> Keon's_branch
+
 
 				
 //stat-count 총합 올려주는 함수
