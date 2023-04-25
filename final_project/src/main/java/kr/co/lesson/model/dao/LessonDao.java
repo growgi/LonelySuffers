@@ -73,4 +73,10 @@ public class LessonDao {
 		List list = sqlSession.selectList("l.selectLessonList",lesson);
 		return(ArrayList<Lesson>)list;
 	}
+
+
+
+	public int lessonBookInsert(LessonBook lb) {
+		return sqlSession.insert("lb.insertLessonBook",lb);
+	}
 }

@@ -47,6 +47,9 @@ public class House {
 	private String bookEndDate;			// 예약끝나는 날(퇴실-1)일
 	private int roomNo;
 	private String roomName;
+	
+	
+	
 
 	
 	public String getHouseDescriptionBr() {

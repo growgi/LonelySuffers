@@ -204,5 +204,9 @@ public class HouseService {
 	}
 
 
+//roomBook 테이블에 예약내용 insert
+	public int roomBookInsert(RoomBook rb) {
+		return dao.roomBookInsert(rb);
+	}
 	
 }
