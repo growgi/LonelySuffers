@@ -405,10 +405,10 @@ public class AdminDao {
 		return (ArrayList<Integer>)genderRatio;
 	}
 
-	public ArrayList<Integer> selectSalesAmount() {
+	public ArrayList<Order> selectSalesAmount() {
 		List salesAmountList = sqlSession.selectList("admin.selectSalesAmount");
 		
-		return (ArrayList<Integer>)salesAmountList;
+		return (ArrayList<Order>)salesAmountList;
 	}
 
 }

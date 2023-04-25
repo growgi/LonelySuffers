@@ -74,7 +74,7 @@ public class AdminController {
 		
 		/*5th*/
 		ArrayList<Carpool> newCarpoolDriverList = service.selectNewCarpoolDriver(); //신규 카풀 운전자
-		//ArrayList<Integer> salesAmountList = service.selectSalesAmount(); //상품 판매금액 추이
+		//ArrayList<Order> salesAmountList = service.selectSalesAmount(); //상품 판매금액 추이
 		
 		/*6th*/
 		ArrayList<Member> adminList = service.selectAllAdmin(); //관리자 목록
