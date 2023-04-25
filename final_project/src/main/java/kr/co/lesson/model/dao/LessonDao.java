@@ -63,7 +63,6 @@ public class LessonDao {
 
 // 조건에 맞는 판매중인 상품들의 총 개수
 	public int totalNumberOfLessonByProduct(LessonListing condition) {
-		System.out.println("LessonDao에서 확인된 condition: "+condition);
 		return sqlSession.selectOne("l.totalNumberOfLessonByProduct", condition);
 	}
 

@@ -200,12 +200,57 @@
 									</c:otherwise>
 								</c:choose>
 									</select>
-									<br>1박당 <input type="number" name="housePriceMin" class="form-control" style="width: 30%;" min="0" max="10000000" step="100" value="${condition.housePriceMin}"> ~ <input type="number" name="housePriceMax" class="form-control" style="width: 30%;" min="0" max="10000000" step="100" value="${condition.housePriceMax}">원
-									<br>숙박소 이름 <input type="text" name="roomTitle" class="form-control" style="width: 60%;" value="${condition.roomTitle}" placeholder="숙박업소 이름">
+									<br>1박당 
+								<c:choose>
+									<c:when test="${condition.housePriceMin != 0 }">
+										<input type="number" name="housePriceMin" class="form-control" style="width: 30%;" min="0" max="10000000" step="100" value="${condition.housePriceMin}">
+									</c:when>
+									<c:otherwise>
+										<input type="number" name="housePriceMin" class="form-control" style="width: 30%;" min="0" max="10000000" step="100">
+									</c:otherwise>
+								</c:choose>
+										 ~ 
+								<c:choose>
+									<c:when test="${condition.housePriceMax != 0 }">
+										<input type="number" name="housePriceMax" class="form-control" style="width: 30%;" min="0" max="10000000" step="100" value="${condition.housePriceMax}">
+									</c:when>
+									<c:otherwise>
+										<input type="number" name="housePriceMax" class="form-control" style="width: 30%;" min="0" max="10000000" step="100">
+									</c:otherwise>
+								</c:choose>
+									원
+										<br>숙박소 이름 <input type="text" name="roomTitle" class="form-control" style="width: 60%;" value="${condition.roomTitle}" placeholder="숙박업소 이름">
 								</div>
 								<div class="col-md-4">
-									인원 <input type="number" name="roomCapaMin" class="form-control" style="width: 35%;" min="1" max="20" step="1" value="${condition.roomCapaMin}"> ~ <input type="number" name="roomCapaMax" class="form-control" style="width: 35%;" min="1" max="20" step="1" value="${condition.roomCapaMax}">명
-									<br>평점 <input type="number" name="houseScore" class="form-control" style="width: 60%;" min="0" max="5" step="0.1" value="${condition.houseScore}">점 이상
+									인원 
+								<c:choose>
+									<c:when test="${condition.roomCapaMin != 0 }">
+										<input type="number" name="roomCapaMin" class="form-control" style="width: 35%;" min="1" max="20" step="1" value="${condition.roomCapaMin}">
+									</c:when>
+									<c:otherwise>
+										<input type="number" name="roomCapaMin" class="form-control" style="width: 35%;" min="1" max="20" step="1">
+									</c:otherwise>
+								</c:choose>
+									 ~ 
+								<c:choose>
+									<c:when test="${condition.roomCapaMax != 0 }">
+										<input type="number" name="roomCapaMax" class="form-control" style="width: 35%;" min="1" max="20" step="1" value="${condition.roomCapaMax}">
+									</c:when>
+									<c:otherwise>
+										<input type="number" name="roomCapaMax" class="form-control" style="width: 35%;" min="1" max="20" step="1">
+									</c:otherwise>
+								</c:choose>
+									명
+									<br>평점
+								<c:choose>
+									<c:when test="${condition.houseScore != 0 }"> 
+										<input type="number" name="houseScore" class="form-control" style="width: 60%;" min="0" max="5" step="0.1" value="${condition.houseScore}">
+									</c:when>
+									<c:otherwise>
+										<input type="number" name="houseScore" class="form-control" style="width: 60%;" min="0" max="5" step="0.1">
+									</c:otherwise>
+								</c:choose>
+									점 이상
 								</div>
 								<div class="col-md-4">
 									<label>
@@ -375,26 +420,6 @@
 		$("[name=sortingOrder]").val(sortingOrder);
 		$("#previousCondition").click();
 	}
-
-
-	// 최초 방문 시 null이 input에 value 0으로 반환되는 문제 제거
-	$(document).ready(function() {
-		if($("[name=roomCapaMin]").val()==0){
-			$("[name=roomCapaMin]").val("");
-		}
-		if($("[name=roomCapaMax]").val()==0){
-			$("[name=roomCapaMax]").val("");
-		}
-		if($("[name=housePriceMin]").val()==0){
-			$("[name=housePriceMin]").val("");
-		}
-		if($("[name=housePriceMax]").val()==0){
-			$("[name=housePriceMax]").val("");
-		}
-		if($("[name=houseScore]").val()==0){
-			$("[name=houseScore]").val("");
-		}
-	});
 	</script>
 </body>
 </html>

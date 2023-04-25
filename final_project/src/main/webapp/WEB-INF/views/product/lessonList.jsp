@@ -194,10 +194,37 @@
 									</c:otherwise>
 								</c:choose>
 									</select>
-									<br>1일당 <input type="number" name="lessonPriceMin" class="form-control" style="width: 30%;" min="0" max="10000000" step="100" value="${condition.lessonPriceMin}"> ~ <input type="number" name="lessonPriceMax" class="form-control" style="width: 30%;" min="0" max="10000000" step="100" value="${condition.lessonPriceMax}">원
+									<br>1일당 
+								<c:choose>
+									<c:when test="${condition.lessonPriceMin != 0 }">
+										<input type="number" name="lessonPriceMin" class="form-control" style="width: 30%;" min="0" max="10000000" step="100" value="${condition.lessonPriceMin}">
+									</c:when>
+									<c:otherwise>
+										<input type="number" name="lessonPriceMin" class="form-control" style="width: 30%;" min="0" max="10000000" step="100">
+									</c:otherwise>
+								</c:choose>
+										 ~ 
+								<c:choose>
+									<c:when test="${condition.lessonPriceMax != 0 }">
+										<input type="number" name="lessonPriceMax" class="form-control" style="width: 30%;" min="0" max="10000000" step="100" value="${condition.lessonPriceMax}">
+									</c:when>
+									<c:otherwise>
+										<input type="number" name="lessonPriceMax" class="form-control" style="width: 30%;" min="0" max="10000000" step="100">
+									</c:otherwise>
+								</c:choose>
+									원
 								</div>
 								<div class="col-md-4">
-									평점 <input type="number" name="lessonScore" class="form-control" style="width: 60%;" min="0" max="5" step="0.1" value="${condition.lessonScore}">점 이상
+									평점
+								<c:choose>
+									<c:when test="${condition.lessonScore != 0 }"> 
+										<input type="number" name="lessonScore" class="form-control" style="width: 60%;" min="0" max="5" step="0.1" value="${condition.lessonScore}">
+									</c:when>
+									<c:otherwise>
+										<input type="number" name="lessonScore" class="form-control" style="width: 60%;" min="0" max="5" step="0.1">
+									</c:otherwise>
+								</c:choose>
+									점 이상
 								</div>
 								<div class="col-md-4">
 									레벨 <select name="lessonLevel" class="form-control" style="width: 80%;">
@@ -356,20 +383,6 @@
 		$("[name=sortingOrder]").val(sortingOrder);
 		$("#previousCondition").click();
 	}
-
-
-	// 최초 방문 시 null이 input에 value 0으로 반환되는 문제 제거
-	$(document).ready(function() {
-		if($("[name=lessonPriceMin]").val()==0){
-			$("[name=lessonPriceMin]").val("");
-		}
-		if($("[name=lessonPriceMax]").val()==0){
-			$("[name=lessonPriceMax]").val("");
-		}
-		if($("[name=lessonScore]").val()==0){
-			$("[name=lessonScore]").val("");
-		}
-	});
 	</script>
 </body>
 </html>

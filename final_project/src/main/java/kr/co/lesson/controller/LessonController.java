@@ -144,7 +144,6 @@ public class LessonController {
 // 메인 메뉴 > 강습 상품들 보기.  Lesson 테이블에서 Row 여러 개 조회 후 반환
 	@RequestMapping(value="/selectLessonsByCondition.do")
 	public String selectLessonPage(int reqPage, LessonListing condition, Model model) {
-		System.out.println("컨트롤러에 진입 시 condition: "+condition);
 		if(condition.getLessonCity() != null) {
 			if(condition.getLessonCity().equals("") || condition.getLessonCity().equals("- 광역시/도 -")) {
 			condition.setLessonCity(null);
@@ -155,7 +154,6 @@ public class LessonController {
 			condition.setLtKeywords(condition.getLessonTitle().split(" "));
 		}
 		LessonPagination lp = service.selectLessonPage(condition, reqPage);
-		System.out.println("컨트롤러에서 돌아오기 전 condition: "+condition);
 		model.addAttribute("list", lp.getList());
 		model.addAttribute("totalCount", lp.getTotalCount());
 		model.addAttribute("pageNavi", lp.getPageNavi());

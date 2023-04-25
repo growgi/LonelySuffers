@@ -120,13 +120,13 @@ public class InquiryController {
 	}
 
 
-// 문의 수정.  Inquiry 테이블에서 Row 1개 수정
+// 문의 내용 수정.  Inquiry 테이블에서 Row 1개 수정
 	@ResponseBody
 	@RequestMapping(value="/updateInquiry.do", produces = "application/text; charset=utf8")
 	public String updateInquiry(Inquiry i, HttpSession session) {
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberId().equals(i.getInquirer())) {
-			i.setInquirer(me.getMemberId());
+		Inquiry compare = service.selectOneInquiry(i.getInquiryNo());
+		if(me.getMemberId().equals(compare.getInquirer())) {
 			int result = service.updateInquiry(i);
 			if(result>0) {
 				return "문의글을 수정했습니다.";
@@ -135,6 +135,35 @@ public class InquiryController {
 			}
 		}else {
 			return "본인이 작성한 것만 수정할 수 있습니다.";
+		}
+	}
+
+
+
+// 문의 삭제.  Inquiry 테이블에서 Row 1개 삭제
+	@ResponseBody
+	@RequestMapping(value="/deleteInquiry.do", produces = "application/text; charset=utf8")
+	public String deleteInquiry(int inquiryNo, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberGrade()==1) {
+			int result = service.deleteInquiry(inquiryNo);
+			if(result>0) {
+				return "문의글을 삭제했습니다.";
+			}else {
+				return "알 수 없는 이유로 문의글 삭제에 실패했습니다.";
+			}
+		}
+		
+		Inquiry compare = service.selectOneInquiry(inquiryNo);
+		if(me.getMemberId().equals(compare.getInquirer())) {
+			int result = service.deleteInquiry(inquiryNo);
+			if(result>0) {
+				return "문의글을 삭제했습니다.";
+			}else {
+				return "알 수 없는 이유로 문의글 삭제에 실패했습니다.";
+			}
+		}else {
+			return "본인이 작성한 것만 삭제할 수 있습니다.";
 		}
 	}
 

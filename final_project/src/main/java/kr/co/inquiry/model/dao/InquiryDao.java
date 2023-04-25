@@ -47,6 +47,7 @@ public class InquiryDao {
 	}
 
 
+
 // 신규 문의 추가.  Inquiry 테이블에 Row 1개 추가
 	public int insertInquiry(Inquiry i) {
 		return sqlSession.insert("i.insertInquiry", i);
@@ -54,7 +55,7 @@ public class InquiryDao {
 
 
 
-// 문의 수정.  Inquiry 테이블에서 Row 1개 수정
+// 문의 내용 수정.  Inquiry 테이블에서 Row 1개 수정
 	public int updateInquiry(Inquiry i) {
 		return sqlSession.update("i.updateInquiry", i);
 	}
@@ -75,7 +76,7 @@ public class InquiryDao {
 
 
 
-// 답변 수정.  Answer 테이블에서 Row 1개 수정
+// 답변 내용 수정.  Answer 테이블에서 Row 1개 수정
 	public int updateAnswer(Answer ia) {
 		return sqlSession.update("i.updateAnswer", ia);
 	}

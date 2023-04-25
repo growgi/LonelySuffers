@@ -60,12 +60,10 @@
 	</insert>
 
 
-<!-- 문의 수정 -->
+<!-- 문의 내용 수정 -->
 	<update id="updateInquiry" parameterType="i">
 		UPDATE INQUIRY SET
-		INQUIRY_TITLE = #{inquiryTitle},
-		INQUIRY_CONTENT = #{inquiryContent},
-		PRIVATELY = #{privately}
+		INQUIRY_CONTENT = #{inquiryContent}
   		WHERE INQUIRY_NO = #{inquiryNo}
 	</update>
 
@@ -85,7 +83,7 @@
 	</insert>
 
 
-<!-- 답변 수정 -->
+<!-- 답변 내용 수정 -->
 	<update id="updateAnswer" parameterType="ia">
 		UPDATE ANSWER SET ANSWER_CONTENT = #{answerContent} WHERE ANSWER_NO = #{answerNo}
 	</update>

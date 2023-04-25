@@ -119,7 +119,7 @@ public class InquiryService {
 
 
 	@Transactional
-// 문의 수정.  Inquiry 테이블에서 Row 1개 수정
+// 문의 내용 수정.  Inquiry 테이블에서 Row 1개 수정
 	public int updateInquiry(Inquiry i) {
 		return dao.updateInquiry(i);
 	}
@@ -143,7 +143,7 @@ public class InquiryService {
 
 
 	@Transactional
-// 답변 수정.  Answer 테이블에서 Row 1개 수정
+// 답변 내용 수정.  Answer 테이블에서 Row 1개 수정
 	public int updateAnswer(Answer ia) {
 		return dao.updateAnswer(ia);
 	}

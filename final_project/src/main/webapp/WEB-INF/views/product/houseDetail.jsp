@@ -300,8 +300,8 @@
 	        </div>
         	<div class="modal-body">
           		<label><input type="checkbox" name="privately" value="1" style="width: 25px; height: 25px; vertical-align: bottom;"> 비밀글</label>
-          		<input type="text" class="form-control" name="inquiryTitle" placeholder="제목: 한글 최대 100자" required>
-          		<textarea class="form-control" rows="6" name="inquiryContent" placeholder="본문: 한글 최대 333자" required></textarea>
+          		<input type="text" class="form-control" name="inquiryTitle" placeholder="제목: 한글 최대 100자.  제목은 비밀글 여부와 관계없이 항상 노출됩니다." required>
+          		<textarea class="form-control" rows="6" name="inquiryContent" placeholder="본문: 한글 최대 333자." required></textarea>
           		<input type="hidden" name="productCategory" value="2">
           		<input type="hidden" name="productNo" value="${house.houseNo}">
 	        </div>
@@ -562,16 +562,11 @@
 								}
 								
 								const idLength = InquiryPagination.list[i].inquirer.length;
-								const td5 = $("<td>");
-								let blurred = InquiryPagination.list[i].inquirer;
-								for(let j = 3; j<idLength; j++){
-									blurred = blurred.replaceAt(j, "*");
-								}
-								td5.text(blurred);
+								const td5 = $("<td>").text(InquiryPagination.list[i].inquirer);
 								
 								const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
 		
-								const tr = $("<tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								const tr = $("<tr>").addClass("inquiryTr").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 								$("#forInquiries").append(tr);
 			    			}
 						$("#forPageNavi").append(InquiryPagination.pageNavi);
@@ -590,7 +585,7 @@
 		function expandIt(obj){
 			const targetInquiryNo = $(obj).parent().prev().prev().text();
 			if( $(obj).parent().parent().next().children().eq(2).attr("colspan") == 4 ){
-				 $(obj).parent().parent().parent().find(".expandedTr").remove();
+				 $(obj).parent().parent().nextUntil(".inquiryTr").remove();
 			}else{
 				$.ajax({
 					url : "/inquiryView.do",
@@ -606,7 +601,7 @@
 									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").html(Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")) ) );
 								}
 							}
-							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").html("문의 내용<br><button type='button' onclick=''>수정</button>") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").html(Inquiry.inquiryContent.replaceAll("\n","<br>")) ) );
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' onclick='editInquiryContent(this)'>수정</button>") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
 						}
 					}
 				});
@@ -631,6 +626,43 @@
 				getInquiries(1, 0);
 			}
 		});
+	}
+
+
+	// 문의글 수정 버튼을 눌렀을 때
+	function editInquiryContent(obj){
+		const getContent = $(obj).parent().next().next().children().eq(0).html().replaceAll("<br>","\n");
+		$(obj).parent().next().next().children().css("display", "none");
+		$(obj).parent().next().next().append( $("<textarea>").addClass("form-control").attr("rows", 4).css("width", "100%").val(getContent) );
+		$(obj).parent().next().next().append( $("<button>").attr("onclick", "updateInquiry(this)").text("내용 수정") );
+		$(obj).attr("onclick", "cancleEditInquiry(this)");
+		$(obj).text("취소");
+	}
+
+
+	// 문의글 내용수정 버튼을 누르면 동작하는 ajax
+	function updateInquiry(obj){
+		$.ajax({
+			url : "/updateInquiry.do",
+			data: {inquiryNo : $(obj).parent().parent().prev().children().eq(1).text(), inquiryContent : $(obj).prev().val()},
+			dataType : "text",
+			success : function(result){
+				alert(result);
+				const target = $(obj).parent().parent().prev().children().eq(3).children().eq(0);
+				target.click();
+				target.click();
+			}
+		});
+	}
+
+
+	// 문의글 수정 취소 버튼을 눌렀을 때
+	function cancleEditInquiry(obj){
+		$(obj).parent().next().next().children().eq(2).remove();
+		$(obj).parent().next().next().children().eq(1).remove();
+		$(obj).parent().next().next().children().eq(0).css("display", "inline");
+		$(obj).attr("onclick", "editInquiryContent(this)");
+		$(obj).text("수정");
 	}
 	</script>
 
