@@ -1537,8 +1537,16 @@ $("document").ready(function() {
 							    			}
 										}
 								});
-	
-
+							},
+							//getroom function success 끝
+							error : function(){
+								console.log("모달 에러났음");
+							}
+						}); //숙소 상세정보 모달 ajax끝
+					} //getroom function 끝
+					
+					
+					
 // 예약하기 modal 띄우면 실행되는 함수 시작
 								$("#goBooking").on("click", function(){
 									
@@ -1574,8 +1582,8 @@ $("document").ready(function() {
 								$("#modal-okay").on("click", function(){
 									if($("[name=roomNo] option:selected").text() != "객실을 먼저 선택해주세요"){
 
-										let onedayPrice = data.housePrice;
-										console.log("하루 방값"+data.housePrice);
+										let onedayPrice = $("[name=housePrice]").val();
+										console.log("하루 방값"+$("[name=housePrice]"));
 										console.log("시작일"+$("#bookEndDate").val());
 										console.log("끝나는 날"+$("#bookStartDate").val());
 										
@@ -1595,10 +1603,10 @@ $("document").ready(function() {
 												console.log((i+1)+"일째까지 누계 "+result+"원");
 											}
 											if($("#barbecue-choice").val()==1){
-												result += Number(data.houseBarbecuePrice);
+												result += Number($("[name=modalOptionPrice1]").val());
 											}
 											if($("#party-choice").val()==1){
-												result += Number(data.housePartyPrice);
+												result += Number($("[name=modalOptionPrice2]").val());
 											}
 											
 											// 주문내역에 옵션 가격 및 정보 전달		
@@ -1645,18 +1653,6 @@ $("document").ready(function() {
 									}
 									
 								});
-							},
-							//getroom function success 끝
-							error : function(){
-								console.log("모달 에러났음");
-							}
-						}); //숙소 상세정보 모달 ajax끝
-					} //getroom function 끝
-					
-					
-					
-					//여기로
-
 	
 	$(".page4-pass").on('click',function(){
 		
