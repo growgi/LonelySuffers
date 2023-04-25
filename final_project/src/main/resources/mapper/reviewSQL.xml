@@ -1,5 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="review">
+	<select id="selectAllReview" resultType="rv">
+		select
+			review_no as reviewNo,
+			review_writer as reviewWriter,
+			review_title as reviewTitle,
+			review_content as reviewContent,
+			rating as rating,
+			review_date as reviewDate,
+			product_category as productCategory,
+			product_no as productNo
+		from review order by 1 desc	
+	</select>
+	
+	<select id="selectReviewNo" resultType="_int">
+		select max(review_no) from review
+	</select>
+	
+	<insert id="insertReview" parameterType="rv">
+		insert into review values
+			(review_seq.nextval,
+			#{reviewWriter},
+			#{reviewTitle},
+			#{reviewContent},
+			#{rating},
+			to_char(sysdate,'yyyy-mm-dd'),
+			#{productCategory},
+			#{productNo})
+	</insert>
+	
+	<insert id="insertFile" parameterType="rf">
+		insert into rfile_tbl values(file_seq.nextval,#{reviewNo},#{filename},#{filepath})	
+	</insert>
+	<!-- 
+	<resultMap type="rv" id="getReview">
+        <result column="review_no" property="reviewNo" />
+        <result column="review_writer" property="reviewWriter" />
+        <result column="review_title" property="reviewTitle" />
+        <result column="review_content" property="reviewContent" />
+        <result column="rating" property="rating" />
+        <result column="review_date" property="reviewDate" />
+        <result column="product_category" property="productCategory" />
+        <result column="product_no" property="productNo" />
+        <collection property="fileList"
+                 select="selectFileList"
+                 column="review_no"
+                 ofType="rf"
+                 javaType="java.util.ArrayList"
+        />
+     </resultMap>
+      -->
+     <update id="reviewUpdate" parameterType="rv">
+     	update review set
+			review_title = #{reviewTitle},
+			review_content = #{reviewContent},
+			rating = #{rating},
+			product_category = #{productCategory},
+			product_no = #{productNo}
+		where review_no = #{reviewNo}	
+     </update>
+	
+	<delete id="deleteFile" parameterType="rf">
+     	delete from rfile_tbl where file_no = #{fileNo}
+     </delete>
+     
+     <delete id="deleteReview" parameterType="_int">
+     	delete from review where review_no = #{reviewNo}
+     </delete>
 
 </mapper>
