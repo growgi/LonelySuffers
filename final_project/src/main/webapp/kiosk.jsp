@@ -655,25 +655,12 @@
 							<fieldset>
 								<legend>00님의 주문내역</legend>
 									<ul class="roomBook-info">
-<<<<<<< HEAD
 										<li>숙소정보 : <input type="text" id="houseTitle-choice" value="" readonly></li>
 										<li>숙박소이름,호수 : <input type="text" id="roomTitleNo-choice" value="" readonly></li>
 										<li>숙박 날짜 : <input type="text" id="bookDate-choice" value="" readonly></li>
 										<li>옵션 : <input type="text" id="options-choice" value="" readonly></li>
-										<li>숙박 총액 : <input type="text" id="roomTotalPrice" value="" hidden>
-									</ul class="lessonBook-info">
+										<li>숙박 총액 : <input type="text" id="roomTotalPrice" value="" readonly></li>
 									<ul>
-										<li>강습명 : <input type="text" id="lessonTitle-choice" value="" readonly></li>
-										<li>강습날짜 : <input type="text" id="lessonDate-choice" value="" readonly></li></li>
-										<li>강습시간 : <input type="text" id="lessonTime-choice" value="" readonly></li></li>
-										<li>인원 : <input type="text" id="lessonMaxNo-choice" value="" readonly></li></li>
-										<li>강습 총액 : <input type="text" id="lessonTotalPrice-choice" value="" readonly></li>
-=======
-										<li>숙소정보 : <input type="text" id="houseTitle-choice" value="hd" readonly></li>
-										<li>숙박소이름,호수 : <input type="text" id="roomTitleNo-choice" value="hd" readonly></li>
-										<li>숙박 날짜 : <input type="text" id="bookDate-choice" value="hd" readonly></li>
-										<li>옵션 : <input type="text" id="options-choice" value="hd" readonly></li>
-										<li><input type="text" id="roomTotalPrice" value="0" readonly></li>
 									</ul>
 									<ul class="lessonBook-info">
 										<li>강습명 : <input type="text" id="lessonTitle-choice" value="hd" readonly></li>
@@ -681,7 +668,6 @@
 										<li>강습시간 : <input type="text" id="lessonTime-choice" value="hd" readonly></li>
 										<li>인원 : <input type="text" id="lessonMaxNo-choice" value="hd" readonly></li>
 										<li>강습 총액 : <input type="text" id="lessonTotalPrice-choice" value="hd" readonly></li>
->>>>>>> 395bfbe00c32a13e8bdb40a433da0c537ca954a8
 									</ul>
 									<p>총액 : <input type="text" id="TotalPrice-choice" value="hd" readonly></p>
 									<input type="text" id="TotalPriceVal" value="hd" hidden>
