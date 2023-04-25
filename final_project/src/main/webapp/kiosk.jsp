@@ -656,14 +656,14 @@
 										<li>숙박소이름,호수 : <input type="text" id="roomTitleNo-choice" value="hd" readonly></li>
 										<li>숙박 날짜 : <input type="text" id="bookDate-choice" value="hd" readonly></li>
 										<li>옵션 : <input type="text" id="options-choice" value="hd" readonly></li>
-										<input type="text" id="roomTotalPrice" value="0" hidden>
-									</ul class="lessonBook-info">
-									<ul>
+										<li><input type="text" id="roomTotalPrice" value="0" readonly></li>
+									</ul>
+									<ul class="lessonBook-info">
 										<li>강습명 : <input type="text" id="lessonTitle-choice" value="hd" readonly></li>
-										<li>강습날짜 : <input type="text" id="lessonDate-choice" value="hd" readonly></li></li>
-										<li>강습시간 : <input type="text" id="lessonTime-choice" value="hd" readonly></li></li>
-										<li>인원 : <input type="text" id="lessonMaxNo-choice" value="hd" readonly></li></li>
-										<li>강습 총액 : <input type="text" id="lessonTotalPrice-choice" value="hd" readonly></li></li>
+										<li>강습날짜 : <input type="text" id="lessonDate-choice" value="hd" readonly></li>
+										<li>강습시간 : <input type="text" id="lessonTime-choice" value="hd" readonly></li>
+										<li>인원 : <input type="text" id="lessonMaxNo-choice" value="hd" readonly></li>
+										<li>강습 총액 : <input type="text" id="lessonTotalPrice-choice" value="hd" readonly></li>
 									</ul>
 									<p>총액 : <input type="text" id="TotalPrice-choice" value="hd" readonly></p>
 							</fieldset>
@@ -1967,13 +1967,12 @@ $("document").ready(function() {
 		
 	})
 	$(".page8-okay").on('click',function(){
-		alert("여기다 ajax하시면 됩니다 병주님");
-		
-		
-		if(confirm("결제 confirm창 ")){
+
+		if(confirm("결제 하시겠습니까? ")){
 			
-		const price = 	//결제 금액
-		priceCheck = isNaN(price); //결제금액 숫자인지 check
+		const price = $('#TotalPrice-choice');	//결제 금액
+		const priceCheck = isNaN(price); //결제금액 숫자인지 check
+
 		const regExp = /^[0-9]+00$/;	
 		const regCheck = regExp.test(price);
 		
@@ -1994,7 +1993,7 @@ $("document").ready(function() {
 			merchant_uid : "상품번호_"+date,//상점에서 관리하는 주문번호
 			name : "결제 테스트",	//결제이름
 			amount : price,		//결제금액
-			buyer_email : "momentous00@naver.com", //구매자 email
+			buyer_email : "", //구매자 email
 			buyer_name : "구매자", //구매자 이름
 			buyer_tel : "010-0000-1111", //구매자 전화번호
 			buyer_addr : "서울시 영등포구 당산동",//구매자 주소
@@ -2003,6 +2002,8 @@ $("document").ready(function() {
 			if(rsp.success){
 				alert("결제성공");
 				//결제관련 정보를 DB에 insert 하는 작업이 필요
+				
+				//
 			}else{
 				alert("결제실패");	
 			}
@@ -2011,8 +2012,10 @@ $("document").ready(function() {
 				alert("1000원 단위로 결제 가능합니다.");
 			}
 		}
+
+	
 	}
-	});
+
 		
 		
 		
