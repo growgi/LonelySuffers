@@ -19,6 +19,8 @@ import common.ProductFileNumbering;
 import kr.co.house.model.service.HouseService;
 import kr.co.house.model.vo.FindRoomByCondition;
 import kr.co.house.model.vo.House;
+import kr.co.house.model.vo.HouseListing;
+import kr.co.house.model.vo.HousePagination;
 import kr.co.house.model.vo.Room;
 import kr.co.house.model.vo.RoomBook;
 import kr.co.member.model.vo.Member;
@@ -307,6 +309,32 @@ public class HouseController {
 	public String bookOneRoom(int roomNo) {
 		ArrayList<RoomBook> list = service.selectAllBook(roomNo);
 		return new Gson().toJson(list);
+	}
+
+
+
+// 메인 메뉴 > 숙박 상품들 보기.  House 테이블에서 Row 여러 개 조회 후 반환
+	@RequestMapping(value="/selectHousesByCondition.do")
+	public String selectHousePage(int reqPage, HouseListing condition, Model model) {
+		if(condition.getHouseCity() != null) {
+			if(condition.getHouseCity().equals("") || condition.getHouseCity().equals("- 광역시/도 -")) {
+			condition.setHouseCity(null);
+			}
+		}
+		if(condition.getHouseTitle() != null) {
+			condition.setHouseTitle(condition.getHouseTitle().trim().replaceAll("(\\s)\\1+","$1"));
+			condition.setHtKeywords(condition.getHouseTitle().split(" "));
+		}
+		if(condition.getRoomTitle() != null) {
+			condition.setRoomTitle(condition.getRoomTitle().trim().replaceAll("(\\s)\\1+","$1"));
+			condition.setRtKeywords(condition.getRoomTitle().split(" "));
+		}
+		HousePagination hp = service.selectHousePage(condition, reqPage);
+		model.addAttribute("list", hp.getList());
+		model.addAttribute("totalCount", hp.getTotalCount());
+		model.addAttribute("pageNavi", hp.getPageNavi());
+		model.addAttribute("condition", condition);
+		return "product/houseList";
 	}
 
 

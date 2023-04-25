@@ -41,6 +41,55 @@
 	</update>
 
 
+
+<!-- 조건에 따라, 판매 중인 상품 Row들 1페이씩 조회용  -->
+	<select id="selectLessonPage" parameterType="kr.co.lesson.model.vo.LessonListing" resultType="l">
+		SELECT * FROM (SELECT ROWNUM AS RN, N. * FROM (
+			SELECT
+			LESSON_NO as lessonNo,
+			LESSON_LEVEL as lessonLevel,
+			LESSON_TITLE as lessonTitle,
+			LESSON_PRICE as lessonPrice,
+			LESSON_INFO_PIC as lessonInfoPic,
+			LESSON_TEACHER as lessonTeacher,
+			LESSON_SCORE as lessonScore,
+			LESSON_CITY as lessonCity
+			FROM LESSON WHERE LESSON_STATUS = 1
+		<if test='lessonLevel > 0'>AND (LESSON_LEVEL = #{lessonLevel})</if>
+		<if test='ltKeywords != null'>
+			<foreach collection="ltKeywords" item="keyword" separator=" ">
+				AND (LESSON_TITLE LIKE '%'||#{keyword}||'%')
+			</foreach>
+		</if>
+		<if test='lessonCity != null'>AND (LESSON_CITY = #{lessonCity})</if>
+		<if test='lessonScore > 0'>AND (LESSON_SCORE >= #{lessonScore})</if>
+		<if test='lessonPriceMin > 0'>AND (LESSON_PRICE >= #{lessonPriceMin})</if>
+		<if test='lessonPriceMax > 0'><![CDATA[ AND (LESSON_PRICE <= #{lessonPriceMax} ) ]]></if>
+			ORDER BY
+			<if test='sortingOrder == 1'>LESSON_PRICE DESC, </if>
+			<if test='sortingOrder == 2'>LESSON_PRICE ASC, </if>
+			<if test='sortingOrder == 3'>LESSON_SCORE DESC, </if>
+			LESSON_TITLE ASC
+		)N) WHERE RN BETWEEN #{pagingStart} AND #{pagingEnd}
+	</select>
+
+
+<!-- 조건에 맞는 판매중인 상품들의 총 개수  -->
+	<select id="totalNumberOfLessonByProduct" parameterType="kr.co.lesson.model.vo.LessonListing" resultType="_int">
+		SELECT COUNT(*) FROM LESSON WHERE LESSON_STATUS = 1
+		<if test='lessonLevel > 0'>AND (LESSON_LEVEL = #{lessonLevel})</if>
+		<if test='ltKeywords != null'>
+			<foreach collection="ltKeywords" item="keyword" separator=" ">
+				AND (LESSON_TITLE LIKE '%'||#{keyword}||'%')
+			</foreach>
+		</if>
+		<if test='lessonCity != null'>AND (LESSON_CITY = #{lessonCity})</if>
+		<if test='lessonScore > 0'>AND (LESSON_SCORE >= #{lessonScore})</if>
+		<if test='lessonPriceMin > 0'>AND (LESSON_PRICE >= #{lessonPriceMin})</if>
+		<if test='lessonPriceMax > 0'><![CDATA[ AND (LESSON_PRICE <= #{lessonPriceMax} ) ]]></if>
+	</select>
+
+
 <!-- 조건에 맞는 레슨리스트 불러오기 -->
 	<select id="selectLessonList" parameterType="l" resultMap="getLesson">
 		SELECT LESSON_NO, LESSON_TITLE, LESSON_INFO_PIC, LESSON_LEVEL, LESSON_MAX_NO, LESSON_START_TIME, LESSON_END_TIME, LESSON_PRICE 

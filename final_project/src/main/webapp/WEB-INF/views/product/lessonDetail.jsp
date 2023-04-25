@@ -487,10 +487,10 @@
 						}else{
 							if(Inquiry.answerList.length>0){
 								for(let j=0; j<Inquiry.answerList.length; j++){
-									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").html(Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")) ) );
+									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").html(Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")) ) );
 								}
 							}
-							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").html(Inquiry.inquiryContent.replaceAll("\n","<br>")) ) );
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").html("문의 내용<br><button type='button' onclick=''>수정</button>") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").html(Inquiry.inquiryContent.replaceAll("\n","<br>")) ) );
 						}
 					}
 				});

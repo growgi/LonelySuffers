@@ -100,7 +100,7 @@ public class InquiryController {
 	}
 
 
-	
+
 // 신규 문의 추가.  Inquiry 테이블에 Row 1개 추가
 	@ResponseBody
 	@RequestMapping(value="/insertInquiry.do", produces = "application/text; charset=utf8")
@@ -116,6 +116,25 @@ public class InquiryController {
 			}else {
 				return "알 수 없는 이유로 문의글 등록에 실패했습니다.";
 			}
+		}
+	}
+
+
+// 문의 수정.  Inquiry 테이블에서 Row 1개 수정
+	@ResponseBody
+	@RequestMapping(value="/updateInquiry.do", produces = "application/text; charset=utf8")
+	public String updateInquiry(Inquiry i, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me.getMemberId().equals(i.getInquirer())) {
+			i.setInquirer(me.getMemberId());
+			int result = service.updateInquiry(i);
+			if(result>0) {
+				return "문의글을 수정했습니다.";
+			}else {
+				return "알 수 없는 이유로 문의글 수정에 실패했습니다.";
+			}
+		}else {
+			return "본인이 작성한 것만 수정할 수 있습니다.";
 		}
 	}
 
