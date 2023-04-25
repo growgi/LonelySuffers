@@ -14,19 +14,14 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>강습 상품 수정 - Lonely Suffers</title>
+<title>강습 상품 수정 - Lonely Surfers</title>
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 
+<link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
 <style>
-.product-detail>div{
-	margin-top:20px;
-	margin-bottom:20px;
-}
-.nav-item { background-color: #3ac5c8;}
-.nav-link { color: #ffffff; }
 input[type="number"], input[type="time"] {
 	text-align: right;
 }

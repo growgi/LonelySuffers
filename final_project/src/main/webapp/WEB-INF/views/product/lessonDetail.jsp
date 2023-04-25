@@ -14,29 +14,13 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>${lesson.lessonTitle} - Lonely Suffers</title>
+<title>${lesson.lessonTitle} - Lonely Surfers</title>
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 
+<link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
-<style>
-.product-detail>div{
-	margin-top:20px;
-	margin-bottom:20px;
-}
-.nav-item { background-color: #3ac5c8;}
-.nav-link { color: #ffffff; }
-.inquiryTitleText:hover {
-	cursor: pointer;
-}
-.inquiryTd {
-	text-align: right;
-}
-.pagination {
-	text-align: center;
-}
-</style>
 </head>
 
 
@@ -271,8 +255,8 @@
 	        </div>
         	<div class="modal-body">
           		<label><input type="checkbox" name="privately" value="1" style="width: 25px; height: 25px; vertical-align: bottom;"> 비밀글</label>
-          		<input type="text" class="form-control" name="inquiryTitle" placeholder="제목: 한글 최대 100자" required>
-          		<textarea class="form-control" rows="6" name="inquiryContent" placeholder="본문: 한글 최대 333자" required></textarea>
+          		<input type="text" class="form-control" name="inquiryTitle" placeholder="제목: 한글 최대 100자.  제목은 비밀글 여부와 관계없이 항상 노출됩니다." required>
+          		<textarea class="form-control" rows="6" name="inquiryContent" placeholder="본문: 한글 최대 333자." required></textarea>
           		<input type="hidden" name="productCategory" value="1">
           		<input type="hidden" name="productNo" value="${lesson.lessonNo}">
 	        </div>
@@ -303,12 +287,6 @@
 
 
 	<script type="text/javascript">
-	// replaceAt 함수 정의
-		String.prototype.replaceAt = function(index, replacement) {
-		    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
-		}
-
-
 	//url로부터 lessonNo값 알아내기
 		const ltrim = /^\S{0,}lessonNo=/;
 		const currentUrl = window.location.href;
@@ -457,16 +435,11 @@
 								}
 								
 								const idLength = InquiryPagination.list[i].inquirer.length;
-								const td5 = $("<td>");
-								let blurred = InquiryPagination.list[i].inquirer;
-								for(let j = 3; j<idLength; j++){
-									blurred = blurred.replaceAt(j, "*");
-								}
-								td5.text(blurred);
+								const td5 = $("<td>").text(InquiryPagination.list[i].inquirer);
 								
 								const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
 		
-								const tr = $("<tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								const tr = $("<tr>").addClass("inquiryTr").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 								$("#forInquiries").append(tr);
 			    			}
 						$("#forPageNavi").append(InquiryPagination.pageNavi);
@@ -484,8 +457,8 @@
 	// 문의글의 제목을 누르면 아래에 tr로 문의글 내용이 삽입되면서 펼쳐지는 효과로 출력
 		function expandIt(obj){
 			const targetInquiryNo = $(obj).parent().prev().prev().text();
-			if( $(obj).parent().parent().next().children().eq(2).attr("colspan") == 4 ){
-				 $(obj).parent().parent().parent().find(".expandedTr").remove();
+			if( $(obj).parent().parent().next().children().eq(3).attr("colspan") == 3 ){
+				 $(obj).parent().parent().nextUntil(".inquiryTr").remove();
 			}else{
 				$.ajax({
 					url : "/inquiryView.do",
@@ -496,12 +469,13 @@
 						if(Inquiry.inquiryNo <= 0){
 							alert(Inquiry.inquiryContent);
 						}else{
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
 							if(Inquiry.answerList.length>0){
 								for(let j=0; j<Inquiry.answerList.length; j++){
-									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").text(Inquiry.answerList[j].answerContent) ) );
+									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
 								}
 							}
-							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "4").text(Inquiry.inquiryContent) ) );
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
 						}
 					}
 				});
@@ -527,6 +501,177 @@
 			}
 		});
 	}
+
+
+	// 문의글 수정 버튼을 눌렀을 때
+	function editInquiryContent(obj){
+		const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
+		$(obj).parent().next().next().next().children().css("display", "none");
+		$(obj).parent().next().next().next().append( $("<textarea>").addClass("form-control").attr("rows", 4).css("width", "100%").val(getContent) );
+		$(obj).parent().next().next().next().append( $("<button>").attr("onclick", "updateInquiry(this)").text("내용 수정") );
+		$(obj).attr("onclick", "cancleEditInquiry(this)");
+		$(obj).text("취소");
+	}
+
+
+	// 문의글 내용수정 버튼을 누르면 동작하는 ajax
+	function updateInquiry(obj){
+		$.ajax({
+			url : "/updateInquiry.do",
+			data: {inquiryNo : $(obj).parent().parent().prev().children().eq(1).text(), inquiryContent : $(obj).prev().val()},
+			dataType : "text",
+			success : function(result){
+				alert(result);
+				const target = $(obj).parent().parent().prev().children().eq(3).children().eq(0);
+				target.click();
+				target.click();
+			}
+		});
+	}
+
+
+	// 문의글 수정 취소 버튼을 눌렀을 때
+	function cancleEditInquiry(obj){
+		$(obj).parent().next().next().next().children().eq(2).remove();
+		$(obj).parent().next().next().next().children().eq(1).remove();
+		$(obj).parent().next().next().next().children().eq(0).css("display", "inline");
+		$(obj).attr("onclick", "editInquiryContent(this)");
+		$(obj).text("수정");
+	}
+
+
+	// 문의글 삭제 버튼을 눌렀을 때
+	function deleteInquiryConfirm(obj){		
+		const inquiryNo = $(obj).parent().parent().prev().children().eq(1).text();
+		if (confirm("정말로 삭제하시겠습니까?") == true) {
+			deleteInquiry(inquiryNo);
+		}
+	}
+
+
+	// 문의글 삭제 버튼을 누르면 동작하는 ajax
+	function deleteInquiry(inquiryNo){
+		$.ajax({
+			url : "/deleteInquiry.do",
+			data: {inquiryNo : inquiryNo},
+			dataType : "text",
+			success : function(result){
+				alert(result);
+				if(result == "문의글을 삭제했습니다."){
+					getInquiries(1, 0);
+				}
+			}
+		});
+	}
+
+
+	// 답변 등록 버튼을 누르면 동작하는 ajax
+	function insertAnswer(obj){
+		$.ajax({
+			url : "/insertAnswer.do",
+			data: {inquiryNo : $(obj).parent().parent().prevUntil(".inquiryTr", "tr:last").prev().children().eq(1).text(), answerContent : $(obj).prev().val(), productCategory : 1, productNo : $("[name=lessonNo]").val()},
+			dataType : "text",
+			success : function(result){
+				alert(result);
+				if(result == "답변을 등록했습니다."){
+					const target = $(obj).parent().parent().prevUntil(".inquiryTr", "tr:last").prev().children().eq(3).children().eq(0);
+					target.click();
+					target.click();
+				}
+			}
+		});
+	}
+
+
+	// 답변 수정 버튼을 눌렀을 때
+	function editAnswerContent(obj){
+		const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
+		$(obj).parent().next().next().next().children().css("display", "none");
+		$(obj).parent().next().next().next().append( $("<textarea>").addClass("form-control").attr("rows", 4).css("width", "100%").val(getContent) );
+		$(obj).parent().next().next().next().append( $("<button>").attr("onclick", "updateAnswer(this)").text("내용 수정") );
+		$(obj).attr("onclick", "cancleEditAnswer(this)");
+		$(obj).text("취소");
+	}
+
+
+	// 답변 내용수정 버튼을 누르면 동작하는 ajax
+	function updateAnswer(obj){
+		$.ajax({
+			url : "/updateAnswer.do",
+			data: {answerNo : $(obj).parent().prev().prev().text(), answerContent : $(obj).prev().val()},
+			dataType : "text",
+			success : function(result){
+				alert(result);
+				const target = $(obj).parent().parent().prevUntil(".inquiryTr", "tr:last").prev().children().eq(3).children().eq(0);
+				target.click();
+				target.click();
+			}
+		});
+	}
+
+
+	// 답변 수정 취소 버튼을 눌렀을 때
+	function cancleEditAnswer(obj){
+		$(obj).parent().next().next().next().children().eq(2).remove();
+		$(obj).parent().next().next().next().children().eq(1).remove();
+		$(obj).parent().next().next().next().children().eq(0).css("display", "inline");
+		$(obj).attr("onclick", "editAnswerContent(this)");
+		$(obj).text("수정");
+	}
+
+
+	// 답변 삭제 버튼을 눌렀을 때
+	function deleteAnswerConfirm(obj){		
+		const answerNo = $(obj).parent().next().text();
+		if (confirm("정말로 삭제하시겠습니까?") == true) {
+			deleteAnswer(answerNo);
+		}
+	}
+
+
+	// 답변 삭제 버튼을 누르면 동작하는 ajax
+	function deleteAnswer(answerNo){
+		$.ajax({
+			url : "/deleteAnswer.do",
+			data: {answerNo : answerNo},
+			dataType : "text",
+			success : function(result){
+				alert(result);
+				if(result == "답변을 삭제했습니다."){
+					getInquiries(1, 0);
+				}
+			}
+		});
+	}
+
+
+	// 로그인된 회원의 등급에 따라 특정 요소들을 display:none 처리
+	$(document).ready(function(){
+		const stylesheet = document.styleSheets[0];		// 링크된 .css 파일들 중 첫 번째 파일
+		let elementRules;
+	
+		// 관리자(Grade 1) 또는 판매자(Grade 2)가 아닌 경우에만 변경할 css
+		for(let i = 0; i < stylesheet.cssRules.length; i++) {
+			if(stylesheet.cssRules[i].selectorText === '.displayForSeller') {
+			elementRules = stylesheet.cssRules[i];
+			}
+		}
+		if( $(".hiddenMemberGrade").val()==1 || $(".hiddenMemberGrade").val()==2 ){
+		}else{
+			elementRules.style.setProperty('display', 'none');
+		}
+
+		// 관리자(Grade 1) 또는 일반회원(Grade 3)가 아닌 경우에만 변경할 css
+		for(let i = 0; i < stylesheet.cssRules.length; i++) {
+			if(stylesheet.cssRules[i].selectorText === '.displayForGeneralMember') {
+				elementRules = stylesheet.cssRules[i];
+			}
+		}
+		if( $(".hiddenMemberGrade").val()==1 || $(".hiddenMemberGrade").val()==3 ){
+		}else{
+			elementRules.style.setProperty('display', 'none');
+		}
+	});
 	</script>
 
 </body>

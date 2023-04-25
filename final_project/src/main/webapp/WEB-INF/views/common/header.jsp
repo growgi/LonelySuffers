@@ -96,8 +96,8 @@
 												<ul>
 													<li><a href="page-services.html">All Services</a></li>
 													<li><a href="/productInsert.do">상품 등록 페이지</a></li>
-													<li><a href="page-clients.html">Our Clients</a></li>
-													<li><a href="page-testimonials.html">Testimonials</a></li>
+													<li><a href="/selectLessonsByCondition.do?reqPage=1">강습 상품 검색</a></li>
+													<li><a href="/selectHousesByCondition.do?reqPage=1">숙박 상품 검색</a></li>
 													<li><a href="page-ebooks.html">Free E-Books</a></li>
 													<li><a href="page-seo-analysis.html">SEO Analysis</a></li>
 													<li><a href="case-studies.html">Case Studies</a></li>
@@ -146,7 +146,7 @@
 							<c:choose>
 								<c:when test="${sessionScope.m.memberGrade ==1}">
 						<li>
-							<a href="/memberList.do?reqPage=1">
+							<a href="/dashboard.do">
 							<span style="line-height: 25px; vertical-align: middle;">관리자페이지</span></a>
 						</li>								
 								</c:when>

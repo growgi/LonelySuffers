@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.admin.model.vo.AdminDashboard;
 import kr.co.admin.model.vo.CarpoolPageData;
 import kr.co.admin.model.vo.HousePageData;
 import kr.co.admin.model.vo.LessonPageData;
@@ -49,17 +50,42 @@ public class AdminController {
 	
 	@RequestMapping(value="/dashboard.do")
 	public String dashboard(Model model) {
-		/*
-		 * ArrayList<Lesson> lessonList = service.selectTopLesson(); ArrayList<House>
-		 * houseList = service.selectTopHouse();
-		 * 
-		 * model.addAttribute("lessonList", lessonList); model.addAttribute("houseList",
-		 * houseList);
-		 */
+		/*1st*/
+		int sellerAppCount = service.selectSellerAppCount(); //판매자 신청 회원 수
+		int newProductCount = service.selectNewProductCount(); //신규 상품 수
+		int newAdminChatCount = service.selectNewAdminChatCount(); //1:1문의 신규 건수
+		
+		int totalSalesAmount = service.selectTotalSalesAmount(); //총 판매금액
+		//int todaySalesAmount = service.selectTodaySalesAmount(); //오늘 판매금액
+		
+		/*2nd*/
+		int memberCount = service.selectMemberCount(); //전체 사용자 수
+		int lessonCount = service.selectLessonCount(); //강습 상품 수
+		int houseCount = service.selectHouseCount(); //숙박 상품 수
+		int carpoolRecruitingCount = service.selectCarpoolRecruitingCount(); //카풀 게시글 수(모집중)
+		
+		/*3th*/
+		//ArrayList<Integer> visitantList = service.selectVisitant(); //방문자수 현황
+		//ArrayList<Integer> genderRatio = service.selectGenderRatio(); //남녀 비율
+		
+		/*4th*/
+		ArrayList<Product> newProductList = service.selectNewProduct(); //신규 추가 상품
+		ArrayList<Member> newMemberList = service.selectNewMember(); //신규 회원
+		
+		/*5th*/
+		ArrayList<Carpool> newCarpoolDriverList = service.selectNewCarpoolDriver(); //신규 카풀 운전자
+		//ArrayList<Order> salesAmountList = service.selectSalesAmount(); //상품 판매금액 추이
+		
+		/*6th*/
+		ArrayList<Member> adminList = service.selectAllAdmin(); //관리자 목록
+		
+		//AdminDashboard dInfo = new AdminDashboard(sellerAppCount, newProductCount, newAdminChatCount, totalSalesAmount, todaySalesAmount, memberCount, lessonCount, houseCount, carpoolRecruitingCount, visitantList, genderRatio, newProductList, newMemberList, newCarpoolDriverList, salesAmountList, adminList);
+		//model.addAttribute(dInfo);
+		
 		return "admin/adminDashboard";
 	}
 	
-	/**1. 회원목록*/
+	/**회원목록*/
 	@RequestMapping(value="/memberList.do")
 	public String memberList(int reqPage, Model model) {
 		MemberPageData mpd = service.selectAllMember(reqPage);

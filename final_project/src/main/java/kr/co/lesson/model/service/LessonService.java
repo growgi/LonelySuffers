@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.lesson.model.dao.LessonDao;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.lesson.model.vo.LessonBook;
+import kr.co.lesson.model.vo.LessonListing;
+import kr.co.lesson.model.vo.LessonPagination;
 
 @Service
 public class LessonService {
@@ -52,8 +54,72 @@ public class LessonService {
 	}
 
 
+
+// 메인 메뉴 > 강습 상품들 보기.  Lesson 테이블에서 Row 여러 개 조회 후 반환
+	public LessonPagination selectLessonPage(LessonListing condition, int reqPage){
+		int numPerPage = 15;	// 한 페이지 당 상품 15개씩 출력
+		condition.setPagingEnd(numPerPage * reqPage);
+		condition.setPagingStart(numPerPage * (reqPage-1) + 1);
+		ArrayList<Lesson> list = dao.selectLessonPage(condition);
+		
+		int totalCount = dao.totalNumberOfLessonByProduct(condition);
+		
+	// pagination 출력 구문 시작
+		int maxPage = 0;
+		if(totalCount%numPerPage == 0) { maxPage = totalCount/numPerPage;
+		} else { maxPage = totalCount/numPerPage + 1; }
+		
+		int pageNaviSize = 5;	// 페이지 이동 버튼 표시 수		
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
+		
+		String pageNavi = "<ul class='pagination'>";
+		if(pageNo != 1) {
+			pageNavi += "<li>";
+			pageNavi += "<a href='javascript:getLessons("+(pageNo-1)+", 0)'>";
+			pageNavi += "＜";
+			pageNavi += "</a></li>";
+		}
+		
+		for(int i=0; i<pageNaviSize; i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li>";
+				pageNavi += "<a class='active' href='javascript:getLessons("+pageNo+", 0)'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}else {
+				pageNavi += "<li>";
+				pageNavi += "<a href='javascript:getLessons("+pageNo+", 0)'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}
+			pageNo++;
+			if(pageNo > maxPage) {
+				break;
+			}
+		}
+
+		if(pageNo <= maxPage) {
+			pageNavi += "<li>";
+			pageNavi += "<a href='javascript:getLessons("+pageNo+", 0)'>";
+			pageNavi += "＞";
+			pageNavi += "</a></li>";
+		}
+		
+		pageNavi += "</ul>";
+	// pagination 출력 구문 끝
+
+		return new LessonPagination(totalCount, list, pageNavi, condition.getPagingStart());
+	}
+
+
+
 // 조건에 맞는 숙소 리스트를 조회하는 것
 	public ArrayList<Lesson> selectSelectList(Lesson lesson) {
 		return dao.selectLessonList(lesson);
+	}
+
+
+	public int lessonBookInsert(LessonBook lb) {
+		return dao.lessonBookInsert(lb);
 	}
 }

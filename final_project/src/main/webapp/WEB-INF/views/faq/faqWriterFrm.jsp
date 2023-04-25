@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>Lonely Suffers</title>
+<title>Lonely Surfers</title>
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
@@ -32,7 +32,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2 style="border-bottom: 5px solid #006bd6">Lonely Suffers 자주묻는질문 작성</h2>
+						<h2 style="border-bottom: 5px solid #006bd6">Lonely Surfers 자주묻는질문 작성</h2>
 					</div>
 					<!-- end col -->
 				</div>

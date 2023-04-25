@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.house.model.dao.HouseDao;
 import kr.co.house.model.vo.FindRoomByCondition;
 import kr.co.house.model.vo.House;
+import kr.co.house.model.vo.HouseListing;
+import kr.co.house.model.vo.HousePagination;
 import kr.co.house.model.vo.Room;
 import kr.co.house.model.vo.RoomBook;
 
@@ -129,7 +131,67 @@ public class HouseService {
 	public ArrayList<RoomBook> selectAllBook(int roomNo){
 		return dao.selectAllBook(roomNo);
 	}
-	
+
+
+
+// 메인 메뉴 > 숙박 상품들 보기.  House 테이블에서 Row 여러 개 조회 후 반환
+	public HousePagination selectHousePage(HouseListing condition, int reqPage){
+		int numPerPage = 15;	// 한 페이지 당 상품 15개씩 출력
+		condition.setPagingEnd(numPerPage * reqPage);
+		condition.setPagingStart(numPerPage * (reqPage-1) + 1);
+		ArrayList<House> list = dao.selectHousePage(condition);
+		
+		int totalCount = dao.totalNumberOfHouseByProduct(condition);
+		
+	// pagination 출력 구문 시작
+		int maxPage = 0;
+		if(totalCount%numPerPage == 0) { maxPage = totalCount/numPerPage;
+		} else { maxPage = totalCount/numPerPage + 1; }
+		
+		int pageNaviSize = 5;	// 페이지 이동 버튼 표시 수		
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
+		
+		String pageNavi = "<ul class='pagination'>";
+		if(pageNo != 1) {
+			pageNavi += "<li>";
+			pageNavi += "<a href='javascript:getHouses("+(pageNo-1)+", 0)'>";
+			pageNavi += "＜";
+			pageNavi += "</a></li>";
+		}
+		
+		for(int i=0; i<pageNaviSize; i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li>";
+				pageNavi += "<a class='active' href='javascript:getHouses("+pageNo+", 0)'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}else {
+				pageNavi += "<li>";
+				pageNavi += "<a href='javascript:getHouses("+pageNo+", 0)'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}
+			pageNo++;
+			if(pageNo > maxPage) {
+				break;
+			}
+		}
+
+		if(pageNo <= maxPage) {
+			pageNavi += "<li>";
+			pageNavi += "<a href='javascript:getHouses("+pageNo+", 0)'>";
+			pageNavi += "＞";
+			pageNavi += "</a></li>";
+		}
+		
+		pageNavi += "</ul>";
+	// pagination 출력 구문 끝
+
+		return new HousePagination(totalCount, list, pageNavi, condition.getPagingStart());
+	}
+
+
+
 // 네이버지도 api 마커를 위한 경도,위도 조회.
 	public ArrayList<House> selectAllAddress(){
 		return dao.selectAllAddress();
@@ -142,5 +204,9 @@ public class HouseService {
 	}
 
 
+//roomBook 테이블에 예약내용 insert
+	public int roomBookInsert(RoomBook rb) {
+		return dao.roomBookInsert(rb);
+	}
 	
 }

@@ -18,6 +18,8 @@ import common.ProductFileNumbering;
 import kr.co.lesson.model.service.LessonService;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.lesson.model.vo.LessonBook;
+import kr.co.lesson.model.vo.LessonListing;
+import kr.co.lesson.model.vo.LessonPagination;
 import kr.co.member.model.vo.Member;
 
 @Controller
@@ -105,7 +107,7 @@ public class LessonController {
 
 
 
-// 숙박 상품 수정하기.   House 테이블에서 Row 1개 수정
+// 숙박 상품 수정하기.   lesson 테이블에서 Row 1개 수정
 	@RequestMapping(value="/updateLesson.do")
 	public String updateLesson(Lesson l, MultipartFile lessonPhoto, HttpServletRequest request, Model model) {
 		int result = service.updateLesson(l);
@@ -136,7 +138,31 @@ public class LessonController {
 		ArrayList<LessonBook> list = service.selectAllbookedDates(lessonNo);
 		return new Gson().toJson(list);
 	}
-	
+
+
+
+// 메인 메뉴 > 강습 상품들 보기.  Lesson 테이블에서 Row 여러 개 조회 후 반환
+	@RequestMapping(value="/selectLessonsByCondition.do")
+	public String selectLessonPage(int reqPage, LessonListing condition, Model model) {
+		if(condition.getLessonCity() != null) {
+			if(condition.getLessonCity().equals("") || condition.getLessonCity().equals("- 광역시/도 -")) {
+			condition.setLessonCity(null);
+			}
+		}
+		if(condition.getLessonTitle() != null) {
+			condition.setLessonTitle(condition.getLessonTitle().trim().replaceAll("(\\s)\\1+","$1"));
+			condition.setLtKeywords(condition.getLessonTitle().split(" "));
+		}
+		LessonPagination lp = service.selectLessonPage(condition, reqPage);
+		model.addAttribute("list", lp.getList());
+		model.addAttribute("totalCount", lp.getTotalCount());
+		model.addAttribute("pageNavi", lp.getPageNavi());
+		model.addAttribute("condition", condition);
+		return "product/lessonList";
+	}
+
+
+
 // 조건에 맞는 숙소 리스트를 조회하는 것
 	@ResponseBody
 	@RequestMapping(value="/lessonList.do", produces = "application/json;charset=utf-8")
@@ -149,4 +175,18 @@ public class LessonController {
 		return result;
 			
 		}
+
+// lessonBook 테이블에 insert
+	@ResponseBody
+	@RequestMapping(value="/lessonBookInsert.do", produces = "application/json;charset=utf-8")
+	public String lessonBookInsert(LessonBook lb) {
+		int result = service.lessonBookInsert(lb);
+		if(result>0) {
+			String lessonBookNo = Integer.toString(lb.getLessonBookNo());
+			return lessonBookNo;
+		}else {
+			return "/kiosk.jsp";
+		}
+	}
+	
 }

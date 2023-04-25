@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 <link rel="stylesheet" href="resources/css/adminDashboard.css"></link>
 <link rel="stylesheet" href="resources/css/adminCommon.css"></link>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -63,11 +63,11 @@
 				<div class="sales-amount">
 					<div class="total-sales-amount">
 						<div class="title-bold">총 판매금액</div>
-						<div class="bold-l"><span class="bold-l" style="color:#ecb534">123,000,000</span>원</div>
+						<div class="bold-l"><span class="bold-l" style="color:#ecb534">${dInfo.totalSalesAmount }</span>원</div>
 					</div>
 					<div class="today-sales-amount">
 						<div class="title-bold">오늘의 상품 판매금액</div>
-						<div class="bold-l"><span class="bold-l" style="color:#19A7CE">200,000</span>원</div>
+						<div class="bold-l"><span class="bold-l" style="color:#19A7CE">${dInfo.todaySalesAmount }</span>원</div>
 					</div>
 					<div class="logo">
 						<div class="waveEffect">
@@ -112,13 +112,21 @@
 				<div class="visitant-graph">
 					<div class="title-bold">방문자 현황</div>
 					<div>
-						<div id="curve_chart" style="width: 100%; height: 400px"></div>
+						<div style="width: 100%; height: 100%;">
+							<!--차트가 그려질 부분-->
+							<canvas id="visitantGraph"></canvas>
+						</div>
+						<!-- <div id="curve_chart" style="width: 100%; height: 400px;"></div> -->
 					</div>
 				</div>
 				<div class="gender-graph">
 					<div class="title-bold">회원 성별 비율</div>
 					<div>
-						<div id="donutchart" style="width: 500px; height: 400px;"></div>
+						<div style="width: 90%; height: 90%; margin: 0 auto;">
+							<!--차트가 그려질 부분-->
+							<canvas id="myChart"></canvas>
+						</div>
+						<!-- <div id="donutchart" style="width: 500px; height: 400px;"></div> -->
 					</div>
 				</div>
 			</div>
@@ -172,7 +180,11 @@
 				<div class="sales-amount-graph">
 					<div class="title-bold">상품 판매금액 추이</div>
 					<div>
-						<div id="chart_div" style="width: 100%; height: 350px;"></div>
+						<div style="width: 100%; height: 100%;">
+							<!--차트가 그려질 부분-->
+							<canvas id="salesAmountGraph"></canvas>
+						</div>
+						<!-- <div id="chart_div" style="width: 100%; height: 350px;"></div> -->
 					</div>
 				</div>
 			</div>
@@ -193,6 +205,7 @@
 			</div>
 		</div>
     </div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </body>
 <script>
 	/*메뉴 제목*/
@@ -282,78 +295,247 @@
 		return value;
 	}
 
-	/*방문자수 현황*/
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawChart1);
+	/*방문자수 현황 chart*/
+	var context = document
+            .getElementById('visitantGraph')
+            .getContext('2d');
+        var visitantGraph = new Chart(context, {
+            type: 'line', // 차트의 형태
+            data: { // 차트에 들어갈 데이터
+                labels: [
+                    //x 축
+                    '1','2','3','4','5','6','7'
+                ],
+                datasets: [
+                    { //데이터
+                        label: 'visitant graph', //차트 제목
+                        fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                        data: [
+                            40,60,53,87,122,34,67 //x축 label에 대응되는 데이터 값***
+                        ],
+                        backgroundColor: [
+                            //색상
+                            'rgba(255,117,117,0.3)'
+                        ],
+                        borderColor: [
+                            //경계선 색상
+                            'rgba(255,117,117,1)'
+                        ],
+                        borderWidth: 1 //경계선 굵기
+                    }/* ,
+                    {
+                        label: 'test2',
+                        fill: false,
+                        data: [
+                            8, 34, 12, 24
+                        ],
+                        backgroundColor: 'rgb(157, 109, 12)',
+                        borderColor: 'rgb(157, 109, 12)'
+                    } */
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ]
+                }
+            }
+        });
 
-	function drawChart1() {
-		var data = google.visualization.arrayToDataTable([
-		['Date', '일간 방문수'],
-		['1',  46],
-		['2',  22],
-		['3',  75],
-		['4',  59],
-		['5',  160],
-		['6',  130],
-		['7',  210]
-		]);
+	// google.charts.load('current', {'packages':['corechart']});
+	// google.charts.setOnLoadCallback(drawChart1);
 
-		var options = {
-		//title: 'Company Performance',
-		curveType: 'function',
-		legend: { position: 'bottom' },
-		colors:['#19A7CE'],
-		};
+	// function drawChart1() {
+	// 	var data = google.visualization.arrayToDataTable([
+	// 	['Date', '일간 방문수'],
+	// 	['1',  46],
+	// 	['2',  22],
+	// 	['3',  75],
+	// 	['4',  59],
+	// 	['5',  160],
+	// 	['6',  130],
+	// 	['7',  210]
+	// 	]);
 
-		var point = {visible: true}
+	// 	var options = {
+	// 	//title: 'Company Performance',
+	// 	curveType: 'function',
+	// 	legend: { position: 'bottom' },
+	// 	colors:['#19A7CE'],
+	// 	};
 
-		var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+	// 	var point = {visible: true}
 
-		chart.draw(data, options);
-	}
+	// 	var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+	// 	chart.draw(data, options);
+	// }
 
 	/*남녀비율 chart*/
-	google.charts.load("current", {packages:["corechart"]});
-	google.charts.setOnLoadCallback(drawChart2);
-	function drawChart2() {
-		var data = google.visualization.arrayToDataTable([
-			['Gender', 'Ratio'],
-			['남자', 50],
-			['여자', 50]
-		]);
+	var context = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(context, {
+		type: 'doughnut', // 차트의 형태
+		data: { // 차트에 들어갈 데이터
+			labels: [
+				//x 축
+				'남자','여자'
+			],
+			datasets: [
+				{ //데이터
+					label: 'gender ratio', //차트 제목
+					fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+					data: [
+						40,60 //x축 label에 대응되는 데이터 값***
+					],
+					backgroundColor: [
+						//색상
+						'rgba(236,181,52,0.3)',
+						'rgba(25,167,206,0.3)'
+					],
+					borderColor: [
+						//경계선 색상
+						'rgba(236,181,52,1)',
+						'rgba(25,167,206,1)'
+					],
+					borderWidth: 1 //경계선 굵기
+				}/* ,
+				{
+					label: 'test2',
+					fill: false,
+					data: [
+						8, 34, 12, 24
+					],
+					backgroundColor: 'rgb(157, 109, 12)',
+					borderColor: 'rgb(157, 109, 12)'
+				} */
+			]
+		},
+		options: {
+			scales: {
+				yAxes: [
+					{
+						ticks: {
+							beginAtZero: true
+						}
+					}
+				]
+			}
+		}
+	});
 
-		var options = {
-			//title: 'My Daily Activities',
-			pieHole: 0.4,
-			colors:['#19A7CE','#ecb534']
-		};
+	// google.charts.load("current", {packages:["corechart"]});
+	// google.charts.setOnLoadCallback(drawChart2);
+	// function drawChart2() {
+	// 	var data = google.visualization.arrayToDataTable([
+	// 		['Gender', 'Ratio'],
+	// 		['남자', 50],
+	// 		['여자', 50]
+	// 	]);
 
-		var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-		chart.draw(data, options);
-	}
+	// 	var options = {
+	// 		//title: 'My Daily Activities',
+	// 		pieHole: 0.4,
+	// 		colors:['#19A7CE','#ecb534']
+	// 	};
 
-	/*상품 판매금액 추이*/
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawChart3);
+	// 	var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+	// 	chart.draw(data, options);
+	// }
 
-	function drawChart3() {
-	var data = google.visualization.arrayToDataTable([
-		['month', '강습', '숙박'],
-		['1',  1000,      400],
-		['2',  1170,      460],
-		['3',  660,       1120],
-		['4',  1030,      540]
-	]);
+	/*상품 판매금액 추이 chart*/
+	var context = document
+            .getElementById('salesAmountGraph')
+            .getContext('2d');
+	var salesAmountGraph = new Chart(context, {
+		type: 'line', // 차트의 형태
+		data: { // 차트에 들어갈 데이터
+			labels: [
+				//x 축
+				'1','2','3','4','5','6'
+			],
+			datasets: [
+				{ //데이터
+					label: '강습', //차트 제목
+					fill: true, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+					data: [
+						405000,604000,852000,462000,640000,784000 //x축 label에 대응되는 데이터 값***
+					],
+					backgroundColor: [
+						//색상
+						'rgba(25,167,206,0.3)'
+					],
+					borderColor: [
+						//경계선 색상
+						'rgba(25,167,206,1)'
+					],
+					borderWidth: 1 //경계선 굵기
+				},
+				{ //데이터
+					label: '숙박', //차트 제목
+					fill: true, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+					data: [
+						305000,404000,952000,762000,549000,620000 //x축 label에 대응되는 데이터 값***
+					],
+					backgroundColor: [
+						//색상
+						'rgba(236,181,52,0.3)'
+					],
+					borderColor: [
+						//경계선 색상
+						'rgba(236,181,52,1)'
+					],
+					borderWidth: 1 //경계선 굵기
+				}/* ,
+				{
+					label: 'test2',
+					fill: false,
+					data: [
+						8, 34, 12, 24
+					],
+					backgroundColor: 'rgb(157, 109, 12)',
+					borderColor: 'rgb(157, 109, 12)'
+				} */
+			]
+		},
+		options: {
+			scales: {
+				yAxes: [
+					{
+						ticks: {
+							beginAtZero: true
+						}
+					}
+				]
+			}
+		}
+	});
 
-	var options = {
-		//title: 'Company Performance',
-		hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-		vAxis: {minValue: 0},
-		colors:['#ecb534','#19A7CE']
-	};
+	// google.charts.load('current', {'packages':['corechart']});
+	// google.charts.setOnLoadCallback(drawChart3);
 
-	var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-	chart.draw(data, options);
-	}
+	// function drawChart3() {
+	// var data = google.visualization.arrayToDataTable([
+	// 	['month', '강습', '숙박'],
+	// 	['1',  1000,      400],
+	// 	['2',  1170,      460],
+	// 	['3',  660,       1120],
+	// 	['4',  1030,      540]
+	// ]);
+
+	// var options = {
+	// 	//title: 'Company Performance',
+	// 	hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+	// 	vAxis: {minValue: 0},
+	// 	colors:['#ecb534','#19A7CE']
+	// };
+
+	// var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+	// chart.draw(data, options);
+	// }
 </script>
 </html>

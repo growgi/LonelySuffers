@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.house.model.vo.FindRoomByCondition;
 import kr.co.house.model.vo.House;
+import kr.co.house.model.vo.HouseListing;
 import kr.co.house.model.vo.Room;
 import kr.co.house.model.vo.RoomBook;
 
@@ -80,12 +81,15 @@ public class HouseDao {
 		return (ArrayList<Room>)list;
 	}
 
+
+
 //모달용으로 복사, 예약이 없는(예약테이블에는 있어도 결제완료는 되어있지 않은 방들)을 조회	
 	public ArrayList<House> selectAllAvailableRoomList(House h) {
 		System.out.println(h);
 		List list = sqlSession.selectList("h.selectAllAvailableRoomList", h);
 		return (ArrayList<House>)list;
 	}
+
 
 
 // 하나의 houseNo에 대한 모든 객실들을 조회. 사용 중지된 객실도 포함하여 Room 테이블에서 Row 여러개 조회 후 반환
@@ -111,6 +115,20 @@ public class HouseDao {
 	}
 
 
+// 메인 메뉴 > 숙박 상품들 보기.  House 테이블에서 Row 여러 개 조회 후 반환
+	public ArrayList<House> selectHousePage(HouseListing condition){
+		List list = sqlSession.selectList("h.selectHousePage", condition);
+		return(ArrayList<House>)list;
+	}
+
+
+
+// 조건에 맞는 판매중인 상품들의 총 개수
+	public int totalNumberOfHouseByProduct(HouseListing condition) {
+		return sqlSession.selectOne("h.totalNumberOfHouseByProduct", condition);
+	}
+
+
 
 // 모든 숙박 상품의 위치(위도, 경도)를 조회.    HOUSE 테이블에서 Row 여러개 조회 후 반환
 	public ArrayList<House> selectAllAddress(){
@@ -124,6 +142,12 @@ public class HouseDao {
 		//System.out.println(house);
 		List list = sqlSession.selectList("h.selectRoomList", house);
 		return(ArrayList<House>)list;
+	}
+
+
+
+	public int roomBookInsert(RoomBook rb) {
+		return sqlSession.insert("rb.insertRoomBook",rb);
 	}
 
 

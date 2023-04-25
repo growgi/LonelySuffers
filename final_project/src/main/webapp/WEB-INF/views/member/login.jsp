@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lonly Suffers</title>
+<title>Lonly Surfers</title>
 <link rel="stylesheet" href="/resources/css/login.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
 
@@ -71,7 +71,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4>Lonely Suffers</h4><br>
+          <h4>Lonely Surfers</h4><br>
           <span>아이디 찾기</span>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
@@ -113,7 +113,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4>Lonely Suffers</h4><br>
+          <h4>Lonely Surfers</h4><br>
           <span>비밀번호 찾기</span>
         </div>
         <div class="modal-body" style="padding:40px 50px;">

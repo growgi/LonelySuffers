@@ -24,18 +24,21 @@ function scrollToTop() {
 
 // class가 stat-count인 숫자가 duration값(단위 ms) 동안 카운터 올라가는 함수 
 $(document).ready(function(){
-    $('.stat-count').each(function(){
-        $(this).prop('Counter',0).animate({
-            Counter: $(this).text()
-        },{
-            duration: 3500,
-            easing: 'swing',
-            step: function (now){
-                $(this).text(Math.ceil(now));
-            }
-        });
-    });
+		
+		$('.stat-count').each(function(){
+	        $(this).prop('Counter',0).animate({
+	            Counter: $(this).text()
+	        },{
+	            duration: 3500,
+	            easing: 'swing',
+	            step: function (now){
+	                $(this).text(Math.ceil(now));
+	            }
+	        });
+	    });
+	    
 });
+
 
 
 

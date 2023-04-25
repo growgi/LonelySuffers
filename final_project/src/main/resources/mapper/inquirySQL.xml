@@ -41,13 +41,14 @@
 
 
 <!-- 문의에 대한 답변들 출력 -->
-	<select id="selectAllAnswer" parameterType="_int" resultType="ia">
-		SELECT
-		ANSWER_NO as answerNo,
-		INQUIRY_NO as inquiryNo,
-		ANSWER_CONTENT as answerContent,
-		ANSWER_WRITER as answerWriter
-		FROM ANSWER WHERE INQUIRY_NO = ${_parameter} ORDER BY ANSWER_NO DESC
+	<select id="selectAllAnswer" parameterType="_int" resultMap="getAnswer">
+		SELECT * FROM ANSWER WHERE INQUIRY_NO = ${_parameter} ORDER BY ANSWER_NO DESC
+	</select>
+
+
+<!-- answerWriter을 비교하기 위해 하나의 답변을 조회 -->
+	<select id="selectOneAnswer" parameterType="_int" resultMap="getAnswer">
+		SELECT * FROM ANSWER WHERE ANSWER_NO = ${_parameter}
 	</select>
 
 
@@ -60,12 +61,10 @@
 	</insert>
 
 
-<!-- 문의 수정 -->
+<!-- 문의 내용 수정 -->
 	<update id="updateInquiry" parameterType="i">
 		UPDATE INQUIRY SET
-		INQUIRY_TITLE = #{inquiryTitle},
-		INQUIRY_CONTENT = #{inquiryContent},
-		PRIVATELY = #{privately}
+		INQUIRY_CONTENT = #{inquiryContent}
   		WHERE INQUIRY_NO = #{inquiryNo}
 	</update>
 
@@ -85,7 +84,7 @@
 	</insert>
 
 
-<!-- 답변 수정 -->
+<!-- 답변 내용 수정 -->
 	<update id="updateAnswer" parameterType="ia">
 		UPDATE ANSWER SET ANSWER_CONTENT = #{answerContent} WHERE ANSWER_NO = #{answerNo}
 	</update>
@@ -95,4 +94,13 @@
      <delete id="deleteAnswer" parameterType="_int">
 		DELETE FROM ANSWER WHERE ANSWER_NO = ${_parameter}
      </delete>
+		
+
+<!-- 답변 Answer의 모든 column에 대한 resultMap -->
+	<resultMap type="ia" id="getAnswer">
+		<result column="ANSWER_NO" property="answerNo"></result>
+		<result column="INQUIRY_NO" property="inquiryNo"></result>
+		<result column="ANSWER_CONTENT" property="answerContent"></result>
+		<result column="ANSWER_WRITER" property="answerWriter"></result>
+	</resultMap>
 </mapper>

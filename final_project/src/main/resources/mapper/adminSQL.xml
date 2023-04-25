@@ -723,4 +723,101 @@
  		from wishlist
  		where member_id=#{_parameter} and house_no is not null
  	</select>
+ 	
+ 	<select id="selectTotalSalesAmount" resultType="_int">
+ 		select sum(order_all_price) 
+ 		from order_tbl 
+ 		where order_status=1
+ 	</select>
+ 	
+ 	<select id="selectTodaySalesAmount" resultType="_int">
+ 		select sum(order_all_price) 
+ 		from order_tbl 
+ 		where (order_status=1) 
+ 		and (substr(order_date,0,10) like (to_char(sysdate,'yyyy-mm-dd')))
+ 	</select>
+ 	
+ 	 <select id="selectCarpoolRecruitingCount" resultType="_int">
+		select
+			count(*)
+		from carpool
+		where closure=2
+ 	</select>
+ 	
+ 	<select id="selectNewProduct" resultType="pr">
+         select * from (select
+        	'강습' as productType,
+            lesson_no as productNo,
+			lesson_title as productTitle,
+			lesson_city as productCity,
+			lesson_status as productStatus,
+			l.writer as productWriter
+        from lesson l
+        union
+        select
+        	'숙박' as productType,
+            house_no as productNo,
+			house_title as productTitle,
+			house_city as productCity,
+			house_status as productStatus,
+			h.writer as productWriter
+        from house h)
+        where productStatus=1
+        order by productStatus desc, productNo desc
+ 	</select>
+ 	
+ 	<select id="selectNewMember" resultType="m">
+ 		select
+ 			member_no as memberNo,
+ 			member_id as memberId,
+ 			member_email as memberEmail,
+ 			member_name as memberName
+ 		from member_tbl
+ 		where member_grade in(2,3)
+ 		order by member_no desc
+ 	</select>
+ 	
+ 	 <select id="selectNewCarpoolDriver" resultType="c">
+ 		select
+ 			member_no as memberNo,
+ 			member_id as memberId,
+ 			member_email as memberEmail,
+ 			member_name as memberName
+ 		from carpool
+ 		join member_tbl on(driver_no=member_no)
+ 		where member_grade in(2,3)
+ 		order by member_no desc
+ 	</select>
+ 	
+ 	<select id="selectAllAdmin" resultType="m">
+ 		select
+ 			member_no as memberNo,
+ 			member_id as memberId,
+ 			member_email as memberEmail,
+ 			member_name as memberName
+ 		from member_tbl
+ 		where member_grade in(2,3)
+ 		order by member_no desc
+ 	</select>
+ 	
+ 	<select id="selectGenderRatio" resultType="_int">
+ 		select 
+			round(sum(man)/count(*)*100,0) as manRatio
+			,round(sum(woman)/count(*)*100,0) as womanRatio
+		from(
+			select 
+			(case when member_gender=1 then 1 else 0 end) as man
+			,(case when member_gender=2 then 1 else 0 end) as woman
+			from 
+			member_tbl)
+ 	</select>
+ 	
+ 	<select id="selectSalesAmount" resultType="order">
+	 	select substr(order_date,1,7) mm,
+		       sum(order_all_price) as sales
+		from order_tbl
+		where order_product=1
+		group by substr(order_date,1,7)
+		order by 1
+ 	</select>
 </mapper>

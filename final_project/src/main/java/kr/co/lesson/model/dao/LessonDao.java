@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.lesson.model.vo.LessonBook;
+import kr.co.lesson.model.vo.LessonListing;
 
 @Repository
 public class LessonDao {
@@ -51,9 +52,31 @@ public class LessonDao {
 	}
 
 
+
+// 메인 메뉴 > 강습 상품들 보기.  Lesson 테이블에서 Row 여러 개 조회 후 반환
+	public ArrayList<Lesson> selectLessonPage(LessonListing condition){
+		List list = sqlSession.selectList("l.selectLessonPage", condition);
+		return(ArrayList<Lesson>)list;
+	}
+
+
+
+// 조건에 맞는 판매중인 상품들의 총 개수
+	public int totalNumberOfLessonByProduct(LessonListing condition) {
+		return sqlSession.selectOne("l.totalNumberOfLessonByProduct", condition);
+	}
+
+
+
 // 조건에 맞는 숙소 리스트를 조회하는 것
 	public ArrayList<Lesson> selectLessonList(Lesson lesson) {
 		List list = sqlSession.selectList("l.selectLessonList",lesson);
 		return(ArrayList<Lesson>)list;
+	}
+
+
+
+	public int lessonBookInsert(LessonBook lb) {
+		return sqlSession.insert("lb.insertLessonBook",lb);
 	}
 }
