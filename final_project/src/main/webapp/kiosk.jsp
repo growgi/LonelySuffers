@@ -454,6 +454,9 @@
        				 	<span class="money"><span class="stat-count">0</span>원</span>
            				<img class="money-emoji" src="/resources/images/won.png">
            				<input type="text" id="current-page" value="1">
+           				<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">
+           				<input type="hidden" class="memberPhone" value="${sessionScope.m.memberPhone }">
+           				<input type="hidden" class="memberEmail" value="${sessionScope.m.memberEmail }">
         			</div>  
 				</div> 
 		<div class="container">
@@ -652,11 +655,12 @@
 							<fieldset>
 								<legend>00님의 주문내역</legend>
 									<ul class="roomBook-info">
-										<li>숙소정보 : <input type="text" id="houseTitle-choice" value="hd" readonly></li>
-										<li>숙박소이름,호수 : <input type="text" id="roomTitleNo-choice" value="hd" readonly></li>
-										<li>숙박 날짜 : <input type="text" id="bookDate-choice" value="hd" readonly></li>
-										<li>옵션 : <input type="text" id="options-choice" value="hd" readonly></li>
-										<li><input type="text" id="roomTotalPrice" value="0" readonly></li>
+										<li>숙소정보 : <input type="text" id="houseTitle-choice" value="" readonly></li>
+										<li>숙박소이름,호수 : <input type="text" id="roomTitleNo-choice" value="" readonly></li>
+										<li>숙박 날짜 : <input type="text" id="bookDate-choice" value="" readonly></li>
+										<li>옵션 : <input type="text" id="options-choice" value="" readonly></li>
+										<li>숙박 총액 : <input type="text" id="roomTotalPrice" value="" readonly></li>
+									<ul>
 									</ul>
 									<ul class="lessonBook-info">
 										<li>강습명 : <input type="text" id="lessonTitle-choice" value="hd" readonly></li>
@@ -666,6 +670,7 @@
 										<li>강습 총액 : <input type="text" id="lessonTotalPrice-choice" value="hd" readonly></li>
 									</ul>
 									<p>총액 : <input type="text" id="TotalPrice-choice" value="hd" readonly></p>
+									<input type="text" id="TotalPriceVal" value="hd" hidden>
 							</fieldset>
 						</form>
 					</div>
@@ -883,7 +888,7 @@
 		    <!-- Modal content-->
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <button type="button" class="close" id="lessonBook-close" data-dismiss="modal">&times;</button>
 		        <h4 class="modal-title">강습 상세정보</h4>
 		      </div>
 		      <div class="modal-body">
@@ -998,7 +1003,7 @@
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
 			          <h4 class="modal-title">예약하기</h4>
 			        </div>
-			        <div class="modal-body" id="booking-modal">
+			        <div class="modal-body" id="booking-modal" style="height:350px;">
 						<select name="lessonPeople">
 						</select>
 						<input type="text" name="lessonBookDate" placeholder="강습일" required>
@@ -1535,8 +1540,16 @@ $("document").ready(function() {
 							    			}
 										}
 								});
-	
-
+							},
+							//getroom function success 끝
+							error : function(){
+								console.log("모달 에러났음");
+							}
+						}); //숙소 상세정보 모달 ajax끝
+					} //getroom function 끝
+					
+					
+					
 // 예약하기 modal 띄우면 실행되는 함수 시작
 								$("#goBooking").on("click", function(){
 									
@@ -1572,8 +1585,8 @@ $("document").ready(function() {
 								$("#modal-okay").on("click", function(){
 									if($("[name=roomNo] option:selected").text() != "객실을 먼저 선택해주세요"){
 
-										let onedayPrice = data.housePrice;
-										console.log("하루 방값"+data.housePrice);
+										let onedayPrice = $("[name=housePrice]").val();
+										console.log("하루 방값"+$("[name=housePrice]"));
 										console.log("시작일"+$("#bookEndDate").val());
 										console.log("끝나는 날"+$("#bookStartDate").val());
 										
@@ -1593,10 +1606,10 @@ $("document").ready(function() {
 												console.log((i+1)+"일째까지 누계 "+result+"원");
 											}
 											if($("#barbecue-choice").val()==1){
-												result += Number(data.houseBarbecuePrice);
+												result += Number($("[name=modalOptionPrice1]").val());
 											}
 											if($("#party-choice").val()==1){
-												result += Number(data.housePartyPrice);
+												result += Number($("[name=modalOptionPrice2]").val());
 											}
 											
 											// 주문내역에 옵션 가격 및 정보 전달		
@@ -1610,7 +1623,8 @@ $("document").ready(function() {
 												$("#options-choice").attr("value","바베큐 "+$("[name=modalOptionPrice1]").val()+"원","value","파티"+$("[name=modalOptionPrice2]").val()+"원");
 											}else{
 												$("#options-choice").attr("value","선택하신 옵션이 없습니다.");
-											}
+											}   
+												$("#modal-cancel").click();
 												$("#roomBook-close").click();
 												alert("주문이 완료되었습니다");
 												//roomBookPrice에 result값 넣어주는 함수+stat-count 숫자 변경
@@ -1641,15 +1655,7 @@ $("document").ready(function() {
 										alert("원하시는 방 호수를 먼저 골라주세요");
 									}
 									
-								})
-							},
-							//getroom function success 끝
-							error : function(){
-								console.log("모달 에러났음");
-							}
-						}); //숙소 상세정보 모달 ajax끝
-					} //getroom function 끝
-
+								});
 	
 	$(".page4-pass").on('click',function(){
 		
@@ -1923,7 +1929,7 @@ $("document").ready(function() {
 								const result = $("[name=lessonPrice]").val()*$("[name=lessonPeople]").val();
 								console.log(result);
 								$("[name=lessonTotalPrice]").attr("value",result);
-							
+								
 							}); // 예약하기 modal 띄우면 실행되는 함수 끝
 						});
 					},
@@ -1943,6 +1949,9 @@ $("document").ready(function() {
 	$(".page8-okay").on('click',function(){
 
 		if(confirm("결제 하시겠습니까? ")){
+			const memberName = $('.memberName').val();
+			const memberPhone = $('.memberPhone').val();
+			const memberEmail = $('.memberEmail').val();
 			
 		const price = $('#TotalPrice-choice').val();	//결제 금액
 		const priceCheck = isNaN(price); //결제금액 숫자인지 check
@@ -1965,12 +1974,12 @@ $("document").ready(function() {
 			pg : "html5_inicis",
 			pay_method : "card",
 			merchant_uid : "상품번호_"+date,//상점에서 관리하는 주문번호
-			name : "결제 테스트",	//결제이름
+			name : "Lonely Suffers",	//결제이름
 			amount : price,		//결제금액
-			buyer_email : "", //구매자 email
-			buyer_name : "구매자", //구매자 이름
-			buyer_tel : "010-0000-1111", //구매자 전화번호
-			buyer_addr : "서울시 영등포구 당산동",//구매자 주소
+			buyer_email : memberEmail, //구매자 email
+			buyer_name : memberName, //구매자 이름
+			buyer_tel : memberPhone, //구매자 전화번호
+			buyer_addr : "",//구매자 주소
 			buyer_postcode : "12345"  
 		},function(rsp){
 			if(rsp.success){
@@ -1983,7 +1992,7 @@ $("document").ready(function() {
 			}
 		});
 			}else{
-				alert("1000원 단위로 결제 가능합니다.");
+				alert("100원 단위로 결제 가능합니다.");
 			}
 		}
 		}
@@ -2019,8 +2028,11 @@ $("document").ready(function() {
 							$(".stat-count").text(result);
 							//receipt에 총액 넘겨주는 함수
 							$("#TotalPrice-choice").attr("value",result);
+							//결제 모듈로 넘길 총액
+							$("#TotalPriceVal").attr("value",result);
 							//주문하기를 눌렀을 때 동작하는 함수
-							$("#roomBook-close").click();
+							$("#modal-cancel2").click();
+							$("#lessonBook-close").click();
 							alert("주문이 완료되었습니다");
 							//roomBookPrice에 result값 넣어주는 함수+stat-count 숫자 변경
 							console.log("옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
@@ -2031,11 +2043,12 @@ $("document").ready(function() {
 							$("#lessonTitle-choice").attr("value",$("#modal-lesson-title").text());
 							$("#lessonTime-choice").attr("value",$("#modal-lesson-time").text());
 							$("#lessonDate-choice").attr("value",$("[name=lessonBookDate]").val());
-							$("lessonMaxNo-choice").attr("value",$("[name=lessonPeople]").val()+"명");
-							$("#lessonTotalPrice-choice").attr("value","옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
+							$("#lessonMaxNo-choice").attr("value",$("[name=lessonPeople]").val()+"명");
+							console.log("테스트용]"+$("[name=lessonPeople]").val()+"명");
+							$("#lessonTotalPrice-choice").attr("value","총 인원"+$("[name=lessonPeople]").val()+"명 강습 요금은 "+result+"원으로 계산되었습니다.");
 							//나중에 쓰기 위해 hidden으로 숨겨놓은 input에 값 전달
-							$("#roomTotalPrice").attr("value",result);
-							//stat-count 애니메이션 효과! 아래에서 강습때에도 마찬가지로 적용하자
+							$("#roomTotalPrice").attr("value","옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
+							//stat-count 애니메이션 효과!
 							$('.stat-count').each(function(){
 						        $(this).prop('Counter',0).animate({
 						            Counter: $(this).text()
