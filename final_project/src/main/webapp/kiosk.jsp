@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>어디로 떠나볼까요? - Lonely Suffers</title>
+<title>어디로 떠나볼까요? - Lonely Surfers</title>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <style>
 	*{
@@ -1021,7 +1021,6 @@
 	</div>
 
 <!-- 기본 .js 파일들 -->
-	<script src="resources/js/jquery.min.js"></script>
 	<script src="resources/js/bootstrap.js"></script>
 	<!-- <script src="resources/js/parallax.js"></script> -->
 	<script src="resources/js/animate.js"></script>

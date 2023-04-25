@@ -72,14 +72,14 @@ public class MailSender {
 			
 			msg.setSentDate(new Date());
 			
-			msg.setFrom(new InternetAddress("eoekdl3@gmail.com","Lonly Suffers"));
+			msg.setFrom(new InternetAddress("eoekdl3@gmail.com","Lonly Surfers"));
 			
 			InternetAddress to = new InternetAddress(email);
 			msg.setRecipient(Message.RecipientType.TO, to);
 			
-			msg.setSubject("Lonly suffers 이메일 인증","utf-8");
+			msg.setSubject("Lonly surfers 이메일 인증","utf-8");
 			
-			msg.setContent("<h1>안녕하세요.</h1><h3>Lonly Suffers 입니다.</h3>"+"<h3>인증번호는 [<span style='color:red'>"+sb.toString()+"</span>]입니다</h3>","text/html;charset=utf-8");
+			msg.setContent("<h1>안녕하세요.</h1><h3>Lonly Surfers 입니다.</h3>"+"<h3>인증번호는 [<span style='color:red'>"+sb.toString()+"</span>]입니다</h3>","text/html;charset=utf-8");
 			
 			Transport.send(msg);
 			result = true;
@@ -148,14 +148,14 @@ public class MailSender {
 			
 			msg.setSentDate(new Date());
 			
-			msg.setFrom(new InternetAddress("eoekdl3@gmail.com","Lonly Suffers"));
+			msg.setFrom(new InternetAddress("eoekdl3@gmail.com","Lonly Surfers"));
 			
 			InternetAddress to = new InternetAddress(email);
 			msg.setRecipient(Message.RecipientType.TO, to);
 			
-			msg.setSubject("Lonly suffers 임시비밀번호","utf-8");
+			msg.setSubject("Lonly surfers 임시비밀번호","utf-8");
 			
-			msg.setContent("<h1>안녕하세요.</h1><h3>Lonly Suffers 입니다.</h3>"+"<h3>임시 비밀번호는 [<span style='color:red'>"+sb.toString()+"</span>]입니다</h3>","text/html;charset=utf-8");
+			msg.setContent("<h1>안녕하세요.</h1><h3>Lonly Surfers 입니다.</h3>"+"<h3>임시 비밀번호는 [<span style='color:red'>"+sb.toString()+"</span>]입니다</h3>","text/html;charset=utf-8");
 			
 			Transport.send(msg);
 			result = true;

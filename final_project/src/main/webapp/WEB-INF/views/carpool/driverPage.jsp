@@ -19,7 +19,7 @@
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>Lonely Suffers-Carpool Main</title>
+<title>Lonely Surfers-Carpool Main</title>
 <link rel="stylesheet" href="resources/css/carpool/carpoolMain.css">
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">

@@ -14,7 +14,7 @@
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>이 페이지의 제목을 적어주세요 - Lonely Suffers</title>
+<title>이 페이지의 제목을 적어주세요 - Lonely Surfers</title>
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
@@ -105,7 +105,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4>Lonely Suffers</h4><br>
+          <h4>Lonely Surfers</h4><br>
           <span>이메일인증</span>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
@@ -133,7 +133,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4>Lonely Suffers</h4><br>
+          <h4>Lonely Surfers</h4><br>
           <span>아이디 중복체크</span>
         </div>
         <div class="modal-body" style="padding:40px 50px;">

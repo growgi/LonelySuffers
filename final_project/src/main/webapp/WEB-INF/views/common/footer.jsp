@@ -58,7 +58,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <p>2023 Lonely Suffers</p>
+                        <p>2023 Lonely Surfers</p>
                     </div>
 
                     <div class="col-md-6 col-sm-6 col-xs-12">

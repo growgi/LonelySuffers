@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>회사소개 - Lonely Suffers</title>
+<title>회사소개 - Lonely Surfers</title>
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
@@ -85,13 +85,13 @@
 				<div class="page-content">
 			      <div class="map-wrap">
 			         <div class="map-title">
-			            <h2>Lonely Suffers</h2>
+			            <h2>Lonely Surfers</h2>
 			            <h4>서퍼가 꿈이라면 지금이 기회다!!!</h4>
 			         </div>
 			         <div class="transport-way">
 			            <table>
 			            	<tr>
-			            		<th>Lonely Suffers란</th>
+			            		<th>Lonely Surfers란</th>
 			            		<td>대한민국 서퍼들에게 서핑과 숙소, 즐길거리를 제공하는 소셜 플랫폼</td>
 			            	</tr>
 			            	<tr>
