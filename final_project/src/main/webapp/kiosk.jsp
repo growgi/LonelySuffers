@@ -454,6 +454,9 @@
        				 	<span class="money"><span class="stat-count">0</span>원</span>
            				<img class="money-emoji" src="/resources/images/won.png">
            				<input type="text" id="current-page" value="1">
+           				<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">
+           				<input type="hidden" class="memberPhone" value="${sessionScope.m.memberPhone }">
+           				<input type="hidden" class="memberEmail" value="${sessionScope.m.memberEmail }">
         			</div>  
 				</div> 
 		<div class="container">
@@ -1944,6 +1947,9 @@ $("document").ready(function() {
 	$(".page8-okay").on('click',function(){
 
 		if(confirm("결제 하시겠습니까? ")){
+			const memberName = $('.memberName').val();
+			const memberPhone = $('.memberPhone').val();
+			const memberEmail = $('.memberEmail').val();
 			
 		const price = $('#TotalPrice-choice').val();	//결제 금액
 		const priceCheck = isNaN(price); //결제금액 숫자인지 check
@@ -1966,12 +1972,12 @@ $("document").ready(function() {
 			pg : "html5_inicis",
 			pay_method : "card",
 			merchant_uid : "상품번호_"+date,//상점에서 관리하는 주문번호
-			name : "결제 테스트",	//결제이름
+			name : "Lonely Suffers",	//결제이름
 			amount : price,		//결제금액
-			buyer_email : "", //구매자 email
-			buyer_name : "구매자", //구매자 이름
-			buyer_tel : "010-0000-1111", //구매자 전화번호
-			buyer_addr : "서울시 영등포구 당산동",//구매자 주소
+			buyer_email : memberEmail, //구매자 email
+			buyer_name : memberName, //구매자 이름
+			buyer_tel : memberPhone, //구매자 전화번호
+			buyer_addr : "",//구매자 주소
 			buyer_postcode : "12345"  
 		},function(rsp){
 			if(rsp.success){
@@ -1984,7 +1990,7 @@ $("document").ready(function() {
 			}
 		});
 			}else{
-				alert("1000원 단위로 결제 가능합니다.");
+				alert("100원 단위로 결제 가능합니다.");
 			}
 		}
 		}
