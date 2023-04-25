@@ -1807,31 +1807,6 @@ $("document").ready(function() {
 	$(".page7-pass").on('click',function(){
 			alert("강습은 꼭 선택해주셔야해요");
 	})
-//page8 주문내역
-	$(".page8-before").on('click',function(){
-		$(".pages").hide();
-		$(".page7").show();
-		$(".title").text("조건에 맞는 강습리스트예요~!");
-		$("#current-page").attr("value",7);
-		
-	})
-	$(".page8-okay").on('click',function(){
-		alert("여기다 ajax하시면 됩니다 병주님");
-		/*
-		let result = confirm("주문하신 내역이 맞으신가요?");
-		if(result == true){
-			$(".pages").hide();
-			$(".page8").show();
-			$(".title").text("주문내역을 확인해주세요");
-			$("#current-page").attr("value",8);
-		}else{
-			alert("원하시는 강습을 선택해주세요");
-		}
-		*/
-	});
-	$(".page8-pass").on('click',function(){
-			alert("주문내역을 확인하시고 확정버튼을 눌러주세요");
-	})
 
 
 //강습상품의 상세정보 보기 버튼 클릭하면 modal을 띄워주는 function
@@ -1970,7 +1945,7 @@ $("document").ready(function() {
 
 		if(confirm("결제 하시겠습니까? ")){
 			
-		const price = $('#TotalPrice-choice');	//결제 금액
+		const price = $('#TotalPrice-choice').val();	//결제 금액
 		const priceCheck = isNaN(price); //결제금액 숫자인지 check
 
 		const regExp = /^[0-9]+00$/;	
@@ -2012,9 +1987,8 @@ $("document").ready(function() {
 				alert("1000원 단위로 결제 가능합니다.");
 			}
 		}
-
-	
-	}
+		}
+	});
 
 		
 		
