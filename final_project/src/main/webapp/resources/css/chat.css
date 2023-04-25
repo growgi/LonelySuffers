@@ -3,7 +3,8 @@
     display:none;
 }
 .adminMessageArea,.messageArea{
-    overflow-y: auto;
+  box-sizing: border-box;
+  overflow-y: auto;
     border : 1px solid black;
     height: 550px;
     display: flex;
@@ -24,8 +25,11 @@
     background-color: #146C94;
     border-radius: 10px;
     margin-right: 5px;
-    padding: 5px;
+    font-weight: 500;
+    padding: 8px;
+    color : #Fff
 }
+
 
 .chat_left {
     margin-bottom: 10px;
@@ -37,8 +41,10 @@
     background-color: #F6F1F1;
     border-radius: 10px;
     margin-left: 5px;
-    padding: 5px;
+    font-weight: 500;
+    padding: 8px;
     display: inline-block;
+    
   }
   
   .dateDiv {
@@ -50,6 +56,8 @@
     font-size: 12px;
     color: gray;
     margin-bottom: 3px;
+    margin-left: 7px;
+    font-weight: 500;
   }
   
   .containerDiv {

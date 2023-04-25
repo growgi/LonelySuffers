@@ -79,7 +79,7 @@ input[type=text],input[type=password]{
 
 .active-div{
     display: block;
-    margin-left: 50px;
+    margin-left: 0px;
     box-sizing: border-box;
 
 }
@@ -254,6 +254,7 @@ button{
 .endBtnDiv{
     position: relative;
     width: 500px;
+    
   }
   
   [name=endChatBtn]{
@@ -264,4 +265,46 @@ button{
     transform: translate(-50%, -50%);
     border: none;
     background-color: rgba(141, 180, 214, 0.1);
+    font-weight: 500;
+    font-size: 17px;
   }
+
+  
+  [name=endChatBtn]:hover {
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경색 지정 */
+    color: #fff;
+    font-weight: 600;
+  }
+  .messageArea::-webkit-scrollbar{
+    border-radius: 5px;
+    width: 10px;
+    background-color: #ffffff;
+    border: 1px solid black;
+  }
+
+  .messageArea::-webkit-scrollbar-track{
+  }
+
+  .messageArea::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #222222;
+  }
+
+  table>tbody>tr:first-child>td{
+    background-color: #123;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+
+  }
+
+  table>tbody>tr:first-child>td:first-child{
+    border-top-left-radius: 10px;
+  }
+  table>tbody>tr:first-child>td:last-child{
+    border-top-right-radius: 10px;
+    width: 120px;
+  }
+  

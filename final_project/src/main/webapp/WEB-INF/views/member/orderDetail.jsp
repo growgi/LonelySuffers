@@ -11,6 +11,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
 <style>
 
+.admin-content>div{
+    margin-left: 100px;
+    margin-top: 50px;
+    margin-bottom: 150px;
+}
+
  .bold{
         font-weight: 900;
     }
@@ -24,6 +30,7 @@
         padding-bottom: 10px;
         margin-bottom: 50px;
         border-bottom: 2px solid rgb(223, 223, 223);
+        align-items: center;
         
     }
     .orderDetail-title>a {
