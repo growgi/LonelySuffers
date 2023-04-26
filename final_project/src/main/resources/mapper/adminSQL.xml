@@ -800,10 +800,6 @@
  		order by member_no desc
  	</select>
  	
- 	<select id="selectVisitant" resultType="v">
- 		
- 	</select>
- 	
  	<select id="selectGenderRatio" resultType="_int">
  		select 
 			round(sum(man)/count(*)*100,0) as manRatio
