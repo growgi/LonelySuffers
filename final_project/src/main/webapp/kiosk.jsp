@@ -682,6 +682,8 @@
 									<input type="text" id="totalPriceVal" value="" hidden>
 									<input type="text" id="roomBookNo" value="" hidden>
 									<input type="text" id="lessonBookNo" value="" hidden>
+									<input type="text" id="orderNo" value="" hidden>
+									<input type="text" id="orderDetailNo" value="" hidden>
 							</fieldset>
 						</form>
 					</div>
@@ -1844,7 +1846,7 @@ $("document").ready(function() {
 			const memberPhone = $('.memberPhone').val();
 			const memberEmail = $('.memberEmail').val();
 			
-		const price = $('#totalPrice-choice').val();	//결제 금액
+		const price = $('#totalPriceVal').val();	//결제 금액
 		const priceCheck = isNaN(price); //결제금액 숫자인지 check
 
 		const regExp = /^[0-9]+00$/;	
@@ -1924,13 +1926,30 @@ $("document").ready(function() {
 						error:function(){
 							console.log("roomBook insert에 문제있음");
 						}
-					})
-					
+					});
+					const roomBookNo = $("#roomBookNo").val();
+					const lessonBookNo = $("#lessonBookNo").val();
 					//ajax로 order_tbl에 insert(const는 모두 만들어놨음 ajax만 돌리면 된다)
-					
-					
-					
+					$.ajax({
+						url:"/oderTblInsert.do",
+						type:"post",
+						data:{houseNo : houseNo, memberNo : memberNo, orderAllPrice : orderAllPrice, orderProduct : orderProduct},
+						success:function(data){
+							//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
+							$("#orderNo").attr("value",data.orderNo);
+						}
+					});
+					const orderNo = $("#orderNo").val();
 					//ajax로 order_detail에 insert
+					$.ajax({
+						url:"/orderDetailInsert.do",
+						type:"post",
+						data:{orderNo : orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
+						success:function(data){
+							//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
+							$("#orderDetailNo").attr("value",data.orderDetailNo);
+						}
+					})
 				//
 			}else{
 				alert("결제실패");	

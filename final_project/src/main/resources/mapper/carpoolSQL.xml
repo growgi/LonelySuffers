@@ -36,18 +36,20 @@
 		c.arrival_district as arrivalDistrict,
 		c.capacity as capacity,
 		c.carpool_price as carpoolPrice,
+		c.oneway_round as onewayRound,
+		c.closure as closure,
 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
 		from carpool c
 		left join member_tbl on(member_no=driver_no) 
 		where carpool_no=#{_parameter}
 	</select>
 	
-<!-- 운전자의 카풀 제공 등록 확인할 것 : 편도/왕복에 따라 화면이 다른데 그럼 mapper 다르게 구현하는게 맞는지??-->
+	
 	<insert id="insertCarpool" parameterType="c">
 		insert into carpool values(
 		carpool_seq.nextval, #{driverNo}, #{capacity}, #{onewayRound},  #{departureRegion}, #{departureDistrict}, #{arrivalRegion}, #{arrivalDistrict},
 		#{departureDate}, #{departureTime}, #{returnDate}, #{returnTime},#{driverMsg}, #{carpoolPrice}, #{surfboardRoom}, 
-		TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'),2)
+		TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'), 2)
 	</insert>	
 	
 <!-- 
@@ -197,8 +199,11 @@
  		match_status as matchStatus
  		from passenger where carpool_no=#{carpoolNo} and passenger_no=#{memberNo} 
  	</select>
- 
- 
+ 	
+ 	<update id="updateClosure" parameterType="c">
+ 		update carpool set closure=1
+ 		where departure_date <![CDATA[ <]]> to_char(sysdate,'yyyy-mm-dd') and closure=2
+ 	</update>
  
  
 </mapper>

@@ -30,6 +30,8 @@
 		<typeAlias type="kr.co.chat.model.vo.ChatActive" alias="ca"/>
 		<typeAlias type="kr.co.chat.model.vo.ChatContent" alias="cc"/>
 		<typeAlias type="kr.co.admin.model.vo.Product" alias="pr"/>
+		<typeAlias type="kr.co.order.model.vo.Order" alias="o"/>
+		<typeAlias type="kr.co.order.model.vo.OrderDetail" alias="od"/>
 	</typeAliases>		
 
 

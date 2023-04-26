@@ -18,11 +18,13 @@
 					capacity as capacity,
 					surfboard_room as surfboardRoom,
 					driver_msg as driverMsg,
+					closure as closure,
 					(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) AS reserved
 				FROM CARPOOL c
-				<trim prefix="where" prefixOverrides="and|or"> 		
+				<trim prefix="where" prefixOverrides="and|or"> 
+						closure in (1,2)
 					<if test="!departureRegion.equals('전체')">
-						departure_region=#{departureRegion} 
+						and departure_region=#{departureRegion} 
 					</if>
 					<if test="departureTime != null">
 						and departure_time in
@@ -60,9 +62,10 @@
 		<select id="totalCount" parameterType="cf" resultType="_int">
 		select 
 			count(*) from carpool
-			<trim prefix="where" prefixOverrides="and|or"> 		
+			<trim prefix="where" prefixOverrides="and|or">
+				 closure in (1,2)	
 				<if test="!departureRegion.equals('전체')">
-					departure_region=#{departureRegion} 
+					and departure_region=#{departureRegion} 
 				</if>
 				<if test="departureTime != null">
 					and departure_time in
