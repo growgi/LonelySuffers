@@ -79,6 +79,15 @@ public class CarpoolController {
 	@ResponseBody // ajax쓸때는 ResponseBody 꼭 써야하지!!
 	@RequestMapping(value = "/filterCarpool.do", produces = "application/json;charset=utf-8")
 	public String filterCarpool(CarpoolFilter cf, int amount) {
+	/*	System.out.println("cf : " + cf);
+		if (cf != null) {
+			if (cf.getClosure() != null) {
+				System.out.println("★cf.getclosure 배열길이: " + cf.getClosure().length);
+				for (int i = 0; i < cf.getClosure().length; i++) {
+					System.out.println("★cf.getclosure 값: " + cf.getClosure()[i]);
+				}
+			}
+		}*/
 		ArrayList<Carpool> list = service.filterCarpool(cf, amount);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
@@ -91,39 +100,48 @@ public class CarpoolController {
 	public String carpoolMatch(Model model, int carpoolNo, String passengerMsg,
 			@SessionAttribute(required = false) Member m) {
 		Carpool c = service.selectOneCarpool(carpoolNo);
-		if (c.getDriverNo() == m.getMemberNo()) {
-			//작성자와 신청자가 같지 않도록, 본인이 작성한 글에는 본인이 신청할 수 없도록 한다. 
-			model.addAttribute("title", "카풀 신청 실패");
-			model.addAttribute("msg", "본인의 카풀에 신청할 수 없습니다.");
-			model.addAttribute("icon", "error");
-			model.addAttribute("loc", "/carpoolRequest.do?carpoolNo=" + carpoolNo);
-			return "common/msg";
-			} else {
-			CarpoolMatch match = new CarpoolMatch();
-			match.setCarpoolNo(carpoolNo);
-			match.setPassengerMsg(passengerMsg);
-			match.setPassengerNo(m.getMemberNo());
-			int result = service.insertPassenger(match);
-			if (result > 0) {
-				model.addAttribute("title", "카풀 신청 완료");
-				model.addAttribute("msg", "카풀 신청을 완료했습니다.");
-				model.addAttribute("icon", "success");
-				model.addAttribute("loc", "/passengerPage.do?memberNo=" + m.getMemberNo());
-				return "common/msg";
-			} else if (result == 0) {
+		if (c.getClosure() == 2) {
+			if (c.getDriverNo() == m.getMemberNo()) {
+				// 작성자와 신청자가 같지 않도록, 본인이 작성한 글에는 본인이 신청할 수 없도록 한다.
 				model.addAttribute("title", "카풀 신청 실패");
-				model.addAttribute("msg", "카풀 신청을 실패했습니다.");
-				model.addAttribute("icon", "error");
-				model.addAttribute("loc", "/passengerPage.do?memberNo=" + m.getMemberNo());
-				return "common/msg";
-			} else {
-				model.addAttribute("title", "카풀 신청 실패");
-				model.addAttribute("msg", "이미 신청하셨습니다.");
+				model.addAttribute("msg", "본인의 카풀에 신청할 수 없습니다.");
 				model.addAttribute("icon", "error");
 				model.addAttribute("loc", "/carpoolRequest.do?carpoolNo=" + carpoolNo);
 				return "common/msg";
+			} else {
+				CarpoolMatch match = new CarpoolMatch();
+				match.setCarpoolNo(carpoolNo);
+				match.setPassengerMsg(passengerMsg);
+				match.setPassengerNo(m.getMemberNo());
+				int result = service.insertPassenger(match);
+				if (result > 0) {
+					model.addAttribute("title", "카풀 신청 완료");
+					model.addAttribute("msg", "카풀 신청을 완료했습니다.");
+					model.addAttribute("icon", "success");
+					model.addAttribute("loc", "/passengerPage.do?memberNo=" + m.getMemberNo());
+					return "common/msg";
+				} else if (result == 0) {
+					model.addAttribute("title", "카풀 신청 실패");
+					model.addAttribute("msg", "카풀 신청을 실패했습니다.");
+					model.addAttribute("icon", "error");
+					model.addAttribute("loc", "/passengerPage.do?memberNo=" + m.getMemberNo());
+					return "common/msg";
+				} else {
+					model.addAttribute("title", "카풀 신청 실패");
+					model.addAttribute("msg", "이미 신청하셨습니다.");
+					model.addAttribute("icon", "error");
+					model.addAttribute("loc", "/carpoolRequest.do?carpoolNo=" + carpoolNo);
+					return "common/msg";
+				}
 			}
+		} else {
+			model.addAttribute("title", "모집기간이 아닙니다.");
+			model.addAttribute("msg", "카풀 마감 혹은 삭제된 건입니다.");
+			model.addAttribute("icon", "error");
+			model.addAttribute("loc", "/passengerPage.do?memberNo=" + m.getMemberNo());
+			return "common/msg";
 		}
+
 	}
 
 	// 운전자의 내 카풀 리스트 보기!!!
