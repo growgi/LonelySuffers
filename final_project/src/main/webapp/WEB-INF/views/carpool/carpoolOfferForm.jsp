@@ -300,7 +300,7 @@
     //왕복을 누르면 들어가게 하는거
     $(".round").on("click", function(){
     	$("[name=onewayRound]").val(2);
-    	if(!$(".depart").next().hasClass("arrive")){
+    	
 	    	$(".depart").after(
 	    			  '<tr class="arrive">' +
 	    	            '<th style="width:35%; text-align:center;">복귀</th>' +
@@ -315,14 +315,10 @@
 	    	                '<label for="return-pm">오후</label>' +
 	    	            '</td>' +
 	    	        '</tr>'
-	            	)	
-    	}else{
-    		$(".arrive").show();
-    	}
-    	
-  	  });
+	            	);
+    });
     $(".oneway").on("click", function(){
-    	$(".arrive").hide();
+    	$(".arrive").remove();
     	$("[name=onewayRound]").val(1);
     });
     
@@ -392,7 +388,8 @@
 	//required 함수는 onsubmit 함수에 포함된다. 왜냐면 제출/등록 등을 누를때 함수가 required가 돌기 때문이다.
 	//onsubmit과 required를 동시에 쓰면은 이벤트가 중복되기 때문에 실행되지않는다. 그렇기때문에 onsubmit을 적으면 required를 지워준다. 
 	function checkReturn(){
-		console.log($("[name=departureRegion]").val());
+		console.log("----");
+		console.log($("[name=carpoolPrice]").val());
 		if($("[name=departureRegion]").val()==null){
 			alert('출발 지역을 선택해주세요.');
 			return false;
@@ -402,13 +399,20 @@
 		}else if(!$("[name=departureTime]").prop("checked")){
 			alert('출발 오전/오후 중에 선택해주세요');
 			return false;
-		}else if(!$("[name=returnTime]").prop("checked")){
+		}else if($("[name=returnTime]").length>0){
+			if(!$("[name=returnTime]").prop("checked")){
 			alert('복귀 오전/오후 중에 선택해주세요');
 			return false;
+			}
 		}else{
+			if($("[name=carpoolPrice]").val()==""){
+				$("[name=carpoolPrice]").val(0);
+			}
 			return true;
 		}
 	}
+	//carpoolPrice 주의점: input이 숫자일때는 ""(String 빈칸)으로 나오기때문에, 안에 값이 비었으면 0으로 값을 받아오도록 설정해줘야한다.  
+	
 
 		
 	</script>

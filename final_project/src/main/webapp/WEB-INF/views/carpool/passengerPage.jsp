@@ -60,7 +60,7 @@
 			style="padding-top: 50px; padding-bottom: 10px;">
 			<div class="container">
 				<div class="row"
-					style="border-bottom: 2.5px solid rgba(101, 112, 123, 0.833);">
+					style="padding-left: 120px; padding-bottom: 20px; padding-right: 140px;border-bottom: 2.5px solid rgba(101, 112, 123, 0.833);">
 					<div class="col-md-2">
 						<p class="category" style="font-weight: 900; font-size: 20px;">
 							<a href="carpoolMain.do">전체보기</a>
