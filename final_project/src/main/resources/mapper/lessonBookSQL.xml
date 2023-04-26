@@ -18,7 +18,7 @@
 		INSERT INTO LESSON_BOOK VALUES (LESSON_BOOK_SEQ.NEXTVAL, #{lessonBookDate}, #{lessonPeople}, #{memberNo}, #{lessonNo}, #{lessonBookPrice})
 <!-- 가장 최근 insert된 신규 Row의 lessonBookNo 받아옴 -->
 		<selectKey resultType="_int" order="AFTER" keyProperty="lessonBookNo">
-			SELECT MAX(LESSON_BOOK_NO) FROM LESSON_BOOK
+			SELECT MAX(LESSON_BOOK_NO)as lessonBookNo FROM LESSON_BOOK
 		</selectKey>
 	</insert>
 
