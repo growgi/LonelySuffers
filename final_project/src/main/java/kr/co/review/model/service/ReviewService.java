@@ -15,8 +15,8 @@ public class ReviewService {
 	@Autowired
 	private ReviewDao dao;
 
-	public ArrayList<Review> selectAllReview() {
-		return dao.selectAllReview();
+	public ArrayList<Review> selectAllReview(int houseNo) {
+		return dao.selectAllReview(houseNo);
 	}
 
 	public int insertReview(Review rv, ArrayList<RFileVO> fileList) {

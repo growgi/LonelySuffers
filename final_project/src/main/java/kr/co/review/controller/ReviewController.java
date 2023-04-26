@@ -6,10 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.FileManager;
@@ -24,16 +22,9 @@ public class ReviewController {
 	@Autowired
 	private FileManager manager;
 	
-	@RequestMapping(value="/reviewList.do")
-	public String reviewList(Model model) {
-		ArrayList<Review> list = service.selectAllReview();
-		model.addAttribute("list", list);
-		return "review/reviewList";
-	}
-	
 	@RequestMapping(value="/reviewWriteFrm.do")
 	public String reviewWrite(Review rv, MultipartFile[] reviewFile, HttpServletRequest request) {
-		System.out.println("reviewController에서 review값"+rv);
+		System.out.println("reviewController에서 review값"+rv.getProductNo());
 		System.out.println("reviewController에서 review값"+reviewFile);
 		ArrayList<RFileVO> fileList = new ArrayList<RFileVO>();
 		if(!reviewFile[0].isEmpty()) {
@@ -92,6 +83,7 @@ public class ReviewController {
 	
 	@RequestMapping(value="/deleteReview.do")
 	public String deleteReview(int reviewNo) {
+		System.out.println("리뷰넘버 확인용"+reviewNo);
 		int result = service.deleteReview(reviewNo);
 		if(result > 0) {
 			return "redirect:/";

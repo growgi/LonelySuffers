@@ -15,8 +15,8 @@ public class ReviewDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public ArrayList<Review> selectAllReview() {
-		List list = sqlSession.selectList("review.selectAllReview");
+	public ArrayList<Review> selectAllReview(int houseNo) {
+		List list = sqlSession.selectList("review.selectAllReview", houseNo);
 		return (ArrayList<Review>)list;
 	}
 

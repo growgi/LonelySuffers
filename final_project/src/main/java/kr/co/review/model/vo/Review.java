@@ -1,5 +1,8 @@
 package kr.co.review.model.vo;
 
+import java.util.ArrayList;
+
+import kr.co.notice.model.vo.FileVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +19,5 @@ public class Review {
 	private String reviewDate;
 	private int productCategory;
 	private int productNo;
+	private ArrayList<RFileVO> rfileList;
 }

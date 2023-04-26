@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="review">
-	<select id="selectAllReview" resultType="rv">
-		select
-			review_no as reviewNo,
-			review_writer as reviewWriter,
-			review_title as reviewTitle,
-			review_content as reviewContent,
-			rating as rating,
-			review_date as reviewDate,
-			product_category as productCategory,
-			product_no as productNo
-		from review order by 1 desc	
+	<select id="selectAllReview" parameterType="_int" resultMap="getReview">
+		select *
+			
+		from review where product_no = #{_parameter}
+		order by 1 desc
+			
 	</select>
 	
 	<select id="selectReviewNo" resultType="_int">
@@ -33,7 +28,16 @@
 	<insert id="insertFile" parameterType="rf">
 		insert into rfile_tbl values(file_seq.nextval,#{reviewNo},#{filename},#{filepath})	
 	</insert>
-	<!-- 
+	
+	<select id="selectFileList" parameterType="_int" resultType="rf">
+		select
+			file_no as fileNo,
+           review_no as reviewNo,
+           filename,
+           filepath
+        from rfile_tbl where review_no = #{_parmeter}
+	</select>
+	 
 	<resultMap type="rv" id="getReview">
         <result column="review_no" property="reviewNo" />
         <result column="review_writer" property="reviewWriter" />
@@ -43,14 +47,14 @@
         <result column="review_date" property="reviewDate" />
         <result column="product_category" property="productCategory" />
         <result column="product_no" property="productNo" />
-        <collection property="fileList"
+        <collection property="rfileList"
                  select="selectFileList"
                  column="review_no"
                  ofType="rf"
                  javaType="java.util.ArrayList"
         />
      </resultMap>
-      -->
+     
      <update id="reviewUpdate" parameterType="rv">
      	update review set
 			review_title = #{reviewTitle},

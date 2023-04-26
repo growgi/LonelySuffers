@@ -24,6 +24,8 @@ import kr.co.house.model.vo.HousePagination;
 import kr.co.house.model.vo.Room;
 import kr.co.house.model.vo.RoomBook;
 import kr.co.member.model.vo.Member;
+import kr.co.review.model.service.ReviewService;
+import kr.co.review.model.vo.Review;
 
 @Controller
 public class HouseController {
@@ -32,13 +34,17 @@ public class HouseController {
 	private HouseService service;
 	@Autowired
 	private ProductFileNumbering fileManager;
-
-
+	@Autowired
+	private ReviewService rservice;
 
 // 숙박 상품 상세페이지 보기.  House 테이블에서 Row 1개 전체 조회 후 반환
 	@RequestMapping(value="/houseView.do")
 	public String houseView(int houseNo, Model model) {
 		House h = service.selectOneHouse(houseNo);
+		//review 리스트 받아오는 코드
+		ArrayList<Review> list = rservice.selectAllReview(houseNo);
+		model.addAttribute("list", list);
+		System.out.println(list);
 		model.addAttribute("house", h);
 		return "product/houseDetail";
 	}
