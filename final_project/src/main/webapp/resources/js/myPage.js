@@ -179,3 +179,14 @@ function startChatBtn(myPageMemberId){
         }
     })
 }
+
+$(function(){
+    const tabNo = $('.tabNo').val();
+    if(tabNo == 1){
+        $('.tab-content>li').eq(1).click();
+    }
+})
+
+$('.tabBtn').on('click',function(){
+    $('.tab-content>li').eq(1).click();
+})

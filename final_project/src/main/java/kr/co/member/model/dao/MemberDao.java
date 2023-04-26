@@ -1,6 +1,7 @@
 package kr.co.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -63,9 +64,13 @@ public class MemberDao {
 		return sqlSession.update("member.deleteMember", memberNo);
 	}
 
-	public ArrayList<Order> selectOrderList(int memberNo) {
-		List list = sqlSession.selectList("member.selectOrderList", memberNo);
+	public ArrayList<Order> selectOrderList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("member.selectOrderList", map);
 		return (ArrayList<Order>)list;
+	}
+	
+	public int selectOrderCount(int memberNo) {
+		return sqlSession.selectOne("member.selectTotalCount",memberNo);
 	}
 
 	public Member selectOneMember(Member m) {
@@ -103,5 +108,7 @@ public class MemberDao {
 	public int updateMember(Member m) {
 		return sqlSession.update("member.updateMember",m);
 	}
+
+
 
 }

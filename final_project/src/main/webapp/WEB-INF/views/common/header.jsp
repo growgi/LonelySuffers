@@ -152,7 +152,7 @@
 								</c:when>
 								<c:otherwise>
 						<li>
-						  <a href="/myPage.do">
+						  <a href="/myPage.do?reqPage=1&tabNo=0">
 						    <img alt="mypage" src="/resources/images/mypage.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">마이페이지</span>
 						  </a>
