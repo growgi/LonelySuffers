@@ -20,27 +20,11 @@
                     		</div><!-- end newsletter -->
                     	</div><!-- end widget -->
                     </div><!-- end col -->
-                    <div class="col-md-4 col-sm-2">
+                    <div class="col-md-8 col-sm-8" >
                     	<div class="widget clearfix">
                     		<h4 class="widget-title">Lonely Surfers Final Project</h4>
                     		<ul>
                     			<li>정세용 안병주 정은아 박강근 구민주 김건형</li>
-                    			<li><a href="/company.do">회사소개</a></li>
-                    			<li><a href="/credit.do">드리는 말씀 (후기)</a></li>
-                    			<li><a href="#">Contact</a></li>
-                    		</ul>
-                    	</div><!-- end widget -->
-                    </div><!-- end col -->
-
-                    <div class="col-md-4 col-sm-2">
-                    	<div class="widget clearfix">
-                    		<h4 class="widget-title">Services</h4>
-                    		<ul>
-                    			<li><a href="#">Design & Dev</a></li>
-                    			<li><a href="#">ASP.NET</a></li>
-                    			<li><a href="#">PHP Development</a></li>
-                    			<li><a href="#">Mobile App</a></li>
-                    			<li><a href="#">Oracle</a></li>
                     		</ul>
                     	</div><!-- end widget -->
                     </div><!-- end col -->

@@ -73,23 +73,25 @@
 <!-- 상단 메뉴바  영역 시작 -->
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="index.jsp">홈</a></li>
-						<li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">드롭다운메뉴 <span class="fa fa-angle-down"></span></a>
+						<li class="active"><a href="index.jsp"><img alt="main" src="/resources/images/home.png" style="width: 30px; height: 30px;">홈</a></li>
+						<li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<img alt="main" src="/resources/images/surfersurfer.png" style="width: 30px; height: 30px;">
+						상품 <span class="fa fa-angle-down"></span></a>
 							<ul class="dropdown-menu">
 								<li>
 									<div class="yamm-content">
 										<div class="row">
-											<div class="col-md-4">
+											<div class="col-md-2">
 												<ul>
-													<li><a href="service-01.html">SEO Consultants</a></li>
-													<li><a href="service-02.html">SEO Audits</a></li>
-													<li><a href="service-03.html">SEO Packages & Plans</a></li>
-													<li><a href="service-04.html">Web Copywriting</a></li>
-													<li><a href="service-05.html">SEO Copywriting</a></li>
-													<li><a href="service-06.html">Keyword Research</a></li>
-													<li><a href="service-07.html">SEO Strategy</a></li>
-													<li><a href="service-08.html">Website Design</a></li>
-													<li><a href="service-09.html">Link Building Services</a></li>
+													<li><a href="service-01.html"></a></li>
+													<li><a href="service-02.html"></a></li>
+													<li><a href="service-03.html"></a></li>
+													<li><a href="service-04.html"></a></li>
+													<li><a href="service-05.html"></a></li>
+													<li><a href="service-06.html"></a></li>
+													<li><a href="service-07.html"></a></li>
+													<li><a href="service-08.html"></a></li>
+													<li><a href="service-09.html"></a></li>
 												</ul>
 											</div>
 											<div class="col-md-4">
@@ -101,7 +103,6 @@
 													<li><a href="page-ebooks.html">Free E-Books</a></li>
 													<li><a href="page-seo-analysis.html">SEO Analysis</a></li>
 													<li><a href="case-studies.html">Case Studies</a></li>
-													<li><a href="gallery.jsp">갤러리</a></li>
 													<li><a href="case-studies-single.html">Case Studies Single</a></li>
 												</ul>
 											</div>
@@ -123,20 +124,16 @@
 								</li>
 							</ul></li>
 							<li>
-						  <a href="/gallery.do">
-						    <img alt="gallery" src="/resources/images/gallery.png" style="width: 25px; height: 25px;">
-						    <span style="line-height: 25px; vertical-align: middle;">갤러리</span>
-						  </a>
 						</li>
 						<li>
 						  <a href="/carpoolMain.do">
-						    <img alt="carpool" src="/resources/images/carpool.png" style="width: 25px; height: 25px;">
+						    <img alt="main" src="/resources/images/carpool.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">카풀해요</span>
 						  </a>
 						</li>
 						<li>
 						  <a href="/noticeList.do?reqPage=1">
-						    <img alt="carpool" src="/resources/images/notification-bell.png" style="width: 25px; height: 25px;">
+						    <img alt="main" src="/resources/images/notification-bell.png" style="width: 25px; height: 25px;">
 						    <span style="line-height: 25px; vertical-align: middle;">공지사항</span>
 						  </a>
 						</li>
