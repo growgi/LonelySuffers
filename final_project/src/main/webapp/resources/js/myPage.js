@@ -6,14 +6,14 @@ $('.tab-content>li').on('click',function(){
     $('.right-content>div').eq(index).addClass('active-div');
 })
 
-$('.myProfile>ul>li').on('click',function(){
-    const index = $('.myProfile>ul>li').index(this);
+$('.myProfile>div>ul>li').on('click',function(){
+    const index = $('.myProfile>div>ul>li').index(this);
     if(index == 0 || index == 2 || index == 4 || index == 6){
-        $('.myProfile>ul>li').eq(1).addClass('hidden-li');
-        $('.myProfile>ul>li').eq(3).addClass('hidden-li');
-        $('.myProfile>ul>li').eq(5).addClass('hidden-li');
-        $('.myProfile>ul>li').eq(7).addClass('hidden-li');
-        $('.myProfile>ul>li').eq(index+1).toggleClass('hidden-li');
+        $('.myProfile>div>ul>li').eq(1).addClass('hidden-li');
+        $('.myProfile>div>ul>li').eq(3).addClass('hidden-li');
+        $('.myProfile>div>ul>li').eq(5).addClass('hidden-li');
+        $('.myProfile>div>ul>li').eq(7).addClass('hidden-li');
+        $('.myProfile>div>ul>li').eq(index+1).toggleClass('hidden-li');
     }
 })
 

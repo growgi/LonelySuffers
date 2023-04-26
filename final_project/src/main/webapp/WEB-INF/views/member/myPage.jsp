@@ -46,13 +46,13 @@
 									</c:if>
 								</ul>
 							</div>
-
 						</div>
 						<div class="main-right">
 							<div class="right-content">
 								<div class="myProfile hide-div">
+								<div>
 									<h2>프로필 관리</h2>
-									<ul>
+									<ul style="padding: 0;">
 										<li>내정보 변경</li>
 										<li>
 											<div>
@@ -63,7 +63,7 @@
 													<input type="text" name="memberId" id="memberId" class="longInput" required value="${sessionScope.m.memberId }" readonly><br>
 													<label for="memberName">이름</label><br>
 													<input type="text" name="memberName" id="memberName" class="longInput" required value="${sessionScope.m.memberName }"><br>
-													<label for="memberName">전화번호</label><br>
+													<label for="memberPhone">전화번호</label><br>
 													<input type="text" name="memberPhone" id="memberPhone" class="longInput" required value="${sessionScope.m.memberPhone }"><br>
 													<label for="memberEmail">이메일</label><br>
 													<input type="text"  class="longInput" id="email" required value="${sessionScope.m.memberEmail }" readonly><br>
@@ -126,10 +126,11 @@
 												<button type="button" class="dropMember">탈퇴</button>
 											</div>
 										</li>
-										
 									</ul>
+									</div>
 								</div><!-- myProfile -->
 								<div class="buyList hide-div">
+								<div>
 									<div class="content-top"></div>
 									<div>
 										<table>
@@ -170,9 +171,11 @@
 											</c:forEach>  
 										</table>
 									</div>
+									</div>
 								</div>
 
 								<div class="adminChat hide-div">
+								<div>
 									<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
 									<div class="chatting">
 										<div class="endBtnDiv">
@@ -192,6 +195,7 @@
 											<button id="sendBtn" onClick="sendMsg();">전송</button> 
 										</div>
 									</div>
+								</div>
 								</div>
 								
 							</div>

@@ -220,8 +220,48 @@
 								${house.getHouseDescriptionBr()}</div>
 							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
 <!-- 별점 후기 영역 시작  -->
-
-								상품 평 div
+							상품평 작성부분
+							<form action="/reviewWriteFrm.do" method="post" enctype="multipart/form-data">
+							<table>
+								<tr>
+									<th>사진</th>
+									<th><input type="file" name="reviewFile" multiple="multiple"></th>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<th><input type="text" name="reviewTitle"></th>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<th><textarea name="reviewContent"></textarea></th>
+								</tr>
+								<tr>
+									<th>별점</th>
+									<td>
+										<input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+										<input type="radio" id="star2" name="rating" value="2"><label for="star2">★★</label>
+										<input type="radio" id="star3" name="rating" value="3"><label for="star3">★★★</label>
+										<input type="radio" id="star4" name="rating" value="4"><label for="star4">★★★★</label>
+										<input type="radio" id="star5" name="rating" value="5"><label for="star5">★★★★★</label>
+									</td>
+								</tr>
+							</table>
+							<input type="hidden" name="productCategory" value="1">
+<%-- 							<input type="hidden" name="productNo" value="${house.houseNo }"> --%>
+							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
+							<button type="submit">후기작성</button>
+							
+							</form>	
+							<table>
+								<tr>
+									<th>제목</th>
+								</tr>
+								<c:forEach items="${list }" var="rv">
+									<tr>
+										<td>${rv.reviewTitle }</td>
+									</tr>
+								</c:forEach>
+							</table>
 
 <!-- 별점 후기 영역 끝  -->
 							</div>

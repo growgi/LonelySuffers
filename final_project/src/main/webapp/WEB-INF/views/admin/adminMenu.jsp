@@ -69,7 +69,7 @@
         padding-top: 25px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
-        background-color: rgb(48,48,48);
+        background-color: #0a2647;
     }
     .box-top>div:first-child{
         display: flex;
@@ -138,6 +138,10 @@
         position: absolute;
         right: 15px;
     }
+
+    .menu-detail-title>span{
+        color:rgba(255, 255, 255, 0.9);
+    }
     .menu-detail-title>div{
         margin-left: 10px;
         font-size: 18px;
@@ -155,11 +159,14 @@
         background-color: #061629;
     }
 	.logout-btn{
-		width: 260px;
+		width: 227px;
 		position: absolute;
 		bottom: 20px;
 		right: 20px;
 	}
+    .box-bottom>div:hover>a{
+        color: #83888a;
+    }
     /*변화*/
     .active-admin-icon{
         background-color: #dfdfdf;
@@ -248,7 +255,7 @@
             <ul class="left-menu-list">
                 <li>
                     <div class="menu-detail-title first-menu" style="cursor:pointer; color: rgb(173, 173, 173);">
-                        <span class="material-symbols-outlined">dashboard</span>
+                        <span class="material-symbols-outlined" style="color:rgb(173, 173, 173);">dashboard</span>
                         <div style="cursor:pointer; color: rgb(173, 173, 173);">Dashboard</div>
                     </div>
                 </li>
@@ -305,16 +312,16 @@
     <div class="link-box" style="display:none">
         <div class="box-top">
             <div>
-                <span class="material-symbols-outlined admin-icon2">admin_panel_settings</span>
+                <span class="material-symbols-outlined admin-icon2" style="color:rgba(255, 255, 255, 0.9);">admin_panel_settings</span>
                 <div>
-                    <div><span>${sessionScope.m.memberName}</span> 관리자</div>
-                    <div>${sessionScope.m.memberEmail}</div>
+                    <div style="color:rgba(255, 255, 255, 0.9);"><span style="color:#19A7CE;">${sessionScope.m.memberName}</span> 관리자</div>
+                    <div style="color:rgba(255, 255, 255, 0.9);">${sessionScope.m.memberEmail}</div>
                 </div>
             </div>
         </div>
         <div class="box-bottom">
             <div>
-                <span class="material-symbols-outlined link-icon">home</span>
+                <span class="material-symbols-outlined link-icon" style="color:#19A7CE">home</span>
                 <a href="/">홈으로 이동</a>
             </div>
             <div>
@@ -325,13 +332,13 @@
                 <span class="material-symbols-outlined link-icon">help</span>
                 <a href="/faqList.do">FAQ로 이동</a>
             </div>
-            <button name="logout" class="btn bc1 logout-btn">로그아웃</button>
+            <a href="/logout.do" name="logout" class="btn-m bc2 logout-btn">로그아웃</a>
         </div>
     </div>
     <div class="top-menu">
         <div class="top-menu-background">
             <div class="top-menu-title">회원 목록</div>
-            <div class="admin-icon"><span class="material-symbols-outlined">link</span></div>
+            <div class="admin-icon" style="cursor:pointer"><span class="material-symbols-outlined" style="cursor:pointer">link</span></div>
         </div>
     </div>
 </div>
