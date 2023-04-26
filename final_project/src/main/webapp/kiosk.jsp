@@ -1846,7 +1846,7 @@ $("document").ready(function() {
 			const memberPhone = $('.memberPhone').val();
 			const memberEmail = $('.memberEmail').val();
 			
-		const price = $('#totalPrice-choice').val();	//결제 금액
+		const price = $('#totalPriceVal').val();	//결제 금액
 		const priceCheck = isNaN(price); //결제금액 숫자인지 check
 
 		const regExp = /^[0-9]+00$/;	
