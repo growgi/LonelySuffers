@@ -1551,7 +1551,9 @@ $("document").ready(function() {
 												option.val(List[i].roomNo);
 												option.text(List[i].roomName);
 												$("[name=roomName]").append(option);
+												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName)
 							    			}
+											//$("[name=roomName] option:selected").val();
 										}
 								});
 							},
@@ -1876,19 +1878,34 @@ $("document").ready(function() {
 			buyer_postcode : "12345"  
 		},function(rsp){
 			if(rsp.success){
+				console.log("ajax값들 콘솔로그");
 				const houseNo = $("#houseNo").val();
+				console.log("houseNo"+houseNo);
 				const memberNo = $(".memberNo").val();
+				console.log("memberNo"+memberNo);
 				const bookStartDate = $("#bookStartDate").val();
+				console.log("bookStartDate"+bookStartDate);
 				const bookEndDate = $("#bookEndDate").val();
+				console.log("bookEndDate"+bookEndDate);
+				const roomNo = $("[name=roomName] option:selected").val();
+				console.log("roomNo"+roomNo)
 				const roomBookPrice = $("#roomTotalPrice").val();
+				console.log("roomBookPrice"+roomBookPrice);
 				const optionDetail = $("#options-choice").val();
+				console.log("optionDetail"+optionDetail);
 				
 				const lessonBookDate = $("#lessonDate-choice").val();
+				console.log("lessonBookDate"+lessonBookDate);
 				const lessonPeople = $("#lessonPeople-choice").val();
+				console.log("lessonPeople"+lessonPeople);
 				const lessonNo = $("#modal-lessonNo").val();
+				console.log("lessonNo"+lessonNo);
 				const lessonBookPrice= $("#lessonTotalPrice").val();
+				console.log("lessonBookPrice"+lessonBookPrice);
+				
 				
 				const orderAllPrice = $("#totalPriceVal").val();
+				console.log("orderAllPrice"+orderAllPrice);
 				let orderProduct = 0;
 				if($("#roomTotalPrice").val() != "" && $("lessonTotalPrice").val() != ""){
 					orderProduct = 3;
@@ -1899,16 +1916,18 @@ $("document").ready(function() {
 				}else{
 					console.log("orderProduct에 문제가 있음");
 				}
+				console.log("orderProduct"+orderProduct);
 				alert("결제성공");
 				//결제관련 정보를 DB에 insert 하는 작업이 필요
 					//ajax로 room_book에 insert
 					$.ajax({
 						url:"/roomBookInsert.do",
 						type:"post",
-						data:{houseNo : houseNo, memberNo : memberNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate, roomBookPrice : roomBookPrice, optionDetail : optionDetail},
+						data:{roomNo : roomNo, memberNo : memberNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate, houseNo : houseNo, roomBookPrice : roomBookPrice, optionDetail : optionDetail},
 						success:function(data){
 							//나중에 쓸 수 있게 receipt부분의 roomBookNo에 값을 넣어줌
 							$("#roomBookNo").attr("value",data.roomBookNo);
+							console.log("ajax roomBookNo"+data.roomBookNo);
 						},
 						error:function(){
 							console.log("roomBook insert에 문제있음");
@@ -1922,13 +1941,13 @@ $("document").ready(function() {
 						success:function(data){
 							//나중에 쓸 수 있게 receipt부분의 lessonBookNo에 값을 넣어줌
 							$("#lessonBookNo").attr("value",data.lessonBookNo);
+							console.log("ajax lessonBookNo"+data.lessonBookNo);
 						},
 						error:function(){
 							console.log("roomBook insert에 문제있음");
 						}
 					});
-					const roomBookNo = $("#roomBookNo").val();
-					const lessonBookNo = $("#lessonBookNo").val();
+					
 					//ajax로 order_tbl에 insert(const는 모두 만들어놨음 ajax만 돌리면 된다)
 					$.ajax({
 						url:"/oderTblInsert.do",
@@ -1937,20 +1956,30 @@ $("document").ready(function() {
 						success:function(data){
 							//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
 							$("#orderNo").attr("value",data.orderNo);
+							console.log("ajax orderNo"+data.orderNo);
+								//ajax로 order_detail에 insert
+								
+										const orderNo = data.orderNo;
+										console.log("orderNo"+orderNo);
+										const roomBookNo = $("#roomBookNo").val();
+										console.log("roomBookNo"+roomBookNo);
+										const lessonBookNo = $("#lessonBookNo").val();
+										console.log("lessonBookNo"+lessonBookNo);
+								$.ajax({
+									url:"/orderDetailInsert.do",
+									type:"post",
+									data:{orderNo : data.orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
+									success:function(data){
+										
+										//나중에 쓸 수 있게 receipt부분의 orderDetailNo에 값을 넣어줌
+										$("#orderDetailNo").attr("value",data.orderDetailNo);
+									}
+								})
+							//
 						}
 					});
-					const orderNo = $("#orderNo").val();
-					//ajax로 order_detail에 insert
-					$.ajax({
-						url:"/orderDetailInsert.do",
-						type:"post",
-						data:{orderNo : orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
-						success:function(data){
-							//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
-							$("#orderDetailNo").attr("value",data.orderDetailNo);
-						}
-					})
-				//
+					
+					
 			}else{
 				alert("결제실패");	
 			}
