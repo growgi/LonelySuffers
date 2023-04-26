@@ -29,7 +29,8 @@ function adminChatList(memberId,index){
                 const containerDiv = $('<div class="containerDiv">');
                 containerDiv.append(contentDiv).append(dateDiv);
                 $('.adminMessageArea').eq(index).append(idDiv).append(containerDiv);
-            }else{
+                $('.timeDiv').eq(index).text(chatDate);
+                }else{
                 const chatContent = list[i].chatContent;
                 const chatDate = list[i].chatDate;
                 const contentDiv = $('<div class="chat_right">');
@@ -67,9 +68,10 @@ $('.adminSendInput').on('keyup',function(e){
     }
 
 })
-
-
-
+$(function(){
+    $('.active_chat_title').click();
+    $('.active_chat_title').click();
+});
 // function receiveMsg(param){
 //     const data = JSON.parse(param.data);
 //     console.log(data);
