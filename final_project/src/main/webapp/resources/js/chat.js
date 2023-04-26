@@ -54,7 +54,7 @@ let memberId;
             for(let i=0 ;i<input.length;i++){
                 if(input.eq(i).val()== data.memberId){
                     console.log(input);
-                    input.eq(i).next().next().next().text('채팅종료');
+                    input.eq(i).next().next().next().next().text('채팅종료');
                 }
             }
         }else if(data.type == "startChat"){
@@ -63,7 +63,7 @@ let memberId;
             for(let i=0 ;i<input.length;i++){
                 if(input.eq(i).val()== data.memberId){
                     console.log(input);
-                    input.eq(i).next().next().next().text('채팅중');
+                    input.eq(i).next().next().next().next().text('채팅중');
                 }
             }
         }
