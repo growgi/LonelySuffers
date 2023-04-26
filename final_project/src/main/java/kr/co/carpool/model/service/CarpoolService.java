@@ -94,9 +94,16 @@ public class CarpoolService {
 			c.setPassengerList(passengerList);
 		}
 		//HashMap으로 받아온다.
-			
 		return list;
 	}
+
+	public int updateClosure() {
+		return dao.updateClosure();
+	}
+	
+	
+
+
 
 
 

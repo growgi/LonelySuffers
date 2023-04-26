@@ -199,8 +199,11 @@
  		match_status as matchStatus
  		from passenger where carpool_no=#{carpoolNo} and passenger_no=#{memberNo} 
  	</select>
- 
- 
+ 	
+ 	<update id="updateClosure" parameterType="c">
+ 		update carpool set closure=1
+ 		where departure_date <![CDATA[ <]]> to_char(sysdate,'yyyy-mm-dd') and closure=2
+ 	</update>
  
  
 </mapper>
