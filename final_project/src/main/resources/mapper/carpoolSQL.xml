@@ -36,6 +36,8 @@
 		c.arrival_district as arrivalDistrict,
 		c.capacity as capacity,
 		c.carpool_price as carpoolPrice,
+		c.oneway_round as onewayRound,
+		c.closure as closure,
 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
 		from carpool c
 		left join member_tbl on(member_no=driver_no) 

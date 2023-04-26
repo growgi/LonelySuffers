@@ -87,7 +87,7 @@
 		<section class="section" style="padding-top: 0px; padding-bottom: 30px;">
 			<div class="container"style="width: 850px; margin-top: 20px; padding: 20px;">
 				<div class="row" style="border: 1px solid #FFB4B4; border-radius: 20px; padding:20px; background-color: #FFF3E2;">
-					 <form action="/registerCarpool.do" method="post" style="margin-top: 20px;"> 
+					 <form action="/registerCarpool.do" onsubmit="return checkReturn();" method="post" style="margin-top: 20px;"> 
 					    <table style="border: 1px solid #fff; width: 500px;"> 
 					        <tbody> 
 					  
@@ -162,9 +162,9 @@
 					                        </td>
 					                        <td>
 					                            <!--오전 오후 중에 체크하는 radio-->
-					                            <input type="radio" id="am" name="departureTime" value="0" required>
+					                            <input type="radio" id="am" name="departureTime" value="0">
 					                            <label for="am">오전</label>
-					                            <input type="radio" id="pm" name="departureTime" value="1" required>
+					                            <input type="radio" id="pm" name="departureTime" value="1">
 					                            <label for="pm">오후</label>		
 					                        </td>
 					                    </tr> 
@@ -309,9 +309,9 @@
 	    	                '<div id="calendar-area2"></div>'+
 	    	            '</td>' +
 	    	            '<td>' +
-	    	                '<input type="radio" id="return-am" name="returnTime" value="0" required>' +
+	    	                '<input type="radio" id="return-am" name="returnTime" value="0">' +
 	    	                '<label for="return-am">오전</label>' +
-	    	                '<input type="radio" id="return-pm" name="returnTime" value="1" required>' +
+	    	                '<input type="radio" id="return-pm" name="returnTime" value="1">' +
 	    	                '<label for="return-pm">오후</label>' +
 	    	            '</td>' +
 	    	        '</tr>'
@@ -385,6 +385,29 @@
 	function checkValue(){
 		const onewayRound = $("[name=departureTime]:checked").val();
 		//console.log(onewayRound);
+	}
+	
+	//form에서 onsubmit 함수를 줘서, 해당 form이 submit될 때 실행됨.
+	//이 함수는 form이 제출될 때 유효성 검사를 수행하고, 문제가 있을 경우 false를 반환하여 form이 제출되지 않게 막을 수 있다. 
+	//required 함수는 onsubmit 함수에 포함된다. 왜냐면 제출/등록 등을 누를때 함수가 required가 돌기 때문이다.
+	//onsubmit과 required를 동시에 쓰면은 이벤트가 중복되기 때문에 실행되지않는다. 그렇기때문에 onsubmit을 적으면 required를 지워준다. 
+	function checkReturn(){
+		console.log($("[name=departureRegion]").val());
+		if($("[name=departureRegion]").val()==null){
+			alert('출발 지역을 선택해주세요.');
+			return false;
+		}else if($("[name=arrivalRegion]").val()==null){
+			alert('도착 지역을 선택해주세요.');
+			return false;
+		}else if(!$("[name=departureTime]").prop("checked")){
+			alert('출발 오전/오후 중에 선택해주세요');
+			return false;
+		}else if(!$("[name=returnTime]").prop("checked")){
+			alert('복귀 오전/오후 중에 선택해주세요');
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 		

@@ -114,6 +114,7 @@
 					<br><br>
 					<form action="/carpoolMatch.do">	
 					<input type="hidden" value="${c.carpoolNo }" name="carpoolNo">
+					<input type="hidden" value="${c.closure }" name="closure">
 						<div class="passenger-msg" style="margin-left:180px;">
 							<label for="msg">드라이버에게:</label>
 							<input type="text" name="passengerMsg" placeholder="0/100" style="width:700px; height: 40px; border: 1px solid pink; border-radius:10px; ">
