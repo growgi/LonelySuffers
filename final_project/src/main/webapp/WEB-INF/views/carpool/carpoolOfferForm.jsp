@@ -337,7 +337,7 @@
 		singleDatePicker: true,
 		showDropdowns: true,
 		minDate: moment().add(1, 'days'),	// 오늘까지는 예약 불가. 내일부터 예약 가능
-		maxDate : moment().add(1, 'months'),	// 시작일은 3개월 이내에서 지정 가능
+		maxDate : moment().add(2, 'months'),	// 종료일은 2개월 이내에서 지정 가능
 	});
     
  // 시작일 input의 value가 바뀌면, 적절하게 minDate와 maxDate를 구성해서 종료일 date range picker를 생성  
@@ -347,7 +347,7 @@
 		
 		// 시작일+1을 minDate로 사용
 		const departureDate = $("#departureDate").val();	
-		//maxDate는 시작일+3개월로 초기화 
+		//maxDate는 시작일+15일로 초기화 
 		var maxLimit = moment(departureDate).add(15, 'days').format("YYYY-MM-DD");
 
 		$('#returnDate').daterangepicker({

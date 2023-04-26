@@ -5,9 +5,11 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
 		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
@@ -58,6 +60,9 @@
 	
 	<aop:aspectj-autoproxy/>
 	
+	<!-- 예약작업 Annotation 설정 활성화. Namespaces에서는 task 체크한다-->
+	<task:annotation-driven/>
+	
 	<!-- 쪽지 처리를 위한 객체 -->
 	<!-- <beans:bean id="dmCount" class="kr.co.chat.model.service.ChatHandler" />  -->
 	<beans:bean id="chat" class="kr.co.chat.controller.ChatHandler"/>
@@ -70,6 +75,7 @@
 	<context:component-scan base-package="kr.co.ls" />
 	<context:component-scan base-package="kr.co.member"/>
 	<context:component-scan base-package="kr.co.carpool"/>
+	<context:component-scan base-package="kr.co.aop"/>
 	<context:component-scan base-package="kr.co.house"/>
 	<context:component-scan base-package="kr.co.inquiry"/>
 	<context:component-scan base-package="kr.co.lesson"/>

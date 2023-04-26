@@ -19,6 +19,7 @@ public class CarpoolService {
 	private CarpoolDao dao;
 
 	public ArrayList<Carpool> selectAllCarpool() {
+		System.out.println("dao에서 카풀목록 조회결과"+dao.selectAllCarpool());
 		return dao.selectAllCarpool();
 	}
 
