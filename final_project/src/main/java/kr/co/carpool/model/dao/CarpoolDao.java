@@ -92,7 +92,11 @@ public class CarpoolDao {
 		return (ArrayList<Passenger>)list;
 	}
 
-	//탑승자 마이페이지에 보여줄 Passenger 정보를 가져오기위한 Dao
+	public int updateClosure() {
+		int result = sqlSession.update("carpool.updateClosure");
+		return result;
+	}
+
 
 	
 	
