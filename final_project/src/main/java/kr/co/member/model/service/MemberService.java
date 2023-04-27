@@ -74,7 +74,7 @@ public class MemberService {
 
 	public OrderPageData selectOrderList(int reqPage,int memberNo) {
 		/*1. 한 페이지당 게시물 수 지정 -> 10개*/
-		int numPerPage = 1;
+		int numPerPage = 10;
 		/*reqPage가 1페이지면 -> 최신글 1~10번
 		reqPage가 2페이지면 -> 최신글 11~20번
 		reqPage가 3페이지면 -> 최신글 21~30번
@@ -132,7 +132,7 @@ public class MemberService {
 		if(pageNo != 1) {
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/myPage.do?reqPage="+(pageNo-1)+"&tabNo=1'>";
-			pageNavi += "<span class='material-icons'>chevron_left</span>"; //구글 아이콘 ... <
+			pageNavi += "<span class='material-symbols-outlined arrowIos'>arrow_back_ios</span>"; //구글 아이콘 ... <
 			pageNavi += "</a></li>";
 		}
 		
@@ -161,7 +161,7 @@ public class MemberService {
 		if(pageNo <= totalPage) { //다음버튼이 만들어지는 조건
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/myPage.do?reqPage="+(pageNo)+"&tabNo=1'>";
-			pageNavi += "<span class='material-icons'>chevron_right</span>"; //구글 아이콘 ... >
+			pageNavi += "<span class='material-symbols-outlined arrowIos'>arrow_forward_ios</span>"; //구글 아이콘 ... >
 			pageNavi += "</a></li>";
 		}
 		

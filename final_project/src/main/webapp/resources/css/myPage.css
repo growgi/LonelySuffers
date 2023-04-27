@@ -9,7 +9,8 @@
 .main-right{
     float: right;
     width: 70%;
-    height: 600px;
+    margin-bottom: 20px;
+ 
 }
 
 .left-content{
@@ -17,7 +18,7 @@
     width: 260px;
     background-color: #252525;
     height: 100%;
-}
+    m}
 
 .left-content>p{
     padding-top: 20px;
@@ -51,8 +52,17 @@
     color : #fff;
 }
 
+.tab-content>li:hover{
+    cursor: pointer;
+    font-size: 22px;
+}
+
 .tab-content>.li-active{
     border-bottom: 1px solid #fff;
+    font-size: 24px;
+}
+
+.tab-content>.li-active:hover{
     font-size: 24px;
 }
 
@@ -324,3 +334,11 @@ button{
     border-left: 1px solid #fff;
 
   }
+
+  .pagination {
+    text-align: center;
+}
+
+.arrowIos{
+    font-size : 16px !important;
+}
