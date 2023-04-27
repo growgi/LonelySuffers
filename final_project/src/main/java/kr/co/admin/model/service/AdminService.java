@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.admin.model.dao.AdminDao;
 import kr.co.admin.model.vo.CarpoolPageData;
+import kr.co.admin.model.vo.GenderRatio;
 import kr.co.admin.model.vo.HousePageData;
 import kr.co.admin.model.vo.LessonPageData;
 import kr.co.admin.model.vo.MemberPageData;
@@ -15,7 +16,9 @@ import kr.co.admin.model.vo.OrderPageData;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.ProductPageData;
 import kr.co.admin.model.vo.RejectProduct;
+import kr.co.admin.model.vo.SalesAmount;
 import kr.co.admin.model.vo.Search;
+import kr.co.admin.model.vo.Visitant;
 import kr.co.carpool.model.vo.Carpool;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
@@ -23,11 +26,31 @@ import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
 import kr.co.member.model.vo.WishList;
 
-@Service
+@Service("adminService")
 public class AdminService {
 
 	@Autowired
 	AdminDao dao;
+	
+	public int setVisitTotalCount() {
+		System.out.println("adminservice : "+dao);
+		return dao.setVisitTotalCount();
+	}
+
+	public int getVisitTodayCount() {
+		
+		return dao.getVisitTodayCount();
+	}
+
+	public int getVisitTotalCount() {
+		
+		return dao.getVisitTotalCount();
+	}
+	
+	public ArrayList<Visitant> getVisitWeekCount() {
+		
+		return dao.getVisitWeekCount();
+	}
 
 	public MemberPageData selectAllMember(int reqPage) {
 		/*1. 한 페이지당 게시물 수 지정 -> 10개*/
@@ -1452,7 +1475,7 @@ public class AdminService {
 		return dao.selectNewMember();
 	}
 
-	public ArrayList<Carpool> selectNewCarpoolDriver() {
+	public ArrayList<Member> selectNewCarpoolDriver() {
 
 		return dao.selectNewCarpoolDriver();
 	}
@@ -1461,18 +1484,13 @@ public class AdminService {
 		
 		return dao.selectAllAdmin();
 	}
-
-	public ArrayList<Integer> selectVisitant() {
-		
-		return dao.selectVisitant();
-	}
-
-	public ArrayList<Integer> selectGenderRatio() {
+	
+	public ArrayList<GenderRatio> selectGenderRatio() {
 		
 		return dao.selectGenderRatio();
 	}
 
-	public ArrayList<Order> selectSalesAmount() {
+	public ArrayList<SalesAmount> selectSalesAmount() {
 		
 		return dao.selectSalesAmount();
 	}

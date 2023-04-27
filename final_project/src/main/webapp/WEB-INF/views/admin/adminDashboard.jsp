@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,15 +49,15 @@
 					<div class="default-task">
 						<div>
 							<span class="material-symbols-outlined">task_alt</span>
-							<div class="bold-s">판매자 신청 회원 <span class="bold-s" style="color:#19A7CE">52</span>명</div>
+							<div class="bold-s">판매자 신청 회원 <span class="bold-s" style="color:#19A7CE">${dInfo.sellerAppCount }</span>명</div>
 						</div>
 						<div>
 							<span class="material-symbols-outlined">task_alt</span>
-							<div class="bold-s">신규 상품 승인 <span class="bold-s" style="color:#19A7CE">14</span>건</div>
+							<div class="bold-s">신규 상품 승인 <span class="bold-s" style="color:#19A7CE">${dInfo.newProductCount }</span>건</div>
 						</div>
 						<div>
 							<span class="material-symbols-outlined">task_alt</span>
-							<div class="bold-s">1:1 문의 <span class="bold-s" style="color:#19A7CE">4</span>건</div>
+							<div class="bold-s">1:1 문의 <span class="bold-s" style="color:#19A7CE">${dInfo.newAdminChatCount }</span>건</div>
 						</div>
 					</div>
 				</div>
@@ -83,28 +84,28 @@
 						<div class="title-bold">회원</div>
 						<div class="material-symbols-outlined product-icon">group</div>
 					</div>	
-					<div class="bold-m">1,590</div>
+					<div class="bold-m">${dInfo.memberCount }</div>
 				</div>
 				<div class="lesson-count">
 					<div>
 						<div class="title-bold">강습</div>
 						<div class="material-symbols-outlined product-icon">surfing</div>
 					</div>	
-					<div class="bold-m">40</div>
+					<div class="bold-m">${dInfo.lessonCount }</div>
 				</div>
 				<div class="house-count">
 					<div>
 						<div class="title-bold">숙박</div>
 						<div class="material-symbols-outlined product-icon">apartment</div>
 					</div>
-					<div class="bold-m">76</div>
+					<div class="bold-m">${dInfo.houseCount }</div>
 				</div>
 				<div class="carfool-count">
 					<div>
 						<div class="title-bold">카풀</div>
 						<div class="material-symbols-outlined product-icon">directions_car</div>
 					</div>
-					<div class="bold-m">16</div>
+					<div class="bold-m">${dInfo.carpoolRecruitingCount }</div>
 				</div>
 			</div>
 
@@ -112,6 +113,12 @@
 				<div class="visitant-graph">
 					<div class="title-bold">방문자 현황</div>
 					<div>
+					${sessionScope.todayCount}
+					${sessionScope.totalCount}
+					<c:forEach items="${sessionScope.weekCountList}" var="w">
+						${w.visitantNo}
+						${w.visitantDate }
+					 </c:forEach>
 						<div style="width: 100%; height: 100%;">
 							<!--차트가 그려질 부분-->
 							<canvas id="visitantGraph"></canvas>
@@ -122,6 +129,10 @@
 				<div class="gender-graph">
 					<div class="title-bold">회원 성별 비율</div>
 					<div>
+					<c:forEach items="${dInfo.genderRatio}" var="g">
+						${g.manRatio }
+						${g.womanRatio }
+					</c:forEach>
 						<div style="width: 90%; height: 90%; margin: 0 auto;">
 							<!--차트가 그려질 부분-->
 							<canvas id="myChart"></canvas>
@@ -142,25 +153,29 @@
 							<th>지역</th>
 							<th>상품 상태</th>
 						</tr>
+						<c:forEach items="${dInfo.newProductList }" var="p">
 						<tr>
-							<td>강습</td>
-							<td>개쉬운서핑...</td>
-							<td>hong123</td>
-							<td>제주</td>
-							<td>판매중</td>
+							<td>${p.productType }</td>
+							<td>${p.productTitle }</td>
+							<td>${p.productWriter}</td>
+							<td>${p.productCity}</td>
+							<td>${p.productStatus}</td>
 						</tr>
+						</c:forEach>
 					</table>
 					<a href="#" class="btn-l bc1">전체 상품 목록 보기</a>
 				</div>
 				<div class="new-member">
 					<div class="title-bold">신규 회원</div>
+					<c:forEach items="${dInfo.newMemberList }" var="m">
 					<div class="member-box">
 						<div class="material-symbols-outlined member-img">account_circle</div>
 						<div>
-							<div><span style="font-weight:bold;">홍길동</span> | <span>user1</span></div>
-							<div style="font-size: 14px;">hong123@naver.com</div>
+							<div><span style="font-weight:bold;">${m.memberName }</span> | <span>${m.memberId }</span></div>
+							<div style="font-size: 14px;">${m.memberEmail }</div>
 						</div>
 					</div>
+					</c:forEach>
 					<a href="#" class="btn-l bc1">전체 회원 목록 보기</a>
 				</div>
 			</div>
@@ -168,16 +183,22 @@
 			<div class="dashboard-5th">
 				<div class="new-carpool">
 					<div class="title-bold">신규 카풀 운전자</div>
+					<c:forEach items="${dInfo.newCarpoolDriverList }" var="c">
 					<div class="member-box">
 						<div class="material-symbols-outlined member-img">account_circle</div>
 						<div>
-							<div><span style="font-weight:bold;">홍길동</span> | <span>user1</span></div>
-							<div style="font-size: 14px;">hong123@naver.com</div>
+							<div><span style="font-weight:bold;">${c.memberName }</span> | <span>${c.memberId }</span></div>
+							<div style="font-size: 14px;">${c.memberEmail }</div>
 						</div>
 					</div>
+					</c:forEach>
 					<a href="#" class="btn-l bc1">전체 카풀 게시글 목록 보기</a>
 				</div>
 				<div class="sales-amount-graph">
+					<c:forEach items="${dInfo.salesAmountList }" var="s">
+						${s.month }
+						${s.sales }
+					</c:forEach>
 					<div class="title-bold">상품 판매금액 추이</div>
 					<div>
 						<div style="width: 100%; height: 100%;">
@@ -193,13 +214,15 @@
 				<div class="admin-list">
 					<div class="title-bold">관리자</div>
 					<div class="admin-list-row">
+						<c:forEach items="${dInfo.adminList }" var="ad">
 						<div class="member-box">
 							<div class="material-symbols-outlined member-img">admin_panel_settings</div>
 							<div>
-								<div><span style="font-weight:bold;">홍길동</span> | <span>user1</span></div>
-								<div style="font-size: 14px;">hong123@naver.com</div>
+								<div><span style="font-weight:bold;">${ad.memberName }</span> | <span>${ad.memberId }</span></div>
+								<div style="font-size: 14px;">${ad.memberEmail }</div>
 							</div>
 						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -322,16 +345,7 @@
                             'rgba(255,117,117,1)'
                         ],
                         borderWidth: 1 //경계선 굵기
-                    }/* ,
-                    {
-                        label: 'test2',
-                        fill: false,
-                        data: [
-                            8, 34, 12, 24
-                        ],
-                        backgroundColor: 'rgb(157, 109, 12)',
-                        borderColor: 'rgb(157, 109, 12)'
-                    } */
+                    }
                 ]
             },
             options: {
@@ -346,35 +360,6 @@
                 }
             }
         });
-
-	// google.charts.load('current', {'packages':['corechart']});
-	// google.charts.setOnLoadCallback(drawChart1);
-
-	// function drawChart1() {
-	// 	var data = google.visualization.arrayToDataTable([
-	// 	['Date', '일간 방문수'],
-	// 	['1',  46],
-	// 	['2',  22],
-	// 	['3',  75],
-	// 	['4',  59],
-	// 	['5',  160],
-	// 	['6',  130],
-	// 	['7',  210]
-	// 	]);
-
-	// 	var options = {
-	// 	//title: 'Company Performance',
-	// 	curveType: 'function',
-	// 	legend: { position: 'bottom' },
-	// 	colors:['#19A7CE'],
-	// 	};
-
-	// 	var point = {visible: true}
-
-	// 	var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-	// 	chart.draw(data, options);
-	// }
 
 	/*남녀비율 chart*/
 	var context = document.getElementById('myChart').getContext('2d');
@@ -403,16 +388,8 @@
 						'rgba(25,167,206,1)'
 					],
 					borderWidth: 1 //경계선 굵기
-				}/* ,
-				{
-					label: 'test2',
-					fill: false,
-					data: [
-						8, 34, 12, 24
-					],
-					backgroundColor: 'rgb(157, 109, 12)',
-					borderColor: 'rgb(157, 109, 12)'
-				} */
+				}
+				
 			]
 		},
 		options: {
@@ -428,31 +405,12 @@
 		}
 	});
 
-	// google.charts.load("current", {packages:["corechart"]});
-	// google.charts.setOnLoadCallback(drawChart2);
-	// function drawChart2() {
-	// 	var data = google.visualization.arrayToDataTable([
-	// 		['Gender', 'Ratio'],
-	// 		['남자', 50],
-	// 		['여자', 50]
-	// 	]);
-
-	// 	var options = {
-	// 		//title: 'My Daily Activities',
-	// 		pieHole: 0.4,
-	// 		colors:['#19A7CE','#ecb534']
-	// 	};
-
-	// 	var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-	// 	chart.draw(data, options);
-	// }
-
 	/*상품 판매금액 추이 chart*/
 	var context = document
             .getElementById('salesAmountGraph')
             .getContext('2d');
 	var salesAmountGraph = new Chart(context, {
-		type: 'line', // 차트의 형태
+		type: 'bar', // 차트의 형태
 		data: { // 차트에 들어갈 데이터
 			labels: [
 				//x 축
@@ -467,10 +425,20 @@
 					],
 					backgroundColor: [
 						//색상
+						'rgba(25,167,206,0.3)',
+						'rgba(25,167,206,0.3)',
+						'rgba(25,167,206,0.3)',
+						'rgba(25,167,206,0.3)',
+						'rgba(25,167,206,0.3)',
 						'rgba(25,167,206,0.3)'
 					],
 					borderColor: [
 						//경계선 색상
+						'rgba(25,167,206,1)',
+						'rgba(25,167,206,1)',
+						'rgba(25,167,206,1)',
+						'rgba(25,167,206,1)',
+						'rgba(25,167,206,1)',
 						'rgba(25,167,206,1)'
 					],
 					borderWidth: 1 //경계선 굵기
@@ -483,23 +451,52 @@
 					],
 					backgroundColor: [
 						//색상
+						'rgba(255,168,168,0.3)',
+						'rgba(255,168,168,0.3)',
+						'rgba(255,168,168,0.3)',
+						'rgba(255,168,168,0.3)',
+						'rgba(255,168,168,0.3)',
+						'rgba(255,168,168,0.3)'
+
+					],
+					borderColor: [
+						//경계선 색상
+						'rgba(255,168,168,1)',
+						'rgba(255,168,168,1)',
+						'rgba(255,168,168,1)',
+						'rgba(255,168,168,1)',
+						'rgba(255,168,168,1)',
+						'rgba(255,168,168,1)'
+
+					],
+					borderWidth: 1 //경계선 굵기
+				},
+				{ //데이터
+					label: '강습+숙박', //차트 제목
+					fill: true, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+					data: [
+						505000,604000,1052000,862000,749000,820000 //x축 label에 대응되는 데이터 값***
+					],
+					backgroundColor: [
+						//색상
+						'rgba(236,181,52,0.3)',
+						'rgba(236,181,52,0.3)',
+						'rgba(236,181,52,0.3)',
+						'rgba(236,181,52,0.3)',
+						'rgba(236,181,52,0.3)',
 						'rgba(236,181,52,0.3)'
 					],
 					borderColor: [
 						//경계선 색상
+						'rgba(236,181,52,1)',
+						'rgba(236,181,52,1)',
+						'rgba(236,181,52,1)',
+						'rgba(236,181,52,1)',
+						'rgba(236,181,52,1)',
 						'rgba(236,181,52,1)'
 					],
 					borderWidth: 1 //경계선 굵기
-				}/* ,
-				{
-					label: 'test2',
-					fill: false,
-					data: [
-						8, 34, 12, 24
-					],
-					backgroundColor: 'rgb(157, 109, 12)',
-					borderColor: 'rgb(157, 109, 12)'
-				} */
+				}
 			]
 		},
 		options: {
@@ -514,28 +511,5 @@
 			}
 		}
 	});
-
-	// google.charts.load('current', {'packages':['corechart']});
-	// google.charts.setOnLoadCallback(drawChart3);
-
-	// function drawChart3() {
-	// var data = google.visualization.arrayToDataTable([
-	// 	['month', '강습', '숙박'],
-	// 	['1',  1000,      400],
-	// 	['2',  1170,      460],
-	// 	['3',  660,       1120],
-	// 	['4',  1030,      540]
-	// ]);
-
-	// var options = {
-	// 	//title: 'Company Performance',
-	// 	hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-	// 	vAxis: {minValue: 0},
-	// 	colors:['#ecb534','#19A7CE']
-	// };
-
-	// var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-	// chart.draw(data, options);
-	// }
 </script>
 </html>

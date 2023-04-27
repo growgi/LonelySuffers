@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.admin.model.service.AdminService;
 import kr.co.admin.model.vo.AdminDashboard;
 import kr.co.admin.model.vo.CarpoolPageData;
+import kr.co.admin.model.vo.GenderRatio;
 import kr.co.admin.model.vo.HousePageData;
 import kr.co.admin.model.vo.LessonPageData;
 import kr.co.admin.model.vo.MemberPageData;
@@ -18,6 +19,7 @@ import kr.co.admin.model.vo.OrderPageData;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.ProductPageData;
 import kr.co.admin.model.vo.RejectProduct;
+import kr.co.admin.model.vo.SalesAmount;
 import kr.co.admin.model.vo.Search;
 import kr.co.carpool.model.vo.Carpool;
 import kr.co.chat.model.service.ChatService;
@@ -56,7 +58,7 @@ public class AdminController {
 		int newAdminChatCount = service.selectNewAdminChatCount(); //1:1문의 신규 건수
 		
 		int totalSalesAmount = service.selectTotalSalesAmount(); //총 판매금액
-		//int todaySalesAmount = service.selectTodaySalesAmount(); //오늘 판매금액
+		int todaySalesAmount = service.selectTodaySalesAmount(); //오늘 판매금액
 		
 		/*2nd*/
 		int memberCount = service.selectMemberCount(); //전체 사용자 수
@@ -66,21 +68,21 @@ public class AdminController {
 		
 		/*3th*/
 		//ArrayList<Integer> visitantList = service.selectVisitant(); //방문자수 현황
-		//ArrayList<Integer> genderRatio = service.selectGenderRatio(); //남녀 비율
+		ArrayList<GenderRatio> genderRatio = service.selectGenderRatio(); //남녀 비율
 		
 		/*4th*/
 		ArrayList<Product> newProductList = service.selectNewProduct(); //신규 추가 상품
 		ArrayList<Member> newMemberList = service.selectNewMember(); //신규 회원
 		
 		/*5th*/
-		ArrayList<Carpool> newCarpoolDriverList = service.selectNewCarpoolDriver(); //신규 카풀 운전자
-		//ArrayList<Order> salesAmountList = service.selectSalesAmount(); //상품 판매금액 추이
+		ArrayList<Member> newCarpoolDriverList = service.selectNewCarpoolDriver(); //신규 카풀 운전자
+		ArrayList<SalesAmount> salesAmountList = service.selectSalesAmount(); //상품 판매금액 추이
 		
 		/*6th*/
 		ArrayList<Member> adminList = service.selectAllAdmin(); //관리자 목록
 		
-		//AdminDashboard dInfo = new AdminDashboard(sellerAppCount, newProductCount, newAdminChatCount, totalSalesAmount, todaySalesAmount, memberCount, lessonCount, houseCount, carpoolRecruitingCount, visitantList, genderRatio, newProductList, newMemberList, newCarpoolDriverList, salesAmountList, adminList);
-		//model.addAttribute(dInfo);
+		AdminDashboard dInfo = new AdminDashboard(sellerAppCount, newProductCount, newAdminChatCount, totalSalesAmount, todaySalesAmount, memberCount, lessonCount, houseCount, carpoolRecruitingCount, genderRatio, newProductList, newMemberList, newCarpoolDriverList, salesAmountList, adminList);
+		model.addAttribute("dInfo", dInfo);
 		
 		return "admin/adminDashboard";
 	}

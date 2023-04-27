@@ -777,15 +777,14 @@
  		order by member_no desc
  	</select>
  	
- 	 <select id="selectNewCarpoolDriver" resultType="c">
- 		select
+ 	 <select id="selectNewCarpoolDriver" resultType="m">
+ 		select distinct
  			member_no as memberNo,
  			member_id as memberId,
  			member_email as memberEmail,
  			member_name as memberName
  		from carpool
  		join member_tbl on(driver_no=member_no)
- 		where member_grade in(2,3)
  		order by member_no desc
  	</select>
  	
@@ -796,11 +795,11 @@
  			member_email as memberEmail,
  			member_name as memberName
  		from member_tbl
- 		where member_grade in(2,3)
+ 		where member_grade=1
  		order by member_no desc
  	</select>
  	
- 	<select id="selectGenderRatio" resultType="_int">
+ 	<select id="selectGenderRatio" resultType="kr.co.admin.model.vo.GenderRatio">
  		select 
 			round(sum(man)/count(*)*100,0) as manRatio
 			,round(sum(woman)/count(*)*100,0) as womanRatio
@@ -812,12 +811,36 @@
 			member_tbl)
  	</select>
  	
- 	<select id="selectSalesAmount" resultType="order">
-	 	select substr(order_date,1,7) mm,
+ 	<select id="selectSalesAmount" resultType="kr.co.admin.model.vo.SalesAmount">
+	 	select substr(order_date,1,7) month,
 		       sum(order_all_price) as sales
 		from order_tbl
 		where order_product=1
 		group by substr(order_date,1,7)
 		order by 1
  	</select>
+ 	
+ 	<insert id="insertVisitTotalCount">
+ 		insert into visitant 
+ 		values(visitant_seq.nextval, to_char(sysdate,'yyyy-mm-dd'))
+ 	</insert>
+ 	
+ 	<select id="selectVisitTodayCount" resultType="_int">
+ 		select count(*) as todayCount
+ 		from visitant 
+ 		where substr(visitant_date,1,10)=to_char(sysdate,'yyyy-mm-dd')
+ 	</select>
+ 	
+ 	<select id="selectVisitTotalCount" resultType="_int">
+ 		select count(*) as totalCount
+ 		from visitant
+ 	</select>
+ 	
+ 	<select id="selectVisitWeekCount" resultType="kr.co.admin.model.vo.Visitant">
+		select visitant_date, count(*) as weekTotal
+		from visitant 
+		where visitant_date between sysdate-7 and sysdate
+		group by rollup(visitant_date)
+ 	</select>
+
 </mapper>

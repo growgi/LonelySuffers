@@ -7,9 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.admin.model.vo.GenderRatio;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.RejectProduct;
+import kr.co.admin.model.vo.SalesAmount;
 import kr.co.admin.model.vo.Search;
+import kr.co.admin.model.vo.Visitant;
 import kr.co.carpool.model.vo.Carpool;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
@@ -22,6 +25,35 @@ public class AdminDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	public AdminDao() {
+		super();
+		System.out.println("1aaaaa1111111111111a");
+	}
+
+	public int setVisitTotalCount() {
+		int result = sqlSession.insert("admin.insertVisitTotalCount");
+		
+		return result;
+	}
+
+	public int getVisitTodayCount() {
+		int todayCount = sqlSession.selectOne("admin.selectVisitTodayCount");
+		
+		return todayCount;
+	}
+
+	public int getVisitTotalCount() {
+		int totalCount = sqlSession.selectOne("admin.selectVisitTotalCount");
+		
+		return totalCount;
+	}
+	
+	public ArrayList<Visitant> getVisitWeekCount() {
+		ArrayList<Visitant> weekCountList = sqlSession.selectOne("admin.selectVisitWeekCount");
+		
+		return weekCountList;
+	}
 
 	public ArrayList<Member> selectAllMember() {
 		List memberList = sqlSession.selectList("admin.selectAllMember");
@@ -380,10 +412,10 @@ public class AdminDao {
 		return (ArrayList<Member>)newMemberList;
 	}
 
-	public ArrayList<Carpool> selectNewCarpoolDriver() {
+	public ArrayList<Member> selectNewCarpoolDriver() {
 		List newCarpoolDriverList = sqlSession.selectList("admin.selectNewCarpoolDriver");
 		
-		return (ArrayList<Carpool>)newCarpoolDriverList;
+		return (ArrayList<Member>)newCarpoolDriverList;
 	}
 
 	public ArrayList<Member> selectAllAdmin() {
@@ -392,23 +424,16 @@ public class AdminDao {
 		return (ArrayList<Member>)adminList;
 	}
 
-	//방문자수
-	public ArrayList<Integer> selectVisitant() {
-		List visitantList = sqlSession.selectList("admin.selectVisitant");
-		
-		return (ArrayList<Integer>)visitantList;
-	}
-
-	public ArrayList<Integer> selectGenderRatio() {
+	public ArrayList<GenderRatio> selectGenderRatio() {
 		List genderRatio = sqlSession.selectList("admin.selectGenderRatio");
 		
-		return (ArrayList<Integer>)genderRatio;
+		return (ArrayList<GenderRatio>)genderRatio;
 	}
 
-	public ArrayList<Order> selectSalesAmount() {
+	public ArrayList<SalesAmount> selectSalesAmount() {
 		List salesAmountList = sqlSession.selectList("admin.selectSalesAmount");
 		
-		return (ArrayList<Order>)salesAmountList;
+		return (ArrayList<SalesAmount>)salesAmountList;
 	}
 
 }
