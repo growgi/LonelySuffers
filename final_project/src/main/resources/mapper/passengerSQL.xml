@@ -8,7 +8,13 @@
 		(passenger_seq.nextval, 0, #{carpoolNo}, #{passengerNo}, #{passengerMsg}, to_char(sysdate,'yyyy-mm-dd/HH24:MI:SS'))
 	</insert>
 	
-	<!-- 매칭상태 바꿔주려면 UPDATE로 -->
+	<select id="selectPsgEmailPhone" parameterType="_int" resultType="p">
+		select 
+			member_email as passengerEmail,
+			member_phone as passengerPhone
+		from passenger p join member_tbl m on (passenger_no = member_no) 
+			where match_no=#{_parameter}
+	</select>
 	
 	
 	

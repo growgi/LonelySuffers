@@ -49,4 +49,8 @@ public class Order {
 	//room_book
 	private String bookStartDate;		// 예약기간 첫날의 YYYY-MM-DD
 	private String bookEndDate;			/* 예약기간 마지막날의 YYYY-MM-DD   그러나 퇴실 날짜에도 다른 고객이 오후부터 입실 가능해야 하므로, -1일 한 값을 저장함.*/
+	private int roomBookPrice;
+	
+	//lesson_book
+	private int lessonBookPrice; 
 }

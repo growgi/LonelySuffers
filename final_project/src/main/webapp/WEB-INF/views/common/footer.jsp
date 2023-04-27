@@ -14,7 +14,7 @@
 		                        <form class="form-inline" role="search">
 		                            <div class="form-1">
 		                              	<input type="text" class="form-control" placeholder="이메일을 적어주세요">
-										<button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i></button>
+										<button type="button" class="btn btn-primary" onclick="alert('이메일 주소를 이렇게 쉽게 뿌리시다니...');"><i class="fa fa-envelope-o"></i></button>
 		                            </div>
 								</form>
                     		</div><!-- end newsletter -->
@@ -25,6 +25,8 @@
                     		<h4 class="widget-title">Lonely Surfers Final Project</h4>
                     		<ul>
                     			<li>정세용 안병주 정은아 박강근 구민주 김건형</li>
+                    			<li><a href="/company.do">회사소개</a></li>
+                    			<li><a href="/credit.do">드리는 말씀 (후기)</a></li>
                     		</ul>
                     	</div><!-- end widget -->
                     </div><!-- end col -->
@@ -53,4 +55,4 @@
                 </div><!-- end row -->
             </div><!-- end container -->
 		</footer>
-<!-- 하단 후터 영역 끝 -->
+<!-- 하단 푸터 영역 끝 -->

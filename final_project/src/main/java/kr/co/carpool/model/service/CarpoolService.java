@@ -66,6 +66,15 @@ public class CarpoolService {
 		HashMap<String, Integer> param = new HashMap<String, Integer>();
 		param.put("driverNo",driverNo);
 		ArrayList<Carpool> clist = dao.getMyLists(param);
+		for(int i=0; i<clist.size();i++) {
+			for(int j=0; j<clist.get(i).getPassengerList().size();j++) {
+				int matchStatus = clist.get(i).getPassengerList().get(j).getMatchStatus();
+				if(matchStatus!=2) {
+					clist.get(i).getPassengerList().get(j).setPassengerEmail("***********");
+					clist.get(i).getPassengerList().get(j).setPassengerPhone("***********");
+				}
+			}
+		}
 		return clist;
 	}
 	// 운전자페이지 : matchNo로 카풀 수락, 거절 
@@ -96,9 +105,12 @@ public class CarpoolService {
 		//HashMap으로 받아온다.
 		return list;
 	}
-
 	public int updateClosure() {
 		return dao.updateClosure();
+	}
+
+	public Passenger selectOnePassenger(int matchNo) {
+		return dao.selectPassenger(matchNo);
 	}
 	
 	

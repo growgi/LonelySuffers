@@ -215,6 +215,15 @@ input[type=radio]{
 
     .emailSelect{
         margin-right: 5px;
+        font-weight: 600;
+    }
+
+    .emailSelect>option{
+        font-weight: 600;
+    }
+
+    .emailSelect>option:hover{
+       cursor:pointer;
     }
 
     .customInput > .customShort > .email2 {
@@ -292,8 +301,3 @@ input[type=radio]{
         transition: all .2s;
         box-shadow: -2px -2px 5px #f5f4f4, 2px 2px 5px #000 !important;
       }
-
-      select{
-       font-weight: 600;
-      }
-
