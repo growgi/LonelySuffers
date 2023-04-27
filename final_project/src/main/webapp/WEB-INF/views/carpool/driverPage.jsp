@@ -290,18 +290,14 @@
 							console.log(decision);
 							if (decision == "success") {
 								//한번 버튼 선택하면 버튼 비활성화 
-								$(obj).parent().children().prop("disabled",
-										true);
-								$(obj).parent().children().css("cursor",
-										"now-allowed");
+								$(obj).parent().children().prop("disabled",true);
+								$(obj).parent().children().css("cursor","now-allowed");
 
 								//내가 선택한거에 따라서 메세지 바뀌게 해준다. 페이지를 새로고침해도 남아있다. 
 								$(obj).parent().parent().parent().parent()
-										.prev().children().next().text(
-												"매칭을 거부하셨습니다.");
+										.prev().children().next().text(	"매칭을 거부하셨습니다.");
 								$(obj).parent().parent().parent().parent()
-										.prev().children().next().text(
-												"매칭을 수락하셨습니다.");
+										.prev().children().next().text("매칭을 수락하셨습니다.");
 
 							} else {
 								alert("다시 시도해주세요.");
@@ -352,10 +348,10 @@
 				error : function() {
 					alert("closeit 에러났습니다")
 				}
-
 			});
-
 		}
+		
+		
 	</script>
 
 </body>

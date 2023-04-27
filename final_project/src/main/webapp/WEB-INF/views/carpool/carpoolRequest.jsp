@@ -10,8 +10,10 @@
 <link rel="stylesheet" href="resources/css/carpool/carpoolRequest.css">
 
 <!-- 카카오지도 api -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa&libraries=LIBRARY"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa&libraries=services,clusterer,drawing"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa&libraries=LIBRARY"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa&libraries=services,clusterer,drawing"></script>
 </head>
 <body>
 	<!-- Basic -->
@@ -67,6 +69,7 @@
 					<div>
 						<p
 							style="font-size: 15px; font-weight: 600; margin-left: 200px; font-size: 20px;">함께가요
+						
 						<p>
 							<img src="/resources/images/carpool/clock.png" alt="img"
 								style="width: 20px; height: 20px; margin-right: 10px; margin-left: 200px;">
@@ -104,8 +107,9 @@
 								<div class="row district" style="font-weight: 700;">${c.arrivalRegion }</div>
 							</div>
 							<div class="col-md-6">
-								<div class="row district" id="departure-detail" style="margin-bottom: 30px;">${c.departureDistrict }</div>
-								<div class="row district"  id="arrival-detail">${c.arrivalDistrict }</div>
+								<div class="row district" id="departure-detail"
+									style="margin-bottom: 30px;">${c.departureDistrict }</div>
+								<div class="row district" id="arrival-detail">${c.arrivalDistrict }</div>
 							</div>
 						</div>
 					</div>
@@ -115,58 +119,70 @@
 							style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center; margin-top: 20px; background-color: #F0EEED; width: 800px; height: 50px; line-height: 52px; margin-top: 20px;">모집인원
 							${c.reserved}/${c.capacity }명</div>
 					</div>
-					<br><br>
-					<form action="/carpoolMatch.do">	
-					<input type="hidden" value="${c.carpoolNo }" name="carpoolNo">
-					<input type="hidden" value="${c.closure }" name="closure">
-						<div class="passenger-msg" style="margin-left:180px;">
-							<label for="msg">드라이버에게:</label>
-							<input type="text" name="passengerMsg" placeholder="0/100" style="width:700px; height: 40px; border: 1px solid pink; border-radius:10px; ">
+					<br>
+					<br>
+					<form action="/carpoolMatch.do">
+						<input type="hidden" value="${c.carpoolNo }" name="carpoolNo">
+						<input type="hidden" value="${c.closure }" name="closure">
+						<div class="passenger-msg" style="margin-left: 180px;">
+							<label for="msg">드라이버에게:</label> <input type="text"
+								name="passengerMsg" placeholder="0/100"
+								style="width: 700px; height: 40px; border: 1px solid pink; border-radius: 10px;">
 						</div>
-						<br><hr><br>
-						
-						
-						
+						<br>
+						<hr>
+						<br>
+
+
+
 						<!-- 길찾기 api -->
-						<div id="map" style="width:800px;height:400px; border-radius:20px; margin:0 auto;"></div>
-						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa"></script>
-						
-						
-					
-					<br><hr>
-					<div class="price-box"style="margin: 0 auto; text-align: center; font-size: 20px; font-weight: 600;">
-						희망가격 
-						<span class="price" style="color: #82CD47; font-size: 30px; font-weight: 900;"><fmt:formatNumber value= "${c.carpoolPrice}"  pattern="#,###"/>원</span>(편도/인당)
-					</div>
-					<hr>
-
-					<!-- 모달!!! -->
-					<!-- Trigger the modal with a button -->
-					<div class="button-wrap"
-						style="width: 500px; margin: 0 auto; text-align: center;">
-						<button type="button" class="btn btn-info btn-lg"
-							data-toggle="modal" data-target="#myModal">
-							<img src="/resources/images/carpool/warning.png" alt="img" style="width: 30px; height: 30px;"> 
-							꼭 읽어주세요 ! 아름다운 문화 만들기
-						</button>
-					</div>
+						<div id="map"
+							style="width: 800px; height: 400px; border-radius: 20px; margin: 0 auto;"></div>
+						<script type="text/javascript"
+							src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa"></script>
 
 
-			<c:if test="${not empty sessionScope.m }">
-			<div class="submit-btn-wrapper" style="width: 100%; margin-top: 30px;">
-				<button type="submit" id="wrapper-cool-btn">
-					<div class="my-super-cool-btn">
-						<div class="dots-container">
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-						</div> <span style="color: #F16767; font-size: 25px; font-weight: 800;">태워주세요</span>
-					</div>
-				</button>
-			</div>
-			</c:if>
-			</form>
+
+						<br>
+						<hr>
+						<div class="price-box"
+							style="margin: 0 auto; text-align: center; font-size: 20px; font-weight: 600;">
+							희망가격 <span class="price"
+								style="color: #82CD47; font-size: 30px; font-weight: 900;"><fmt:formatNumber
+									value="${c.carpoolPrice}" pattern="#,###" />원</span>(편도/인당)
+						</div>
+						<hr>
+
+						<!-- 모달!!! -->
+						<!-- Trigger the modal with a button -->
+						<div class="button-wrap"
+							style="width: 500px; margin: 0 auto; text-align: center;">
+							<button type="button" class="btn btn-info btn-lg"
+								data-toggle="modal" data-target="#myModal">
+								<img src="/resources/images/carpool/warning.png" alt="img"
+									style="width: 30px; height: 30px;"> 꼭 읽어주세요 ! 아름다운 문화 만들기
+							</button>
+						</div>
+
+
+						<c:if test="${not empty sessionScope.m }">
+							<div class="submit-btn-wrapper"
+								style="width: 100%; margin-top: 30px;">
+								<button type="submit" id="wrapper-cool-btn">
+									<div class="my-super-cool-btn">
+										<div class="dots-container">
+											<div class="dot"></div>
+											<div class="dot"></div>
+											<div class="dot"></div>
+											<div class="dot"></div>
+										</div>
+										<span
+											style="color: #F16767; font-size: 25px; font-weight: 800;">태워주세요</span>
+									</div>
+								</button>
+							</div>
+						</c:if>
+					</form>
 				</div>
 			</div>
 			<!-- end row -->
@@ -179,31 +195,30 @@
 	<!-- end section -->
 
 
-					<!-- Modal -->
-					<div class="modal fade" id="myModal" role="dialog">
-						<div class="modal-dialog">
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
 
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">꼭 읽어주세요!</h4>
-								</div>
-								<div class="modal-body">
-									<p>
-										Lonely surfers는 카풀에 관여하지 않습니다.<br> 다만, 사용자 보호를 위하여 불건전한
-										내용 또는 사기로 의심되는 행위 적발 시 사기 피해확산을 막기 위해 사기 이용자의 계정을 차단하고 서비스 이용이
-										제한할 수 있으며 경찰 등 수사시관에 적극 협조하고 있습니다.
-									</p>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">동의합니다.</button>
-								</div>
-							</div>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">꼭 읽어주세요!</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						Lonely surfers는 카풀에 관여하지 않습니다.<br> 다만, 사용자 보호를 위하여 불건전한 내용 또는
+						사기로 의심되는 행위 적발 시 사기 피해확산을 막기 위해 사기 이용자의 계정을 차단하고 서비스 이용이 제한할 수 있으며
+						경찰 등 수사시관에 적극 협조하고 있습니다.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">동의합니다.</button>
+				</div>
+			</div>
 
-						</div>
-					</div>
+		</div>
+	</div>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	<!-- end wrapper -->
@@ -245,7 +260,6 @@
 		$(".dayinKorean").text(dayOfWeekKorean);
 		console.log($(".dayinKorean").text(dayOfWeekKorean));
 
-		//참고로 input인경우에는 감싸는 괄호가 없다. 그때는 text가 아니라  value를 의미하는 val을 쓴다. val() : 읽어온다., val(매개변수) : 값을 준다.
 		
 		
 		
@@ -253,34 +267,21 @@
 		//////////////////////길찾기 api //////////////////////////////
 		var container = document.getElementById('map'); // 지도를 표시할 div 
 		var options = {
-			center: new kakao.maps.LatLng(37.53483615266413, 126.90263273585241), // 지도의 중심좌표
-			level: 5 // 지도의 확대 레벨
+			center : new kakao.maps.LatLng(37.53483615266413,
+					126.90263273585241), // 지도의 중심좌표
+			level : 5
+		// 지도의 확대 레벨
 		};
 		// 지도를 생성합니다    
 		var map = new kakao.maps.Map(container, options);
-		
+
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();
-		
-		////////////////////장소 검색/////////////////////////////
-		// 장소 검색 객체를 생성합니다
-		var ps = new kakao.maps.services.Places();  
-		 
-		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-		 
-		 
-		// 키워드 검색을 요청하는 함수입니다
-		function searchPlaces() {
-		    var departureDst = document.getElementById('departure-detail').value;
-		 }
-		 
-	    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-	    ps.keywordSearch(departureDst, placesSearchCB); 
-	
 
-	       
-			
+		var dpt = document.getElementById('departure-detail').innerText;
+		var arr = document.getElementById('arrival-detail').innerText;
+		
+		
 		
 		
 	</script>

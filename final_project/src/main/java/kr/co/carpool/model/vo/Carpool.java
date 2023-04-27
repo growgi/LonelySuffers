@@ -89,9 +89,6 @@ public class Carpool {
 		}else {
 			return "여";
 		}
-		
-		//carpoolRequest.jsp 작업중
-		//질문 : carpool에서 1,2 같은 숫자를 바꿔주는건 ok. 그런데 이제 member라는 조인된 테이블에서도 1,2를 가져와야하는데 오류가 뜸
 	}
 	
 }
