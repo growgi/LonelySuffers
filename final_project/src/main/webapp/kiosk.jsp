@@ -487,7 +487,7 @@
 									<div class="circle" style="background-image:url(/resources/images/magnify.png)">
 										<div class="map">
 											<div id="map" style="width:580px;height:580px;border-radius:50%;"></div>
-											<input type="text" id="travel-location" value="강원"readonly>
+											<input type="text" id="travel-location" value="원하시는 지역을 클릭해주세요"readonly>
 										</div>
 									</div>
 								</div>
@@ -1322,7 +1322,13 @@ $("document").ready(function() {
     
     $(window).scroll(function()  
     {  
-        $('#scroll').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});    
+        $('#scroll').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});
+        /*
+        $(".pages").hide();
+        $(".page1").show();
+		$(".title").text("어디로 떠나볼까요?")
+		$("#current-page").attr("value",1);
+		*/
     });  
   
 });  
@@ -1544,6 +1550,7 @@ $("document").ready(function() {
 											console.log(List)
 											$("[name=roomName]").empty();
 											//$("[name=roomName]").append($("<option>").text("객실을 먼저 선택해주세요"));
+											$("[name='roomName']").append('<option value="0" selected>객실을 먼저 선택해주세요</option>');
 											$("[name=modalOptionPrice1]").attr("value",List[0].houseBarbecuePrice);
 											$("[name=modalOptionPrice2]").attr("value",List[0].housePartyPrice);
 											$("[name=housePrice]").attr("value",List[0].housePrice);
@@ -1583,7 +1590,7 @@ $("document").ready(function() {
 									//선택한 옵션에 따른 옵션 dropdown메뉴
 									$("[name=modal-option]").empty();
 									$("[name=modal-option]").append($("<option>").text("선택하신 옵션입니다."));
-									const result = $("[name=housePrice]").val();
+									let result = $("[name=housePrice]").val();
 									
 									if(houseBarbecue == 1){
 										const option = $("<option>");
@@ -1682,7 +1689,7 @@ $("document").ready(function() {
 	
 	$(".page4-pass").on('click',function(){
 		
-		const result = confirm("숙소 옵션은 필요없으신가요?\n클릭하시면 옵션 선택이 불가능한 숙소만 표시됩니다.");
+		const result = confirm("숙소 옵션은 필요없으신가요?\n클릭하시면 옵션 선택없이 숙소만 표시됩니다.");
 		if(result == true){
 			alert("옵션선택을 건너뜁니다");
 			$(".pages").hide();
@@ -1817,7 +1824,7 @@ $("document").ready(function() {
 	$(".page7-before").on('click',function(){
 		$(".pages").hide();
 		$(".page6").show();
-		$(".title").text("조건에 맞는 강습리스트예요~!");
+		$(".title").text("원하시는 강습레벨을 골라주세요");
 		$("#current-page").attr("value",6);
 		
 	})
@@ -1838,8 +1845,8 @@ $("document").ready(function() {
 //page8 주문내역
 	$(".page8-before").on('click',function(){
 		$(".pages").hide();
-		$(".page6").show();
-		$(".title").text("원하시는 강습레벨을 골라주세요");
+		$(".page7").show();
+		$(".title").text("조건에 맞는 강습리스트예요~!");
 		$("#current-page").attr("value",7);
 		
 	})
@@ -1926,7 +1933,9 @@ $("document").ready(function() {
 					console.log("orderProduct에 문제가 있음");
 				}
 				console.log("orderProduct"+orderProduct);
-				alert("결제성공");
+				alert("결제가 완료되었습니다");
+				
+				
 				//결제관련 정보를 DB에 insert 하는 작업이 필요
 						//숙박 선택 자체를 하지 않았을 때
 						if(roomNo != 0){
@@ -1985,24 +1994,31 @@ $("document").ready(function() {
 										
 										//나중에 쓸 수 있게 receipt부분의 orderDetailNo에 값을 넣어줌
 										$("#orderDetailNo").attr("value",data);
+										//다음 페이지 이동
+										$(".pages").hide();
+										$(".page9").show();
+										$(".title").text("즐거운 여행 되세요");
+										$("#current-page").attr("value",9);
+										
 									}
 								})
 							//
 						}
-					});
-					
+					});//결제 성공 이후 insert 로직 끝
 					
 			}else{
-				alert("결제실패");	
+				alert("결제를 취소합니다");	
 			}
 		});
 			}else{
 				alert("100원 단위로 결제 가능합니다.");
 			}
-		}
+		}//결제 모듈 else 구문 끝
+		
 		}
 	});
-
+	//다음 페이지로 이동
+	
 		
 		
 		
@@ -2018,10 +2034,36 @@ $("document").ready(function() {
 			alert("원하시는 강습을 선택해주세요");
 		}
 		*/
-
+	
 	$(".page8-pass").on('click',function(){
 			alert("주문내역을 확인하시고 확정버튼을 눌러주세요");
-	})
+	});
+
+//page9 마무리
+
+	
+$(".page7-before").on('click',function(){
+	$(".pages").hide();
+	$(".page6").show();
+	$(".title").text("원하시는 강습레벨을 골라주세요");
+	$("#current-page").attr("value",6);
+	
+})
+$(".page7-okay").on('click',function(){
+	if($(".stat-count").text() == "0" || $("#lessonTotalPrice").val() == 0){
+		alert("강습은 꼭 선택해주셔야해요");
+		}else{
+			$(".pages").hide();
+			$(".page8").show();
+			$(".title").text("주문내역을 확인해주세요");
+			$("#current-page").attr("value",8);
+		}
+		
+});
+$(".page7-pass").on('click',function(){
+		alert("강습은 꼭 선택해주셔야해요");
+})
+		
 
 
 
@@ -2235,6 +2277,8 @@ $("document").ready(function() {
 					  $(".page7-before").trigger("click");	  
 				}else if($("#current-page").val() == 8){
 					  $(".page8-before").trigger("click");	
+				}else if($("#current-page").val() == 9){
+					  $(".page9-before").trigger("click");
 				};
 				
 			history.pushState(null, null, location.href); 
