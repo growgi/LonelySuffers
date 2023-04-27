@@ -680,7 +680,7 @@
 										<li>총액 : <input type="text" id="totalPrice-choice" value="" readonly></li>
 									</ul>
 									<input type="text" id="totalPriceVal" value="" hidden>
-									<input type="text" id="roomBookNo" value="" hidden>
+									<input type="text" id="roomBookNo" value="0" hidden>
 									<input type="text" id="lessonBookNo" value="" hidden>
 									<input type="text" id="orderNo" value="" hidden>
 									<input type="text" id="orderDetailNo" value="" hidden>
@@ -859,7 +859,9 @@
 			        	<!-- <fieldset> -->
 			        	
 							<input type="hidden" name="houseNo" value="">
-							<select name="roomName" id="roomName-modal"></select>
+							<select name="roomName" id="roomName-modal">
+								<option value="0" selected>객실을 먼저 선택해주세요</option>
+							</select>
 			        		<div class="row">
 				        		<div class="col-md-4">
 									<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required readonly>
@@ -1541,7 +1543,7 @@ $("document").ready(function() {
 										success : function(List){
 											console.log(List)
 											$("[name=roomName]").empty();
-											$("[name=roomName]").append($("<option>").text("객실을 먼저 선택해주세요"));
+											//$("[name=roomName]").append($("<option>").text("객실을 먼저 선택해주세요"));
 											$("[name=modalOptionPrice1]").attr("value",List[0].houseBarbecuePrice);
 											$("[name=modalOptionPrice2]").attr("value",List[0].housePartyPrice);
 											$("[name=housePrice]").attr("value",List[0].housePrice);
@@ -1551,7 +1553,7 @@ $("document").ready(function() {
 												option.val(List[i].roomNo);
 												option.text(List[i].roomName);
 												$("[name=roomName]").append(option);
-												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName)
+												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName+">");
 							    			}
 											//$("[name=roomName] option:selected").val();
 										}
@@ -1887,8 +1889,15 @@ $("document").ready(function() {
 				console.log("bookStartDate"+bookStartDate);
 				const bookEndDate = $("#bookEndDate").val();
 				console.log("bookEndDate"+bookEndDate);
-				const roomNo = $("[name=roomName] option:selected").val();
-				console.log("roomNo"+roomNo)
+				let roomNo;
+				if($("[name=roomName]").val() == "0"){
+					roomNo = 0;
+					console.log("숙박선택하지 않을때 roomNo"+roomNo);
+				}else if($("[name=roomName]").val() != "0"){
+					roomNo = $("[name=roomName] option:selected").val();
+					console.log("숙박선택 했을 때roomNo"+roomNo)
+				}
+				
 				const roomBookPrice = $("#roomTotalPrice").val();
 				console.log("roomBookPrice"+roomBookPrice);
 				const optionDetail = $("#options-choice").val();
@@ -1919,20 +1928,23 @@ $("document").ready(function() {
 				console.log("orderProduct"+orderProduct);
 				alert("결제성공");
 				//결제관련 정보를 DB에 insert 하는 작업이 필요
-					//ajax로 room_book에 insert
-					$.ajax({
-						url:"/roomBookInsert.do",
-						type:"post",
-						data:{roomNo : roomNo, memberNo : memberNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate, houseNo : houseNo, roomBookPrice : roomBookPrice, optionDetail : optionDetail},
-						success:function(data){
-							//나중에 쓸 수 있게 receipt부분의 roomBookNo에 값을 넣어줌
-							$("#roomBookNo").attr("value",data.roomBookNo);
-							console.log("ajax roomBookNo"+data.roomBookNo);
-						},
-						error:function(){
-							console.log("roomBook insert에 문제있음");
-						}
-					});
+						//숙박 선택 자체를 하지 않았을 때
+						if(roomNo != 0){
+								//ajax로 room_book에 insert
+								$.ajax({
+									url:"/roomBookInsert.do",
+									type:"post",
+									data:{roomNo : roomNo, memberNo : memberNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate, houseNo : houseNo, roomBookPrice : roomBookPrice, optionDetail : optionDetail},
+									success:function(data){
+										//나중에 쓸 수 있게 receipt부분의 roomBookNo에 값을 넣어줌
+										$("#roomBookNo").attr("value",data);
+										console.log("ajax roomBookNo"+data);
+									},
+									error:function(){
+										console.log("roomBook insert에 문제있음");
+									}
+								});
+							};
 					//ajax로 lesson_book에 insert
 					$.ajax({
 						url:"/lessonBookInsert.do",
@@ -1940,8 +1952,8 @@ $("document").ready(function() {
 						data:{lessonBookDate : lessonBookDate, lessonPeople : lessonPeople, memberNo : memberNo, lessonNo : lessonNo, lessonBookPrice : lessonBookPrice},
 						success:function(data){
 							//나중에 쓸 수 있게 receipt부분의 lessonBookNo에 값을 넣어줌
-							$("#lessonBookNo").attr("value",data.lessonBookNo);
-							console.log("ajax lessonBookNo"+data.lessonBookNo);
+							$("#lessonBookNo").attr("value",data);
+							console.log("ajax lessonBookNo"+data);
 						},
 						error:function(){
 							console.log("roomBook insert에 문제있음");
@@ -1955,11 +1967,11 @@ $("document").ready(function() {
 						data:{houseNo : houseNo, memberNo : memberNo, orderAllPrice : orderAllPrice, orderProduct : orderProduct},
 						success:function(data){
 							//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
-							$("#orderNo").attr("value",data.orderNo);
-							console.log("ajax orderNo"+data.orderNo);
+							$("#orderNo").attr("value",data);
+							console.log("ajax orderNo"+data);
 								//ajax로 order_detail에 insert
 								
-										const orderNo = data.orderNo;
+										const orderNo = data;
 										console.log("orderNo"+orderNo);
 										const roomBookNo = $("#roomBookNo").val();
 										console.log("roomBookNo"+roomBookNo);
@@ -1968,11 +1980,11 @@ $("document").ready(function() {
 								$.ajax({
 									url:"/orderDetailInsert.do",
 									type:"post",
-									data:{orderNo : data.orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
+									data:{orderNo : orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
 									success:function(data){
 										
 										//나중에 쓸 수 있게 receipt부분의 orderDetailNo에 값을 넣어줌
-										$("#orderDetailNo").attr("value",data.orderDetailNo);
+										$("#orderDetailNo").attr("value",data);
 									}
 								})
 							//
@@ -2230,7 +2242,12 @@ $("document").ready(function() {
 				
 
 			};
-
+//새로고침할때 알림창 띄워주는 것(버전이 올라가서 더 이상 문구 변경 지원을 안 해줌)
+			window.addEventListener('beforeunload', (event)=>{
+				event.preventDefault();
+				event.returnValue = '';
+				
+			});
 
 </script>					
 </body>

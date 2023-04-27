@@ -3,12 +3,24 @@
 <mapper namespace="od">
 
 <!-- 결제완료된 후 (ORDER_DETAIL 테이블에 insert) -->
-	<insert id="insertOrderDetail"	parameterType="o">
-		INSERT INTO ORDER_DETAIL VALUES(ORDER_DETAIL_SEQ.NEXTVAL), #{orderNo}, #{houseNo}, #{roomBookNo}, #{lessonNo}, #{lessonBookNo})
-<!-- 가장 최근 insert된 신규 Row의 orderNo 받아옴 -->
+	<insert id="insertOrderDetail"	parameterType="od">
+		
+		<choose>
+			<when test="roomBookNo == 0">
+				INSERT INTO ORDER_DETAIL VALUES((ORDER_DETAIL_SEQ.NEXTVAL), #{orderNo}, null, null, #{lessonNo}, #{lessonBookNo})
+				
+			</when>
+			<otherwise>
+			INSERT INTO ORDER_DETAIL VALUES((ORDER_DETAIL_SEQ.NEXTVAL), #{orderNo}, #{houseNo}, #{roomBookNo}, #{lessonNo}, #{lessonBookNo})
+				
+			</otherwise>
+			
+		</choose>
 		<selectKey resultType="_int" order="AFTER" keyProperty="orderDetailNo">
-			SELECT MAX(ORDER_DETAIL_NO)as orderDetailNo FROM ORDER_DETAIL
+		SELECT MAX(ORDER_DETAIL_NO)as orderDetailNo FROM ORDER_DETAIL
 		</selectKey>
+<!-- 가장 최근 insert된 신규 Row의 orderNo 받아옴 -->
+		
 	</insert>
 	
 </mapper>

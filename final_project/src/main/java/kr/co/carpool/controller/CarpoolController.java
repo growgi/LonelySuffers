@@ -37,7 +37,7 @@ public class CarpoolController {
 	@ResponseBody
 	@RequestMapping(value = "/carpoolCount.do")
 	public String carpoolCount(CarpoolFilter cf, Model model) {
-		System.out.println(cf);
+		//System.out.println(cf);
 		int totalCount = service.totalCount(cf);
 		return String.valueOf(totalCount);
 	}
@@ -64,7 +64,7 @@ public class CarpoolController {
 	// 운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
 	@RequestMapping(value = "/registerCarpool.do")
 	public String registerCarpool(Carpool carpool) {
-		System.out.println(carpool);
+		//System.out.println(carpool);
 		// 운전자가 한달에 4개 이상의 카풀을 등록하지 못하게
 		// 날짜가 겹치지 않게
 		// 날짜가 지나면 등록하지 못하게
@@ -171,9 +171,9 @@ public class CarpoolController {
 	@ResponseBody
 	@RequestMapping(value = "driverClosing.do")
 	public String driverClosing(Carpool carpool) {
-		System.out.println("운전자 closure 페이지 컨트롤러테스트: " + carpool);
+		//System.out.println("운전자 closure 페이지 컨트롤러테스트: " + carpool);
 		int result = service.updateDriverClosing(carpool);
-		System.out.println("운전자 closure 페이지 컨트롤러 result 테스트: " + result);
+		//System.out.println("운전자 closure 페이지 컨트롤러 result 테스트: " + result);
 		if (result > 0) {
 			return "success"; // success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
 		} else {
@@ -186,13 +186,8 @@ public class CarpoolController {
 	@RequestMapping(value = "/passengerPage.do")
 	public String mycarpoolPassenger(Model model, int memberNo) {
 		System.out.println(memberNo);
-		// Request processing failed; nested exception is
-		// java.lang.IllegalStateException: Optional int parameter 'memberNo' is present
-		// but cannot be translated into a null value due to being declared as a
-		// primitive type. Consider declaring it as object wrapper for the corresponding
-		// primitive type.
 		ArrayList<Carpool> list = service.getMyRequests(memberNo);
-		System.out.println("passengerPage.do의 controller: " + list);
+		//System.out.println("passengerPage.do의 controller: " + list);
 		model.addAttribute("list", list);
 		return "carpool/passengerPage";
 	}

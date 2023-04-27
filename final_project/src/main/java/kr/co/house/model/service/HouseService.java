@@ -206,10 +206,15 @@ public class HouseService {
 		return dao.selectRoomList(house);
 	}
 
-
+	@Transactional
 //roomBook 테이블에 예약내용 insert
 	public int roomBookInsert(RoomBook rb) {
-		return dao.roomBookInsert(rb);
+		//rb
+		System.out.println("rb1"+rb);
+		int result = dao.roomBookInsert(rb);
+		//rb
+		System.out.println("rb2"+rb);
+		return result;
 	}
 	
 }
