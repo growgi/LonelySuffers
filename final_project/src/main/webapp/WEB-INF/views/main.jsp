@@ -56,6 +56,8 @@
 			<!-- end container -->
 		</section>
 		<!-- end section -->
+		
+
 
 		<section class="section nopad">
 			<div class="container-fluid">
@@ -113,7 +115,9 @@
 			<div class="icon-center">
 				<i class="fa fa-anchor"></i>
 			</div>
+		<jsp:include page="/weatherAPI.jsp" />
 		</section>
+		
 
 		<section class="section lb overfree">
 			<div class="container">
@@ -546,6 +550,7 @@
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	<script src="resources/js/owl.carousel.js"></script>
+
 </body>
 <script>
 	function slideOn(){
