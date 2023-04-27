@@ -21,7 +21,6 @@ import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
-import kr.co.member.model.vo.WishList;
 
 @Service
 public class AdminService {
@@ -1035,22 +1034,6 @@ public class AdminService {
 		return dao.selectOrderDetailCount(orderNo);
 	}
 
-
-	public ArrayList<WishList> selectLessonWishList(String memberId) {
-
-		return dao.selectLessonWishList(memberId);
-	}
-
-	public ArrayList<WishList> selectHouseWishList(String memberId) {
-
-		return dao.selectHouseWishList(memberId);
-	}
-
-	public ArrayList<WishList> selectAllWishList(String memberId) {
-
-		return dao.selectAllWishList(memberId);
-	}
-
 	public Order selectOrderDetailInfo(int orderNo) {
 
 		return dao.selectOrderDetailInfo(orderNo);
@@ -1059,27 +1042,6 @@ public class AdminService {
 	public ArrayList<Order> selectSearchSalesDetails(Search sp) {
 		
 		return dao.selectSearchSalesDetails(sp);
-	}
-
-	public int deleteWishList(int wishNo) {
-		int result = dao.deleteWishList(wishNo);
-
-		return result;
-	}
-
-	public int selectAllWishListCount(String memberId) {
-		
-		return dao.selectAllWishListCount(memberId);
-	}
-
-	public int selectLessonWishListCount(String memberId) {
-
-		return dao.selectLessonWishListCount(memberId);
-	}
-
-	public int selectHouseWishListCount(String memberId) {
-
-		return dao.selectHouseWishListCount(memberId);
 	}
 
 	public ProductPageData selectAllProduct(int reqPage) {

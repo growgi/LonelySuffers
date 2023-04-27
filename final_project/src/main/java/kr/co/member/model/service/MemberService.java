@@ -77,7 +77,6 @@ public class MemberService {
 
 
 
-
 // 관심상품에 추가하기 전에, 이미 관심상품에 있거나 가득찼는지 확인하는 함수
 	public String selectMyWishlist(WishList w) {
 		int wishNo = 0;
@@ -103,6 +102,22 @@ public class MemberService {
 	public int insertMyWishlist(WishList w) {
 		return dao.insertMyWishlist(w);
 	}
+
+
+
+// 나의 관심상품들을 조회하는 함수
+	public ArrayList<WishList> selectAllWishList(String memberId) {
+		return dao.selectAllWishList(memberId);
+	}
+
+
+
+// 나의 관심상품 삭제.  Wishlist 테이블에 Row 1개 삭제
+	@Transactional
+	public int deleteWishList(int wishNo) {
+		return dao.deleteWishList(wishNo);
+	}
+
 
 
 	public Member selectOneMember(Member m) {

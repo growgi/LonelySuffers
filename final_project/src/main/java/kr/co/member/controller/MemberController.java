@@ -269,7 +269,6 @@ public class MemberController {
 		}
 	}
 	
-	
 
 
 
@@ -302,7 +301,40 @@ public class MemberController {
 		}
 		return message;
 	}
-	
+
+
+
+// 나의 관심상품 목록 보기
+	@RequestMapping(value="/wishList.do")
+	public String wishList(HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		if(me!=null) {
+			ArrayList<WishList> allWishList = service.selectAllWishList(me.getMemberId());
+			
+			model.addAttribute("allWishList", allWishList);
+			
+			return "member/myWishList";
+		}else {
+			return "member/login";
+		}
+	}
+
+
+
+// 나의 관심상품 페이지에서 관심상품을 삭제하고 나의 관심상품 페이지를 재방문하기
+	@RequestMapping(value="/deleteWishList.do")
+	public String deleteWishList(int wishNo) {
+		int result = service.deleteWishList(wishNo);
+		
+		if(result>0) {
+			return "redirect:/wishList.do";
+		} else {
+			return "redirect:/";
+		}
+	}
+
+
+
 	@RequestMapping(value = "/updateMember.do")
 	public String updateMember(Member member,Model model,@SessionAttribute(required = false) Member m) {
 		int result = service.updateMember(member);

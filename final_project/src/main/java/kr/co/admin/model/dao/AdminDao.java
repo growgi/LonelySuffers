@@ -15,7 +15,6 @@ import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
-import kr.co.member.model.vo.WishList;
 
 @Repository
 public class AdminDao {
@@ -224,24 +223,6 @@ public class AdminDao {
 	
 
 
-	public ArrayList<WishList> selectLessonWishList(String memberId) {
-		List lessonWishList = sqlSession.selectList("admin.selectLessonWishList", memberId);
-		
-		return (ArrayList<WishList>)lessonWishList;
-	}
-
-	public ArrayList<WishList> selectHouseWishList(String memberId) {
-		List houseWishList = sqlSession.selectList("admin.selectHouseWishList", memberId);
-		
-		return (ArrayList<WishList>)houseWishList;
-	}
-
-	public ArrayList<WishList> selectAllWishList(String memberId) {
-		List allWishList = sqlSession.selectList("admin.selectAllWishList", memberId);
-		
-		return (ArrayList<WishList>)allWishList;
-	}
-
 	public Order selectOrderDetailInfo(int orderNo) {
 		Order orderDetailInfo = sqlSession.selectOne("admin.selectOrderDetailInfo", orderNo);
 		
@@ -255,30 +236,6 @@ public class AdminDao {
 		 * System.out.println(sp.getSearchKeyword());
 		 */
 		return (ArrayList<Order>)searchSalesDetails;
-	}
-
-	public int deleteWishList(int wishNo) {
-		int result = sqlSession.delete("admin.deleteWishList", wishNo);
-		
-		return result;
-	}
-
-	public int selectAllWishListCount(String memberId) {
-		int allWishCount = sqlSession.selectOne("admin.selectAllWishListCount", memberId);
-		
-		return allWishCount;
-	}
-
-	public int selectLessonWishListCount(String memberId) {
-		int lessonWishCount = sqlSession.selectOne("admin.selectLessonWishListCount", memberId);
-		
-		return lessonWishCount;
-	}
-
-	public int selectHouseWishListCount(String memberId) {
-		int houseWishCount = sqlSession.selectOne("admin.selectHouseWishListCount", memberId);
-		
-		return houseWishCount;
 	}
 
 	public ArrayList<Product> selectAllProduct() {

@@ -26,7 +26,6 @@ import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
-import kr.co.member.model.vo.WishList;
 
 @Controller
 public class AdminController {
@@ -576,39 +575,6 @@ public class AdminController {
 		} else {
 			return "redirect:/productList.do?reqPage=1";
 		}
-	}
-	
-	/**관심상품*/
-	@RequestMapping(value="/wishList.do")
-	public String wishList(String memberId, Model model) {
-		ArrayList<WishList> allWishList = service.selectAllWishList(memberId);
-		int allWishListCount = service.selectAllWishListCount(memberId);
-		ArrayList<WishList> lessonWishList = service.selectLessonWishList(memberId);
-		int lessonWishListCount = service.selectLessonWishListCount(memberId);
-		ArrayList<WishList> houseWishList = service.selectHouseWishList(memberId);
-		int houseWishListCount = service.selectHouseWishListCount(memberId);
-		
-		model.addAttribute("allWishList", allWishList);
-		model.addAttribute("allWishListCount", allWishListCount);
-		model.addAttribute("lessonWishList", lessonWishList);
-		model.addAttribute("lessonWishListCount", lessonWishListCount);
-		model.addAttribute("houseWishList", houseWishList);
-		model.addAttribute("houseWishListCount", houseWishListCount);
-		
-		return "member/wishList";
-	}
-	
-	@RequestMapping(value="/deleteWishList.do")
-	public String deleteWishList(int wishNo, String memberId) {
-		int result = service.deleteWishList(wishNo);
-		
-		if(result>0) {
-			return "redirect:/wishList.do?memberId="+memberId;
-		} else {
-			return "redirect:/";
-		}
-		
-		
 	}
 	
 	/**1:1 문의*/

@@ -98,6 +98,22 @@ public class MemberDao {
 	public int insertMyWishlist(WishList w) {
 		return sqlSession.insert("member.insertMyWishlist", w);
 	}
+
+
+
+// 나의 관심상품들을 조회하는 함수
+	public ArrayList<WishList> selectAllWishList(String memberId) {
+		List allWishList = sqlSession.selectList("member.selectAllWishList", memberId);
+		
+		return (ArrayList<WishList>)allWishList;
+	}
+
+
+
+// 나의 관심상품 삭제.  Wishlist 테이블에 Row 1개 삭제
+	public int deleteWishList(int wishNo) {
+		return sqlSession.delete("member.deleteWishList", wishNo);
+	}
 // 관심상품 관련 함수들 끝 ///////////////////////////////////////////////////////////////
 
 	public int updateMember(Member m) {
