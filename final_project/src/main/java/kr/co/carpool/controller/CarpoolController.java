@@ -161,7 +161,8 @@ public class CarpoolController {
 		int result = service.updateDriverDecision(passenger);
 		System.out.println(result);
 		if (result > 0) {
-			return "success"; // success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
+			Passenger p = service.selectOnePassenger(passenger.getMatchNo());
+			return new Gson().toJson(p); // success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
 		} else {
 			return "error";
 		}

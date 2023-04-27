@@ -140,6 +140,7 @@
                   <c:choose>
                      <c:when test="${not empty sessionScope.m }">
                      <input type="hidden" class="hiddenMemberGrade" value="${sessionScope.m.memberGrade }">
+                     <input type="hidden" name="memberName" value="${sessionScope.m.memberName }">
                      <c:choose>
                         <c:when test="${sessionScope.m.memberGrade ==1}">
                   <li>
