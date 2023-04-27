@@ -32,7 +32,9 @@ public class AdminDashboard {
 	private ArrayList<Member> newMemberList;
 	
 	private ArrayList<Member> newCarpoolDriverList;
-	private ArrayList<SalesAmount> salesAmountList;//상품 판매금액 추이
+	private ArrayList<SalesAmount> lessonSalesAmountList;//강습 판매금액 추이
+	private ArrayList<SalesAmount> houseSalesAmountList;//숙박 판매금액 추이
+	private ArrayList<SalesAmount> allSalesAmountList;//모든 판매금액 추이
 	
 	private ArrayList<Member> adminList;
 }

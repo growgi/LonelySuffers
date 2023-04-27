@@ -1,6 +1,7 @@
 package kr.co.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -28,7 +29,7 @@ public class AdminDao {
 	
 	public AdminDao() {
 		super();
-		System.out.println("1aaaaa1111111111111a");
+		//System.out.println("1aaaaa1111111111111a");
 	}
 
 	public int setVisitTotalCount() {
@@ -50,13 +51,13 @@ public class AdminDao {
 	}
 	
 	public ArrayList<Visitant> getVisitWeekCount() {
-		ArrayList<Visitant> weekCountList = sqlSession.selectOne("admin.selectVisitWeekCount");
+		List weekCountList = sqlSession.selectList("admin.selectVisitWeekCount");
 		
-		return weekCountList;
+		return (ArrayList<Visitant>)weekCountList;
 	}
 
-	public ArrayList<Member> selectAllMember() {
-		List memberList = sqlSession.selectList("admin.selectAllMember");
+	public ArrayList<Member> selectAllMember(HashMap<String, Object> map) {
+		List memberList = sqlSession.selectList("admin.selectAllMember",map);
 		
 		return (ArrayList<Member>)memberList;
 	}
@@ -85,8 +86,8 @@ public class AdminDao {
 		return (ArrayList<Member>)searchMember;
 	}
 
-	public ArrayList<Member> selectAllSellerApplication() {
-		List sellerAppList = sqlSession.selectList("admin.selectAllSellerApplication");
+	public ArrayList<Member> selectAllSellerApplication(HashMap<String, Object> map) {
+		List sellerAppList = sqlSession.selectList("admin.selectAllSellerApplication", map);
 		
 		return (ArrayList<Member>)sellerAppList;
 	}
@@ -127,14 +128,14 @@ public class AdminDao {
 		return (ArrayList<House>)houseList;
 	}
 
-	public ArrayList<Lesson> selectAllLesson() {
-		List lessonList = sqlSession.selectList("admin.selectAllLesson");
+	public ArrayList<Lesson> selectAllLesson(HashMap<String, Object> map) {
+		List lessonList = sqlSession.selectList("admin.selectAllLesson", map);
 		
 		return (ArrayList<Lesson>)lessonList;
 	}
 
-	public ArrayList<House> selectAllHouse() {
-		List houseList = sqlSession.selectList("admin.selectAllHouse");
+	public ArrayList<House> selectAllHouse(HashMap<String, Object> map) {
+		List houseList = sqlSession.selectList("admin.selectAllHouse", map);
 		
 		return (ArrayList<House>)houseList;
 	}
@@ -163,14 +164,14 @@ public class AdminDao {
 		return result;
 	}
 
-	public ArrayList<Lesson> selectNewLesson() {
-		List lessonList = sqlSession.selectList("admin.selectNewLesson");
+	public ArrayList<Lesson> selectNewLesson(HashMap<String, Object> map) {
+		List lessonList = sqlSession.selectList("admin.selectNewLesson", map);
 		
 		return (ArrayList<Lesson>)lessonList;
 	}
 
-	public ArrayList<House> selectNewHouse() {
-		List houseList = sqlSession.selectList("admin.selectNewHouse");
+	public ArrayList<House> selectNewHouse(HashMap<String, Object> map) {
+		List houseList = sqlSession.selectList("admin.selectNewHouse", map);
 		
 		return (ArrayList<House>)houseList;
 	}
@@ -223,8 +224,8 @@ public class AdminDao {
 		return result;
 	}
 
-	public ArrayList<Order> selectAllOrder() {
-		List orderList = sqlSession.selectList("admin.selectAllOrder");
+	public ArrayList<Order> selectAllOrder(HashMap<String, Object> map) {
+		List orderList = sqlSession.selectList("admin.selectAllOrder", map);
 		
 		return (ArrayList<Order>)orderList;
 	}
@@ -313,8 +314,8 @@ public class AdminDao {
 		return houseWishCount;
 	}
 
-	public ArrayList<Product> selectAllProduct() {
-		List productList = sqlSession.selectList("admin.selectAllProduct");
+	public ArrayList<Product> selectAllProduct(HashMap<String, Object> map) {
+		List productList = sqlSession.selectList("admin.selectAllProduct", map);
 		return (ArrayList<Product>)productList;
 	}
 
@@ -323,8 +324,8 @@ public class AdminDao {
 		return (ArrayList<Product>)productList;
 	}
 
-	public ArrayList<Product> selectAllNewProduct() {
-		List newProductList = sqlSession.selectList("admin.selectAllNewProduct");
+	public ArrayList<Product> selectAllNewProduct(HashMap<String, Object> map) {
+		List newProductList = sqlSession.selectList("admin.selectAllNewProduct",map);
 		return (ArrayList<Product>)newProductList;
 	}
 
@@ -358,8 +359,8 @@ public class AdminDao {
 		return (ArrayList<House>)houseList;
 	}
 
-	public ArrayList<Carpool> selectAllCarpool() {
-		List carpoolList = sqlSession.selectList("admin.selectAllCarpool");
+	public ArrayList<Carpool> selectAllCarpool(HashMap<String, Object> map) {
+		List carpoolList = sqlSession.selectList("admin.selectAllCarpool", map);
 		
 		return (ArrayList<Carpool>)carpoolList;
 	}
@@ -430,10 +431,22 @@ public class AdminDao {
 		return (ArrayList<GenderRatio>)genderRatio;
 	}
 
-	public ArrayList<SalesAmount> selectSalesAmount() {
-		List salesAmountList = sqlSession.selectList("admin.selectSalesAmount");
+	public ArrayList<SalesAmount> selectLessonSalesAmount() {
+		List lessonSalesAmountList = sqlSession.selectList("admin.selectLessonSalesAmount");
 		
-		return (ArrayList<SalesAmount>)salesAmountList;
+		return (ArrayList<SalesAmount>)lessonSalesAmountList;
+	}
+	
+	public ArrayList<SalesAmount> selectHouseSalesAmount() {
+		List houseSalesAmountList = sqlSession.selectList("admin.selectLessonSalesAmount");
+		
+		return (ArrayList<SalesAmount>)houseSalesAmountList;
+	}
+	
+	public ArrayList<SalesAmount> selectAllSalesAmount() {
+		List allSalesAmountList = sqlSession.selectList("admin.selectAllSalesAmount");
+		
+		return (ArrayList<SalesAmount>)allSalesAmountList;
 	}
 
 }

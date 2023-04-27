@@ -76,12 +76,14 @@ public class AdminController {
 		
 		/*5th*/
 		ArrayList<Member> newCarpoolDriverList = service.selectNewCarpoolDriver(); //신규 카풀 운전자
-		ArrayList<SalesAmount> salesAmountList = service.selectSalesAmount(); //상품 판매금액 추이
+		ArrayList<SalesAmount> lessonSalesAmountList = service.selectLessonSalesAmount(); //강습 판매금액 추이
+		ArrayList<SalesAmount> houseSalesAmountList = service.selectHouseSalesAmount(); //숙박 판매금액 추이
+		ArrayList<SalesAmount> allSalesAmountList = service.selectAllSalesAmount(); //숙박 판매금액 추이
 		
 		/*6th*/
 		ArrayList<Member> adminList = service.selectAllAdmin(); //관리자 목록
 		
-		AdminDashboard dInfo = new AdminDashboard(sellerAppCount, newProductCount, newAdminChatCount, totalSalesAmount, todaySalesAmount, memberCount, lessonCount, houseCount, carpoolRecruitingCount, genderRatio, newProductList, newMemberList, newCarpoolDriverList, salesAmountList, adminList);
+		AdminDashboard dInfo = new AdminDashboard(sellerAppCount, newProductCount, newAdminChatCount, totalSalesAmount, todaySalesAmount, memberCount, lessonCount, houseCount, carpoolRecruitingCount, genderRatio, newProductList, newMemberList, newCarpoolDriverList, lessonSalesAmountList, houseSalesAmountList, allSalesAmountList, adminList);
 		model.addAttribute("dInfo", dInfo);
 		
 		return "admin/adminDashboard";

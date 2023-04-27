@@ -112,13 +112,16 @@
 			<div class="dashboard-3rd">
 				<div class="visitant-graph">
 					<div class="title-bold">방문자 현황</div>
-					<div>
+					<div class="visitant-val">
 					${sessionScope.todayCount}
 					${sessionScope.totalCount}
+					<hr>
 					<c:forEach items="${sessionScope.weekCountList}" var="w">
-						${w.visitantNo}
 						${w.visitantDate }
+						${w.dayTotal}
 					 </c:forEach>
+					</div>
+					<div>
 						<div style="width: 100%; height: 100%;">
 							<!--차트가 그려질 부분-->
 							<canvas id="visitantGraph"></canvas>
@@ -195,9 +198,17 @@
 					<a href="#" class="btn-l bc1">전체 카풀 게시글 목록 보기</a>
 				</div>
 				<div class="sales-amount-graph">
-					<c:forEach items="${dInfo.salesAmountList }" var="s">
-						${s.month }
-						${s.sales }
+					<c:forEach items="${dInfo.lessonSalesAmountList }" var="l">
+						${l.month }
+						${l.sales }
+					</c:forEach>
+					<c:forEach items="${dInfo.houseSalesAmountList }" var="h">
+						${h.month }
+						${h.sales }
+					</c:forEach>
+					<c:forEach items="${dInfo.allSalesAmountList }" var="a">
+						${a.month }
+						${a.sales }
 					</c:forEach>
 					<div class="title-bold">상품 판매금액 추이</div>
 					<div>
@@ -362,6 +373,7 @@
         });
 
 	/*남녀비율 chart*/
+	var output = sessionStorage.getItem(key);
 	var context = document.getElementById('myChart').getContext('2d');
 	var myChart = new Chart(context, {
 		type: 'doughnut', // 차트의 형태

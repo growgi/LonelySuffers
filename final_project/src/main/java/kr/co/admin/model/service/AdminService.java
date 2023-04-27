@@ -1,6 +1,7 @@
 package kr.co.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class AdminService {
 	AdminDao dao;
 	
 	public int setVisitTotalCount() {
-		System.out.println("adminservice : "+dao);
+		//System.out.println("adminservice : "+dao);
 		return dao.setVisitTotalCount();
 	}
 
@@ -65,7 +66,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<Member> memberList = dao.selectAllMember(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Member> memberList = dao.selectAllMember(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -224,7 +229,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<Member> sellerAppList = dao.selectAllSellerApplication(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Member> sellerAppList = dao.selectAllSellerApplication(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -365,7 +374,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<Lesson> lessonList = dao.selectAllLesson(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Lesson> lessonList = dao.selectAllLesson(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -460,7 +473,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<House> houseList = dao.selectAllHouse(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<House> houseList = dao.selectAllHouse(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -619,7 +636,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<Lesson> lessonList = dao.selectNewLesson(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Lesson> lessonList = dao.selectNewLesson(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -714,7 +735,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<House> houseList = dao.selectNewHouse(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<House> houseList = dao.selectNewHouse(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -934,7 +959,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<Order> orderList = dao.selectAllOrder(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Order> orderList = dao.selectAllOrder(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -1118,7 +1147,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<Product> productList = dao.selectAllProduct(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Product> productList = dao.selectAllProduct(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -1223,7 +1256,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<Product> productList = dao.selectAllNewProduct(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Product> productList = dao.selectAllNewProduct(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -1333,7 +1370,11 @@ public class AdminService {
 		int end = numPerPage * reqPage; //마지막 페이지
 		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
 		
-		ArrayList<Carpool> carpoolList = dao.selectAllCarpool(); //회원목록 전체 조회
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		ArrayList<Carpool> carpoolList = dao.selectAllCarpool(map); //회원목록 전체 조회
 		
 		/*<페이징 제작 시작>*/
 		/*한페이지당 게시물 수 : 10
@@ -1490,11 +1531,19 @@ public class AdminService {
 		return dao.selectGenderRatio();
 	}
 
-	public ArrayList<SalesAmount> selectSalesAmount() {
+	public ArrayList<SalesAmount> selectLessonSalesAmount() {
 		
-		return dao.selectSalesAmount();
+		return dao.selectLessonSalesAmount();
 	}
 
-
+	public ArrayList<SalesAmount> selectHouseSalesAmount() {
+		
+		return dao.selectHouseSalesAmount();
+	}
+	
+	public ArrayList<SalesAmount> selectAllSalesAmount() {
+		
+		return dao.selectAllSalesAmount();
+	}
 
 }

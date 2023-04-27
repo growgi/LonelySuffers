@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class Visitant {
 	private int visitantNo;
 	private String visitantDate;
+	
+	private int dayTotal;
 }
