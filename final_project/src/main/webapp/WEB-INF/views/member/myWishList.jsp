@@ -152,27 +152,22 @@
         left: 200px;
     }
     .black-box{
-        width: 546px;
-        height: 205px;
-    	background-color: rgba(0, 0, 0, 0.06);
-        position: absolute;
-        top: 23px;
-        left: -5px;
-        border-radius: 5px;
-        transition-duration : 0.5s;
-        text-align: center;
-        line-height: 205px;
-        font-size: 30px;
-        font-weight: 900;
-        color: rgb(247, 247, 247);
+    	background-color: #cccccc;
     }
     .black-box:hover{
-        background-color: rgba(0, 0, 0, 0.3);
-        
+		cursor: not-allowed;
+    }
+    .close-icon{
+        margin-right: 20px;
     }
     .close-icon:hover{
         background-color: rgba(194, 194, 194, 0.3);
-        
+    }
+    .black-box>div>div>div>.product-title>*{
+        color: gray;
+    }
+    .black-box>div>div>div>.close-icon{
+        color: red;
     }
 </style>
 <body>
@@ -203,16 +198,16 @@
 				</div>
 				<!-- end row -->
 
-				<div class="portfolio row lightcasestudies withhover">
+				<div class="portfolio row withhover">
 					<c:forEach items="${allWishList }" var="w">
 						<c:choose>
 							<c:when test="${w.houseNo ne 0}">
 								<div class="pitem item-w1 item-h1 cat2">
-									<div class="case-box">
+									<c:choose>
+										<c:when test="${w.houseStatus > 0}"><div class="case-box"></c:when>
+										<c:otherwise><div class="case-box black-box"></c:otherwise>
+									</c:choose>
 										<div class="wishList-box">
-											<c:if test="${w.houseStatus eq 0}">
-												<div class="black-box"></div>
-											</c:if>
 											<div class="wishList-box-top">
 												<div>
 													<div class="product-title">
@@ -221,9 +216,7 @@
 													<div class="material-symbols-outlined close-icon">close</div>
 													<input type="hidden" value="${w.wishNo }">
 												</div>
-												<div>
-													<span class="product-name">숙박</span> | <span class="location">${w.houseCity }</span>
-												</div>
+												<div><span class="product-name">숙박</span> | <span class="location">${w.houseCity }</span></div>
 											</div>
 											<div class="wishList-box-bottom">
 												<div>
@@ -251,11 +244,11 @@
 							</c:when>
 							<c:when test="${w.lessonNo ne 0}">
 								<div class="pitem item-w1 item-h1 cat1">
-									<div class="case-box">
+									<c:choose>
+										<c:when test="${w.lessonStatus > 0}"><div class="case-box"></c:when>
+										<c:otherwise><div class="case-box black-box"></c:otherwise>
+									</c:choose>
 										<div class="wishList-box">
-											<c:if test="${w.lessonStatus eq 0}">
-												<div class="black-box"></div>
-											</c:if>
 											<div class="wishList-box-top">
 												<div>
 													<div class="product-title">
@@ -277,7 +270,6 @@
 														</c:otherwise>
 													</c:choose>
 												</div>
-
 												<div class="wishList-box-detail">
 													<div><b>${w.lessonTeacher }</b> 강사 
 														<span class="label label-primary">
@@ -352,13 +344,7 @@
 		location.href = "/deleteWishList.do?wishNo="+wishNo;
 	});
 
-    $(".black-box").hover(function(){
-        $(this).text("판매중지");
-        $(this).css("cursor","default");
-    }, function() {
-        $(this).text("");
-    });
-    
+    $(".black-box").attr("title","판매중이 아닙니다.");
     
     /*관심상품 개수*/
     const allWishListCount = $(".pitem").length; 
