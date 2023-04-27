@@ -111,8 +111,8 @@
 				<div class="row">
 					<div class="wrapper" style="border-radius: 20px;">
 						<div
-							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;">태워드려요
-							회원들의 답변입니다.</div>
+							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;"><span id="passengerName"></span>님, 탑승 신청하신
+							카풀 목록입니다. </div>
 						<div>
 							<c:forEach items="${list}" var="c">
 								<hr>
@@ -199,6 +199,7 @@
 
 
 	<script>
+	$("#passengerName").text($("[name=memberName]").val());
 		
 	</script>
 </body>

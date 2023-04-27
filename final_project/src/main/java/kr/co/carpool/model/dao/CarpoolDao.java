@@ -54,10 +54,8 @@ public class CarpoolDao {
 
 
 	public ArrayList<Carpool> getMyLists(HashMap<String, Integer> param) {
-		// TODO Auto-generated method stub
 		List list = sqlSession.selectList("carpool.selectMyLists", param);
-		System.out.println("dao");
-		System.out.println(list);
+		
 		return (ArrayList<Carpool>)list;
 	}
 
@@ -95,6 +93,11 @@ public class CarpoolDao {
 	public int updateClosure() {
 		int result = sqlSession.update("carpool.updateClosure");
 		return result;
+	}
+
+	public Passenger selectPassenger(int matchNo) {
+		Passenger p = sqlSession.selectOne("passenger.selectPsgEmailPhone", matchNo);
+		return p;
 	}
 
 
