@@ -45,7 +45,7 @@
 
 <!-- 객실 이름 변경 -->
 	<update id="updateRoomName" parameterType="r">
-		UPDATE ROOM SET ROOM_NAME = #{roomName} WHERE ROOM_NO = #{roomNo}
+		UPDATE ROOM SET ROOM_NAME = #{roomName}, ROOM_DESCRIPTION = #{roomDescription} WHERE ROOM_NO = #{roomNo}
 	</update>
 
 
