@@ -29,8 +29,6 @@
 <!-- 사용자 CSS 파일들은 프레임워크 제공 CSS들보다 아래쪽에 있어야 합니다. -->
 
 
-
-
 <!-- 화면 우측 하단 네비게이션 버튼 영역 시작 -->
 <button onclick="scrollToTop()" id="toTopButton" style="background-color:white;"><img alt="gallery" src="/resources/images/up-arrow.png" style="width: 40px; height: 40px;">Λ</button>
 <!-- 화면 우측 하단 네비게이션 버튼 영역 끝 -->
@@ -176,6 +174,8 @@
 		<!-- end nav -->
 	</div>
 	<!-- end container -->
+	<script src="resources/js/jquery.min.js"></script>
 	<script src="/resources/js/chat.js"></script>
+	
 </header>
 <!-- 헤더 영역 끝 -->
