@@ -58,7 +58,7 @@
 							<input type="hidden" class="memberId" value="${ca.memberId }">
 							<div class="td">${status.count }</div>
 							<div class="td">${ca.memberId }</div>
-							<div class="td timeDiv"></div>
+							<div class="td timeDiv">없음</div>
 							<div class="td">
 								<c:choose>
 									<c:when test="${ca.chatActivation == 1}">
