@@ -34,7 +34,6 @@
 						<div class="main-left">
 							<div class="left-content">
 								<p>마이페이지</p>
-								<input type="button" class="tabBtn" value="하이루">
 								<span class="material-symbols-outlined">account_circle</span>
 								<span class="sessionMemberName">${sessionScope.m.memberName }</span>
 								<span class="sessionMemberEmail">${sessionScope.m.memberEmail }</span>

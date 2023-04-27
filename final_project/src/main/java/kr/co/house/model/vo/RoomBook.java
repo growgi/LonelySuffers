@@ -28,4 +28,5 @@ public class RoomBook {
 										   [10000 + (10000×할증1) + (10000×할증2) + (10000×할증2) + (10000×할증1)]    + 20000
 										     을 일별로 계산해서 대입시켜 줌. */
 	private String optionDetail;		// 선택된 옵션 상품들의 내역을 String으로 저장함. 예시) houseBarbecue + " " + houseBarbecuePrice + "원 " houseParty + " " housePartyPrice + "원"
+
 }

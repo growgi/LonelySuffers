@@ -147,6 +147,7 @@ public class HouseDao {
 
 
 	public int roomBookInsert(RoomBook rb) {
+		System.out.println(rb);
 		return sqlSession.insert("rb.insertRoomBook",rb);
 	}
 
