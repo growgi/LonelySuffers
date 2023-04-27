@@ -411,6 +411,10 @@
 		font-weight:bold;
 		color:rgb(51, 51, 51);
 	}
+	.receipt-wrap{
+	margin-top:50px;
+	margin-bottom:50px;
+	}
 	.receipt-wrap li{
 		list-style:none;
 
@@ -436,6 +440,11 @@
 		font-size:20px;
 		margin-top:15px;
 		color:rgb(51, 51, 51);
+	}
+	.shaka{
+		margin-left:344px;
+		margin-top:50px;
+		margin-bottom:50px;
 	}
 	
 
@@ -697,12 +706,12 @@
 				<!-- 키오스크 9페이지 -->
 				<div class="pages page9">
 					<div class="last-page">
-						<img src="/resources/images/shaka.png">
+						<img class="shaka" src="/resources/images/shaka.png">
 					</div>
 					<div class="btn-wrap" id="page9">
 						<button class="page9-before"><p>이전으로</p></button>
-						<button class="page9-okay"><p>확정</p></button>
-						<button class="page9-pass"><p>건너뛰기</p></button>
+						<button class="page9-okay"><p>메인으로</p></button>
+						<button class="page9-pass"><p>카풀하기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 9페이지 종료 -->
