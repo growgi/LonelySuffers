@@ -122,7 +122,6 @@ $(function() {
 
   $('#findMemberEmail').on('keyup',function(e){
     if(e.keyCode == 13){
-      
     $('.selectIdBtn').click();
     }
   })
