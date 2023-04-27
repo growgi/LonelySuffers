@@ -112,14 +112,13 @@
 			<div class="dashboard-3rd">
 				<div class="visitant-graph">
 					<div class="title-bold">방문자 현황</div>
-					<div class="visitant-val">
-					${sessionScope.todayCount}
-					${sessionScope.totalCount}
-					<hr>
-					<c:forEach items="${sessionScope.weekCountList}" var="w">
-						${w.visitantDate }
-						${w.dayTotal}
-					 </c:forEach>
+					<div class="visitant-val" style="display:none">
+ 						<%-- <div class="todayCount">${sessionScope.todayCount}</div>
+						<div class="totalCount">${sessionScope.totalCount}</div> --%>						
+						<c:forEach items="${sessionScope.weekCountList}" var="w">
+							<div class="visitantDate">${w.visitantDate }</div>
+							<div class="dayTotal">${w.dayTotal}</div>
+						 </c:forEach>
 					</div>
 					<div>
 						<div style="width: 100%; height: 100%;">
@@ -131,11 +130,11 @@
 				</div>
 				<div class="gender-graph">
 					<div class="title-bold">회원 성별 비율</div>
+					<div style="display:none">
+						<div class="manRatio">${dInfo.genderRatio[0].manRatio}</div>
+						<div class="womanRatio">${dInfo.genderRatio[0].womanRatio}</div>
+					</div>
 					<div>
-					<c:forEach items="${dInfo.genderRatio}" var="g">
-						${g.manRatio }
-						${g.womanRatio }
-					</c:forEach>
 						<div style="width: 90%; height: 90%; margin: 0 auto;">
 							<!--차트가 그려질 부분-->
 							<canvas id="myChart"></canvas>
@@ -166,7 +165,7 @@
 						</tr>
 						</c:forEach>
 					</table>
-					<a href="#" class="btn-l bc1">전체 상품 목록 보기</a>
+					<a href="#" class="btn-l bc1" style="width: 95%;">전체 상품 목록 보기</a>
 				</div>
 				<div class="new-member">
 					<div class="title-bold">신규 회원</div>
@@ -179,7 +178,7 @@
 						</div>
 					</div>
 					</c:forEach>
-					<a href="#" class="btn-l bc1">전체 회원 목록 보기</a>
+					<a href="#" class="btn-l bc1" style="width:89%;">전체 회원 목록 보기</a>
 				</div>
 			</div>
 
@@ -195,22 +194,26 @@
 						</div>
 					</div>
 					</c:forEach>
-					<a href="#" class="btn-l bc1">전체 카풀 게시글 목록 보기</a>
+					<a href="#" class="btn-l bc1" style="width:89%;">전체 카풀 게시글 목록 보기</a>
 				</div>
 				<div class="sales-amount-graph">
-					<c:forEach items="${dInfo.lessonSalesAmountList }" var="l">
-						${l.month }
-						${l.sales }
-					</c:forEach>
-					<c:forEach items="${dInfo.houseSalesAmountList }" var="h">
-						${h.month }
-						${h.sales }
-					</c:forEach>
-					<c:forEach items="${dInfo.allSalesAmountList }" var="a">
-						${a.month }
-						${a.sales }
-					</c:forEach>
 					<div class="title-bold">상품 판매금액 추이</div>
+					<div class="sales-amount-val" style="display:none">
+					<c:forEach items="${dInfo.lessonSalesAmountList }" var="l">
+						<div class="lesson-month">${l.month }</div>
+						<div class="lesson-sales">${l.sales }</div>
+					</c:forEach>
+					<hr>
+					<c:forEach items="${dInfo.houseSalesAmountList }" var="h">
+						<div class="house-month">${h.month }</div>
+						<div class="house-sales">${h.sales }</div>
+					</c:forEach>
+					<hr>
+					<c:forEach items="${dInfo.allSalesAmountList }" var="a">
+						<div class="all-month">${a.month }</div>
+						<div class="all-sales">${a.sales }</div>
+					</c:forEach>
+					</div>
 					<div>
 						<div style="width: 100%; height: 100%;">
 							<!--차트가 그려질 부분-->
@@ -330,22 +333,36 @@
 	}
 
 	/*방문자수 현황 chart*/
+	const visitantDateArr = new Array();
+	$(".visitantDate").each(function(index,item){
+		visitantDateArr.push($(item).text());
+	});
+	
+	console.log(visitantDateArr);
+	
+	const dayTotalArr = new Array();
+	$(".dayTotal").each(function(index,item){
+		dayTotalArr.push($(item).text());
+	});
+	
+	console.log(dayTotalArr);
+	
 	var context = document
             .getElementById('visitantGraph')
             .getContext('2d');
         var visitantGraph = new Chart(context, {
-            type: 'line', // 차트의 형태
+            type: 'bar', // 차트의 형태
             data: { // 차트에 들어갈 데이터
                 labels: [
                     //x 축
-                    '1','2','3','4','5','6','7'
+                    visitantDateArr[0],visitantDateArr[1],visitantDateArr[2],visitantDateArr[3],visitantDateArr[4],visitantDateArr[5],visitantDateArr[6]
                 ],
                 datasets: [
                     { //데이터
                         label: 'visitant graph', //차트 제목
                         fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                         data: [
-                            40,60,53,87,122,34,67 //x축 label에 대응되는 데이터 값***
+                        	dayTotalArr[0],dayTotalArr[1],dayTotalArr[2],dayTotalArr[3],dayTotalArr[4],dayTotalArr[5],dayTotalArr[6] //x축 label에 대응되는 데이터 값***
                         ],
                         backgroundColor: [
                             //색상
@@ -371,9 +388,11 @@
                 }
             }
         });
-
+        
+	
 	/*남녀비율 chart*/
-	var output = sessionStorage.getItem(key);
+	const manRatio = $(".manRatio").text();
+	const womanRatio = $(".womanRatio").text();
 	var context = document.getElementById('myChart').getContext('2d');
 	var myChart = new Chart(context, {
 		type: 'doughnut', // 차트의 형태
@@ -387,7 +406,7 @@
 					label: 'gender ratio', //차트 제목
 					fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 					data: [
-						40,60 //x축 label에 대응되는 데이터 값***
+						manRatio,womanRatio //x축 label에 대응되는 데이터 값***
 					],
 					backgroundColor: [
 						//색상
@@ -418,6 +437,52 @@
 	});
 
 	/*상품 판매금액 추이 chart*/
+	//날짜
+	const lessonMonthArr = new Array();
+	$(".lesson-month").each(function(index,item){
+		lessonMonthArr.push($(item).text());
+	});
+	
+	console.log(lessonMonthArr);
+	
+	const houseMonthArr = new Array();
+	$(".house-month").each(function(index,item){
+		houseMonthArr.push($(item).text());
+	});
+	
+	console.log(houseMonthArr);
+	
+	const allMonthArr = new Array();
+	$(".all-month").each(function(index,item){
+		allMonthArr.push($(item).text());
+	});
+	
+	console.log(allMonthArr);
+	
+	//강습 판매금액
+	const lessonArr = new Array();
+	$(".lesson-sales").each(function(index,item){
+		lessonArr.push($(item).text());
+	});
+	
+	console.log(lessonArr);
+	
+	//숙박 판매금액
+	const houseArr = new Array();
+	$(".house-sales").each(function(index,item){
+		houseArr.push($(item).text());
+	});
+	
+	console.log(houseArr);
+	
+	//강습+숙박 판매금액
+	const allArr = new Array();
+	$(".all-sales").each(function(index,item){
+		allArr.push($(item).text());
+	});
+	
+	console.log(allArr);
+	
 	var context = document
             .getElementById('salesAmountGraph')
             .getContext('2d');
@@ -426,14 +491,14 @@
 		data: { // 차트에 들어갈 데이터
 			labels: [
 				//x 축
-				'1','2','3','4','5','6'
+				'3','4','5'
 			],
 			datasets: [
 				{ //데이터
 					label: '강습', //차트 제목
 					fill: true, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 					data: [
-						405000,604000,852000,462000,640000,784000 //x축 label에 대응되는 데이터 값***
+						lessonArr[0], lessonArr[1], lessonArr[2], lessonArr[3], lessonArr[4], lessonArr[5]//x축 label에 대응되는 데이터 값***
 					],
 					backgroundColor: [
 						//색상
@@ -459,7 +524,7 @@
 					label: '숙박', //차트 제목
 					fill: true, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 					data: [
-						305000,404000,952000,762000,549000,620000 //x축 label에 대응되는 데이터 값***
+						houseArr[0], houseArr[1], houseArr[2], houseArr[3], houseArr[4], houseArr[5] //x축 label에 대응되는 데이터 값***
 					],
 					backgroundColor: [
 						//색상
@@ -487,7 +552,7 @@
 					label: '강습+숙박', //차트 제목
 					fill: true, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 					data: [
-						505000,604000,1052000,862000,749000,820000 //x축 label에 대응되는 데이터 값***
+						allArr[0], allArr[1], allArr[2], allArr[3], allArr[4], allArr[5] //x축 label에 대응되는 데이터 값***
 					],
 					backgroundColor: [
 						//색상

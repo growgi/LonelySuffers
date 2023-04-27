@@ -449,4 +449,11 @@ public class AdminDao {
 		return (ArrayList<SalesAmount>)allSalesAmountList;
 	}
 
+	/*
+	 * public int selectNewAdminChatCount() { int newAdminChatCount =
+	 * sqlSession.selectOne("admin.selectNewAdminChatCount");
+	 * 
+	 * return newAdminChatCount; }
+	 */
+
 }

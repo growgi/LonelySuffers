@@ -904,5 +904,9 @@
 		group by visitant_date
 		order by visitant_date
  	</select>
+ 	
+<!--  	<select id="selectNewAdminChatCount" resultType="_int">
+
+ 	</select> -->
 
 </mapper>
