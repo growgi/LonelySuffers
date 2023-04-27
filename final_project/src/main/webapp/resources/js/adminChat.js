@@ -36,7 +36,6 @@ function adminChatList(memberId,index){
                 const contentDiv = $('<div class="chat_right">');
                 contentDiv.text(chatContent);
                 $('.adminMessageArea').eq(index).append(contentDiv);
-                $('.timeDiv').eq(index).text(chatDate);
             }     
         }
         $('.adminMessageArea').eq(index).scrollTop($('.adminMessageArea')[index].scrollHeight);

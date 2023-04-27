@@ -26,6 +26,7 @@
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
+
 		<section class="section transheader homepage parallax" data-stellar-background-ratio="0.5" style="background-image: url('resources/images/surfer-cluster.jpg');">
 			<div class="container">
 				<div class="row">
