@@ -35,11 +35,6 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int deleteFile(int no) {
-		int result = sqlSession.delete("review.deleteFile", no);
-		return result;
-	}
-
 	public int deleteReview(int reviewNo) {
 		int result = sqlSession.delete("review.deleteReview", reviewNo);
 		return result;
@@ -48,6 +43,11 @@ public class ReviewDao {
 	public int selectReviewNo() {
 		int reviewNo = sqlSession.selectOne("review.selectReviewNo");
 		return reviewNo;
+	}
+
+	public int deleteFile(int i) {
+		int result = sqlSession.delete("review.deleteFile", i);
+		return result;
 	}
 }
 
