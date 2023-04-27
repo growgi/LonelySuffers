@@ -389,7 +389,6 @@
 	//onsubmit과 required를 동시에 쓰면은 이벤트가 중복되기 때문에 실행되지않는다. 그렇기때문에 onsubmit을 적으면 required를 지워준다. 
 	function checkReturn(){
 		console.log("----");
-		console.log($("[name=carpoolPrice]").val());
 		if($("[name=departureRegion]").val()==null){
 			alert('출발 지역을 선택해주세요.');
 			return false;
@@ -411,7 +410,8 @@
 			return true;
 		}
 	}
-	//carpoolPrice 주의점: input이 숫자일때는 ""(String 빈칸)으로 나오기때문에, 안에 값이 비었으면 0으로 값을 받아오도록 설정해줘야한다.  
+	//carpoolPrice 주의점: input이 숫자일때는 ""(String 빈칸)으로 나오기때문에, 안에 값이 비었으면 0으로 값을 받아오도록 설정해줘야한다. 
+	//그러니 val(0)을 넣어줬다. required가 아니면서(강제조항이 아님) 에러 나지않게 값은 받아와야하므로 dafault 값으로 0을 주는것이다. 
 	
 
 		

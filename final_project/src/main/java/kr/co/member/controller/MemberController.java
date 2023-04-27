@@ -121,6 +121,7 @@ public class MemberController {
 	public String myPage(int reqPage,int tabNo,@SessionAttribute (required = false) Member m ,Model model) {
 		Member result = service.selectSellerApplication(m.getMemberNo());
 		OrderPageData opd = service.selectOrderList(reqPage,m.getMemberNo());
+		System.out.println(tabNo);
 		
 		if(result == null) {
 			model.addAttribute("sellerApplication",0);

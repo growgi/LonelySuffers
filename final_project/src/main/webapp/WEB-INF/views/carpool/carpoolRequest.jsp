@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>카풀 신청 상세페이지</title>
 <link rel="stylesheet" href="resources/css/carpool/carpoolRequest.css">
+
+<!-- 카카오지도 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa&libraries=LIBRARY"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa&libraries=services,clusterer,drawing"></script>
 </head>
 <body>
 	<!-- Basic -->
@@ -100,8 +104,8 @@
 								<div class="row district" style="font-weight: 700;">${c.arrivalRegion }</div>
 							</div>
 							<div class="col-md-6">
-								<div class="row district" style="margin-bottom: 30px;">${c.departureDistrict }</div>
-								<div class="row district">${c.arrivalDistrict }</div>
+								<div class="row district" id="departure-detail" style="margin-bottom: 30px;">${c.departureDistrict }</div>
+								<div class="row district"  id="arrival-detail">${c.arrivalDistrict }</div>
 							</div>
 						</div>
 					</div>
@@ -119,9 +123,17 @@
 							<label for="msg">드라이버에게:</label>
 							<input type="text" name="passengerMsg" placeholder="0/100" style="width:700px; height: 40px; border: 1px solid pink; border-radius:10px; ">
 						</div>
+						<br><hr><br>
+						
+						
+						
+						<!-- 길찾기 api -->
+						<div id="map" style="width:800px;height:400px; border-radius:20px; margin:0 auto;"></div>
+						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03834c26cdfa38f7178c2662ed312aa"></script>
+						
+						
 					
-					<br>
-					<hr>
+					<br><hr>
 					<div class="price-box"style="margin: 0 auto; text-align: center; font-size: 20px; font-weight: 600;">
 						희망가격 
 						<span class="price" style="color: #82CD47; font-size: 30px; font-weight: 900;"><fmt:formatNumber value= "${c.carpoolPrice}"  pattern="#,###"/>원</span>(편도/인당)
@@ -234,6 +246,43 @@
 		console.log($(".dayinKorean").text(dayOfWeekKorean));
 
 		//참고로 input인경우에는 감싸는 괄호가 없다. 그때는 text가 아니라  value를 의미하는 val을 쓴다. val() : 읽어온다., val(매개변수) : 값을 준다.
+		
+		
+		
+		
+		//////////////////////길찾기 api //////////////////////////////
+		var container = document.getElementById('map'); // 지도를 표시할 div 
+		var options = {
+			center: new kakao.maps.LatLng(37.53483615266413, 126.90263273585241), // 지도의 중심좌표
+			level: 5 // 지도의 확대 레벨
+		};
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(container, options);
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		////////////////////장소 검색/////////////////////////////
+		// 장소 검색 객체를 생성합니다
+		var ps = new kakao.maps.services.Places();  
+		 
+		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+		 
+		 
+		// 키워드 검색을 요청하는 함수입니다
+		function searchPlaces() {
+		    var departureDst = document.getElementById('departure-detail').value;
+		 }
+		 
+	    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+	    ps.keywordSearch(departureDst, placesSearchCB); 
+	
+
+	       
+			
+		
+		
 	</script>
 
 </body>

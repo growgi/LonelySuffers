@@ -83,7 +83,6 @@ public class ReviewController {
 	
 	@RequestMapping(value="/deleteReview.do")
 	public String deleteReview(int reviewNo) {
-		System.out.println("리뷰넘버 확인용"+reviewNo);
 		int result = service.deleteReview(reviewNo);
 		if(result > 0) {
 			return "redirect:/";
