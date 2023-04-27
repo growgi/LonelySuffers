@@ -19,6 +19,15 @@
 .inquiryTitleText:hover {
 	cursor: pointer;
 }
+.expandedTr-inq>td{
+	background-color: #ebf2f9;
+}
+.expandedTr-ans>td{
+	background-color: #f0f5f5;
+}
+.expandedTr-ansI>td{
+	background-color: #f0ffff;
+}
 .inquiryTd {
 	text-align: right;
 }

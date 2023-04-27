@@ -21,9 +21,16 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
+<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 <style>
 input[type="number"], input[type="time"] {
 	text-align: right;
+}
+.nav-item:hover {
+	cursor: not-allowed;
+}
+.nav-link:hover {
+	cursor: not-allowed;
 }
 </style>
 </head>
@@ -34,7 +41,7 @@ input[type="number"], input[type="time"] {
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 
-	<form action="/updateLesson.do" method="post" enctype="multipart/form-data"><fieldset>
+	<form action="/updateLesson.do" onsubmit="return triming();" method="post" enctype="multipart/form-data"><fieldset>
 		<section class="section nopad lb">
 			<div class="container">
 				<div class="row">
@@ -88,14 +95,14 @@ input[type="number"], input[type="time"] {
 					<div class="col-md-6 product-detail">
 						<input type="hidden" name="lessonNo" value="${lesson.lessonNo }">
 						<div class="row">
-							<div class="col-md-7"><input type="text" name="lessonTeacher" value="${lesson.lessonTeacher }" placeholder="한글 최대 6자" required> 강사</div>
+							<div class="col-md-7"><input type="text" name="lessonTeacher" value="${lesson.lessonTeacher }" maxlength="20" placeholder="한글 최대 6자" required> 강사</div>
 							<div class="col-md-5" style="text-align: right;">정원: <input type="number" name="lessonMaxNo" value="${lesson.lessonMaxNo }" min="1" max="100" placeholder="1~100" required>명</div>
 						</div>
 							<hr>
 							<div class="row">
 							<c:choose>
 								<c:when test="${lesson.lessonStatus < 0 }">
-									<h1 style="padding-bottom: 40px;"><input style="font-size: 36px;" type="text" class="form-control input-lg" name="lessonTitle" value="${lesson.lessonTitle }" placeholder="한글 최대 20자" required></h1>
+									<h1 style="padding-bottom: 40px;"><input style="font-size: 36px;" type="text" class="form-control input-lg" name="lessonTitle" value="${lesson.lessonTitle }" maxlength="60" placeholder="한글 최대 20자" required></h1>
 								</c:when>
 								<c:otherwise>
 									<h1 style="padding-bottom: 40px;">${lesson.lessonTitle }</h1>
@@ -220,10 +227,10 @@ input[type="number"], input[type="time"] {
 									<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
+									<a class="nav-link">상품평</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
+									<a class="nav-link">상품문의</a>
 								</li>
 							</ul>
 						</div>
@@ -231,7 +238,7 @@ input[type="number"], input[type="time"] {
 							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
 						<c:choose>
 							<c:when test="${lesson.lessonStatus <= 0 }">
-								<textarea class="form-control" rows="4" name="lessonInfo" placeholder="한글 최대 1000자" required>${lesson.lessonInfo}</textarea>
+								<textarea id="summernote" name="lessonInfo" maxlength="3000">${lesson.lessonInfo}</textarea>
 							</c:when>
 							<c:otherwise>
 								${lesson.getLessonInfoBr()}
@@ -244,12 +251,9 @@ input[type="number"], input[type="time"] {
 								상품 문의 div</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="panel panel-default">
-							<div class="panel-body" style="height: 600px; overflow: clip">광고 등 배너 영역<br>높이 600px을 넘는 사진은 종횡비는 고정하되 아래쪽을 잘라서 출력됨</div>
-						</div>
-					</div>
 				</div><!-- end row -->
+				<hr class="invis2">
+				<button type="submit" class="btn btn-danger" style="font-size: 18px; padding: 12px 40px;">상품 정보 수정</button>
 			</div><!-- end container -->
 		</section><!-- end section -->
 <!-- 상품 정보 표시 끝 -->
@@ -268,6 +272,9 @@ input[type="number"], input[type="time"] {
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	<script src="resources/js/moment.min.js"></script>
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
 
 
 
@@ -314,6 +321,47 @@ input[type="number"], input[type="time"] {
 		const newEndTime = moment($("[name=lessonStartTime]").val(), "HH:mm").add(lessonTimeLength, "minutes").format("HH:mm");
 		$("[name=lessonEndTime]").attr("value", newEndTime);
 	});
+
+
+// summernote 불러오기
+	$('#summernote').summernote({
+		  width: 880,
+		  height: 800,
+		  minHeight: null,
+		  maxHeight: null,
+		  focus: false,
+		  lang: "ko-KR",
+		  placeholder: '한글 기준 최대 1000자',
+			  toolbar: [
+				    ['fontname', ['fontname']],
+				    ['fontsize', ['fontsize']],
+				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+				    ['color', ['forecolor','color']],
+				    ['table', ['table']],
+				    ['height', ['height']],
+				    ['view', ['help']]
+				  ],
+	});
+
+
+
+	// submit 시 동작되는 함수. 제목들을 trim 후 form action
+		function triming(){
+			if($("[name=lessonInfo]").val().length>0){
+				if($(".note-editable").children().eq(0).text() == ""){
+					alert("상품 설명을 작성하셔야 합니다.");
+					return false;
+				}
+			}
+			
+			const trimedTeacher = $("[name=lessonTeacher]").val().trim().replace(/\s+/g," ");
+			$("[name=lessonTeacher]").val(trimedTeacher);
+			if($("[name=lessonTitle]").length>0){
+				const trimedLessonTitle = $("[name=lessonTitle]").val().trim().replace(/\s+/g," ");
+				$("[name=lessonTitle]").val(trimedLessonTitle);
+			}
+			return true;
+		}
 	</script>
 
 </body>

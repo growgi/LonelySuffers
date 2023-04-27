@@ -239,7 +239,7 @@
 								</c:choose>
 									</select>
 								</div>
-								<input type="text" name="lessonTitle" class="form-control" style="width: 85%;" value="${condition.lessonTitle}" placeholder="상품 제목으로 검색">
+								<input type="text" name="lessonTitle" class="form-control" style="width: 85%;" value="${condition.lessonTitle}" maxlength="60" placeholder="상품 제목으로 검색">
 							<button id="newCondition" class="btn btn-info" style="vertical-align: bottom;" type="submit">검색</button>
 							</div>
 						</fieldset>
