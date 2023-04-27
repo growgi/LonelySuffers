@@ -4,6 +4,9 @@ $('.tab-content>li').on('click',function(){
     $('.tab-content>li').eq(index).addClass('li-active');
     $('.right-content>div').removeClass('active-div');
     $('.right-content>div').eq(index).addClass('active-div');
+    if(index == 2){
+        $('.messageArea').scrollTop($('.messageArea')[0].scrollHeight);
+    }
 })
 
 $('.myProfile>div>ul>li').on('click',function(){
@@ -67,10 +70,12 @@ $('.passWordChangeBtn').on('click',function(){
             data : {memberId:memberId,memberPw:afterPwRe},
             success : function(data){
                 if(data == 'ok'){
-                    location.href= "/myPage.do"
+                    location.href= "/myPage.do?reqPage=1&tabNo=0";
                 }
             }
         })
+    }else{
+        alert('비밀번호는 8~15글자 대/소문자 숫자\n특수문자가 들어가야합니다.')
     }
     }else{
         alert('비밀번호가 일치하지 않습니다.');
@@ -93,6 +98,10 @@ $('.email2').on('focusin',function(){
 
 //페이지 로드가 되면 상대방이 보낸 1대1 대화가 있는지 체크하는 구문
 $(function(){
+    const chatActivation = $('.chatActivation').val();
+    
+    
+    
     const memberId = $('#memberId').val();
     const chatChkSpan = $('.chatChkSpan');
     $.ajax({
@@ -102,7 +111,7 @@ $(function(){
         success : function(data){
             console.log("data : "+data);
             // console.log("data senderCheck : "+data.senderCheck);
-            if(data != null && data.senderCheck != 1){
+            if(data != null && data.senderCheck == 2){
                 chatChkSpan.text("[1]");
             }else{
                 chatChkSpan.text("");
@@ -110,27 +119,12 @@ $(function(){
         }
     })
     console.log("$(function(){}) : "+memberId);
+    if(chatActivation == 1){
+        $('[name=startChatBtn]').click();
+    }
 
 })
 
-
-$('.searchBtn').on('click',function(){
-    const searchKeyword = $('.searchInputText').val();
-    console.log("data : "+searchKeyword);
-    var messageArea = $('.messageArea');
-    var currentElement = $('div.chat_left:contains('+searchKeyword+')').first();
-    
-    if (currentElement.length) {
-        messageArea.animate({
-            scrollTop: currentElement.offset().top - messageArea.offset().top + messageArea.scrollTop()
-        }, 1000);
-        
-        currentElement.addClass('highlight');
-        setTimeout(function() {
-            currentElement.removeClass('highlight');
-        }, 1000);
-    }
-});
 
 $('.orderDetailBtn').on('click',function(){
     const orderNo = $(this).val();
@@ -146,11 +140,15 @@ function endChatBtn(param){
         data : {memberId:endMemberId},
         success : function(param){
             if(param == "ok"){
-                $('.chatting').slideUp();
-                $('[name=startChatBtn]').show();
+                $('[name=startChatBtn]').slideDown();
+                $('[name=endChatBtn]').slideUp();
+                $('.messageArea').empty();
+                $('#sendMsg').val("");
+                $('#sendMsg').attr('readonly',true);
                 const data = {type:"endChatBtn",msg:endMemberId};
                 ws.send(JSON.stringify(data));
                 console.log('endChatBtn 전송완료');
+                $('.messageArea').css('background-color','rgba(0,0,0,0.5)');
             }else{
                 alert('잠시후 다시 시도해주세요.');
             }
@@ -170,11 +168,15 @@ function startChatBtn(myPageMemberId){
                 alert("관리자에게 문의하세요");
             }else{
                 chatList(jsMemberId);
-                $('[name=startChatBtn]').hide();
-                $('.chatting').slideDown();
+                $('[name=startChatBtn]').slideUp();
+                $('[name=endChatBtn]').slideDown();
+                $('#sendMsg').attr('readonly',false);
+                // $('.chatting').slideDown();
                 const data = {type:"startChatBtn",msg:jsMemberId};
+                console.log(ws);
                 ws.send(JSON.stringify(data));
                 console.log("data 전송 완료 startChatBtn");
+                $('.messageArea').css('background-color',"#fff");
             }
         }
     })
@@ -189,4 +191,13 @@ $(function(){
 
 $('.tabBtn').on('click',function(){
     $('.tab-content>li').eq(1).click();
+})
+
+
+$('#sendMsg').on('click',function(){
+    if($('#sendMsg').attr('readonly')){
+        if(confirm('채팅이 종료되어있습니다\n활성화 하시겠습니까?')){
+            $('[name=startChatBtn]').click();
+        };
+    }
 })

@@ -1560,7 +1560,7 @@ $("document").ready(function() {
 												option.val(List[i].roomNo);
 												option.text(List[i].roomName);
 												$("[name=roomName]").append(option);
-												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName+">");
+												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName)
 							    			}
 											//$("[name=roomName] option:selected").val();
 										}
@@ -1937,6 +1937,7 @@ $("document").ready(function() {
 				
 				
 				//결제관련 정보를 DB에 insert 하는 작업이 필요
+
 						//숙박 선택 자체를 하지 않았을 때
 						if(roomNo != 0){
 								//ajax로 room_book에 insert
@@ -1954,6 +1955,7 @@ $("document").ready(function() {
 									}
 								});
 							};
+
 					//ajax로 lesson_book에 insert
 					$.ajax({
 						url:"/lessonBookInsert.do",
@@ -1961,8 +1963,8 @@ $("document").ready(function() {
 						data:{lessonBookDate : lessonBookDate, lessonPeople : lessonPeople, memberNo : memberNo, lessonNo : lessonNo, lessonBookPrice : lessonBookPrice},
 						success:function(data){
 							//나중에 쓸 수 있게 receipt부분의 lessonBookNo에 값을 넣어줌
-							$("#lessonBookNo").attr("value",data);
-							console.log("ajax lessonBookNo"+data);
+							$("#lessonBookNo").attr("value",data.lessonBookNo);
+							console.log("ajax lessonBookNo"+data.lessonBookNo);
 						},
 						error:function(){
 							console.log("roomBook insert에 문제있음");
@@ -1976,11 +1978,11 @@ $("document").ready(function() {
 						data:{houseNo : houseNo, memberNo : memberNo, orderAllPrice : orderAllPrice, orderProduct : orderProduct},
 						success:function(data){
 							//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
-							$("#orderNo").attr("value",data);
-							console.log("ajax orderNo"+data);
+							$("#orderNo").attr("value",data.orderNo);
+							console.log("ajax orderNo"+data.orderNo);
 								//ajax로 order_detail에 insert
 								
-										const orderNo = data;
+										const orderNo = data.orderNo;
 										console.log("orderNo"+orderNo);
 										const roomBookNo = $("#roomBookNo").val();
 										console.log("roomBookNo"+roomBookNo);
@@ -1989,10 +1991,11 @@ $("document").ready(function() {
 								$.ajax({
 									url:"/orderDetailInsert.do",
 									type:"post",
-									data:{orderNo : orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
+									data:{orderNo : data.orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
 									success:function(data){
 										
 										//나중에 쓸 수 있게 receipt부분의 orderDetailNo에 값을 넣어줌
+
 										$("#orderDetailNo").attr("value",data);
 										//다음 페이지 이동
 										$(".pages").hide();

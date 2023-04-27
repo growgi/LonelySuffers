@@ -69,7 +69,7 @@
 							<label for="email1">이메일</label>
 							<p>@</p>
 							<input type="text" class="email2 inputVaild" name="email2" id="email2" required>
-							<select class="emailSelect">
+							<select class="emailSelect" >
 								<option value="" selected>직접입력</option>
 								<option value="naver.com">naver.com</option>
 								<option value="nate.com">nate.com</option>

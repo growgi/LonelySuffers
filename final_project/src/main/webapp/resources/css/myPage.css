@@ -247,13 +247,16 @@ table tr:hover{
 
 
 .myProfile>div>ul>li:first-child,.myProfile>div>ul>li:nth-child(3),.myProfile>div>ul>li:nth-child(5),.myProfile>div>ul>li:nth-child(7){
-    background-color: #252525;
+    background-color: #434258;
     color: #fff;
     width: 300px;
+    border: 1px solid;
+    border-radius: 7px;
+    PADDING: 7px 10px;
 }
 
 .myProfile>div>ul>li:first-child:hover,.myProfile>div>ul>li:nth-child(3):hover,.myProfile>div>ul>li:nth-child(5):hover,.myProfile>div>ul>li:nth-child(7):hover{
-    background-color: #424242;
+    background-color: #5b5a6a;
 }
 .myProfile>div>ul>li:nth-child(2),.myProfile>div>ul>li:nth-child(4),.myProfile>div>ul>li:nth-child(6).myProfile>div>ul>li:last-child{
 }
@@ -279,7 +282,7 @@ button{
     
   }
   
-  [name=endChatBtn]{
+  [name=endChatBtn],[name=startChatBtn]{
     position: absolute;
     z-index: 2;
     top: 16PX;
@@ -293,17 +296,30 @@ button{
     height: 50px;
     line-height: 50px;
     font-weight: 600;
+    transition-duration: 1s;
   }
 
-  
-  [name=endChatBtn]:hover {
+  [name=startChatBtn]{
+    color : #fff;
+  }
+
+  [name=endChatBtn]{
+    display: none;
+  }
+  [name=endChatBtn]:hover{
     background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경색 지정 */
     color: #fff;
+  }
+  [name=startChatBtn]:hover {
+    background-color: #fff;
+    color: #123;
+    width: 498px;
   }
   .messageArea::-webkit-scrollbar{
     border-radius: 5px;
     width: 10px;
     background-color: #ffffff;
+    padding-top: 5px;
   }
 
   .messageArea::-webkit-scrollbar-track{
@@ -312,6 +328,8 @@ button{
   .messageArea::-webkit-scrollbar-thumb{
     border-radius: 5px;
     background-color: #dddddd;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
   table>tbody>tr:first-child>td{

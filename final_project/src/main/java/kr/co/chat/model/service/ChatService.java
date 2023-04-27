@@ -63,4 +63,8 @@ public class ChatService {
 	public int endChat(String memberId) {
 		return dao.endChat(memberId);
 	}
+
+	public int selectChatActivation(String memberId) {
+		return dao.selectChatActivation(memberId);
+	}
 }

@@ -54,5 +54,9 @@ public class ChatDao {
 	public int endChat(String memberId) {
 		return sqlSession.update("chat.endChat",memberId);
 	}
+
+	public int selectChatActivation(String memberId) {
+		return sqlSession.selectOne("chat.selectChatActivation",memberId);
+	}
 	
 }
