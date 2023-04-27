@@ -14,12 +14,15 @@ import kr.co.house.model.vo.HouseListing;
 import kr.co.house.model.vo.HousePagination;
 import kr.co.house.model.vo.Room;
 import kr.co.house.model.vo.RoomBook;
+import kr.co.review.model.dao.ReviewDao;
 
 @Service
 public class HouseService {
 
 	@Autowired
 	private HouseDao dao;
+	@Autowired
+	private ReviewDao rdao;
 
 
 // 숙박 상품 상세페이지 보기.  House 테이블에서 Row 1개 전체 조회 후 반환
@@ -203,6 +206,15 @@ public class HouseService {
 		return dao.selectRoomList(house);
 	}
 
-
+	@Transactional
+//roomBook 테이블에 예약내용 insert
+	public int roomBookInsert(RoomBook rb) {
+		//rb
+		System.out.println("rb1"+rb);
+		int result = dao.roomBookInsert(rb);
+		//rb
+		System.out.println("rb2"+rb);
+		return result;
+	}
 	
 }

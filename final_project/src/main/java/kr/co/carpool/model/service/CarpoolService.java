@@ -19,6 +19,7 @@ public class CarpoolService {
 	private CarpoolDao dao;
 
 	public ArrayList<Carpool> selectAllCarpool() {
+		System.out.println("dao에서 카풀목록 조회결과"+dao.selectAllCarpool());
 		return dao.selectAllCarpool();
 	}
 
@@ -93,9 +94,16 @@ public class CarpoolService {
 			c.setPassengerList(passengerList);
 		}
 		//HashMap으로 받아온다.
-			
 		return list;
 	}
+
+	public int updateClosure() {
+		return dao.updateClosure();
+	}
+	
+	
+
+
 
 
 

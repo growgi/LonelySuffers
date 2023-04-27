@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="o">
+  
+<!-- 결제완료된 후 (ORDER_TBL 테이블에 insert) -->
+	<insert id="insertOrderTbl"	parameterType="o">
+		INSERT INTO ORDER_TBL VALUES((ORDER_SEQ.NEXTVAL), #{memberNo}, #{orderAllPrice}, 1, TO_CHAR(SYSDATE,'YYYY-MM-DD/HH24:MI:SS'), #{orderProduct})
+<!-- 가장 최근 insert된 신규 Row의 orderNo 받아옴 -->
+		<selectKey resultType="_int" order="AFTER" keyProperty="orderNo">
+			SELECT MAX(ORDER_NO)as orderNo FROM ORDER_TBL
+		</selectKey>
+	</insert>
+
+
+</mapper>

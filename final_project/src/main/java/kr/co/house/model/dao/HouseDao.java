@@ -146,4 +146,11 @@ public class HouseDao {
 
 
 
+	public int roomBookInsert(RoomBook rb) {
+		
+		return sqlSession.insert("rb.insertRoomBook",rb);
+	}
+
+
+
 }

@@ -18,6 +18,6 @@ public class LessonBook {
 	private String lessonBookDate;		// 예약날짜 YYYY-MM-DD
 	private int lessonPeople;			// 예약한 인원 수. 따라서 결제가격은 인원 수에 비례해야 함
 	private int memberNo;				// 예약한 고객의 MEMBER_NO
-	private int roomNo;					// 강습 상품(Lesson)의 고유 번호
-	private int roomBookPrice;			// lessonPeople * Lesson.getLessonPrice() 을 계산해서 넣어줌
+	private int lessonNo;					// 강습 상품(Lesson)의 고유 번호
+	private int lessonBookPrice;			// lessonPeople * Lesson.getLessonPrice() 을 계산해서 넣어줌
 }

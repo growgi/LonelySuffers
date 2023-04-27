@@ -1,11 +1,13 @@
 package kr.co.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.admin.model.vo.OrderPageData;
 import kr.co.chat.model.dao.ChatDao;
 import kr.co.member.model.dao.MemberDao;
 import kr.co.member.model.vo.Member;
@@ -70,8 +72,104 @@ public class MemberService {
 		return dao.deleteMember(memberNo);
 	}
 
-	public ArrayList<Order> selectOrderList(int memberNo) {
-		return dao.selectOrderList(memberNo);
+	public OrderPageData selectOrderList(int reqPage,int memberNo) {
+		/*1. 한 페이지당 게시물 수 지정 -> 10개*/
+		int numPerPage = 10;
+		/*reqPage가 1페이지면 -> 최신글 1~10번
+		reqPage가 2페이지면 -> 최신글 11~20번
+		reqPage가 3페이지면 -> 최신글 21~30번
+		*reqPage : 요청페이지
+		ex) reqPage == 4 -> 31~40 
+		... 규칙: 4*10 = 40
+		*/
+		int end = numPerPage * reqPage; //마지막 페이지
+		int start = end - numPerPage + 1; //시작 페이지 ... 한 페이지당 시작하는 게시물번호
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberNo", memberNo);
+		
+		ArrayList<Order> orderList = dao.selectOrderList(map); 
+		System.out.println("orderList : "+orderList);
+		/*<페이징 제작 시작>*/
+		/*한페이지당 게시물 수 : 10
+		총 게시물 수 : 222
+		→ 총 23개 페이지 필요*/
+		//전체 페이지 수를 계산하려면 -> 먼저 총 게시물 수 조회 필요
+		int totalCount = dao.selectOrderCount(memberNo);
+		System.out.println("totalCount : "+totalCount);
+		//전체 페이지 수 계산
+		/*한페이지 당 게시물 수 : 10
+		총 게시물 수 80 -> 8페이지 필요
+		90 -> 9페이지 필요
+		100 -> 10페이지 필요 ...*/
+		int totalPage = 0;
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage; //페이지 개수... 1페이지,2페이지...
+		} else { //나머지 있는 경우 ... 1페이지 더 추가
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		//페이지네비게이션 사이즈
+		int pageNaviSize = 5;
+		
+		//페이지네비게이션 시작번호 = pageNo
+		/*reqPage 1~5 : 1 2 3 4 5
+		reqPage 6~10 : 6 7 8 9 10
+		reqPage 11~15 : 11 12 13 14 15 ...*/
+		//int pageNo = reqPage - 2;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
+		//((reqPage-1)/5)*5 + 1
+		/*reqPage 1~5 : 1부터 시작
+		reqPage 6~10 : 6부터 시작
+		reqPage 11~15 : 11부터 시작*/
+		
+		//페이지네비게이션 제작 시작
+		String pageNavi = "<ul class='pagination circle-style'>";
+		
+		//이전버튼 
+		if(pageNo != 1) {
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/myPage.do?reqPage="+(pageNo-1)+"&tabNo=1'>";
+			pageNavi += "<span class='material-symbols-outlined arrowIos'>arrow_back_ios</span>"; //구글 아이콘 ... <
+			pageNavi += "</a></li>";
+		}
+		
+		//페이지 숫자 ... < 1 2 3 4 5 >
+		for(int i=0; i<pageNaviSize; i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li>";
+				//현재 페이지는 active-page 클래스 추가 ... 색 다르게 적용
+				pageNavi += "<a class='page-item active-page' href='/myPage.do?reqPage="+(pageNo)+"&tabNo=1'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			} else {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item' href='/myPage.do?reqPage="+(pageNo)+"&tabNo=1'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}
+			pageNo++; //페이지번호+1 ... 다음페이지
+			
+			if(pageNo>totalPage) { //페이지번호가 전체페이지수보다 크면 for문 빠져나감
+				break;
+			}
+		}
+		
+		//다음버튼
+		if(pageNo <= totalPage) { //다음버튼이 만들어지는 조건
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/myPage.do?reqPage="+(pageNo)+"&tabNo=1'>";
+			pageNavi += "<span class='material-symbols-outlined arrowIos'>arrow_forward_ios</span>"; //구글 아이콘 ... >
+			pageNavi += "</a></li>";
+		}
+		
+		pageNavi += "</ul>";
+		
+		OrderPageData opd = new OrderPageData(orderList, pageNavi, start);
+		
+		return opd;
 	}
 
 

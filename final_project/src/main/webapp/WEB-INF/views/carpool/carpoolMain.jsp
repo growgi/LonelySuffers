@@ -166,6 +166,7 @@
 								<th data-sort-method='none' style="width:15%;">도시</th>
 								<th data-sort-method='none' style="width:20%;">상세지역</th>
 								<th data-sort-method='none' style="width:10%">인원</th>
+								<th data-sort-method='none' style="display:none">마감여부</th>
 							</tr>
 						</thead>
 						
@@ -274,11 +275,11 @@
 										<span class="material-symbols-outlined">check</span>왕복<br>
 									</div></label>
 									<label class="lb-class"><div class="check-box left">
-										<input type="checkbox" id="opened" name="closure" value="1">
+										<input type="checkbox" id="opened" name="closure" value="2">
 										<span class="material-symbols-outlined">check</span>모집중</label>
 									</div></label>
 									<label class="lb-class"><div class="check-box right">
-										<input type="checkbox" id="closed" name="closure" value="0">
+										<input type="checkbox" id="closed" name="closure" value="1">
 										<span class="material-symbols-outlined">check</span>모집완료</label>
 									</div></label>
 								</div>
@@ -372,9 +373,10 @@
 		if(opened){
 			closure.push(opened);
 		}
-		if(round){
+		if(closed){
 			closure.push(closed);
 		}
+		console.log(closure);
 		const data ={
 				 departureRegion : departureRegion,
 				 departureTime : departureTime,
@@ -499,7 +501,7 @@
 		if(opened){
 			closure.push(opened);
 		}
-		if(round){
+		if(closed){
 			closure.push(closed);
 		}
 		const data ={
@@ -514,6 +516,7 @@
 				 amount : amount
 				 
 			 };
+		console.log(data);
 		$.ajax({
 			 url : "/filterCarpool.do",
 			 type : "post",
@@ -555,8 +558,15 @@
 			             		td5.append($("<div>").addClass("row district").text(data[i].arrivalDistrict));
 	
 			            const td6 = $("<td>").append($("<div>").addClass("row onewayRound").css("background-color", "transparent").text(""));
-			            		td6.append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));			            
-			           	if(data[i].reserved === data[i].capacity){
+			            		td6.append($("<div>").addClass("row").text(data[i].reserved+"/"+data[i].capacity));		
+            		   
+	            		const td7 = $("<td>").css("display", "none").text(data[i].closure);
+	            		if(data[i].closure == 1){
+			           		tr.click(function(){
+				              alert("마감되었습니다.");
+				            });
+			           	}
+	            		else if(data[i].reserved === data[i].capacity){
 			           		tr.click(function(){
 				              alert("정원이 다 찼습니다.");
 				            });
@@ -565,7 +575,9 @@
 				                location.href = '/carpoolRequest.do?carpoolNo='+data[i].carpoolNo;
 				            });
 			           	}
-			           	tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+			           	
+			           	
+			           	tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7);
 			            $(".carpoolListWrapper").append(tr);
 			    }
 				 //화면에 추가 완료 시점

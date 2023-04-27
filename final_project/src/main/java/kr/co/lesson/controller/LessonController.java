@@ -175,4 +175,18 @@ public class LessonController {
 		return result;
 			
 		}
+
+// lessonBook 테이블에 insert
+	@ResponseBody
+	@RequestMapping(value="/lessonBookInsert.do", produces = "application/json;charset=utf-8")
+	public String lessonBookInsert(LessonBook lb) {
+		int result = service.lessonBookInsert(lb);
+		if(result>0) {
+			String lessonBookNo = Integer.toString(lb.getLessonBookNo());
+			return lessonBookNo;
+		}else {
+			return "/kiosk.jsp";
+		}
+	}
+	
 }

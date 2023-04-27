@@ -117,4 +117,9 @@ public class LessonService {
 	public ArrayList<Lesson> selectSelectList(Lesson lesson) {
 		return dao.selectLessonList(lesson);
 	}
+
+	@Transactional
+	public int lessonBookInsert(LessonBook lb) {
+		return dao.lessonBookInsert(lb);
+	}
 }

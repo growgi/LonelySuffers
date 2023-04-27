@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.admin.model.vo.OrderPageData;
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
@@ -117,17 +118,25 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/myPage.do")
-	public String myPage(@SessionAttribute (required = false) Member m ,Model model) {
+	public String myPage(int reqPage,int tabNo,@SessionAttribute (required = false) Member m ,Model model) {
 		Member result = service.selectSellerApplication(m.getMemberNo());
-		ArrayList<Order> list = service.selectOrderList(m.getMemberNo());
-		System.out.println(list);
+		OrderPageData opd = service.selectOrderList(reqPage,m.getMemberNo());
+		System.out.println(tabNo);
+		
 		if(result == null) {
 			model.addAttribute("sellerApplication",0);
 		}else {
 			model.addAttribute("sellerApplication",result.getMemberNo());
 		}
-		if(!list.isEmpty()) {
-		model.addAttribute("list",list);
+		if(!opd.getOrderList().isEmpty()) {
+			model.addAttribute("pageNavi",opd.getPageNavi());
+			model.addAttribute("list",opd.getOrderList());
+			
+			if(tabNo == 1) {
+				model.addAttribute("tabNo",1);
+			}else {
+				model.addAttribute("tabNo",0);
+			}
 		}
 		return "member/myPage";
 	}
@@ -162,13 +171,13 @@ public class MemberController {
 			model.addAttribute("title","판매자 신청 실패");
 			model.addAttribute("msg","판매자 신청에 실패했습니다.");
 			model.addAttribute("icon","error");
-			model.addAttribute("loc","/myPage.do");
+			model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
 			return "common/msg";
 		}else {
 			model.addAttribute("title","판매자 신청 성공");
 			model.addAttribute("msg","판매자 신청을 완료했습니다.");
 			model.addAttribute("icon","success");
-			model.addAttribute("loc","/myPage.do");
+			model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
 			return "common/msg";
 		}
 	}
@@ -180,13 +189,13 @@ public class MemberController {
 			model.addAttribute("title","판매자 신청 취소 실패");
 			model.addAttribute("msg","판매자 신청 취소에 실패했습니다.");
 			model.addAttribute("icon","error");
-			model.addAttribute("loc","/myPage.do");
+			model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
 			return "common/msg";
 		}else {
 			model.addAttribute("title","판매자 신청 취소 성공");
 			model.addAttribute("msg","판매자 신청을 취소했습니다.");
 			model.addAttribute("icon","success");
-			model.addAttribute("loc","/myPage.do");
+			model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
 			return "common/msg";
 		}
 	}
@@ -207,7 +216,7 @@ public class MemberController {
 				model.addAttribute("title","회원탈퇴");
 				model.addAttribute("msg","회원 탈퇴에 실패했습니다. 관리자에게 문의하세요");
 				model.addAttribute("icon","error");
-				model.addAttribute("loc","/myPage.do");
+				model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
 				return "common/msg";
 			}
 		}else {
@@ -257,7 +266,7 @@ public class MemberController {
 				model.addAttribute("title","접근 제한됨");
 				model.addAttribute("msg","판매자만 사용할 수 있는 기능입니다.");
 				model.addAttribute("icon","error");
-				model.addAttribute("loc","/myPage.do");
+				model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
 				return "common/msg";
 			}
 		}else {
@@ -342,13 +351,13 @@ public class MemberController {
 			model.addAttribute("title","정보수정 실패");
 			model.addAttribute("msg","회원 정보 수정에 실패했습니다.");
 			model.addAttribute("icon","error");
-			model.addAttribute("loc","/myPage.do");
+			model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
 			return "common/msg";
 		}else {
 			model.addAttribute("title","정보수정 성공");
 			model.addAttribute("msg","회원 정보 수정에 성공했습니다.");
 			model.addAttribute("icon","success");
-			model.addAttribute("loc","/myPage.do");
+			model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
 			m.setMemberName(member.getMemberName());
 			m.setMemberPhone(member.getMemberPhone());
 			return "common/msg";

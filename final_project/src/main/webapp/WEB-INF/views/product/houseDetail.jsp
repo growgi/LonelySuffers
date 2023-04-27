@@ -220,8 +220,122 @@
 								${house.getHouseDescriptionBr()}</div>
 							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
 <!-- 별점 후기 영역 시작  -->
-
-								상품 평 div
+							상품평 작성부분
+							<button class="reviewBtn">후기 작성하기</button>
+							<div class="review-wrap">
+							<form action="/reviewWriteFrm.do" method="post" enctype="multipart/form-data">
+							<table>
+								<tr>
+									<th>사진</th>
+									<th><input type="file" name="reviewFile" multiple="multiple"></th>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<th><input type="text" name="reviewTitle"></th>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<th><textarea name="reviewContent"></textarea></th>
+								</tr>
+								<tr>
+									<th>별점</th>
+									<td>
+										<input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+										<input type="radio" id="star2" name="rating" value="2"><label for="star2">★★</label>
+										<input type="radio" id="star3" name="rating" value="3"><label for="star3">★★★</label>
+										<input type="radio" id="star4" name="rating" value="4"><label for="star4">★★★★</label>
+										<input type="radio" id="star5" name="rating" value="5"><label for="star5">★★★★★</label>
+									</td>
+								</tr>
+							</table>
+							<input type="hidden" name="productCategory" value="2">
+							<input type="hidden" name="productNo" value="${house.houseNo}">
+							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
+							<button type="submit">후기작성</button>
+							<button type="button" class="reviewEndBtn">취소</button>
+							
+							</form>
+							</div>
+							<hr>
+							상품평 리스트 나오는 부분	
+							<table>
+								<tr>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>내용</th>
+									<th>별점</th>
+									<th>카테고리</th>
+									<th>상품번호</th>
+									<th>사진</th>
+								</tr>
+								<c:forEach items="${list }" var="review">
+									<tr class="reviewModalContent">
+										<td>${review.reviewTitle }</td>
+										<td>${review.reviewWriter }</td>
+										<td>${review.reviewContent }</td>
+										<td>${review.rating }</td>
+										<c:choose>
+											<c:when test="${review.productCategory ==2 }">
+													<td>숙박</td>
+											</c:when>
+										</c:choose>
+										<td>${house.houseNo}</td>
+										<td>
+											<c:forEach items="${review.rfileList }" var="rf">
+												<div>
+													<img src="/resources/upload/review/${rf.filepath }" width="100" height="100">
+													<input type="hidden" value=${rf.filepath }>
+												</div>
+											</c:forEach>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<button type="button" class="btn reviewModalBtn" data-toggle="modal" data-target="#reviewUpdate">수정하기</button>
+											<input type="hidden" value="${review.reviewNo }">
+											<a href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+										</th>
+									</tr>
+								</c:forEach>
+							</table>
+							<!-- 리뷰 수정 모달 -->							
+							<div class="modal fade" id="reviewUpdate" role="dialog">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <form action="javascript:;" onsubmit="insertInquiryAjax(this)" method="post">
+							          <fieldset>
+								        <div class="modal-header">
+								          <button type="button" id="writeModalClose" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title">수정하기</h4>
+								        </div>
+							        	<div class="modal-body">
+							        		<p>제목</p>
+							          		<input type="text" class="form-control reviewTitle" name="reviewTitle" placeholder="제목" value="" required>
+							          		<p>작성자</p>
+							          		<input type="text" class="form-control reviewWriter" name="reviewWriter" placeholder="작성자" value="" readonly>
+							          		<p>내용</p>
+							          		<textarea class="form-control reviewContent" rows="6" name="reviewContent" placeholder="내용" required></textarea>
+							          		<p>별점</p>
+							          		<input type="text" class="form-control rating" name="rating" placeholder="" value=""required>
+							          		<p>카테고리</p>
+							          		<input type="text" class="form-control productCategory" name="productCategory" value="2" readonly>
+							          		<p>상품번호</p>
+							          		<input type="text" class="form-control productNo" name="productNo" value="${house.houseNo}" readonly>
+							          		<p>첨부파일</p>
+						          			<div class="fileList-wrap">
+						          			</div>
+											<p>첨부파일 추가</p>
+											<input type="file" name="reviewFile" multiple onchange="loadImgs(this);">
+								        </div>
+								        <div class="modal-footer">
+							          		<a href="/reviewUpdate.do?reviewNo=${review.reviewNo }" style="float: right;">후기글 등록</a>
+							        	</div>
+							          </fieldset>
+							        </form>
+							      </div>
+							    </div>
+							  </div>
+							
 
 <!-- 별점 후기 영역 끝  -->
 							</div>
@@ -310,6 +424,46 @@
 
 
 	<script type="text/javascript">
+	// review 글쓰기 버튼이벤트
+	$(".review-wrap").hide();
+		$(".reviewBtn").on("click",function(){
+			$(".review-wrap").slideDown();
+			$(this).hide();
+		});
+		
+		$(".reviewEndBtn").on("click",function(){
+			$(".review-wrap").hide();
+			$(".reviewBtn").show();
+		});
+	
+	// review 모달 수정	
+	$(".reviewModalBtn").on("click",function(){
+		var reviewNo = $(this).next().val();
+		var reviewTitle = $(this).parent().parent().prev().children().eq(0).text();
+		var reviewWriter = $(this).parent().parent().prev().children().eq(1).text();
+		var reviewContent = $(this).parent().parent().prev().children().eq(2).text();
+		var rating = $(this).parent().parent().prev().children().eq(3).text();
+		var rfileList =$(this).parent().parent().prev().children().eq(6).children();
+		rfileList.each(function(i, f){
+			const div = $("<div>").addClass("delfile-box");
+			const button = $("<button>").attr("type", "button").attr("onclick", "deleteFile(this, "+reviewNo+",)").append("삭제")
+			div.append(f).append(button);
+			$(".fileList-wrap").append(div);
+		})
+		$(".reviewTitle").val(reviewTitle);
+		$(".reviewWriter").val(reviewWriter);
+		$(".reviewContent").val(reviewContent);
+		$(".rating").val(rating);
+	});
+	
+	// review 파일 삭제
+	function deleteFile(obj,fileNo){
+	   const filepath = $(obj).parent().find("input").val()
+	   const input = $("<input>").attr("name", "delFileList").attr("type", "hidden").val(filepath);
+	   $(obj).parent().after(input);
+	   $(obj).parent().remove();
+	}
+	
 	// replaceAt 함수 정의
 		String.prototype.replaceAt = function(index, replacement) {
 		    return this.substring(0, index) + replacement + this.substring(index + replacement.length);

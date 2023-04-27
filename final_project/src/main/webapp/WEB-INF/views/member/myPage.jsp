@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,-25" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,-25" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
 </head>
 <body>
@@ -37,6 +38,7 @@
 								<span class="material-symbols-outlined">account_circle</span>
 								<span class="sessionMemberName">${sessionScope.m.memberName }</span>
 								<span class="sessionMemberEmail">${sessionScope.m.memberEmail }</span>
+								<input type="hidden" value="${tabNo }" class="tabNo">
 								<ul class="tab-content">
 									<li>프로필관리</li>
 									<li>구매내역</li>
@@ -46,13 +48,13 @@
 									</c:if>
 								</ul>
 							</div>
-
 						</div>
 						<div class="main-right">
 							<div class="right-content">
 								<div class="myProfile hide-div">
+								<div>
 									<h2>프로필 관리</h2>
-									<ul>
+									<ul style="padding: 0;">
 										<li>내정보 변경</li>
 										<li>
 											<div>
@@ -63,7 +65,7 @@
 													<input type="text" name="memberId" id="memberId" class="longInput" required value="${sessionScope.m.memberId }" readonly><br>
 													<label for="memberName">이름</label><br>
 													<input type="text" name="memberName" id="memberName" class="longInput" required value="${sessionScope.m.memberName }"><br>
-													<label for="memberName">전화번호</label><br>
+													<label for="memberPhone">전화번호</label><br>
 													<input type="text" name="memberPhone" id="memberPhone" class="longInput" required value="${sessionScope.m.memberPhone }"><br>
 													<label for="memberEmail">이메일</label><br>
 													<input type="text"  class="longInput" id="email" required value="${sessionScope.m.memberEmail }" readonly><br>
@@ -126,10 +128,11 @@
 												<button type="button" class="dropMember">탈퇴</button>
 											</div>
 										</li>
-										
 									</ul>
+									</div>
 								</div><!-- myProfile -->
 								<div class="buyList hide-div">
+								<div>
 									<div class="content-top"></div>
 									<div>
 										<table>
@@ -169,10 +172,13 @@
 												</tr>
 											</c:forEach>  
 										</table>
+										<div>${pageNavi }</div>
+									</div>
 									</div>
 								</div>
 
 								<div class="adminChat hide-div">
+								<div>
 									<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
 									<div class="chatting">
 										<div class="endBtnDiv">
@@ -192,6 +198,7 @@
 											<button id="sendBtn" onClick="sendMsg();">전송</button> 
 										</div>
 									</div>
+								</div>
 								</div>
 								
 							</div>

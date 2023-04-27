@@ -56,22 +56,22 @@
 							<li>
 								<c:choose>
 									<c:when test="${faq.categoryNo == 1}">
-										<td>예약취소</td>
+										<p>예약취소</p>
 									</c:when>
 									<c:when test="${faq.categoryNo == 2}">
-										<td>숙박</td>
+										<p>숙박</p>
 									</c:when>
 									<c:when test="${faq.categoryNo == 3}">
-										<td>강습</td>
+										<p>강습</p>
 									</c:when>
 									<c:when test="${faq.categoryNo == 4}">
-										<td>카풀</td>
+										<p>카풀</p>
 									</c:when>
 									<c:when test="${faq.categoryNo == 5}">
-										<td>후기</td>
+										<p>후기</p>
 									</c:when>
 									<c:when test="${faq.categoryNo == 6}">
-										<td>회원서비스</td>
+										<p>회원서비스</p>
 									</c:when>
 								</c:choose>
 							</li>

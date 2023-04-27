@@ -461,6 +461,7 @@
            				<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">
            				<input type="hidden" class="memberPhone" value="${sessionScope.m.memberPhone }">
            				<input type="hidden" class="memberEmail" value="${sessionScope.m.memberEmail }">
+           				<input type="hidden" class="memberNo" value="${sessionScope.m.memberNo }">
         			</div>  
 				</div> 
 		<div class="container">
@@ -671,13 +672,18 @@
 										<li>강습날짜 : <input type="text" id="lessonDate-choice" value="" readonly></li>
 										<li>강습시간 : <input type="text" id="lessonTime-choice" value="" readonly></li>
 										<li>인원 : <input type="text" id="lessonMaxNo-choice" value="" readonly></li>
+										<li>인원 데이터: <input type="text" id="lessonPeople-choice" value="" hidden></li>
 										<li>강습 총액 : <input type="text" id="lessonTotalPrice-choice" value="" readonly></li>
 										<li>강습 총액 데이터: <input type="text" id="lessonTotalPrice" value="" hidden></li>
 									</ul>
 									<ul class="wholePrice-info">
-										<li>총액 : <input type="text" id="TotalPrice-choice" value="" readonly></li>
+										<li>총액 : <input type="text" id="totalPrice-choice" value="" readonly></li>
 									</ul>
-									<input type="text" id="TotalPriceVal" value="" hidden>
+									<input type="text" id="totalPriceVal" value="" hidden>
+									<input type="text" id="roomBookNo" value="" hidden>
+									<input type="text" id="lessonBookNo" value="" hidden>
+									<input type="text" id="orderNo" value="" hidden>
+									<input type="text" id="orderDetailNo" value="" hidden>
 							</fieldset>
 						</form>
 					</div>
@@ -853,7 +859,7 @@
 			        	<!-- <fieldset> -->
 			        	
 							<input type="hidden" name="houseNo" value="">
-							<select name="roomNo" id="roomNo-modal"></select>
+							<select name="roomName" id="roomName-modal"></select>
 			        		<div class="row">
 				        		<div class="col-md-4">
 									<input type="text" name="bookStartDate" id="bookStart" placeholder="숙박 시작일" required readonly>
@@ -1419,6 +1425,7 @@ $("document").ready(function() {
 						
 						const infoWrap = $("<div class=info-wrap></div>");
 						infoWrap.append("<p>"+data[i].houseTitle+"</p>");
+						infoWrap.append("<input type='hidden' id='houseNo' value = '"+data[i].houseNo+"'>")
 						if(data[i].houseBarbecuePrice == 0 && data[i].housePartyPrice > 0){
 							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(O)</p>");
 						}else if(data[i].houseBarbecuePrice > 0 && data[i].housePartyPrice == 0){
@@ -1533,8 +1540,8 @@ $("document").ready(function() {
 										dataType : "json",
 										success : function(List){
 											console.log(List)
-											$("[name=roomNo]").empty();
-											$("[name=roomNo]").append($("<option>").text("객실을 먼저 선택해주세요"));
+											$("[name=roomName]").empty();
+											$("[name=roomName]").append($("<option>").text("객실을 먼저 선택해주세요"));
 											$("[name=modalOptionPrice1]").attr("value",List[0].houseBarbecuePrice);
 											$("[name=modalOptionPrice2]").attr("value",List[0].housePartyPrice);
 											$("[name=housePrice]").attr("value",List[0].housePrice);
@@ -1543,8 +1550,10 @@ $("document").ready(function() {
 												const option = $("<option>");
 												option.val(List[i].roomNo);
 												option.text(List[i].roomName);
-												$("[name=roomNo]").append(option);
+												$("[name=roomName]").append(option);
+												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName+">");
 							    			}
+											//$("[name=roomName] option:selected").val();
 										}
 								});
 							},
@@ -1595,7 +1604,7 @@ $("document").ready(function() {
 
 // roomBookPrice를 계산하는 함수(예약하기 클릭하면 나오는 함수)
 								$("#modal-okay").on("click", function(){
-									if($("[name=roomNo] option:selected").text() != "객실을 먼저 선택해주세요"){
+									if($("[name=roomName] option:selected").text() != "객실을 먼저 선택해주세요"){
 
 										let onedayPrice = $("[name=housePrice]").val();
 										console.log("하루 방값"+$("[name=housePrice]"));
@@ -1646,7 +1655,7 @@ $("document").ready(function() {
 												$(".stat-count").text(result);
 												//주문내역에 숙소 총액,숙소 호수&이름,예약날짜 넣어주는 함수
 												$("#houseTitle-choice").attr("value",$("input[name=roomTitle]").val());
-												$("#roomTitleNo-choice").attr("value",$("[name=roomTitle]").val()+","+$("[name=roomNo] option:selected").val()+"호");
+												$("#roomTitleNo-choice").attr("value",$("[name=roomTitle]").val()+","+$("[name=roomName] option:selected").val()+"호");
 												$("#bookDate-choice").attr("value",$("#bookStartDate").val()+"~"+$("#bookEndDate").val());
 												$("#roomTotalPrice-choice").attr("value","옵션을 포함한 총 요금은 "+result+"원으로 계산되었습니다.");
 												//나중에 쓰기 위해 hidden으로 숨겨놓은 input에 값 전달
@@ -1839,7 +1848,7 @@ $("document").ready(function() {
 			const memberPhone = $('.memberPhone').val();
 			const memberEmail = $('.memberEmail').val();
 			
-		const price = $('#TotalPrice-choice').val();	//결제 금액
+		const price = $('#totalPriceVal').val();	//결제 금액
 		const priceCheck = isNaN(price); //결제금액 숫자인지 check
 
 		const regExp = /^[0-9]+00$/;	
@@ -1869,10 +1878,108 @@ $("document").ready(function() {
 			buyer_postcode : "12345"  
 		},function(rsp){
 			if(rsp.success){
+				console.log("ajax값들 콘솔로그");
+				const houseNo = $("#houseNo").val();
+				console.log("houseNo"+houseNo);
+				const memberNo = $(".memberNo").val();
+				console.log("memberNo"+memberNo);
+				const bookStartDate = $("#bookStartDate").val();
+				console.log("bookStartDate"+bookStartDate);
+				const bookEndDate = $("#bookEndDate").val();
+				console.log("bookEndDate"+bookEndDate);
+				const roomNo = $("[name=roomName] option:selected").val();
+				console.log("roomNo"+roomNo)
+				const roomBookPrice = $("#roomTotalPrice").val();
+				console.log("roomBookPrice"+roomBookPrice);
+				const optionDetail = $("#options-choice").val();
+				console.log("optionDetail"+optionDetail);
+				
+				const lessonBookDate = $("#lessonDate-choice").val();
+				console.log("lessonBookDate"+lessonBookDate);
+				const lessonPeople = $("#lessonPeople-choice").val();
+				console.log("lessonPeople"+lessonPeople);
+				const lessonNo = $("#modal-lessonNo").val();
+				console.log("lessonNo"+lessonNo);
+				const lessonBookPrice= $("#lessonTotalPrice").val();
+				console.log("lessonBookPrice"+lessonBookPrice);
+				
+				
+				const orderAllPrice = $("#totalPriceVal").val();
+				console.log("orderAllPrice"+orderAllPrice);
+				let orderProduct = 0;
+				if($("#roomTotalPrice").val() != "" && $("lessonTotalPrice").val() != ""){
+					orderProduct = 3;
+				} else if($("#roomTotalPrice").val() != "" && $("lessonTotalPrice").val() == ""){
+					orderProduct = 2;
+				} else if($("#roomTotalPrice").val() == "" && $("lessonTotalPrice").val() != ""){
+					orderProduct = 1;
+				}else{
+					console.log("orderProduct에 문제가 있음");
+				}
+				console.log("orderProduct"+orderProduct);
 				alert("결제성공");
 				//결제관련 정보를 DB에 insert 하는 작업이 필요
-				
-				//
+					//ajax로 room_book에 insert
+					$.ajax({
+						url:"/roomBookInsert.do",
+						type:"post",
+						data:{roomNo : roomNo, memberNo : memberNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate, houseNo : houseNo, roomBookPrice : roomBookPrice, optionDetail : optionDetail},
+						success:function(data){
+							//나중에 쓸 수 있게 receipt부분의 roomBookNo에 값을 넣어줌
+							$("#roomBookNo").attr("value",data);
+							console.log("ajax roomBookNo"+data);
+						},
+						error:function(){
+							console.log("roomBook insert에 문제있음");
+						}
+					});
+					//ajax로 lesson_book에 insert
+					$.ajax({
+						url:"/lessonBookInsert.do",
+						type:"post",
+						data:{lessonBookDate : lessonBookDate, lessonPeople : lessonPeople, memberNo : memberNo, lessonNo : lessonNo, lessonBookPrice : lessonBookPrice},
+						success:function(data){
+							//나중에 쓸 수 있게 receipt부분의 lessonBookNo에 값을 넣어줌
+							$("#lessonBookNo").attr("value",data);
+							console.log("ajax lessonBookNo"+data);
+						},
+						error:function(){
+							console.log("roomBook insert에 문제있음");
+						}
+					});
+					
+					//ajax로 order_tbl에 insert(const는 모두 만들어놨음 ajax만 돌리면 된다)
+					$.ajax({
+						url:"/oderTblInsert.do",
+						type:"post",
+						data:{houseNo : houseNo, memberNo : memberNo, orderAllPrice : orderAllPrice, orderProduct : orderProduct},
+						success:function(data){
+							//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
+							$("#orderNo").attr("value",data);
+							console.log("ajax orderNo"+data);
+								//ajax로 order_detail에 insert
+								
+										const orderNo = data;
+										console.log("orderNo"+orderNo);
+										const roomBookNo = $("#roomBookNo").val();
+										console.log("roomBookNo"+roomBookNo);
+										const lessonBookNo = $("#lessonBookNo").val();
+										console.log("lessonBookNo"+lessonBookNo);
+								$.ajax({
+									url:"/orderDetailInsert.do",
+									type:"post",
+									data:{orderNo : orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
+									success:function(data){
+										
+										//나중에 쓸 수 있게 receipt부분의 orderDetailNo에 값을 넣어줌
+										$("#orderDetailNo").attr("value",data);
+									}
+								})
+							//
+						}
+					});
+					
+					
 			}else{
 				alert("결제실패");	
 			}
@@ -2047,9 +2154,9 @@ $("document").ready(function() {
 								console.log("업데이트된 결과 : "+result);
 								$(".stat-count").text(result);
 								//receipt에 총액 넘겨주는 함수
-								$("#TotalPrice-choice").attr("value",result+"원");
+								$("#totalPrice-choice").attr("value",result+"원");
 								//결제 모듈로 넘길 총액
-								$("#TotalPriceVal").attr("value",result);
+								$("#totalPriceVal").attr("value",result);
 								//주문하기를 눌렀을 때 동작하는 함수
 								$("#modal-cancel2").click();
 								$("#lessonBook-close").click();
@@ -2064,7 +2171,7 @@ $("document").ready(function() {
 								$("#lessonTime-choice").attr("value",$("#modal-lesson-time").text());
 								$("#lessonDate-choice").attr("value",$("[name=lessonBookDate]").val());
 								$("#lessonMaxNo-choice").attr("value",$("[name=lessonPeople]").val()+"명");
-								
+								$("#lessonPeople-choice").attr("value",$("[name=lessonPeople]").val());
 								
 								//stat-count 애니메이션 효과!
 								$('.stat-count').each(function(){

@@ -24,6 +24,8 @@ import kr.co.house.model.vo.HousePagination;
 import kr.co.house.model.vo.Room;
 import kr.co.house.model.vo.RoomBook;
 import kr.co.member.model.vo.Member;
+import kr.co.review.model.service.ReviewService;
+import kr.co.review.model.vo.Review;
 
 @Controller
 public class HouseController {
@@ -32,13 +34,16 @@ public class HouseController {
 	private HouseService service;
 	@Autowired
 	private ProductFileNumbering fileManager;
-
-
+	@Autowired
+	private ReviewService rservice;
 
 // 숙박 상품 상세페이지 보기.  House 테이블에서 Row 1개 전체 조회 후 반환
 	@RequestMapping(value="/houseView.do")
 	public String houseView(int houseNo, Model model) {
 		House h = service.selectOneHouse(houseNo);
+		//review 리스트 받아오는 코드
+		ArrayList<Review> list = rservice.selectAllReview(houseNo);
+		model.addAttribute("list", list);
 		model.addAttribute("house", h);
 		return "product/houseDetail";
 	}
@@ -362,5 +367,19 @@ public class HouseController {
 		System.out.println("room result 결과"+result.length());
 		return result;
 		
+	}
+
+//roomBook insert
+	@ResponseBody
+	@RequestMapping(value="/roomBookInsert.do", produces = "application/json;charset=utf-8")
+	public String roomBookInsert(RoomBook rb) {
+		int result = service.roomBookInsert(rb);
+		if(result>0) {
+			String roomBookNo = Integer.toString(rb.getRoomBookNo());
+			System.out.println("contoller"+roomBookNo);
+			return roomBookNo;
+		}else {
+			return "/kiosk.jsp";
+		}
 	}
 }

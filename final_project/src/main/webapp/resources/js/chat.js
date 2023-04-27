@@ -1,17 +1,18 @@
 let ws;
 let memberId;
 
+
     $(function(){
-        memberId = $('[name=chatMemberId]').val();
-        if(memberId != undefined){
-            console.log("not undefined");
-            ws = new WebSocket("ws://192.168.10.4/startChat.do");
-            ws.onopen = startChat;
-            ws.onmessage = receiveMsg;
-            ws.onclose = endChat;
-        }else{
-            console.log("undefined");
-        }
+            memberId = $('[name=chatMemberId]').val();
+            if(memberId != undefined){
+                console.log("not undefined");
+                ws = new WebSocket("ws://192.168.10.4/startChat.do");
+                ws.onopen = startChat;
+                ws.onmessage = receiveMsg;
+                ws.onclose = endChat;
+            }else{
+                console.log("undefined");
+            }
     });
 
     $('.logout').on('click',function(){
@@ -54,7 +55,7 @@ let memberId;
             for(let i=0 ;i<input.length;i++){
                 if(input.eq(i).val()== data.memberId){
                     console.log(input);
-                    input.eq(i).next().next().next().text('채팅종료');
+                    input.eq(i).next().next().next().next().text('채팅종료');
                 }
             }
         }else if(data.type == "startChat"){
@@ -63,7 +64,7 @@ let memberId;
             for(let i=0 ;i<input.length;i++){
                 if(input.eq(i).val()== data.memberId){
                     console.log(input);
-                    input.eq(i).next().next().next().text('채팅중');
+                    input.eq(i).next().next().next().next().text('채팅중');
                 }
             }
         }
