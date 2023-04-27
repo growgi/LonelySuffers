@@ -39,6 +39,7 @@
 								<span class="sessionMemberName">${sessionScope.m.memberName }</span>
 								<span class="sessionMemberEmail">${sessionScope.m.memberEmail }</span>
 								<input type="hidden" value="${tabNo }" class="tabNo">
+								<input type="hidden" value="${chatActivation }" class="chatActivation">
 								<ul class="tab-content">
 									<li>프로필관리</li>
 									<li>구매내역</li>
@@ -179,15 +180,15 @@
 
 								<div class="adminChat hide-div">
 								<div>
-									<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
 									<div class="chatting">
 										<div class="endBtnDiv">
+										<button type="button" name="startChatBtn" onclick="startChatBtn('${sessionScope.m.memberId}');">채팅시작하기</button>
 										<button type="button" name="endChatBtn" onclick="endChatBtn('${sessionScope.m.memberId}');">채팅종료</button>
 										</div>
 										<div class="messageArea">
 										</div>
 										<div class="sendBox">
-											<input type="text" id="sendMsg">
+											<input type="text" id="sendMsg" readonly>
 											<script>
 											 $('#sendMsg').on('keyup',function(e){
 											        if(e.keyCode == 13){

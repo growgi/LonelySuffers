@@ -2,18 +2,20 @@ let ws;
 let memberId;
 
 
-    $(function(){
-            memberId = $('[name=chatMemberId]').val();
-            if(memberId != undefined){
-                console.log("not undefined");
-                ws = new WebSocket("ws://192.168.10.4/startChat.do");
-                ws.onopen = startChat;
-                ws.onmessage = receiveMsg;
-                ws.onclose = endChat;
-            }else{
-                console.log("undefined");
-            }
-    });
+    window.onload = function(){
+
+        memberId = $('[name=chatMemberId]').val();
+        if(memberId != undefined){
+            console.log("not undefined");
+            ws = new WebSocket("ws://192.168.10.4/startChat.do");
+            ws.onopen = startChat;
+            ws.onmessage = receiveMsg;
+            ws.onclose = endChat;
+        }else{
+            console.log("undefined");
+        }
+    }
+    
 
     $('.logout').on('click',function(){
         endChat();
@@ -21,7 +23,7 @@ let memberId;
     })
     
     function startChat(){
-        console.log("memberId : "+memberId);
+        console.log("memberId1111111 : "+memberId);
         const hiddenMemberGrade = $('input[type=hidden].hiddenMemberGrade');
         console.log("grade : "+hiddenMemberGrade.val());
         if(hiddenMemberGrade.val() == 1){
@@ -130,4 +132,5 @@ let memberId;
     function endChat(){
         const data = {type:"logout",memberId:memberId}
         ws.send(JSON.stringify(data));
+        
     }

@@ -511,7 +511,7 @@
 	</select>
 	
 	<select id="selectOrderDetail" parameterType="_int" resultType="order">
-		select 
+	select 
             order_detail_no as orderDetailNo,
 		    order_no as orderNo, 
 		    order_date as orderDate, 
@@ -535,14 +535,17 @@
 		    house_photo1 as housePhoto1,
 		    book_start_date as bookStartDate,
 		    book_end_date as bookEndDate,
-		    product_price as productPrice
+		    order_all_price as orderAllPrice,
+            lesson_book_price as lessonBookPrice,
+            room_book_price as roomBookPrice
 		from order_detail od
 		left join order_tbl o using(order_no)
 		left join member_tbl m using(member_no)
 		left join lesson l on(od.lesson_no=l.lesson_no)
 		left join house h on(od.house_no=h.house_no)
 		left join room_book rb using(room_book_no)
-		where order_no=#{_parameter}
+        left join lesson_book l on(od.lesson_book_no=l.lesson_book_no)
+		where order_no= #{_parameter}
 		order by order_detail_no
 	</select>
 	
