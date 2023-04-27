@@ -31,24 +31,29 @@ public class ReviewService {
 		return result;
 	}
 
-	public int reviewUpdate(Review rv, ArrayList<RFileVO> fileList, int[] fileNo) {
+	public int reviewUpdate(Review rv) {
 		int result = dao.reviewUpdate(rv);
-		if(result > 0) {
-			if(fileNo != null) {
-				for(int no : fileNo) {
-					result += dao.deleteFile(no);
-				}
-			}
-			for(RFileVO rf : fileList) {
-				rf.setReviewNo(rv.getReviewNo());
-				result += dao.insertFile(rf);
-			}
-		}
 		return result;
 	}
 
 	public int deleteReview(int reviewNo) {
 		return dao.deleteReview(reviewNo);
+	}
+
+	public int deleteReviewFile(int[] fileNo) {
+		int result = 0;
+		if(fileNo != null) {
+			for(int i : fileNo) {
+				System.out.println(i);
+				result = dao.deleteFile(i);
+			}
+		}
+		return result;
+	}
+
+	public int insertReviewFile(RFileVO rfileVO) {
+		int result = dao.insertFile(rfileVO);
+		return result;
 	}
 	
 	

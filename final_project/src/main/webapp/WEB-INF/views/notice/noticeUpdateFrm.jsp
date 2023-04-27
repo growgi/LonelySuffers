@@ -159,7 +159,7 @@ function deleteFile(obj,fileNo,filepath){
    $(document).ready(function() {
 	$('#summernote').summernote({
 		  width: 725,				   // 에디터 넓이	
-		  height: 420,                 // 에디터 높이
+		  height: 220,                 // 에디터 높이
 		  minHeight: null,             // 최소 높이
 		  maxHeight: null,             // 최대 높이
 		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부

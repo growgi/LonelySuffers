@@ -105,7 +105,6 @@
 					where member_no=#{memberNo}
 				</if>
 	</select>
-	
 	<select id="selectPassengerList" parameterType="_int" resultType="p">
 		select
 			match_no as matchNo,
