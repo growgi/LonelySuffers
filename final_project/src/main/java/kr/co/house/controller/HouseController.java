@@ -44,7 +44,6 @@ public class HouseController {
 		//review 리스트 받아오는 코드
 		ArrayList<Review> list = rservice.selectAllReview(houseNo);
 		model.addAttribute("list", list);
-		System.out.println(list);
 		model.addAttribute("house", h);
 		return "product/houseDetail";
 	}
