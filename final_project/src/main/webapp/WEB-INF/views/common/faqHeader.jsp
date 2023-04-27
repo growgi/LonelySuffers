@@ -101,22 +101,22 @@ button {
 								</a>
 							</li>
 							<li style="border-right: 1px solid #eee;">
-								<a href="/faqListKind.do?categoryNo=2&reqPage=1" class="button-89" role="button">
+								<a href="/faqListKind.do?categoryNo=2&reqPage=1" class="button-arounder" role="button">
 								숙박
 								</a>
 							</li>
 							<li style="border-right: 1px solid #eee;">
-								<a href="/faqListKind.do?categoryNo=3&reqPage=1" class="button-89" role="button">
+								<a href="/faqListKind.do?categoryNo=3&reqPage=1" class="button-arounder" role="button">
 								강습
 								</a>
 							</li>
 							<li style="border-right: 1px solid #eee;">
-								<a href="/faqListKind.do?categoryNo=4&reqPage=1" class="button-89" role="button">
+								<a href="/faqListKind.do?categoryNo=4&reqPage=1" class="button-arounder" role="button">
 								카풀
 								</a>
 							</li>
 							<li style="border-right: 1px solid #eee;">
-								<a href="/faqListKind.do?categoryNo=5&reqPage=1" class="button-89" role="button">
+								<a href="/faqListKind.do?categoryNo=5&reqPage=1" class="button-arounder" role="button">
 								후기
 								</a>
 							</li>

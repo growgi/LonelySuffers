@@ -21,6 +21,7 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="resources/css/review.css">
 </head>
 
 <body>
@@ -222,7 +223,7 @@
 <!-- 별점 후기 영역 시작  -->
 							<!--별점 & 후기 작성부분  -->
 							<c:if test="${sessionScope.m.memberGrade == 3}">
-								<button class="reviewBtn" style="margin-top: 20px;">후기 작성하기</button>
+								<button class="reviewBtn button-74" style="margin-top: 20px;">후기 작성하기</button>
 							</c:if>	
 							<div class="review-wrap" style="margin-top: 20px;">
 							<form action="/reviewWriteFrm.do" method="post" enctype="multipart/form-data">
@@ -237,32 +238,34 @@
 								</tr>
 								<tr>
 									<th>내용</th>
-									<th><textarea name="reviewContent"></textarea></th>
+									<th><textarea style="width: 215px;" name="reviewContent"></textarea></th>
 								</tr>
 								<tr>
-									<th>별점</th>
+									<th style="padding-right: 5px;">별점</th>
 									<td>
-										<input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-										<input type="radio" id="star2" name="rating" value="2"><label for="star2">★★</label>
-										<input type="radio" id="star3" name="rating" value="3"><label for="star3">★★★</label>
-										<input type="radio" id="star4" name="rating" value="4"><label for="star4">★★★★</label>
-										<input type="radio" id="star5" name="rating" value="5"><label for="star5">★★★★★</label>
+										<div id="reviewWrapper">
+											<input type="radio" id="star1" name="rating" value="1" checked="checked"><label for="star1"></label>
+											<input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
+											<input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
+											<input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
+											<input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
+										</div>
 									</td>
 								</tr>
 							</table>
 							<input type="hidden" name="productCategory" value="2">
 							<input type="hidden" name="productNo" value="${house.houseNo}">
 							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
-							<button type="submit">후기작성</button>
-							<button type="button" class="reviewEndBtn">취소</button>
+							<button class="button-74" type="submit">후기작성</button>
+							<button class="button-74" type="button" class="reviewEndBtn">취소</button>
 							
 							</form>
 							</div>
 							<hr>
 							
 							<!--별점 & 후기 리스트 나오는 부분 -->	
-							<table>
-								<tr>
+							<table style="width: 800px; margin: 0 auto;">
+								<tr style="border: 1px solid #595959; text-align: center;">
 									<th>제목</th>
 									<th>작성자</th>
 									<th>내용</th>
@@ -286,7 +289,7 @@
 										<td>
 											<c:forEach items="${review.rfileList }" var="rf">
 												<div style="display: inline-block;">
-													<img src="/resources/upload/review/${rf.filepath }" width="100" height="100">
+													<img src="/resources/upload/review/${rf.filepath }" width="70" height="70">
 													<input type="hidden" value=${rf.filepath }>
 													<input type="hidden" value=${rf.fileNo }>
 												</div>
@@ -296,10 +299,10 @@
 									<tr>
 										<th>
 											<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
-											<button type="button" class="btn reviewModalBtn" data-toggle="modal" data-target="#reviewUpdate">수정하기</button>
+											<button type="button" class="reviewModalBtn button-74" data-toggle="modal" data-target="#reviewUpdate">수정</button>
 											<input type="hidden" value="${review.reviewNo }">
 											<input type="hidden" value="${review.productCategory }">
-											<a href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+											<a class="button-74" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
 											</c:if>
 										</th>
 									</tr>
