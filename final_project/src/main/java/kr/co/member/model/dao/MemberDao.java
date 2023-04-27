@@ -64,6 +64,11 @@ public class MemberDao {
 		return sqlSession.update("member.deleteMember", memberNo);
 	}
 
+// 회원 탈퇴시 나의 관심상품 목록 전부 삭제.  Wishlist 테이블에서 Row 여러 개 삭제
+	public int deleteMyWishLists(String memberId) {
+		return sqlSession.delete("member.deleteMyWishLists", memberId);
+	}
+
 	public ArrayList<Order> selectOrderList(HashMap<String, Object> map) {
 		List list = sqlSession.selectList("member.selectOrderList", map);
 		return (ArrayList<Order>)list;

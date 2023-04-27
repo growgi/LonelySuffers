@@ -206,6 +206,7 @@ public class MemberController {
 		if(m.getMemberNo() == memberNo) {
 			int result = service.deleteMember(memberNo);
 			if(result != 0) {
+				service.deleteMyWishLists(m.getMemberId());
 				model.addAttribute("title","회원탈퇴");
 				model.addAttribute("msg","회원 탈퇴에 성공했습니다.");
 				model.addAttribute("icon","success");

@@ -72,6 +72,12 @@ public class MemberService {
 		return dao.deleteMember(memberNo);
 	}
 
+// 회원 탈퇴시 나의 관심상품 목록 전부 삭제.  Wishlist 테이블에서 Row 여러 개 삭제
+	@Transactional
+	public int deleteMyWishLists(String memberId) {
+		return dao.deleteMyWishLists(memberId);
+	}
+
 	public OrderPageData selectOrderList(int reqPage,int memberNo) {
 		/*1. 한 페이지당 게시물 수 지정 -> 10개*/
 		int numPerPage = 10;

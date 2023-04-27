@@ -202,6 +202,12 @@
  		where wish_no=#{_parameter}
  	</delete>
 
+
+<!-- 나의 관심상품에서 삭제하기 -->
+ 	 <delete id="deleteMyWishLists" parameterType="string">
+ 		DELETE FROM WISHLIST WHERE MEMBER_ID=#{_parameter}
+ 	</delete>
+
  	
  	<select id="selectOneMember" parameterType="m" resultType="m">
  		select
