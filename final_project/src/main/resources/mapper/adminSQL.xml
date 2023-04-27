@@ -30,8 +30,10 @@
  		]]>
 	</select>
 
-	<select id="selectAllMember" resultType="m">
-		select
+	<select id="selectAllMember" parameterType="map" resultType="m">
+		select *
+        from(select rownum as rnum, m.*
+        from (select
 			member_name as memberName,
 			member_id as memberId,
 			member_gender as memberGender,
@@ -41,7 +43,8 @@
 			enroll_date as enrollDate
 		from member_tbl
 		where member_grade != 4
-		order by member_no desc
+		order by member_no desc) m)
+        where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectMemberCount" resultType="_int">
@@ -76,8 +79,10 @@
 		where member_id like '%'||#{searchMemberId}||'%'
 	</select>
 	
-	<select id="selectAllSellerApplication" resultType="m">
-		select
+	<select id="selectAllSellerApplication" parameterType="map" resultType="m">
+		select *
+        from(select rownum as rnum, sa.*
+        from (select
 			member_no as memberNo,
 			member_name as memberName,
 			member_id as memberId,
@@ -90,7 +95,8 @@
 		from member_tbl
 		join seller_application_tbl using(member_no)
 		where member_grade != 4
-		order by application_date desc
+		order by application_date desc) sa)
+        where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectSellerAppCount" resultType="_int">
@@ -130,7 +136,9 @@
 	</delete>
 	
 	<select id="selectAllNewProduct" resultType="pr">
-         select * from (select
+         select *
+        from(select rownum as rnum, a.*
+        from (select * from (select
         	'강습' as productType,
             lesson_no as productNo,
 			lesson_title as productTitle,
@@ -152,7 +160,8 @@
 			h.writer as productWriter
         from house h)
         where productStatus = -1
-        order by productStatus desc, productNo desc
+        order by productStatus desc, productNo desc) a)
+        where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectNewProductCount" resultType="_int">
@@ -181,8 +190,10 @@
         order by productStatus desc, productNo desc
 	</select>
 	
-	<select id="selectAllProduct" resultType="pr">
-         select * from (select
+	<select id="selectAllProduct" parameterType="map" resultType="pr">
+        select *
+        from(select rownum as rnum, ap.*
+        from (         select * from (select
         	'강습' as productType,
             lesson_no as productNo,
 			lesson_title as productTitle,
@@ -204,10 +215,11 @@
 			h.writer as productWriter
         from house h)
         where productStatus in(1,0)
-        order by productStatus desc, productNo desc
+        order by productStatus desc, productNo desc) ap)
+        where rnum between #{start} and #{end}
 	</select>
 	
-	<select id="selectAllProductCount" resultType="_int">
+	<select id="selectAllProductCount" parameterType="map" resultType="_int">
          select count(*) from (select
         	'강습' as productType,
             lesson_no as productNo,
@@ -331,8 +343,10 @@
         order by productStatus desc, productNo desc
 	</select>
 	
-	<select id="selectAllLesson" resultType="l">
-		select
+	<select id="selectAllLesson" parameterType="map" resultType="l">
+		select *
+        from(select rownum as rnum, l.*
+        from (select
 			lesson_no as lessonNo,
 			lesson_level as lessonLevel,
 			lesson_title as lessonTitle,
@@ -345,11 +359,14 @@
 			lesson_info_pic as lessonInfoPic
 		from lesson
 		where lesson_status in(0,1)
-		order by lesson_status desc, lesson_no desc
+		order by lesson_status desc, lesson_no desc) l)
+        where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectAllHouse" resultType="h">
-		select
+		select *
+        from(select rownum as rnum, h.*
+        from (select
 			house_no as houseNo,
 			house_title as houseTitle,
 			writer,
@@ -362,7 +379,8 @@
 			house_photo1 as housePhoto1
 		from house
 		where house_status in(0,1)
-		order by house_status desc, house_no desc
+		order by house_status desc, house_no desc) h)
+        where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectLessonCount" resultType="_int">
@@ -391,8 +409,10 @@
 		where house_no=#{houseNo}
 	</update>
 	
-	<select id="selectNewLesson" resultType="l">
-		select 
+	<select id="selectNewLesson" parameterType="map" resultType="l">
+		select *
+        from(select rownum as rnum, nl.*
+        from (select 
 			lesson_no as lessonNo,
 			lesson_level as lessonLevel,
 			lesson_title as lessonTitle,
@@ -404,11 +424,14 @@
 			lesson_info_pic as lessonInfoPic
 		from lesson
 		where lesson_status=-1
-		order by lesson_no desc
+		order by lesson_no desc) nl)
+        where rnum between #{start} and #{end}
 	</select>
 	
-	<select id="selectNewHouse" resultType="h">
-		select 
+	<select id="selectNewHouse" parameterType="map" resultType="h">
+		select *
+        from(select rownum as rnum, nh.*
+        from (select 
 			house_no as houseNo,
 			house_title as houseTitle,
 			writer,
@@ -420,7 +443,8 @@
 			house_photo1 as housePhoto1
 		from house
 		where house_status=-1
-		order by house_no desc
+		order by house_no desc) nh)
+        where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectNewLessonCount" resultType="_int">
@@ -473,8 +497,10 @@
 		where house_no=#{productNo}
 	</update>
 	
-	<select id="selectAllOrder" resultType="order">
-		select 
+	<select id="selectAllOrder" parameterType="map" resultType="order">
+		select *
+        from(select rownum as rnum, ao.*
+        from (select 
 			order_no as orderNo,
 			member_no as memberNo,
 			order_all_price as orderAllPrice,
@@ -484,12 +510,13 @@
 			member_id as memberId
 		from order_tbl
 		join member_tbl using(member_no)
-		order by order_no desc
+		order by order_no desc) ao)
+        where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectOrderCount" resultType="_int">
 		select
-			count(*)
+			count(*) 
 		from order_tbl
 	</select>
 	
@@ -588,8 +615,10 @@
 		order by order_no desc
 	</select>
 	
-	<select id="selectAllCarpool" resultType="c">
-		select
+	<select id="selectAllCarpool" parameterType="map" resultType="c">
+		select *
+        from(select rownum as rnum, c.*
+        from (select
 			carpool_no as carpoolNo,
 			driver_no as driverNo,
 			member_id as driverId,
@@ -600,7 +629,8 @@
 			departure_date as departureDate,
 			closure
 		from carpool
-		join member_tbl on(driver_no=member_no)
+		join member_tbl on(driver_no=member_no)) c)
+        where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="selectCarpoolCount" resultType="_int">
@@ -765,7 +795,9 @@
 			house_status as productStatus,
 			h.writer as productWriter
         from house h)
-        where productStatus=1
+        <![CDATA[
+        where (productStatus=1) and rownum<=5
+        ]]>
         order by productStatus desc, productNo desc
  	</select>
  	
@@ -776,19 +808,23 @@
  			member_email as memberEmail,
  			member_name as memberName
  		from member_tbl
- 		where member_grade in(2,3)
+ 		<![CDATA[
+ 		where (member_grade in(2,3)) and rownum<=5
+ 		]]>
  		order by member_no desc
  	</select>
  	
- 	 <select id="selectNewCarpoolDriver" resultType="c">
- 		select
+ 	 <select id="selectNewCarpoolDriver" resultType="m">
+ 		select distinct
  			member_no as memberNo,
  			member_id as memberId,
  			member_email as memberEmail,
  			member_name as memberName
  		from carpool
  		join member_tbl on(driver_no=member_no)
- 		where member_grade in(2,3)
+ 		<![CDATA[
+ 		where rownum<=5
+ 		]]>
  		order by member_no desc
  	</select>
  	
@@ -799,11 +835,11 @@
  			member_email as memberEmail,
  			member_name as memberName
  		from member_tbl
- 		where member_grade in(2,3)
+ 		where member_grade=1
  		order by member_no desc
  	</select>
  	
- 	<select id="selectGenderRatio" resultType="_int">
+ 	<select id="selectGenderRatio" resultType="kr.co.admin.model.vo.GenderRatio">
  		select 
 			round(sum(man)/count(*)*100,0) as manRatio
 			,round(sum(woman)/count(*)*100,0) as womanRatio
@@ -815,12 +851,65 @@
 			member_tbl)
  	</select>
  	
- 	<select id="selectSalesAmount" resultType="order">
-	 	select substr(order_date,1,7) mm,
-		       sum(order_all_price) as sales
+ 	<select id="selectLessonSalesAmount" resultType="kr.co.admin.model.vo.SalesAmount">
+	 	select 
+            substr(order_date,1,4) as year,
+            substr(order_date,6,2) as month,
+            sum(order_all_price) as sales
 		from order_tbl
 		where order_product=1
-		group by substr(order_date,1,7)
+		group by substr(order_date,1,4),substr(order_date,6,2)
 		order by 1
  	</select>
+ 	
+ 	<select id="selectHouseSalesAmount" resultType="kr.co.admin.model.vo.SalesAmount">
+	 	select 
+            substr(order_date,1,4) as year,
+            substr(order_date,6,2) as month,
+            sum(order_all_price) as sales
+		from order_tbl
+		where order_product=2
+		group by substr(order_date,1,4),substr(order_date,6,2)
+		order by 1
+ 	</select>
+ 	
+ 	<select id="selectAllSalesAmount" resultType="kr.co.admin.model.vo.SalesAmount">
+	 	select 
+            substr(order_date,1,4) as year,
+            substr(order_date,6,2) as month,
+            sum(order_all_price) as sales
+		from order_tbl
+		where order_product=3
+		group by substr(order_date,1,4),substr(order_date,6,2)
+		order by 1
+ 	</select>
+ 	
+ 	<insert id="insertVisitTotalCount">
+ 		insert into visitant 
+ 		values(visitant_seq.nextval, to_char(sysdate,'yyyy-mm-dd'))
+ 	</insert>
+ 	
+ 	<select id="selectVisitTodayCount" resultType="_int">
+ 		select count(*) as todayCount
+ 		from visitant 
+ 		where substr(visitant_date,1,10)=to_char(sysdate,'yyyy-mm-dd')
+ 	</select>
+ 	
+ 	<select id="selectVisitTotalCount" resultType="_int">
+ 		select count(*) as totalCount
+ 		from visitant
+ 	</select>
+ 	
+ 	<select id="selectVisitWeekCount" resultType="kr.co.admin.model.vo.Visitant">
+		select substr(visitant_date,9,2)as visitantDate, count(*) as dayTotal
+		from visitant 
+		where visitant_date between sysdate-7 and sysdate
+		group by visitant_date
+		order by visitant_date
+ 	</select>
+ 	
+<!--  	<select id="selectNewAdminChatCount" resultType="_int">
+
+ 	</select> -->
+
 </mapper>
