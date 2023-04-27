@@ -376,6 +376,7 @@ public class HouseController {
 		int result = service.roomBookInsert(rb);
 		if(result>0) {
 			String roomBookNo = Integer.toString(rb.getRoomBookNo());
+			System.out.println("contoller"+roomBookNo);
 			return roomBookNo;
 		}else {
 			return "/kiosk.jsp";

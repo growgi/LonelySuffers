@@ -15,5 +15,5 @@ public class OrderDetail {
 	private int houseNo;
 	private int roomBookNo;
 	private int lessonNo;
-	private int houseBookNo;
+	private int lessonBookNo;
 }

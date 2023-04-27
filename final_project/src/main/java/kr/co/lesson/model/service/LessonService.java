@@ -118,7 +118,7 @@ public class LessonService {
 		return dao.selectLessonList(lesson);
 	}
 
-
+	@Transactional
 	public int lessonBookInsert(LessonBook lb) {
 		return dao.lessonBookInsert(lb);
 	}
