@@ -54,7 +54,7 @@
 							<div class="right-content">
 								<div class="myProfile hide-div">
 								<div>
-									<h2>프로필 관리</h2>
+									<h2 class="h2Title">프로필 관리</h2>
 									<ul style="padding: 0;">
 										<li>내정보 변경</li>
 										<li>

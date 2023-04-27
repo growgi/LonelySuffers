@@ -13,6 +13,11 @@
  
 }
 
+.h2Title{
+    margin-left: 40px;
+    margin-top: 0px;
+    font-weight: 600;
+}
 .left-content{
     float: right;
     width: 260px;
@@ -116,7 +121,7 @@ input[type=text],input[type=password]{
 .customInput>div>input {
     font-size: 15px;
     color: #222222;
-    width: 300px;
+    width: 280px;
     border: none;
     border-bottom: solid #aaaaaa 1px;
     padding-bottom: 10px;
@@ -126,18 +131,6 @@ input[type=text],input[type=password]{
     z-index: 5;
 }
 
-.customInput>div>input {
-    font-size: 15px;
-    color: #222222;
-    width: 300px;
-    border: none;
-    border-bottom: solid #aaaaaa 1px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    position: relative;
-    background: none;
-    z-index: 5;
-}
 
 .customInput>div>input::placeholder { color: #aaaaaa; }
 
@@ -172,7 +165,7 @@ input[type=text],input[type=password]{
 }
 
 .customInput>div>input:focus ~ span, .customInput>div>input:valid ~ span {
-    width: 100%;
+    width: 280px;
 }
 
 .count{
@@ -258,13 +251,15 @@ table tr:hover{
 .myProfile>div>ul>li:first-child:hover,.myProfile>div>ul>li:nth-child(3):hover,.myProfile>div>ul>li:nth-child(5):hover,.myProfile>div>ul>li:nth-child(7):hover{
     background-color: #5b5a6a;
 }
-.myProfile>div>ul>li:nth-child(2),.myProfile>div>ul>li:nth-child(4),.myProfile>div>ul>li:nth-child(6).myProfile>div>ul>li:last-child{
+.myProfile>div>ul>li:nth-child(2),.myProfile>div>ul>li:nth-child(4),.myProfile>div>ul>li:nth-child(6),.myProfile>div>ul>li:last-child{
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 button{
     margin-top: 10px !important;
     margin-bottom: 5px !important;
-    width: 175px;
+    width: 280px;
 }
 
 #sendMsg{
@@ -299,6 +294,9 @@ button{
     transition-duration: 1s;
   }
 
+  input[type=text].longInput{
+    width: 280px;
+  }
   [name=startChatBtn]{
     color : #fff;
   }
@@ -311,7 +309,7 @@ button{
     color: #fff;
   }
   [name=startChatBtn]:hover {
-    background-color: #fff;
+    background-color: #ffffffc0;
     color: #123;
     width: 498px;
   }
