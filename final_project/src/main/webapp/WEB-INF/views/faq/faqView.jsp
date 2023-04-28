@@ -79,7 +79,7 @@
 					</div>
 					<p style="text-align: center; font-weight: bold;">내용</p>
 					<div class="faqContentWrap">
-						<table class="faqViewContent">
+						<table>
 							<tr>
 								<td>${faq.getFaqContentBr() }</td>
 							</tr>

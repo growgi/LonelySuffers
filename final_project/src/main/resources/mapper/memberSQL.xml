@@ -131,8 +131,6 @@
 	</select>
 
 
-
-
 <!-- 나의 관심상품에 이미 존재하는지 확인  -->
 	<select id="selectOneMyWishlist" parameterType="w" resultType="_int">
 		SELECT COUNT(*) FROM WISHLIST WHERE (MEMBER_ID = #{memberId})
@@ -154,18 +152,71 @@
 
 
 <!-- 나의 관심상품에 추가하기 -->
- 	 <insert id="insertMyWishlist" parameterType="w">
- 	 	INSERT INTO WISHLIST VALUES (WISHLIST_SEQ.NEXTVAL, #{memberId},
-        <choose>
-			<when test="lesson_no == 0">
-				#{house_no}, '')
-			</when>
-			<when test="house_no == 0">
-				'', #{lesson_no})
-			</when>
+	<insert id="insertMyWishlist" parameterType="w">
+		INSERT INTO WISHLIST VALUES (WISHLIST_SEQ.NEXTVAL, #{memberId}
+		<choose>
+			<when test="lesson_no == 0">, #{house_no}, ''</when>
+			<when test="house_no == 0">, '', #{lesson_no}</when>
 		</choose>
+		)
  	</insert>
+
+
+<!-- 상품페이지에서 관심상품 바로 삭제하기 -->
+ 	 <delete id="delistWishList" parameterType="w">
+ 		DELETE FROM WISHLIST WHERE MEMBER_ID = #{memberId}
+		<choose>
+			<when test="lesson_no == 0">AND HOUSE_NO = #{house_no}</when>
+			<when test="house_no == 0">AND LESSON_NO = #{lesson_no}</when>
+		</choose>
+ 	</delete>
+
  
+<!-- 나의 관심상품 목록을 가져오기  -->
+ 	<select id="selectAllWishList" parameterType="string" resultType="w">
+		select
+ 			w.wish_no as wishNo,
+ 			w.member_id as memberId,
+ 			w.lesson_no as lessonNo,
+ 			l.lesson_level as lessonLevel,
+ 			l.lesson_title as lessonTitle,
+ 			l.lesson_price as lessonPrice,
+ 			l.lesson_max_no as lessonMaxNo,
+ 			l.lesson_start_time as lessonStartTime,
+ 			l.lesson_end_time as lessonEndTime,
+ 			l.lesson_city as lessonCity,
+ 			l.lesson_info_pic as lessonInfoPic,
+ 			l.lesson_teacher as lessonTeacher,
+ 			l.lesson_status as lessonStatus,
+ 			w.house_no as houseNo,
+ 			h.house_title as houseTitle,
+ 			h.room_title as roomTitle,
+ 			h.house_city as houseCity,
+ 			h.house_address as houseAddress,
+ 			h.house_photo1 as housePhoto1,
+ 			h.room_capa as roomCapa,
+ 			h.house_price as housePrice,
+ 			h.house_status as houseStatus
+ 		from wishList w
+ 		left join lesson l on(l.lesson_no=w.lesson_no)
+ 		left join house h on(h.house_no=w.house_no)
+ 		where member_id=#{_parameter}
+ 		order by wish_no desc
+ 	</select>
+
+
+<!-- 나의 관심상품에서 삭제하기 -->
+ 	 <delete id="deleteWishList" parameterType="_int">
+ 		delete 
+ 		from wishlist
+ 		where wish_no=#{_parameter}
+ 	</delete>
+
+
+<!-- 회원탈퇴 시 나의 관심상품들 전부 삭제하기 -->
+ 	 <delete id="deleteMyWishLists" parameterType="string">
+ 		DELETE FROM WISHLIST WHERE MEMBER_ID=#{_parameter}
+ 	</delete>
 
  	
  	<select id="selectOneMember" parameterType="m" resultType="m">

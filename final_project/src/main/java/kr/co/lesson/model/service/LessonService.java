@@ -11,12 +11,15 @@ import kr.co.lesson.model.vo.Lesson;
 import kr.co.lesson.model.vo.LessonBook;
 import kr.co.lesson.model.vo.LessonListing;
 import kr.co.lesson.model.vo.LessonPagination;
+import kr.co.review.model.dao.ReviewDao;
 
 @Service
 public class LessonService {
 
 	@Autowired
 	private LessonDao dao;
+	@Autowired
+	private ReviewDao rdao;
 
 
 // 강습 상품 상세페이지 보기.  Lesson 테이블에서 Row 1개 전체 조회 후 반환

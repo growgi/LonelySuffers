@@ -21,6 +21,7 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="resources/css/review.css">
 </head>
 
 <body>
@@ -110,13 +111,13 @@
 									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">${house.roomCapa }인실</span></p>
 								</div>
 							</div>
-							<div class="row" style="margin-top: 30px;">
-								<div class="col-md-3">
-									판매량 ()숫자
+							<div class="row">
+								<div class="col-md-5">
+									별평점 평균값 들어올 자리
 								</div>
 								<div class="col-md-1"></div>
-								<div class="col-md-5">
-									별평점넣을자리
+								<div class="col-md-3">
+									<!-- 판매량 넣을 자리 -->
 								</div>
 							</div>
 							<div class="row" style="margin-top: 30px;">
@@ -124,7 +125,10 @@
 								<div class="col-md-10">${house.houseAddress }</div>
 							</div>
 						<div>
-							<button onclick="goWishList()">관심상품</button>
+							<button class="toggleWishList" onclick="goWishList()">
+								<input id="showWishStatus" type="checkbox">
+								<div>관심상품</div>
+							</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 						</div>
 						<c:if test="${sessionScope.m.memberGrade == 2}">
@@ -222,86 +226,90 @@
 <!-- 별점 후기 영역 시작  -->
 							<!--별점 & 후기 작성부분  -->
 							<c:if test="${sessionScope.m.memberGrade == 3}">
-								<button class="reviewBtn" style="margin-top: 20px;">후기 작성하기</button>
+								<button class="Btn reviewBtn button-74" style="margin-top: 20px;">후기 작성하기</button>
 							</c:if>	
 							<div class="review-wrap" style="margin-top: 20px;">
 							<form action="/reviewWriteFrm.do" method="post" enctype="multipart/form-data">
 							<table>
 								<tr>
-									<th>사진</th>
-									<th><input type="file" name="reviewFile" multiple="multiple"></th>
+									<th style="padding-bottom: 10px;">사진</th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><input style="padding-bottom: 10px;" type="file" name="reviewFile" multiple="multiple"></th>
 								</tr>
 								<tr>
 									<th>제목</th>
-									<th><input type="text" name="reviewTitle"></th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><input class="reviewWriteView" type="text" name="reviewTitle"></th>
 								</tr>
 								<tr>
-									<th>내용</th>
-									<th><textarea name="reviewContent"></textarea></th>
+									<th style="padding-bottom: 80px;">내용</th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><textarea class="reviewWriteView" style="width: 215px; height: 100px;" name="reviewContent"></textarea></th>
 								</tr>
 								<tr>
-									<th>별점</th>
+									<th style="padding-right: 5px;">별점</th>
 									<td>
-										<input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-										<input type="radio" id="star2" name="rating" value="2"><label for="star2">★★</label>
-										<input type="radio" id="star3" name="rating" value="3"><label for="star3">★★★</label>
-										<input type="radio" id="star4" name="rating" value="4"><label for="star4">★★★★</label>
-										<input type="radio" id="star5" name="rating" value="5"><label for="star5">★★★★★</label>
+										<div id="reviewWrapper">
+											<input type="radio" id="star1" name="rating" value="1" checked="checked"><label for="star1"></label>
+											<input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
+											<input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
+											<input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
+											<input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
+										</div>
 									</td>
 								</tr>
 							</table>
 							<input type="hidden" name="productCategory" value="2">
 							<input type="hidden" name="productNo" value="${house.houseNo}">
 							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
-							<button type="submit">후기작성</button>
-							<button type="button" class="reviewEndBtn">취소</button>
+							<button style="margin-top: 10px; margin-right: 10px;" class="button-74" type="submit">후기작성</button>
+							<button class="reviewEndBtn button-74" type="button">취소</button>
 							
 							</form>
 							</div>
 							<hr>
 							
 							<!--별점 & 후기 리스트 나오는 부분 -->	
-							<table>
-								<tr>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>내용</th>
-									<th>별점</th>
-									<th>카테고리</th>
-									<th>상품번호</th>
-									<th>사진</th>
+							<table style="width: 800px; margin: 0 auto;">
+								<tr class="reviewListView">
+									<td style="width: 15%;">제목</td>
+									<td style="width: 10%;">작성자</td>
+									<td style="width: 20%;">내용</td>
+									<td style="width: 10%;">별점</td>
+									<td style="width: 10%;">카테고리</td>
+									<td style="width: 10%;">상품번호</td>
+									<td style="width: 25%;">사진</td>
 								</tr>
+								
 								<c:forEach items="${list }" var="review">
 									<tr class="reviewModalContent">
-										<td>${review.reviewTitle }</td>
-										<td>${review.reviewWriter }</td>
-										<td>${review.reviewContent }</td>
-										<td>${review.rating }</td>
+										<th style="text-align: center;">${review.reviewTitle }</th>
+										<th style="text-align: center;">${review.reviewWriter }</th>
+										<th style="text-align: center;">${review.reviewContent }</th>
+										<th style="text-align: center;">★ : ${review.rating }</th>
 										<c:choose>
-											<c:when test="${review.productCategory ==2 }">
-													<td>숙박</td>
+											<c:when test="${review.productCategory == 2 }">
+													<th style="text-align: center;">숙박</th>
 											</c:when>
 										</c:choose>
-										<td>${house.houseNo}</td>
-										<td>
+										<th style="text-align: center;">${house.houseNo}</th>
+										<th>
 											<c:forEach items="${review.rfileList }" var="rf">
 												<div style="display: inline-block;">
-													<img src="/resources/upload/review/${rf.filepath }" width="100" height="100">
+													<img src="/resources/upload/review/${rf.filepath }" width="60" height="60">
 													<input type="hidden" value=${rf.filepath }>
 													<input type="hidden" value=${rf.fileNo }>
 												</div>
 											</c:forEach>
-										</td>
+										</th>
 									</tr>
 									<tr>
-										<th>
+										<td colspan="6"></td>
+										<td colspan="1"  class="reviewBtnWrap">
 											<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
-											<button type="button" class="btn reviewModalBtn" data-toggle="modal" data-target="#reviewUpdate">수정하기</button>
-											<input type="hidden" value="${review.reviewNo }">
-											<input type="hidden" value="${review.productCategory }">
-											<a href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+												<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
+												<input type="hidden" value="${review.reviewNo }">
+												<input type="hidden" value="${review.productCategory }">
+												<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
 											</c:if>
-										</th>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -660,17 +668,43 @@
 		}
 
 
-	// 나의 관심상품
+	// 관심상품 버튼을 눌렀을 때
 		function goWishList(){
 			const houseNo = $("[name=houseNo]").val();
 			const houseStatus = $("[name=houseStatus]").val();
+			if($("#showWishStatus").prop("checked")){
+				$.ajax({
+					url : "/delistWishList.do",
+					data: {house_no : houseNo, lesson_no : 0},
+					dataType : "text",
+					success : function(message){
+						if(message=="관심상품에서 제외했습니다."){
+							$("#showWishStatus").prop("checked", false);
+						}else{
+							$("#showWishStatus").prop("checked", true);
+							alert(message);
+						}
+					},
+					error : function(){
+						alert("알 수 없는 오류가 발생했습니다.");
+					}
+				});
+			}else{
 				if(houseStatus==1){
 					$.ajax({
 						url : "/insertWishList.do",
 						data: {house_no : houseNo, lesson_no : 0},
 						dataType : "text",
 						success : function(message){
-							alert(message);
+							if(message=="관심상품에 등록했습니다."){
+								$("#showWishStatus").prop("checked", true);
+							}else if(message=="이미 회원님의 관심목록에 추가되어 있는 상품입니다."){
+								$("#showWishStatus").prop("checked", true);
+								alert(message);
+							}else{
+								$("#showWishStatus").prop("checked", false);
+								alert(message);
+							}
 						},
 						error : function(){
 							alert("알 수 없는 오류가 발생했습니다.");
@@ -679,90 +713,112 @@
 				}else{
 					alert("판매중인 상품이 아닙니다.");
 				}
+			}
 		}
 
 
-		// 문의글 목록을 <tr>단위로 불러오는 ajax
-			function getInquiries(reqPage, range){
+	// 나의 관심상품에 있는 상품인지 확인 후 관심상품 추가하기에 불 들어오게
+		function refrechWishList(){
+			const houseNo = $("[name=houseNo]").val();
+			const houseStatus = $("[name=houseStatus]").val();
 				$.ajax({
-						url : "/getInquiries.do",
-						data: {reqPage : reqPage, productCategory : 2, productNo : $("[name=houseNo]").val(), range : range},
-						dataType : "json",
-						success : function(InquiryPagination){
-							$("#forInquiries").empty();
-							$("#forPageNavi").empty();
-							$("#numberOfCount").text(InquiryPagination.totalCount);
-							if(InquiryPagination.totalCount == 0){
-								$("#forInquiries").append( $("<tr>").addClass("hasNoInquiry").append($("<td>").attr("colspan", "6").css("text-align", "center").text("조회된 문의 내역이 없습니다.") ) );
-							}else{
-								for(let i=0; i<InquiryPagination.list.length; i++){
-									const td1 = $("<td>").text((InquiryPagination.start)+i);
-									
-									const td2 = $("<td>").css("display", "none").text(InquiryPagination.list[i].inquiryNo);
-									
-									const td3 = $("<td>");
-									if( InquiryPagination.list[i].answered > 0 ){
-										td3.text("답변완료");
-									}else{ td3.text("미답변"); }
-									
-									const td4 = $("<td>");
-									if( InquiryPagination.list[i].privately > 0 ){
-										td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text((InquiryPagination.list[i].inquiryTitle) + " 🔒 "));
-									}else{
-										td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text(InquiryPagination.list[i].inquiryTitle));
-									}
-									
-									const idLength = InquiryPagination.list[i].inquirer.length;
-									const td5 = $("<td>").text(InquiryPagination.list[i].inquirer);
-									
-									const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
-			
-									const tr = $("<tr>").addClass("inquiryTr").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
-									$("#forInquiries").append(tr);
-				    			}
-							$("#forPageNavi").append(InquiryPagination.pageNavi);
+					url : "/checkWishStatus.do",
+					data: {house_no : houseNo, lesson_no : 0},
+					dataType : "text",
+					success : function(message){
+						if(message=="이미 회원님의 관심목록에 추가되어 있는 상품입니다."){
+							$("#showWishStatus").prop("checked", true);
+						}
+					}
+				});
+		}
+
+
+	// 문의글 목록을 <tr>단위로 불러오는 ajax
+		function getInquiries(reqPage, range){
+			$.ajax({
+					url : "/getInquiries.do",
+					data: {reqPage : reqPage, productCategory : 2, productNo : $("[name=houseNo]").val(), range : range},
+					dataType : "json",
+					success : function(InquiryPagination){
+						$("#forInquiries").empty();
+						$("#forPageNavi").empty();
+						$("#numberOfCount").text(InquiryPagination.totalCount);
+						if(InquiryPagination.totalCount == 0){
+							$("#forInquiries").append( $("<tr>").addClass("hasNoInquiry").append($("<td>").attr("colspan", "6").css("text-align", "center").text("조회된 문의 내역이 없습니다.") ) );
+						}else{
+							for(let i=0; i<InquiryPagination.list.length; i++){
+								const td1 = $("<td>").text((InquiryPagination.start)+i);
+								
+								const td2 = $("<td>").css("display", "none").text(InquiryPagination.list[i].inquiryNo);
+								
+								const td3 = $("<td>");
+								if( InquiryPagination.list[i].answered > 0 ){
+									td3.text("답변완료");
+								}else{ td3.text("미답변"); }
+								
+								const td4 = $("<td>");
+								if( InquiryPagination.list[i].privately > 0 ){
+									td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text((InquiryPagination.list[i].inquiryTitle) + " 🔒 "));
+								}else{
+									td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text(InquiryPagination.list[i].inquiryTitle));
+								}
+								
+								const idLength = InquiryPagination.list[i].inquirer.length;
+								const td5 = $("<td>").text(InquiryPagination.list[i].inquirer);
+								
+								const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
+		
+								const tr = $("<tr>").addClass("inquiryTr").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								$("#forInquiries").append(tr);
+			    			}
+						$("#forPageNavi").append(InquiryPagination.pageNavi);
+					}
+				}
+			});
+		}
+
+	// 이 .jsp 페이지를 방문할 때 문의글 첫 페이지 조회로 시작
+		$(document).ready(function() {
+			getInquiries(1, 0);
+			refrechWishList();
+		});
+
+
+	// 문의글의 제목을 누르면 아래에 tr로 문의글 내용이 삽입되면서 펼쳐지는 효과로 출력
+		function expandIt(obj){
+			const targetInquiryNo = $(obj).parent().prev().prev().text();
+			if( $(obj).parent().parent().next().children().eq(3).attr("colspan") == 3 ){
+				 $(obj).parent().parent().nextUntil(".inquiryTr").remove();
+			}else{
+				$.ajax({
+					url : "/inquiryView.do",
+					data: {inquiryNo : targetInquiryNo, productCategory : 2, productNo : $("[name=houseNo]").val()},
+					dataType : "json",
+					async : false,
+					success : function(Inquiry){
+						if(Inquiry.inquiryNo <= 0){
+							alert(Inquiry.inquiryContent);
+						}else{
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ansI displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
+							if(Inquiry.answerList.length>0){
+								for(let j=0; j<Inquiry.answerList.length; j++){
+									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ans").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
+								}
+							}
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-inq").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
 						}
 					}
 				});
 			}
-
-		// 이 .jsp 페이지를 방문할 때 문의글 첫 페이지 조회로 시작
-			$(document).ready(function() {
-				getInquiries(1, 0);
-			});
+		}
 
 
-		// 문의글의 제목을 누르면 아래에 tr로 문의글 내용이 삽입되면서 펼쳐지는 효과로 출력
-			function expandIt(obj){
-				const targetInquiryNo = $(obj).parent().prev().prev().text();
-				if( $(obj).parent().parent().next().children().eq(3).attr("colspan") == 3 ){
-					 $(obj).parent().parent().nextUntil(".inquiryTr").remove();
-				}else{
-					$.ajax({
-						url : "/inquiryView.do",
-						data: {inquiryNo : targetInquiryNo, productCategory : 2, productNo : $("[name=houseNo]").val()},
-						dataType : "json",
-						async : false,
-						success : function(Inquiry){
-							if(Inquiry.inquiryNo <= 0){
-								alert(Inquiry.inquiryContent);
-							}else{
-								$(obj).parent().parent().after( $("<tr>").addClass("expandedTr displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
-								if(Inquiry.answerList.length>0){
-									for(let j=0; j<Inquiry.answerList.length; j++){
-										$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
-									}
-								}
-								$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
-							}
-						}
-					});
-				}
-			}
-
-
-		// 문의글 등록 폼 제출
+	// 문의글 등록 폼 제출
 		function insertInquiryAjax(obj){
+			const trimedTitle = $("[name=inquiryTitle]").val().trim().replace(/\s+/g," ");
+			$("[name=inquiryTitle]").val(trimedTitle);
+			
 			let privately = 0;
 			if($(obj).find("[name=privately]").prop("checked")){
 				privately = 1;
@@ -781,7 +837,7 @@
 		}
 
 
-		// 문의글 수정 버튼을 눌렀을 때
+	// 문의글 수정 버튼을 눌렀을 때
 		function editInquiryContent(obj){
 			const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
 			$(obj).parent().next().next().next().children().css("display", "none");
@@ -792,7 +848,7 @@
 		}
 
 
-		// 문의글 내용수정 버튼을 누르면 동작하는 ajax
+	// 문의글 내용수정 버튼을 누르면 동작하는 ajax
 		function updateInquiry(obj){
 			$.ajax({
 				url : "/updateInquiry.do",
@@ -808,7 +864,7 @@
 		}
 
 
-		// 문의글 수정 취소 버튼을 눌렀을 때
+	// 문의글 수정 취소 버튼을 눌렀을 때
 		function cancleEditInquiry(obj){
 			$(obj).parent().next().next().next().children().eq(2).remove();
 			$(obj).parent().next().next().next().children().eq(1).remove();
@@ -818,7 +874,7 @@
 		}
 
 
-		// 문의글 삭제 버튼을 눌렀을 때
+	// 문의글 삭제 버튼을 눌렀을 때
 		function deleteInquiryConfirm(obj){		
 			const inquiryNo = $(obj).parent().parent().prev().children().eq(1).text();
 			if (confirm("정말로 삭제하시겠습니까?") == true) {
@@ -827,7 +883,7 @@
 		}
 
 
-		// 문의글 삭제 버튼을 누르면 동작하는 ajax
+	// 문의글 삭제 버튼을 누르면 동작하는 ajax
 		function deleteInquiry(inquiryNo){
 			$.ajax({
 				url : "/deleteInquiry.do",
@@ -843,7 +899,7 @@
 		}
 
 
-		// 답변 등록 버튼을 누르면 동작하는 ajax
+	// 답변 등록 버튼을 누르면 동작하는 ajax
 		function insertAnswer(obj){
 			$.ajax({
 				url : "/insertAnswer.do",
@@ -861,7 +917,7 @@
 		}
 
 
-		// 답변 수정 버튼을 눌렀을 때
+	// 답변 수정 버튼을 눌렀을 때
 		function editAnswerContent(obj){
 			const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
 			$(obj).parent().next().next().next().children().css("display", "none");
@@ -872,7 +928,7 @@
 		}
 
 
-		// 답변 내용수정 버튼을 누르면 동작하는 ajax
+	// 답변 내용수정 버튼을 누르면 동작하는 ajax
 		function updateAnswer(obj){
 			$.ajax({
 				url : "/updateAnswer.do",
@@ -888,7 +944,7 @@
 		}
 
 
-		// 답변 수정 취소 버튼을 눌렀을 때
+	// 답변 수정 취소 버튼을 눌렀을 때
 		function cancleEditAnswer(obj){
 			$(obj).parent().next().next().next().children().eq(2).remove();
 			$(obj).parent().next().next().next().children().eq(1).remove();
@@ -898,7 +954,7 @@
 		}
 
 
-		// 답변 삭제 버튼을 눌렀을 때
+	// 답변 삭제 버튼을 눌렀을 때
 		function deleteAnswerConfirm(obj){		
 			const answerNo = $(obj).parent().next().text();
 			if (confirm("정말로 삭제하시겠습니까?") == true) {
@@ -907,7 +963,7 @@
 		}
 
 
-		// 답변 삭제 버튼을 누르면 동작하는 ajax
+	// 답변 삭제 버튼을 누르면 동작하는 ajax
 		function deleteAnswer(answerNo){
 			$.ajax({
 				url : "/deleteAnswer.do",
@@ -923,7 +979,7 @@
 		}
 
 
-		// 로그인된 회원의 등급에 따라 특정 요소들을 display:none 처리
+	// 로그인된 회원의 등급에 따라 특정 요소들을 display:none 처리
 		$(document).ready(function(){
 			const stylesheet = document.styleSheets[0];		// 링크된 .css 파일들 중 첫 번째 파일
 			let elementRules;
@@ -938,7 +994,7 @@
 			}else{
 				elementRules.style.setProperty('display', 'none');
 			}
-
+			
 			// 관리자(Grade 1) 또는 일반회원(Grade 3)가 아닌 경우에만 변경할 css
 			for(let i = 0; i < stylesheet.cssRules.length; i++) {
 				if(stylesheet.cssRules[i].selectorText === '.displayForGeneralMember') {

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,8 +23,6 @@ public class ReviewController {
 	
 	@RequestMapping(value="/reviewWriteFrm.do")
 	public String reviewWrite(Review rv, MultipartFile[] reviewFile, HttpServletRequest request) {
-		System.out.println("reviewController에서 review값"+rv.getProductNo());
-		System.out.println("reviewController에서 review값"+reviewFile);
 		ArrayList<RFileVO> fileList = new ArrayList<RFileVO>();
 		if(!reviewFile[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/review/");

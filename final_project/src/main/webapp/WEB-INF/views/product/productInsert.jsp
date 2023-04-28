@@ -18,9 +18,9 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 
+<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 <style>
 .nav-item {
-	width: 50%;
 	background-color: #3ac5c8;
 	text-align: center;
 }
@@ -29,8 +29,10 @@ table {
 	margin-top: 20px;
 }
 th, td {
-	height: 60px;
-	text-indent: 15px;
+	height: 40px;
+}
+th {
+	text-indent: 80px;
 }
 input[type="number"], input[type="time"] {
 	text-align: right;
@@ -60,15 +62,15 @@ input[type="number"], input[type="time"] {
 		<section class="section">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="col-md-6">
+					<div class="col-md-1"></div>
+					<div class="col-md-10">
 						<div class="card mt-2 tab-card">
 							<div class="row tab-card-header">
 								<ul class="nav nav-tabs card-header-tabs">
-									<li class="nav-item active">
+									<li class="nav-item active" style="width: 460px;">
 										<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">강습상품 등록</a>
 									</li>
-									<li class="nav-item">
+									<li class="nav-item" style="width: 460px;">
 										<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">숙박상품 등록</a>
 									</li>
 								</ul>
@@ -115,36 +117,38 @@ input[type="number"], input[type="time"] {
 												</tr>
 												<tr>
 													<th>상품 제목</th>
-													<td><input type="text" class="form-control" name="lessonTitle" placeholder="한글 최대 20자" required></td>
+													<td><input type="text" class="form-control" name="lessonTitle" maxlength="60" placeholder="한글 최대 20자" required></td>
 												</tr>
 												<tr>
 													<th>강사명</th>
-													<td><input type="text" class="form-control" name="lessonTeacher" placeholder="한글 최대 6자" required></td>
+													<td><input type="text" class="form-control" name="lessonTeacher" maxlength="20" placeholder="한글 최대 6자" required></td>
 												</tr>
 												<tr>
 													<th>강습 소요시간 (분)</th>
 													<td><input type="number" class="form-control" id="lessonTimeLength" name="lessonTimeLength" placeholder="최소 30분 ~ 최대 300분" min="30" max="300" step="5" required></td>
 												</tr>
 												<tr>
-													<th>강습시작 시각<br><span class="help-block" style="font-size: 12px;">최소 오전 6시, 최대 오후 5시.</span><span class="help-block" style="font-size: 12px;">이전 강습의 종료시각+10분부터 가능</span></th>
+													<th>강습시작 시각<br><span class="help-block" style="font-size: 12px;">최소 오전 6시, 최대 오후 5시</span><span class="help-block" style="font-size: 12px;">다음 시작시각은 이전 강습의 종료시각+10분부터 가능</span></th>
 													<td id="here"><div><input type="time" class="form-control" name="lessonStartTimes" min="06:00" max="17:00" step="300" pattern="[0-9]{2}:[0-9]{2}" required>
 													<input type="hidden" name="lessonEndTimes"><button type="button" onclick="insertNextLesson(this)">추가</button></div></td>
 												</tr>
 												<tr>
 													<th>상품 가격 (원)</th>
-													<td><input type="number" class="form-control" name="lessonPrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required></td>
+													<td><input type="number" class="form-control" name="lessonPrice" min="0" max="10000000" step="100" placeholder="최대 10000000원" required></td>
 												</tr>
 												<tr>
 													<th>강습 정원 (명)</th>
-													<td><input type="number" class="form-control" name="lessonMaxNo" min="1" max="100" placeholder="(단위: 명)" required></td>
+													<td><input type="number" class="form-control" name="lessonMaxNo" min="1" max="100" placeholder="최대 100명" required></td>
 												</tr>
 												<tr>
-													<th>상품 사진<br><span class="help-block" style="font-size: 12px;">미리보기 사진을 누르면 첨부가 취소됨.</span></th>
+													<th>상품 사진<br><span class="help-block" style="font-size: 12px;">미리보기 사진을 누르면 첨부가 취소됩니다.</span></th>
 													<td><div style="width: 100%;"></div><input type="file" name="lessonPhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
-													<th>상품 설명</th>
-													<td><textarea class="form-control" rows="4" name="lessonInfo" placeholder="한글 최대 1000자" required></textarea></td>
+													<th colspan="2">상품 설명</th>
+												</tr>
+												<tr>
+													<td colspan="2"><textarea id="summernoteL" name="lessonInfo" maxlength="3000"></textarea></td>
 												</tr>
 												<tr>
 													<td colspan="2" style="text-align: center;"><button type="submit" class="btn btn-default">강습상품 등록 요청</button></td>
@@ -154,7 +158,7 @@ input[type="number"], input[type="time"] {
 									</form>
 								</div>
 								<div class="tab-pane fade p-2" id="two" role="tabpanel" aria-labelledby="two-tab">
-									<form action="/insertHouse.do" method="post" enctype="multipart/form-data">
+									<form action="/insertHouse.do" onsubmit="return triming();" method="post" enctype="multipart/form-data">
 										<fieldset>
 											<table class="table-striped" id="houseInsertForm">
 												<tr>
@@ -163,27 +167,27 @@ input[type="number"], input[type="time"] {
 												</tr>
 												<tr>
 													<th>숙박소 이름</th>
-													<td><input type="text" class="form-control" name="roomTitle" required></td>
+													<td><input type="text" class="form-control" name="roomTitle" maxlength="60" placeholder="한글 최대 20자" required></td>
 												</tr>
 												<tr>
 													<th>객실 정원 (명)</th>
-													<td><input type="number" class="form-control" name="roomCapa" min="1" max="20" step="1" placeholder="(단위: 명)" required></td>
+													<td><input type="number" class="form-control" name="roomCapa" min="1" max="20" step="1" placeholder="최대 20명" required></td>
 												</tr>
 												<tr>
 													<th>상품 제목</th>
-													<td><input type="text" class="form-control" name="houseTitle" placeholder="한글 최대 20자" required></td>
+													<td><input type="text" class="form-control" name="houseTitle" maxlength="60" placeholder="한글 최대 20자" required></td>
 												</tr>
 												<tr>
 													<th>상품 가격 (원)</th>
-													<td><input type="number" class="form-control" name="housePrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required></td>
+													<td><input type="number" class="form-control" name="housePrice" min="0" max="10000000" step="100" placeholder="최대 10000000원" required></td>
 												</tr>
 												<tr>
-													<th><label><input type="checkbox" name="houseBarbecue" value="1" style="width: 25px; height: 25px; margin-left: -15px; vertical-align: bottom;"> 바베큐</label></th>
-													<td><input type="number" class="form-control" name="houseBarbecuePrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required disabled></td>
+													<th><label><input type="checkbox" name="houseBarbecue" value="1" style="width: 25px; height: 25px; margin-left: -75px; vertical-align: bottom;"> 바베큐</label></th>
+													<td><input type="number" class="form-control" name="houseBarbecuePrice" min="0" max="10000000" step="100" placeholder="최대 10000000원" required disabled></td>
 												</tr>
 												<tr>
-													<th><label><input type="checkbox" name="houseParty" value="1" style="width: 25px; height: 25px; margin-left: -15px; vertical-align: bottom;"> 파티</label></th>
-													<td><input type="number" class="form-control" name="housePartyPrice" min="0" max="10000000" step="100" placeholder="(단위: 원)" required disabled></td>
+													<th><label><input type="checkbox" name="houseParty" value="1" style="width: 25px; height: 25px; margin-left: -75px; vertical-align: bottom;"> 파티</label></th>
+													<td><input type="number" class="form-control" name="housePartyPrice" min="0" max="10000000" step="100" placeholder="최대 10000000원" required disabled></td>
 												</tr>
 												<tr>
 													<th>상품 사진<br><span class="help-block" style="font-size: 12px;">미리보기 사진을 누르면 첨부가 취소됨.</span></th>
@@ -202,8 +206,10 @@ input[type="number"], input[type="time"] {
 													<td><div style="width: 100%;"></div><input type="file" name="housePhoto" accept=".jpg,.jpeg,.gif,.png,.webp"></td>
 												</tr>
 												<tr>
-													<th>상품 설명</th>
-													<td><textarea class="form-control" rows="4" name="houseDescription" placeholder="한글 최대 1000자" required></textarea></td>
+													<th colspan="2">상품 설명</th>
+												</tr>
+												<tr>
+													<td colspan="2"><textarea id="summernoteH" name="houseDescription" maxlength="3000"></textarea></td>
 												</tr>
 												<tr>
 													<td colspan="2" style="text-align: center;"><button type="submit" class="btn btn-default">숙박상품 등록 요청</button></td>
@@ -231,6 +237,8 @@ input[type="number"], input[type="time"] {
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	<script src="resources/js/moment.min.js"></script>
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
 	<script type="text/javascript">
 // 강습시간대 추가 함수
@@ -335,6 +343,16 @@ input[type="number"], input[type="time"] {
 
 // 신규 강습 등록 submit 시 동작되는 함수
 	function checkLessonCity(){
+		const trimedTitle = $("[name=lessonTitle]").val().trim().replace(/\s+/g," ");
+		$("[name=lessonTitle]").val(trimedTitle);
+		const trimedTeacher = $("[name=lessonTeacher]").val().trim().replace(/\s+/g," ");
+		$("[name=lessonTeacher]").val(trimedTeacher);
+		
+		if($("[name=lessonInfo]").find($(".note-editable")).html().length < 12){
+			alert("상품 설명을 작성하셔야 합니다.");
+			return false;
+		}
+		
 	// 강습 지역 input(name=lessonCity)이 선택되지 않았으면 form 제출을 막음
 		if( $("[name=lessonCity]").val() == null ){
 			alert('지역을 선택해주십시오.');
@@ -347,6 +365,22 @@ input[type="number"], input[type="time"] {
 			lastEndTime.val(moment(lastStartTime, 'HH:mm').add(period, 'minutes').format('HH:mm'));
 			return true;
 		}
+	}
+
+
+
+// 신규 숙박 등록 submit 시 동작되는 함수. 제목들을 trim 후 form action
+	function triming(){
+		if($("[name=houseDescription").find($(".note-editable")).html().length < 12){
+			alert("상품 설명을 작성하셔야 합니다.");
+			return false;
+		}
+		
+		const trimedRoomTitle = $("[name=roomTitle]").val().trim().replace(/\s+/g," ");
+		$("[name=roomTitle]").val(trimedRoomTitle);
+		const trimedHouseTitle = $("[name=houseTitle]").val().trim().replace(/\s+/g," ");
+		$("[name=houseTitle]").val(trimedHouseTitle);
+		return true;
 	}
 
 
@@ -389,6 +423,98 @@ input[type="number"], input[type="time"] {
 			$("[name=housePartyPrice]").prop("disabled", true);
 		}
 	});
+
+
+// summernote 불러오기
+	$('#summernoteL').summernote({
+		  width: 880,
+		  height: 800,
+		  minHeight: null,
+		  maxHeight: null,
+		  focus: false,
+		  lang: "ko-KR",
+			callbacks: {
+				onImageUpload: function(files){
+					uploadLessonDescriptionImage(files[0], this);
+				}
+			},
+		  placeholder: '한글 기준 최대 1000자',
+		  toolbar: [
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['insert', ['link', 'picture']],
+			    ['height', ['height']],
+			    ['view', ['help']]
+			  ]
+	});
+	
+	$('#summernoteH').summernote({
+		  width: 880,
+		  height: 800,
+		  minHeight: null,
+		  maxHeight: null,
+		  focus: false,
+		  lang: "ko-KR",
+			callbacks: {
+				onImageUpload: function(files){
+					uploadHouseDescriptionImage(files[0], this);
+				}
+			},
+		  placeholder: '한글 기준 최대 1000자',
+		  toolbar: [
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['insert', ['link', 'picture']],
+			    ['height', ['height']],
+			    ['view', ['help']]
+			  ]
+	});
+	
+	
+// summernote 편집기로 본문에 사진을 첨부시키는 함수
+	function uploadLessonDescriptionImage(file, editor){
+		
+		const form = new FormData();
+		form.append("file", file);
+		$.ajax({
+			url: "/attachLessonDescriptionImage.do",
+			type: "post",
+			data: form,
+			dataType : "json",
+			processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+			contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+			enctype : "multipart/form-data",
+			success: function(data){
+				$(editor).summernote("insertImage",data);
+			}
+		});
+	}
+	
+	
+// summernote 편집기로 본문에 사진을 첨부시키는 함수
+	function uploadHouseDescriptionImage(file, editor){
+		
+		const form = new FormData();
+		form.append("file", file);
+		$.ajax({
+			url: "/attachHouseDescriptionImage.do",
+			type: "post",
+			data: form,
+			dataType : "json",
+			processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+			contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+			enctype : "multipart/form-data",
+			success: function(data){
+				$(editor).summernote("insertImage",data);
+			}
+		});
+	}
 	</script>
 </body>
 </html>

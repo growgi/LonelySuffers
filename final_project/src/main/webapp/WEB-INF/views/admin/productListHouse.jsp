@@ -85,7 +85,7 @@ th:last-child, td-last-child{
                                 			</c:otherwise>
                                 		</c:choose>
 										</td>
-										<td><a href="#">${h.houseTitle }</a></td>
+										<td><a href="/houseView.do?houseNo=${h.houseNo }">${h.houseTitle }</a></td>
 										<td>${h.writer }</td>
 										<td>${h.roomTitle }</td>
 										<td>${h.houseCity }</td>

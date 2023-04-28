@@ -21,6 +21,7 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="resources/css/review.css">
 </head>
 
 
@@ -99,17 +100,20 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-3">
-									판매량 ()숫자
+								<div class="col-md-5">
+									별평점 평균값 들어올 자리
 								</div>
 								<div class="col-md-1"></div>
-								<div class="col-md-5">
-									별평점넣을자리
+								<div class="col-md-3">
+									<!-- 판매량 넣을 자리 -->
 								</div>
 							</div>
 							<p>지역 <span>${lesson.lessonCity }</span></p>
 						<div>
-							<button onclick="goWishList()">관심상품</button>
+							<button class="toggleWishList" onclick="goWishList()">
+								<input id="showWishStatus" type="checkbox">
+								<div>관심상품</div>
+							</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 						</div>
 						<c:if test="${sessionScope.m.memberGrade == 2}">
@@ -197,8 +201,136 @@
 								${lesson.lessonInfo }</div>
 							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
 <!-- 별점 후기 영역 시작  -->
-
-								상품 평 div
+							<!--별점 & 후기 작성부분  -->
+							<c:if test="${sessionScope.m.memberGrade == 3}">
+								<button class="Btn reviewBtn button-74" style="margin-top: 20px;">후기 작성하기</button>
+							</c:if>	
+							<div class="review-wrap" style="margin-top: 20px;">
+							<form action="/reviewWriteFrm.do" method="post" enctype="multipart/form-data">
+							<table>
+								<tr>
+									<th style="padding-bottom: 10px;">사진</th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><input style="padding-bottom: 10px;" type="file" name="reviewFile" multiple="multiple"></th>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><input class="reviewWriteView" type="text" name="reviewTitle"></th>
+								</tr>
+								<tr>
+									<th style="padding-bottom: 80px;">내용</th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><textarea class="reviewWriteView" style="width: 215px; height: 100px;" name="reviewContent"></textarea></th>
+								</tr>
+								<tr>
+									<th style="padding-right: 5px;">별점</th>
+									<td>
+										<div id="reviewWrapper">
+											<input type="radio" id="star1" name="rating" value="1" checked="checked"><label for="star1"></label>
+											<input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
+											<input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
+											<input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
+											<input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<input type="hidden" name="productCategory" value="2">
+							<input type="hidden" name="productNo" value="${lesson.lessonNo}">
+							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
+							<button style="margin-top: 10px; margin-right: 10px;" class="button-74" type="submit">후기작성</button>
+							<button class="reviewEndBtn button-74" type="button">취소</button>
+							
+							</form>
+							</div>
+							<hr>
+							
+							<!--별점 & 후기 리스트 나오는 부분 -->	
+							<table style="width: 800px; margin: 0 auto;">
+								<tr class="reviewListView">
+									<td style="width: 15%;">제목</td>
+									<td style="width: 10%;">작성자</td>
+									<td style="width: 20%;">내용</td>
+									<td style="width: 10%;">별점</td>
+									<td style="width: 10%;">카테고리</td>
+									<td style="width: 10%;">상품번호</td>
+									<td style="width: 25%;">사진</td>
+								</tr>
+								
+								<c:forEach items="${list }" var="review">
+									<tr class="reviewModalContent">
+										<th style="text-align: center;">${review.reviewTitle }</th>
+										<th style="text-align: center;">${review.reviewWriter }</th>
+										<th style="text-align: center;">${review.reviewContent }</th>
+										<th style="text-align: center;">★ : ${review.rating }</th>
+										<c:choose>
+											<c:when test="${review.productCategory == 1 }">
+													<th style="text-align: center;">강습</th>
+											</c:when>
+										</c:choose>
+										<th style="text-align: center;">${lesson.lessonNo}</th>
+										<th>
+											<c:forEach items="${review.rfileList }" var="rf">
+												<div style="display: inline-block;">
+													<img src="/resources/upload/review/${rf.filepath }" width="70" height="70">
+													<input type="hidden" value=${rf.filepath }>
+													<input type="hidden" value=${rf.fileNo }>
+												</div>
+											</c:forEach>
+										</th>
+									</tr>
+									<tr>
+										<td colspan="6"></td>
+										<td colspan="1"  class="reviewBtnWrap">
+											<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
+												<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
+												<input type="hidden" value="${review.reviewNo }">
+												<input type="hidden" value="${review.productCategory }">
+												<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+											</c:if>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+							
+							<!-- 별점 & 후기  수정 모달 -->							
+							<div class="modal fade" id="reviewUpdate" role="dialog">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <form action="/reviewUpdate.do" method="post" enctype="multipart/form-data">
+							          <fieldset>
+								        <div class="modal-header">
+								          <button type="button" id="writeModalClose" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title">수정하기</h4>
+								        </div>
+							        	<div class="modal-body">
+							        		<input type="hidden" class="form-control updateReviewNo" name="reviewNo">
+							        		<div>제목</div>
+							          		<input type="text" class="form-control reviewTitle" name="reviewTitle" placeholder="제목" value="" required>
+							          		<div>작성자</div>
+							          		<input type="text" class="form-control reviewWriter" name="reviewWriter" placeholder="작성자" value="" readonly>
+							          		<div>내용</div>
+							          		<textarea class="form-control reviewContent" rows="6" name="reviewContent" placeholder="내용" required></textarea>
+							          		<div>별점</div>
+							          		<input type="text" class="form-control rating" name="rating" placeholder="" value=""required>
+							          		<div>카테고리</div>
+							          		<input type="hidden" class="form-control productCategory" name="productCategory">
+							          		<input type="text" class="form-control showProductCategory" readonly>
+							          		<div>상품번호</div>
+							          		<input type="text" class="form-control productNo" name="productNo" value="${lesson.lessonNo}" readonly>
+							          		<div>첨부파일</div>
+						          			<div class="fileList-wrap">
+						          			</div>
+											<p>첨부파일 추가</p>
+											<input type="file" name="reviewFile" multiple>
+								        </div>
+								        <div class="modal-footer">
+							          		<button style="float: right;">후기글 등록</button>
+							        	</div>
+							          </fieldset>
+							        </form>
+							      </div>
+							    </div>
+							  </div>
+								
 
 <!-- 별점 후기 영역 끝  -->
 							</div>
@@ -287,6 +419,55 @@
 
 
 	<script type="text/javascript">
+	// review 글쓰기 버튼이벤트
+	$(".review-wrap").hide();
+		$(".reviewBtn").on("click",function(){
+			$(".review-wrap").slideDown();
+			$(this).hide();
+		});
+		
+		$(".reviewEndBtn").on("click",function(){
+			$(".review-wrap").slideUp();
+			$(".reviewBtn").show();
+		});
+	
+	// review 모달 수정	
+	$(".reviewModalBtn").on("click",function(){
+		var reviewNo = $(this).next().val();
+		var reviewTitle = $(this).parent().parent().prev().children().eq(0).text();
+		var reviewWriter = $(this).parent().parent().prev().children().eq(1).text();
+		var reviewContent = $(this).parent().parent().prev().children().eq(2).text();
+		var rating = $(this).parent().parent().prev().children().eq(3).text();
+		var productCategory = $(this).next().next().val();
+		var rfileList =$(this).parent().parent().prev().children().eq(6).children().clone();
+		$(".fileList-wrap").empty();
+		rfileList.each(function(i, f){
+			const fileNo = $(f).children().eq(2).val();
+			const div = $("<div>").addClass("delfile-box");
+			const button = $("<button>").attr("type", "button").attr("onclick", "deleteFile(this, "+fileNo+",)").append("삭제")
+			div.append(f).append(button);
+			$(".fileList-wrap").append(div);
+		})
+		$(".updateReviewNo").val(reviewNo)
+		$(".modal-footer").children().attr("href", "")
+		$(".reviewTitle").val(reviewTitle);
+		$(".reviewWriter").val(reviewWriter);
+		$(".reviewContent").val(reviewContent);
+		$(".rating").val(rating);
+		$(".productCategory").val(productCategory);
+		$(".showProductCategory").val("강습");
+	});
+	
+	// review 파일 삭제
+	function deleteFile(obj,fileNo){
+	   const filepath = $(obj).parent().find("input").val()
+	   const input = $("<input>").attr("name", "delFileList").attr("type", "hidden").val(filepath);
+	   const input2 = $("<input>").attr("name", "fileNo").attr("type", "hidden").val(fileNo);
+	   $(obj).parent().after(input);
+	   $(obj).parent().after(input2);
+	   $(obj).parent().remove();
+	}
+	
 	//url로부터 lessonNo값 알아내기
 		const ltrim = /^\S{0,}lessonNo=/;
 		const currentUrl = window.location.href;
@@ -382,17 +563,43 @@
 		}
 
 
-	// 나의 관심상품
+	// 관심상품 버튼을 눌렀을 때
 		function goWishList(){
 			const lessonNo = $("[name=lessonNo]").val();
 			const lessonStatus = $("[name=lessonStatus]").val();
+			if($("#showWishStatus").prop("checked")){
+				$.ajax({
+					url : "/delistWishList.do",
+					data: {house_no : 0, lesson_no : lessonNo},
+					dataType : "text",
+					success : function(message){
+						if(message=="관심상품에서 제외했습니다."){
+							$("#showWishStatus").prop("checked", false);
+						}else{
+							$("#showWishStatus").prop("checked", true);
+							alert(message);
+						}
+					},
+					error : function(){
+						alert("알 수 없는 오류가 발생했습니다.");
+					}
+				});
+			}else{
 				if(lessonStatus==1){
 					$.ajax({
 						url : "/insertWishList.do",
 						data: {house_no : 0, lesson_no : lessonNo},
 						dataType : "text",
 						success : function(message){
-							alert(message);
+							if(message=="관심상품에 등록했습니다."){
+								$("#showWishStatus").prop("checked", true);
+							}else if(message=="이미 회원님의 관심목록에 추가되어 있는 상품입니다."){
+								$("#showWishStatus").prop("checked", true);
+								alert(message);
+							}else{
+								$("#showWishStatus").prop("checked", false);
+								alert(message);
+							}
 						},
 						error : function(){
 							alert("알 수 없는 오류가 발생했습니다.");
@@ -401,6 +608,24 @@
 				}else{
 					alert("판매중인 상품이 아닙니다.");
 				}
+			}
+		}
+
+
+	// 나의 관심상품에 있는 상품인지 확인 후 관심상품 추가하기에 불 들어오게
+		function refrechWishList(){
+			const lessonNo = $("[name=lessonNo]").val();
+			const lessonStatus = $("[name=lessonStatus]").val();
+				$.ajax({
+					url : "/checkWishStatus.do",
+					data: {house_no : 0, lesson_no : lessonNo},
+					dataType : "text",
+					success : function(message){
+						if(message=="이미 회원님의 관심목록에 추가되어 있는 상품입니다."){
+							$("#showWishStatus").prop("checked", true);
+						}
+					}
+				});
 		}
 
 
@@ -451,6 +676,7 @@
 	// 이 .jsp 페이지를 방문할 때 문의글 첫 페이지 조회로 시작
 		$(document).ready(function() {
 			getInquiries(1, 0);
+			refrechWishList();
 		});
 
 
@@ -469,13 +695,13 @@
 						if(Inquiry.inquiryNo <= 0){
 							alert(Inquiry.inquiryContent);
 						}else{
-							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ansI displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
 							if(Inquiry.answerList.length>0){
 								for(let j=0; j<Inquiry.answerList.length; j++){
-									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
+									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ans").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
 								}
 							}
-							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-inq").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
 						}
 					}
 				});
@@ -484,194 +710,197 @@
 
 
 	// 문의글 등록 폼 제출
-	function insertInquiryAjax(obj){
-		let privately = 0;
-		if($(obj).find("[name=privately]").prop("checked")){
-			privately = 1;
-		}
-		$.ajax({
-			url : "/insertInquiry.do",
-			data: {privately : privately , inquiryTitle : $(obj).find("[name=inquiryTitle]").val() , inquiryContent : $(obj).find("[name=inquiryContent]").val(), productCategory : 1, productNo : $("[name=lessonNo]").val()},
-			dataType : "text",
-			success : function(result){
-				alert(result);
-				$("#writeFormReset").click();
-				$("#writeModalClose").click();
-				getInquiries(1, 0);
+		function insertInquiryAjax(obj){
+			const trimedTitle = $("[name=inquiryTitle]").val().trim().replace(/\s+/g," ");
+			$("[name=inquiryTitle]").val(trimedTitle);
+			
+			let privately = 0;
+			if($(obj).find("[name=privately]").prop("checked")){
+				privately = 1;
 			}
-		});
-	}
+			$.ajax({
+				url : "/insertInquiry.do",
+				data: {privately : privately , inquiryTitle : $(obj).find("[name=inquiryTitle]").val() , inquiryContent : $(obj).find("[name=inquiryContent]").val(), productCategory : 1, productNo : $("[name=lessonNo]").val()},
+				dataType : "text",
+				success : function(result){
+					alert(result);
+					$("#writeFormReset").click();
+					$("#writeModalClose").click();
+					getInquiries(1, 0);
+				}
+			});
+		}
 
 
 	// 문의글 수정 버튼을 눌렀을 때
-	function editInquiryContent(obj){
-		const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
-		$(obj).parent().next().next().next().children().css("display", "none");
-		$(obj).parent().next().next().next().append( $("<textarea>").addClass("form-control").attr("rows", 4).css("width", "100%").val(getContent) );
-		$(obj).parent().next().next().next().append( $("<button>").attr("onclick", "updateInquiry(this)").text("내용 수정") );
-		$(obj).attr("onclick", "cancleEditInquiry(this)");
-		$(obj).text("취소");
-	}
+		function editInquiryContent(obj){
+			const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
+			$(obj).parent().next().next().next().children().css("display", "none");
+			$(obj).parent().next().next().next().append( $("<textarea>").addClass("form-control").attr("rows", 4).css("width", "100%").val(getContent) );
+			$(obj).parent().next().next().next().append( $("<button>").attr("onclick", "updateInquiry(this)").text("내용 수정") );
+			$(obj).attr("onclick", "cancleEditInquiry(this)");
+			$(obj).text("취소");
+		}
 
 
 	// 문의글 내용수정 버튼을 누르면 동작하는 ajax
-	function updateInquiry(obj){
-		$.ajax({
-			url : "/updateInquiry.do",
-			data: {inquiryNo : $(obj).parent().parent().prev().children().eq(1).text(), inquiryContent : $(obj).prev().val()},
-			dataType : "text",
-			success : function(result){
-				alert(result);
-				const target = $(obj).parent().parent().prev().children().eq(3).children().eq(0);
-				target.click();
-				target.click();
-			}
-		});
-	}
+		function updateInquiry(obj){
+			$.ajax({
+				url : "/updateInquiry.do",
+				data: {inquiryNo : $(obj).parent().parent().prev().children().eq(1).text(), inquiryContent : $(obj).prev().val()},
+				dataType : "text",
+				success : function(result){
+					alert(result);
+					const target = $(obj).parent().parent().prev().children().eq(3).children().eq(0);
+					target.click();
+					target.click();
+				}
+			});
+		}
 
 
 	// 문의글 수정 취소 버튼을 눌렀을 때
-	function cancleEditInquiry(obj){
-		$(obj).parent().next().next().next().children().eq(2).remove();
-		$(obj).parent().next().next().next().children().eq(1).remove();
-		$(obj).parent().next().next().next().children().eq(0).css("display", "inline");
-		$(obj).attr("onclick", "editInquiryContent(this)");
-		$(obj).text("수정");
-	}
+		function cancleEditInquiry(obj){
+			$(obj).parent().next().next().next().children().eq(2).remove();
+			$(obj).parent().next().next().next().children().eq(1).remove();
+			$(obj).parent().next().next().next().children().eq(0).css("display", "inline");
+			$(obj).attr("onclick", "editInquiryContent(this)");
+			$(obj).text("수정");
+		}
 
 
 	// 문의글 삭제 버튼을 눌렀을 때
-	function deleteInquiryConfirm(obj){		
-		const inquiryNo = $(obj).parent().parent().prev().children().eq(1).text();
-		if (confirm("정말로 삭제하시겠습니까?") == true) {
-			deleteInquiry(inquiryNo);
+		function deleteInquiryConfirm(obj){		
+			const inquiryNo = $(obj).parent().parent().prev().children().eq(1).text();
+			if (confirm("정말로 삭제하시겠습니까?") == true) {
+				deleteInquiry(inquiryNo);
+			}
 		}
-	}
 
 
 	// 문의글 삭제 버튼을 누르면 동작하는 ajax
-	function deleteInquiry(inquiryNo){
-		$.ajax({
-			url : "/deleteInquiry.do",
-			data: {inquiryNo : inquiryNo},
-			dataType : "text",
-			success : function(result){
-				alert(result);
-				if(result == "문의글을 삭제했습니다."){
-					getInquiries(1, 0);
+		function deleteInquiry(inquiryNo){
+			$.ajax({
+				url : "/deleteInquiry.do",
+				data: {inquiryNo : inquiryNo},
+				dataType : "text",
+				success : function(result){
+					alert(result);
+					if(result == "문의글을 삭제했습니다."){
+						getInquiries(1, 0);
+					}
 				}
-			}
-		});
-	}
+			});
+		}
 
 
 	// 답변 등록 버튼을 누르면 동작하는 ajax
-	function insertAnswer(obj){
-		$.ajax({
-			url : "/insertAnswer.do",
-			data: {inquiryNo : $(obj).parent().parent().prevUntil(".inquiryTr", "tr:last").prev().children().eq(1).text(), answerContent : $(obj).prev().val(), productCategory : 1, productNo : $("[name=lessonNo]").val()},
-			dataType : "text",
-			success : function(result){
-				alert(result);
-				if(result == "답변을 등록했습니다."){
+		function insertAnswer(obj){
+			$.ajax({
+				url : "/insertAnswer.do",
+				data: {inquiryNo : $(obj).parent().parent().prevUntil(".inquiryTr", "tr:last").prev().children().eq(1).text(), answerContent : $(obj).prev().val(), productCategory : 1, productNo : $("[name=lessonNo]").val()},
+				dataType : "text",
+				success : function(result){
+					alert(result);
+					if(result == "답변을 등록했습니다."){
+						const target = $(obj).parent().parent().prevUntil(".inquiryTr", "tr:last").prev().children().eq(3).children().eq(0);
+						target.click();
+						target.click();
+					}
+				}
+			});
+		}
+
+
+	// 답변 수정 버튼을 눌렀을 때
+		function editAnswerContent(obj){
+			const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
+			$(obj).parent().next().next().next().children().css("display", "none");
+			$(obj).parent().next().next().next().append( $("<textarea>").addClass("form-control").attr("rows", 4).css("width", "100%").val(getContent) );
+			$(obj).parent().next().next().next().append( $("<button>").attr("onclick", "updateAnswer(this)").text("내용 수정") );
+			$(obj).attr("onclick", "cancleEditAnswer(this)");
+			$(obj).text("취소");
+		}
+
+
+	// 답변 내용수정 버튼을 누르면 동작하는 ajax
+		function updateAnswer(obj){
+			$.ajax({
+				url : "/updateAnswer.do",
+				data: {answerNo : $(obj).parent().prev().prev().text(), answerContent : $(obj).prev().val()},
+				dataType : "text",
+				success : function(result){
+					alert(result);
 					const target = $(obj).parent().parent().prevUntil(".inquiryTr", "tr:last").prev().children().eq(3).children().eq(0);
 					target.click();
 					target.click();
 				}
-			}
-		});
-	}
-
-
-	// 답변 수정 버튼을 눌렀을 때
-	function editAnswerContent(obj){
-		const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
-		$(obj).parent().next().next().next().children().css("display", "none");
-		$(obj).parent().next().next().next().append( $("<textarea>").addClass("form-control").attr("rows", 4).css("width", "100%").val(getContent) );
-		$(obj).parent().next().next().next().append( $("<button>").attr("onclick", "updateAnswer(this)").text("내용 수정") );
-		$(obj).attr("onclick", "cancleEditAnswer(this)");
-		$(obj).text("취소");
-	}
-
-
-	// 답변 내용수정 버튼을 누르면 동작하는 ajax
-	function updateAnswer(obj){
-		$.ajax({
-			url : "/updateAnswer.do",
-			data: {answerNo : $(obj).parent().prev().prev().text(), answerContent : $(obj).prev().val()},
-			dataType : "text",
-			success : function(result){
-				alert(result);
-				const target = $(obj).parent().parent().prevUntil(".inquiryTr", "tr:last").prev().children().eq(3).children().eq(0);
-				target.click();
-				target.click();
-			}
-		});
-	}
+			});
+		}
 
 
 	// 답변 수정 취소 버튼을 눌렀을 때
-	function cancleEditAnswer(obj){
-		$(obj).parent().next().next().next().children().eq(2).remove();
-		$(obj).parent().next().next().next().children().eq(1).remove();
-		$(obj).parent().next().next().next().children().eq(0).css("display", "inline");
-		$(obj).attr("onclick", "editAnswerContent(this)");
-		$(obj).text("수정");
-	}
+		function cancleEditAnswer(obj){
+			$(obj).parent().next().next().next().children().eq(2).remove();
+			$(obj).parent().next().next().next().children().eq(1).remove();
+			$(obj).parent().next().next().next().children().eq(0).css("display", "inline");
+			$(obj).attr("onclick", "editAnswerContent(this)");
+			$(obj).text("수정");
+		}
 
 
 	// 답변 삭제 버튼을 눌렀을 때
-	function deleteAnswerConfirm(obj){		
-		const answerNo = $(obj).parent().next().text();
-		if (confirm("정말로 삭제하시겠습니까?") == true) {
-			deleteAnswer(answerNo);
+		function deleteAnswerConfirm(obj){		
+			const answerNo = $(obj).parent().next().text();
+			if (confirm("정말로 삭제하시겠습니까?") == true) {
+				deleteAnswer(answerNo);
+			}
 		}
-	}
 
 
 	// 답변 삭제 버튼을 누르면 동작하는 ajax
-	function deleteAnswer(answerNo){
-		$.ajax({
-			url : "/deleteAnswer.do",
-			data: {answerNo : answerNo},
-			dataType : "text",
-			success : function(result){
-				alert(result);
-				if(result == "답변을 삭제했습니다."){
-					getInquiries(1, 0);
+		function deleteAnswer(answerNo){
+			$.ajax({
+				url : "/deleteAnswer.do",
+				data: {answerNo : answerNo},
+				dataType : "text",
+				success : function(result){
+					alert(result);
+					if(result == "답변을 삭제했습니다."){
+						getInquiries(1, 0);
+					}
 				}
-			}
-		});
-	}
+			});
+		}
 
 
 	// 로그인된 회원의 등급에 따라 특정 요소들을 display:none 처리
-	$(document).ready(function(){
-		const stylesheet = document.styleSheets[0];		// 링크된 .css 파일들 중 첫 번째 파일
-		let elementRules;
-	
-		// 관리자(Grade 1) 또는 판매자(Grade 2)가 아닌 경우에만 변경할 css
-		for(let i = 0; i < stylesheet.cssRules.length; i++) {
-			if(stylesheet.cssRules[i].selectorText === '.displayForSeller') {
-			elementRules = stylesheet.cssRules[i];
-			}
-		}
-		if( $(".hiddenMemberGrade").val()==1 || $(".hiddenMemberGrade").val()==2 ){
-		}else{
-			elementRules.style.setProperty('display', 'none');
-		}
-
-		// 관리자(Grade 1) 또는 일반회원(Grade 3)가 아닌 경우에만 변경할 css
-		for(let i = 0; i < stylesheet.cssRules.length; i++) {
-			if(stylesheet.cssRules[i].selectorText === '.displayForGeneralMember') {
+		$(document).ready(function(){
+			const stylesheet = document.styleSheets[0];		// 링크된 .css 파일들 중 첫 번째 파일
+			let elementRules;
+		
+			// 관리자(Grade 1) 또는 판매자(Grade 2)가 아닌 경우에만 변경할 css
+			for(let i = 0; i < stylesheet.cssRules.length; i++) {
+				if(stylesheet.cssRules[i].selectorText === '.displayForSeller') {
 				elementRules = stylesheet.cssRules[i];
+				}
 			}
-		}
-		if( $(".hiddenMemberGrade").val()==1 || $(".hiddenMemberGrade").val()==3 ){
-		}else{
-			elementRules.style.setProperty('display', 'none');
-		}
-	});
+			if( $(".hiddenMemberGrade").val()==1 || $(".hiddenMemberGrade").val()==2 ){
+			}else{
+				elementRules.style.setProperty('display', 'none');
+			}
+			
+			// 관리자(Grade 1) 또는 일반회원(Grade 3)가 아닌 경우에만 변경할 css
+			for(let i = 0; i < stylesheet.cssRules.length; i++) {
+				if(stylesheet.cssRules[i].selectorText === '.displayForGeneralMember') {
+					elementRules = stylesheet.cssRules[i];
+				}
+			}
+			if( $(".hiddenMemberGrade").val()==1 || $(".hiddenMemberGrade").val()==3 ){
+			}else{
+				elementRules.style.setProperty('display', 'none');
+			}
+		});
 	</script>
 
 </body>

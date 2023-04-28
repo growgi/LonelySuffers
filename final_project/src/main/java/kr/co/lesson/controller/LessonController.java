@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,8 @@ import kr.co.lesson.model.vo.LessonBook;
 import kr.co.lesson.model.vo.LessonListing;
 import kr.co.lesson.model.vo.LessonPagination;
 import kr.co.member.model.vo.Member;
+import kr.co.review.model.service.ReviewService;
+import kr.co.review.model.vo.Review;
 
 @Controller
 public class LessonController {
@@ -29,6 +32,8 @@ public class LessonController {
 	private LessonService service;
 	@Autowired
 	private ProductFileNumbering fileManager;
+	@Autowired
+	private ReviewService rservice;
 
 
 
@@ -36,6 +41,9 @@ public class LessonController {
 	@RequestMapping(value="/lessonView.do")
 	public String lessonView(int lessonNo, Model model) {
 		Lesson l = service.selectOneLesson(lessonNo);
+		//review 리스트 받아오는 코드
+		ArrayList<Review> list = rservice.selectAllReview(lessonNo);
+		model.addAttribute("list", list);
 		model.addAttribute("lesson", l);
 		return "product/lessonDetail";
 	}
@@ -51,6 +59,18 @@ public class LessonController {
 		Gson gson = new Gson();
 		String result = gson.toJson(l);
 		return result;
+	}
+
+
+
+// summernote 편집기로 본문에 파일 첨부하기 ajax
+	@ResponseBody
+	@RequestMapping(value="/attachLessonDescriptionImage.do", produces = "application/json;charset=utf-8")
+	public String attachImage(@RequestParam("file") MultipartFile uploadFile, HttpServletRequest request) {
+        String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/editor/lesson/");
+        String filepath = fileManager.upload(savePath, uploadFile);
+        String getPath = "resources/upload/editor/lesson/"+filepath;
+		return new Gson().toJson(getPath);
 	}
 
 

@@ -104,11 +104,11 @@
                                 			</c:otherwise>
                                 		</c:choose>
                                 		</td>
-										<td><a href="#">${h.houseTitle }</a></td>
+										<td><a href="/houseView.do?houseNo=${h.houseNo }">${h.houseTitle }</a></td>
 										<td>${h.writer }</td>
 										<td>${h.roomTitle }</td>
 										<td>${h.houseCity }</td>
-										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
+										<td><a href="/houseView.do?houseNo=${h.houseNo }" class="btn-r bc5">신청서 확인</a></td>
 										<td>
 											<button class="approveProduct btn-s bc1">승인</button>
 											<input type="hidden" value="${h.houseNo }" name="productNo">

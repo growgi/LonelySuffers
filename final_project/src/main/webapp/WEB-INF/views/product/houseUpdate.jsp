@@ -21,12 +21,19 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
+<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 <style>
 .previewImg {
 	width: 100%;
 }
 input[type="number"], input[type="time"] {
 	text-align: right;
+}
+.nav-item:hover {
+	cursor: not-allowed;
+}
+.nav-link:hover {
+	cursor: not-allowed;
 }
 </style>
 </head>
@@ -36,7 +43,7 @@ input[type="number"], input[type="time"] {
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 
-	<form action="/updateHouse.do" method="post" enctype="multipart/form-data"><fieldset>
+	<form action="/updateHouse.do" onsubmit="return triming();" method="post" enctype="multipart/form-data"><fieldset>
 		<section class="section nopad lb">
 			<div class="container">
 				<div class="row">
@@ -168,7 +175,7 @@ input[type="number"], input[type="time"] {
 							<div class="row">
 						<c:choose>
 							<c:when test="${house.houseStatus < 0 }">
-								<h1 style="padding-bottom: 40px;"><input style="font-size: 36px;" type="text" class="form-control input-lg" name="houseTitle" value="${house.houseTitle }" placeholder="한글 최대 20자" required></h1>
+								<h1 style="padding-bottom: 40px;"><input style="font-size: 36px;" type="text" class="form-control input-lg" name="houseTitle" value="${house.houseTitle }" maxlength="60" placeholder="한글 최대 20자" required></h1>
 							</c:when>
 							<c:otherwise>
 								<h1 style="padding-bottom: 40px;">${house.houseTitle }</h1>
@@ -188,7 +195,7 @@ input[type="number"], input[type="time"] {
 								<div class="col-md-10">
 								<c:choose>
 									<c:when test="${house.houseStatus < 0 }">
-										<input type="text" class="form-control" name="houseAddress" value="${house.houseAddress }" required>
+										<input type="text" class="form-control" name="houseAddress" value="${house.houseAddress }" maxlength="300" required>
 									</c:when>
 									<c:otherwise>
 										${house.houseAddress }
@@ -261,7 +268,7 @@ input[type="number"], input[type="time"] {
 							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
 						<c:choose>
 							<c:when test="${house.houseStatus <= 0 }">
-								<textarea class="form-control" rows="4" name="houseDescription" placeholder="한글 최대 1000자" required>${house.houseDescription}</textarea>
+								<textarea id="summernote" name="houseDescription" maxlength="3000">${house.houseDescription}</textarea>
 							</c:when>
 							<c:otherwise>
 								${house.getHouseDescriptionBr()}
@@ -270,12 +277,9 @@ input[type="number"], input[type="time"] {
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="panel panel-default">
-							<div class="panel-body" style="height: 600px; overflow: clip">광고 등 배너 영역<br>높이 600px을 넘는 사진은 종횡비는 고정하되 아래쪽을 잘라서 출력됨</div>
-						</div>
-					</div>
 				</div><!-- end row -->
+				<hr class="invis2">
+				<button type="submit" class="btn btn-danger" style="font-size: 18px; padding: 12px 40px;">상품 정보 수정</button>
 			</div><!-- end container -->
 		</section><!-- end section -->
 <!-- 상품 정보 표시 끝 -->
@@ -293,50 +297,120 @@ input[type="number"], input[type="time"] {
 	<script src="resources/js/animate.js"></script>
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
 
 
 
 	<script type="text/javascript">
-// 첨부된 이미지 업로드 전 미리보기
-	$("[type=file]").on("change",function(){
-		const attached = $(this);
-		const reader = new FileReader();
-		reader.onload = function(){
-			attached.prev().children().eq(0).css("display", "none");
-			attached.prev().children().eq(1).remove();
-			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
+	// 첨부된 이미지 업로드 전 미리보기
+		$("[type=file]").on("change",function(){
+			const attached = $(this);
+			const reader = new FileReader();
+			reader.onload = function(){
+				attached.prev().children().eq(0).css("display", "none");
+				attached.prev().children().eq(1).remove();
+				attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
+			}
+			reader.readAsDataURL(attached[0].files[0]);
+		});
+
+
+
+	// 미리보기 이미지를 클릭하면, input의 value를 비움
+		function getRidOf(obj){
+			$(obj).prev().css("display", "block");
+			$(obj).parent().next().val("");
+			$(obj).remove();
 		}
-		reader.readAsDataURL(attached[0].files[0]);
-	});
 
 
 
-// 미리보기 이미지를 클릭하면, input의 value를 비움
-	function getRidOf(obj){
-		$(obj).prev().css("display", "block");
-		$(obj).parent().next().val("");
-		$(obj).remove();
-	}
+	// 바베큐 옵션 유무에 따라 가격입력란 활성/비활성화
+		$("[name=houseBarbecue]").on("change", function(){
+			if($(this).prop("checked")){
+				$("[name=houseBarbecuePrice]").prop("disabled", false);
+			}else{
+				$("[name=houseBarbecuePrice]").prop("disabled", true);
+			}
+		});
+
+	// 파티 옵션 유무에 따라 가격입력란 활성/비활성화
+		$("[name=houseParty]").on("change", function(){
+			if($(this).prop("checked")){
+				$("[name=housePartyPrice]").prop("disabled", false);
+			}else{
+				$("[name=housePartyPrice]").prop("disabled", true);
+			}
+		});
+
+
+	
+	// summernote 불러오기
+		$('#summernote').summernote({
+			  width: 880,
+			  height: 800,
+			  minHeight: null,
+			  maxHeight: null,
+			  focus: false,
+			  lang: "ko-KR",
+				callbacks: {
+					onImageUpload: function(files){
+						uploadDescriptionImage(files[0], this);
+					}
+				},
+			  placeholder: '한글 기준 최대 1000자',
+				  toolbar: [
+					    ['fontname', ['fontname']],
+					    ['fontsize', ['fontsize']],
+					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+					    ['color', ['forecolor','color']],
+					    ['table', ['table']],
+					    ['insert', ['link', 'picture']],
+					    ['height', ['height']],
+					    ['view', ['help']]
+					  ]
+		});
 
 
 
-// 바베큐 옵션 유무에 따라 가격입력란 활성/비활성화
-	$("[name=houseBarbecue]").on("change", function(){
-		if($(this).prop("checked")){
-			$("[name=houseBarbecuePrice]").prop("disabled", false);
-		}else{
-			$("[name=houseBarbecuePrice]").prop("disabled", true);
+	// summernote 편집기로 본문에 사진을 첨부시키는 함수
+		function uploadDescriptionImage(file, editor){
+			
+			const form = new FormData();
+			form.append("file", file);
+			$.ajax({
+				url: "/attachHouseDescriptionImage.do",
+				type: "post",
+				data: form,
+				dataType : "json",
+				processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+				contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+				enctype : "multipart/form-data",
+				success: function(data){
+					$(editor).summernote("insertImage",data);
+				}
+			});
 		}
-	});
 
-// 파티 옵션 유무에 따라 가격입력란 활성/비활성화
-	$("[name=houseParty]").on("change", function(){
-		if($(this).prop("checked")){
-			$("[name=housePartyPrice]").prop("disabled", false);
-		}else{
-			$("[name=housePartyPrice]").prop("disabled", true);
+
+
+	// submit 시 동작되는 함수. 제목들을 trim 후 form action
+		function triming(){
+			if($("[name=houseDescription]").length>0){
+				if($(".note-editable").html().length < 12){
+					alert("상품 설명을 작성하셔야 합니다.");
+					return false;
+				}
+			}
+			
+			if($("[name=houseTitle]").length>0){
+				const trimedHouseTitle = $("[name=houseTitle]").val().trim().replace(/\s+/g," ");
+				$("[name=houseTitle]").val(trimedHouseTitle);
+			}
+			return true;
 		}
-	});
 	</script>
 
 </body>

@@ -2387,7 +2387,6 @@ SERVICES & CASE
     padding: 10px;
     overflow: hidden;
     position: relative;
-    background-color: #151515;
 }
 
 .owl-theme .owl-nav [class*="owl-"] {
@@ -2521,7 +2520,6 @@ SERVICES & CASE
 
 .lightcasestudies .case-box:hover {
     border: 1px solid #ededed;
-    background: #ffffff !important
 }
 
 .service-box {
@@ -3205,7 +3203,6 @@ mark,
 .pagination > .active > span:hover,
 .contact-details li i,
 .calculateform .btn,
-.case-box:hover,
 .section-title hr,
 .footer.primary-footer,
 .btn-primary,

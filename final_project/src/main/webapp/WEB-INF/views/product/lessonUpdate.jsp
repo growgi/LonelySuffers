@@ -21,20 +21,26 @@
 
 <link rel="stylesheet" type="text/css" href="resources/css/product.css">
 <link rel="stylesheet" type="text/css" href="resources/css/daterangepicker.css">
+<link rel="stylesheet" href="/resources/summernote/summernote-lite.css">
 <style>
 input[type="number"], input[type="time"] {
 	text-align: right;
 }
+.nav-item:hover {
+	cursor: not-allowed;
+}
+.nav-link:hover {
+	cursor: not-allowed;
+}
 </style>
 </head>
-
 
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 
-	<form action="/updateLesson.do" method="post" enctype="multipart/form-data"><fieldset>
+	<form action="/updateLesson.do" onsubmit="return triming();" method="post" enctype="multipart/form-data"><fieldset>
 		<section class="section nopad lb">
 			<div class="container">
 				<div class="row">
@@ -88,14 +94,14 @@ input[type="number"], input[type="time"] {
 					<div class="col-md-6 product-detail">
 						<input type="hidden" name="lessonNo" value="${lesson.lessonNo }">
 						<div class="row">
-							<div class="col-md-7"><input type="text" name="lessonTeacher" value="${lesson.lessonTeacher }" placeholder="한글 최대 6자" required> 강사</div>
+							<div class="col-md-7"><input type="text" name="lessonTeacher" value="${lesson.lessonTeacher }" maxlength="20" placeholder="한글 최대 6자" required> 강사</div>
 							<div class="col-md-5" style="text-align: right;">정원: <input type="number" name="lessonMaxNo" value="${lesson.lessonMaxNo }" min="1" max="100" placeholder="1~100" required>명</div>
 						</div>
 							<hr>
 							<div class="row">
 							<c:choose>
 								<c:when test="${lesson.lessonStatus < 0 }">
-									<h1 style="padding-bottom: 40px;"><input style="font-size: 36px;" type="text" class="form-control input-lg" name="lessonTitle" value="${lesson.lessonTitle }" placeholder="한글 최대 20자" required></h1>
+									<h1 style="padding-bottom: 40px;"><input style="font-size: 36px;" type="text" class="form-control input-lg" name="lessonTitle" value="${lesson.lessonTitle }" maxlength="60" placeholder="한글 최대 20자" required></h1>
 								</c:when>
 								<c:otherwise>
 									<h1 style="padding-bottom: 40px;">${lesson.lessonTitle }</h1>
@@ -150,15 +156,6 @@ input[type="number"], input[type="time"] {
 										</c:otherwise>
 									</c:choose>
 									</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-3">
-									판매량 ()숫자
-								</div>
-								<div class="col-md-1"></div>
-								<div class="col-md-5">
-									별평점넣을자리
 								</div>
 							</div>
 							<div class="row">
@@ -220,10 +217,10 @@ input[type="number"], input[type="time"] {
 									<a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
+									<a class="nav-link">상품평</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
+									<a class="nav-link">상품문의</a>
 								</li>
 							</ul>
 						</div>
@@ -231,25 +228,18 @@ input[type="number"], input[type="time"] {
 							<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab">
 						<c:choose>
 							<c:when test="${lesson.lessonStatus <= 0 }">
-								<textarea class="form-control" rows="4" name="lessonInfo" placeholder="한글 최대 1000자" required>${lesson.lessonInfo}</textarea>
+								<textarea id="summernote" name="lessonInfo" maxlength="3000">${lesson.lessonInfo}</textarea>
 							</c:when>
 							<c:otherwise>
 								${lesson.getLessonInfoBr()}
 							</c:otherwise>
 						</c:choose>
-								</div>
-							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-								상품 평 div</div>
-							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-								상품 문의 div</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="panel panel-default">
-							<div class="panel-body" style="height: 600px; overflow: clip">광고 등 배너 영역<br>높이 600px을 넘는 사진은 종횡비는 고정하되 아래쪽을 잘라서 출력됨</div>
+							</div>
 						</div>
 					</div>
 				</div><!-- end row -->
+				<hr class="invis2">
+				<button type="submit" class="btn btn-danger" style="font-size: 18px; padding: 12px 40px;">상품 정보 수정</button>
 			</div><!-- end container -->
 		</section><!-- end section -->
 <!-- 상품 정보 표시 끝 -->
@@ -268,21 +258,24 @@ input[type="number"], input[type="time"] {
 	<script src="resources/js/custom.js"></script>
 	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	<script src="resources/js/moment.min.js"></script>
+	<script src="/resources/summernote/summernote-lite.js"></script>
+	<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+	
 
 
 
 	<script type="text/javascript">
-// 첨부된 이미지 업로드 전 미리보기
-	$("[type=file]").on("change",function(){
-		const attached = $(this);
-		const reader = new FileReader();
-		reader.onload = function(){
-			attached.prev().children().eq(0).css("display", "none");
-			attached.prev().children().eq(1).remove();
-			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
-		}
-		reader.readAsDataURL(attached[0].files[0]);
-	});
+	// 첨부된 이미지 업로드 전 미리보기
+		$("[type=file]").on("change",function(){
+			const attached = $(this);
+			const reader = new FileReader();
+			reader.onload = function(){
+				attached.prev().children().eq(0).css("display", "none");
+				attached.prev().children().eq(1).remove();
+				attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
+			}
+			reader.readAsDataURL(attached[0].files[0]);
+		});
 
 
 
@@ -294,26 +287,96 @@ input[type="number"], input[type="time"] {
 		}
 
 
-	
-// name이 lessonCity인 select 태그의 option에 selected 속성을 자동으로 부여
-	$(document).ready(function(){
-		const lessonCityVal = $("#lookupLessonCity").text();
-		for(let i=0; i<$("[name=lessonCity]").children().length; i++){
-			if(lessonCityVal== $("[name=lessonCity]").children().eq(i).val()){
-				$("[name=lessonCity]").children().eq(i).attr("selected", true);
-				break;
+
+	// name이 lessonCity인 select 태그의 option에 selected 속성을 자동으로 부여
+		$(document).ready(function(){
+			const lessonCityVal = $("#lookupLessonCity").text();
+			for(let i=0; i<$("[name=lessonCity]").children().length; i++){
+				if(lessonCityVal== $("[name=lessonCity]").children().eq(i).val()){
+					$("[name=lessonCity]").children().eq(i).attr("selected", true);
+					break;
+				}
 			}
+		});
+
+
+
+	// 강습 소요시간 계산
+		const lessonTimeLength = moment($("[name=lessonEndTime]").val(), "HH:mm").diff(moment($("[name=lessonStartTime]").val(), "HH:mm"), "minutes");
+	// 시작 시각이 변경될 때마다 종료 시각 자동 입력 
+		$("[name=lessonStartTime]").on("change", function(){
+			const newEndTime = moment($("[name=lessonStartTime]").val(), "HH:mm").add(lessonTimeLength, "minutes").format("HH:mm");
+			$("[name=lessonEndTime]").attr("value", newEndTime);
+		});
+
+
+	
+	// summernote 불러오기
+		$('#summernote').summernote({
+			  width: 880,
+			  height: 800,
+			  minHeight: null,
+			  maxHeight: null,
+			  focus: false,
+			  lang: "ko-KR",
+				callbacks: {
+					onImageUpload: function(files){
+						uploadDescriptionImage(files[0], this);
+					}
+				},
+			  placeholder: '한글 기준 최대 1000자',
+			  toolbar: [
+				    ['fontname', ['fontname']],
+				    ['fontsize', ['fontsize']],
+				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+				    ['color', ['forecolor','color']],
+				    ['table', ['table']],
+				    ['insert', ['link', 'picture']],
+				    ['height', ['height']],
+				    ['view', ['help']]
+				  ]
+		});
+
+
+
+	// summernote 편집기로 본문에 사진을 첨부시키는 함수
+		function uploadDescriptionImage(file, editor){
+			
+			const form = new FormData();
+			form.append("file", file);
+			$.ajax({
+				url: "/attachLessonDescriptionImage.do",
+				type: "post",
+				data: form,
+				dataType : "json",
+				processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+				contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+				enctype : "multipart/form-data",
+				success: function(data){
+					$(editor).summernote("insertImage",data);
+				}
+			});
 		}
-	});
 
 
-// 강습 소요시간 계산
-	const lessonTimeLength = moment($("[name=lessonEndTime]").val(), "HH:mm").diff(moment($("[name=lessonStartTime]").val(), "HH:mm"), "minutes");
-// 시작 시각이 변경될 때마다 종료 시각 자동 입력 
-	$("[name=lessonStartTime]").on("change", function(){
-		const newEndTime = moment($("[name=lessonStartTime]").val(), "HH:mm").add(lessonTimeLength, "minutes").format("HH:mm");
-		$("[name=lessonEndTime]").attr("value", newEndTime);
-	});
+
+	// submit 시 동작되는 함수. 제목들을 trim 후 form action
+		function triming(){
+			if($("[name=lessonInfo]").val().length>0){
+				if($(".note-editable").html().length < 12){
+					alert("상품 설명을 작성하셔야 합니다.");
+					return false;
+				}
+			}
+			
+			const trimedTeacher = $("[name=lessonTeacher]").val().trim().replace(/\s+/g," ");
+			$("[name=lessonTeacher]").val(trimedTeacher);
+			if($("[name=lessonTitle]").length>0){
+				const trimedLessonTitle = $("[name=lessonTitle]").val().trim().replace(/\s+/g," ");
+				$("[name=lessonTitle]").val(trimedLessonTitle);
+			}
+			return true;
+		}
 	</script>
 
 </body>
