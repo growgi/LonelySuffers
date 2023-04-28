@@ -131,7 +131,7 @@
 				<div class="row">
 					<div class="wrapper" style="border-radius: 20px;">
 						<div
-							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;">${list[0].driverName }님, 탑승
+							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;"><span id="driverName"></span>님, 탑승
 							신청을 보내온 카풀 목록입니다.</div>
 						<div class="big-wrapper">
 							<c:forEach items="${list}" var="c">
@@ -141,7 +141,8 @@
 									<div class="head-info"
 										style="text-align: center; background-color: #FFDEB4; padding: 10px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
 										<h3 style=>${c.departureDate }(${c.returnTimeRange })</h3>
-										<h3>탑승인원/모집인원 : ${c.reserved }/${c.capacity }명</h3>
+										<h3>탑승인원/모집인원 : <span class="reserved">${c.reserved }</span>/${c.capacity }명</h3>
+										<input type="hidden" name="substract" value=${c.capacity - c.reserved}>
 									</div>
 									<c:forEach items="${c.passengerList }" var='p'>
 										<table
@@ -272,8 +273,7 @@
 		function decides(obj) {
 			const matchNo = Number($(obj).parent().children().eq(0).val()); //input에 matchNo라는 키값을 넣어 보내줘야한다. 
 			console.log("매치넘버jsp페이지 matchNo: " + matchNo, $(obj).val());
-			$
-					.ajax({
+			$.ajax({
 						url : "/driverDecide.do",
 						type : "post",
 						data : {
@@ -282,24 +282,74 @@
 						},
 						dataType: "json",
 						success : function(decision) {
+							const wrapper = $(obj).parents(".wrapper").eq(0);
 							if (decision == "error") {
 								alert("실패햇닷");
 							} else {
-								//한번 버튼 선택하면 버튼 비활성화 
-								$(obj).parent().children().prop("disabled",true);
-								$(obj).parent().children().css("cursor","now-allowed");
-
-								//내가 선택한거에 따라서 메세지 바뀌게 해준다. 페이지를 새로고침해도 남아있다. 
-								if($(obj).text()=="수락"){
+								
+								if(decision.result == 1){
+									
+									//한번 버튼 선택하면 버튼 비활성화 
+									$(obj).parent().children().prop("disabled",true);
+									$(obj).parent().children().css("cursor","now-allowed");
+	
+									//내가 선택한거에 따라서 메세지 바뀌게 해준다. 페이지를 새로고침해도 남아있다. 
+									
+									//정원에 자리가 한 자리 남았을 때, 수락을 누르면 마감, 삭제 버튼 사라지고 정원이 다 찼습니다 메세지 나온다. 
+									if($(obj).text()=="수락"){
+										if($(obj).parentsUntil(".wrapper").find("[name=substract]").val()==1){
+						/* 해당되는 하나만 바뀌는게 아니라 wrapper 클래스 모두가 '정원이 다 찼습니다'로 바뀜 		*/	
+											$(obj).parents(".wrapper").eq(0).find(".buttons").empty();
+											$(obj).parents(".wrapper").eq(0).find(".buttons").text("정원이 다 찼습니다.");
+										}
+										$(obj).parent().parent().parent().parent()
+												.prev().children().next().text("매칭을 수락하셨습니다.");
+										$(obj).parent().parent().parent().parent()
+										.prev().prev().prev().prev().prev().children().next().text(decision.p.passengerPhone);
+										$(obj).parent().parent().parent().parent()
+										.prev().prev().prev().prev().children().next().text(decision.p.passengerEmail);
+										const reserved = wrapper.find(".reserved");
+										reserved.text(Number(reserved.text())+1);
+									}else{
+										$(obj).parent().parent().parent().parent()
+												.prev().children().next().text(	"매칭을 거부하셨습니다.");
+									}
+								}else{
+									//한번 버튼 선택하면 버튼 비활성화 
+									$(obj).parent().children().prop("disabled",true);
+									$(obj).parent().children().css("cursor","now-allowed");
+									//한번 버튼 선택하면 버튼 비활성화 
+									$(obj).parent().children().prop("disabled",true);
+									$(obj).parent().children().css("cursor","now-allowed");
+									
+									if($(obj).parentsUntil(".wrapper").find("[name=substract]").val()==1){
+					/* 해당되는 하나만 바뀌는게 아니라 wrapper 클래스 모두가 '정원이 다 찼습니다'로 바뀜 		*/	
+										$(obj).parents(".wrapper").eq(0).find(".buttons").empty();
+										$(obj).parents(".wrapper").eq(0).find(".buttons").text("정원이 다 찼습니다.");
+									}
 									$(obj).parent().parent().parent().parent()
 											.prev().children().next().text("매칭을 수락하셨습니다.");
 									$(obj).parent().parent().parent().parent()
-									.prev().prev().prev().prev().prev().children().next().text(decision.passengerPhone);
+									.prev().prev().prev().prev().prev().children().next().text(decision.p.passengerPhone);
 									$(obj).parent().parent().parent().parent()
-									.prev().prev().prev().prev().children().next().text(decision.passengerEmail);
-								}else{
-									$(obj).parent().parent().parent().parent()
-											.prev().children().next().text(	"매칭을 거부하셨습니다.");
+									.prev().prev().prev().prev().children().next().text(decision.p.passengerEmail);
+									
+									
+									
+									
+									const rejectBtn = wrapper.find(".reject:enabled");
+									console.log(rejectBtn);
+									rejectBtn.click();
+									
+									const reserved = wrapper.find(".reserved");
+									reserved.text(Number(reserved.text())+1);
+									const buttons = wrapper.find(".buttons");
+									buttons.empty();
+									const div = $("<div>");
+									div.text("이거마감됨");
+									buttons.append(div);
+									
+									
 								}
 							}
 						},
@@ -351,7 +401,10 @@
 					alert("closeit 에러났습니다")
 				}
 			});
-		}
+		};
+		
+		//header에서 hidden된 input으로 가져온 값.
+		$("#driverName").text($("[name=memberName]").val());
 		
 		
 	</script>

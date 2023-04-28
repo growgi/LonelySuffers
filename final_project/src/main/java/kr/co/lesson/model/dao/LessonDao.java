@@ -77,6 +77,7 @@ public class LessonDao {
 
 
 	public int lessonBookInsert(LessonBook lb) {
+		System.out.println("lessonDao"+lb);
 		return sqlSession.insert("lb.insertLessonBook",lb);
 	}
 }
