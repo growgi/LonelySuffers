@@ -223,7 +223,7 @@
 <!-- 별점 후기 영역 시작  -->
 							<!--별점 & 후기 작성부분  -->
 							<c:if test="${sessionScope.m.memberGrade == 3}">
-								<button class="reviewBtn button-74" style="margin-top: 20px;">후기 작성하기</button>
+								<button class="Btn reviewBtn button-74" style="margin-top: 20px;">후기 작성하기</button>
 							</c:if>	
 							<div class="review-wrap" style="margin-top: 20px;">
 							<form action="/reviewWriteFrm.do" method="post" enctype="multipart/form-data">
@@ -257,7 +257,7 @@
 							<input type="hidden" name="productNo" value="${house.houseNo}">
 							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
 							<button class="button-74" type="submit">후기작성</button>
-							<button class="button-74" type="button" class="reviewEndBtn">취소</button>
+							<button class="reviewEndBtn button-74" type="button">취소</button>
 							
 							</form>
 							</div>
@@ -281,7 +281,7 @@
 										<td>${review.reviewContent }</td>
 										<td>${review.rating }</td>
 										<c:choose>
-											<c:when test="${review.productCategory ==2 }">
+											<c:when test="${review.productCategory == 2 }">
 													<td>숙박</td>
 											</c:when>
 										</c:choose>
