@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,11 +65,11 @@
 				<div class="sales-amount">
 					<div class="total-sales-amount">
 						<div class="title-bold">총 판매금액</div>
-						<div class="bold-l"><span class="bold-l" style="color:#ecb534">${dInfo.totalSalesAmount }</span>원</div>
+						<div class="bold-l"><span class="bold-l" style="color:#ecb534"><fmt:formatNumber value="${dInfo.totalSalesAmount }" pattern="#,###" /></span>원</div>
 					</div>
 					<div class="today-sales-amount">
 						<div class="title-bold">오늘의 상품 판매금액</div>
-						<div class="bold-l"><span class="bold-l" style="color:#19A7CE">${dInfo.todaySalesAmount }</span>원</div>
+						<div class="bold-l"><span class="bold-l" style="color:#19A7CE"><fmt:formatNumber value="${dInfo.todaySalesAmount }" pattern="#,###" /></span>원</div>
 					</div>
 					<div class="logo">
 						<div class="waveEffect">
@@ -79,34 +80,34 @@
 			</div>
 			
 			<div class="dashboard-2nd">
-				<div class="member-count">
+				<a href="/memberList.do?reqPage=1" class="member-count">
 					<div>
 						<div class="title-bold">회원</div>
 						<div class="material-symbols-outlined product-icon">group</div>
 					</div>	
 					<div class="bold-m">${dInfo.memberCount }</div>
-				</div>
-				<div class="lesson-count">
+				</a>
+				<a href="/productListLesson.do?reqPage=1" class="lesson-count">
 					<div>
 						<div class="title-bold">강습</div>
 						<div class="material-symbols-outlined product-icon">surfing</div>
 					</div>	
 					<div class="bold-m">${dInfo.lessonCount }</div>
-				</div>
-				<div class="house-count">
+				</a>
+				<a href="/productListHouse.do?reqPage=1" class="house-count">
 					<div>
 						<div class="title-bold">숙박</div>
 						<div class="material-symbols-outlined product-icon">apartment</div>
 					</div>
 					<div class="bold-m">${dInfo.houseCount }</div>
-				</div>
-				<div class="carfool-count">
+				</a>
+				<a href="/carpoolList.do?reqPage=1" class="carfool-count">
 					<div>
 						<div class="title-bold">카풀</div>
 						<div class="material-symbols-outlined product-icon">directions_car</div>
 					</div>
 					<div class="bold-m">${dInfo.carpoolRecruitingCount }</div>
-				</div>
+				</a>
 			</div>
 
 			<div class="dashboard-3rd">
@@ -150,7 +151,7 @@
 					<table>
 						<tr>
 							<th>종류</th>
-							<th>상품명</th>
+							<th style="width:40%;">상품명</th>
 							<th>판매자</th>
 							<th>지역</th>
 							<th>상품 상태</th>
@@ -161,11 +162,20 @@
 							<td>${p.productTitle }</td>
 							<td>${p.productWriter}</td>
 							<td>${p.productCity}</td>
-							<td>${p.productStatus}</td>
+							<td style="color:#19A7CE; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+							<c:choose>
+								<c:when test="${p.productStatus == 1}">
+									판매중
+								</c:when>
+								<c:when test="${p.productStatus == 0}">
+									판매중지
+								</c:when>
+							</c:choose>
+							</td>
 						</tr>
 						</c:forEach>
 					</table>
-					<a href="#" class="btn-l bc1" style="width: 95%;">전체 상품 목록 보기</a>
+					<a href="/productListAll.do?reqPage=1" class="btn-l bc1" style="width: 97%;">전체 상품 목록 보기</a>
 				</div>
 				<div class="new-member">
 					<div class="title-bold">신규 회원</div>
@@ -178,7 +188,7 @@
 						</div>
 					</div>
 					</c:forEach>
-					<a href="#" class="btn-l bc1" style="width:89%;">전체 회원 목록 보기</a>
+					<a href="/memberList.do?reqPage=1" class="btn-l bc1" style="width:91%;">전체 회원 목록 보기</a>
 				</div>
 			</div>
 
@@ -194,7 +204,7 @@
 						</div>
 					</div>
 					</c:forEach>
-					<a href="#" class="btn-l bc1" style="width:89%;">전체 카풀 게시글 목록 보기</a>
+					<a href="/carpoolList.do?reqPage=1" class="btn-l bc1" style="width:91%;">전체 카풀 게시글 목록 보기</a>
 				</div>
 				<div class="sales-amount-graph">
 					<div class="title-bold">상품 판매금액 추이</div>
@@ -351,7 +361,7 @@
             .getElementById('visitantGraph')
             .getContext('2d');
         var visitantGraph = new Chart(context, {
-            type: 'bar', // 차트의 형태
+            type: 'line', // 차트의 형태
             data: { // 차트에 들어갈 데이터
                 labels: [
                     //x 축
@@ -377,6 +387,10 @@
                 ]
             },
             options: {
+            	hover: {
+					mode: 'nearest',
+					intersect: true
+				},
                 scales: {
                     yAxes: [
                         {
@@ -410,12 +424,12 @@
 					],
 					backgroundColor: [
 						//색상
-						'rgba(236,181,52,0.3)',
+						'rgba(255,117,117,0.3)',
 						'rgba(25,167,206,0.3)'
 					],
 					borderColor: [
 						//경계선 색상
-						'rgba(236,181,52,1)',
+						'rgba(255,117,117,1)',
 						'rgba(25,167,206,1)'
 					],
 					borderWidth: 1 //경계선 굵기

@@ -142,10 +142,28 @@
                                 			</c:otherwise>
                                 		</c:choose>
                                 		</td>
-										<td><a href="#">${n.productTitle }</a></td>
+										<td>
+										<c:choose>
+	                                		<c:when test="${n.productType == '강습'}">
+	                                			<a href="/lessonView.do?lessonNo=${n.productNo }">${n.productTitle }</a>
+	                                		</c:when>
+	                                		<c:when test="${n.productType == '숙박'}">
+	                                			<a href="/houseView.do?houseNo=${n.productNo }">${n.productTitle }</a>
+	                                		</c:when>
+	                                	</c:choose>
+										</td>
 										<td>${n.productWriter }</td>
 										<td>${n.productCity }</td>
-										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
+										<td>
+										<c:choose>
+	                                		<c:when test="${n.productType == '강습'}">
+	                                			<a href="/lessonView.do?lessonNo=${n.productNo }" class="btn-r bc5">신청서 확인</a>
+	                                		</c:when>
+	                                		<c:when test="${n.productType == '숙박'}">
+	                                			<a href="/houseView.do?houseNo=${n.productNo }" class="btn-r bc5">신청서 확인</a>
+	                                		</c:when>
+	                                	</c:choose>
+										</td>
 										<td>
 											<button class="btn-s bc1" id="approve-btn" target="#approve-modal">승인</button>
 											<input type="hidden" value="${n.productNo }" name="productNo">

@@ -7,7 +7,7 @@
     border: 2px solid rgb(238, 238, 238);
     box-sizing: border-box;
 }
-.dashboard-wrapper>div>div>div>div{
+.dashboard-wrapper>div>div>div>div, .dashboard-wrapper>div>div>a{
     border-radius: 5px;
 }
 .dashboard-wrapper>div>div{
@@ -156,7 +156,7 @@
     padding-top: 20px;
 }
 
-/*.sales-amount>div:hover, */.dashboard-wrapper>div>.dashboard-2nd>div:hover{
+/*.sales-amount>div:hover, */.dashboard-wrapper>div>.dashboard-2nd>a:hover{
     background-color: #ece1e1;
 }
 
@@ -167,40 +167,43 @@
     display: flex;
     justify-content: space-between;
 }
-.dashboard-wrapper>div>.dashboard-2nd>div{
+.dashboard-2nd>a, .dashboard-2nd>a>div, .dashboard-2nd>a>div>div{
+    cursor: pointer;
+}
+.dashboard-wrapper>div>.dashboard-2nd>div, .dashboard-2nd>a{
     border: none;
     background-color: #F6F1F1;
     position: relative;
     transition-duration: 0.3s;
 }
-.dashboard-2nd>div>div>.product-icon{
+.dashboard-2nd>a>div>.product-icon{
     position: absolute;
     top: 25px;
     right: 25px;
 }
-.dashboard-2nd>div>div>div:last-child{
+.dashboard-2nd>a>div>div:last-child{
     font-size: 50px;
 }
-.dashboard-2nd>div>.bold-m{
+.dashboard-2nd>a>.bold-m{
     color: #19A7CE;
 }
 .dashboard-2nd>.member-count{
-    width: 24%;
+    width: 20%;
     padding: 25px;
 }
 .dashboard-2nd>.lesson-count{
-    width: 24%;
+    width: 20%;
     padding: 25px;
 }
 .dashboard-2nd>.house-count{
-    width: 24%;
+    width: 20%;
     padding: 25px;
 }
 .dashboard-2nd>.carfool-count{
-    width: 24%;
+    width: 20%;
     padding: 25px;
 }
-.dashboard-2nd>div>div>.product-icon{
+.dashboard-2nd>a>div>.product-icon{
     color: #146C94;
 }
 
@@ -249,6 +252,9 @@
     text-align: center;
     border-spacing: 0;
     margin-bottom: 20px;
+}
+.new-product>table tr:hover{
+    background-color: #fafafa;
 }
 .new-product>table th{
     background-color: #F6F1F1;

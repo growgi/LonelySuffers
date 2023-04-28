@@ -209,16 +209,16 @@
 							<form action="/reviewWriteFrm.do" method="post" enctype="multipart/form-data">
 							<table>
 								<tr>
-									<th>사진</th>
-									<th><input type="file" name="reviewFile" multiple="multiple"></th>
+									<th style="padding-bottom: 10px;">사진</th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><input style="padding-bottom: 10px;" type="file" name="reviewFile" multiple="multiple"></th>
 								</tr>
 								<tr>
 									<th>제목</th>
-									<th><input type="text" name="reviewTitle"></th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><input class="reviewWriteView" type="text" name="reviewTitle"></th>
 								</tr>
 								<tr>
-									<th>내용</th>
-									<th><textarea style="width: 215px;" name="reviewContent"></textarea></th>
+									<th style="padding-bottom: 80px;">내용</th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><textarea class="reviewWriteView" style="width: 215px; height: 100px;" name="reviewContent"></textarea></th>
 								</tr>
 								<tr>
 									<th style="padding-right: 5px;">별점</th>
@@ -233,10 +233,10 @@
 									</td>
 								</tr>
 							</table>
-							<input type="hidden" name="productCategory" value="1">
+							<input type="hidden" name="productCategory" value="2">
 							<input type="hidden" name="productNo" value="${lesson.lessonNo}">
 							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
-							<button class="button-74" type="submit">후기작성</button>
+							<button style="margin-top: 10px; margin-right: 10px;" class="button-74" type="submit">후기작성</button>
 							<button class="reviewEndBtn button-74" type="button">취소</button>
 							
 							</form>
@@ -245,28 +245,29 @@
 							
 							<!--별점 & 후기 리스트 나오는 부분 -->	
 							<table style="width: 800px; margin: 0 auto;">
-								<tr style="border: 1px solid #595959; text-align: center;">
-									<th>제목</th>
-									<th>작성자</th>
-									<th>내용</th>
-									<th>별점</th>
-									<th>카테고리</th>
-									<th>상품번호</th>
-									<th>사진</th>
+								<tr class="reviewListView">
+									<td style="width: 15%;">제목</td>
+									<td style="width: 10%;">작성자</td>
+									<td style="width: 20%;">내용</td>
+									<td style="width: 10%;">별점</td>
+									<td style="width: 10%;">카테고리</td>
+									<td style="width: 10%;">상품번호</td>
+									<td style="width: 25%;">사진</td>
 								</tr>
+								
 								<c:forEach items="${list }" var="review">
 									<tr class="reviewModalContent">
-										<td>${review.reviewTitle }</td>
-										<td>${review.reviewWriter }</td>
-										<td>${review.reviewContent }</td>
-										<td>${review.rating }</td>
+										<th style="text-align: center;">${review.reviewTitle }</th>
+										<th style="text-align: center;">${review.reviewWriter }</th>
+										<th style="text-align: center;">${review.reviewContent }</th>
+										<th style="text-align: center;">★ : ${review.rating }</th>
 										<c:choose>
 											<c:when test="${review.productCategory == 1 }">
-													<td>강습</td>
+													<th style="text-align: center;">강습</th>
 											</c:when>
 										</c:choose>
-										<td>${lesson.lessonNo}</td>
-										<td>
+										<th style="text-align: center;">${lesson.lessonNo}</th>
+										<th>
 											<c:forEach items="${review.rfileList }" var="rf">
 												<div style="display: inline-block;">
 													<img src="/resources/upload/review/${rf.filepath }" width="70" height="70">
@@ -274,17 +275,18 @@
 													<input type="hidden" value=${rf.fileNo }>
 												</div>
 											</c:forEach>
-										</td>
+										</th>
 									</tr>
 									<tr>
-										<th>
+										<td colspan="6"></td>
+										<td colspan="1"  class="reviewBtnWrap">
 											<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
-											<button type="button" class="reviewModalBtn button-74" data-toggle="modal" data-target="#reviewUpdate">수정</button>
-											<input type="hidden" value="${review.reviewNo }">
-											<input type="hidden" value="${review.productCategory }">
-											<a class="button-74" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+												<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
+												<input type="hidden" value="${review.reviewNo }">
+												<input type="hidden" value="${review.productCategory }">
+												<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
 											</c:if>
-										</th>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -313,7 +315,7 @@
 							          		<input type="hidden" class="form-control productCategory" name="productCategory">
 							          		<input type="text" class="form-control showProductCategory" readonly>
 							          		<div>상품번호</div>
-							          		<input type="text" class="form-control productNo" name="productNo" value="${house.houseNo}" readonly>
+							          		<input type="text" class="form-control productNo" name="productNo" value="${lesson.lessonNo}" readonly>
 							          		<div>첨부파일</div>
 						          			<div class="fileList-wrap">
 						          			</div>

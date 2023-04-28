@@ -254,7 +254,11 @@ public class AdminDao {
 		return orderDetailCount;
 	}
 	
+	public Order selectOrderDetailInfo(int orderNo) {
+		Order orderDetailInfo = sqlSession.selectOne("admin.selectOrderDetailInfo", orderNo);
 
+		return orderDetailInfo;
+	}
 
 	public ArrayList<Order> selectSearchSalesDetails(Search sp) {
 		List searchSalesDetails = sqlSession.selectList("admin.selectSearchSalesDetails", sp);
