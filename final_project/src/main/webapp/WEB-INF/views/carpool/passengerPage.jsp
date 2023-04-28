@@ -199,6 +199,7 @@
 
 
 	<script>
+	//header에서 hidden된 input으로 가져온 값.
 	$("#passengerName").text($("[name=memberName]").val());
 		
 	</script>

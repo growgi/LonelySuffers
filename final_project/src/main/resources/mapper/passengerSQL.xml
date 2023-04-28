@@ -15,8 +15,29 @@
 		from passenger p join member_tbl m on (passenger_no = member_no) 
 			where match_no=#{_parameter}
 	</select>
+
+ 
+	<select id="selectCarpoolNo" parameterType="p" resultType="_int">
+		select carpool_no as carpoolNo 
+		from passenger where match_no=#{matchNo}
+	</select>
+	
+	<select id="selectReserved" parameterType="_int" resultType="_int">
+		select count(*) from passenger where carpool_no=#{carpoolNo} and match_status=2	
+	</select>
 	
 	
+	<select id="selectCapacity" parameterType="_int" resultType="_int">
+		select capacity from carpool where carpool_no=#{carpoolNo}
+	</select>
+	
+	<update id="updateClosureto1" parameterType="_int">
+		update carpool set closure=1 where carpool_no=#{carpoolNo}
+	</update>
+	
+	<update id="updateMatchStatus" parameterType="_int">
+		update passenger set match_status=1 where carpool_no=#{carpoolNo} and match_status=0
+	</update>
 	
 	
 	

@@ -181,10 +181,9 @@
 												</div>
 											</td>
 											<td>
-												<!--오전 오후 중에 체크하는 radio--> <input type="radio" id="am"
-												name="departureTime" value="0"> <label for="am">오전</label>
-												<input type="radio" id="pm" name="departureTime" value="1">
-												<label for="pm">오후</label>
+												<!--오전 오후 중에 체크하는 radio--> 
+												<input type="radio" id="am" name="departureTime" value="0"> <label for="am">오전</label>
+												<input type="radio" id="pm" name="departureTime" value="1">	<label for="pm">오후</label>
 											</td>
 										</tr>
 										<!-- 
@@ -348,7 +347,7 @@
 						"click",
 						function() {
 							$("[name=onewayRound]").val(2);
-
+								if($(".arrive").length == 0){
 							$(".depart")
 									.after(
 											'<tr class="arrive">'
@@ -363,6 +362,7 @@
 													+ '<input type="radio" id="return-pm" name="returnTime" value="1">'
 													+ '<label for="return-pm">오후</label>'
 													+ '</td>' + '</tr>');
+								}
 						});
 		$(".oneway").on("click", function() {
 			$(".arrive").remove();
@@ -437,29 +437,35 @@
 		//onsubmit과 required를 동시에 쓰면은 이벤트가 중복되기 때문에 실행되지않는다. 그렇기때문에 onsubmit을 적으면 required를 지워준다. 
 		function checkReturn() {
 			console.log("----");
+			//input 일때는 ""가 빈 칸이다. null이 아니다. 
+			
+			
+
+			if ($("[name=carpoolPrice]").val() == "") {
+				$("[name=carpoolPrice]").val(0);
+			}
 			if ($("[name=departureRegion]").val() == null) {
 				alert('출발 지역을 선택해주세요.');
 				return false;
 			} else if ($("[name=arrivalRegion]").val() == null) {
 				alert('도착 지역을 선택해주세요.');
 				return false;
-			} else if (!$("[name=departureTime]").prop("checked")) {
-				alert('출발 오전/오후 중에 선택해주세요.');
-				return false;
-			} else if ($("[name=returnTime]").length > 0) {
-				if (!$("[name=returnTime]").prop("checked")) {
-					alert('복귀 오전/오후 중에 선택해주세요.');
+			} else if (!( $("[name=departureTime]").eq(0).prop("checked") || $("[name=departureTime]").eq(1).prop("checked") )) {
+					alert('출발 오전/오후 중에 선택해주세요.');
 					return false;
-				}
 			} else if ($("[name=capacity]").val() == null) {
 				alert('탑승인원수를 선택해주세요.');
 				return false;
-			} else {
-				if ($("[name=carpoolPrice]").val() == "") {
-					$("[name=carpoolPrice]").val(0);
+			} else if ($("[name=returnTime]").length > 0) {
+				if (!($("[name=returnTime]").eq(0).prop("checked") || $("[name=returnTime]").eq(1).prop("checked"))) {
+					alert('복귀 오전/오후 중에 선택해주세요.');
+					return false;
 				}
 				return true;
 			}
+			
+			
+			
 		}
 		//carpoolPrice 주의점: input이 숫자일때는 ""(String 빈칸)으로 나오기때문에, 안에 값이 비었으면 0으로 값을 받아오도록 설정해줘야한다. 
 		//그러니 val(0)을 넣어줬다. required가 아니면서(강제조항이 아님) 에러 나지않게 값은 받아와야하므로 dafault 값으로 0을 주는것이다.
