@@ -166,7 +166,7 @@
  	 <delete id="delistWishList" parameterType="w">
  		DELETE FROM WISHLIST WHERE MEMBER_ID = #{memberId}
 		<choose>
-			<when test="lesson_no == 0">AND HOUSE_NO = #{house_no}, ''</when>
+			<when test="lesson_no == 0">AND HOUSE_NO = #{house_no}</when>
 			<when test="house_no == 0">AND LESSON_NO = #{lesson_no}</when>
 		</choose>
  	</delete>
