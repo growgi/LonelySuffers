@@ -28,6 +28,7 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
     	<div>
+    		<input type="hidden" value="${hiddenVal }" class="hidden-input">
             <form action="/searchSellerAppMember.do" method="get" id="frm" class="search-bar" name="searchMember">
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
                 <span class="material-symbols-outlined search-icon">search</span>
@@ -143,6 +144,16 @@
       });  
       
       $(".sub-navi").prev().after("<span class='material-icons dropdown'>expand_more</span>");
+    });
+    
+
+    /*검색 결과에 count 출력 삭제*/
+    $(function(){
+        if($('.hidden-input').val()==1) {
+            $(".count").hide();
+        } else {
+            $(".count").show();
+        }
     });
     
   	/*체크박스 선택회원

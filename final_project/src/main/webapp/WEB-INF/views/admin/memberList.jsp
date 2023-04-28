@@ -39,7 +39,7 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
         <div>
-        <input type="hidden" value="${hiddenVal }" class="hidden-input">
+        	<input type="hidden" value="${hiddenVal }" class="hidden-input">
             <form action="/adminSearchMember.do" method="get" class="search-bar" name="searchMember">
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
                 <div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
@@ -190,6 +190,15 @@
 
         location.href="/deleteMember.do?id="+id.join("/");
         
+    });
+
+    /*검색 결과에 count 출력 삭제*/
+    $(function(){
+        if($('.hidden-input').val()==1) {
+            $(".count").hide();
+        } else {
+            $(".count").show();
+        }
     });
 </script>
 </html>

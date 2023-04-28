@@ -40,6 +40,7 @@
 						<a href="/newProductHouse.do?reqPage=1">숙박</a>
 					</div>
 					<div class="list-wrapper">
+						<input type="hidden" value="${hiddenVal }" class="hidden-input">
 						<form action="/adminSearchLesson.do" method="get"
 						id="frm" class="search-bar search-box" name="search-product">
 						<input type="hidden" name="jspPage" value="nl">
@@ -143,6 +144,14 @@
 	<script src="resources/js/adminNewProduct.js"></script>
 </body>
 <script>
+	/*검색 결과에 count 출력 삭제*/
+	$(function(){
+	    if($('.hidden-input').val()==1) {
+	        $(".count").hide();
+	    } else {
+	        $(".count").show();
+	    }
+	});
 	/*검색
 	function search(){
 		var searchType = $("[name=lessonSearchType]").val();

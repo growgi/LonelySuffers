@@ -21,6 +21,7 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
         <div>
+        	<input type="hidden" value="${hiddenVal }" class="hidden-input">
             <form action="/adminSearchMemberSalesDetails.do" method="get"  class="search-bar" name="search-member">
                 	<select name="searchType" class="search-type">
 						<option value="i">아이디</option>
@@ -109,6 +110,16 @@
 		});
 
 		location.href = "/deleteCheckedOrder.do?no=" + no.join("/");
+	});
+    
+
+	/*검색 결과에 count 출력 삭제*/
+	$(function(){
+	    if($('.hidden-input').val()==1) {
+	        $(".count").hide();
+	    } else {
+	        $(".count").show();
+	    }
 	});
 </script>
 </html>

@@ -108,7 +108,6 @@
     <div class="orderDetail-wrapper admin-content">
         <div style="width:75%;">
             <div class="orderDetail-title">
-                <a href="/salesDetails.do?reqPage=1" class="material-symbols-outlined">arrow_back_ios</a>
                 <div class="bold">주문 상세</div>
             </div>
             <div class="orderDetail-info">
@@ -173,7 +172,7 @@
             </div>
             <div class="pay-info bold">
                 <div>결제 정보</div>
-                <div>총 <span class="all-price"><fmt:formatNumber value="${orderDetailInfo.orderAllPrice }" pattern="#,###" /></span>원</div>
+                <div>총 <span class="all-price" style="color:#19A7CE;"><fmt:formatNumber value="${orderDetailInfo.orderAllPrice }" pattern="#,###" /></span>원</div>
             </div>
         </div>
     </div>

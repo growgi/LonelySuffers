@@ -240,6 +240,9 @@
     display:flex;
     margin-bottom: 15px;
 }
+/* .member-box:hover{
+    background-color: #fafafa;
+} */
 .member-box>.member-img{
     font-size: 50px;
     margin-right: 5px;

@@ -170,6 +170,7 @@ public class AdminController {
 		model.addAttribute("pageNavi", mpd.getPageNavi());
 		model.addAttribute("start", mpd.getStart());
 		model.addAttribute("sellerAppCount", sellerAppCount);
+		model.addAttribute("hiddenVal",0);
 		
 		return "admin/sellerApplicationList";
 	}
@@ -184,6 +185,7 @@ public class AdminController {
 		
 		if(searchSellerAppMember != null) {			
 			model.addAttribute("sellerAppList", sellerAppList);
+			model.addAttribute("hiddenVal",1);
 			return "admin/sellerApplicationList";
 		} else {
 			return "admin/memberList";
@@ -214,6 +216,7 @@ public class AdminController {
 		model.addAttribute("pageNavi", ppd.getPageNavi());
 		model.addAttribute("start", ppd.getStart());
 		model.addAttribute("newProductCount", newProductCount);
+		model.addAttribute("hiddenVal",0);
 		
 		return "admin/newProductAll";
 	}
@@ -227,6 +230,7 @@ public class AdminController {
 		model.addAttribute("pageNavi", lpd.getPageNavi());
 		model.addAttribute("start", lpd.getStart());
 		model.addAttribute("newLessonCount", newLessonCount);
+		model.addAttribute("hiddenVal",0);
 		
 		return "admin/newProductLesson";
 	}
@@ -240,6 +244,7 @@ public class AdminController {
 		model.addAttribute("pageNavi", hpd.getPageNavi());
 		model.addAttribute("start", hpd.getStart());
 		model.addAttribute("newHouseCount", newHouseCount);
+		model.addAttribute("hiddenVal",0);
 		
 		return "admin/newProductHouse";
 	}
@@ -327,6 +332,7 @@ public class AdminController {
 		
 		if(lessonList != null) { 
 			model.addAttribute("lessonList", lessonList);
+			model.addAttribute("hiddenVal",1);
 			
 			if(jspPage.equals("nl")) {
 				return "admin/newProductLesson";
@@ -349,6 +355,7 @@ public class AdminController {
 		
 		if(houseList != null) {			
 			model.addAttribute("houseList",houseList);
+			model.addAttribute("hiddenVal",1);
 			
 			if(jspPage.equals("nl")) {
 				return "admin/newProductHouse";
@@ -371,6 +378,7 @@ public class AdminController {
 		
 		if(productList != null) {			
 			model.addAttribute("productList",productList);
+			model.addAttribute("hiddenVal",1);
 			
 			if(jspPage.equals("nl")) {
 				return "admin/newProductAll";
@@ -396,6 +404,7 @@ public class AdminController {
 			model.addAttribute("pageNavi", ppd.getPageNavi());
 			model.addAttribute("start", ppd.getStart());
 			model.addAttribute("productCount", productCount);
+			model.addAttribute("hiddenVal",0);
 			
 			return "admin/productListAll";
 		} else {
@@ -413,6 +422,7 @@ public class AdminController {
 			model.addAttribute("pageNavi", lpd.getPageNavi());
 			model.addAttribute("start", lpd.getStart());
 			model.addAttribute("lessonCount", lessonCount);
+			model.addAttribute("hiddenVal",0);
 			
 			return "admin/productListLesson";
 		} else {
@@ -431,6 +441,7 @@ public class AdminController {
 			model.addAttribute("pageNavi", hpd.getPageNavi());
 			model.addAttribute("start", hpd.getStart());
 			model.addAttribute("houseCount", houseCount);
+			model.addAttribute("hiddenVal",0);
 			
 			return "admin/productListHouse";
 		} else {
@@ -487,6 +498,7 @@ public class AdminController {
 		model.addAttribute("pageNavi", opd.getPageNavi());
 		model.addAttribute("start", opd.getStart());
 		model.addAttribute("orderCount", orderCount);
+		model.addAttribute("hiddenVal",0);
 		
 		return "admin/salesDetails";
 	}
@@ -523,6 +535,7 @@ public class AdminController {
 		ArrayList<Order> orderList = service.selectSearchSalesDetails(sp);
 		if(orderList != null) {			
 			model.addAttribute("orderList", orderList);
+			model.addAttribute("hiddenVal",1);
 			return "admin/salesDetails";
 		} else {
 			return "redirect:/productList.do?reqPage=1";
@@ -555,6 +568,7 @@ public class AdminController {
 		model.addAttribute("pageNavi", cpd.getPageNavi());
 		model.addAttribute("start", cpd.getStart());
 		model.addAttribute("carpoolCount", carpoolCount);
+		model.addAttribute("hiddenVal",0);
 		
 		return "admin/carpoolList";
 	}
@@ -577,6 +591,7 @@ public class AdminController {
 		ArrayList<Carpool> carpoolList = service.selectSearchCarpool(searchKeyword);
 		if(carpoolList != null) {			
 			model.addAttribute("carpoolList", carpoolList);
+			model.addAttribute("hiddenVal",1);
 			return "admin/carpoolList";
 		} else {
 			return "redirect:/productList.do?reqPage=1";

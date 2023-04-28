@@ -37,6 +37,7 @@ th:last-child, td-last-child{
 						<a href="/productListHouse.do?reqPage=1" style="background-color:#19A7CE; color:#fff">숙박</a>
 					</div>
 					<div class="list-wrapper">
+						<input type="hidden" value="${hiddenVal }" class="hidden-input">
 						<form action="/adminSearchHouse.do" method="get"
 						class="search-bar" name="search-product">
 						<input type="hidden" name="jspPage" value="pl">
@@ -189,4 +190,14 @@ th:last-child, td-last-child{
 	<script src="resources/js/admin.js"></script>
 	<script src="resources/js/adminProductList.js"></script>
 </body>
+<script>
+	/*검색 결과에 count 출력 삭제*/
+	$(function(){
+	    if($('.hidden-input').val()==1) {
+	        $(".count").hide();
+	    } else {
+	        $(".count").show();
+	    }
+	});
+</script>
 </html>

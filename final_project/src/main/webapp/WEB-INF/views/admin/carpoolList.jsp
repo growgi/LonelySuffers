@@ -21,6 +21,7 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
         <div>
+        	<input type="hidden" value="${hiddenVal }" class="hidden-input">
             <form action="/adminSearchCarpool.do" method="get"  class="search-bar" name="search-member">
 					<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
 					<input
@@ -119,6 +120,16 @@
 		});
 
 		location.href = "/deleteCheckedCarpool.do?no=" + no.join("/");
+	});
+    
+
+	/*검색 결과에 count 출력 삭제*/
+	$(function(){
+	    if($('.hidden-input').val()==1) {
+	        $(".count").hide();
+	    } else {
+	        $(".count").show();
+	    }
 	});
 </script>
 </html>
