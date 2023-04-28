@@ -63,7 +63,7 @@ th:last-child, td-last-child{
 									<th><input type="checkbox" name="memberCheck"
 										class="lesson-all-check chk"></th>
 									<th>사진</th>
-									<th>강습명</th>
+									<th style="width:300px;">강습명</th>
 									<th>판매자</th>
 									<th>강습 레벨</th>
 									<th>모집정원</th>

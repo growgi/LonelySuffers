@@ -1,5 +1,5 @@
 /*메뉴 제목*/
-$(document).ready(function() {
+$(function() {
     $(".top-menu-title").text("등록된 상품 관리");
     $(".product-choice>div").first().click();
 });

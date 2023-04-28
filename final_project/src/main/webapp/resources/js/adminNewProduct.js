@@ -1,5 +1,5 @@
 /*메뉴 제목*/
-$(document).ready(function() {
+$(function() {
     $(".top-menu-title").text("신규 상품 승인");
 });
 

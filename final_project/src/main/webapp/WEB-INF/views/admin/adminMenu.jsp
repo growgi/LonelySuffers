@@ -314,22 +314,22 @@
             <div>
                 <span class="material-symbols-outlined admin-icon2" style="color:rgba(255, 255, 255, 0.9);">admin_panel_settings</span>
                 <div>
-                    <div style="color:rgba(255, 255, 255, 0.9);"><span style="color:#19A7CE;">${sessionScope.m.memberName}</span> 관리자</div>
+                    <div style="color:rgba(255, 255, 255, 0.9);"><span style="color:#ecb534;">${sessionScope.m.memberName}</span> 관리자</div>
                     <div style="color:rgba(255, 255, 255, 0.9);">${sessionScope.m.memberEmail}</div>
                 </div>
             </div>
         </div>
         <div class="box-bottom">
             <div>
-                <span class="material-symbols-outlined link-icon" style="color:#19A7CE">home</span>
+                <span class="material-symbols-outlined link-icon" style="color:#146C94">home</span>
                 <a href="/">홈으로 이동</a>
             </div>
             <div>
-                <span class="material-symbols-outlined link-icon">notifications_active</span>
+                <span class="material-symbols-outlined link-icon" style="color:#146C94">notifications_active</span>
                 <a href="/noticeList.do?reqPage=1">공지사항으로 이동</a>
             </div>
             <div>
-                <span class="material-symbols-outlined link-icon">help</span>
+                <span class="material-symbols-outlined link-icon" style="color:#146C94">help</span>
                 <a href="/faqList.do">FAQ로 이동</a>
             </div>
             <a href="/logout.do" name="logout" class="btn-m bc2 logout-btn">로그아웃</a>

@@ -28,7 +28,7 @@
 </style>
 <body>
 	<!-- Modal -->
-    <div id="return-modal" class="modal-bg" style="z-index:1">
+    <div id="return-modal" class="modal-bg" style="z-index:1; display:none;">
       <div class="modal-wrap">
         <div class="modal-head">
           <h2>상품 반려</h2>
@@ -46,7 +46,7 @@
       </div>
     </div>
     <!-- Modal -->
-    <div id="approve-modal" class="modal-bg" style="z-index:1">
+    <div id="approve-modal" class="modal-bg" style="z-index:1; display:none;">
       <div class="modal-wrap">
         <div class="modal-head">
           <h2>상품 승인</h2>

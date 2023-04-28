@@ -96,7 +96,7 @@
 </body>
 <script>
     /*메뉴 제목*/
-    $(document).ready(function(){
+    $(function(){
         $(".top-menu-title").text("판매자 신청 회원 조회");
         $(".product-choice>div").first().click();
     });

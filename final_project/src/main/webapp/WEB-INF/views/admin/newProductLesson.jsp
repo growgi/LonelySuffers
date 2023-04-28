@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <body>
 	<!-- Modal -->
-    <div id="test-modal" class="modal-bg" style="z-index:1">
+    <div id="test-modal" class="modal-bg" style="z-index:1; display:none;">
       <div class="modal-wrap">
         <div class="modal-head">
           <h2>상품 반려</h2>
@@ -69,7 +69,7 @@
 										class="lesson-all-check chk"></th>
 									<th style="display:none"></th> <!-- 모달 정보 가져오기 위해... eq 조정 -->
 									<th>사진</th>
-									<th>상품명</th>
+									<th style="width: 300px;">상품명</th>
 									<th>판매자</th>
 									<th>강습 레벨</th>
 									<th>모집정원</th>

@@ -24,6 +24,9 @@
 th:last-child, td-last-child{
 	width: 50px;
 }
+.list-top>table td:nth-child(2)>a:hover{
+	color: #83888a;
+}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
@@ -64,7 +67,7 @@ th:last-child, td-last-child{
 									<th><input type="checkbox" name="houseCheck"
 										class="house-all-check chk"></th>
 									<th>사진</th>
-									<th>상품명</th>
+									<th style="width:300px;">상품명</th>
 									<th>판매자</th>
 									<th>숙박소 이름</th>
 									<th>지역</th>

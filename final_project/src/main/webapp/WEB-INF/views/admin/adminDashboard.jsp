@@ -181,7 +181,7 @@
 					<div class="title-bold">신규 회원</div>
 					<c:forEach items="${dInfo.newMemberList }" var="m">
 					<div class="member-box">
-						<div class="material-symbols-outlined member-img">account_circle</div>
+						<div class="material-symbols-outlined member-img" style="color:#bdbdbd;">account_circle</div>
 						<div>
 							<div><span style="font-weight:bold;">${m.memberName }</span> | <span>${m.memberId }</span></div>
 							<div style="font-size: 14px;">${m.memberEmail }</div>
@@ -197,7 +197,7 @@
 					<div class="title-bold">신규 카풀 운전자</div>
 					<c:forEach items="${dInfo.newCarpoolDriverList }" var="c">
 					<div class="member-box">
-						<div class="material-symbols-outlined member-img">account_circle</div>
+						<div class="material-symbols-outlined member-img" style="color:#bdbdbd;">account_circle</div>
 						<div>
 							<div><span style="font-weight:bold;">${c.memberName }</span> | <span>${c.memberId }</span></div>
 							<div style="font-size: 14px;">${c.memberEmail }</div>
@@ -235,12 +235,12 @@
 			</div>
 
 			<div class="dashboard-6th">
-				<div class="admin-list">
+				<div class="admin-list" style="width:100%;">
 					<div class="title-bold">관리자</div>
-					<div class="admin-list-row">
+					<div class="admin-list-row" style="overflow: hidden;">
 						<c:forEach items="${dInfo.adminList }" var="ad">
-						<div class="member-box">
-							<div class="material-symbols-outlined member-img">admin_panel_settings</div>
+						<div class="member-box" style="width:235px; margin-right:60px; float: left;">
+							<div class="material-symbols-outlined member-img" style="color:#888888;">admin_panel_settings</div>
 							<div>
 								<div><span style="font-weight:bold;">${ad.memberName }</span> | <span>${ad.memberId }</span></div>
 								<div style="font-size: 14px;">${ad.memberEmail }</div>
