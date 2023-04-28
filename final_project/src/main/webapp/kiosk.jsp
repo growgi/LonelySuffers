@@ -253,23 +253,29 @@
 	}
 	.rooms-wrap{
 		width:1200px;
-		background-color:beige;
 		overflow:hidden;
 	}
 	.roomList{
-		width:400px;
-		height:500px;
+		width:390px;
+		height:382px;
 		float:left;
+		box-sizing:border-box;
+		margin:5px;
+		padding:5px;
+	}
+	.roomList:hover{
+		box-shadow: 1px 1px 14px rgba(0,0,0,0.4);
+	}
+	.image-wrap{
+		height: 220px;
+		margin-bottom: 20px;
+		overflow: clip;
 	}
 	.roomImage{
-		width:398px;
-		height:398px;
-		border: 1px solid rgb(51, 51, 51);
+		width: 100%;
 	}
 	.info-wrap{
-		width:398px;
-		height:98px;
-		border: 1px solid rgb(51, 51, 51);
+		height:100px;
 		border-top-style:none
 	}
 	.info-wrap>p{
@@ -295,17 +301,20 @@
 	.lessons-wrap{
 		width:1200px;
 		overflow:hidden;
-		background-color:beige;
 	}
 	.lessonList{
-		width:400px;
-		height:500px;
+		width:390px;
+		height:382px;
 		float:left;
+		box-sizing:border-box;
+		margin:5px;
+		padding:5px;
+	}
+	.lessonList:hover{
+		box-shadow: 1px 1px 14px rgba(0,0,0,0.4);
 	}
 	.lessonImage{
-		width:398px;
-		height:398px;
-		border: 1px solid rgb(51, 51, 51);
+		width: 100%;
 	}
 	.boxes{
 		margin-left:50px;
@@ -445,6 +454,12 @@
 		margin-left:344px;
 		margin-top:50px;
 		margin-bottom:50px;
+	}
+	.nav-item:hover {
+		cursor: not-allowed;
+	}
+	.nav-link:hover {
+		cursor: not-allowed;
 	}
 	
 
@@ -617,7 +632,7 @@
 								<input type="checkbox" id="level1" value="1">
 								<label for="level1"></label>
 								<div class="level-name"><p>초급</p></div>
-								<input type="text" id="level1-choice" value="0">
+								<input type="hidden" id="level1-choice" value="0">
 							</div>
 						</div>
 						<div class="level2">
@@ -628,7 +643,7 @@
 								<input type="checkbox" id="level2" value="2">
 								<label for="level2"></label>
 								<div class="level-name"><p>중급</p></div>
-								<input type="text" id="level2-choice" value="0">
+								<input type="hidden" id="level2-choice" value="0">
 							</div>
 						</div>
 						<div class="level3">
@@ -639,7 +654,7 @@
 								<input type="checkbox" id="level3" value="3">
 								<label for="level3"></label>
 								<div class="level-name"><p>상급</p></div>
-								<input type="text" id="level3-choice" value="0">
+								<input type="hidden" id="level3-choice" value="0">
 							</div>
 						</div>
 					</div>
@@ -792,14 +807,19 @@
 												</p>
 											</div>
 										</div>
-										<div class="row" style="margin-top: 30px;">
-											<div class="col-md-3">판매량 ()숫자</div>
+										<div class="row">
+											<div class="col-md-5">
+												별평점 평균값 들어올 자리
+											</div>
 											<div class="col-md-1"></div>
-											<div class="col-md-5">별평점넣을자리</div>
+											<div class="col-md-3">
+												<!-- 판매량 넣을 자리 -->
+											</div>
 										</div>
-										<p>
-											주소지 <span class="modal-house-roomAddress"></span>
-										</p>
+										<div class="row" style="margin-top: 30px;">
+											<div class="col-md-2">주소지 :</div>
+											<div class="col-md-10"><span class="modal-house-houseAddress"></span></div>
+										</div>
 										<div>
 											<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 										</div>
@@ -814,14 +834,12 @@
 										<div class="row tab-card-header">
 											<ul class="nav nav-tabs card-header-tabs">
 												<li class="nav-item active"><a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a></li>
-												<li class="nav-item"><a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a></li>
-												<li class="nav-item"><a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a></li>
+												<li class="nav-item"><a class="nav-link">상품평</a></li>
+												<li class="nav-item"><a class="nav-link">상품문의</a></li>
 											</ul>
 										</div>
 										<div class="tab-content" id="myTabContent">
 											<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab"></div>
-											<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">상품 평 div</div>
-											<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">상품 문의 div</div>
 										</div>
 									</div>
 									<div class="col-md-3">
@@ -955,12 +973,12 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-3">
-											판매량 ()숫자
+										<div class="col-md-5">
+											별평점 평균값 들어올 자리
 										</div>
 										<div class="col-md-1"></div>
-										<div class="col-md-5">
-											별평점넣을자리
+										<div class="col-md-3">
+											<!-- 판매량 넣을 자리 -->
 										</div>
 									</div>
 									<p>지역 <span id="modal-lesson-city"></span></p>
@@ -979,21 +997,12 @@
 										<li class="nav-item active">
 											<a class="nav-link" id="tab1" data-toggle="tab" href="#modal-lesson-info" role="tab" aria-controls="One" aria-selected="false">상품설명</a>
 										</li>
-										<li class="nav-item">
-											<a class="nav-link" id="tab2" data-toggle="tab" href="#modal-lesson-rating" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" id="tab3" data-toggle="tab" href="#modal-lesson-qna" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
-										</li>
+										<li class="nav-item"><a class="nav-link">상품평</a></li>
+										<li class="nav-item"><a class="nav-link">상품문의</a></li>
 									</ul>
 								</div>
 								<div class="tab-content" id="lessonTabContent">
-									<div class="tab-pane fade p-3 active in" id="modal-lesson-info" role="tabpanel" aria-labelledby="tab1">
-										</div>
-									<div class="tab-pane fade p-3" id="modal-lesson-rating" role="tabpanel" aria-labelledby="tab2">
-										상품 평 div</div>
-									<div class="tab-pane fade p-3" id="modal-lesson-qna" role="tabpanel" aria-labelledby="tab3">
-										상품 문의 div</div>
+									<div class="tab-pane fade p-3 active in" id="modal-lesson-info" role="tabpanel" aria-labelledby="tab1"></div>
 								</div>
 							</div>
 							<div class="col-md-3">
@@ -1356,7 +1365,8 @@ $("document").ready(function() {
 		}
 	})
 	$(".page1-pass").on('click',function(){
-		alert("지역은 꼭 정해주셔야해요:)")
+		$(".pages").hide();
+		$(".page2").show();
 	})
 //page2 날짜 선택
 	$(".page2-before").on('click',function(){
@@ -1420,7 +1430,7 @@ $("document").ready(function() {
 			const roomCapa = $("#people-value").val();
 			const houseBarbecue = $("#barbecue-choice").val();
 			const houseParty = $("#party-choice").val();
-			const houseCity = $("#travel-location").val();
+			const houseCity = "강원";
 			result.empty();
 			$.ajax({
 				url : "/roomList.do",
@@ -1431,31 +1441,37 @@ $("document").ready(function() {
 					console.log(data);
 					for(let i=0;i<data.length;i++){
 						const div=$("<div class=roomList></div>");
-						console.log(data[i].houseTitle+","+data[i].roomNo);
-						console.log(data[i].roomCapa+"명");
-						console.log("바베큐값:"+data[i].houseBarbecuePrice+"원");
-						console.log("ajax");
 						
 						const imageWrap = $("<div class=image-wrap></div>");
-						imageWrap.append("<img class=roomImage src=resources/upload/house/" + data[i].housePhoto1 + " />");
+						if(data[i].housePhoto1 != null){
+							imageWrap.append("<img class=roomImage src=resources/upload/house/" + data[i].housePhoto1 + " />");
+						}else {
+							imageWrap.append("<div style='height: 220px; margin-bottom: 15px;'><div class='waveEffect' style='margin: 0 auto;'><p class='waveEffectWord-back' style='text-indent: 13px; line-height: 550%;'>사진이 없습니다</p><p class='waveEffectWord-front' style='text-indent: 13px; line-height: 550%;'>사진이 없습니다</p></div></div>");
+						}
 						div.append(imageWrap);
 						
 						const infoWrap = $("<div class=info-wrap></div>");
-						infoWrap.append("<p>"+data[i].houseTitle+"</p>");
+						infoWrap.append("<div style='height: 58px;'><a href='/houseView.do?houseNo="+data[i].houseNo+"' target='_blank' style='font-size: 20px;'>"+data[i].houseTitle+"</a><div>");
 						infoWrap.append("<input type='hidden' id='houseNo' value = '"+data[i].houseNo+"'>")
-						if(data[i].houseBarbecuePrice == 0 && data[i].housePartyPrice > 0){
-							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(O)</p>");
-						}else if(data[i].houseBarbecuePrice > 0 && data[i].housePartyPrice == 0){
-							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(O),파티옵션(X)</p>");
-						}else if(data[i].houseBarbecuePrice > 0 && data[i].housePartyPrice > 0){
-							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(O),파티옵션(O)</p>");
-						}else{
-							infoWrap.append("<p>"+data[i].roomCapa+"인실 "+"바베큐옵션(X),파티옵션(X)</p>");
+						
+						const col4 = $("<div>").addClass("col-md-4");
+						if(data[i].houseBarbecuePrice > 0){
+							col4.append("<img style='width: 30px;' src='resources/images/barbecue.png'>");
 						}
-						infoWrap.append("<p>기본 1박 : "+data[i].housePrice+"원</p>");
+						if(data[i].housePartyPrice > 0){
+							col4.append("<img style='width: 30px;' src='resources/images/party.png'>");
+						}
+
+						const col5 = $("<div>").addClass("col-md-5");
+						col5.append("<p style='font-size: 18px;'>"+data[i].housePrice+"원/1박</p>");
+						
+						const col3 = $("<div>").addClass("col-md-3");
+						col3.append("<span class='label label-primary'>"+data[i].roomCapa+"인실</span>");
+
+						infoWrap.append( $("<div>").addClass("row").append(col4).append(col5).append(col3) );
 						
 						//모달 테스트
-						infoWrap.append("<button onclick=getRoom("+data[i].houseNo+") class=btn btn-info btn-lg data-toggle=modal data-target=#myModal>Open Modal</button>");
+						infoWrap.append("<button onclick=getRoom("+data[i].houseNo+") class=btn btn-info btn-lg data-toggle=modal data-target=#myModal>예약하기</button>");
 					
 						div.append(infoWrap);
 						
@@ -1527,9 +1543,9 @@ $("document").ready(function() {
 								$("input[name=roomCapa]").attr("value",data.roomCapa);
 								$(".modal-house-roomCapa").text(data.roomCapa+"인실");
 								//주소
-								$(".modal-house-roomAddress").text(data.roomAddres);
+								$(".modal-house-houseAddress").text(data.houseAddress);
 								//숙소 상품설명
-								$("#one").text(data.houseDescription);
+								$("#one").html(data.houseDescription);
 								
 								// 부트스트랩 tooltip(비성수기 평일기준 그거 나오는거)
 								$(document).ready(function(){
@@ -1772,7 +1788,7 @@ $("document").ready(function() {
 			const level1 = $("#level1-choice").val();
 			const level2 = $("#level2-choice").val();
 			const level3 = $("#level3-choice").val();
-			const lessonCity = $("#travel-location").val();
+			const lessonCity = "강원";
 			//console.log("레벨1:"+level1);
 			//console.log("레벨2:"+level2);
 			//console.log("레벨3:"+level3);
@@ -1793,24 +1809,37 @@ $("document").ready(function() {
 							console.log("레슨 ajax");
 							
 							const imageWrap = $("<div class=image-wrap></div>");
-							imageWrap.append("<img class=lessonImage src=resources/upload/lesson/" + data[i].lessonInfoPic + " />");
-							div.append(imageWrap);
-							
-							const infoWrap = $("<div class=info-wrap></div>");
-							infoWrap.append("<p>"+data[i].lessonTitle+"</p>");
-							if(data[i].lessonLevel == 1){
-								infoWrap.append("<p>초급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
-							}else if(data[i].lessonLevel == 2){
-								infoWrap.append("<p>중급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
-							}else if(data[i].lessonLevel == 3){
-								infoWrap.append("<p>고급레벨 ("+data[i].lessonStartTime+"~"+data[i].lessonEndTime+")</p>");
+							if(data[i].lessonInfoPic != null){
+								imageWrap.append("<img class=lessonImage src=resources/upload/lesson/" + data[i].lessonInfoPic + " />");
+							}else {
+								imageWrap.append("<div style='height: 220px; margin-bottom: 15px;'><div class='waveEffect' style='margin: 0 auto;'><p class='waveEffectWord-back' style='text-indent: 13px; line-height: 550%;'>사진이 없습니다</p><p class='waveEffectWord-front' style='text-indent: 13px; line-height: 550%;'>사진이 없습니다</p></div></div>");
 							}
-							infoWrap.append("<p>1인 가격 : "+data[i].lessonPrice+"원, 모집정원 : "+data[i].lessonMaxNo+"명</p>");
-							div.append(infoWrap);
+							div.append(imageWrap);
+
+							const infoWrap = $("<div class=info-wrap></div>");
+							infoWrap.append("<div style='height: 58px;'><a href='/lessonView.do?lessonNo="+data[i].lessonNo+"' target='_blank' style='font-size: 20px;'>"+data[i].lessonTitle+"</a><div>");
+							
+							const col4 = $("<div>").addClass("col-md-4");
+							col4.append("<span class='label label-primary'>정원 "+data[i].lessonMaxNo+"명</span>");
+
+							const col5 = $("<div>").addClass("col-md-5");
+							col5.append("<p style='font-size: 18px;'>"+data[i].lessonPrice+"원/1인</p>");
+							
+							const col3 = $("<div>").addClass("col-md-3");
+							if(data[i].lessonLevel == 1){
+								col3.append("<span class='label label-primary'>초급</span>");
+							}else if(data[i].lessonLevel == 2){
+								col3.append("<span class='label label-primary'>중급</span>");
+							}else if(data[i].lessonLevel == 3){
+								col3.append("<span class='label label-primary'>고급</span>");
+							}
+
+							infoWrap.append( $("<div>").addClass("row").append(col4).append(col5).append(col3) );
 
 							//강습상품 상세보기용 modal을 여는 버튼을 삽입
 							infoWrap.append("<button onclick=getLesson("+data[i].lessonNo+") class=btn btn-info btn-lg data-toggle=modal data-target=#lessonModal>예약하기</button>");
-							result.append(div);
+							
+							result.append(div.append(infoWrap));
 						}
 					},
 						error : function(){
