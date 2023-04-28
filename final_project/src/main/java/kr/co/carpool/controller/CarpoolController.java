@@ -1,6 +1,7 @@
 package kr.co.carpool.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -157,12 +158,15 @@ public class CarpoolController {
 	@ResponseBody
 	@RequestMapping(value = "driverDecide.do")
 	public String driverDecide(Passenger passenger) {
-		System.out.println("운전자페이지 테스트" + passenger);
+		System.out.println("운전자페이지 테스트 passenger" + passenger);
 		int result = service.updateDriverDecision(passenger);
-		System.out.println(result);
+		System.out.println("result : " +result);
 		if (result > 0) {
 			Passenger p = service.selectOnePassenger(passenger.getMatchNo());
-			return new Gson().toJson(p); // success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("result",result);
+			map.put("p", p);
+			return new Gson().toJson(map); // success가 ajax의 decision으로 결과값이 돌아간다. ajax에서 url 안넣는다.
 		} else {
 			return "error";
 		}
