@@ -758,13 +758,13 @@
  	</select>
  	
  	<select id="selectTotalSalesAmount" resultType="_int">
- 		select sum(order_all_price) 
+ 		select nvl(sum(order_all_price),0)
  		from order_tbl 
  		where order_status=1
  	</select>
  	
  	<select id="selectTodaySalesAmount" resultType="_int">
- 		select sum(order_all_price) 
+ 		select nvl(sum(order_all_price),0)
  		from order_tbl 
  		where (order_status=1) 
  		and (substr(order_date,0,10) like (to_char(sysdate,'yyyy-mm-dd')))
