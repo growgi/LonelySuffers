@@ -162,7 +162,7 @@
 	                                </div>
 	                                <div>
 	                                    <div>${od.orderStatusString }</div>
-	                                    <div class="bold"><span class="product-price"><fmt:formatNumber value="${od.productPrice }" pattern="#,###" /></span>원</div>
+	                                    <div class="bold"><span class="product-price"><fmt:formatNumber value="${od.lessonBookPrice }" pattern="#,###" /></span>원</div>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -184,7 +184,7 @@
 	                                </div>
 	                                <div>
 	                                    <div>${od.orderStatusString }</div>
-	                                    <div class="bold"><span class="product-price"><fmt:formatNumber value="${od.productPrice }" pattern="#,###" /></span>원</div>
+	                                    <div class="bold"><span class="product-price"><fmt:formatNumber value="${od.roomBookPrice }" pattern="#,###" /></span>원</div>
 	                                </div>
 	                            </div>
 	                        </div>

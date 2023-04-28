@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.admin.model.service.AdminService;
 import kr.co.admin.model.vo.OrderPageData;
+import kr.co.chat.model.service.ChatService;
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
@@ -26,6 +27,8 @@ public class MemberController {
 	private MailSender mailSender;
 	@Autowired
 	private AdminService aService;
+	@Autowired
+	private ChatService cService;
 
 	public MemberController() {
 		super();
@@ -121,8 +124,8 @@ public class MemberController {
 	public String myPage(int reqPage,int tabNo,@SessionAttribute (required = false) Member m ,Model model) {
 		Member result = service.selectSellerApplication(m.getMemberNo());
 		OrderPageData opd = service.selectOrderList(reqPage,m.getMemberNo());
-		System.out.println(tabNo);
-		
+		int chatActivation = cService.selectChatActivation(m.getMemberId());
+		model.addAttribute("chatActivation",chatActivation);
 		if(result == null) {
 			model.addAttribute("sellerApplication",0);
 		}else {

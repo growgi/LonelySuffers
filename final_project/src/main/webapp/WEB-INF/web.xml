@@ -48,5 +48,10 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 방문자 수 카운트를 위한 Listener -->
+	<listener>
+      <listener-class>common.SessionListener</listener-class>
+ 	</listener>
 
 </web-app>

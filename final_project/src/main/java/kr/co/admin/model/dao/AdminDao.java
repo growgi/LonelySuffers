@@ -1,29 +1,63 @@
 package kr.co.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.admin.model.vo.GenderRatio;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.RejectProduct;
+import kr.co.admin.model.vo.SalesAmount;
 import kr.co.admin.model.vo.Search;
+import kr.co.admin.model.vo.Visitant;
 import kr.co.carpool.model.vo.Carpool;
 import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
+import kr.co.member.model.vo.WishList;
 
 @Repository
 public class AdminDao {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	public AdminDao() {
+		super();
+		//System.out.println("1aaaaa1111111111111a");
+	}
 
-	public ArrayList<Member> selectAllMember() {
-		List memberList = sqlSession.selectList("admin.selectAllMember");
+	public int setVisitTotalCount() {
+		int result = sqlSession.insert("admin.insertVisitTotalCount");
+		
+		return result;
+	}
+
+	public int getVisitTodayCount() {
+		int todayCount = sqlSession.selectOne("admin.selectVisitTodayCount");
+		
+		return todayCount;
+	}
+
+	public int getVisitTotalCount() {
+		int totalCount = sqlSession.selectOne("admin.selectVisitTotalCount");
+		
+		return totalCount;
+	}
+	
+	public ArrayList<Visitant> getVisitWeekCount() {
+		List weekCountList = sqlSession.selectList("admin.selectVisitWeekCount");
+		
+		return (ArrayList<Visitant>)weekCountList;
+	}
+
+	public ArrayList<Member> selectAllMember(HashMap<String, Object> map) {
+		List memberList = sqlSession.selectList("admin.selectAllMember",map);
 		
 		return (ArrayList<Member>)memberList;
 	}
@@ -52,8 +86,8 @@ public class AdminDao {
 		return (ArrayList<Member>)searchMember;
 	}
 
-	public ArrayList<Member> selectAllSellerApplication() {
-		List sellerAppList = sqlSession.selectList("admin.selectAllSellerApplication");
+	public ArrayList<Member> selectAllSellerApplication(HashMap<String, Object> map) {
+		List sellerAppList = sqlSession.selectList("admin.selectAllSellerApplication", map);
 		
 		return (ArrayList<Member>)sellerAppList;
 	}
@@ -94,14 +128,14 @@ public class AdminDao {
 		return (ArrayList<House>)houseList;
 	}
 
-	public ArrayList<Lesson> selectAllLesson() {
-		List lessonList = sqlSession.selectList("admin.selectAllLesson");
+	public ArrayList<Lesson> selectAllLesson(HashMap<String, Object> map) {
+		List lessonList = sqlSession.selectList("admin.selectAllLesson", map);
 		
 		return (ArrayList<Lesson>)lessonList;
 	}
 
-	public ArrayList<House> selectAllHouse() {
-		List houseList = sqlSession.selectList("admin.selectAllHouse");
+	public ArrayList<House> selectAllHouse(HashMap<String, Object> map) {
+		List houseList = sqlSession.selectList("admin.selectAllHouse", map);
 		
 		return (ArrayList<House>)houseList;
 	}
@@ -130,14 +164,14 @@ public class AdminDao {
 		return result;
 	}
 
-	public ArrayList<Lesson> selectNewLesson() {
-		List lessonList = sqlSession.selectList("admin.selectNewLesson");
+	public ArrayList<Lesson> selectNewLesson(HashMap<String, Object> map) {
+		List lessonList = sqlSession.selectList("admin.selectNewLesson", map);
 		
 		return (ArrayList<Lesson>)lessonList;
 	}
 
-	public ArrayList<House> selectNewHouse() {
-		List houseList = sqlSession.selectList("admin.selectNewHouse");
+	public ArrayList<House> selectNewHouse(HashMap<String, Object> map) {
+		List houseList = sqlSession.selectList("admin.selectNewHouse", map);
 		
 		return (ArrayList<House>)houseList;
 	}
@@ -190,8 +224,8 @@ public class AdminDao {
 		return result;
 	}
 
-	public ArrayList<Order> selectAllOrder() {
-		List orderList = sqlSession.selectList("admin.selectAllOrder");
+	public ArrayList<Order> selectAllOrder(HashMap<String, Object> map) {
+		List orderList = sqlSession.selectList("admin.selectAllOrder", map);
 		
 		return (ArrayList<Order>)orderList;
 	}
@@ -223,6 +257,24 @@ public class AdminDao {
 	
 
 
+	public ArrayList<WishList> selectLessonWishList(String memberId) {
+		List lessonWishList = sqlSession.selectList("admin.selectLessonWishList", memberId);
+		
+		return (ArrayList<WishList>)lessonWishList;
+	}
+
+	public ArrayList<WishList> selectHouseWishList(String memberId) {
+		List houseWishList = sqlSession.selectList("admin.selectHouseWishList", memberId);
+		
+		return (ArrayList<WishList>)houseWishList;
+	}
+
+	public ArrayList<WishList> selectAllWishList(String memberId) {
+		List allWishList = sqlSession.selectList("admin.selectAllWishList", memberId);
+		
+		return (ArrayList<WishList>)allWishList;
+	}
+
 	public Order selectOrderDetailInfo(int orderNo) {
 		Order orderDetailInfo = sqlSession.selectOne("admin.selectOrderDetailInfo", orderNo);
 		
@@ -238,8 +290,32 @@ public class AdminDao {
 		return (ArrayList<Order>)searchSalesDetails;
 	}
 
-	public ArrayList<Product> selectAllProduct() {
-		List productList = sqlSession.selectList("admin.selectAllProduct");
+	public int deleteWishList(int wishNo) {
+		int result = sqlSession.delete("admin.deleteWishList", wishNo);
+		
+		return result;
+	}
+
+	public int selectAllWishListCount(String memberId) {
+		int allWishCount = sqlSession.selectOne("admin.selectAllWishListCount", memberId);
+		
+		return allWishCount;
+	}
+
+	public int selectLessonWishListCount(String memberId) {
+		int lessonWishCount = sqlSession.selectOne("admin.selectLessonWishListCount", memberId);
+		
+		return lessonWishCount;
+	}
+
+	public int selectHouseWishListCount(String memberId) {
+		int houseWishCount = sqlSession.selectOne("admin.selectHouseWishListCount", memberId);
+		
+		return houseWishCount;
+	}
+
+	public ArrayList<Product> selectAllProduct(HashMap<String, Object> map) {
+		List productList = sqlSession.selectList("admin.selectAllProduct", map);
 		return (ArrayList<Product>)productList;
 	}
 
@@ -248,8 +324,8 @@ public class AdminDao {
 		return (ArrayList<Product>)productList;
 	}
 
-	public ArrayList<Product> selectAllNewProduct() {
-		List newProductList = sqlSession.selectList("admin.selectAllNewProduct");
+	public ArrayList<Product> selectAllNewProduct(HashMap<String, Object> map) {
+		List newProductList = sqlSession.selectList("admin.selectAllNewProduct",map);
 		return (ArrayList<Product>)newProductList;
 	}
 
@@ -283,8 +359,8 @@ public class AdminDao {
 		return (ArrayList<House>)houseList;
 	}
 
-	public ArrayList<Carpool> selectAllCarpool() {
-		List carpoolList = sqlSession.selectList("admin.selectAllCarpool");
+	public ArrayList<Carpool> selectAllCarpool(HashMap<String, Object> map) {
+		List carpoolList = sqlSession.selectList("admin.selectAllCarpool", map);
 		
 		return (ArrayList<Carpool>)carpoolList;
 	}
@@ -337,10 +413,10 @@ public class AdminDao {
 		return (ArrayList<Member>)newMemberList;
 	}
 
-	public ArrayList<Carpool> selectNewCarpoolDriver() {
+	public ArrayList<Member> selectNewCarpoolDriver() {
 		List newCarpoolDriverList = sqlSession.selectList("admin.selectNewCarpoolDriver");
 		
-		return (ArrayList<Carpool>)newCarpoolDriverList;
+		return (ArrayList<Member>)newCarpoolDriverList;
 	}
 
 	public ArrayList<Member> selectAllAdmin() {
@@ -349,23 +425,35 @@ public class AdminDao {
 		return (ArrayList<Member>)adminList;
 	}
 
-	//방문자수
-	public ArrayList<Integer> selectVisitant() {
-		List visitantList = sqlSession.selectList("admin.selectVisitant");
-		
-		return (ArrayList<Integer>)visitantList;
-	}
-
-	public ArrayList<Integer> selectGenderRatio() {
+	public ArrayList<GenderRatio> selectGenderRatio() {
 		List genderRatio = sqlSession.selectList("admin.selectGenderRatio");
 		
-		return (ArrayList<Integer>)genderRatio;
+		return (ArrayList<GenderRatio>)genderRatio;
 	}
 
-	public ArrayList<Order> selectSalesAmount() {
-		List salesAmountList = sqlSession.selectList("admin.selectSalesAmount");
+	public ArrayList<SalesAmount> selectLessonSalesAmount() {
+		List lessonSalesAmountList = sqlSession.selectList("admin.selectLessonSalesAmount");
 		
-		return (ArrayList<Order>)salesAmountList;
+		return (ArrayList<SalesAmount>)lessonSalesAmountList;
 	}
+	
+	public ArrayList<SalesAmount> selectHouseSalesAmount() {
+		List houseSalesAmountList = sqlSession.selectList("admin.selectLessonSalesAmount");
+		
+		return (ArrayList<SalesAmount>)houseSalesAmountList;
+	}
+	
+	public ArrayList<SalesAmount> selectAllSalesAmount() {
+		List allSalesAmountList = sqlSession.selectList("admin.selectAllSalesAmount");
+		
+		return (ArrayList<SalesAmount>)allSalesAmountList;
+	}
+
+	/*
+	 * public int selectNewAdminChatCount() { int newAdminChatCount =
+	 * sqlSession.selectOne("admin.selectNewAdminChatCount");
+	 * 
+	 * return newAdminChatCount; }
+	 */
 
 }

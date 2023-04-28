@@ -65,8 +65,8 @@
 		where review_no = #{reviewNo}	
      </update>
 	
-	<delete id="deleteFile" parameterType="rf">
-     	delete from rfile_tbl where file_no = #{fileNo}
+	<delete id="deleteFile" parameterType="_int">
+     	delete from rfile_tbl where file_no = #{_parameter}
      </delete>
      
      <delete id="deleteReview" parameterType="_int">

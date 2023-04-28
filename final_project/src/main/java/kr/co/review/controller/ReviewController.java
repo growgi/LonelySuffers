@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,36 +48,37 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/reviewUpdate.do")
-	public String reviewUpdate(Review rv, int[] fileNo, String[] filepath, MultipartFile[] reviewFile, HttpServletRequest request) {
+	public String reviewUpdate(Review rv, String[] delFileList, int[] fileNo, MultipartFile[] reviewFile, HttpServletRequest request) {
 		ArrayList<RFileVO> fileList = new ArrayList<RFileVO>();
+		System.out.println(rv);
+		System.out.println(fileNo);
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/review/");
 		if(!reviewFile[0].isEmpty()) {
 			for(MultipartFile file : reviewFile) {
 				String filename = file.getOriginalFilename();
 				String upfilepath = manager.upload(savePath, file);
-				
 				RFileVO rfileVO = new RFileVO();
 				rfileVO.setFilename(filename);
 				rfileVO.setFilepath(upfilepath);
+				rfileVO.setReviewNo(rv.getReviewNo());
 				fileList.add(rfileVO);
+				System.out.println(rfileVO);
+				int insertFileResult = service.insertReviewFile(rfileVO);
 			}
 		}
-		int result = service.reviewUpdate(rv, fileList, fileNo);
-		if(fileNo != null && (result == (fileList.size()+fileNo.length+1))) {
-			for(String delFile : filepath) {
-				boolean delResult = manager.deleteFile(savePath, delFile);
-				if(delResult) {
-					System.out.println("삭제완료");
-				}else {
-					System.out.println("삭제실패");
+		int result = service.reviewUpdate(rv);
+			if(delFileList != null) {
+				for(String delFile : delFileList) {
+					boolean delResult = manager.deleteFile(savePath, delFile);
+					if(delResult) {
+						System.out.println("삭제완료");
+					}else {
+						System.out.println("삭제실패");
+					}
 				}
+				int delDBResult = service.deleteReviewFile(fileNo);
 			}
 			return "redirect:/";
-		}else if(fileNo == null && (result == fileList.size()+1)) {
-			return "redirect:/";
-		}else {
-			return "redirect:/";
-		}
 	}
 	
 	@RequestMapping(value="/deleteReview.do")

@@ -131,8 +131,8 @@
 				<div class="row">
 					<div class="wrapper" style="border-radius: 20px;">
 						<div
-							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;">태워주세요
-							신청을 보내온 회원들입니다.</div>
+							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;">${list[0].driverName }님, 탑승
+							신청을 보내온 카풀 목록입니다.</div>
 						<div class="big-wrapper">
 							<c:forEach items="${list}" var="c">
 							<hr>
@@ -198,7 +198,7 @@
 															<input type="hidden" id="matchStatus"
 																value="${p.matchStatus }">
 															<c:choose>
-																<c:when test="${p.matchStatus eq 0 }">
+																<c:when test="${p.matchStatus eq 0 && c.closure eq 2 }">
 																	<button type="button" class="btn btn-success accept"
 																		value="2" onclick="decides(this)">수락</button>
 																	<button type="button" class="btn btn-danger reject"
@@ -206,13 +206,7 @@
 																		onclick="decides(this)">거절</button>
 																</c:when>
 																<c:otherwise>
-																	<button type="button" class="btn btn-success accept"
-																		value="2" onclick="decides(this)"
-																		style="cursor: not-allowed;" disabled>수락</button>
-																	<button type="button" class="btn btn-danger reject"
-																		style="background-color: #F15A59;" value="1"
-																		onclick="decides(this)" style="cursor:not-allowed;"
-																		disabled>거절</button>
+																	
 																</c:otherwise>
 															</c:choose>
 														</div>
@@ -286,25 +280,27 @@
 							matchStatus : $(obj).val(),
 							matchNo : matchNo
 						},
+						dataType: "json",
 						success : function(decision) {
-							console.log(decision);
-							if (decision == "success") {
+							if (decision == "error") {
+								alert("실패햇닷");
+							} else {
 								//한번 버튼 선택하면 버튼 비활성화 
-								$(obj).parent().children().prop("disabled",
-										true);
-								$(obj).parent().children().css("cursor",
-										"now-allowed");
+								$(obj).parent().children().prop("disabled",true);
+								$(obj).parent().children().css("cursor","now-allowed");
 
 								//내가 선택한거에 따라서 메세지 바뀌게 해준다. 페이지를 새로고침해도 남아있다. 
-								$(obj).parent().parent().parent().parent()
-										.prev().children().next().text(
-												"매칭을 거부하셨습니다.");
-								$(obj).parent().parent().parent().parent()
-										.prev().children().next().text(
-												"매칭을 수락하셨습니다.");
-
-							} else {
-								alert("다시 시도해주세요.");
+								if($(obj).text()=="수락"){
+									$(obj).parent().parent().parent().parent()
+											.prev().children().next().text("매칭을 수락하셨습니다.");
+									$(obj).parent().parent().parent().parent()
+									.prev().prev().prev().prev().prev().children().next().text(decision.passengerPhone);
+									$(obj).parent().parent().parent().parent()
+									.prev().prev().prev().prev().children().next().text(decision.passengerEmail);
+								}else{
+									$(obj).parent().parent().parent().parent()
+											.prev().children().next().text(	"매칭을 거부하셨습니다.");
+								}
 							}
 						},
 						error : function() {
@@ -336,8 +332,10 @@
 						div.addClass("closureMsg").css("font-weight", "900");
 						if ($(obj).val() == "1") {
 							div.text("이 건은 마감되었습니다.");
+							$(obj).parent().parent().find($(".btn")).remove();
 						} else if ($(obj).val() == "3") {
 							div.text("이 건은 삭제되었습니다.");
+							$(obj).parent().parent().find($(".btn")).remove();
 						} else {
 							div.text("매칭 중입니다.");
 						}
@@ -352,10 +350,10 @@
 				error : function() {
 					alert("closeit 에러났습니다")
 				}
-
 			});
-
 		}
+		
+		
 	</script>
 
 </body>
