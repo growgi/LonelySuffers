@@ -133,7 +133,16 @@
                                 			</c:otherwise>
                                 		</c:choose>
                                 		</td>
-										<td><a href="#">${p.productTitle }</a></td>
+										<td>
+										<c:choose>
+	                                		<c:when test="${p.productType == '강습'}">
+	                                			<a href="/lessonView.do?lessonNo=${p.productNo }">${p.productTitle }</a>
+	                                		</c:when>
+	                                		<c:when test="${p.productType == '숙박'}">
+	                                			<a href="/houseView.do?houseNo=${p.productNo }">${p.productTitle }</a>
+	                                		</c:when>
+	                                	</c:choose>
+										</td>
 										<td>${p.productWriter }</td>
 										<td>${p.productCity }</td>
 										<td>

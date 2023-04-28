@@ -99,6 +99,7 @@ public class AdminController {
 		model.addAttribute("pageNavi", mpd.getPageNavi());
 		model.addAttribute("start", mpd.getStart());
 		model.addAttribute("memberCount", memberCount);
+		model.addAttribute("hiddenVal",0);
 		
 		return "admin/memberList";
 	}
@@ -152,6 +153,7 @@ public class AdminController {
 		
 		if(memberList != null) {			
 			model.addAttribute("memberList",memberList);
+			model.addAttribute("hiddenVal",1);
 			return "admin/memberList";
 		} else {
 			return "admin/sellerApplicationList";

@@ -106,12 +106,14 @@
                                 			</c:otherwise>
                                 		</c:choose>
                                 		</td>
-										<td><a href="#">${l.lessonTitle }</a></td>
+										<td><a href="/lessonView.do?lessonNo=${l.lessonNo }">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
 										<td>Level ${l.lessonLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
-										<td><a href="#" class="btn-r bc5">신청서 확인</a></td>
+										<td>
+										<a href="/lessonView.do?lessonNo=${l.lessonNo }" class="btn-r bc5">신청서 확인</a>
+										</td>
 										<td><button class="approveProduct btn-s bc1">승인</button>
 										<input type="hidden" value="${l.lessonNo }" name="productNo">
 										<button class="modal-open-btn btn-s bc2" target="#test-modal">반려</button></td>

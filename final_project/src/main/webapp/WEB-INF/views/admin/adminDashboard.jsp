@@ -80,34 +80,34 @@
 			</div>
 			
 			<div class="dashboard-2nd">
-				<div class="member-count">
+				<a href="/memberList.do?reqPage=1" class="member-count">
 					<div>
 						<div class="title-bold">회원</div>
 						<div class="material-symbols-outlined product-icon">group</div>
 					</div>	
 					<div class="bold-m">${dInfo.memberCount }</div>
-				</div>
-				<div class="lesson-count">
+				</a>
+				<a href="/productListLesson.do?reqPage=1" class="lesson-count">
 					<div>
 						<div class="title-bold">강습</div>
 						<div class="material-symbols-outlined product-icon">surfing</div>
 					</div>	
 					<div class="bold-m">${dInfo.lessonCount }</div>
-				</div>
-				<div class="house-count">
+				</a>
+				<a href="/productListHouse.do?reqPage=1" class="house-count">
 					<div>
 						<div class="title-bold">숙박</div>
 						<div class="material-symbols-outlined product-icon">apartment</div>
 					</div>
 					<div class="bold-m">${dInfo.houseCount }</div>
-				</div>
-				<div class="carfool-count">
+				</a>
+				<a href="/carpoolList.do?reqPage=1" class="carfool-count">
 					<div>
 						<div class="title-bold">카풀</div>
 						<div class="material-symbols-outlined product-icon">directions_car</div>
 					</div>
 					<div class="bold-m">${dInfo.carpoolRecruitingCount }</div>
-				</div>
+				</a>
 			</div>
 
 			<div class="dashboard-3rd">
@@ -175,7 +175,7 @@
 						</tr>
 						</c:forEach>
 					</table>
-					<a href="#" class="btn-l bc1" style="width: 96%;">전체 상품 목록 보기</a>
+					<a href="/productListAll.do?reqPage=1" class="btn-l bc1" style="width: 97%;">전체 상품 목록 보기</a>
 				</div>
 				<div class="new-member">
 					<div class="title-bold">신규 회원</div>
@@ -188,7 +188,7 @@
 						</div>
 					</div>
 					</c:forEach>
-					<a href="#" class="btn-l bc1" style="width:90%;">전체 회원 목록 보기</a>
+					<a href="/memberList.do?reqPage=1" class="btn-l bc1" style="width:91%;">전체 회원 목록 보기</a>
 				</div>
 			</div>
 
@@ -204,7 +204,7 @@
 						</div>
 					</div>
 					</c:forEach>
-					<a href="#" class="btn-l bc1" style="width:90%;">전체 카풀 게시글 목록 보기</a>
+					<a href="/carpoolList.do?reqPage=1" class="btn-l bc1" style="width:91%;">전체 카풀 게시글 목록 보기</a>
 				</div>
 				<div class="sales-amount-graph">
 					<div class="title-bold">상품 판매금액 추이</div>
