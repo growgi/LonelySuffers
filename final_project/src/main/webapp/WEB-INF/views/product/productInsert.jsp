@@ -167,11 +167,10 @@ input[type="number"], input[type="time"] {
 												<tr>
 													<th width=50%;>주소</th>
 													<td style="width=50%; overflow:hidden;">
-													<input type="hidden" name="posstcode" id="postcode" class="input-form" style="width : 300px; display : inline-block; ">
-													<input type="text" class="input-form form-control" maxlength="60" name="address" id="address" style="width : 340px; float : left;"readonly>
-													<button onclick="searchAddr();" style="float : left; margin-left : 8px;">주소 찾기</button>
-													<input type="hidden" id="lat" value="">
-													<input type="hidden" id="lng" value="">
+													<input type="text" class="input-form form-control" maxlength="60" name="houseAddress"id="address" style="width : 340px; float : left;"readonly>
+													<button type="button" onclick="searchAddr();" style="float : left; margin-left : 8px;">주소 찾기</button>
+													<input type="hidden" name="houseLat" value="">
+													<input type="hidden" name="houseLng" value="">
 													</td>
 												</tr>
 												<tr>
@@ -531,12 +530,7 @@ input[type="number"], input[type="time"] {
 		function searchAddr(){
 		   new daum.Postcode({
 		       oncomplete: function(data) {
-		    	   console.log(data);
-		    	   $("#postcode").val(data.zonecode);
 		    	   $("#address").val(data.address);
-		    	   $("detailAddress").focus();
-		           // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-		           // 예제를 참고하여 다양한 활용법을 확인해 보세요.
 		           loadMap();
 		       }
 		   }).open();
@@ -551,13 +545,10 @@ input[type="number"], input[type="time"] {
 				if(status === naver.maps.Service.Status.ERROR){ //type까지 일치하는지 보려고 자바스크립트는 1=="1"하면 true가 나오기 때문에 type까지 보려면 1==="1"로 해야한다
 					return alert("조회 에러");
 				}
-				console.log(response);
 				const lng = response.result.items[1].point.x;//경도
 				const lat = response.result.items[1].point.y;//위도
-				$("#lng").attr("value",lng);
-				$("#lat").attr("value",lat);
-				//위경도 값 보내주기
-				
+				$("[name=houseLng]").attr("value",lng);
+				$("[name=houseLat]").attr("value",lat);
 			});
 		}
 	</script>

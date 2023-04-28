@@ -198,11 +198,12 @@ input[type="number"], input[type="time"] {
 								<div class="col-md-10">
 								<c:choose>
 									<c:when test="${house.houseStatus < 0 }">
-										<input type="hidden" name="posstcode" id="postcode" class="input-form" style="width : 300px; display : inline-block; ">
-										<input type="text" class="input-form form-control" id=address name="houseAddress" value="${house.houseAddress }" maxlength="300" readonly required>
-										<button type="button" onclick="searchAddr();" style="float : left; margin-left : 8px;">주소 찾기</button>
-													<input type="text" id="lat" value="">
-													<input type="text" id="lng" value="">
+										<input type="hidden" id="postcode">
+										<input type="text" class="input-form" style="width: 75%;" id=address name="houseAddress" value="${house.houseAddress }" maxlength="300" readonly required>
+										<button type="button" onclick="searchAddr();" style="float: right; width: 20%; margin-left : 8px;">주소 찾기</button>
+										<input type="hidden" name="houseCity" value="${house.houseCity }">
+										<input type="hidden" name="houseLat" value="${house.houseLat }">
+										<input type="hidden" name="houseLng" value="${house.houseLng }">
 									</c:when>
 									<c:otherwise>
 										${house.houseAddress }
@@ -419,16 +420,11 @@ input[type="number"], input[type="time"] {
 			return true;
 		}
 	
-		//다음지도로 주소 찾기
+//다음지도로 주소 찾기
 		function searchAddr(){
 		   new daum.Postcode({
 		       oncomplete: function(data) {
-		    	   console.log(data);
-		    	   $("#postcode").val(data.zonecode);
 		    	   $("#address").val(data.address);
-		    	   $("detailAddress").focus();
-		           // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-		           // 예제를 참고하여 다양한 활용법을 확인해 보세요.
 		           loadMap();
 		       }
 		   }).open();
@@ -443,13 +439,12 @@ input[type="number"], input[type="time"] {
 				if(status === naver.maps.Service.Status.ERROR){ //type까지 일치하는지 보려고 자바스크립트는 1=="1"하면 true가 나오기 때문에 type까지 보려면 1==="1"로 해야한다
 					return alert("조회 에러");
 				}
-				console.log(response);
 				const lng = response.result.items[1].point.x;//경도
 				const lat = response.result.items[1].point.y;//위도
-				$("#lng").attr("value",lng);
-				$("#lat").attr("value",lat);
-				//위경도 값 보내주기
-				
+				$("[name=houseLng]").attr("value",lng);
+				$("[name=houseLat]").attr("value",lat);
+				const splitedAddress = $("[name=houseAddress]").val().split(" ");
+		    	$("[name=houseCity]").val(splitedAddress[0]);
 			});
 		}
 	</script>
