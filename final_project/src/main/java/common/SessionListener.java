@@ -15,7 +15,7 @@ import kr.co.admin.model.service.AdminService;
 import kr.co.admin.model.vo.Visitant;
 
 public class SessionListener implements HttpSessionListener {
-	AdminService vService;
+	AdminService service;
 
 	public void sessionCreated(HttpSessionEvent arg0) {
 		HttpSession session = arg0.getSession();
@@ -25,7 +25,7 @@ public class SessionListener implements HttpSessionListener {
 		 WebApplicationContext context 
 		 = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext(),
 				 											FrameworkServlet.SERVLET_CONTEXT_PREFIX + "appServlet" ); 
-		vService = context.getBean(AdminService.class);
+		 service = context.getBean(AdminService.class);
 		
 		int todayCount = 0;
 		int totalCount = 0;
@@ -33,18 +33,18 @@ public class SessionListener implements HttpSessionListener {
 
 		// 전체 방문자 수 +1
 		try {
-			vService.setVisitTotalCount();
+			service.setVisitTotalCount();
 
 			// 오늘 방문자 수
-			todayCount = vService.getVisitTodayCount();
+			todayCount = service.getVisitTodayCount();
 			System.out.println(todayCount);
 
 			// 전체 방문자 수
-			totalCount = vService.getVisitTotalCount();
+			totalCount = service.getVisitTotalCount();
 			System.out.println(totalCount);
 
 			// 일주일간 방문자 수
-			weekCountList = vService.getVisitWeekCount();
+			weekCountList = service.getVisitWeekCount();
 			System.out.println(weekCountList);
 
 		} catch (Exception e) {
