@@ -304,73 +304,102 @@ input[type="number"], input[type="time"] {
 
 
 	<script type="text/javascript">
-// 첨부된 이미지 업로드 전 미리보기
-	$("[type=file]").on("change",function(){
-		const attached = $(this);
-		const reader = new FileReader();
-		reader.onload = function(){
-			attached.prev().children().eq(0).css("display", "none");
-			attached.prev().children().eq(1).remove();
-			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
+	// 첨부된 이미지 업로드 전 미리보기
+		$("[type=file]").on("change",function(){
+			const attached = $(this);
+			const reader = new FileReader();
+			reader.onload = function(){
+				attached.prev().children().eq(0).css("display", "none");
+				attached.prev().children().eq(1).remove();
+				attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
+			}
+			reader.readAsDataURL(attached[0].files[0]);
+		});
+
+
+
+	// 미리보기 이미지를 클릭하면, input의 value를 비움
+		function getRidOf(obj){
+			$(obj).prev().css("display", "block");
+			$(obj).parent().next().val("");
+			$(obj).remove();
 		}
-		reader.readAsDataURL(attached[0].files[0]);
-	});
 
 
 
-// 미리보기 이미지를 클릭하면, input의 value를 비움
-	function getRidOf(obj){
-		$(obj).prev().css("display", "block");
-		$(obj).parent().next().val("");
-		$(obj).remove();
-	}
+	// 바베큐 옵션 유무에 따라 가격입력란 활성/비활성화
+		$("[name=houseBarbecue]").on("change", function(){
+			if($(this).prop("checked")){
+				$("[name=houseBarbecuePrice]").prop("disabled", false);
+			}else{
+				$("[name=houseBarbecuePrice]").prop("disabled", true);
+			}
+		});
+
+	// 파티 옵션 유무에 따라 가격입력란 활성/비활성화
+		$("[name=houseParty]").on("change", function(){
+			if($(this).prop("checked")){
+				$("[name=housePartyPrice]").prop("disabled", false);
+			}else{
+				$("[name=housePartyPrice]").prop("disabled", true);
+			}
+		});
 
 
-
-// 바베큐 옵션 유무에 따라 가격입력란 활성/비활성화
-	$("[name=houseBarbecue]").on("change", function(){
-		if($(this).prop("checked")){
-			$("[name=houseBarbecuePrice]").prop("disabled", false);
-		}else{
-			$("[name=houseBarbecuePrice]").prop("disabled", true);
-		}
-	});
-
-// 파티 옵션 유무에 따라 가격입력란 활성/비활성화
-	$("[name=houseParty]").on("change", function(){
-		if($(this).prop("checked")){
-			$("[name=housePartyPrice]").prop("disabled", false);
-		}else{
-			$("[name=housePartyPrice]").prop("disabled", true);
-		}
-	});
-
-
-// summernote 불러오기
-	$('#summernote').summernote({
-		  width: 880,
-		  height: 800,
-		  minHeight: null,
-		  maxHeight: null,
-		  focus: false,
-		  lang: "ko-KR",
-		  placeholder: '한글 기준 최대 1000자',
-			  toolbar: [
-				    ['fontname', ['fontname']],
-				    ['fontsize', ['fontsize']],
-				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				    ['color', ['forecolor','color']],
-				    ['table', ['table']],
-				    ['height', ['height']],
-				    ['view', ['help']]
-				  ],
-	});
 	
+	// summernote 불러오기
+		$('#summernote').summernote({
+			  width: 880,
+			  height: 800,
+			  minHeight: null,
+			  maxHeight: null,
+			  focus: false,
+			  lang: "ko-KR",
+				callbacks: {
+					onImageUpload: function(files){
+						uploadDescriptionImage(files[0], this);
+					}
+				},
+			  placeholder: '한글 기준 최대 1000자',
+				  toolbar: [
+					    ['fontname', ['fontname']],
+					    ['fontsize', ['fontsize']],
+					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+					    ['color', ['forecolor','color']],
+					    ['table', ['table']],
+					    ['insert', ['link', 'picture']],
+					    ['height', ['height']],
+					    ['view', ['help']]
+					  ]
+		});
+
+
+
+	// summernote 편집기로 본문에 사진을 첨부시키는 함수
+		function uploadDescriptionImage(file, editor){
+			
+			const form = new FormData();
+			form.append("file", file);
+			$.ajax({
+				url: "/attachHouseDescriptionImage.do",
+				type: "post",
+				data: form,
+				dataType : "json",
+				processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+				contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+				enctype : "multipart/form-data",
+				success: function(data){
+					$(editor).summernote("insertImage",data);
+				}
+			});
+		}
+
+
 
 	// submit 시 동작되는 함수. 제목들을 trim 후 form action
 		function triming(){
 			if($("[name=houseDescription]").length>0){
-				if($(".note-editable").children().eq(0).text() == ""){
+				if($(".note-editable").html().length < 12){
 					alert("상품 설명을 작성하셔야 합니다.");
 					return false;
 				}

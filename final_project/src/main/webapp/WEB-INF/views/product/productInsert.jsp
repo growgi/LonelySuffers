@@ -34,9 +34,6 @@ th, td {
 th {
 	text-indent: 80px;
 }
-td {
-	text-indent: 15px;
-}
 input[type="number"], input[type="time"] {
 	text-align: right;
 }
@@ -351,7 +348,7 @@ input[type="number"], input[type="time"] {
 		const trimedTeacher = $("[name=lessonTeacher]").val().trim().replace(/\s+/g," ");
 		$("[name=lessonTeacher]").val(trimedTeacher);
 		
-		if($("[name=lessonInfo]").find($(".note-editable")).children().eq(0).text() == ""){
+		if($("[name=lessonInfo]").find($(".note-editable")).html().length < 12){
 			alert("상품 설명을 작성하셔야 합니다.");
 			return false;
 		}
@@ -374,7 +371,7 @@ input[type="number"], input[type="time"] {
 
 // 신규 숙박 등록 submit 시 동작되는 함수. 제목들을 trim 후 form action
 	function triming(){
-		if($("[name=houseDescription").find($(".note-editable")).children().eq(0).text() == ""){
+		if($("[name=houseDescription").find($(".note-editable")).html().length < 12){
 			alert("상품 설명을 작성하셔야 합니다.");
 			return false;
 		}
@@ -436,16 +433,22 @@ input[type="number"], input[type="time"] {
 		  maxHeight: null,
 		  focus: false,
 		  lang: "ko-KR",
+			callbacks: {
+				onImageUpload: function(files){
+					uploadLessonDescriptionImage(files[0], this);
+				}
+			},
 		  placeholder: '한글 기준 최대 1000자',
-			  toolbar: [
-				    ['fontname', ['fontname']],
-				    ['fontsize', ['fontsize']],
-				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				    ['color', ['forecolor','color']],
-				    ['table', ['table']],
-				    ['height', ['height']],
-				    ['view', ['help']]
-				  ],
+		  toolbar: [
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['insert', ['link', 'picture']],
+			    ['height', ['height']],
+			    ['view', ['help']]
+			  ]
 	});
 	
 	$('#summernoteH').summernote({
@@ -455,17 +458,63 @@ input[type="number"], input[type="time"] {
 		  maxHeight: null,
 		  focus: false,
 		  lang: "ko-KR",
+			callbacks: {
+				onImageUpload: function(files){
+					uploadHouseDescriptionImage(files[0], this);
+				}
+			},
 		  placeholder: '한글 기준 최대 1000자',
-			  toolbar: [
-				    ['fontname', ['fontname']],
-				    ['fontsize', ['fontsize']],
-				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				    ['color', ['forecolor','color']],
-				    ['table', ['table']],
-				    ['height', ['height']],
-				    ['view', ['help']]
-				  ],
+		  toolbar: [
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['insert', ['link', 'picture']],
+			    ['height', ['height']],
+			    ['view', ['help']]
+			  ]
 	});
+	
+	
+// summernote 편집기로 본문에 사진을 첨부시키는 함수
+	function uploadLessonDescriptionImage(file, editor){
+		
+		const form = new FormData();
+		form.append("file", file);
+		$.ajax({
+			url: "/attachLessonDescriptionImage.do",
+			type: "post",
+			data: form,
+			dataType : "json",
+			processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+			contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+			enctype : "multipart/form-data",
+			success: function(data){
+				$(editor).summernote("insertImage",data);
+			}
+		});
+	}
+	
+	
+// summernote 편집기로 본문에 사진을 첨부시키는 함수
+	function uploadHouseDescriptionImage(file, editor){
+		
+		const form = new FormData();
+		form.append("file", file);
+		$.ajax({
+			url: "/attachHouseDescriptionImage.do",
+			type: "post",
+			data: form,
+			dataType : "json",
+			processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+			contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+			enctype : "multipart/form-data",
+			success: function(data){
+				$(editor).summernote("insertImage",data);
+			}
+		});
+	}
 	</script>
 </body>
 </html>

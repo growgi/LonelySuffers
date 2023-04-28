@@ -35,7 +35,6 @@ input[type="number"], input[type="time"] {
 </style>
 </head>
 
-
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -235,11 +234,7 @@ input[type="number"], input[type="time"] {
 								${lesson.getLessonInfoBr()}
 							</c:otherwise>
 						</c:choose>
-								</div>
-							<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-								상품 평 div</div>
-							<div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
-								상품 문의 div</div>
+							</div>
 						</div>
 					</div>
 				</div><!-- end row -->
@@ -270,17 +265,17 @@ input[type="number"], input[type="time"] {
 
 
 	<script type="text/javascript">
-// 첨부된 이미지 업로드 전 미리보기
-	$("[type=file]").on("change",function(){
-		const attached = $(this);
-		const reader = new FileReader();
-		reader.onload = function(){
-			attached.prev().children().eq(0).css("display", "none");
-			attached.prev().children().eq(1).remove();
-			attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
-		}
-		reader.readAsDataURL(attached[0].files[0]);
-	});
+	// 첨부된 이미지 업로드 전 미리보기
+		$("[type=file]").on("change",function(){
+			const attached = $(this);
+			const reader = new FileReader();
+			reader.onload = function(){
+				attached.prev().children().eq(0).css("display", "none");
+				attached.prev().children().eq(1).remove();
+				attached.prev().append($("<img>").attr("src", reader.result).attr("width", "100%").attr("onclick", "getRidOf(this)"));
+			}
+			reader.readAsDataURL(attached[0].files[0]);
+		});
 
 
 
@@ -292,54 +287,83 @@ input[type="number"], input[type="time"] {
 		}
 
 
-	
-// name이 lessonCity인 select 태그의 option에 selected 속성을 자동으로 부여
-	$(document).ready(function(){
-		const lessonCityVal = $("#lookupLessonCity").text();
-		for(let i=0; i<$("[name=lessonCity]").children().length; i++){
-			if(lessonCityVal== $("[name=lessonCity]").children().eq(i).val()){
-				$("[name=lessonCity]").children().eq(i).attr("selected", true);
-				break;
+
+	// name이 lessonCity인 select 태그의 option에 selected 속성을 자동으로 부여
+		$(document).ready(function(){
+			const lessonCityVal = $("#lookupLessonCity").text();
+			for(let i=0; i<$("[name=lessonCity]").children().length; i++){
+				if(lessonCityVal== $("[name=lessonCity]").children().eq(i).val()){
+					$("[name=lessonCity]").children().eq(i).attr("selected", true);
+					break;
+				}
 			}
-		}
-	});
+		});
 
 
-// 강습 소요시간 계산
-	const lessonTimeLength = moment($("[name=lessonEndTime]").val(), "HH:mm").diff(moment($("[name=lessonStartTime]").val(), "HH:mm"), "minutes");
-// 시작 시각이 변경될 때마다 종료 시각 자동 입력 
-	$("[name=lessonStartTime]").on("change", function(){
-		const newEndTime = moment($("[name=lessonStartTime]").val(), "HH:mm").add(lessonTimeLength, "minutes").format("HH:mm");
-		$("[name=lessonEndTime]").attr("value", newEndTime);
-	});
+
+	// 강습 소요시간 계산
+		const lessonTimeLength = moment($("[name=lessonEndTime]").val(), "HH:mm").diff(moment($("[name=lessonStartTime]").val(), "HH:mm"), "minutes");
+	// 시작 시각이 변경될 때마다 종료 시각 자동 입력 
+		$("[name=lessonStartTime]").on("change", function(){
+			const newEndTime = moment($("[name=lessonStartTime]").val(), "HH:mm").add(lessonTimeLength, "minutes").format("HH:mm");
+			$("[name=lessonEndTime]").attr("value", newEndTime);
+		});
 
 
-// summernote 불러오기
-	$('#summernote').summernote({
-		  width: 880,
-		  height: 800,
-		  minHeight: null,
-		  maxHeight: null,
-		  focus: false,
-		  lang: "ko-KR",
-		  placeholder: '한글 기준 최대 1000자',
+	
+	// summernote 불러오기
+		$('#summernote').summernote({
+			  width: 880,
+			  height: 800,
+			  minHeight: null,
+			  maxHeight: null,
+			  focus: false,
+			  lang: "ko-KR",
+				callbacks: {
+					onImageUpload: function(files){
+						uploadDescriptionImage(files[0], this);
+					}
+				},
+			  placeholder: '한글 기준 최대 1000자',
 			  toolbar: [
 				    ['fontname', ['fontname']],
 				    ['fontsize', ['fontsize']],
 				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
 				    ['color', ['forecolor','color']],
 				    ['table', ['table']],
+				    ['insert', ['link', 'picture']],
 				    ['height', ['height']],
 				    ['view', ['help']]
-				  ],
-	});
+				  ]
+		});
+
+
+
+	// summernote 편집기로 본문에 사진을 첨부시키는 함수
+		function uploadDescriptionImage(file, editor){
+			
+			const form = new FormData();
+			form.append("file", file);
+			$.ajax({
+				url: "/attachLessonDescriptionImage.do",
+				type: "post",
+				data: form,
+				dataType : "json",
+				processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+				contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+				enctype : "multipart/form-data",
+				success: function(data){
+					$(editor).summernote("insertImage",data);
+				}
+			});
+		}
 
 
 
 	// submit 시 동작되는 함수. 제목들을 trim 후 form action
 		function triming(){
 			if($("[name=lessonInfo]").val().length>0){
-				if($(".note-editable").children().eq(0).text() == ""){
+				if($(".note-editable").html().length < 12){
 					alert("상품 설명을 작성하셔야 합니다.");
 					return false;
 				}
