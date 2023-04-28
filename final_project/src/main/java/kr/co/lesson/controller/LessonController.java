@@ -21,6 +21,8 @@ import kr.co.lesson.model.vo.LessonBook;
 import kr.co.lesson.model.vo.LessonListing;
 import kr.co.lesson.model.vo.LessonPagination;
 import kr.co.member.model.vo.Member;
+import kr.co.review.model.service.ReviewService;
+import kr.co.review.model.vo.Review;
 
 @Controller
 public class LessonController {
@@ -29,6 +31,8 @@ public class LessonController {
 	private LessonService service;
 	@Autowired
 	private ProductFileNumbering fileManager;
+	@Autowired
+	private ReviewService rservice;
 
 
 
@@ -36,6 +40,9 @@ public class LessonController {
 	@RequestMapping(value="/lessonView.do")
 	public String lessonView(int lessonNo, Model model) {
 		Lesson l = service.selectOneLesson(lessonNo);
+		//review 리스트 받아오는 코드
+		ArrayList<Review> list = rservice.selectAllReview(lessonNo);
+		model.addAttribute("list", list);
 		model.addAttribute("lesson", l);
 		return "product/lessonDetail";
 	}
