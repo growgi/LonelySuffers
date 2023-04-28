@@ -1365,8 +1365,7 @@ $("document").ready(function() {
 		}
 	})
 	$(".page1-pass").on('click',function(){
-		$(".pages").hide();
-		$(".page2").show();
+		alert("지역은 꼭 정해주셔야해요:)")
 	})
 //page2 날짜 선택
 	$(".page2-before").on('click',function(){
@@ -1430,7 +1429,7 @@ $("document").ready(function() {
 			const roomCapa = $("#people-value").val();
 			const houseBarbecue = $("#barbecue-choice").val();
 			const houseParty = $("#party-choice").val();
-			const houseCity = "강원";
+			const houseCity = $("#travel-location").val();
 			result.empty();
 			$.ajax({
 				url : "/roomList.do",
@@ -1788,7 +1787,7 @@ $("document").ready(function() {
 			const level1 = $("#level1-choice").val();
 			const level2 = $("#level2-choice").val();
 			const level3 = $("#level3-choice").val();
-			const lessonCity = "강원";
+			const lessonCity = $("#travel-location").val();
 			//console.log("레벨1:"+level1);
 			//console.log("레벨2:"+level2);
 			//console.log("레벨3:"+level3);
