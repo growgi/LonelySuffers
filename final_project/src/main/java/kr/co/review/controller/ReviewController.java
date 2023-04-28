@@ -23,8 +23,6 @@ public class ReviewController {
 	
 	@RequestMapping(value="/reviewWriteFrm.do")
 	public String reviewWrite(Review rv, MultipartFile[] reviewFile, HttpServletRequest request) {
-		System.out.println("reviewController에서 review값"+rv.getProductNo());
-		System.out.println("reviewController에서 review값"+reviewFile);
 		ArrayList<RFileVO> fileList = new ArrayList<RFileVO>();
 		if(!reviewFile[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/review/");
