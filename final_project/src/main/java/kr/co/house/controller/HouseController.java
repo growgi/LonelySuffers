@@ -125,7 +125,7 @@ public class HouseController {
 	public String houseUpdate(int houseNo, HttpSession session, Model model) {
 		House h = service.selectOneHouse(houseNo);
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberId().equals(h.getWriter())) {		
+		if(me.getMemberId().equals(h.getWriter())) {
 			model.addAttribute("house", h);
 			return "product/houseUpdate";
 		}else {
@@ -226,10 +226,11 @@ public class HouseController {
 
 // 기존 객실의 이름을 변경하는 함수. Room 테이블에서 update
 	@RequestMapping(value="/renameRoom.do")
-	public String renameRoom(int houseNo, int roomNo, String roomNewName, Model model) {
+	public String renameRoom(int houseNo, int roomNo, String roomNewName, String roomNewDescription, Model model) {
 		Room r = new Room();
 		r.setRoomNo(roomNo);
 		r.setRoomName(roomNewName);
+		r.setRoomDescription(roomNewDescription);
 		int result = service.updateRoomName(r);
 		if(result > 0) {
 			return "redirect:/roomManage.do?houseNo="+houseNo;

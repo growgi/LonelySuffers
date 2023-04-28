@@ -64,6 +64,11 @@ public class MemberDao {
 		return sqlSession.update("member.deleteMember", memberNo);
 	}
 
+// 회원 탈퇴시 나의 관심상품 목록 전부 삭제.  Wishlist 테이블에서 Row 여러 개 삭제
+	public int deleteMyWishLists(String memberId) {
+		return sqlSession.delete("member.deleteMyWishLists", memberId);
+	}
+
 	public ArrayList<Order> selectOrderList(HashMap<String, Object> map) {
 		List list = sqlSession.selectList("member.selectOrderList", map);
 		return (ArrayList<Order>)list;
@@ -102,6 +107,29 @@ public class MemberDao {
 // 나의 관심상품 등록.  Wishlist 테이블에 Row 1개 추가
 	public int insertMyWishlist(WishList w) {
 		return sqlSession.insert("member.insertMyWishlist", w);
+	}
+
+
+
+// 상품페이지에서 관심상품 바로 삭제.  Wishlist 테이블에 Row 1개 삭제
+	public int delistWishList(WishList w) {
+		return sqlSession.delete("member.delistWishList", w);
+	}
+
+
+
+// 나의 관심상품들을 조회하는 함수
+	public ArrayList<WishList> selectAllWishList(String memberId) {
+		List allWishList = sqlSession.selectList("member.selectAllWishList", memberId);
+		
+		return (ArrayList<WishList>)allWishList;
+	}
+
+
+
+// 나의 관심상품 삭제.  Wishlist 테이블에 Row 1개 삭제
+	public int deleteWishList(int wishNo) {
+		return sqlSession.delete("member.deleteWishList", wishNo);
 	}
 // 관심상품 관련 함수들 끝 ///////////////////////////////////////////////////////////////
 

@@ -170,19 +170,19 @@ input[type="number"], input[type="time"] {
 												<input type="hidden" name="houseNo" value="${house.houseNo }">
 												<tr style="display: none;">
 													<th style="display: none;">숙박소 이름</th>
-													<td style="display: none;"><input type="hidden" name="roomTitle" value="${house.roomTitle }" readonly></td>
+													<td style="display: none;"><input type="hidden" name="roomTitle" value="${house.roomTitle }"></td>
 												</tr>
 												<tr style="display: none;">
 													<th style="display: none;">객실 인원 (명)</th>
-													<td style="display: none;"><input type="hidden" name="roomCapa" value="${house.roomCapa }" readonly></td>
+													<td style="display: none;"><input type="hidden" name="roomCapa" value="${house.roomCapa }"></td>
 												</tr>
 												<tr>
 													<th style="vertical-align: top; padding-top: 12px; width: 50%;">객실 이름 <button type="button" onclick="insertNextRoom(this)">객실 추가</button></th>
-													<td width=50%; id="here"><div id="defaultRoom"><input type="text" class="form-control" name="roomNames" placeholder="한글 최대 10자" required></div></td>
+													<td width=50%; id="here"><div id="defaultRoom"><input type="text" class="form-control" name="roomNames" maxlength="30" placeholder="한글 최대 10자" required></div></td>
 												</tr>
 												<tr>
 													<th>비고(메모)</th>
-													<td><textarea name="roomDescription" class="form-control" rows="4" placeholder="여기에 적은 내용이 고객들에게는 노출되지 않습니다. (한글 최대 1000자)"></textarea></td>
+													<td><textarea name="roomDescription" class="form-control" rows="4" maxlength="3000" placeholder="여기에 적은 내용은 고객들에게는 노출되지 않습니다. (한글 최대 1000자)"></textarea></td>
 												</tr>
 												<tr>
 													<td colspan="2" style="text-align: center;"><button type="button" class="btn btn-default" onclick="checkDuplicate()">객실 이름 중복 확인</button>
@@ -203,29 +203,31 @@ input[type="number"], input[type="time"] {
 		</section>
 		<!-- end section -->
 
-  <!-- Modal -->
+  <!-- 객실 이름 변경하기 제출form용 Modal -->
   <div class="modal fade" id="renamer" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
+        <form action="/renameRoom.do?houseNo=${house.houseNo }" method="post">
+        	<fieldset>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">객실 이름 변경하기</h4>
         </div>
         <div class="modal-body">
-        <form action="/renameRoom.do?houseNo=${house.houseNo }" method="post">
-        	<fieldset>
 				<input type="hidden" name="roomNo">
-				<input type="text" class="form-control" style="width: 65%; display: inline-block;" name="roomNewName" id="focusing" placeholder="한글 최대 10자" required>
-				<button type="button" onclick="checkRoomNewName()">변경하기</button>
-				<button id="goRenamer" type="submit" style="display: none;">submit</button>
-        	</fieldset>
-        </form>
+				<input type="hidden" name="originRoomName">
+				객실 이름: <input type="text" class="form-control" style="width: 50%; display: inline-block;" name="roomNewName" id="focusing" maxlength="30" placeholder="한글 최대 10자" required>
+				<br><br>비고<br>
+				<textarea name="roomNewDescription" class="form-control" rows="4" maxlength="3000" placeholder="여기에 적은 내용은 고객들에게는 노출되지 않습니다. (한글 최대 1000자)"></textarea>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-default" onclick="checkRoomNewName()">변경하기</button>
+		  <button id="goRenamer" type="submit" style="display: none;">submit</button>
         </div>
+        	</fieldset>
+        </form>
       </div>
       
     </div>
@@ -285,25 +287,34 @@ input[type="number"], input[type="time"] {
 	function renameRoom(obj){
 		const roomNo = $(obj).parent().parent().children().eq(0).text();
 		const roomName = $(obj).parent().parent().children().eq(1).text();
+		const roomDescription = $(obj).parent().parent().children().eq(4).text();
 		$("[name=roomNo]").val(roomNo);
+		$("[name=originRoomName]").val(roomName);
 		$("[name=roomNewName]").val(roomName);
+		$("[name=roomNewDescription]").val(roomDescription);
 	}
 
 
 
-// 기존 객실의 이름을 변경하기 전에 중복 검사
+// 기존 객실의 이름과 비고란을 변경하기 전에 객실이름 중복 검사
 	function checkRoomNewName(){
-		$.ajax({
-				url : "/checkRoomNewName.do",
-				data: {roomTitle : $("[name=roomTitle]").val(), roomName : $("[name=roomNewName]").val()},
-				success : function(data){
-					if(data==0){
-						$("#goRenamer").click();
-					}else{
-						alert('이 숙박소에 속한 객실들 중에 이미 동일한 이름이 있습니다. 다른 이름을 사용해주십시오.');
+		const trimedNewName = $("[name=roomNewName]").val().trim().replace(/\s+/g," ");
+		$("[name=roomNewName]").val(trimedNewName);
+		if( $("[name=originRoomName]").val() != $("[name=roomNewName]").val() ){
+			$.ajax({
+					url : "/checkRoomNewName.do",
+					data: {roomTitle : $("[name=roomTitle]").val(), roomName : $("[name=roomNewName]").val()},
+					success : function(data){
+						if(data==0){
+							$("#goRenamer").click();
+						}else{
+							alert('이 숙박소에 속한 객실들 중에 이미 동일한 이름이 있습니다. 다른 이름을 사용해주십시오.');
+						}
 					}
-				}
-		});
+			});
+		}else{
+			$("#goRenamer").click();
+		}
 	}
 
 
@@ -347,6 +358,10 @@ input[type="number"], input[type="time"] {
 		$("[name=roomNames]").parent().removeClass("has-error");
 		$("[name=checkFail]").val("0");
 		const roomName = $("[name=roomNames]");
+		for(let i=0; i<roomName.length; i++){
+			const trimedName = $("[name=roomNames]").eq(i).val().trim().replace(/\s+/g," ");
+			$("[name=roomNames]").eq(i).val(trimedName);
+		}
 		let duplicate = 0;
 		for(let i=0; i<roomName.length; i++){
 			for(let j=i+1; j<roomName.length; j++){

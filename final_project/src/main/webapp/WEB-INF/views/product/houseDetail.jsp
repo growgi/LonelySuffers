@@ -752,13 +752,13 @@
 							if(Inquiry.inquiryNo <= 0){
 								alert(Inquiry.inquiryContent);
 							}else{
-								$(obj).parent().parent().after( $("<tr>").addClass("expandedTr displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
+								$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ansI displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
 								if(Inquiry.answerList.length>0){
 									for(let j=0; j<Inquiry.answerList.length; j++){
-										$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
+										$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ans").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
 									}
 								}
-								$(obj).parent().parent().after( $("<tr>").addClass("expandedTr").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
+								$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-inq").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
 							}
 						}
 					});
@@ -768,6 +768,9 @@
 
 		// 문의글 등록 폼 제출
 		function insertInquiryAjax(obj){
+			const trimedTitle = $("[name=inquiryTitle]").val().trim().replace(/\s+/g," ");
+			$("[name=inquiryTitle]").val(trimedTitle);
+			
 			let privately = 0;
 			if($(obj).find("[name=privately]").prop("checked")){
 				privately = 1;

@@ -19,6 +19,15 @@
 .inquiryTitleText:hover {
 	cursor: pointer;
 }
+.expandedTr-inq>td{
+	background-color: #ebf2f9;
+}
+.expandedTr-ans>td{
+	background-color: #f0f5f5;
+}
+.expandedTr-ansI>td{
+	background-color: #f0ffff;
+}
 .inquiryTd {
 	text-align: right;
 }
@@ -28,6 +37,35 @@
 .displayForSeller {
 }
 .displayForGeneralMember {
+}
+
+
+.toggleWishList {
+  position: relative;
+  width: 140px;
+  height: 60px;
+  padding: 0px;
+  border: none;
+  box-sizing: border-box;
+}
+.toggleWishList > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 25px;
+  transition: .5s ease;
+}
+.toggleWishList > input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  opacity: 0;
+}
+.toggleWishList input[type=checkbox]:checked ~ div {
+  background-color: #fff100;
 }
 
 

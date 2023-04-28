@@ -72,6 +72,12 @@ public class MemberService {
 		return dao.deleteMember(memberNo);
 	}
 
+// 회원 탈퇴시 나의 관심상품 목록 전부 삭제.  Wishlist 테이블에서 Row 여러 개 삭제
+	@Transactional
+	public int deleteMyWishLists(String memberId) {
+		return dao.deleteMyWishLists(memberId);
+	}
+
 	public OrderPageData selectOrderList(int reqPage,int memberNo) {
 		/*1. 한 페이지당 게시물 수 지정 -> 10개*/
 		int numPerPage = 10;
@@ -175,7 +181,6 @@ public class MemberService {
 
 
 
-
 // 관심상품에 추가하기 전에, 이미 관심상품에 있거나 가득찼는지 확인하는 함수
 	public String selectMyWishlist(WishList w) {
 		int wishNo = 0;
@@ -201,6 +206,30 @@ public class MemberService {
 	public int insertMyWishlist(WishList w) {
 		return dao.insertMyWishlist(w);
 	}
+
+
+
+// 상품페이지에서 관심상품 바로 삭제.  Wishlist 테이블에 Row 1개 삭제
+	@Transactional
+	public int delistWishList(WishList w) {
+		return dao.delistWishList(w);
+	}
+
+
+
+// 나의 관심상품들을 조회하는 함수
+	public ArrayList<WishList> selectAllWishList(String memberId) {
+		return dao.selectAllWishList(memberId);
+	}
+
+
+
+// 나의 관심상품 삭제.  Wishlist 테이블에 Row 1개 삭제
+	@Transactional
+	public int deleteWishList(int wishNo) {
+		return dao.deleteWishList(wishNo);
+	}
+
 
 
 	public Member selectOneMember(Member m) {

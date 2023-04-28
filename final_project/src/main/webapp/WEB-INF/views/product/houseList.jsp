@@ -197,7 +197,7 @@
 									</c:otherwise>
 								</c:choose>
 									원
-										<br>숙박소 이름 <input type="text" name="roomTitle" class="form-control" style="width: 60%;" value="${condition.roomTitle}" placeholder="숙박업소 이름">
+										<br>숙박소 이름 <input type="text" name="roomTitle" class="form-control" style="width: 60%;" value="${condition.roomTitle}" maxlength="60" placeholder="숙박업소 이름">
 								</div>
 								<div class="col-md-4">
 									인원 
@@ -252,7 +252,7 @@
 								</c:choose>
 									 <span style="margin-bottom: 20px;"> 파티 가능</span></label>
 								</div>
-								<input type="text" name="houseTitle" class="form-control" style="width: 85%;" value="${condition.houseTitle}" placeholder="상품 제목으로 검색">
+								<input type="text" name="houseTitle" class="form-control" style="width: 85%;" value="${condition.houseTitle}" maxlength="60" placeholder="상품 제목으로 검색">
 							<button id="newCondition" class="btn btn-info" style="vertical-align: bottom;" type="submit">검색</button>
 							</div>
 						</fieldset>

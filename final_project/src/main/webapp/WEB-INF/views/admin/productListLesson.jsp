@@ -97,7 +97,7 @@ th:last-child, td-last-child{
                                 			</c:otherwise>
                                 		</c:choose>
 										</td>
-										<td><a href="#">${l.lessonTitle }</a></td>
+										<td><a href="/lessonView.do?lessonNo=${l.lessonNo }">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
 										<td>Level ${l.lessonLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
