@@ -40,6 +40,35 @@
 }
 
 
+.toggleWishList {
+  position: relative;
+  width: 140px;
+  height: 60px;
+  padding: 0px;
+  border: none;
+  box-sizing: border-box;
+}
+.toggleWishList > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 25px;
+  transition: .5s ease;
+}
+.toggleWishList > input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  opacity: 0;
+}
+.toggleWishList input[type=checkbox]:checked ~ div {
+  background-color: #fff100;
+}
+
+
 
 .eachProduct {
 	height: 440px;

@@ -161,6 +161,16 @@
 		)
  	</insert>
 
+
+<!-- 상품페이지에서 관심상품 바로 삭제하기 -->
+ 	 <delete id="delistWishList" parameterType="w">
+ 		DELETE FROM WISHLIST WHERE MEMBER_ID = #{memberId}
+		<choose>
+			<when test="lesson_no == 0">AND HOUSE_NO = #{house_no}, ''</when>
+			<when test="house_no == 0">AND LESSON_NO = #{lesson_no}</when>
+		</choose>
+ 	</delete>
+
  
 <!-- 나의 관심상품 목록을 가져오기  -->
  	<select id="selectAllWishList" parameterType="string" resultType="w">
@@ -203,7 +213,7 @@
  	</delete>
 
 
-<!-- 나의 관심상품에서 삭제하기 -->
+<!-- 회원탈퇴 시 나의 관심상품들 전부 삭제하기 -->
  	 <delete id="deleteMyWishLists" parameterType="string">
  		DELETE FROM WISHLIST WHERE MEMBER_ID=#{_parameter}
  	</delete>

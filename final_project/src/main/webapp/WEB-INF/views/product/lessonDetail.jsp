@@ -99,17 +99,20 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-3">
-									판매량 ()숫자
+								<div class="col-md-5">
+									별평점 평균값 들어올 자리
 								</div>
 								<div class="col-md-1"></div>
-								<div class="col-md-5">
-									별평점넣을자리
+								<div class="col-md-3">
+									<!-- 판매량 넣을 자리 -->
 								</div>
 							</div>
 							<p>지역 <span>${lesson.lessonCity }</span></p>
 						<div>
-							<button onclick="goWishList()">관심상품</button>
+							<button class="toggleWishList" onclick="goWishList()">
+								<input id="showWishStatus" type="checkbox">
+								<div>관심상품</div>
+							</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 						</div>
 						<c:if test="${sessionScope.m.memberGrade == 2}">
@@ -382,17 +385,43 @@
 		}
 
 
-	// 나의 관심상품
+	// 관심상품 버튼을 눌렀을 때
 		function goWishList(){
 			const lessonNo = $("[name=lessonNo]").val();
 			const lessonStatus = $("[name=lessonStatus]").val();
+			if($("#showWishStatus").prop("checked")){
+				$.ajax({
+					url : "/delistWishList.do",
+					data: {house_no : 0, lesson_no : lessonNo},
+					dataType : "text",
+					success : function(message){
+						if(message=="관심상품에서 제외했습니다."){
+							$("#showWishStatus").prop("checked", false);
+						}else{
+							$("#showWishStatus").prop("checked", true);
+							alert(message);
+						}
+					},
+					error : function(){
+						alert("알 수 없는 오류가 발생했습니다.");
+					}
+				});
+			}else{
 				if(lessonStatus==1){
 					$.ajax({
 						url : "/insertWishList.do",
 						data: {house_no : 0, lesson_no : lessonNo},
 						dataType : "text",
 						success : function(message){
-							alert(message);
+							if(message=="관심상품에 등록했습니다."){
+								$("#showWishStatus").prop("checked", true);
+							}else if(message=="이미 회원님의 관심목록에 추가되어 있는 상품입니다."){
+								$("#showWishStatus").prop("checked", true);
+								alert(message);
+							}else{
+								$("#showWishStatus").prop("checked", false);
+								alert(message);
+							}
 						},
 						error : function(){
 							alert("알 수 없는 오류가 발생했습니다.");
@@ -401,6 +430,24 @@
 				}else{
 					alert("판매중인 상품이 아닙니다.");
 				}
+			}
+		}
+
+
+	// 나의 관심상품에 있는 상품인지 확인 후 관심상품 추가하기에 불 들어오게
+		function refrechWishList(){
+			const lessonNo = $("[name=lessonNo]").val();
+			const lessonStatus = $("[name=lessonStatus]").val();
+				$.ajax({
+					url : "/checkWishStatus.do",
+					data: {house_no : 0, lesson_no : lessonNo},
+					dataType : "text",
+					success : function(message){
+						if(message=="이미 회원님의 관심목록에 추가되어 있는 상품입니다."){
+							$("#showWishStatus").prop("checked", true);
+						}
+					}
+				});
 		}
 
 
@@ -451,6 +498,7 @@
 	// 이 .jsp 페이지를 방문할 때 문의글 첫 페이지 조회로 시작
 		$(document).ready(function() {
 			getInquiries(1, 0);
+			refrechWishList();
 		});
 
 

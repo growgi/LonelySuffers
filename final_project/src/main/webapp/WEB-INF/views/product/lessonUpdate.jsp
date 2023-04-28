@@ -160,15 +160,6 @@ input[type="number"], input[type="time"] {
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-3">
-									판매량 ()숫자
-								</div>
-								<div class="col-md-1"></div>
-								<div class="col-md-5">
-									별평점넣을자리
-								</div>
-							</div>
-							<div class="row">
 								<div class="col-md-2">지역 :</div>
 								<div class="col-md-10">
 								<c:choose>

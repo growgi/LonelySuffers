@@ -314,6 +314,53 @@ public class MemberController {
 
 
 
+// 상품페이지에서 관심상품 바로 삭제
+	@ResponseBody
+	@RequestMapping(value="/delistWishList.do", produces = "application/json;charset=utf-8")
+	public String delistWishList(HttpSession session, int house_no, int lesson_no) {
+		String message = "";
+		Member me = (Member)session.getAttribute("m");
+		if(me == null) {
+			message = "로그인이 필요합니다.";
+		}else {
+			WishList w = new WishList();
+			w.setMemberId(me.getMemberId());
+			w.setHouse_no(house_no);
+			w.setLesson_no(lesson_no);
+			message = service.selectMyWishlist(w);
+			if(message.equals("이미 회원님의 관심목록에 추가되어 있는 상품입니다.")) {
+				int result = service.delistWishList(w);
+				if(result > 0) {
+					message = "관심상품에서 제외했습니다.";
+				}else {
+					message = "알 수 없는 이유로 관심상품 제외에 실패했습니다.";
+				}
+			}
+		}
+		return message;
+	}
+	
+
+
+
+// 상품페이지에서 현재 관심상품 여부 표시용 
+	@ResponseBody
+	@RequestMapping(value="/checkWishStatus.do", produces = "application/json;charset=utf-8")
+	public String checkWishStatus(HttpSession session, int house_no, int lesson_no) {
+		String message = "";
+		Member me = (Member)session.getAttribute("m");
+		if(me != null) {
+			WishList w = new WishList();
+			w.setMemberId(me.getMemberId());
+			w.setHouse_no(house_no);
+			w.setLesson_no(lesson_no);
+			message = service.selectMyWishlist(w);
+		}
+		return message;
+	}
+
+
+
 // 나의 관심상품 목록 보기
 	@RequestMapping(value="/wishList.do")
 	public String wishList(HttpSession session, Model model) {

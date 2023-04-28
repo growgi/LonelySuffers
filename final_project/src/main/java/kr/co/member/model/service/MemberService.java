@@ -209,6 +209,14 @@ public class MemberService {
 
 
 
+// 상품페이지에서 관심상품 바로 삭제.  Wishlist 테이블에 Row 1개 삭제
+	@Transactional
+	public int delistWishList(WishList w) {
+		return dao.delistWishList(w);
+	}
+
+
+
 // 나의 관심상품들을 조회하는 함수
 	public ArrayList<WishList> selectAllWishList(String memberId) {
 		return dao.selectAllWishList(memberId);
