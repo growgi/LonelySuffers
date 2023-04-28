@@ -1,5 +1,7 @@
 package kr.co.admin.model.vo;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Visitant {
+public class Visitant implements Serializable {
 	private int visitantNo;
 	private String visitantDate;
 	

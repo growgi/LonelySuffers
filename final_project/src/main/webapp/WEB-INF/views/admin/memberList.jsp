@@ -39,6 +39,7 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
         <div>
+        <input type="hidden" value="${hiddenVal }" class="hidden-input">
             <form action="/adminSearchMember.do" method="get" class="search-bar" name="searchMember">
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
                 <div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
