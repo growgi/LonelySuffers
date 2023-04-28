@@ -7,7 +7,7 @@
 		
 		<choose>
 			<when test="roomBookNo == 0">
-				INSERT INTO ORDER_DETAIL VALUES((ORDER_DETAIL_SEQ.NEXTVAL), #{orderNo}, null, null, #{lessonNo}, #{lessonBookNo})
+			INSERT INTO ORDER_DETAIL VALUES((ORDER_DETAIL_SEQ.NEXTVAL), #{orderNo}, null, null, #{lessonNo}, #{lessonBookNo})
 				
 			</when>
 			<otherwise>
