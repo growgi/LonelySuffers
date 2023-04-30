@@ -3,6 +3,11 @@ $(".search-bar>input").on("click",function(){
     $(this).toggleClass("active-search-bar");
 });
 
+/*왼쪽 메뉴*/
+$(".menu-detail-title").on("click",function(){
+    $(this).addClass("active-menu-click");
+});
+
 
 /*상품 선택에 따라 리스트 조회
 $(".product-choice>div:first-of-type").on("click",function(){

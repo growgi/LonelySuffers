@@ -18,11 +18,9 @@
     margin-bottom: 150px;
 }
 
-.table-content{
-
+.active-menu-click{
+    background-color: rgb(22, 22, 22);
 }
-
-
 
 /*모달*/
 .modal-bg {

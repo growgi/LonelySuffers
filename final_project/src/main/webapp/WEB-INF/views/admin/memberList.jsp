@@ -130,6 +130,10 @@
         $(this).toggleClass("active-search-bar");
     });
     
+    $(function(){
+        $(".menu-detail>li>a").eq(0).addClass("active-menu-click");
+    });
+    
     /*모달*/
     $(function () {
       $(document).on("click", ".modal-open-btn", function () {

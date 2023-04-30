@@ -21,7 +21,15 @@
 </head>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 <link rel="stylesheet" href="resources/css/main.css">
-
+<style>
+	.container>.section-title h3{
+		font-weight:600;
+	}
+	.section-title>hr{
+		margin:0 auto;
+		margin-bottom:30px;
+	}
+</style>
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -74,7 +82,7 @@
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad">
-						<a href="#">
+						<a href="/selectLessonsByCondition.do?reqPage=1">
 							<div class="home-service c2">
 								<i class="material-symbols-outlined">surfing</i>
 								<p>강습</p>
@@ -85,7 +93,7 @@
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad">
-						<a href="#">
+						<a href="/selectHousesByCondition.do?reqPage=1">
 							<div class="home-service c3">
 								<i class="material-symbols-outlined">apartment</i>
 								<p>숙박</p>
@@ -96,7 +104,7 @@
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad last">
-						<a href="#">
+						<a href="/carpoolMain.do">
 							<div class="home-service c4">
 								<i class="material-symbols-outlined">directions_car</i>
 								<p>카풀</p>
@@ -131,7 +139,7 @@
 							<p>Lonely Surfers는 서핑 초심자, 숙련자 모두 사용할 수 있는 <br>서퍼들을 위한 소셜 통합 플랫폼을 구성하고 있습니다.<br> 
 								서핑을 사랑하는 사람들이 모여서 서핑, 파티 등을 함께 즐기며 <br>친목을 도모할 수 있는 연결고리를 만들어내는 것을 목적으로 하고 있습니다.</p>
 
-							<a href="#" class="btn btn-transparent">Get a Quote</a>
+							<a href="/company.do" class="btn btn-transparent">WhatSurf 소개</a>
 
 						</div>
 						<!-- end website-design -->
@@ -234,7 +242,7 @@
 							data-wow-delay="0.2s">
 							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">surfing</i>
 							<h3 class="bold">Lesson</h3>
-							<p class="btn btn-transparent">강습 페이지로 이동</p>
+							<a href="/selectLessonsByCondition.do?reqPage=1" class="btn btn-transparent">강습 페이지로 이동</a>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -245,7 +253,7 @@
 							data-wow-delay="0.4s">
 							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">apartment</i>
 							<h3>Lodgment</h3>
-							<p class="btn btn-transparent">숙박 페이지로 이동</p>
+							<a href="/selectHousesByCondition.do?reqPage=1" class="btn btn-transparent">숙박 페이지로 이동</a>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -256,7 +264,7 @@
 							data-wow-delay="0.6s">
 							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">directions_car</i>
 							<h3>Carpool</h3>
-							<p class="btn btn-transparent">카풀 페이지로 이동</p>
+							<a href="/carpoolMain.do" class="btn btn-transparent">카풀 페이지로 이동</a>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -528,7 +536,7 @@
 		<section class="section">
 				<div class="row callout bgcolor" style="background: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%); width: 90%; margin: 0 auto;">
 					<div class="col-md-9">
-						<p style="font-size:40px; font-weight:600; padding:6px 0px; font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
+						<p style="font-size:40px; font-weight:500; padding:6px 0px; font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
 					</div>
 					<div class="col-md-3">
 						<div class="text-right">

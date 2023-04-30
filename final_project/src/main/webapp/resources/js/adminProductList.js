@@ -2,6 +2,7 @@
 $(function() {
     $(".top-menu-title").text("등록된 상품 관리");
     $(".product-choice>div").first().click();
+    $(".menu-detail>li>a").eq(3).addClass("active-menu-click");
 });
 
 $(".more-detail").on("click", function() {

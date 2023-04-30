@@ -97,6 +97,7 @@
     /*메뉴 제목*/
     $(document).ready(function(){
         $(".top-menu-title").text("게시물 관리");
+        $(".menu-detail>li>a").eq(5).addClass("active-menu-click");
     });
     
     /*게시글 삭제*/

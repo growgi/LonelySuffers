@@ -571,4 +571,7 @@
 	<script src="resources/js/owl.carousel.js"></script>
 
 </body>
+<script>
+	window.location.href='/main.do';
+</script>
 </html>

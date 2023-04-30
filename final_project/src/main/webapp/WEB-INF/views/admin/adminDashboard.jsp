@@ -258,6 +258,7 @@
 	/*메뉴 제목*/
 	$(document).ready(function(){
 		$(".top-menu-title").text("Dashboard");
+		$(".menu-detail-title").eq(0).addClass("active-menu-click");
 	});
 
 	/*달력*/

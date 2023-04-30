@@ -1,6 +1,7 @@
 /*메뉴 제목*/
 $(function() {
     $(".top-menu-title").text("신규 상품 승인");
+    $(".menu-detail>li>a").eq(2).addClass("active-menu-click");
 });
 
 /*강습 체크박스 전체 선택*/

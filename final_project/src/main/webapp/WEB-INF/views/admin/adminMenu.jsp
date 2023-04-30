@@ -357,8 +357,12 @@
     	location.href = "/dashboard.do";
     });
 
-    /*왼쪽 메뉴
-    $(".menu-detail-title").on("click",function(){
+/*왼쪽 메뉴*/
+$(".menu-detail-title").on("click",function(){
+    $(this).addClass("active-menu-click");
+});
+
+    /*$(".menu-detail-title").on("click",function(){
         //$(".menu-detail-title").next().hide();
         $(".menu-detail-title").parent().removeClass("action-menu-detail");
 

@@ -76,8 +76,9 @@
 </body>
 <script>
     /*메뉴 제목*/
-    $(document).ready(function(){
+    $(function(){
         $(".top-menu-title").text("상품 판매내역");
+        $(".menu-detail>li>a").eq(4).addClass("active-menu-click");
     });
     
     /*내역 삭제*/

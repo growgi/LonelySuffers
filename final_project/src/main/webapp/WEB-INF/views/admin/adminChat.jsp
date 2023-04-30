@@ -91,4 +91,11 @@
 	<script src="/resources/js/jquery.min.js"></script>
 	<script src="/resources/js/chat.js"></script>
 </body>
+<script>
+	/*메뉴 제목*/
+	$(function(){
+        $(".top-menu-title").text("1:1 문의");
+        $(".menu-detail>li>a").eq(6).addClass("active-menu-click");
+    });
+</script>
 </html>

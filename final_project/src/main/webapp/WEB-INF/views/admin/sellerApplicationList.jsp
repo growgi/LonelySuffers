@@ -99,6 +99,7 @@
     $(function(){
         $(".top-menu-title").text("판매자 신청 회원 조회");
         $(".product-choice>div").first().click();
+        $(".menu-detail>li>a").eq(1).addClass("active-menu-click");
     });
   	
     /*모달*/

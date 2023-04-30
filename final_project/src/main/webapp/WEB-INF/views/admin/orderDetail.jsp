@@ -180,9 +180,10 @@
 </body>
 <script>
     /*메뉴 제목*/
-    $(document).ready(function(){
-        $(".top-menu-title").text("판매 내역");
+    $(function(){
+        $(".top-menu-title").text("상품 판매내역");
         $(".product-choice>div").first().click();
+        $(".menu-detail>li>a").eq(4).addClass("active-menu-click");
     });
 
 </script>
