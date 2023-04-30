@@ -28,6 +28,7 @@ import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
+import kr.co.review.model.vo.Review;
 
 @Controller
 public class AdminController {
@@ -42,9 +43,11 @@ public class AdminController {
 	public String main(Model model) {
 		ArrayList<Lesson> lessonList = service.selectTopLesson();
 		ArrayList<House> houseList = service.selectTopHouse();
+		ArrayList<Review> reviewList = service.selectTopReview();
 		
 		model.addAttribute("lessonList", lessonList);
 		model.addAttribute("houseList", houseList);
+		model.addAttribute("reviewList", reviewList);
 		
 		return "main";
 	}

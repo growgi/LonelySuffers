@@ -25,6 +25,7 @@ import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
+import kr.co.review.model.vo.Review;
 
 @Service("adminService")
 public class AdminService {
@@ -1506,6 +1507,11 @@ public class AdminService {
 	public ArrayList<SalesAmount> selectAllSalesAmount() {
 		
 		return dao.selectAllSalesAmount();
+	}
+
+	public ArrayList<Review> selectTopReview() {
+
+		return dao.selectTopReview();
 	}
 
 }
