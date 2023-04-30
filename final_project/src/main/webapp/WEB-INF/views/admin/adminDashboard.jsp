@@ -235,11 +235,11 @@
 			</div>
 
 			<div class="dashboard-6th">
-				<div class="admin-list" style="width:100%;">
+				<div class="admin-list">
 					<div class="title-bold">관리자</div>
 					<div class="admin-list-row" style="overflow: hidden;">
 						<c:forEach items="${dInfo.adminList }" var="ad">
-						<div class="member-box" style="width:235px; margin-right:60px; float: left;">
+						<div class="member-box" style="width:235px; margin-right:50px; float: left;">
 							<div class="material-symbols-outlined member-img" style="color:#888888;">admin_panel_settings</div>
 							<div>
 								<div><span style="font-weight:bold;">${ad.memberName }</span> | <span>${ad.memberId }</span></div>
@@ -248,6 +248,9 @@
 						</div>
 						</c:forEach>
 					</div>
+				</div>
+				<div class="surf-img">
+					<img src="/resources/upload/main/surf22.jpg">
 				</div>
 			</div>
 		</div>

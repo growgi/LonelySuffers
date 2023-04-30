@@ -9,57 +9,35 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/adminChat.css">
 <style>
-.adminChatContent>ul>li>div {
-	overflow: hidden;
-}
 
-.adminChatContent>ul>li>div>div {
-	float: left;
-}
-
-.chatting {
-	display: none;
-}
-
-.active_chat_content {
-	display: block;
-}
-
-.adminMessageArea {
-	overflow-y: auto;
-	border: 1px solid black;
-	height: 550px;
-	width: 500px;
-	display: flex;
-	flex-direction: column;
-	background-color: #b2c7d9;
-}
-
-.chat {
-	margin-bottom: 10px;
-	padding: 8px;
-	border-radius: 3px;
-}
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="admin-content">
 		<input type="hidden" class="hiddenMemberGrade"
-			value="${sessionScope.m.memberGrade }">
+		value="${sessionScope.m.memberGrade }">
 		<div class="adminChatContent">
 			<c:if test="${not empty sessionScope.m }">
 				<input type="hidden" name="chatMemberId"
 					value="${sessionScope.m.memberId }">
 			</c:if>
-			<c:forEach items="${list }" var="ca" varStatus="status">
-				<ul>
+			<ul>
+				<li>
+					<div class="th">
+						<div class="td" style="width:20%">문의번호</div>
+						<div class="td" style="width:25%">문의자</div>
+						<div class="td" style="width:30%">최근 채팅 시간</div>
+						<div class="td" style="width:25%">채팅 종료 여부</div>
+					</div>
+				</li>
+				<c:forEach items="${list }" var="ca" varStatus="status">
 					<li><div class="active_chat_title" value="${ca.memberId }">
 							<input type="hidden" class="memberId" value="${ca.memberId }">
-							<div class="td">${status.count }</div>
-							<div class="td">${ca.memberId }</div>
-							<div class="td timeDiv"></div>
-							<div class="td">
+							<div class="td" style="width:20%">${status.count }</div>
+							<div class="td" style="width:25%">${ca.memberId }</div>
+							<div class="td timeDiv" style="width:30%"></div>
+							<div class="td" style="width:25%">
 								<c:choose>
 									<c:when test="${ca.chatActivation == 1}">
 								채팅중
@@ -70,7 +48,7 @@
 								</c:choose>
 							</div>
 						</div></li>
-					<li>
+					<div> <!--이거 li를 div로 바꿔도 되겠지?-->
 						<div class="chatting">
 							<div class="adminMessageArea"></div>
 							<div class="sendBox">
@@ -79,12 +57,11 @@
 									onClick="adminSendMsg('${ca.memberId }');">전송</button>
 							</div>
 						</div>
-					</li>
-
-				</ul>
-			</c:forEach>
-			<button type="button" name="divValue">DIV벨류체크</button>
+					</div>
+				</c:forEach>
+			</ul>
 		</div>
+		<div class="list-bottom"></div>	
 	</div>
 
 	<script src="/resources/js/adminChat.js"></script>
