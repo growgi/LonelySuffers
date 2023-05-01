@@ -87,7 +87,7 @@
 	              <label for="findMemberEmail">이메일</label>
 	            </div>
 	              <span class="dataNull"></span><br>
-	              <button type="button" class="btn-successs btn-block selectIdBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
+	              <button type="button" class="btn-successs btn-block selectIdBtn"><span class="glyphicon glyphicon-search"></span> 찾기</button>
 	              </form>
 	            </div>
             </div>
@@ -96,7 +96,7 @@
               <h3>조회된 아이디는</h3>
               <h3>[ <span class="findIdInput"></span> ]입니다.</h3>
             </div>
-              <button type="button" class="btn-successs btn-block idOkBtn"><span class="glyphicon glyphicon-off"></span> 확인</button>
+              <button type="button" class="btn-successs btn-block idOkBtn"><span class="glyphicon glyphicon-ok"></span> 확인</button>
         	</div>
         </div>
         <div class="modal-footer">
@@ -128,7 +128,7 @@
               <input type="text" name="memberEmail" class="findMemberPwEmail inputVaild" required>
               <label>이메일</label>
               </div>
-              <button type="submit" class="btn-successs btn-block selectPwBtn"><span class="glyphicon glyphicon-off"></span> 찾기</button>
+              <button type="submit" class="btn-successs btn-block selectPwBtn"><span class="glyphicon glyphicon-search"></span> 찾기</button>
               </form>
             </div>
             </div>

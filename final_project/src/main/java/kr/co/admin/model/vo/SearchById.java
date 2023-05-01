@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Search {
+public class SearchById {
 	private String searchType;
-	private String[] keywords;
+	private String searchKeyword;
 }

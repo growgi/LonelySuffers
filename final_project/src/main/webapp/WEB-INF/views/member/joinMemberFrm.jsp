@@ -116,7 +116,7 @@
               <input type="text" maxlength='8'class="customEmailCode"id="emailCode" required>
               <input type="hidden" class="form-control" name="emailCode">
             </div>
-              <button type="button" class="btn btn-success btn-block" name="emailCodeChk"><span class="glyphicon glyphicon-off"></span> 인증</button>
+              <button type="button" class="btn btn-success btn-block" name="emailCodeChk"><span class="glyphicon glyphicon-share"></span> 인증</button>
           </form>
         </div>
         <div class="modal-footer">
@@ -146,7 +146,7 @@
 			  <span></span>        		
         	 </div>
               <span>사용 가능한 아이디 입니다</span>
-              <button type="button" class="btn btn-success btn-block successId"><span class="glyphicon glyphicon-off"></span>사용하기</button>
+              <button type="button" class="btn btn-success btn-block successId"><span class="glyphicon glyphicon-ok"></span>사용하기</button>
             </div>
             </div>
             <div class="useId">
@@ -156,7 +156,7 @@
 	              <input type="text" class="form-control" name="userIdInput" id="userIdInput" placeholder="아이디">
 	              <span>이미 사용중인 아이디 입니다</span>
 	            </div>
-	              <button type="button" class="btn btn-success btn-block idChkBtn"><span class="glyphicon glyphicon-off"></span>중복체크</button>
+	              <button type="button" class="btn btn-success btn-block idChkBtn"><span class="glyphicon glyphicon-share"></span>중복체크</button>
 	          </form>
         	</div>
         </div>
