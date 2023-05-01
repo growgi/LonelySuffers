@@ -617,7 +617,10 @@ public class AdminController {
 	@RequestMapping(value="/adminChat.do")
 	public String adminChat(Model model) {
 		ArrayList<ChatActive> list = cService.selectAllChatActive();
+		int adminChatCount = service.selectNewAdminChatCount();
+		
 		model.addAttribute("list",list);
+		model.addAttribute("adminChatCount",adminChatCount);
 		return "admin/adminChat";
 	}
 

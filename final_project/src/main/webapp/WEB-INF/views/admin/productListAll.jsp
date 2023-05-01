@@ -117,9 +117,9 @@
 									<th></th>
 								</tr>
 								<c:choose>
-								<c:when test="${productList eq null }">
+								<c:when test="${empty productList }">
 								<tr>
-									<td colspan="8">
+									<td colspan="9">
 									    <div class="noInfo-wrapper">
 									        <div>
 									            <span class="material-symbols-outlined noInfo-icon">info</span>

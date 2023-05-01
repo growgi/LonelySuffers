@@ -95,6 +95,20 @@ th:last-child, td-last-child{
 									<th>상품 상태</th>
 									<th></th>
 								</tr>
+								<c:choose>
+								<c:when test="${empty houseList }">
+								<tr>
+									<td colspan="9">
+									    <div class="noInfo-wrapper">
+									        <div>
+									            <span class="material-symbols-outlined noInfo-icon">info</span>
+									            <div class="noInfo-text">조회된 정보가 없습니다.</div>
+									        </div>
+									    </div>
+								    </td>
+								</tr>
+								</c:when>
+								<c:otherwise>
 								<c:forEach items="${houseList }" var="h">
 									<tr>
 										<td><input type="checkbox" name="houseCheck"
@@ -197,6 +211,8 @@ th:last-child, td-last-child{
 											</div></td>
 									</tr>
 								</c:forEach>
+								</c:otherwise>
+								</c:choose>
 							</table>
 							<div id="pageNavi">
 								${pageNavi }

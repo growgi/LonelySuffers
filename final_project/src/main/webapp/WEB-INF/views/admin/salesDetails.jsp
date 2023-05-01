@@ -47,6 +47,20 @@
                             <th>처리상태</th>
                             <th>주문 상세</th>
                         </tr>
+                      	<c:choose>
+						<c:when test="${empty orderList }">
+						<tr>
+							<td colspan="8">
+							    <div class="noInfo-wrapper">
+							        <div>
+							            <span class="material-symbols-outlined noInfo-icon">info</span>
+							            <div class="noInfo-text">조회된 정보가 없습니다.</div>
+							        </div>
+							    </div>
+						    </td>
+						</tr>
+						</c:when>
+						<c:otherwise>
                         <c:forEach items="${orderList }" var="o">
                         <tr>
                             <td><input type="checkbox" name="orderCheck" class="check"></td>
@@ -59,6 +73,8 @@
                             <td><a href="/orderDetail.do?orderNo=${o.orderNo }" class="btn-r bc5">주문 상세 내역</a></td>
                         </tr>
                         </c:forEach>
+                        </c:otherwise>
+                        </c:choose>
                     </table>
                     <div id="pageNavi">
                     	${pageNavi }

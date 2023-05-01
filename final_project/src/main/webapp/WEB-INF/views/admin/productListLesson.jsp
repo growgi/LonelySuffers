@@ -92,9 +92,10 @@ th:last-child, td-last-child{
 									<th>상품 상태</th>
 									<th></th>
 								</tr>
-								<c:if test="${lessonList eq null }">
+								<c:choose>
+								<c:when test="${empty lessonList }">
 								<tr>
-									<td>
+									<td colspan="10">
 									    <div class="noInfo-wrapper">
 									        <div>
 									            <span class="material-symbols-outlined noInfo-icon">info</span>
@@ -103,7 +104,8 @@ th:last-child, td-last-child{
 									    </div>
 								    </td>
 								</tr>
-								</c:if>
+								</c:when>
+								<c:otherwise>
 								<c:forEach items="${lessonList }" var="l">
 									<tr>
 										<td><input type="checkbox" name="memberCheck"
@@ -207,6 +209,8 @@ th:last-child, td-last-child{
 											</div></td>
 									</tr>
 								</c:forEach>
+								</c:otherwise>
+								</c:choose>
 							</table>
 							<div id="pageNavi">
 								${pageNavi }

@@ -93,9 +93,9 @@
 									<th></th>
 								</tr>
 								<c:choose>
-								<c:when test="${houseList eq null }">
+								<c:when test="${empty houseList}">
 								<tr>
-									<td colspan="7">
+									<td colspan="8">
 									    <div class="noInfo-wrapper">
 									        <div>
 									            <span class="material-symbols-outlined noInfo-icon">info</span>

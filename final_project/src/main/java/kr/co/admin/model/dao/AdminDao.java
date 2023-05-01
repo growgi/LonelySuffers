@@ -411,6 +411,12 @@ public class AdminDao {
 		return (ArrayList<Review>)reviewList;
 	}
 
+	public int selectNewAdminChatCount() {
+		int newAdminChatCount = sqlSession.selectOne("admin.selectNewAdminChatCount");
+		
+		return newAdminChatCount;
+	}
+
 	/*
 	 * public int selectNewAdminChatCount() { int newAdminChatCount =
 	 * sqlSession.selectOne("admin.selectNewAdminChatCount");

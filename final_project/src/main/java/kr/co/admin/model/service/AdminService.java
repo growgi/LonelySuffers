@@ -1488,7 +1488,7 @@ public class AdminService {
 
 	public int selectNewAdminChatCount() {
 		
-		return 0;
+		return dao.selectNewAdminChatCount();
 	}
 
 	public int selectTotalSalesAmount() {
