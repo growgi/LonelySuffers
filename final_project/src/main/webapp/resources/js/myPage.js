@@ -7,6 +7,7 @@ $('.tab-content>li').on('click',function(){
     if(index == 2){
         $('.messageArea').scrollTop($('.messageArea')[0].scrollHeight);
     }
+    $('.tabNo').val(index);
 })
 
 $('.myProfile>div>ul>li').on('click',function(){
@@ -20,8 +21,9 @@ $('.myProfile>div>ul>li').on('click',function(){
     }
 })
 
-$('.tab-content>li').eq(0).click();
-$('.myProfile>ul>li').eq(0).click();
+// $('.tab-content>li').eq(0).click();
+// $('.myProfile>ul>li').eq(0).click();
+
 
 //이전 비밀번호 입력시 새 비밀번호 변경창 띄우는 ajax
 $('.beforePassWordBtn').on('click',function(){
@@ -117,6 +119,7 @@ $(function(){
                 chatChkSpan.text("");
             }
         }
+        
     })
     console.log("$(function(){}) : "+memberId);
     if(chatActivation == 1){
@@ -124,6 +127,7 @@ $(function(){
     }else{
         $('[name=endChatBtn').click();
     }
+    console.log("chatActivation : "+chatActivation);
 
 })
 
@@ -188,13 +192,7 @@ function startChatBtn(myPageMemberId){
 
 $(function(){
     const tabNo = $('.tabNo').val();
-    if(tabNo == 1){
-        $('.tab-content>li').eq(1).click();
-    }
-})
-
-$('.tabBtn').on('click',function(){
-    $('.tab-content>li').eq(1).click();
+        $('.tab-content>li').eq(tabNo).click();
 })
 
 

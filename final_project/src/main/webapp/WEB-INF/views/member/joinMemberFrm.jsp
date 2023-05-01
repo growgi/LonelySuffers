@@ -113,7 +113,7 @@
             <div class="form-group" style="text-align: center">
               <label for="emailCode">인증코드</label>
               <input type="text" maxlength='8'class="customEmailCode"id="emailCode" required>
-                             <!--  <input type="text" class="form-control" name="emailCode"> -->
+              <input type="hidden" class="form-control" name="emailCode">
             </div>
               <button type="button" class="btn btn-success btn-block" name="emailCodeChk"><span class="glyphicon glyphicon-off"></span> 인증</button>
           </form>

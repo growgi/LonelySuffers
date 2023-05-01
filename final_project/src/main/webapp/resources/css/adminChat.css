@@ -76,6 +76,7 @@
     color: #fff;
     border-radius: 10px;
     margin-right: 5px;
+    box-shadow: 3px 3px 7px #d7d3d3b8;
 }
 
 .chat_left {
@@ -89,6 +90,7 @@
     background-color: #F6F1F1;
     border-radius: 10px;
     display: inline-block;
+    box-shadow: 3px 3px 7px #d7d3d3b8;
   }
   
   .dateDate {
@@ -179,4 +181,23 @@
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     margin-top: 0;
+}
+
+.adminMessageArea::-webkit-scrollbar{
+  border-radius: 5px;
+  width: 10px;
+  background-color: #ffffff;
+  padding-top: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.adminMessageArea::-webkit-scrollbar-track{
+}
+
+.adminMessageArea::-webkit-scrollbar-thumb{
+  border-radius: 5px;
+  background-color: #dddddd;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

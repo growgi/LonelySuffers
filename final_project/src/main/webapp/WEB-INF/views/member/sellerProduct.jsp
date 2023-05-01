@@ -54,6 +54,16 @@
 	th:last-child, td-last-child{
 		width: 50px;
 	}
+	.insertBtn{
+	float: right;
+    color: black;
+    border: none;
+    outline: none;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 7px;
+    font-size: 16px;
+    }
 </style>
 
 </head>
@@ -78,7 +88,7 @@
 						
 						<div class="productList-top list-top">
 							<div class="count">
-								판매 상품 <span>${productCount }</span>
+								판매 상품 <span>${productCount }</span><span><button class="insertBtn">상품등록</button></span>
 							</div>
 							<input type="hidden" value="1" class="lesson-product-type">
 							<table>
@@ -211,15 +221,12 @@
 								</c:otherwise>
 								</c:choose>
 							</table>
-							<div id="pageNavi">
+							<div id="pageNavi" style="text-align: center;">
 								${pageNavi }
 							</div>
 						</div>
 						<div class="list-bottom">
-							<div>
-								<input type="submit" value="선택 상품 상태 변경"
-									class="checkedUpdateLessonStatus btn-m bc1">
-							</div>
+	
 						</div>
 					</div>
 				</div>
@@ -227,8 +234,12 @@
 				</div>
 			</div>
 		</section>
-
-
+		<script>
+			$('.insertBtn').on('click',function(){
+				location.href="/productInsert.do";
+			})
+		
+		</script>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 	</div>
