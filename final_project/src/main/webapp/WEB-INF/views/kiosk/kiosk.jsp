@@ -18,7 +18,7 @@
     
 	}
 	::-webkit-scrollbar-thumb {
-	    background-color: #3ac5c8;
+	    background-color: #000000;
 	    background-clip: padding-box;
 	    border: 2px solid transparent;
 	
@@ -49,7 +49,7 @@
 	
 	.modal-content{
 	width: 1200px;
-	margin-right:200px;
+	margin-right:180px;
 	}
 	h4.modal-title {
     text-align: center;
@@ -1745,7 +1745,7 @@ $("document").ready(function() {
 												option.val(List[i].roomNo);
 												option.text(List[i].roomName);
 												$("[name=roomName]").append(option);
-												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName)
+												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName+">");
 							    			}
 											//$("[name=roomName] option:selected").val();
 										}
