@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +23,7 @@ public class ReviewController {
 	private FileManager manager;
 	
 	@RequestMapping(value="/reviewWriteFrm.do")
-	public String reviewWrite(Review rv, MultipartFile[] reviewFile, HttpServletRequest request) {
+	public String reviewWrite(Review rv, MultipartFile[] reviewFile, HttpServletRequest request, Model model) {
 		ArrayList<RFileVO> fileList = new ArrayList<RFileVO>();
 		if(!reviewFile[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/review/");
@@ -37,19 +38,25 @@ public class ReviewController {
 			}
 		}
 		int result = service.insertReview(rv, fileList);
-		if(result == (fileList.size()+1)) {
-			return "redirect:/";
+		if(result == (fileList.size()+1) && result == 0) {
+			model.addAttribute("title","후기 작성");
+  			model.addAttribute("msg","후기 작성에 실패하였습니다.");
+  			model.addAttribute("icon","error");
+  			model.addAttribute("loc","/");
+  			return "common/msg";
 		}else {
-			return "redirect:/";
+			model.addAttribute("title","후기 작성");
+    	  	model.addAttribute("msg","후기 작성에 성공하였습니다.");
+  			model.addAttribute("icon","success");
+  			model.addAttribute("loc","/");
+  			return "common/msg";
 		}
 		
 	}
 	
 	@RequestMapping(value="/reviewUpdate.do")
-	public String reviewUpdate(Review rv, String[] delFileList, int[] fileNo, MultipartFile[] reviewFile, HttpServletRequest request) {
+	public String reviewUpdate(Review rv, String[] delFileList, int[] fileNo, MultipartFile[] reviewFile, HttpServletRequest request, Model model) {
 		ArrayList<RFileVO> fileList = new ArrayList<RFileVO>();
-		System.out.println(rv);
-		System.out.println(fileNo);
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/review/");
 		if(!reviewFile[0].isEmpty()) {
 			for(MultipartFile file : reviewFile) {
@@ -60,7 +67,6 @@ public class ReviewController {
 				rfileVO.setFilepath(upfilepath);
 				rfileVO.setReviewNo(rv.getReviewNo());
 				fileList.add(rfileVO);
-				System.out.println(rfileVO);
 				int insertFileResult = service.insertReviewFile(rfileVO);
 			}
 		}
@@ -76,14 +82,30 @@ public class ReviewController {
 				}
 				int delDBResult = service.deleteReviewFile(fileNo);
 			}
-			return "redirect:/";
+			if(fileNo == null && (result == fileList.size()+1)) {
+				model.addAttribute("title","후기 수정");
+	  			model.addAttribute("msg","후기 수정에 성공하였습니다.");
+	  			model.addAttribute("icon","success");
+	  			model.addAttribute("loc","/");
+	  			return "common/msg";
+			}else {
+				model.addAttribute("title","후기 수정");
+	    	  	model.addAttribute("msg","후기 수정에 실패하였습니다.");
+	  			model.addAttribute("icon","error");
+	  			model.addAttribute("loc","/");
+	  			return "common/msg";
+			}
 	}
 	
 	@RequestMapping(value="/deleteReview.do")
-	public String deleteReview(int reviewNo) {
+	public String deleteReview(int reviewNo, Model model) {
 		int result = service.deleteReview(reviewNo);
 		if(result > 0) {
-			return "redirect:/";
+			model.addAttribute("title","후기 삭제");
+    	  	model.addAttribute("msg","후기 삭제에 성공하였습니다.");
+  			model.addAttribute("icon","success");
+  			model.addAttribute("loc","/");
+  			return "common/msg";
 		}else{
 			return "redirect:/";
 		}

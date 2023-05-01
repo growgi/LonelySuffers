@@ -53,7 +53,7 @@
 						<div class="paper">
 							<div class="paper-content">
 								<ul>
-									<li class="paper2">제목<input id="noticeTitle" type="text" name="noticeTitle" required></li>
+									<li class="paper2" style="padding-bottom: 10px;">제목<input id="noticeTitle" type="text" name="noticeTitle" required></li>
 								</ul>
 								<ul>
 									<li class="paper2">첨부파일<input id="noticeFile" type="file" name="noticeFile" multiple onchange="loadImgs(this);"></li>

@@ -46,7 +46,7 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value="/noticeWrite.do")
-	public String noticeWrite(Notice n, MultipartFile[] noticeFile, HttpServletRequest request) {
+	public String noticeWrite(Notice n, MultipartFile[] noticeFile, HttpServletRequest request, Model model) {
 		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
 		if(!noticeFile[0].isEmpty()) {
 	         String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
@@ -61,10 +61,18 @@ public class NoticeController {
 	         }
 	      }
 	      int result = service.insertNotice(n,fileList);
-	      if(result == (fileList.size()+1)) {
-	         return "redirect:/noticeList.do?reqPage=1";
+	      if(result == (fileList.size()+1) && result == 0) {
+  			model.addAttribute("title","공지사항 작성");
+  			model.addAttribute("msg","공지사항 작성에 실패하였습니다.");
+  			model.addAttribute("icon","error");
+  			model.addAttribute("loc","/noticeList.do?reqPage=1");
+  			return "common/msg";
 	      }else {
-	         return "redirect:/";
+    	  	model.addAttribute("title","공지사항 작성");
+    	  	model.addAttribute("msg","공지사항 작성에 성공하였습니다.");
+  			model.addAttribute("icon","success");
+  			model.addAttribute("loc","/noticeList.do?reqPage=1");
+  			return "common/msg";
 	      }
 	}
 	
@@ -76,7 +84,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/noticeUpdate.do")
-	public String noticeUpdate(Notice n, int[] fileNo, String[] filepath, MultipartFile[] noticeFile, HttpServletRequest request) {
+	public String noticeUpdate(Notice n, int[] fileNo, String[] filepath, MultipartFile[] noticeFile, HttpServletRequest request, Model model) {
 		ArrayList<FileVO> fileList = new ArrayList<FileVO>();
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
 		if(!noticeFile[0].isEmpty()) {
@@ -102,14 +110,24 @@ public class NoticeController {
 			}
 			return "redirect:/noticeView.do?noticeNo="+n.getNoticeNo();
 		}else if(fileNo == null && (result == fileList.size()+1)) {
-			return "redirect:/noticeView.do?noticeNo="+n.getNoticeNo();
-		}else {
-			return "redirect:/noticeList.do?reqPage=1";
-		}
+			model.addAttribute("title","공지사항 수정");
+  			model.addAttribute("msg","공지사항 수정에 성공하였습니다.");
+  			model.addAttribute("icon","success");
+  			model.addAttribute("loc","/noticeView.do?noticeNo="+n.getNoticeNo());
+  			return "common/msg";
+	      }else {
+    	  	model.addAttribute("title","공지사항 수정");
+    	  	model.addAttribute("msg","공지사항 수정에 실패하였습니다.");
+  			model.addAttribute("icon","error");
+  			model.addAttribute("loc","/noticeList.do?reqPage=1");
+  			return "common/msg";
+	      }
+			
+			
 	}
 	
 	@RequestMapping(value="/deleteNotice.do")
-	public String deleteNotice(int noticeNo, HttpServletRequest request) {
+	public String deleteNotice(int noticeNo, HttpServletRequest request, Model model) {
 		ArrayList<FileVO> list = service.deleteNotice(noticeNo);
 		if(list == null) {
 			return "redirect:/noticeView.do?noticeNo="+noticeNo;
@@ -118,7 +136,11 @@ public class NoticeController {
 			for(FileVO file : list) {
 				boolean deleteResult = manager.deleteFile(savePath, file.getFilepath());
 			}
-			return "redirect:/noticeList.do?reqPage=1";
+			model.addAttribute("title","공지사항 삭제");
+    	  	model.addAttribute("msg","공지사항 삭제에 성공하였습니다.");
+  			model.addAttribute("icon","success");
+  			model.addAttribute("loc","/noticeList.do?reqPage=1");
+  			return "common/msg";
 		}
 	}
 	

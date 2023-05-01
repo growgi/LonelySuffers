@@ -30,12 +30,20 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/faqWrite.do")
-	public String faqWrite(Faq faq) {
+	public String faqWrite(Faq faq, Model model) {
 		int result = service.insertFaq(faq);
 		if(result > 0) {
-			return "redirect:/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1";
+			model.addAttribute("title","자주묻는질문 작성");
+    	  	model.addAttribute("msg","자주묻는질문 작성에 성공하였습니다.");
+  			model.addAttribute("icon","success");
+  			model.addAttribute("loc","/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1");
+  			return "common/msg";
 		}else {
-			return "redirect:/faqWriterFrm.do";
+			model.addAttribute("title","자주묻는질문 작성");
+  			model.addAttribute("msg","자주묻는질문 작성에 실패하였습니다.");
+  			model.addAttribute("icon","error");
+  			model.addAttribute("loc","/faqWriterFrm.do");
+  			return "common/msg";
 		}
 	}
 	
@@ -58,20 +66,32 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/faqUpdate.do")
-	public String updateFaq(Faq faq) {
+	public String updateFaq(Faq faq, Model model) {
 		int result = service.updateFaq(faq);
 		if(result > 0) {
-			return "redirect:/faqView.do?faqNo="+faq.getFaqNo();
+			model.addAttribute("title","자주묻는질문 수정");
+  			model.addAttribute("msg","자주묻는질문 수정에 성공하였습니다.");
+  			model.addAttribute("icon","success");
+  			model.addAttribute("loc","/faqView.do?faqNo="+faq.getFaqNo());
+  			return "common/msg";
 		}else {
-			return "redirect:/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1";
+			model.addAttribute("title","자주묻는질문 수정");
+    	  	model.addAttribute("msg","자주묻는질문 수정에 실패하였습니다.");
+  			model.addAttribute("icon","error");
+  			model.addAttribute("loc","/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1");
+  			return "common/msg";
 		}
 	}
 	
 	@RequestMapping(value="/deleteFaq.do")
-	public String deleteFaq(int faqNo, int categoryNo) {
+	public String deleteFaq(int faqNo, int categoryNo, Model model) {
 		int result = service.deleteFaq(faqNo);
 		if(result > 0) {
-			return "redirect:/faqListKind.do?categoryNo="+categoryNo+"&reqPage=1";
+			model.addAttribute("title","공지사항 삭제");
+			model.addAttribute("msg","공지사항 삭제에 성공하였습니다.");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/faqListKind.do?categoryNo="+categoryNo+"&reqPage=1");
+			return "common/msg";
 		}else {
 			return "redirect:/";
 		}

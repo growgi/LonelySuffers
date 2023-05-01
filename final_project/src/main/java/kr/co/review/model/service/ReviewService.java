@@ -43,7 +43,6 @@ public class ReviewService {
 		int result = 0;
 		if(fileNo != null) {
 			for(int i : fileNo) {
-				System.out.println(i);
 				result = dao.deleteFile(i);
 			}
 		}

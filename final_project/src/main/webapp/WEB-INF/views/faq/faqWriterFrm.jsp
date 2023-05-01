@@ -51,8 +51,8 @@
 							<p style="font-size: 20px; margin-bottom: 5px;">제목</p>
 							<p style="font-size: 30px;"><input style="border: none; border-bottom: 1px solid #595959" type="text" name="faqTitle"></p>
 							<ul class="faqViewheader">
-								<li>카테고리</li>
-								<li>
+								<li>카테고리
+									<span>|</span>	
 									<select name="categoryNo" id="categoryNo" class="input-form">
 										<option value="1">예약취소</option>
 										<option value="2">숙박</option>
