@@ -83,7 +83,7 @@
 			<div class="container">
 				<div class="row">
 					<c:if test="${sessionScope.m.memberGrade == 1}">
-					<a class="button-74" href="/noticeWriteFrm.do" role="button">글쓰기</a>
+					<a class="button-74" href="/noticeWriteFrm.do" role="button">글쓰기🤿</a>
 					</c:if>
 					<form action="/searchNoticeTitle.do" method="get" class="search-bar" name="searchTitle">
 						<span class="material-symbols-outlined search-icon">search</span>
@@ -93,9 +93,9 @@
 					<br>
 					<table class="table">
 						<tr>
-							<th class="nt" style="width:15%">번호</th>
-							<th class="nt" style="width:70%">제목</th>
-							<th class="nt" style="width:15%">작성일</th>
+							<th class="nt" style="width:15%">번호🏄‍♂️</th>
+							<th class="nt" style="width:70%">제목🏄‍♂️</th>
+							<th class="nt" style="width:15%">작성일🏄‍♂️</th>
 						</tr>
 						<c:forEach items="${list }" var="n">
 							<tr>

@@ -224,11 +224,11 @@
 									<th style="padding-right: 5px;">별점</th>
 									<td>
 										<div id="reviewWrapper">
-											<input type="radio" id="star1" name="rating" value="1" checked="checked"><label for="star1"></label>
-											<input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
-											<input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
-											<input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
-											<input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
+											<input type="radio" id="star1" name="rating" value=1 checked><label for="star1"></label>
+											<input type="radio" id="star2" name="rating" value=2><label for="star2"></label>
+											<input type="radio" id="star3" name="rating" value=3><label for="star3"></label>
+											<input type="radio" id="star4" name="rating" value=4><label for="star4"></label>
+											<input type="radio" id="star5" name="rating" value=5><label for="star5"></label>
 										</div>
 									</td>
 								</tr>
@@ -264,21 +264,23 @@
 												<td style="text-align: center;">${review.reviewTitle }</td>
 												<td style="text-align: center;">${review.reviewWriter }</td>
 												<td style="text-align: center;">${review.reviewContent }</td>
-												<c:if test="${review.rating  == 1}">
-													<td style="text-align: center; color: orange;">★</td>
-												</c:if>
-												<c:if test="${review.rating  == 2}">
-													<td style="text-align: center; color: orange;">★★</td>
-												</c:if>
-												<c:if test="${review.rating  == 3}">
-													<td style="text-align: center; color: orange;">★★★</td>
-												</c:if>
-												<c:if test="${review.rating  == 4}">
-													<td style="text-align: center; color: orange;">★★★★</td>
-												</c:if>
-												<c:if test="${review.rating  == 5}">
-													<td style="text-align: center; color: orange;">★★★★★</td>
-												</c:if>
+												<td style="text-align: center; color: orange;" value="${review.rating }">
+													<c:if test="${review.rating  == 1}">
+														<td style="text-align: center; color: orange;">★</td>
+													</c:if>
+													<c:if test="${review.rating  == 2}">
+														<td style="text-align: center; color: orange;">★★</td>
+													</c:if>
+													<c:if test="${review.rating  == 3}">
+														<td style="text-align: center; color: orange;">★★★</td>
+													</c:if>
+													<c:if test="${review.rating  == 4}">
+														<td style="text-align: center; color: orange;">★★★★</td>
+													</c:if>
+													<c:if test="${review.rating  == 5}">
+														<td style="text-align: center; color: orange;">★★★★★</td>
+													</c:if>
+												</td>
 												<c:choose>
 													<c:when test="${review.productCategory == 2 }">
 															<td style="text-align: center; display: none;">숙박</td>
@@ -288,7 +290,7 @@
 												<td>
 													<c:forEach items="${review.rfileList }" var="rf">
 														<div style="display: inline-block;">
-															<img src="/resources/upload/review/${rf.filepath }" width="60" height="60">
+															<img src="/resources/upload/review/${rf.filepath }" width="60" height="60" class="trans5">
 															<input type="hidden" value=${rf.filepath }>
 															<input type="hidden" value=${rf.fileNo }>
 														</div>
@@ -328,8 +330,8 @@
 							          		<input type="text" class="form-control reviewWriter" name="reviewWriter" placeholder="작성자" value="" readonly>
 							          		<div>내용</div>
 							          		<textarea class="form-control reviewContent" rows="6" name="reviewContent" placeholder="내용" required></textarea>
-							          		<div>별점(숫자(1~5)로 입력바랍니다.)</div>
-							          		<input type="text" class="form-control rating" name="rating" placeholder="" value=""required>
+							          		<div>별점(1~5)</div>
+							          		<input type="number" id="updateRating" class="form-control rating" name="rating" step=1 min=1 max=5 required>
 							          		<div style="display: none;">카테고리</div>
 							          		<input type="hidden" class="form-control productCategory" name="productCategory">
 							          		<input style="display: none;" type="text" class="form-control showProductCategory" readonly>
@@ -342,7 +344,7 @@
 											<input type="file" name="reviewFile" multiple>
 								        </div>
 								        <div class="modal-footer">
-							          		<button style="float: right;">후기글 등록</button>
+							          		<button id="ratingBtn" style="float: right;" onclick="return insertReviewBtn()">후기글 등록</button>
 							        	</div>
 							          </fieldset>
 							        </form>
@@ -438,6 +440,23 @@
 
 
 	<script type="text/javascript">
+	
+	// ratingBtn 정규표현식 버튼 실행
+	/*
+	function insertReviewBtn(){
+		const value = $("#updateRating").val();
+		console.log(value)
+		let regExp;
+		regExp = /^[1-5]+$/;
+		const check = regExp.test(value);
+		if(check){
+			return true;
+		}else{
+			alert("숫자 1~5만 입력 해주세요.")
+			return false;
+		}
+	}
+	*/
 	
 	// review 더보기 버튼 실행
 	

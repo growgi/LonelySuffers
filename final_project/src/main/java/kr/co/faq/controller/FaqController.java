@@ -2,6 +2,8 @@ package kr.co.faq.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import kr.co.faq.model.service.FaqService;
 import kr.co.faq.model.vo.Category;
 import kr.co.faq.model.vo.Faq;
 import kr.co.faq.model.vo.FaqPageData;
+import kr.co.member.model.vo.Member;
 
 @Controller
 public class FaqController {
@@ -25,8 +28,17 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/faqWriterFrm.do")
-	public String faqWriterFrm() {
-		return "faq/faqWriterFrm";
+	public String faqWriterFrm(HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me != null) {
+			if(me.getMemberGrade() == 1) {
+				return "faq/faqWriterFrm";
+			}else {
+				return "faqListKind.do?categoryNo=\"+faq.getCategoryNo()+\"&reqPage=1";
+			}		
+		}else {
+			return "redirect:/";
+		}
 	}
 	
 	@RequestMapping(value="/faqWrite.do")
@@ -55,14 +67,19 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/faqUpdateFrm.do")
-	public String faqUpdateFrm(int faqNo, Model model) {
-		Faq faq = service.selectOneFaq(faqNo);
-		model.addAttribute("faq", faq);
-		if(faq != null) {
-			return "faq/faqUpdateFrm";
-		}else {
-			return "redirect:/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1";
-		}
+	public String faqUpdateFrm(int faqNo, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		if(me != null) {
+			if(me.getMemberGrade() == 1) {
+				Faq faq = service.selectOneFaq(faqNo);
+				model.addAttribute("faq", faq);
+				if(faq != null) {
+					return "faq/faqUpdateFrm";
+				}else {
+					return "redirect:/faqListKind.do?categoryNo="+faq.getCategoryNo()+"&reqPage=1";
+				}
+			}
+		}return "redirect:/";
 	}
 	
 	@RequestMapping(value="/faqUpdate.do")
@@ -84,17 +101,24 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/deleteFaq.do")
-	public String deleteFaq(int faqNo, int categoryNo, Model model) {
-		int result = service.deleteFaq(faqNo);
-		if(result > 0) {
-			model.addAttribute("title","공지사항 삭제");
-			model.addAttribute("msg","공지사항 삭제에 성공하였습니다.");
-			model.addAttribute("icon","success");
-			model.addAttribute("loc","/faqListKind.do?categoryNo="+categoryNo+"&reqPage=1");
-			return "common/msg";
-		}else {
-			return "redirect:/";
+	public String deleteFaq(int faqNo, int categoryNo, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		if(me != null) {
+			if(me.getMemberGrade() == 1) {
+				int result = service.deleteFaq(faqNo);
+				if(result > 0) {
+					model.addAttribute("title","자주묻는질문 삭제");
+					model.addAttribute("msg","자주묻는질문 삭제에 성공하였습니다.");
+					model.addAttribute("icon","success");
+					model.addAttribute("loc","/faqListKind.do?categoryNo="+categoryNo+"&reqPage=1");
+					return "common/msg";
+				}
+			}else {
+				return "redirect:/";
+				
+			}
 		}
+		return "redirect:/";	
 		
 	}
 	
@@ -113,7 +137,8 @@ public class FaqController {
 	
 	@RequestMapping(value="/searchFaqTitle.do")
 	public String searchFaqTitle(String searchFaqTitle, Model model) {
-		ArrayList<Faq> list = service.selectSearchFaq(searchFaqTitle);
+		String[] keywords = searchFaqTitle.trim().replaceAll("(\\s)\\1+","$1").split(" ");
+		ArrayList<Faq> list = service.selectSearchFaq(keywords);
 		if(list != null) { 
 			model.addAttribute("list", list);
 			return "faq/faqListKind";

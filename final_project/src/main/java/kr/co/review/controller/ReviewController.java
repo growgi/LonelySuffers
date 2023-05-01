@@ -84,16 +84,17 @@ public class ReviewController {
 			}
 			if(fileNo == null && (result == fileList.size()+1)) {
 				model.addAttribute("title","후기 수정");
-	  			model.addAttribute("msg","후기 수정에 성공하였습니다.");
-	  			model.addAttribute("icon","success");
-	  			model.addAttribute("loc","/");
-	  			return "common/msg";
-			}else {
-				model.addAttribute("title","후기 수정");
 	    	  	model.addAttribute("msg","후기 수정에 실패하였습니다.");
 	  			model.addAttribute("icon","error");
 	  			model.addAttribute("loc","/");
 	  			return "common/msg";
+			}else {
+				model.addAttribute("title","후기 수정");
+	  			model.addAttribute("msg","후기 수정에 성공하였습니다.");
+	  			model.addAttribute("icon","success");
+	  			model.addAttribute("loc","/");
+	  			return "common/msg";
+				
 			}
 	}
 	
