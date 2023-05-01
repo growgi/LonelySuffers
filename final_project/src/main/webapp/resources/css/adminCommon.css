@@ -18,11 +18,16 @@
     margin-bottom: 150px;
 }
 
-.table-content{
-
+.active-menu-click{
+    background-color: rgb(22, 22, 22);
 }
 
 /*모달*/
+.modal-wrap>.modal-content>.waveEffect>.page-name{
+    font-family: 'Delicious Handrawn', cursive; 
+    color:rgb(236, 236, 236) !important; 
+    font-weight:600;
+}
 .modal-bg {
     background-color: rgba(51, 52, 59, 0.3);
     position: fixed;
@@ -30,6 +35,7 @@
     height: 100vh;
     display: none;
     align-items: center;
+    transition-duration: 0.2s;
 }
 .modal-wrap {
     margin-top: 300px;
@@ -267,7 +273,7 @@
     font-weight: 700;
     text-align: center;
     height: 40px;
-    width: 120px;
+    width: 140px;
     line-height: 40PX;
 }
 .bc5{

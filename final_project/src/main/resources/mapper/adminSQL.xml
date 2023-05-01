@@ -813,6 +813,18 @@
 		order by visitant_date
  	</select>
  	
+ 	<select id="selectTopReview" resultType="rv">
+ 		select review_writer as reviewWriter,
+		    review_title as reviewTitle,
+		    review_content as reviewContent,
+		    product_category as productCategory
+		from review 
+		<![CDATA[
+		where rownum<=6 
+		]]>
+		order by rating desc
+ 	</select>
+ 	
 <!--  	<select id="selectNewAdminChatCount" resultType="_int">
 
  	</select> -->

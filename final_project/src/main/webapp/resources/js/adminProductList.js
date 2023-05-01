@@ -1,7 +1,8 @@
 /*메뉴 제목*/
-$(document).ready(function() {
+$(function() {
     $(".top-menu-title").text("등록된 상품 관리");
     $(".product-choice>div").first().click();
+    $(".menu-detail>li>a").eq(3).addClass("active-menu-click");
 });
 
 $(".more-detail").on("click", function() {
@@ -94,10 +95,11 @@ $(".checkedUpdateHouseStatus").on(
 
 /*상품 판매 중지*/
 $(".product-stop-selling").on("click",function() {
-    const productType = $(this).parents(".list-top").children(
-            "[type=hidden]").val();
+    const productType = $(this).parent().parent().parent().parent().find("td").eq(1).text(); //상품 종류
     const no = $(this).next().val();
 
-    location.href = "/productStopSelling.do?no=" + no
-            + "&productType=" + productType;
+    // console.log(productType);
+    // console.log(no);
+
+    location.href = "/productStopSelling.do?no="+no+"&productType="+productType;
 });

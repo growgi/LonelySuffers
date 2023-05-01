@@ -39,6 +39,9 @@
     transition: 0.2s;
 
 }
+.search-bar>.search-icon{
+	cursor: pointer;
+}
 .search-bar>.search-icon:hover{
     background-color: #1487a7;
 }
@@ -206,6 +209,15 @@ table th, td{
 table tr:hover{
     background-color: #fafafa;
 }
+
+.list-top>table td:nth-child(4)>a:hover{
+	color: #83888a;
+}
+
+.list-top>table td:nth-child(3)>a:hover{
+	color: #83888a;
+}
+
 .list-top{
     padding: 35px;
     border: 2px solid rgb(238, 238, 238);

@@ -1414,6 +1414,7 @@ MODULEs
 .clientv2 .client-box:hover {
     -ms-transform: scale(1.1, 1.1);
     /* IE 9 */
+    
     -webkit-transform: scale(1.1, 1.1);
     /* Safari */
     transform: scale(1.1, 1.1);
@@ -1424,7 +1425,7 @@ MODULEs
     /* Firefox 3.5+ */
     filter: gray;
     /* IE6-9 */
-    -webkit-filter: grayscale(1);
+    /* -webkit-filter: grayscale(1); */
     /* Google Chrome & Safari 6+ */
     opacity: 0.6;
     margin: auto;
