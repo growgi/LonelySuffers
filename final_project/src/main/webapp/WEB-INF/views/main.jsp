@@ -149,7 +149,7 @@
 				<i class="fa fa-anchor"></i>
 			</div>
 			<div class="section-title text-center">
-				<h3 style="font-weight: 600;">Today's Weather</h3>
+				<h3 style="font-weight: 600;">일기예보</h3>
 				<hr>
 				<jsp:include page="/weatherAPI.jsp" />
 			</div>

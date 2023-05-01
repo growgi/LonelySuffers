@@ -134,16 +134,18 @@
 							style="display: inline-block; width: 45%; font-size: 20px; font-weight: 900;"><span id="driverName"></span>님, 탑승
 							신청을 보내온 카풀 목록입니다.</div>
 						<div class="big-wrapper">
-							<c:forEach items="${list}" var="c">
-							<hr>
-								<div class="wrapper"
-									style="background-color: #FFF3E2; border-radius: 30px; width: 800px; margin: 0 auto;">
+									<c:forEach items="${list}" var="c">
+									<hr>
+								<div class="wrapper" style="background-color: #FFF3E2; border-radius: 30px; width: 800px; margin: 0 auto;">
 									<div class="head-info"
 										style="text-align: center; background-color: #FFDEB4; padding: 10px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
 										<h3 style=>${c.departureDate }(${c.returnTimeRange })</h3>
 										<h3>탑승인원/모집인원 : <span class="reserved">${c.reserved }</span>/${c.capacity }명</h3>
+										<h3>${c.departureRegion }(${c.departureDistrict}) → ${c.arrivalRegion }(${c.arrivalDistrict})</h3>
 										<input type="hidden" name="substract" value=${c.capacity - c.reserved}>
 									</div>
+							<c:choose>
+								<c:when test="${c.passengerList.size() >0 }">
 									<c:forEach items="${c.passengerList }" var='p'>
 										<table
 											style="border-collapse: initial; border: 1px solid #FFB4B4; border-top: 0; padding: 15px; width: 100%;">
@@ -216,6 +218,11 @@
 											</tr>
 										</table>
 									</c:forEach>
+								</c:when>
+								<c:otherwise>
+								<h2 style="font-size:18px; text-align:center; color:red;">신청된 건이 없습니다.</h2>
+								</c:otherwise>
+							</c:choose>
 									<c:choose>
 										<c:when test="${c.closure eq 2}">
 											<div class="buttons"
@@ -246,6 +253,7 @@
 									</c:choose>
 								</div>
 							</c:forEach>
+							
 						</div>
 					</div>
 				</div>

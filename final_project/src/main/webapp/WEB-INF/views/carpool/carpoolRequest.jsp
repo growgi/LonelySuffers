@@ -112,11 +112,13 @@
 								<div class="row district" id="arrival-detail">${c.arrivalDistrict }</div>
 							</div>
 						</div>
+						<div class="col-md-12" style="background-color:#F0EEED; text-align: center; padding-top:10px;">
+							${c.driverMsg },	${c.boardRoomCapacity }
+						</div>
 					</div>
 					<div class="people"
 						style="margin: 0 auto; height: 20px; width: 800px; display: flex; justify-content: center; align-items: center;">
-						<div class="attendant"
-							style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center; margin-top: 20px; background-color: #F0EEED; width: 800px; height: 50px; line-height: 52px; margin-top: 20px;">모집인원
+						<div class="attendant" style="font-weight: 900;border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; text-align: center; margin-top: 20px; background-color: #F0EEED; width: 800px; height: 50px; line-height: 52px; margin-top: 20px;">모집인원
 							${c.reserved}/${c.capacity }명</div>
 					</div>
 					<br>

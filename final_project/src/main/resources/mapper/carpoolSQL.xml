@@ -38,6 +38,8 @@
 		c.carpool_price as carpoolPrice,
 		c.oneway_round as onewayRound,
 		c.closure as closure,
+		c.driver_msg as driverMsg,
+		c.surfboard_room as surfboardRoom,
 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
 		from carpool c
 		left join member_tbl on(member_no=driver_no) 
@@ -59,26 +61,7 @@
 	service, dao를 안들리고 두개의 쿼리를 호출해야하기때문에 쓰는 방식이다. 
  -->	
  
- <!-- 원래 이 쿼리였지만 잘못됐으니까,
-	<select id="selectMyLists"  parameterType="_int" resultType="c">
-		select
-			carpool_no as carpoolNo,
-			c.driver_no as driverNo,
-			m.member_name as memberName,
-			m.member_gender as memberGender,
-			m.member_phone as memberPhone,
-			m.member_email as memberEmail,
-			c.departure_date as departureDate,
-			c.capacity as capacity,
-			p.match_no as matchNo,
-			p.match_status as matchStatus,
-			(select count(*) from passenger p where p.carpool_no = carpool_no and match_status=2) as reserved
-		from carpool c
-			join member_tbl m on (driver_no = member_no)
-			join passenger p using (carpool_no)
-			where driver_no=#{_parameter}
-	</select>
--->
+ 
 
 
 	<!-- 아래 세개가 한 세트이다. 드라이버가 카풀 신청을 받은 마이페이지를 보는 것인데
@@ -95,6 +78,10 @@
 			c.departure_date,
 			c.capacity,
 			c.closure,
+			c.departure_region,
+			c.arrival_region,
+			c.departure_district,
+			c.arrival_district,
 			(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
 		from carpool c
 			join member_tbl m on (c.driver_no = m.member_no)
@@ -104,6 +91,7 @@
 				<if test="memberNo!=null">
 					where member_no=#{memberNo}
 				</if>
+				order by c.departure_date
 	</select>
 	<select id="selectPassengerList" parameterType="_int" resultType="p">
 		select
@@ -134,6 +122,10 @@
 			<result column="closure" property="closure"/>
 			<result column="reserved" property="reserved"/>
 			<result column="departure_date" property="departureDate"/>
+			<result column="departure_region" property="departureRegion"/>
+			<result column="arrival_region" property="arrivalRegion"/>
+			<result column="departure_district" property="departureDistrict"/>
+			<result column="arrival_district" property="arrivalDistrict"/>
 		<collection property="passengerList"
 					select="selectPassengerList"
 					column="carpool_no"
@@ -178,6 +170,7 @@
 	 		departure_region as departureRegion,
 	 		departure_district as departureDistrict,
 	 		arrival_region as arrivalRegion,
+	 		arrival_district as arrivalDistrict,
 	 		capacity as capacity,
 	 		surfboard_room as surfboardRoom,
 	 		driver_msg as driverMsg,
@@ -185,7 +178,7 @@
 	 		(select count(*) from passenger p where p.carpool_no = c.carpool_no and match_status=2) as reserved
 	     FROM CARPOOL c
 	     left join member_tbl m on(member_no=driver_no) 
-	      where carpool_no in (select carpool_no from passenger where passenger_no=#{memberNo})
+	      where carpool_no in (select carpool_no from passenger where passenger_no=#{memberNo}) 
 	</select>
 
 	<select id="selectPassenger" parameterType="match" resultType="_int" >
