@@ -3,9 +3,10 @@ package kr.co.carpool.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,35 +46,77 @@ public class CarpoolController {
 
 	// 탑승자의 카풀 신청하기! 카풀 메인의 개별 하나를 클릭 했을때 신청하는 상세 페이지로 넘어가기
 	@RequestMapping(value = "/carpoolRequest.do")
-	public String carpoolRequest(int carpoolNo, Model model) {
-		Carpool c = service.selectOneCarpool(carpoolNo);
-		if (c != null) {
-			model.addAttribute("c", c);
-			return "carpool/carpoolRequest";
-		} else {
-			return "carpool/carpoolMain";
+	public String carpoolRequest(int carpoolNo, Model model, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me!=null) {
+			Carpool c = service.selectOneCarpool(carpoolNo);
+			if(me.getMemberGrade() == 3) {
+				if (c != null) {
+					model.addAttribute("c", c);
+					return "carpool/carpoolRequest";
+				} else {
+					return "carpool/carpoolMain";
+				}
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","일반 회원만 탑승신청 가능합니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/loginFrm.do");
+				return "common/msg";
+			}
+		}else {
+			model.addAttribute("title","접근 제한됨");
+			model.addAttribute("msg","로그인을 해주십시오.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/loginFrm.do");
+			return "common/msg";
 		}
-
 	}
 
 	// 운전자의 카풀 등록하는 페이지로 넘어가기 carpoolOfferForm.do
 	@RequestMapping(value = "/carpoolOfferForm.do")
-	public String carpoolOfferForm() {
-		return "carpool/carpoolOfferForm";
+	public String carpoolOfferForm(HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		if(me!=null) {
+			if(me.getMemberGrade() == 3) {
+				return "carpool/carpoolOfferForm";
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","일반 회원만 차량등록 가능합니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/loginFrm.do");
+				return "common/msg";
+			}
+		}else {
+			model.addAttribute("title","접근 제한됨");
+			model.addAttribute("msg","로그인을 해주십시오.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/loginFrm.do");
+			return "common/msg";
+		}
 	}
 
 	// 운전자의 카풀이 등록되면 기능구현하는 registerCarpool.do
 	@RequestMapping(value = "/registerCarpool.do")
-	public String registerCarpool(Carpool carpool) {
+	public String registerCarpool(Carpool carpool, HttpSession session, Model model) {
 		//System.out.println(carpool);
 		// 운전자가 한달에 4개 이상의 카풀을 등록하지 못하게
 		// 날짜가 겹치지 않게
 		// 날짜가 지나면 등록하지 못하게
+		Member me = (Member)session.getAttribute("m");
+		if(me != null) {
 		int result = service.insertCarpool(carpool);
-		if (result > 0) {
-			return "redirect:/carpoolMain.do";
-		} else {
-			return "redirect:/carpoolOfferForm.do";
+			if (result > 0) {
+				return "redirect:/carpoolMain.do";
+			} else {
+				return "redirect:/carpoolOfferForm.do";
+			}
+		}else {
+			model.addAttribute("title","접근 제한됨");
+			model.addAttribute("msg","로그인을 해주십시오.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/loginFrm.do");
+			return "common/msg";
 		}
 	}
 

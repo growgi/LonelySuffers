@@ -18,7 +18,7 @@
 	<div class="card">
 		<div class="search">
 			<input type="text" placeholder="도시명을 입력해주세요" spellcheck="false">
-			<button>검색</button>
+			<button style="color:black;">검색</button>
 		</div>
 		<div class="error">
 			<p>도시명을 찾을 수 없습니다.</p>

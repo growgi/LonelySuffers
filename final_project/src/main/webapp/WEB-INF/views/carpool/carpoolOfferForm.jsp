@@ -19,14 +19,8 @@
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
-<link rel="stylesheet"
-	href="/src/main/webapp/resources/css/carpool/carpoolOffer.css">
-<link rel="stylesheet"
-	href="/src/main/webapp/resources/css/carpool/carpoolReg.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<link rel="stylesheet" type="text/css"
-	href="resources/css/daterangepicker.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" type="text/css"	href="resources/css/daterangepicker.css">
 <style>
 /*오전, 오후 radio 효과주기*/
 [type=radio] {
@@ -482,14 +476,16 @@
 				$(".comment").eq(4).empty();
 				}
 			
-			if($("[name=returnTime]:checked").length==0){
-				$("[name=returnTime]").css("border", "1px solid red");
-				$(".comment").eq(5).text("오전/오후를 선택해주세요.");
-				num++;
-			}else{
-				$("[name=returnTime]").css("border", "1px solid pink");
-				$(".comment").eq(5).empty();
-				}
+			if($("[name=returnTime]").length!=0){
+				if($("[name=returnTime]:checked").length==0){
+					$("[name=returnTime]").css("border", "1px solid red");
+					$(".comment").eq(5).text("오전/오후를 선택해주세요.");
+					num++;
+				}else{
+					$("[name=returnTime]").css("border", "1px solid pink");
+					$(".comment").eq(5).empty();
+					}
+			}
 			
 			if(capacity==null){
 				$("[name=capacity]").css("border", "1px solid red");
