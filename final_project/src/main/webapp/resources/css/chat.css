@@ -28,7 +28,8 @@
     margin-right: 5px;
     font-weight: 500;
     padding: 8px;
-    color : #Fff
+    color : #Fff;
+    box-shadow: 3px 3px 7px #d7d3d3b8;
 }
 
 
@@ -45,6 +46,7 @@
     font-weight: 500;
     padding: 8px;
     display: inline-block;
+    box-shadow: 3px 3px 7px #d7d3d3b8;
     
   }
   
@@ -67,3 +69,4 @@
     margin-bottom: 10px;
   }
 
+  

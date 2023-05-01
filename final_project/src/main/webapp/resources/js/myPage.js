@@ -121,6 +121,8 @@ $(function(){
     console.log("$(function(){}) : "+memberId);
     if(chatActivation == 1){
         $('[name=startChatBtn]').click();
+    }else{
+        $('[name=endChatBtn').click();
     }
 
 })
@@ -149,6 +151,7 @@ function endChatBtn(param){
                 ws.send(JSON.stringify(data));
                 console.log('endChatBtn 전송완료');
                 $('.messageArea').css('background-color','rgba(0,0,0,0.5)');
+                $('.sendBox').slideUp();
             }else{
                 alert('잠시후 다시 시도해주세요.');
             }
@@ -177,6 +180,7 @@ function startChatBtn(myPageMemberId){
                 ws.send(JSON.stringify(data));
                 console.log("data 전송 완료 startChatBtn");
                 $('.messageArea').css('background-color',"#fff");
+                $('.sendBox').slideDown();
             }
         }
     })

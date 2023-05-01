@@ -193,4 +193,66 @@
  		where
  			member_no = #{memberNo} 
  	</update>
+ 	
+ 	<select id="selectProductList" parameterType="map" resultType="pr">
+ 	  select *
+        from(select rownum as rnum, ap.*
+        from (         select * from (select
+        	'강습' as productType,
+            lesson_no as productNo,
+			lesson_title as productTitle,
+			lesson_city as productCity,
+			lesson_info_pic as productPic,
+			lesson_status as productStatus,
+			lesson_score as productScore,
+			l.writer as productWriter
+        from lesson l
+        union
+        select
+        	'숙박' as productType,
+            house_no as productNo,
+			house_title as productTitle,
+			house_city as productCity,
+			house_photo1 as productPic,
+			house_status as productStatus,
+			house_score as productScore,
+			h.writer as productWriter
+        from house h)
+        where productStatus in(1,0) and productWriter = #{memberId}
+        order by productStatus desc, productNo desc) ap)
+        where rnum between #{start} and #{end}
+ 	</select>
+ 	
+ 	<select id="selectProductCount" parameterType="string" resultType="_int">
+         select 
+         	count(*) 
+         from 
+         	(select
+        	'강습' as productType,
+            lesson_no as productNo,
+			lesson_title as productTitle,
+			lesson_city as productCity,
+			lesson_info_pic as productPic,
+			lesson_status as productStatus,
+			lesson_score as productScore,
+			l.writer as productWriter
+        	from 
+        		lesson l
+        	union
+        	select
+	        	'숙박' as productType,
+	            house_no as productNo,
+				house_title as productTitle,
+				house_city as productCity,
+				house_photo1 as productPic,
+				house_status as productStatus,
+				house_score as productScore,
+				h.writer as productWriter
+        	from 
+        		house h)
+        where 
+        	productStatus in(1,0) 
+        and 
+        	productWriter = #{_parameter}
+ 	</select>
 </mapper>
