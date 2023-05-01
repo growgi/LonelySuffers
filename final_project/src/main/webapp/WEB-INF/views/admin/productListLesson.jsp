@@ -107,6 +107,7 @@ th:last-child, td-last-child{
 								</c:when>
 								<c:otherwise>
 								<c:forEach items="${lessonList }" var="l">
+								  <c:if test="${l.lessonStatus >= 0 }">
 									<tr>
 										<td><input type="checkbox" name="memberCheck"
 											class="lesson-check product-check chk" value="${l.lessonNo }"></td>
@@ -123,7 +124,7 @@ th:last-child, td-last-child{
 										</td>
 										<td><a href="/lessonView.do?lessonNo=${l.lessonNo }">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
-										<td>Level ${l.lessonLevel }</td>
+										<td>${l.lessonLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
 										<td>
@@ -208,6 +209,7 @@ th:last-child, td-last-child{
 												</div>
 											</div></td>
 									</tr>
+								  </c:if>
 								</c:forEach>
 								</c:otherwise>
 								</c:choose>

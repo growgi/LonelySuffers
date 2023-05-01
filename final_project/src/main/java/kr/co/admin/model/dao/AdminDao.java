@@ -13,6 +13,7 @@ import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.RejectProduct;
 import kr.co.admin.model.vo.SalesAmount;
 import kr.co.admin.model.vo.Search;
+import kr.co.admin.model.vo.SearchById;
 import kr.co.admin.model.vo.Visitant;
 import kr.co.carpool.model.vo.Carpool;
 import kr.co.house.model.vo.House;
@@ -261,7 +262,7 @@ public class AdminDao {
 		return orderDetailInfo;
 	}
 
-	public ArrayList<Order> selectSearchSalesDetails(Search sp) {
+	public ArrayList<Order> selectSearchSalesDetails(SearchById sp) {
 		List searchSalesDetails = sqlSession.selectList("admin.selectSearchSalesDetails", sp);
 		/*
 		 * System.out.println(sp.getSearchType());

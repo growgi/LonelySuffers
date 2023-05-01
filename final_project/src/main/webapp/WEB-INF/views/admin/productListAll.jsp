@@ -131,7 +131,7 @@
 								</c:when>
 								<c:otherwise>
 								<c:forEach items="${productList }" var="p">
-								<c:if test="${p.productStatus == 1 || p.productStatus == 0 }">
+								<c:if test="${p.productStatus >= 0 }">
                                 	<tr>
 										<td><input type="checkbox" name="memberCheck"
 											class="lesson-check product-check chk" value="${p.productNo }"></td>

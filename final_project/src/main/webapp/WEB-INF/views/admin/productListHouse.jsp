@@ -110,6 +110,7 @@ th:last-child, td-last-child{
 								</c:when>
 								<c:otherwise>
 								<c:forEach items="${houseList }" var="h">
+								  <c:if test="${h.houseStatus >= 0 }">
 									<tr>
 										<td><input type="checkbox" name="houseCheck"
 											class="house-check product-check chk" value="${h.houseNo }"></td>
@@ -210,6 +211,7 @@ th:last-child, td-last-child{
 												</div>
 											</div></td>
 									</tr>
+								  </c:if>
 								</c:forEach>
 								</c:otherwise>
 								</c:choose>
