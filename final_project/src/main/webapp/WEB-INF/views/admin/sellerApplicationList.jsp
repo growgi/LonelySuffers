@@ -17,6 +17,9 @@
           <span class="material-icons close-icon modal-close">close</span>
         </div>
         <div class="modal-content">
+            <div class="waveEffect" style="border:none;">
+                <p class="waveEffectWord-back page-name">Lonely Surfers</p>
+            </div>
           	<p>해당 회원을 판매자로 전환하시겠습니까?</p>
         </div>
         <div class="modal-foot">
@@ -28,6 +31,7 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="memberList-wrapper admin-content">
     	<div>
+    		<input type="hidden" value="${hiddenVal }" class="hidden-input">
             <form action="/searchSellerAppMember.do" method="get" id="frm" class="search-bar" name="searchMember">
                 <input type="text" placeholder="아이디로 사용자 검색" name="searchMemberId" onkeyup="enterkey();">
                 <span class="material-symbols-outlined search-icon">search</span>
@@ -95,9 +99,10 @@
 </body>
 <script>
     /*메뉴 제목*/
-    $(document).ready(function(){
+    $(function(){
         $(".top-menu-title").text("판매자 신청 회원 조회");
         $(".product-choice>div").first().click();
+        $(".menu-detail>li>a").eq(1).addClass("active-menu-click");
     });
   	
     /*모달*/
@@ -143,6 +148,16 @@
       });  
       
       $(".sub-navi").prev().after("<span class='material-icons dropdown'>expand_more</span>");
+    });
+    
+
+    /*검색 결과에 count 출력 삭제*/
+    $(function(){
+        if($('.hidden-input').val()==1) {
+            $(".count").hide();
+        } else {
+            $(".count").show();
+        }
     });
     
   	/*체크박스 선택회원

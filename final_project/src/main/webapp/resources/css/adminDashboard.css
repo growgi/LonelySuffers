@@ -34,6 +34,10 @@
 }
 
 /*달력*/
+.calendar-wrap{
+    border: 2px solid rgb(238, 238, 238);
+    padding: 5px;
+}
 .calendar-wrap>div {
     background-color : white;
     height: auto;
@@ -79,12 +83,12 @@
     font-size: 1em;
 }        
 
-.pastDay {
+/* .pastDay {
     color: lightgray;
-}
+} */
 
 .today {
-    background-color: #F5D042;            
+    background-color: #ecb534;            
     color: #fff;
     font-weight: 600;
     cursor: pointer;
@@ -92,11 +96,11 @@
 
 .futureDay {
     background-color: #FFFFFF;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
-.futureDay:hover{
+/* .futureDay:hover{
     background:#eee;
-}
+} */
 
 .futureDay.choiceDay,
 .today.choiceDay {
@@ -238,8 +242,11 @@
 }
 .member-box{
     display:flex;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 }
+/* .member-box:hover{
+    background-color: #fafafa;
+} */
 .member-box>.member-img{
     font-size: 50px;
     margin-right: 5px;
@@ -290,6 +297,18 @@
 
 
 /*6th*/
-.admin-list{
+.dashboard-6th{
+    display: flex;
+    justify-content: space-between;
+}
+.dashboard-wrapper>div>.dashboard-6th>.admin-list{
     padding: 25px;
+    width: 77%;
+}
+.dashboard-wrapper>div>.dashboard-6th>.surf-img{
+    border: none;
+}
+.surf-img>img{
+    width: 320px;
+    border-radius:10px;
 }

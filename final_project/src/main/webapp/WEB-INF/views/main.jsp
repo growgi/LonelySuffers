@@ -21,7 +21,37 @@
 </head>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 <link rel="stylesheet" href="resources/css/main.css">
-
+<style>
+	.container>.section-title h3{
+		font-weight:600;
+	}
+	.section-title>hr{
+		margin:0 auto;
+		margin-bottom:30px;
+	}
+	.section-title>.card{
+		margin-top: 50px;
+	}
+	.reservation-box .reservation-btn{
+		display: inline-block;
+		cursor: pointer;
+		width: 350px;
+		font-size: 30px;
+		font-weight: 600;
+		color: #fff;
+		border: 2px solid #fff;
+		border-radius: 500px;
+		box-sizing: border-box;
+		padding: 25px 25px 25px 25px;
+		background-color: rgb(255, 255, 255,0.2);
+	}
+	.reservation-box .reservation-btn:hover{
+		background-color: #ffffff;
+		color: #3ac5c8;
+		border: 2px solid #3ac5c8;
+		box-shadow: 0 0 10px #3ac5c8;
+	}
+</style>
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -33,7 +63,10 @@
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2 style="font-weight:600; padding:6px 0px; font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</h2>
 						<p class="lead" style="font-size: 16px;">같이 서핑해요!</p>
-						<form class="calculateform">
+						<div class="reservation-box">
+							<a href="#" class="reservation-btn">예약하기</a>
+						</div>
+						<!-- <form class="calculateform">
 							<div class="item-box">
 								<div class="item-top form-inline">
 									<div class="form-group">
@@ -47,7 +80,7 @@
 										class="btn btn-default" />
 								</div>
 							</div>
-						</form>
+						</form> -->
 					</div>
 					<!-- end col -->
 				</div>
@@ -74,7 +107,7 @@
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad">
-						<a href="#">
+						<a href="/selectLessonsByCondition.do?reqPage=1">
 							<div class="home-service c2">
 								<i class="material-symbols-outlined">surfing</i>
 								<p>강습</p>
@@ -85,7 +118,7 @@
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad">
-						<a href="#">
+						<a href="/selectHousesByCondition.do?reqPage=1">
 							<div class="home-service c3">
 								<i class="material-symbols-outlined">apartment</i>
 								<p>숙박</p>
@@ -96,7 +129,7 @@
 					<!-- end col -->
 
 					<div class="col-md-3 col-sm-6 nopad last">
-						<a href="#">
+						<a href="/carpoolMain.do">
 							<div class="home-service c4">
 								<i class="material-symbols-outlined">directions_car</i>
 								<p>카풀</p>
@@ -115,7 +148,11 @@
 			<div class="icon-center">
 				<i class="fa fa-anchor"></i>
 			</div>
-		<jsp:include page="/weatherAPI.jsp" />
+			<div class="section-title text-center">
+				<h3 style="font-weight: 600;">Today's Weather</h3>
+				<hr>
+				<jsp:include page="/weatherAPI.jsp" />
+			</div>
 		</section>
 		
 
@@ -131,7 +168,7 @@
 							<p>Lonely Surfers는 서핑 초심자, 숙련자 모두 사용할 수 있는 <br>서퍼들을 위한 소셜 통합 플랫폼을 구성하고 있습니다.<br> 
 								서핑을 사랑하는 사람들이 모여서 서핑, 파티 등을 함께 즐기며 <br>친목을 도모할 수 있는 연결고리를 만들어내는 것을 목적으로 하고 있습니다.</p>
 
-							<a href="#" class="btn btn-transparent">Get a Quote</a>
+							<a href="/company.do" class="btn btn-transparent">WhatSurf 소개</a>
 
 						</div>
 						<!-- end website-design -->
@@ -181,11 +218,9 @@
 					<div class="col-md-6">
 						<div class="feature-widget">
 							<h3 class="ex-bold">다양한 숙박 시설</h3>
-							<p>Morbi quis porta dolor. Nullam feugiat sapien et libero
-								elementum faucibus. Praesent sagittis venenatis ipsum, eget
-								tristique odio pharetra quis. Sed maximus a eros quis ornare.
-								Proin tempor dolor a auctor convallis. Nam accumsan commodo
-								elit..</p>
+							<p>치열했던 일상에서 쉼표가 필요한 당신에게
+								<br>스트레스를 날려버릴 서핑과 함께 편히 쉴 수 있는 공간을 제공합니다.
+								<br><br>원하는 지역의 숙박 시설들을 둘러보시고 선택해주세요.</p>
 						</div>
 						<!-- end about-widget -->
 					</div>
@@ -205,7 +240,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="feature-img">
-							<img src="resources/upload/main/car1.jpg" alt=""
+							<img src="resources/upload/main/car3.jpg" alt=""
 								class="img-responsive wow fadeInUp">
 						</div>
 					</div>
@@ -234,7 +269,7 @@
 							data-wow-delay="0.2s">
 							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">surfing</i>
 							<h3 class="bold">Lesson</h3>
-							<p class="btn btn-transparent">강습 페이지로 이동</p>
+							<a href="/selectLessonsByCondition.do?reqPage=1" class="btn btn-transparent">강습 페이지로 이동</a>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -245,7 +280,7 @@
 							data-wow-delay="0.4s">
 							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">apartment</i>
 							<h3>Lodgment</h3>
-							<p class="btn btn-transparent">숙박 페이지로 이동</p>
+							<a href="/selectHousesByCondition.do?reqPage=1" class="btn btn-transparent">숙박 페이지로 이동</a>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -256,7 +291,7 @@
 							data-wow-delay="0.6s">
 							<i class="material-symbols-outlined alignleft" style="font-size: 40px;">directions_car</i>
 							<h3>Carpool</h3>
-							<p class="btn btn-transparent">카풀 페이지로 이동</p>
+							<a href="/carpoolMain.do" class="btn btn-transparent">카풀 페이지로 이동</a>
 						</div>
 						<!-- end icon-wrapper -->
 					</div>
@@ -283,7 +318,7 @@
 					<c:forEach items="${lessonList}" var="l">
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="client-box">
-								<a href="#"><img src="resources/upload/lesson/${l.lessonInfoPic }" alt=""
+								<a href="/lessonView.do?lessonNo=${l.lessonNo}"><img src="resources/upload/lesson/${l.lessonInfoPic }" alt=""
 									class="img-responsive" style="width:200px; height:150px;"></a>
 							</div>
 						</div>
@@ -323,7 +358,7 @@
 					<c:forEach items="${houseList}" var="h">
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="client-box">
-								<a href="#"><img src="resources/upload/house/${h.housePhoto1 }" alt=""
+								<a href="/houseView.do?houseNo=${h.houseNo}"><img src="resources/upload/house/${h.housePhoto1 }" alt=""
 									class="img-responsive" style="width:200px; height:150px; opacity: 0.6; margin: auto;"></a>
 							</div>
 						</div>
@@ -339,106 +374,29 @@
 
 
 		<section class="section bt">
-			<div class="container">
+			<div class="container" style=" width:1200px;">
 				<div class="section-title text-center">
 					<h3>Lonely Review</h3>
 					<hr>
 					<p class="lead">Lonely Surfers 회원들의 솔직한 후기들</p>
 				</div>
 				<!-- end section-title -->
-				<div class="row">
-					<div class="col-md-4 col-sm-6 col-xs-12 first">
-						<div class="testimonial-wrapper">
-							<div class="testimonial-box">
-								<small>CEO - Envato Elements</small>
-								<h4>Martin Hopkens</h4>
-								<p class="lead">Thanks to the seo service I bought from this
-									site, my website is ranked number 1 in Google rankings.</p>
+				<div class="row" style="overflow:hidden;">
+					<c:forEach items="${reviewList }" var="r">
+					<div class="col-md-4 col-sm-6 col-xs-12" style="float:left">
+						<div class="testimonial-wrapper" style="width:350px; height:400px;">
+							<div class="testimonial-box" style="height:250px;">
+								<small>${r.reviewWriter }</small>
+								<h4>${r.reviewTitle }</h4>
+								<p class="lead">${r.reviewContent }</p>
 							</div>
 							<!-- end testimonial-box -->
-							<img src="resources/upload/team_03.jpeg" alt="" class="img-circle">
+							<div class="img-circle material-symbols-outlined" style="color:#bdbdbd; font-size:56px; margin:20px 20px 0px 20px;">account_circle</div>
 						</div>
 						<!-- end testimonial-wrapper -->
 					</div>
 					<!-- end col -->
-
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="testimonial-wrapper">
-							<div class="testimonial-box">
-								<small>CEO - WP Servis</small>
-								<h4>Adam Colline</h4>
-								<p class="lead">When I need high rank on Google, the SeoTime
-									make my website awesome! If you are high-quality backlinks just
-									try SeoTime!.</p>
-							</div>
-							<!-- end testimonial-box -->
-							<img src="resources/upload/team_01.jpeg" alt="" class="img-circle">
-						</div>
-						<!-- end testimonial-wrapper -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-4 col-sm-6 col-xs-12 last">
-						<div class="testimonial-wrapper">
-							<div class="testimonial-box">
-								<small>CEO - Bananis</small>
-								<h4>Steave Johns</h4>
-								<p class="lead">Just purchased a professional SEO pack on
-									this website and now my blog 1st rank on Google!</p>
-							</div>
-							<!-- end testimonial-box -->
-							<img src="resources/upload/team_02.jpeg" alt="" class="img-circle">
-						</div>
-						<!-- end testimonial-wrapper -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-4 col-sm-6 col-xs-12 first">
-						<div class="testimonial-wrapper">
-							<div class="testimonial-box">
-								<small>Freelancer</small>
-								<h4>Jack Jakson</h4>
-								<p class="lead">If you want to make a high income on your
-									website I offer you a professional package.</p>
-							</div>
-							<!-- end testimonial-box -->
-							<img src="resources/upload/team_04.jpg" alt="" class="img-circle">
-						</div>
-						<!-- end testimonial-wrapper -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="testimonial-wrapper">
-							<div class="testimonial-box">
-								<small>Wikipedia</small>
-								<h4>Boby Sluter</h4>
-								<p class="lead">Thanks to this company, the number of
-									visitors to the site increased rapidly. I was not impressed by
-									the latest Google update.</p>
-							</div>
-							<!-- end testimonial-box -->
-							<img src="resources/upload/team_05.jpg" alt="" class="img-circle">
-						</div>
-						<!-- end testimonial-wrapper -->
-					</div>
-					<!-- end col -->
-
-					<div class="col-md-4 col-sm-6 col-xs-12 last">
-						<div class="testimonial-wrapper">
-							<div class="testimonial-box">
-								<small>British Musium</small>
-								<h4>Brad Babsksens</h4>
-								<p class="lead">SEO business is important, I would recommend
-									anyone to the site of SeoTime, the number one company in the
-									world that makes this job the best.</p>
-							</div>
-							<!-- end testimonial-box -->
-							<img src="resources/upload/team_06.jpg" alt="" class="img-circle">
-						</div>
-						<!-- end testimonial-wrapper -->
-					</div>
-					<!-- end col -->
+					</c:forEach>
 				</div>
 				<!-- end row -->
 			</div>
@@ -459,7 +417,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf7.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+								<a href="resources/upload/main/surf7.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -470,7 +428,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf2.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+								<a href="resources/upload/main/surf2.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -481,7 +439,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf10.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+								<a href="resources/upload/main/surf10.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -492,7 +450,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf9.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+								<a href="resources/upload/main/surf9.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -503,7 +461,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf11.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+								<a href="resources/upload/main/surf11.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -514,7 +472,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf12.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="case-studies-single.html"><i class="fa fa-link"></i></a>
+								<a href="resources/upload/main/surf12.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -528,7 +486,7 @@
 		<section class="section">
 				<div class="row callout bgcolor" style="background: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%); width: 90%; margin: 0 auto;">
 					<div class="col-md-9">
-						<p style="font-size:40px; font-weight:600; padding:6px 0px; font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
+						<p style="font-size:40px; font-weight:500; padding:6px 0px; font-family: 'Delicious Handrawn', cursive;">WhatSurf</p>
 					</div>
 					<div class="col-md-3">
 						<div class="text-right">

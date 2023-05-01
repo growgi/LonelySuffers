@@ -115,8 +115,8 @@ public class NoticeService {
 		}
 	}
 
-	public ArrayList<Notice> selectSearchNotice(String searchNtTitle) {
-		return dao.selectSearchNotice(searchNtTitle);
+	public ArrayList<Notice> selectSearchNotice(String[] keywords) {
+		return dao.selectSearchNotice(keywords);
 	}
 
 	

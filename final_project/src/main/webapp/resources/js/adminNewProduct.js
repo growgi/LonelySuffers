@@ -1,6 +1,7 @@
 /*메뉴 제목*/
-$(document).ready(function() {
+$(function() {
     $(".top-menu-title").text("신규 상품 승인");
+    $(".menu-detail>li>a").eq(2).addClass("active-menu-click");
 });
 
 /*강습 체크박스 전체 선택*/
@@ -61,16 +62,16 @@ $(function () {
     const productType = $(this).parent().parent().find("td").eq(1).text(); //상품 종류
     const productNo = $(this).next().val();
     
-    console.log(productType);
-    console.log(productNo);
+    // console.log(productType);
+    // console.log(productNo);
     
     $(".product-info").append(img);
     $(".product-info").append("<div>"+title+"</div><div>판매자 : "+writer+"</div>");
 	  
 	  $(".approveProduct").on("click",function(){
-	      console.log(productType);
-    	  console.log(productNo);
-		  //location.href = "/approveProduct.do?productType="+productType+"&productNo="+productNo;
+	      //console.log(productType);
+    	  //console.log(productNo);
+		  location.href = "/approveProduct.do?productType="+productType+"&productNo="+productNo;
 	  });
   });
   
@@ -141,7 +142,7 @@ function returnProduct(productType,productNo,returnReason) {
 	console.log(returnReason);
 
     location.href = "/returnProduct.do?productType="+productType+"&productNo="+productNo+"&returnReason="+returnReason;
-};*/
+};
 
 //체크박스 선택상품
 $(".checkedReturnProduct").on("click", function() {
@@ -166,4 +167,4 @@ $(".checkedReturnProduct").on("click", function() {
     });
 
     location.href = "/checkedReturnProduct.do?productType="+productType+"&no=" + no.join("/");
-});
+});*/

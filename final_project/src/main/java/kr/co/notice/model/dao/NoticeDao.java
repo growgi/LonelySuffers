@@ -61,8 +61,10 @@ public class NoticeDao {
 		return result;
 	}
 
-	public ArrayList<Notice> selectSearchNotice(String searchNtTitle) {
-		List searchNotice = sqlSession.selectList("notice.selectSearchNotice", searchNtTitle);
+	public ArrayList<Notice> selectSearchNotice(String[] keywords) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("array",keywords);
+		List searchNotice = sqlSession.selectList("notice.selectSearchNotice", map);
 		return (ArrayList<Notice>)searchNotice;
 	}
 }

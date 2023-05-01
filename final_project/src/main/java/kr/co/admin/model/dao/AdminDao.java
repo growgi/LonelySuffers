@@ -19,6 +19,7 @@ import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
+import kr.co.review.model.vo.Review;
 
 @Repository
 public class AdminDao {
@@ -402,6 +403,12 @@ public class AdminDao {
 		List allSalesAmountList = sqlSession.selectList("admin.selectAllSalesAmount");
 		
 		return (ArrayList<SalesAmount>)allSalesAmountList;
+	}
+
+	public ArrayList<Review> selectTopReview() {
+		List reviewList = sqlSession.selectList("admin.selectTopReview");
+		
+		return (ArrayList<Review>)reviewList;
 	}
 
 	/*

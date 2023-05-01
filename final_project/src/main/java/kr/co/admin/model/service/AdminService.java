@@ -25,6 +25,7 @@ import kr.co.house.model.vo.House;
 import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
+import kr.co.review.model.vo.Review;
 
 @Service("adminService")
 public class AdminService {
@@ -830,13 +831,13 @@ public class AdminService {
 		return dao.selectNewHouseCount();
 	}
 
-	public int updateProductStopSelling(int no, int productType) {
+	public int updateProductStopSelling(int no, String productType) {
 		int result = 0;
 		
-		if(productType == 1) {
+		if(productType.equals("강습")) {
 			result = dao.updateLessonStopSelling(no);
 			
-		} else if(productType == 2) {
+		} else if(productType.equals("숙박")) {
 			result = dao.updateHouseStopSelling(no);
 		}
 		
@@ -1506,6 +1507,11 @@ public class AdminService {
 	public ArrayList<SalesAmount> selectAllSalesAmount() {
 		
 		return dao.selectAllSalesAmount();
+	}
+
+	public ArrayList<Review> selectTopReview() {
+
+		return dao.selectTopReview();
 	}
 
 }

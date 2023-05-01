@@ -36,6 +36,7 @@ th:last-child, td-last-child{
 						<a href="/productListHouse.do?reqPage=1">숙박</a>
 					</div>
 					<div class="list-wrapper">
+						<input type="hidden" value="${hiddenVal }" class="hidden-input">
 						<form action="/adminSearchLesson.do" method="get"
 						class="search-bar" name="search-product">
 						<input type="hidden" name="jspPage" value="pl">
@@ -62,7 +63,7 @@ th:last-child, td-last-child{
 									<th><input type="checkbox" name="memberCheck"
 										class="lesson-all-check chk"></th>
 									<th>사진</th>
-									<th>강습명</th>
+									<th style="width:300px;">강습명</th>
 									<th>판매자</th>
 									<th>강습 레벨</th>
 									<th>모집정원</th>
@@ -204,7 +205,13 @@ th:last-child, td-last-child{
 	<script src="resources/js/adminProductList.js"></script>
 </body>
 <script>
-
-
+	/*검색 결과에 count 출력 삭제*/
+	$(function(){
+	    if($('.hidden-input').val()==1) {
+	        $(".count").hide();
+	    } else {
+	        $(".count").show();
+	    }
+	});
 </script>
 </html>
