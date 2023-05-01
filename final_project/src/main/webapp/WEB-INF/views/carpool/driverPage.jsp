@@ -346,7 +346,7 @@
 									const buttons = wrapper.find(".buttons");
 									buttons.empty();
 									const div = $("<div>");
-									div.text("이거마감됨");
+									div.text("정원이 다 차서 마감되었습니다.");
 									buttons.append(div);
 									
 									
