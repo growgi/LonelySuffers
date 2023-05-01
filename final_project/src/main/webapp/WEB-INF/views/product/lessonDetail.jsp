@@ -259,53 +259,62 @@
 											<th style="width: 20%;"></th>
 										</tr>
 										
-										<c:forEach items="${list }" var="review">
-											<tr class="reviewModalContent">
-												<td style="text-align: center;">${review.reviewTitle }</td>
-												<td style="text-align: center;">${review.reviewWriter }</td>
-												<td style="text-align: center;">${review.reviewContent }</td>
-												<td style="text-align: center; color: orange;" value="${review.rating }">
-													<c:if test="${review.rating  == 1}">
-														★
-													</c:if>
-													<c:if test="${review.rating  == 2}">
-														★★
-													</c:if>
-													<c:if test="${review.rating  == 3}">
-														★★★
-													</c:if>
-													<c:if test="${review.rating  == 4}">
-														★★★★
-													</c:if>
-													<c:if test="${review.rating  == 5}">
-														★★★★★
-													</c:if>
-												</td>
-												<c:choose>
-													<c:when test="${review.productCategory == 2 }">
-															<td style="text-align: center; display: none;">숙박</td>
-													</c:when>
-												</c:choose>
-												<td style="text-align: center; display: none;">${lesson.lessonNo}</td>
-												<td>
-													<c:forEach items="${review.rfileList }" var="rf">
-														<div style="display: inline-block;">
-															<img src="/resources/upload/review/${rf.filepath }" width="60" height="60" class="trans5">
-															<input type="hidden" value=${rf.filepath }>
-															<input type="hidden" value=${rf.fileNo }>
-														</div>
-													</c:forEach>
-												</td>
-												<td class="reviewBtnWrap">
-													<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
-														<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
-														<input type="hidden" value="${review.reviewNo }">
-														<input type="hidden" value="${review.productCategory }">
-														<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
-													</c:if>
-												</td>
-											</tr>
-										</c:forEach>
+										<c:choose>
+											<c:when test="${empty list}">
+												<tr>
+													<td colspan="7" style="text-align:center;">조회된 리뷰가 없습니다.</td>
+												</tr>
+											</c:when>
+											<c:otherwise>
+												<c:forEach items="${list }" var="review">
+													<tr class="reviewModalContent">
+														<td style="text-align: center;">${review.reviewTitle }</td>
+														<td style="text-align: center;">${review.reviewWriter }</td>
+														<td style="text-align: center;">${review.reviewContent }</td>
+														<td style="text-align: center; color: orange;" value="${review.rating }">
+															<c:if test="${review.rating  == 1}">
+																★
+															</c:if>
+															<c:if test="${review.rating  == 2}">
+																★★
+															</c:if>
+															<c:if test="${review.rating  == 3}">
+																★★★
+															</c:if>
+															<c:if test="${review.rating  == 4}">
+																★★★★
+															</c:if>
+															<c:if test="${review.rating  == 5}">
+																★★★★★
+															</c:if>
+														</td>
+														<c:choose>
+															<c:when test="${review.productCategory == 2 }">
+																	<td style="text-align: center; display: none;">숙박</td>
+															</c:when>
+														</c:choose>
+														<td style="text-align: center; display: none;">${lesson.lessonNo}</td>
+														<td>
+															<c:forEach items="${review.rfileList }" var="rf">
+																<div style="display: inline-block;">
+																	<img src="/resources/upload/review/${rf.filepath }" width="60" height="60" class="trans5">
+																	<input type="hidden" value=${rf.filepath }>
+																	<input type="hidden" value=${rf.fileNo }>
+																</div>
+															</c:forEach>
+														</td>
+														<td class="reviewBtnWrap">
+															<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
+																<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
+																<input type="hidden" value="${review.reviewNo }">
+																<input type="hidden" value="${review.productCategory }">
+																<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+															</c:if>
+														</td>
+													</tr>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
 									</table>
 									<button class="show-more">더보기</button>
 								</div> <!-- content1 닫는 div -->

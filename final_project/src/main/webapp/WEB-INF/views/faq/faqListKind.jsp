@@ -79,34 +79,34 @@
 				</form>
 					<table class="table">
 						<tr>
-							<th style="width:20%">번호🏄‍♀️</th>
-							<th style="width:20%">카테고리🏄‍♀️</th>
-							<th style="width:60%">제목🏄‍♀️</th>
+							<th style="width:10%">번호🏄‍♀️</th>
+							<th style="width:70%; text-align: center;">제목🏄‍♀️</th>
+							<th style="width:10%">카테고리🏄‍♀️</th>
 						</tr>
 						<c:forEach items="${list }" var="fq" varStatus="faqNoCt">
 							<tr>
-								<td style="width:20%">${faqNoCt.count }</td>
-									<c:if test="${fq.categoryNo == 1}">
-										<td style="width:20%">예약취소</td>
-									</c:if>
-									<c:if test="${fq.categoryNo == 2}">
-										<td style="width:20%">숙박</td>
-									</c:if>
-									<c:if test="${fq.categoryNo == 3}">
-										<td style="width:20%">강습</td>
-									</c:if>
-									<c:if test="${fq.categoryNo == 4}">
-										<td style="width:20%">카풀</td>
-									</c:if>
-									<c:if test="${fq.categoryNo == 5}">
-										<td style="width:20%">후기</td>
-									</c:if>
-									<c:if test="${fq.categoryNo == 6}">
-										<td style="width:20%">회원서비스</td>
-									</c:if>
-								<td style="width:60%">
+								<td style="width:10%">${faqNoCt.count }</td>
+								<td style="width:50%; padding-right: 500px;">
 									<a href="/faqView.do?faqNo=${fq.faqNo }">${fq.faqTitle }</a>
 								</td>
+								<c:if test="${fq.categoryNo == 1}">
+									<td style="width:10%">예약취소</td>
+								</c:if>
+								<c:if test="${fq.categoryNo == 2}">
+									<td style="width:10%">숙박</td>
+								</c:if>
+								<c:if test="${fq.categoryNo == 3}">
+									<td style="width:10%">강습</td>
+								</c:if>
+								<c:if test="${fq.categoryNo == 4}">
+									<td style="width:10%">카풀</td>
+								</c:if>
+								<c:if test="${fq.categoryNo == 5}">
+									<td style="width:10%">후기</td>
+								</c:if>
+								<c:if test="${fq.categoryNo == 6}">
+									<td style="width:10%">회원서비스</td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</table>
