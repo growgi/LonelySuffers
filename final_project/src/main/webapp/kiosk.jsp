@@ -2064,7 +2064,7 @@ $("document").ready(function() {
 			pg : "html5_inicis",
 			pay_method : "card",
 			merchant_uid : "상품번호_"+date,//상점에서 관리하는 주문번호
-			name : "Lonely Suffers",	//결제이름
+			name : "Lonely Surfers",	//결제이름
 			amount : price,		//결제금액
 			buyer_email : memberEmail, //구매자 email
 			buyer_name : memberName, //구매자 이름
