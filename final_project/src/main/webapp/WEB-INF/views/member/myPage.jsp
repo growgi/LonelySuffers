@@ -45,7 +45,9 @@
 									<li>구매내역</li>
 									<li class="chatList">1대1문의<span class="chatChkSpan"></span></li>
 									<c:if test="${sessionScope.m.memberGrade == 2}">
-									<li><a href="/productInsert.do">판매자전용</a></li>
+									<!-- <li><a href="/productInsert.do">판매자전용</a></li> -->
+									<li><a href="/sellerProduct.do?reqPage=1">판매자전용</a></li>
+							
 									</c:if>
 								</ul>
 							</div>
@@ -54,12 +56,12 @@
 							<div class="right-content">
 								<div class="myProfile hide-div">
 								<div>
-									<h2>프로필 관리</h2>
+									<h2 class="h2Title">프로필 관리</h2>
 									<ul style="padding: 0;">
-										<li>내정보 변경</li>
-										<li>
+										<li class="myProfileList">내정보 변경</li>
+										<li style="width: 300px;border: 1px solid #3D4856;">
 											<div>
-												<form action="/updateMember.do" method="post">
+												<form action="/updateMember.do" method="post" >
 													<label for="memberId">아이디</label><br>
 													<input type="hidden" name="memberNo" id="memberNo" value="${sessionScope.m.memberNo }">
 													<input type="hidden" name="memberGrade" id="memberGrade" value="${sessionScope.m.memberGrade }">
@@ -72,7 +74,7 @@
 													<input type="text"  class="longInput" id="email" required value="${sessionScope.m.memberEmail }" readonly><br>
 													<label for="enrollDate">가입일</label><br>
 													<input type="text" name="enrollDate" class="longInput" id="enrollDate" readonly value="${sessionScope.m.enrollDate }"><br>
-													<button type="submit" id="updateMemberBtn">변경</button>
+													<button type="submit" id="updateMemberBtn" class="button">변경</button>
 												</form>
 											</div>
 										</li>
@@ -85,7 +87,7 @@
 													<label for="beforePassWord">이전 비밀번호</label>
 													<span></span>													
 													</div>
-													<button type="button" class="beforePassWordBtn">확인</button>
+													<button type="button" class="beforePassWordBtn button">확인</button>
 													</div>
 												<div class="updatePassWordFrm customInput">
 													<div>
@@ -98,7 +100,7 @@
 													<label for="afterPassWordRe">비밀번호 확인</label>
 													<span></span>													
 													</div>
-													<button type="button" class="passWordChangeBtn">변경</button>
+													<button type="button" class="passWordChangeBtn button">변경</button>
 												</div>
 											</div>
 										</li>
@@ -110,13 +112,13 @@
 														<c:when test="${sellerApplication != 0}">
 															<form action="/cancelSeller.do" method="post">
 																<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }">
-															<button type="submit" class="cancelSellerBtn">신청취소</button>
+															<button type="submit" class="cancelSellerBtn button">신청취소</button>
 															</form>
 														</c:when>
 														<c:otherwise>
 														<form action="/sellerApplication.do" method="post">
 															<input type="hidden" name="memberNo" value="${sessionScope.m.memberNo }"> 
-															<button type="submit" class="sellerBtn">판매자 신청</button>
+															<button type="submit" class="sellerBtn button">판매자 신청</button>
 														</form>
 														</c:otherwise>
 													</c:choose>
@@ -126,7 +128,7 @@
 										<li>회원 탈퇴</li>
 										<li class="hidden-li">
 											<div>
-												<button type="button" class="dropMember">탈퇴</button>
+												<button type="button" class="dropMember button">탈퇴</button>
 											</div>
 										</li>
 									</ul>
@@ -202,6 +204,7 @@
 								</div>
 								</div>
 								
+
 							</div>
 						</div>
 					</div>

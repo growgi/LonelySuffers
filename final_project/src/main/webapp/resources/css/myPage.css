@@ -13,18 +13,25 @@
  
 }
 
+.h2Title{
+    margin-left: 40px;
+    margin-top: 0px;
+    font-weight: 600;
+}
 .left-content{
     float: right;
     width: 260px;
-    background-color: #252525;
+    background-color: #3D4856;
     height: 100%;
-    m}
+    }
 
 .left-content>p{
     padding-top: 20px;
     font-size: 22px;
-    font-weight: bolder;
+    font-weight: 600;
     text-align: center;
+    color:#fff;
+    
 }
 
 .left-content>.material-symbols-outlined{
@@ -32,12 +39,15 @@
     font-size: 150px;
     width: 100%;
     margin: 0 auto;
-    
+    color : #fff;    
 }
 
 .sessionMemberName,.sessionMemberEmail{
     text-align: center;
     display: block;
+    color : #FFF;
+    font-weight: 600;
+    font-size: 17px;
 }
 
 .tab-content{
@@ -116,7 +126,7 @@ input[type=text],input[type=password]{
 .customInput>div>input {
     font-size: 15px;
     color: #222222;
-    width: 300px;
+    width: 280px;
     border: none;
     border-bottom: solid #aaaaaa 1px;
     padding-bottom: 10px;
@@ -126,18 +136,6 @@ input[type=text],input[type=password]{
     z-index: 5;
 }
 
-.customInput>div>input {
-    font-size: 15px;
-    color: #222222;
-    width: 300px;
-    border: none;
-    border-bottom: solid #aaaaaa 1px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    position: relative;
-    background: none;
-    z-index: 5;
-}
 
 .customInput>div>input::placeholder { color: #aaaaaa; }
 
@@ -172,7 +170,7 @@ input[type=text],input[type=password]{
 }
 
 .customInput>div>input:focus ~ span, .customInput>div>input:valid ~ span {
-    width: 100%;
+    width: 280px;
 }
 
 .count{
@@ -247,34 +245,68 @@ table tr:hover{
 
 
 .myProfile>div>ul>li:first-child,.myProfile>div>ul>li:nth-child(3),.myProfile>div>ul>li:nth-child(5),.myProfile>div>ul>li:nth-child(7){
-    background-color: #434258;
+    background-color: #3D4856;
     color: #fff;
     width: 300px;
-    border: 1px solid;
+    border: 1px solid #3D4856;
     border-radius: 7px;
     PADDING: 7px 10px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 5px 0px;
+}
+
+input[type=text][readonly]{
+    border: 1px solid #ccc;
+    color : #ccc;
+    outline: none;
 }
 
 .myProfile>div>ul>li:first-child:hover,.myProfile>div>ul>li:nth-child(3):hover,.myProfile>div>ul>li:nth-child(5):hover,.myProfile>div>ul>li:nth-child(7):hover{
-    background-color: #5b5a6a;
+    background-color: #282e35;
 }
-.myProfile>div>ul>li:nth-child(2),.myProfile>div>ul>li:nth-child(4),.myProfile>div>ul>li:nth-child(6).myProfile>div>ul>li:last-child{
+.myProfile>div>ul>li:nth-child(2),.myProfile>div>ul>li:nth-child(4),.myProfile>div>ul>li:nth-child(6),.myProfile>div>ul>li:last-child{
+    border-radius: 7px;
+    margin: 5px 0px;
+    padding: 10px 10px;
+    border: 1px solid #3D4856;
+    width: 300px;
 }
 
-button{
+.button{
     margin-top: 10px !important;
     margin-bottom: 5px !important;
-    width: 175px;
+    width: 280px;
+    background-color: #717D88;
+    border-radius: 7px;
+    font-weight: 600 !important;
+    color: #fff ;
+}
+
+button:hover{
+    background-color: #5b646d;
 }
 
 #sendMsg{
     width: 390px;
+    margin-right: 5.5px;
+    margin-top: 10px;
 
 }
 
 #sendBtn{
     width: 100px;
+    height: 34px;
+    border: 1px solid black;
+    background-color: #717D88;
+    border-radius: 7px;
+    font-weight: 600 !important;
+    color: #fff;
 }
+#sendBtn:hover{
+    background-color: #5b646d;
+}
+
 
 .endBtnDiv{
     position: relative;
@@ -299,19 +331,23 @@ button{
     transition-duration: 1s;
   }
 
+  input[type=text].longInput{
+    width: 280px;
+  }
   [name=startChatBtn]{
     color : #fff;
   }
 
   [name=endChatBtn]{
     display: none;
+    color: #282e35;
   }
   [name=endChatBtn]:hover{
     background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경색 지정 */
     color: #fff;
   }
   [name=startChatBtn]:hover {
-    background-color: #fff;
+    background-color: #ffffffc0;
     color: #123;
     width: 498px;
   }
@@ -320,6 +356,8 @@ button{
     width: 10px;
     background-color: #ffffff;
     padding-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .messageArea::-webkit-scrollbar-track{
@@ -360,3 +398,5 @@ button{
 .arrowIos{
     font-size : 16px !important;
 }
+
+

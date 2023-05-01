@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.admin.model.vo.Product;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
 import kr.co.member.model.vo.WishList;
@@ -135,6 +136,15 @@ public class MemberDao {
 
 	public int updateMember(Member m) {
 		return sqlSession.update("member.updateMember",m);
+	}
+
+	public ArrayList<Product> selectProductList(HashMap<String, Object> map) {
+		List list = sqlSession.selectList("member.selectProductList",map);
+		return (ArrayList<Product>)list;
+	}
+
+	public int selectProductCount(String memberId) {
+		return sqlSession.selectOne("member.selectProductCount",memberId);
 	}
 
 

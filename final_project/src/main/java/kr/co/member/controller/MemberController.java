@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.admin.model.service.AdminService;
 import kr.co.admin.model.vo.OrderPageData;
+import kr.co.admin.model.vo.ProductPageData;
 import kr.co.chat.model.service.ChatService;
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
@@ -428,5 +429,16 @@ public class MemberController {
 		
 		return "member/orderDetail";
 	}
-
+	
+	@RequestMapping(value = "/sellerProduct.do")
+	public String sellerProduct(int reqPage,@SessionAttribute (required = false) Member m,Model model) {
+		ProductPageData ppd = service.selectProductList(reqPage,m.getMemberId());
+		int productCount = service.selectProductCount(m.getMemberId());
+		System.out.println(ppd);
+		model.addAttribute("productList", ppd.getProductList());
+		model.addAttribute("pageNavi", ppd.getPageNavi());
+		model.addAttribute("start", ppd.getStart());
+		model.addAttribute("newProductCount", productCount);
+		return "member/sellerProduct";
+	}
 }
