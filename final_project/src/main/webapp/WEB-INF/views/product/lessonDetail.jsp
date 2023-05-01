@@ -266,19 +266,19 @@
 												<td style="text-align: center;">${review.reviewContent }</td>
 												<td style="text-align: center; color: orange;" value="${review.rating }">
 													<c:if test="${review.rating  == 1}">
-														<td style="text-align: center; color: orange;">★</td>
+														★
 													</c:if>
 													<c:if test="${review.rating  == 2}">
-														<td style="text-align: center; color: orange;">★★</td>
+														★★
 													</c:if>
 													<c:if test="${review.rating  == 3}">
-														<td style="text-align: center; color: orange;">★★★</td>
+														★★★
 													</c:if>
 													<c:if test="${review.rating  == 4}">
-														<td style="text-align: center; color: orange;">★★★★</td>
+														★★★★
 													</c:if>
 													<c:if test="${review.rating  == 5}">
-														<td style="text-align: center; color: orange;">★★★★★</td>
+														★★★★★
 													</c:if>
 												</td>
 												<c:choose>
@@ -488,7 +488,7 @@
 		var reviewTitle = $(this).parent().parent().children().eq(0).text();
 		var reviewWriter = $(this).parent().parent().children().eq(1).text();
 		var reviewContent = $(this).parent().parent().children().eq(2).text();
-		var rating = $(this).parent().parent().children().eq(3).text();
+		var rating = $(this).parent().parent().children().eq(3).attr("value");
 		var productCategory = $(this).next().next().val();
 		var rfileList =$(this).parent().parent().children().eq(6).children().clone();
 		$(".fileList-wrap").empty();
