@@ -37,6 +37,12 @@ public class HouseController {
 	@Autowired
 	private ReviewService rservice;
 
+// 키오스크로 이동
+	@RequestMapping(value="/kiosk.do")
+	public String kiosk() {
+		
+		return "kiosk/kiosk";
+	}
 // 숙박 상품 상세페이지 보기.  House 테이블에서 Row 1개 전체 조회 후 반환
 	@RequestMapping(value="/houseView.do")
 	public String houseView(int houseNo, Model model) {

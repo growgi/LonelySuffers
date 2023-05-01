@@ -267,6 +267,8 @@
 	.rooms-wrap{
 		width:1200px;
 		overflow:hidden;
+		margin-top:50px;
+		margin-bottom:50px;
 	}
 	.roomList{
 		width:390px;
@@ -300,6 +302,8 @@
 	.level-select{
 		width:1200px;
 		overflow:hidden;
+		margin-top:50px;
+		margin-bottom:50px;
 	}
 	.level-select>div{
 		width:400px;
@@ -314,6 +318,8 @@
 	.lessons-wrap{
 		width:1200px;
 		overflow:hidden;
+		margin-top:50px;
+		margin-bottom:50px;
 	}
 	.lessonList{
 		width:390px;
@@ -490,6 +496,7 @@
         display: flex;
         padding-bottom: 10px;
         margin-bottom: 50px;
+        margin-left: 260px;
         border-bottom: 2px solid rgb(223, 223, 223);
         
     }
@@ -884,9 +891,9 @@
 						<img class="shaka" src="/resources/images/shaka.png">
 					</div>
 					<div class="btn-wrap" id="page9">
-						<button class="page9-before"><p>이전으로</p></button>
-						<button class="page9-okay"><p>메인으로</p></button>
-						<button class="page9-pass"><p>카풀하기</p></button>
+						<button class="page9-before" onClick="location.href='/myPage.do?reqPage=1&tabNo=1'"><p>구매내역</p></button>
+						<button class="page9-okay" onClick="location.href='/'"><p>메인으로</p></button>
+						<button class="page9-pass" onClick="location.href='/carpoolMain.do'"><p>카풀하기</p></button>
 					</div>
 				</div>
 				<!-- 키오스크 9페이지 종료 -->
@@ -1169,7 +1176,7 @@
 				<!-- end section -->
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" id="closeBtn2" class="btn btn-default" data-dismiss="modal">Close</button>
 	      </div>
 	    </div>
 	  </div>
@@ -2246,28 +2253,6 @@ $("document").ready(function() {
 
 //page9 마무리
 
-	
-$(".page7-before").on('click',function(){
-	$(".pages").hide();
-	$(".page6").show();
-	$(".title").text("원하시는 강습레벨을 골라주세요");
-	$("#current-page").attr("value",6);
-	
-})
-$(".page7-okay").on('click',function(){
-	if($(".stat-count").text() == "0" || $("#lessonTotalPrice").val() == 0){
-		alert("강습은 꼭 선택해주셔야해요");
-		}else{
-			$(".pages").hide();
-			$(".page8").show();
-			$(".title").text("주문내역을 확인해주세요");
-			$("#current-page").attr("value",8);
-		}
-		
-});
-$(".page7-pass").on('click',function(){
-		alert("강습은 꼭 선택해주셔야해요");
-})
 		
 
 
@@ -2488,7 +2473,9 @@ $(".page7-pass").on('click',function(){
 				}else if($("#current-page").val() == 6){
 					  $(".page6-before").trigger("click");
 				}else if($("#current-page").val() == 7){
-					  $(".page7-before").trigger("click");	  
+					  $(".page7-before").trigger("click");
+					  $("#modal-cancel2").trigger("click");
+					  $("#closeBtn2").trigger("click");
 				}else if($("#current-page").val() == 8){
 					  $(".page8-before").trigger("click");	
 				}else if($("#current-page").val() == 9){
