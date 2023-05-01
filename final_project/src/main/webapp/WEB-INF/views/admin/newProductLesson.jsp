@@ -74,7 +74,7 @@
 									<th>강습 레벨</th>
 									<th>모집정원</th>
 									<th>지역</th>
-									<th>신청서</th>
+									<th>상품정보</th>
 									<th></th>
 								</tr>
 								<c:choose>
@@ -113,7 +113,7 @@
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
 										<td>
-										<a href="/lessonView.do?lessonNo=${l.lessonNo }" class="btn-r bc5">신청서 확인</a>
+										<a href="/lessonView.do?lessonNo=${l.lessonNo }" class="btn-r bc5">상품정보 확인</a>
 										</td>
 										<td><button class="approveProduct btn-s bc1">승인</button>
 										<input type="hidden" value="${l.lessonNo }" name="productNo">

@@ -831,13 +831,13 @@ public class AdminService {
 		return dao.selectNewHouseCount();
 	}
 
-	public int updateProductStopSelling(int no, int productType) {
+	public int updateProductStopSelling(int no, String productType) {
 		int result = 0;
 		
-		if(productType == 1) {
+		if(productType.equals("강습")) {
 			result = dao.updateLessonStopSelling(no);
 			
-		} else if(productType == 2) {
+		} else if(productType.equals("숙박")) {
 			result = dao.updateHouseStopSelling(no);
 		}
 		

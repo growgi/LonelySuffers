@@ -481,13 +481,13 @@ public class AdminController {
 	
 	//상품 판매 중지 (1개)
 	@RequestMapping(value="/productStopSelling.do")
-	public String productStopSelling(int no, int productType) {
+	public String productStopSelling(int no, String productType) {
 		int result = service.updateProductStopSelling(no, productType);
 		
 		if(result>0) {
-			return "redirect:/newProductLesson.do?reqPage=1";
+			return "redirect:/productListAll.do?reqPage=1";
 		} else {
-			return "redirect:/productListLesson.do?reqPage=1";
+			return "redirect:/memberList.do?reqPage=1";
 		}
 	}
 	

@@ -17,6 +17,9 @@
           <span class="material-icons close-icon modal-close">close</span>
         </div>
         <div class="modal-content">
+            <div class="waveEffect" style="border:none;">
+                <p class="waveEffectWord-back page-name">Lonely Surfers</p>
+            </div>
           	<p>해당 회원을 판매자로 전환하시겠습니까?</p>
         </div>
         <div class="modal-foot">

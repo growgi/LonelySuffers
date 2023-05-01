@@ -95,10 +95,11 @@ $(".checkedUpdateHouseStatus").on(
 
 /*상품 판매 중지*/
 $(".product-stop-selling").on("click",function() {
-    const productType = $(this).parents(".list-top").children(
-            "[type=hidden]").val();
+    const productType = $(this).parent().parent().parent().parent().find("td").eq(1).text(); //상품 종류
     const no = $(this).next().val();
 
-    location.href = "/productStopSelling.do?no=" + no
-            + "&productType=" + productType;
+    // console.log(productType);
+    // console.log(no);
+
+    location.href = "/productStopSelling.do?no="+no+"&productType="+productType;
 });

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <body>
 	<!-- Modal -->
-    <div id="test-modal" class="modal-bg" style="z-index:1; display:none;">
+    <div id="return-modal" class="modal-bg" style="z-index:1; display:none;">
       <div class="modal-wrap">
         <div class="modal-head">
           <h2>상품 반려</h2>
@@ -72,7 +72,7 @@
 									<th>판매자</th>
 									<th>숙박소 이름</th>
 									<th>지역</th>
-									<th>신청서</th>
+									<th>상품정보</th>
 									<th></th>
 								</tr>
 								<c:choose>
@@ -109,11 +109,11 @@
 										<td>${h.writer }</td>
 										<td>${h.roomTitle }</td>
 										<td>${h.houseCity }</td>
-										<td><a href="/houseView.do?houseNo=${h.houseNo }" class="btn-r bc5">신청서 확인</a></td>
+										<td><a href="/houseView.do?houseNo=${h.houseNo }" class="btn-r bc5">상품정보 확인</a></td>
 										<td>
 											<button class="approveProduct btn-s bc1">승인</button>
 											<input type="hidden" value="${h.houseNo }" name="productNo">
-											<button class="modal-open-btn btn-s bc2" target="#test-modal">반려</button>
+											<button class="modal-open-btn btn-s bc2" target="#return-modal">반려</button>
 										</td>
 									</tr>
 								</c:if>
