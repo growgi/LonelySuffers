@@ -242,7 +242,7 @@
 }
 .member-box{
     display:flex;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
 }
 /* .member-box:hover{
     background-color: #fafafa;
@@ -303,7 +303,8 @@
 }
 .dashboard-wrapper>div>.dashboard-6th>.admin-list{
     padding: 25px;
-    width: 77%;
+    /* width: 77%; */
+    width: 100%;
 }
 .dashboard-wrapper>div>.dashboard-6th>.surf-img{
     border: none;

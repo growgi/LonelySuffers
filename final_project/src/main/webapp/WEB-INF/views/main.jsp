@@ -417,7 +417,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf7.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="resources/upload/main/surf7.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
+								<a href="resources/upload/main/surf7.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">zoom_in</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -428,7 +428,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf2.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="resources/upload/main/surf2.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
+								<a href="resources/upload/main/surf2.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">zoom_in</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -439,7 +439,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf10.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="resources/upload/main/surf10.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
+								<a href="resources/upload/main/surf10.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">zoom_in</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -450,7 +450,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf9.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="resources/upload/main/surf9.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
+								<a href="resources/upload/main/surf9.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">zoom_in</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -461,7 +461,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf11.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="resources/upload/main/surf11.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
+								<a href="resources/upload/main/surf11.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">zoom_in</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->
@@ -472,7 +472,7 @@
 						<div class="case-box">
 							<img src="resources/upload/main/surf12.jpg" alt="" class="img-responsive">
 							<div class="magnifier">
-								<a href="resources/upload/main/surf12.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">imagesmode</span></a>
+								<a href="resources/upload/main/surf12.jpg" data-fancybox style="padding:5px;"><span class="material-symbols-outlined">zoom_in</span></a>
 							</div>
 						</div>
 						<!-- end case-box -->

@@ -825,6 +825,12 @@
 		order by rating desc
  	</select>
  	
+ 	<select id="selectNewAdminChatCount" resultType="_int">
+ 		select count(*) 
+ 		from chat_active 
+ 		where chat_activation=1
+ 	</select>
+ 	
 <!--  	<select id="selectNewAdminChatCount" resultType="_int">
 
  	</select> -->

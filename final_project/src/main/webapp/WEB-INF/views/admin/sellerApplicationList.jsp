@@ -51,6 +51,20 @@
                             <th>신청일</th>
                             <th>현재 등급</th>
                         </tr>
+                        <c:choose>
+						<c:when test="${empty sellerAppList }">
+						<tr>
+							<td colspan="9">
+							    <div class="noInfo-wrapper">
+							        <div>
+							            <span class="material-symbols-outlined noInfo-icon">info</span>
+							            <div class="noInfo-text">조회된 정보가 없습니다.</div>
+							        </div>
+							    </div>
+						    </td>
+						</tr>
+						</c:when>
+						<c:otherwise>
 						<c:forEach items="${sellerAppList }" var="s">
 						<tr>
 						    <td><input type="checkbox" name="memberCheck" class="check" value="${s.memberNo }"></td>
@@ -82,6 +96,8 @@
 						    </td>
 						</tr>
 						</c:forEach>
+						</c:otherwise>
+						</c:choose>
                     </table>
                     <div id="pageNavi">
                     	${pageNavi }

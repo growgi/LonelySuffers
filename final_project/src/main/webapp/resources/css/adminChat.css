@@ -27,7 +27,14 @@
 	float: left;
 }
 
-.chatting {
+.count{
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+.count>span{
+  color: #86C8BC;
+  font-size: 20px;
 }
 
 .active_chat_content {
