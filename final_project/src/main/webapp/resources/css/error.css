@@ -137,3 +137,15 @@
   .loading .gear.two {
     -webkit-animation: anticlockwise 3s linear infinite;
   }
+
+  .timeSpan{
+    color : red;
+    font-size: 50px;
+    font-weight: 600;
+
+  }
+
+  h2{
+    font-size: 40px;
+    font-weight: 400;
+  }

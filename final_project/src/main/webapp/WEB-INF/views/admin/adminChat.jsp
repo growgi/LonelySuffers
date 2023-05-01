@@ -25,8 +25,8 @@
 			<div class="count">
 				1:1 문의 <span>${adminChatCount }</span>건
 			</div>
-			<ul>
-				<li>
+			<ul class="topUl">
+				<li >
 					<div class="th">
 						<div class="td" style="width:15%">문의번호</div>
 						<div class="td" style="width:30%">문의자</div>
@@ -37,17 +37,17 @@
 				<c:forEach items="${list }" var="ca" varStatus="status">
 					<li><div class="active_chat_title" value="${ca.memberId }">
 							<input type="hidden" class="memberId" value="${ca.memberId }">
-							<div class="td" style="width:15%">${status.count }</div>
-							<div class="td" style="width:30%;">${ca.memberId }</div>
-							<div class="td timeDiv" style="width:30%"></div>
+							<div class="td" style="width:15% ;float: left;">${status.count }</div>
+							<div class="td" style="width:30%; float: left;">${ca.memberId }</div>
+							<div class="td timeDiv" style="width:30% ;float: left;"></div>
 							<c:choose>
 							<c:when test="${ca.chatActivation == 1}">
-								<div class="td" style="width:25%; color:#19A7CE;">
+								<div class="td" style="width:25%; color:#19A7CE; float: left;">
 								채팅중
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div class="td" style="width:25%">
+								<div class="td" style="width:25%; float: left;">
 								채팅종료
 								</div>
 							</c:otherwise>
@@ -66,7 +66,9 @@
 				</c:forEach>
 			</ul>
 		</div>
-		<div class="list-bottom"></div>	
+		
+		<div class="list-bottom"><button class="upBtn" style="width: 100px">up</button></div>	
+
 	</div>
 
 	<script src="/resources/js/adminChat.js"></script>
