@@ -191,10 +191,19 @@ public class CarpoolController {
 	// 운전자의 내 카풀 리스트 보기!!!
 	// 운전자의 카풀 수락, 거절, 마감 등 관리하기
 	@RequestMapping(value = "/driverPage.do")
-	public String mycarpoolDriver(Model model, int driverNo) {
-		ArrayList<Carpool> list = service.getMyLists(driverNo);
-		model.addAttribute("list", list);
-		return "carpool/driverPage";
+	public String mycarpoolDriver(Model model, int driverNo, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me!=null) {
+			ArrayList<Carpool> list = service.getMyLists(driverNo);
+			model.addAttribute("list", list);
+			return "carpool/driverPage";
+		}else {
+			model.addAttribute("title","로그아웃됨");
+			model.addAttribute("msg","로그인을 해주십시오.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/loginFrm.do");
+			return "common/msg";
+		}
 	}
 
 	// 운전자 페이지 : 거절, 수락(번복없다!)
@@ -232,12 +241,20 @@ public class CarpoolController {
 	// 탑승자의 내 카풀 리스트 보기!!!
 	// 탑승자의 카풀 수락, 거절 관리하기
 	@RequestMapping(value = "/passengerPage.do")
-	public String mycarpoolPassenger(Model model, int memberNo) {
-		System.out.println(memberNo);
-		ArrayList<Carpool> list = service.getMyRequests(memberNo);
-		//System.out.println("passengerPage.do의 controller: " + list);
-		model.addAttribute("list", list);
-		return "carpool/passengerPage";
+	public String mycarpoolPassenger(Model model, int memberNo, HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me!=null) {
+			ArrayList<Carpool> list = service.getMyRequests(memberNo);
+			//System.out.println("passengerPage.do의 controller: " + list);
+			model.addAttribute("list", list);
+			return "carpool/passengerPage";
+		}else {
+			model.addAttribute("title","로그아웃됨");
+			model.addAttribute("msg","로그인을 해주십시오.");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/loginFrm.do");
+			return "common/msg";
+		}
 	}
 
 }

@@ -64,7 +64,15 @@
 						<h2 style="font-weight:600; padding:6px 0px; font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</h2>
 						<p class="lead" style="font-size: 16px;">같이 서핑해요!</p>
 						<div class="reservation-box">
-							<a href="#" class="reservation-btn">예약하기</a>
+							<c:choose>
+								<c:when test="${not empty sessionScope.m }">
+								<a href="/kiosk.do" class="reservation-btn">예약하기</a>
+								</c:when>
+								<c:when test="${empty sessionScope.m }">
+								<a href="#" class="reservation-btn" onclick="alert('예약을 하려면 로그인이 필요합니다.');">예약하기</a>
+								</c:when>
+							</c:choose>
+							
 						</div>
 						<!-- <form class="calculateform">
 							<div class="item-box">
@@ -149,7 +157,7 @@
 				<i class="fa fa-anchor"></i>
 			</div>
 			<div class="section-title text-center">
-				<h3 style="font-weight: 600;">Today's Weather</h3>
+				<h3 style="font-weight: 600;">일기예보</h3>
 				<hr>
 				<jsp:include page="/weatherAPI.jsp" />
 			</div>
