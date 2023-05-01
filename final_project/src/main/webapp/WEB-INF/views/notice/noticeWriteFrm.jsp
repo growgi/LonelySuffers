@@ -56,7 +56,7 @@
 									<li class="paper2">제목<input id="noticeTitle" type="text" name="noticeTitle" required></li>
 								</ul>
 								<ul>
-									<li class="paper2">첨부파일<input id="noticeFile" type="file" name="noticeFile" multiple onchange="loadImgs(this);"></li>
+									<li class="paper2">첨부파일<input id="noticeFile" type="file" name="noticeFile" accept=".jpg,.jpeg,.gif,.png,.webp" multiple onchange="loadImgs(this);"></li>
 								</ul>
 								<ul>
 									<li class="paper2" style="margin-top: 25px;">내용</li>

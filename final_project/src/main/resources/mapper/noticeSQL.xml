@@ -70,13 +70,17 @@
 		delete from notice where notice_no = #{noticeNo}     	
      </delete>
      
-     <select id="selectSearchNotice" parameterType="string" resultType="n">
+     <select id="selectSearchNotice" parameterType="map" resultType="n">
      	select
      		notice_no as noticeNo,
 			notice_title as noticeTitle,
 			notice_date as noticeDate
 		from notice
-		where notice_title like '%'||#{searchNtTitle}||'%' 	
+		where notice_title like
+		<foreach collection="array" item="keyword" separator="and notice_title like">
+ 			'%'||#{keyword}||'%'
+		</foreach>
+		order by notice_no desc
      </select>
 </mapper>
 

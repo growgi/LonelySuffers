@@ -23,7 +23,6 @@ public class ProductFileNumbering {
 	public String uploadLessonPhoto(String savePath, MultipartFile file, int houseNo) {
 		String filename = file.getOriginalFilename();
 		String extention = filename.substring(filename.lastIndexOf("."));
-		System.out.println(extention);
 		String filepath = "";
 		if (extention.equalsIgnoreCase(".jpg") || extention.equalsIgnoreCase(".jpeg") || extention.equalsIgnoreCase(".png") || extention.equalsIgnoreCase(".gif") || extention.equalsIgnoreCase(".webp")) {
 			String numbering = String.format("%08d", houseNo);
@@ -48,7 +47,6 @@ public class ProductFileNumbering {
 	public String uploadHousePhoto1(String savePath, MultipartFile file, int houseNo) {
 		String filename = file.getOriginalFilename();
 		String extention = filename.substring(filename.lastIndexOf("."));
-		System.out.println(extention);
 		String filepath = "";
 		if (extention.equalsIgnoreCase(".jpg") || extention.equalsIgnoreCase(".jpeg") || extention.equalsIgnoreCase(".png") || extention.equalsIgnoreCase(".gif") || extention.equalsIgnoreCase(".webp")) {
 			String numbering = String.format("%08d", houseNo);
@@ -73,7 +71,6 @@ public class ProductFileNumbering {
 	public String uploadHousePhoto2(String savePath, MultipartFile file, int houseNo) {
 		String filename = file.getOriginalFilename();
 		String extention = filename.substring(filename.lastIndexOf("."));
-		System.out.println(extention);
 		String filepath = "";
 		if (extention.equalsIgnoreCase(".jpg") || extention.equalsIgnoreCase(".jpeg") || extention.equalsIgnoreCase(".png") || extention.equalsIgnoreCase(".gif") || extention.equalsIgnoreCase(".webp")) {
 			String numbering = String.format("%08d", houseNo);
@@ -98,7 +95,6 @@ public class ProductFileNumbering {
 	public String uploadHousePhoto3(String savePath, MultipartFile file, int houseNo) {
 		String filename = file.getOriginalFilename();
 		String extention = filename.substring(filename.lastIndexOf("."));
-		System.out.println(extention);
 		String filepath = "";
 		if (extention.equalsIgnoreCase(".jpg") || extention.equalsIgnoreCase(".jpeg") || extention.equalsIgnoreCase(".png") || extention.equalsIgnoreCase(".gif") || extention.equalsIgnoreCase(".webp")) {
 			String numbering = String.format("%08d", houseNo);
@@ -123,7 +119,6 @@ public class ProductFileNumbering {
 	public String uploadHousePhoto4(String savePath, MultipartFile file, int houseNo) {
 		String filename = file.getOriginalFilename();
 		String extention = filename.substring(filename.lastIndexOf("."));
-		System.out.println(extention);
 		String filepath = "";
 		if (extention.equalsIgnoreCase(".jpg") || extention.equalsIgnoreCase(".jpeg") || extention.equalsIgnoreCase(".png") || extention.equalsIgnoreCase(".gif") || extention.equalsIgnoreCase(".webp")) {
 			String numbering = String.format("%08d", houseNo);

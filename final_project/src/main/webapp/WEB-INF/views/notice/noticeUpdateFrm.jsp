@@ -105,7 +105,7 @@
 								</div>
 								<ul>
 									<li style="border: none;">첨부파일 추가</li>
-									<li style="border: none;"><input type="file" name="noticeFile" multiple onchange="loadImgs(this);"></li>
+									<li style="border: none;"><input type="file" name="noticeFile" accept=".jpg,.jpeg,.gif,.png,.webp" multiple onchange="loadImgs(this);"></li>
 								</ul>
 								<ul>
 									<li id="img-viewer2"></li>
