@@ -126,21 +126,21 @@ public class InquiryController {
 	@RequestMapping(value="/updateInquiry.do", produces = "application/text; charset=utf8")
 	public String updateInquiry(Inquiry i, HttpSession session) {
 		Member me = (Member)session.getAttribute("m");
-		ArrayList<Answer> ia = service.selectAllAnswerByInquiry(i.getInquiryNo());
-		if(ia.size()>0) {
-			return "이미 답변이 등록되어 있습니다. 새로운 문의를 등록해주십시오.";
-		}else {
-			Inquiry compare = service.selectOneInquiry(i.getInquiryNo());
-			if(me.getMemberId().equals(compare.getInquirer())) {
+		Inquiry compare = service.selectOneInquiry(i.getInquiryNo());
+		if(me.getMemberId().equals(compare.getInquirer())) {
+			ArrayList<Answer> ia = service.selectAllAnswerByInquiry(i.getInquiryNo());
+			if(ia.size()>0) {
+				return "이미 답변이 등록되어 있습니다. 새로운 문의를 등록해주십시오.";
+			}else {
 				int result = service.updateInquiry(i);
 				if(result>0) {
 					return "문의글을 수정했습니다.";
 				}else {
 					return "알 수 없는 이유로 문의글 수정에 실패했습니다.";
 				}
-			}else {
-				return "본인이 작성한 것만 수정할 수 있습니다.";
 			}
+		}else {
+			return "본인이 작성한 것만 수정할 수 있습니다.";
 		}
 	}
 

@@ -137,20 +137,6 @@
     .product-price>span{
         color: #ffa764;
     }
-
-    /*active*/
-    .active-wishList-content{
-        display: block;
-    }
-    .active-line1{
-        left: 0px;
-    }
-    .active-line2{
-        left: 100px;
-    }
-    .active-line3{
-        left: 200px;
-    }
     .black-box{
     	background-color: #cccccc;
     }
@@ -187,7 +173,7 @@
 								필터링 <span class="fa fa-angle-down"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a class="active" href="#" data-filter="*">전체 (<span id="allWishListCount"></span>)</a></li>
+								<li><a class="active" href="#" data-filter=".cat0">전체 (<span id="allWishListCount"></span>)</a></li>
 								<li><a class="" href="#" data-filter=".cat1">강습 (<span id="lessonWishListCount"></span>)</a></li>
 								<li><a class="" href="#" data-filter=".cat2">숙박 (<span id="houseWishListCount"></span>)</a></li>
 							</ul>
@@ -202,7 +188,7 @@
 					<c:forEach items="${allWishList }" var="w">
 						<c:choose>
 							<c:when test="${w.houseNo ne 0}">
-								<div class="pitem item-w1 item-h1 cat2">
+								<div class="pitem item-w1 item-h1 cat0 cat2">
 									<c:choose>
 										<c:when test="${w.houseStatus > 0}"><div class="case-box"></c:when>
 										<c:otherwise><div class="case-box black-box"></c:otherwise>
@@ -243,7 +229,7 @@
 								</div>
 							</c:when>
 							<c:when test="${w.lessonNo ne 0}">
-								<div class="pitem item-w1 item-h1 cat1">
+								<div class="pitem item-w1 item-h1 cat0 cat1">
 									<c:choose>
 										<c:when test="${w.lessonStatus > 0}"><div class="case-box"></c:when>
 										<c:otherwise><div class="case-box black-box"></c:otherwise>
@@ -314,47 +300,46 @@
 	<script src="resources/js/gallery_04_1.js"></script>
 </body>
 <script>
-	/*탭별 조회*/	
-	$(".wishList-category>div").click(function(){
-	    $(".wishList-list>div").hide();
-	    $(".wishList-content>.line").removeClass("active-line1");
-	    $(".wishList-content>.line").removeClass("active-line2");
-	    $(".wishList-content>.line").removeClass("active-line3");
-	
-	    const num = $(this).index();
-	    
-	    if(num == 0) {
-	        $(".wishList-content>.line").addClass("active-line1");
-	        $(".wishList-list>div").eq(num).show();
-	    } else if(num == 1) {
-	        $(".wishList-content>.line").addClass("active-line2");
-	        $(".wishList-list>div").eq(num).show();
-	    } else if(num == 2) {
-	        $(".wishList-content>.line").addClass("active-line3");
-	        $(".wishList-list>div").eq(num).show();
-	    }
-	
-	});
-	
-	$(".wishList-category>div").eq(0).click(); //[전체] 클릭
-	
 	/*관심상품 삭제*/
 	$(".close-icon").on("click",function(){
 		const wishNo = $(this).next().val();
-		location.href = "/deleteWishList.do?wishNo="+wishNo;
+		
+		$.ajax({
+			url : "/deleteWishList.do",
+			data: {wishNo : wishNo},
+			dataType : "text",
+			success : function(message){
+				if(message=="삭제성공"){
+					console.log("관심상품에서 삭제됨");
+				}else{
+					console.log("존재하지 않는 wishNo를 전달한 경우 = 이미 삭제된거라 어차피 노상관");
+				}
+			}
+		});
+		$(this).parent().parent().parent().parent().parent().removeClass("cat0");
+		$(this).parent().parent().parent().parent().parent().removeClass("cat1");
+		$(this).parent().parent().parent().parent().parent().removeClass("cat2");
+		$(".active").click();
+		$(this).parent().parent().parent().parent().parent().remove();
+		counting();
 	});
 
     $(".black-box").attr("title","판매중이 아닙니다.");
     
     /*관심상품 개수*/
-    const allWishListCount = $(".pitem").length; 
-    $("#allWishListCount").text(allWishListCount);
-    
-    const lessonWishListCount = $(".cat1").length; 
-    $("#lessonWishListCount").text(lessonWishListCount);
-    
-    const houseWishListCount = $(".cat2").length; 
-    $("#houseWishListCount").text(houseWishListCount);
-    
+    function counting(){
+		const allWishListCount = $(".pitem").length; 
+		$("#allWishListCount").text(allWishListCount);
+	
+		const lessonWishListCount = $(".cat1").length; 
+		$("#lessonWishListCount").text(lessonWishListCount);
+	
+		const houseWishListCount = $(".cat2").length;
+		$("#houseWishListCount").text(houseWishListCount);
+    }
+
+	$(document).ready(function() {
+		counting();
+	});
 </script>
 </html>

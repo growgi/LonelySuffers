@@ -18,6 +18,7 @@ public class OrderDao {
 	}
 
 	public int orderDetailInsert(OrderDetail od) {
+		System.out.println("orderDetail od 체크"+od);
 		return sqlSession.insert("od.insertOrderDetail",od);
 	}
 }

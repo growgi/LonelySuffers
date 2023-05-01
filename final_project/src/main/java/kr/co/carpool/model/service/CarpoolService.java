@@ -78,10 +78,29 @@ public class CarpoolService {
 		return clist;
 	}
 	// 운전자페이지 : matchNo로 카풀 수락, 거절 
+	// 1명 남았을 때 수락을 하면 '마감', '삭제' 버튼 사라지고 '정원이 다 찼습니다' 메세지가 뜨면서 다른 신청자 칸에 있는 '수락', '거절' 버튼이 사라진다. 
 	@Transactional
 	public int updateDriverDecision(Passenger passenger) {
-		return dao.updateDriverDecision(passenger);
+		int result = dao.updateDriverDecision(passenger);
+		if(result > 0 && passenger.getMatchStatus() == 2) {
+			//0. 카풀 번호 조회
+			int searchCarpoolNo = dao.selectCarpoolNo(passenger);
+			//1. 현재 수락된 인원 조회
+			int reserved = dao.selectReserved(searchCarpoolNo);
+			//2. 해당태워드려요 최대인원조회
+			int capacity = dao.selectCapacity(searchCarpoolNo);
+			//1 == 2 조회결과 같으면 마감처리(update)
+			if(reserved==capacity) {
+				//카풀 마감으로 처리
+				result += dao.updateClosureto1(searchCarpoolNo);
+				//result += dao.마감 , 자동으로 나머지 신청자들은 match_status 1로 변한다(거절)
+				result += dao.updateMatchStatus(searchCarpoolNo);
+			}
+		}
+		return result;
 	}
+	
+	
 	// 운전자페이지 : carpoolNo로 카풀 마감, 취소(아예삭제)
 	@Transactional
 	public int updateDriverClosing(Carpool carpool) {
@@ -105,6 +124,7 @@ public class CarpoolService {
 		//HashMap으로 받아온다.
 		return list;
 	}
+	//날짜 지나면 만료되는 것 
 	public int updateClosure() {
 		return dao.updateClosure();
 	}

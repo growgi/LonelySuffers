@@ -34,13 +34,13 @@ th, td {
 th {
 	text-indent: 80px;
 }
-td {
-	text-indent: 15px;
-}
 input[type="number"], input[type="time"] {
 	text-align: right;
 }
 </style>
+<!-- 다음지도, 네이버지도 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34&submodules=geocoder" ></script>
 </head>
 
 
@@ -166,7 +166,12 @@ input[type="number"], input[type="time"] {
 											<table class="table-striped" id="houseInsertForm">
 												<tr>
 													<th width=50%;>주소</th>
-													<td width=50%;><button>주소 입력 api로 작성</button></td>
+													<td style="width=50%; overflow:hidden;">
+													<input type="text" class="input-form form-control" maxlength="60" name="houseAddress"id="address" style="width : 340px; float : left;"readonly>
+													<button type="button" onclick="searchAddr();" style="float : left; margin-left : 8px;">주소 찾기</button>
+													<input type="hidden" name="houseLat" value="">
+													<input type="hidden" name="houseLng" value="">
+													</td>
 												</tr>
 												<tr>
 													<th>숙박소 이름</th>
@@ -351,7 +356,7 @@ input[type="number"], input[type="time"] {
 		const trimedTeacher = $("[name=lessonTeacher]").val().trim().replace(/\s+/g," ");
 		$("[name=lessonTeacher]").val(trimedTeacher);
 		
-		if($("[name=lessonInfo]").find($(".note-editable")).children().eq(0).text() == ""){
+		if($("[name=lessonInfo]").find($(".note-editable")).html().length < 12){
 			alert("상품 설명을 작성하셔야 합니다.");
 			return false;
 		}
@@ -374,7 +379,7 @@ input[type="number"], input[type="time"] {
 
 // 신규 숙박 등록 submit 시 동작되는 함수. 제목들을 trim 후 form action
 	function triming(){
-		if($("[name=houseDescription").find($(".note-editable")).children().eq(0).text() == ""){
+		if($("[name=houseDescription").find($(".note-editable")).html().length < 12){
 			alert("상품 설명을 작성하셔야 합니다.");
 			return false;
 		}
@@ -436,16 +441,22 @@ input[type="number"], input[type="time"] {
 		  maxHeight: null,
 		  focus: false,
 		  lang: "ko-KR",
+			callbacks: {
+				onImageUpload: function(files){
+					uploadLessonDescriptionImage(files[0], this);
+				}
+			},
 		  placeholder: '한글 기준 최대 1000자',
-			  toolbar: [
-				    ['fontname', ['fontname']],
-				    ['fontsize', ['fontsize']],
-				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				    ['color', ['forecolor','color']],
-				    ['table', ['table']],
-				    ['height', ['height']],
-				    ['view', ['help']]
-				  ],
+		  toolbar: [
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['insert', ['link', 'picture']],
+			    ['height', ['height']],
+			    ['view', ['help']]
+			  ]
 	});
 	
 	$('#summernoteH').summernote({
@@ -455,17 +466,91 @@ input[type="number"], input[type="time"] {
 		  maxHeight: null,
 		  focus: false,
 		  lang: "ko-KR",
+			callbacks: {
+				onImageUpload: function(files){
+					uploadHouseDescriptionImage(files[0], this);
+				}
+			},
 		  placeholder: '한글 기준 최대 1000자',
-			  toolbar: [
-				    ['fontname', ['fontname']],
-				    ['fontsize', ['fontsize']],
-				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				    ['color', ['forecolor','color']],
-				    ['table', ['table']],
-				    ['height', ['height']],
-				    ['view', ['help']]
-				  ],
+		  toolbar: [
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['insert', ['link', 'picture']],
+			    ['height', ['height']],
+			    ['view', ['help']]
+			  ]
 	});
+	
+	
+// summernote 편집기로 본문에 사진을 첨부시키는 함수
+	function uploadLessonDescriptionImage(file, editor){
+		
+		const form = new FormData();
+		form.append("file", file);
+		$.ajax({
+			url: "/attachLessonDescriptionImage.do",
+			type: "post",
+			data: form,
+			dataType : "json",
+			processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+			contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+			enctype : "multipart/form-data",
+			success: function(data){
+				$(editor).summernote("insertImage",data);
+			}
+		});
+	}
+	
+	
+// summernote 편집기로 본문에 사진을 첨부시키는 함수
+	function uploadHouseDescriptionImage(file, editor){
+		
+		const form = new FormData();
+		form.append("file", file);
+		$.ajax({
+			url: "/attachHouseDescriptionImage.do",
+			type: "post",
+			data: form,
+			dataType : "json",
+			processData: false,	//파일 전송을 위해서 기본값인 String 형태 전송을 제거
+			contentType: false,	//파일 전송을 위해서 enctype 속성의 기본값을 제거
+			enctype : "multipart/form-data",
+			success: function(data){
+				$(editor).summernote("insertImage",data);
+			}
+		});
+	}
+	
+	
+	
+//다음지도로 주소 찾기
+		function searchAddr(){
+		   new daum.Postcode({
+		       oncomplete: function(data) {
+		    	   $("#address").val(data.address);
+		           loadMap();
+		       }
+		   }).open();
+		};
+
+//네이버지도 위경도 추출
+		function loadMap(){
+			const addr = $("#address").val();
+			naver.maps.Service.geocode({
+				address : addr
+			},function(status, response){
+				if(status === naver.maps.Service.Status.ERROR){ //type까지 일치하는지 보려고 자바스크립트는 1=="1"하면 true가 나오기 때문에 type까지 보려면 1==="1"로 해야한다
+					return alert("조회 에러");
+				}
+				const lng = response.result.items[1].point.x;//경도
+				const lat = response.result.items[1].point.y;//위도
+				$("[name=houseLng]").attr("value",lng);
+				$("[name=houseLat]").attr("value",lat);
+			});
+		}
 	</script>
 </body>
 </html>

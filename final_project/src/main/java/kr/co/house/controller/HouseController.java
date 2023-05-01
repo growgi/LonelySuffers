@@ -63,20 +63,23 @@ public class HouseController {
 
 
 
+// summernote 편집기로 본문에 파일 첨부하기 ajax
+	@ResponseBody
+	@RequestMapping(value="/attachHouseDescriptionImage.do", produces = "application/json;charset=utf-8")
+	public String attachImage(@RequestParam("file") MultipartFile uploadFile, HttpServletRequest request) {
+        String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/editor/house/");
+        String filepath = fileManager.upload(savePath, uploadFile);
+        String getPath = "resources/upload/editor/house/"+filepath;
+		return new Gson().toJson(getPath);
+	}
+
+
+
 // 숙박 상품 등록.  House 테이블에 Row 1개 추가
 	@RequestMapping(value="/insertHouse.do")
 	public String insertHouse(House h, MultipartFile[] housePhoto, HttpServletRequest request, HttpSession session) {
 		Member me = (Member)session.getAttribute("m");
 		h.setWriter(me.getMemberId());
-
-
-///////////////////  주소 및 위경도 API 아직 안 되어서 임시로 넣은 값들   ////////////
-		h.setHouseAddress("강원 양양군 현남면 인구중앙길 89-4 1층");			//
-		h.setHouseLat("37.491234");									//
-		h.setHouseLng("127.012345");								//
-//////////////////////////////////////////////////////////////////////
-
-
 		String[] splitedAddress = h.getHouseAddress().split(" ");
 		h.setHouseCity(splitedAddress[0]);
 		int result = service.insertHouse(h);

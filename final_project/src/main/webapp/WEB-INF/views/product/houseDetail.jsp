@@ -111,13 +111,13 @@
 									<p style="text-align: left; font-size: 22px; font-weight: bold"><span class="label label-primary">${house.roomCapa }인실</span></p>
 								</div>
 							</div>
-							<div class="row" style="margin-top: 30px;">
-								<div class="col-md-3">
-									판매량 ()숫자
+							<div class="row">
+								<div class="col-md-5">
+									별평점 평균값 들어올 자리
 								</div>
 								<div class="col-md-1"></div>
-								<div class="col-md-5">
-									별평점넣을자리
+								<div class="col-md-3">
+									<!-- 판매량 넣을 자리 -->
 								</div>
 							</div>
 							<div class="row" style="margin-top: 30px;">
@@ -125,7 +125,10 @@
 								<div class="col-md-10">${house.houseAddress }</div>
 							</div>
 						<div>
-							<button onclick="goWishList()">관심상품</button>
+							<button class="toggleWishList" onclick="goWishList()">
+								<input id="showWishStatus" type="checkbox">
+								<div>관심상품</div>
+							</button>
 							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
 						</div>
 						<c:if test="${sessionScope.m.memberGrade == 2}">
@@ -700,17 +703,43 @@
 		}
 
 
-	// 나의 관심상품
+	// 관심상품 버튼을 눌렀을 때
 		function goWishList(){
 			const houseNo = $("[name=houseNo]").val();
 			const houseStatus = $("[name=houseStatus]").val();
+			if($("#showWishStatus").prop("checked")){
+				$.ajax({
+					url : "/delistWishList.do",
+					data: {house_no : houseNo, lesson_no : 0},
+					dataType : "text",
+					success : function(message){
+						if(message=="관심상품에서 제외했습니다."){
+							$("#showWishStatus").prop("checked", false);
+						}else{
+							$("#showWishStatus").prop("checked", true);
+							alert(message);
+						}
+					},
+					error : function(){
+						alert("알 수 없는 오류가 발생했습니다.");
+					}
+				});
+			}else{
 				if(houseStatus==1){
 					$.ajax({
 						url : "/insertWishList.do",
 						data: {house_no : houseNo, lesson_no : 0},
 						dataType : "text",
 						success : function(message){
-							alert(message);
+							if(message=="관심상품에 등록했습니다."){
+								$("#showWishStatus").prop("checked", true);
+							}else if(message=="이미 회원님의 관심목록에 추가되어 있는 상품입니다."){
+								$("#showWishStatus").prop("checked", true);
+								alert(message);
+							}else{
+								$("#showWishStatus").prop("checked", false);
+								alert(message);
+							}
 						},
 						error : function(){
 							alert("알 수 없는 오류가 발생했습니다.");
@@ -719,89 +748,108 @@
 				}else{
 					alert("판매중인 상품이 아닙니다.");
 				}
+			}
 		}
 
 
-		// 문의글 목록을 <tr>단위로 불러오는 ajax
-			function getInquiries(reqPage, range){
+	// 나의 관심상품에 있는 상품인지 확인 후 관심상품 추가하기에 불 들어오게
+		function refrechWishList(){
+			const houseNo = $("[name=houseNo]").val();
+			const houseStatus = $("[name=houseStatus]").val();
 				$.ajax({
-						url : "/getInquiries.do",
-						data: {reqPage : reqPage, productCategory : 2, productNo : $("[name=houseNo]").val(), range : range},
-						dataType : "json",
-						success : function(InquiryPagination){
-							$("#forInquiries").empty();
-							$("#forPageNavi").empty();
-							$("#numberOfCount").text(InquiryPagination.totalCount);
-							if(InquiryPagination.totalCount == 0){
-								$("#forInquiries").append( $("<tr>").addClass("hasNoInquiry").append($("<td>").attr("colspan", "6").css("text-align", "center").text("조회된 문의 내역이 없습니다.") ) );
-							}else{
-								for(let i=0; i<InquiryPagination.list.length; i++){
-									const td1 = $("<td>").text((InquiryPagination.start)+i);
-									
-									const td2 = $("<td>").css("display", "none").text(InquiryPagination.list[i].inquiryNo);
-									
-									const td3 = $("<td>");
-									if( InquiryPagination.list[i].answered > 0 ){
-										td3.text("답변완료");
-									}else{ td3.text("미답변"); }
-									
-									const td4 = $("<td>");
-									if( InquiryPagination.list[i].privately > 0 ){
-										td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text((InquiryPagination.list[i].inquiryTitle) + " 🔒 "));
-									}else{
-										td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text(InquiryPagination.list[i].inquiryTitle));
-									}
-									
-									const idLength = InquiryPagination.list[i].inquirer.length;
-									const td5 = $("<td>").text(InquiryPagination.list[i].inquirer);
-									
-									const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
-			
-									const tr = $("<tr>").addClass("inquiryTr").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
-									$("#forInquiries").append(tr);
-				    			}
-							$("#forPageNavi").append(InquiryPagination.pageNavi);
+					url : "/checkWishStatus.do",
+					data: {house_no : houseNo, lesson_no : 0},
+					dataType : "text",
+					success : function(message){
+						if(message=="이미 회원님의 관심목록에 추가되어 있는 상품입니다."){
+							$("#showWishStatus").prop("checked", true);
+						}
+					}
+				});
+		}
+
+
+	// 문의글 목록을 <tr>단위로 불러오는 ajax
+		function getInquiries(reqPage, range){
+			$.ajax({
+					url : "/getInquiries.do",
+					data: {reqPage : reqPage, productCategory : 2, productNo : $("[name=houseNo]").val(), range : range},
+					dataType : "json",
+					success : function(InquiryPagination){
+						$("#forInquiries").empty();
+						$("#forPageNavi").empty();
+						$("#numberOfCount").text(InquiryPagination.totalCount);
+						if(InquiryPagination.totalCount == 0){
+							$("#forInquiries").append( $("<tr>").addClass("hasNoInquiry").append($("<td>").attr("colspan", "6").css("text-align", "center").text("조회된 문의 내역이 없습니다.") ) );
+						}else{
+							for(let i=0; i<InquiryPagination.list.length; i++){
+								const td1 = $("<td>").text((InquiryPagination.start)+i);
+								
+								const td2 = $("<td>").css("display", "none").text(InquiryPagination.list[i].inquiryNo);
+								
+								const td3 = $("<td>");
+								if( InquiryPagination.list[i].answered > 0 ){
+									td3.text("답변완료");
+								}else{ td3.text("미답변"); }
+								
+								const td4 = $("<td>");
+								if( InquiryPagination.list[i].privately > 0 ){
+									td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text((InquiryPagination.list[i].inquiryTitle) + " 🔒 "));
+								}else{
+									td4.append($("<a>").addClass("inquiryTitleText").attr("onclick","expandIt(this)").text(InquiryPagination.list[i].inquiryTitle));
+								}
+								
+								const idLength = InquiryPagination.list[i].inquirer.length;
+								const td5 = $("<td>").text(InquiryPagination.list[i].inquirer);
+								
+								const td6 = $("<td>").text(InquiryPagination.list[i].regDate.substring(0,10));
+		
+								const tr = $("<tr>").addClass("inquiryTr").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								$("#forInquiries").append(tr);
+			    			}
+						$("#forPageNavi").append(InquiryPagination.pageNavi);
+					}
+				}
+			});
+		}
+
+	// 이 .jsp 페이지를 방문할 때 문의글 첫 페이지 조회로 시작
+		$(document).ready(function() {
+			getInquiries(1, 0);
+			refrechWishList();
+		});
+
+
+	// 문의글의 제목을 누르면 아래에 tr로 문의글 내용이 삽입되면서 펼쳐지는 효과로 출력
+		function expandIt(obj){
+			const targetInquiryNo = $(obj).parent().prev().prev().text();
+			if( $(obj).parent().parent().next().children().eq(3).attr("colspan") == 3 ){
+				 $(obj).parent().parent().nextUntil(".inquiryTr").remove();
+			}else{
+				$.ajax({
+					url : "/inquiryView.do",
+					data: {inquiryNo : targetInquiryNo, productCategory : 2, productNo : $("[name=houseNo]").val()},
+					dataType : "json",
+					async : false,
+					success : function(Inquiry){
+						if(Inquiry.inquiryNo <= 0){
+							alert(Inquiry.inquiryContent);
+						}else{
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ansI displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
+							if(Inquiry.answerList.length>0){
+								for(let j=0; j<Inquiry.answerList.length; j++){
+									$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ans").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
+								}
+							}
+							$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-inq").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
 						}
 					}
 				});
 			}
-
-		// 이 .jsp 페이지를 방문할 때 문의글 첫 페이지 조회로 시작
-			$(document).ready(function() {
-				getInquiries(1, 0);
-			});
+		}
 
 
-		// 문의글의 제목을 누르면 아래에 tr로 문의글 내용이 삽입되면서 펼쳐지는 효과로 출력
-			function expandIt(obj){
-				const targetInquiryNo = $(obj).parent().prev().prev().text();
-				if( $(obj).parent().parent().next().children().eq(3).attr("colspan") == 3 ){
-					 $(obj).parent().parent().nextUntil(".inquiryTr").remove();
-				}else{
-					$.ajax({
-						url : "/inquiryView.do",
-						data: {inquiryNo : targetInquiryNo, productCategory : 2, productNo : $("[name=houseNo]").val()},
-						dataType : "json",
-						async : false,
-						success : function(Inquiry){
-							if(Inquiry.inquiryNo <= 0){
-								alert(Inquiry.inquiryContent);
-							}else{
-								$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ansI displayForSeller").append( $("<td>") ).append( $("<td>").addClass("inquiryTd").text("답변하기") ).append( $("<td>").addClass("inquiryExpanded").attr("colspan", "4").html("<textarea class='form-control'></textarea>").append( $("<button>").attr("onclick", "insertAnswer(this)").text("답변 등록") ) ) );
-								if(Inquiry.answerList.length>0){
-									for(let j=0; j<Inquiry.answerList.length; j++){
-										$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-ans").append( $("<td>").html("<button type='button' class='displayForSeller' onclick='editAnswerContent(this)'>수정</button><br><button type='button' class='displayForSeller' onclick='deleteAnswerConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none").text(Inquiry.answerList[j].answerNo) ).append( $("<td>").addClass("inquiryTd").html("답변: ") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.answerList[j].answerContent.replaceAll("\n","<br>")+"</span>") ) );
-									}
-								}
-								$(obj).parent().parent().after( $("<tr>").addClass("expandedTr-inq").append( $("<td>").html("<button type='button' class='displayForGeneralMember' onclick='editInquiryContent(this)'>수정</button><br><button type='button' class='displayForGeneralMember' onclick='deleteInquiryConfirm(this)'>삭제</button>") ).append( $("<td>").css("display", "none") ).append( $("<td>").addClass("inquiryTd").text("문의 내용") ).append($("<td>").addClass("inquiryExpanded").attr("colspan", "3").html("<span>"+Inquiry.inquiryContent.replaceAll("\n","<br>")+"</span>") ) );
-							}
-						}
-					});
-				}
-			}
-
-
-		// 문의글 등록 폼 제출
+	// 문의글 등록 폼 제출
 		function insertInquiryAjax(obj){
 			const trimedTitle = $("[name=inquiryTitle]").val().trim().replace(/\s+/g," ");
 			$("[name=inquiryTitle]").val(trimedTitle);
@@ -824,7 +872,7 @@
 		}
 
 
-		// 문의글 수정 버튼을 눌렀을 때
+	// 문의글 수정 버튼을 눌렀을 때
 		function editInquiryContent(obj){
 			const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
 			$(obj).parent().next().next().next().children().css("display", "none");
@@ -835,7 +883,7 @@
 		}
 
 
-		// 문의글 내용수정 버튼을 누르면 동작하는 ajax
+	// 문의글 내용수정 버튼을 누르면 동작하는 ajax
 		function updateInquiry(obj){
 			$.ajax({
 				url : "/updateInquiry.do",
@@ -851,7 +899,7 @@
 		}
 
 
-		// 문의글 수정 취소 버튼을 눌렀을 때
+	// 문의글 수정 취소 버튼을 눌렀을 때
 		function cancleEditInquiry(obj){
 			$(obj).parent().next().next().next().children().eq(2).remove();
 			$(obj).parent().next().next().next().children().eq(1).remove();
@@ -861,7 +909,7 @@
 		}
 
 
-		// 문의글 삭제 버튼을 눌렀을 때
+	// 문의글 삭제 버튼을 눌렀을 때
 		function deleteInquiryConfirm(obj){		
 			const inquiryNo = $(obj).parent().parent().prev().children().eq(1).text();
 			if (confirm("정말로 삭제하시겠습니까?") == true) {
@@ -870,7 +918,7 @@
 		}
 
 
-		// 문의글 삭제 버튼을 누르면 동작하는 ajax
+	// 문의글 삭제 버튼을 누르면 동작하는 ajax
 		function deleteInquiry(inquiryNo){
 			$.ajax({
 				url : "/deleteInquiry.do",
@@ -886,7 +934,7 @@
 		}
 
 
-		// 답변 등록 버튼을 누르면 동작하는 ajax
+	// 답변 등록 버튼을 누르면 동작하는 ajax
 		function insertAnswer(obj){
 			$.ajax({
 				url : "/insertAnswer.do",
@@ -904,7 +952,7 @@
 		}
 
 
-		// 답변 수정 버튼을 눌렀을 때
+	// 답변 수정 버튼을 눌렀을 때
 		function editAnswerContent(obj){
 			const getContent = $(obj).parent().next().next().next().children().eq(0).html().replaceAll("<br>","\n");
 			$(obj).parent().next().next().next().children().css("display", "none");
@@ -915,7 +963,7 @@
 		}
 
 
-		// 답변 내용수정 버튼을 누르면 동작하는 ajax
+	// 답변 내용수정 버튼을 누르면 동작하는 ajax
 		function updateAnswer(obj){
 			$.ajax({
 				url : "/updateAnswer.do",
@@ -931,7 +979,7 @@
 		}
 
 
-		// 답변 수정 취소 버튼을 눌렀을 때
+	// 답변 수정 취소 버튼을 눌렀을 때
 		function cancleEditAnswer(obj){
 			$(obj).parent().next().next().next().children().eq(2).remove();
 			$(obj).parent().next().next().next().children().eq(1).remove();
@@ -941,7 +989,7 @@
 		}
 
 
-		// 답변 삭제 버튼을 눌렀을 때
+	// 답변 삭제 버튼을 눌렀을 때
 		function deleteAnswerConfirm(obj){		
 			const answerNo = $(obj).parent().next().text();
 			if (confirm("정말로 삭제하시겠습니까?") == true) {
@@ -950,7 +998,7 @@
 		}
 
 
-		// 답변 삭제 버튼을 누르면 동작하는 ajax
+	// 답변 삭제 버튼을 누르면 동작하는 ajax
 		function deleteAnswer(answerNo){
 			$.ajax({
 				url : "/deleteAnswer.do",
@@ -966,7 +1014,7 @@
 		}
 
 
-		// 로그인된 회원의 등급에 따라 특정 요소들을 display:none 처리
+	// 로그인된 회원의 등급에 따라 특정 요소들을 display:none 처리
 		$(document).ready(function(){
 			const stylesheet = document.styleSheets[0];		// 링크된 .css 파일들 중 첫 번째 파일
 			let elementRules;
@@ -981,7 +1029,7 @@
 			}else{
 				elementRules.style.setProperty('display', 'none');
 			}
-
+			
 			// 관리자(Grade 1) 또는 일반회원(Grade 3)가 아닌 경우에만 변경할 css
 			for(let i = 0; i < stylesheet.cssRules.length; i++) {
 				if(stylesheet.cssRules[i].selectorText === '.displayForGeneralMember') {

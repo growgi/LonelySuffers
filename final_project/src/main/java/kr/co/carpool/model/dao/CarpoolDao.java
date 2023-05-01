@@ -100,6 +100,32 @@ public class CarpoolDao {
 		return p;
 	}
 
+	public int selectCarpoolNo(Passenger passenger) {
+		int carpoolNo = sqlSession.selectOne("passenger.selectCarpoolNo", passenger);
+		return carpoolNo;
+	}
+	public int selectReserved(int searchCarpoolNo) {
+		int reserved=  sqlSession.selectOne("passenger.selectReserved", searchCarpoolNo);
+		return reserved;
+	}
+
+	public int selectCapacity(int searchCarpoolNo) {
+		int capacity = sqlSession.selectOne("passenger.selectCapacity", searchCarpoolNo);
+		return capacity;
+	}
+
+	//카풀신청자==capacity 면 카풀 마감시키는것
+	public int updateClosureto1(int searchCarpoolNo) {
+		int closureto1 = sqlSession.update("passenger.updateClosureto1", searchCarpoolNo);
+		return closureto1;
+	}
+
+	public int updateMatchStatus(int searchCarpoolNo) {
+		int matchStatus = sqlSession.update("passenger.updateMatchStatus", searchCarpoolNo);
+		return matchStatus;
+	}
+
+
 
 	
 	

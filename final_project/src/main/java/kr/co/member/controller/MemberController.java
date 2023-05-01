@@ -381,15 +381,16 @@ public class MemberController {
 
 
 
-// 나의 관심상품 페이지에서 관심상품을 삭제하고 나의 관심상품 페이지를 재방문하기
-	@RequestMapping(value="/deleteWishList.do")
+// 나의 관심상품 목록 페이지에서 관심상품을 삭제
+	@ResponseBody
+	@RequestMapping(value="/deleteWishList.do", produces = "application/json;charset=utf-8")
 	public String deleteWishList(int wishNo) {
 		int result = service.deleteWishList(wishNo);
 		
 		if(result>0) {
-			return "redirect:/wishList.do";
+			return "삭제성공";
 		} else {
-			return "redirect:/";
+			return "알 수 없는 이유로 관심상품 삭제에 실패했습니다.";
 		}
 	}
 
