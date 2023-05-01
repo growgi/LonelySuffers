@@ -122,6 +122,7 @@
 										style="text-align: center; background-color: #E5BEEC; padding: 10px; border-top-left-radius: 20px; border-top-right-radius: 20px;">
 										<div class="main-info"><span style="font-weight:900;">${c.driverName }</span>님이 제공하는 카풀입니다. <br>
 											${c.tripType }, ${c.departureDate }(${c.returnTimeRange }) <br>
+											${c.departureRegion }(${c.departureDistrict}) → ${c.arrivalRegion }(${c.arrivalDistrict})<br>
 											탑승인원/모집인원 : ${c.reserved }/${c.capacity }명 <br>
 										</div>
 									</div>
