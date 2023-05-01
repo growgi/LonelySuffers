@@ -20,6 +20,7 @@
 
 </head>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+<link rel="stylesheet" href="/resources/css/noticeFaq.css">
 <style>
 .search-bar {
     display: flex;
@@ -56,52 +57,6 @@
     box-shadow: inset 0 0 2px rgb(235, 235, 235);
 }
 
-.table>tbody>tr>th{
-	text-align: center;
-	border-bottom: 3px solid rgba(221,221,221,0.867);
-}
-
-.table-hover>tbody>tr>td{
-	text-align: center;
-	padding-left: 10px;
-}
-
-
-
-.button-74 {
-  background-color: #fbeee0;
-  border: 2px solid #422800;
-  border-radius: 30px;
-  box-shadow: #422800 4px 4px 0 0;
-  color: #422800;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 0 18px;
-  line-height: 50px;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.button-74:hover {
-  background-color: #fff;
-}
-
-.button-74:active {
-  box-shadow: #422800 2px 2px 0 0;
-  transform: translate(2px, 2px);
-}
-
-@media (min-width: 768px) {
-  .button-74 {
-    min-width: 120px;
-    padding: 0 25px;
-  }
-}
 
 
 </style>
@@ -128,8 +83,6 @@
 							<th style="width:20%">카테고리</th>
 							<th style="width:60%">제목</th>
 						</tr>
-					</table>
-					<table class="table table-hover">	
 						<c:forEach items="${list }" var="fq" varStatus="faqNoCt">
 							<tr>
 								<td style="width:20%">${faqNoCt.count }</td>

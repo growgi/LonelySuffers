@@ -241,10 +241,10 @@
 							
 							</form>
 							</div>
-							<hr>
+							<div style="margin-top: 20px; margin-bottom: 20px; border-bottom: 2px dashed #595959;"></div>
 							
 							<!--별점 & 후기 리스트 나오는 부분 -->	
-							<table style="width: 800px; margin: 0 auto;">
+							<table style="width: 845px; margin: 0 auto;">
 								<tr class="reviewListView">
 									<td style="width: 15%;">제목</td>
 									<td style="width: 10%;">작성자</td>
@@ -260,7 +260,22 @@
 										<th style="text-align: center;">${review.reviewTitle }</th>
 										<th style="text-align: center;">${review.reviewWriter }</th>
 										<th style="text-align: center;">${review.reviewContent }</th>
-										<th style="text-align: center;">★ : ${review.rating }</th>
+										<c:if test="${review.rating  == 1}">
+											<th style="text-align: center; color: orange;">★</th>
+										</c:if>
+										<c:if test="${review.rating  == 2}">
+											<th style="text-align: center; color: orange;">★★</th>
+										</c:if>
+										<c:if test="${review.rating  == 3}">
+											<th style="text-align: center; color: orange;">★★★</th>
+										</c:if>
+										<c:if test="${review.rating  == 4}">
+											<th style="text-align: center; color: orange;">★★★★</th>
+										</c:if>
+										<c:if test="${review.rating  == 5}">
+											<th style="text-align: center; color: orange;">★★★★★</th>
+										</c:if>
+										<!--  <th style="text-align: center;">${review.rating }</th>-->
 										<c:choose>
 											<c:when test="${review.productCategory == 1 }">
 													<th style="text-align: center;">강습</th>
@@ -270,7 +285,7 @@
 										<th>
 											<c:forEach items="${review.rfileList }" var="rf">
 												<div style="display: inline-block;">
-													<img src="/resources/upload/review/${rf.filepath }" width="70" height="70">
+													<img src="/resources/upload/review/${rf.filepath }" width="65" height="65">
 													<input type="hidden" value=${rf.filepath }>
 													<input type="hidden" value=${rf.fileNo }>
 												</div>
@@ -309,7 +324,7 @@
 							          		<input type="text" class="form-control reviewWriter" name="reviewWriter" placeholder="작성자" value="" readonly>
 							          		<div>내용</div>
 							          		<textarea class="form-control reviewContent" rows="6" name="reviewContent" placeholder="내용" required></textarea>
-							          		<div>별점</div>
+							          		<div>별점(숫자(1~5)로 입력바랍니다.)</div>
 							          		<input type="text" class="form-control rating" name="rating" placeholder="" value=""required>
 							          		<div>카테고리</div>
 							          		<input type="hidden" class="form-control productCategory" name="productCategory">

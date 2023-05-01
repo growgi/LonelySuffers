@@ -1,11 +1,10 @@
 @charset "UTF-8";
 
 .button-74 {
-    background-color: #fbeee0;
-    border: 2px solid #422800;
+    background-color: #006bd6;
+    border: 2px solid #006bd6;
     border-radius: 30px;
-    box-shadow: #422800 4px 4px 0 0;
-    color: #422800;
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     font-weight: 600;
@@ -17,10 +16,12 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    transition-duration: 0.2s;
 }
 
 .button-74:hover {
     background-color: #fff;
+    color: #3ac5c8;
 }
 
 .button-74:active {
@@ -36,11 +37,10 @@
 }
 
 .button-73 {
-    background-color: #fbeee0;
-    border: 2px solid #422800;
+    background-color: #006bd6;
+    border: 2px solid #006bd6;
     border-radius: 30px;
-    box-shadow: #422800 4px 4px 0 0;
-    color: #422800;
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     font-weight: 600;
@@ -52,10 +52,12 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    transition-duration: 0.2s;
 }
 
 .button-73:hover {
     background-color: #fff;
+    color: #3ac5c8;
 }
 
 .button-73:active {
@@ -65,7 +67,7 @@
 
 @media (min-width: 768px) {
     .button-73 {
-    min-width: 90px;
+    min-width: 50px;
     padding: 0 15px;
     }
 }
@@ -74,7 +76,7 @@
 label {
     cursor: pointer;
     font-size: 30px;
-    color: #006bd6;
+    color: orange;
     display: block;
     width: 40px;
     height: 40px;
@@ -87,7 +89,7 @@ label {
 
 label:hover {
     font-size: 40px;
-    color: #006bd6;
+    color: orange;
     text-shadow: 0 0 5px lighten(#34495e, 50%);
 }
 
@@ -136,24 +138,32 @@ input:checked + label ~ label:before {
 }
 
 .reviewListView{
-    background-color: #006bd6;
+    background-color: #3ac5c8;
     color: #fff;
     text-align: center;
 }
 
-.reviewListView> td{
+.reviewListView> th{
     border: none;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
     text-align: center;
     font-weight: bold;
-    padding-bottom: 5px;
-    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.reviewListView> th:first-child{
+    border-top-left-radius: 5px;
+
+}
+.reviewListView> th:last-child{
+    border-top-right-radius: 5px;
 }
 
 .reviewModalContent{
-    text-align: center;
-    border: 2px dashed #595959;
+    border-bottom: 1px solid #006bd6;
+}
+
+.reviewModalContent>td{
+    padding: 5px;
 }
 
 .reviewModalBtn{
@@ -161,7 +171,38 @@ input:checked + label ~ label:before {
     margin-bottom: 10px;
 }
 
-.reviewBtnWrap{
-
+.container1 {
+    max-height: 300px; /* 초기 높이값 */
+    overflow: hidden;
+    position: relative;
+    height: 100%;
 }
+
+
+.show-more {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 840px;
+    background-color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.show-more::before {
+    content: '▼';
+    display: inline-block;
+    margin-right: 5px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+.container1.show-more-open .show-more::before {
+    transform: rotate(180deg);
+}
+
+.container1.show-more-open {
+    max-height: 100%;
+}
+
 

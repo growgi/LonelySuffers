@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.row>.table>tbody>tr>th{
+	background-color: #3ac5c8;
+    color: #fff;
+    padding: 10px;
+    border-top: none;
+}
+.table>tbody>tr>th:first-child{
+    border-top-left-radius: 5px;
+
+}
+.table>tbody>tr>th:last-child{
+    border-top-right-radius: 5px;
+}
+
+.table>tbody>tr>th, .table>tbody>tr>td{
+	text-align: center;
+	border-bottom: 1px solid rgba(221,221,221,0.867);
+}
+
+.table>tbody>tr:hover{
+	background-color: #f7f7f7;
+}

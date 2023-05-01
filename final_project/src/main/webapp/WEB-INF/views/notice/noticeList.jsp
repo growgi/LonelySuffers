@@ -18,8 +18,9 @@
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
 <link rel="stylesheet" href="/resources/css/notice.css">
-</head>
+<link rel="stylesheet" href="/resources/css/noticeFaq.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+</head>
 <style>
 .search-bar {
     display: flex;
@@ -90,16 +91,16 @@
 						<input type="submit" style="display:none;">				
 					</form>
 					<br>
-					<table class="table table-striped">
+					<table class="table">
 						<tr>
 							<th class="nt" style="width:15%">번호</th>
-							<th class="nt" style="width:60%">제목</th>
-							<th class="nt" style="width:25%">작성일</th>
+							<th class="nt" style="width:70%">제목</th>
+							<th class="nt" style="width:15%">작성일</th>
 						</tr>
 						<c:forEach items="${list }" var="n">
 							<tr>
 								<td class="nt" style="width:15%">${n.noticeNo }</td>
-								<td>
+								<td style="text-align: left;">
 									<a href="/noticeView.do?noticeNo=${n.noticeNo }">${n.noticeTitle }</a>				
 								</td>
 								<td class="nt" style="width:25%">${n.noticeDate }</td>

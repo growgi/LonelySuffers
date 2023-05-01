@@ -45,7 +45,7 @@
 		<section class="section normalhead" style="padding-top: 0;">
 			<div class="container">
 				<div class="row" style="margin-top: 20px;">
-					<div style="text-align: center; margin-bottom: 15px;">
+					<div style="text-align: left; margin-left: 185px; margin-bottom: 15px;">
 						<a class="button-74" href="/noticeList.do?reqPage=1">목록보기</a>
 					</div>
 					<div class="paper">

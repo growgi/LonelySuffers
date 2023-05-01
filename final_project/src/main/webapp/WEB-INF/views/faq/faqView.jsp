@@ -45,39 +45,33 @@
 				<div class="row">
 					<a href="/" class="button-74" style="margin-top: 20px">메인으로</a>
 					<div class="faqViewWrap">
-						<p style="margin-bottom: 5px;">제목</p>
 						<p style="font-size: 30px;">${faq.faqTitle }</p>
 						<ul class="faqViewheader">
-							<li style="font-size: 20px;">번호</li>
-							<span>|</span>
-							<li>${faq.faqNo }</li>
-							<li style="font-size: 20px;">카테고리</li>
-							<span>|</span>
-							<li>
+							<li style="font-size: 20px;">번호 <span>|</span> ${faq.faqNo }</li>
+							<li style="font-size: 20px;">카테고리 <span>|</span> 
 								<c:choose>
 									<c:when test="${faq.categoryNo == 1}">
-										<p>예약취소</p>
+										예약취소
 									</c:when>
 									<c:when test="${faq.categoryNo == 2}">
-										<p>숙박</p>
+										숙박
 									</c:when>
 									<c:when test="${faq.categoryNo == 3}">
-										<p>강습</p>
+										강습
 									</c:when>
 									<c:when test="${faq.categoryNo == 4}">
-										<p>카풀</p>
+										카풀
 									</c:when>
 									<c:when test="${faq.categoryNo == 5}">
-										<p>후기</p>
+										후기
 									</c:when>
 									<c:when test="${faq.categoryNo == 6}">
-										<p>회원서비스</p>
+										회원서비스
 									</c:when>
 								</c:choose>
 							</li>
 						</ul>
 					</div>
-					<p style="text-align: center; font-weight: bold;">내용</p>
 					<div class="faqContentWrap">
 						<table>
 							<tr>

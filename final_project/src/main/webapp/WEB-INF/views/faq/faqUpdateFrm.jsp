@@ -46,15 +46,10 @@
 				<div class="row">
 				<form action="/faqUpdate.do" method="post">
 				<div class="faqViewWrap">
-					<p style="margin-bottom: 5px;">제목</p>
 					<p style="font-size: 30px;"><input style="text-align: center; border: none;" type="text" name="faqTitle" value="${faq.faqTitle }"></p>
 					<ul class="faqViewheader">
-						<li style="font-size: 20px;">번호</li>
-						<span>|</span>
-						<li><input type="text" id="faqNo" name="faqNo" value="${faq.faqNo }" readonly style="width: 30px; border: none;"></li>
-						<li style="font-size: 20px;">카테고리</li>
-						<span>|</span>
-						<li>
+						<li style="font-size: 20px;">번호 <span>|</span> <input type="text" id="faqNo" name="faqNo" value="${faq.faqNo }" readonly style="width: 45px; border: none;"></li>
+						<li style="font-size: 20px;">카테고리 <span>|</span>
 							<c:choose>
 							<c:when test="${faq.categoryNo == 1 }">
 								<select name="categoryNo" id="categoryNo" class="input-form">
@@ -120,7 +115,6 @@
 						</li>
 					</ul>
 				</div>
-				<p style="text-align: center; font-weight: bold;">내용</p>
 					<div class="faqContentWrap">
 						<table class="faqViewContent">
 							<tr>
