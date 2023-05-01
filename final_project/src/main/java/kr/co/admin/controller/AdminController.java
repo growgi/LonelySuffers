@@ -1,7 +1,6 @@
 package kr.co.admin.controller;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +21,7 @@ import kr.co.admin.model.vo.ProductPageData;
 import kr.co.admin.model.vo.RejectProduct;
 import kr.co.admin.model.vo.SalesAmount;
 import kr.co.admin.model.vo.Search;
+import kr.co.admin.model.vo.SearchById;
 import kr.co.carpool.model.vo.Carpool;
 import kr.co.chat.model.service.ChatService;
 import kr.co.chat.model.vo.ChatActive;
@@ -328,7 +328,8 @@ public class AdminController {
 	//검색
 	@RequestMapping(value="/adminSearchLesson.do")
 	public String adminSearchLesson(String jspPage, String lessonSearchType, String lessonSearchKeyword, Model model) {
-		Search sp = new Search(lessonSearchType, lessonSearchKeyword);
+		String[] keywords = lessonSearchKeyword.trim().replaceAll("(\\s)\\1+","$1").split(" ");		
+		Search sp = new Search(lessonSearchType, keywords);
 		
 		ArrayList<Lesson> lessonList = service.selectSearchLesson(sp);
 		
@@ -351,7 +352,8 @@ public class AdminController {
 	
 	@RequestMapping(value="/adminSearchHouse.do")
 	public String adminSearchHouse(String jspPage, String houseSearchType, String houseSearchKeyword, Model model) {
-		Search sp = new Search(houseSearchType, houseSearchKeyword);
+		String[] keywords = houseSearchKeyword.trim().replaceAll("(\\s)\\1+","$1").split(" ");		
+		Search sp = new Search(houseSearchType, keywords);
 		
 		ArrayList<House> houseList = service.selectSearchHouse(sp);
 		
@@ -374,7 +376,8 @@ public class AdminController {
 
 	@RequestMapping(value="/adminSearchProduct.do")
 	public String adminSearchProduct(String jspPage, String productSearchType, String productSearchKeyword, Model model) {
-		Search sp = new Search(productSearchType, productSearchKeyword);
+		String[] keywords = productSearchKeyword.trim().replaceAll("(\\s)\\1+","$1").split(" ");		
+		Search sp = new Search(productSearchType, keywords);
 		
 		ArrayList<Product> productList = service.selectSearchProduct(sp);
 		
@@ -545,7 +548,7 @@ public class AdminController {
 	//검색
 	@RequestMapping(value="/adminSearchMemberSalesDetails.do")
 	public String adminSearchMemberSalesDetails(String searchType,String searchKeyword, Model model) {
-		Search sp = new Search(searchType, searchKeyword);
+		SearchById sp = new SearchById(searchType, searchKeyword);
 		
 		ArrayList<Order> orderList = service.selectSearchSalesDetails(sp);
 		if(orderList != null) {			

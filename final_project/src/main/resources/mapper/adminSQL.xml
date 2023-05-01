@@ -254,22 +254,34 @@
 			writer,
 			lesson_city as lessonCity,
 			lesson_status as lessonStatus,
-			lesson_score as lessonScore
-			lesson_info_pic as lessonInfoPic,
+			lesson_score as lessonScore,
+			lesson_info_pic as lessonInfoPic
 	  from lesson
  	    <choose>
 	      <when test='searchType.equals("n")'>
 	      	<!-- 한 글자는 문자 취급될 수 있기 때문에 ""큰따옴표로 묶어야함 -->
-	        where (lesson_status in(1,0)) and (lesson_title like '%'||#{searchKeyword}||'%')
+	        where lesson_title like 
+				<foreach collection="keywords" item="keyword" separator="and lesson_title like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 	      </when>
 	      <when test='searchType.equals("s")'>
-	        where (lesson_status in(1,0)) and (writer like '%'||#{searchKeyword}||'%')
+	        where writer like 
+				<foreach collection="keywords" item="keyword" separator="and writer like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 	      </when>
 	      <when test="searchType.equals('le')">
-	        where (lesson_status in(1,0)) and (lesson_level like '%'||#{searchKeyword}||'%')
+	        where lesson_level like 
+				<foreach collection="keywords" item="keyword" separator="and lesson_level like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 	      </when>
 	      <when test="searchType.equals('lo')">
-	        where (lesson_status in(1,0)) and (lesson_city like '%'||#{searchKeyword}||'%')
+	        where lesson_city like 
+				<foreach collection="keywords" item="keyword" separator="and lesson_city like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 	      </when>
 	    </choose>
 	    order by lesson_status desc, lesson_no desc 
@@ -291,16 +303,28 @@
 		from house
 		<choose>
 			<when test='searchType.equals("n")'>
-				where (house_status in(0,1)) and (house_title like '%'||#{searchKeyword}||'%')
+				where house_title like 
+				<foreach collection="keywords" item="keyword" separator="and house_title like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 			</when>
 			<when test='searchType.equals("s")'>
-				where (house_status in(0,1)) and (writer like '%'||#{searchKeyword}||'%')
+				where writer like 
+				<foreach collection="keywords" item="keyword" separator="and writer like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 			</when>
 			<when test="searchType.equals('rt')">
-				where (house_status in(0,1)) and (room_title like '%'||#{searchKeyword}||'%')
+				where room_title like 
+				<foreach collection="keywords" item="keyword" separator="and room_title like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 			</when>
 			<when test="searchType.equals('lo')">
-				where (house_status in(0,1)) and (house_address like '%'||#{searchKeyword}||'%')
+				where house_address like 
+				<foreach collection="keywords" item="keyword" separator="and house_address like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 			</when>
 		</choose>
 		order by house_status desc, house_no desc
@@ -331,13 +355,22 @@
         )
         <choose>
 			<when test='searchType.equals("n")'>
-				where productTitle like '%'||#{searchKeyword}||'%'
+				where productTitle like
+				<foreach collection="keywords" item="keyword" separator="and productTitle like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 			</when>
 			<when test='searchType.equals("s")'>
-				where productWriter like '%'||#{searchKeyword}||'%'
+				where productWriter like
+				<foreach collection="keywords" item="keyword" separator="and productWriter like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 			</when>
 			<when test="searchType.equals('lo')">
-				where productCity like '%'||#{searchKeyword}||'%'
+				where productCity like
+				<foreach collection="keywords" item="keyword" separator="and productCity like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
 			</when>
 		</choose>
         order by productStatus desc, productNo desc
@@ -583,7 +616,7 @@
 		where order_no=#{_parameter}
 	</select>
 	
-	<select id="selectSearchSalesDetails" parameterType="s" resultType="order">
+	<select id="selectSearchSalesDetails" parameterType="kr.co.admin.model.vo.SearchById" resultType="order">
 		select 
 			order_no as orderNo,
 			member_no as memberNo,

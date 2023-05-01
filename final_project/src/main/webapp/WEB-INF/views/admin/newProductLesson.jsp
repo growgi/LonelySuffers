@@ -126,7 +126,7 @@
                                 		</td>
 										<td><a href="/lessonView.do?lessonNo=${l.lessonNo }">${l.lessonTitle }</a></td>
 										<td>${l.writer }</td>
-										<td>Level ${l.lessonLevel }</td>
+										<td>${l.lessonLevel }</td>
 										<td><span>${l.lessonMaxNo }</span>명</td>
 										<td>${l.lessonCity }</td>
 										<td>
