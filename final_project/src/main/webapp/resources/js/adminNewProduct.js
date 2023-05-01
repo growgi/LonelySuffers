@@ -99,17 +99,15 @@ $(".approveProduct").on("click", function() {
 
 //체크박스 선택상품
 $(".checkedApproveProduct").on("click", function() {
-    //상품 종류
-    const productType = $(this).parent().parent().prev().find("td").eq(1).text();
-    
-    //console.log(productType);
-    
     const check = $(".check:checked");
 
     if (check.length == 0) {
         alert("선택된 회원이 없습니다.");
         return;
     }
+
+    //체크된 상품 타입 저장 배열
+    const pType = new Array();
 
     //체크된 상품 번호 저장 배열
     const no = new Array();
@@ -118,11 +116,16 @@ $(".checkedApproveProduct").on("click", function() {
     check.each(function(index, item) {
         //클릭한 버튼 기준으로 해당 상품 번호
         const productNo = $(item).val();
-        console.log(productNo);
         no.push(productNo);
+        
+        //상품 종류
+        const productType = $(item).parent().next().text();
+        pType.push(productType);
     });
-
-    location.href = "/checkedApproveProduct.do?productType="+productType+"&no=" + no.join("/");
+    console.log("no:"+no);
+    console.log("pType:"+pType);
+    
+    location.href = "/checkedApproveProduct.do?pType="+pType.join("/")+"&no=" + no.join("/");
 });
 
 /*반려

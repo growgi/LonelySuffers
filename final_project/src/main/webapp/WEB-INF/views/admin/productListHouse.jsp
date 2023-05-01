@@ -29,6 +29,25 @@ th:last-child, td-last-child{
 }
 </style>
 <body>
+	<!-- Modal -->
+	<div id="changeStatusProduct-modal" class="modal-bg" style="z-index:1; display:none;">
+		<div class="modal-wrap">
+			<div class="modal-head">
+			<h2>선택 상품 상태 변경</h2>
+			<span class="material-icons close-icon modal-close">close</span>
+			</div>
+			<div class="modal-content">
+				<div class="waveEffect" style="border:none;">
+					<p class="waveEffectWord-back page-name">Lonely Surfers</p>
+				</div>
+				<p>선택한 상품(들)의 상태를 변경하시겠습니까?</p>
+			</div>
+			<div class="modal-foot">
+			<button class="checkedUpdateProductStatus-btn2 btn-m bc4 btn-pill">확인</button>
+			<button class="btn-m bc5 modal-close btn-pill">취소</button>
+			</div>
+		</div>
+	</div>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="currProduct-wrapper product-wrapper admin-content">
 		<div>
@@ -66,6 +85,7 @@ th:last-child, td-last-child{
 								<tr>
 									<th><input type="checkbox" name="houseCheck"
 										class="house-all-check chk"></th>
+									<th style="display:none"></th>
 									<th>사진</th>
 									<th style="width:300px;">상품명</th>
 									<th>판매자</th>
@@ -78,7 +98,8 @@ th:last-child, td-last-child{
 								<c:forEach items="${houseList }" var="h">
 									<tr>
 										<td><input type="checkbox" name="houseCheck"
-											class="house-check chk" value="${h.houseNo }"></td>
+											class="house-check product-check chk" value="${h.houseNo }"></td>
+										<td style="display:none;">숙박</td>
 										<td>
 										<c:choose>
 	                                		<c:when test="${h.housePhoto1 eq null}">
@@ -169,7 +190,8 @@ th:last-child, td-last-child{
 											<div class="list-detail-box" style="display: none">
 												<div>
 													<a href="#">상품 정보 수정</a>
-													<div class="product-stop-selling">상품 판매 중지</div>
+													<div class="product-stop-selling-btn">상품 판매 중지</div>
+													<div class="product-stop-selling" style="display:none;">상품 판매 중지</div>
 													<input type="hidden" value="${h.houseNo }">
 												</div>
 											</div></td>
@@ -182,7 +204,7 @@ th:last-child, td-last-child{
 						</div>
 						<div class="list-bottom">
 							<div>
-								<button class="checkedUpdateHouseStatus btn-m bc1">선택 상품 상태 변경</button>
+								<button class="checkedUpdateProductStatus-btn btn-m bc1" target="#changeStatusProduct-modal">선택 상품 상태 변경</button>
 							</div>
 						</div>
 					</div>

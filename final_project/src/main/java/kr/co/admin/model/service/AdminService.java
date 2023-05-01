@@ -568,8 +568,52 @@ public class AdminService {
 		
 		return dao.selectHouseCount();
 	}
+	
+	public boolean updateProductStatus(String pType, String no, String status) {
+		//no, status 구분자 "/" 분리
+		StringTokenizer sT1 = new StringTokenizer(pType,"/");
+		StringTokenizer sT2 = new StringTokenizer(no,"/");
+		StringTokenizer sT3 = new StringTokenizer(status,"/");
+		
+		boolean result = true;
+		
+		while(sT1.hasMoreTokens()) {
+			String productType = sT1.nextToken();
+			int productNo = Integer.parseInt(sT2.nextToken());
+			int productStatus = Integer.parseInt(sT3.nextToken());
 
-	public boolean updateLessonStatus(String no, String status) {
+			if(productType.equals("강습")) {
+				Lesson l = new Lesson();
+				l.setLessonNo(productNo);
+				l.setLessonStatus(productStatus);
+				
+				int changeResult = dao.updateLessonStatus(l); //상품 상태 변경
+				
+				if(changeResult == 0) {
+					//실패
+					result = false;
+					break;
+				}
+				
+			} else {
+				House h = new House();
+				h.setHouseNo(productNo);
+				h.setHouseStatus(productStatus);
+				
+				int changeResult = dao.updateHouseStatus(h); //상품 상태 변경
+				
+				if(changeResult == 0) {
+					//실패
+					result = false;
+					break;
+				}
+			}
+		}
+		
+		return result;
+	}
+
+	/*public boolean updateLessonStatus(String no, String status) {
 		//no, status 구분자 "/" 분리
 		StringTokenizer sT1 = new StringTokenizer(no,"/");
 		StringTokenizer sT2 = new StringTokenizer(status,"/");
@@ -621,7 +665,7 @@ public class AdminService {
 		}
 
 		return result;
-	}
+	}*/
 
 	public LessonPageData selectNewLesson(int reqPage) {
 		/*1. 한 페이지당 게시물 수 지정 -> 10개*/
@@ -859,39 +903,32 @@ public class AdminService {
 		return result;
 	}
 
-	public boolean updateCheckedApproveProduct(String productType, String no) {
+	public boolean updateCheckedApproveProduct(String pType, String no) {
 		//no 구분자 "/" 분리
-		StringTokenizer sT1 = new StringTokenizer(no,"/");
+		StringTokenizer sT1 = new StringTokenizer(pType,"/");
+		StringTokenizer sT2 = new StringTokenizer(no,"/");
 		
 		boolean result = true;
-		
-		if(productType.equals("강습")) {
-			while(sT1.hasMoreTokens()) {
-				int lessonNo = Integer.parseInt(sT1.nextToken());
-				
-				int changeResult = dao.updateApproveLesson(lessonNo); //상품 상태 변경
-				
+		while(sT1.hasMoreTokens()) {
+			String productType = sT1.nextToken();
+			int productNo = Integer.parseInt(sT2.nextToken());
+			
+			if(productType.equals("강습")) {
+				int changeResult = dao.updateApproveLesson(productNo); //상품 상태 변경
 				if(changeResult == 0) {
-					//실패
 					result = false;
 					break;
 				}
-			}
-			
-		} else if(productType.equals("숙박")) {
-			while(sT1.hasMoreTokens()) {
-				int houseNo = Integer.parseInt(sT1.nextToken());
 				
-				int changeResult = dao.updateApproveHouse(houseNo); //상품 상태 변경
-				
+			} else {
+				int changeResult = dao.updateApproveHouse(productNo); //상품 상태 변경
 				if(changeResult == 0) {
-					//실패
 					result = false;
 					break;
 				}
 			}
 		}
-
+		
 		return result;
 	}
 

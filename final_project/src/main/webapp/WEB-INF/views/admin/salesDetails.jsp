@@ -66,7 +66,8 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="deleteCheckedOrder btn-m bc2">선택 내역 삭제</button>
+                        <button class="deleteCheckedOrder-btn btn-m bc2">선택 내역 삭제</button>
+                        <button class="deleteCheckedOrder" style="display:none;">선택 내역 삭제</button>
                     </div>
                 </div>
             </div>
@@ -90,6 +91,16 @@
 		location.href = "/deleteOrder.do?orderNo="+orderNo;
 	});
 
+    $(".deleteCheckedOrder-btn").on("click",function(){
+        const result = confirm("해당 내역을 삭제하시겠습니까?");
+    
+        if(result == true) {
+            $(this).next().click();
+            alert("성공적으로 삭제되었습니다.");
+        } else {
+            alert("해당 작업이 취소되었습니다.");
+        }
+    });
     
     //체크박스 선택상품
 	$(".deleteCheckedOrder").on("click", function() {

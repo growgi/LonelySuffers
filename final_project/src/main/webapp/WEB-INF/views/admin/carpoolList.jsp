@@ -46,6 +46,7 @@
                         <c:forEach items="${carpoolList }" var="c">
                         <tr>
                             <td><input type="checkbox" name="orderCheck" class="check"></td>
+                            <td style="display:none;">${c.carpoolNo}</td>
                             <td>${c.driverId }</td>
                             <td>
                             <c:choose>
@@ -85,7 +86,8 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="deleteCheckedCarpool btn-m bc2">게시글 삭제</button>
+                        <button class="deleteCheckedCarpool-btn btn-m bc2">게시글 삭제</button>
+                        <button class="deleteCheckedCarpool" style="display:none;">게시글 삭제</button>
                     </div>
                 </div>
             </div>
@@ -101,6 +103,17 @@
     });
     
     /*게시글 삭제*/
+    $(".deleteCheckedCarpool-btn").on("click",function(){
+        const result = confirm("해당 게시글을 삭제하시겠습니까?");
+    
+        if(result == true) {
+            $(this).next().click();
+            alert("성공적으로 삭제되었습니다.");
+        } else {
+            alert("해당 작업이 취소되었습니다.");
+        }
+    });
+
     //체크박스 선택상품
 	$(".deleteCheckedCarpool").on("click", function() {
 		const check = $(".check:checked");
