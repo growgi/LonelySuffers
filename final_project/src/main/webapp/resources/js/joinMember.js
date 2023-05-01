@@ -29,13 +29,11 @@ $('#memberPwRe').on('focusout',function(){
                     $('#memberPwRe').next().next().css('background-color','red');
                     $('#memberPwRe').next().css('color','red');
                     $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
-                    $(this).focus();
                 }
             }else{
                 $('#memberPwRe').next().next().css('background-color','red');
                 $('#memberPwRe').next().css('color','red');
-                $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
-                $(this).focus();
+                $('#pwChkSpan').text('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
             }
     }
     
@@ -66,13 +64,11 @@ $('#memberPw').on('focusout',function(){
         $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
         $('#memberPw').next().next().css('background-color','red');
         $('#memberPw').next().css('color','red');
-        $('#memberPw').focus();
     }
     if($('#memberPwRe').val() != '' && $(this).val() != $('#memberPwRe').val()){
-        $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
+        $('#pwChkSpan').text('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
         $('#memberPw').next().next().css('background-color','red');
         $('#memberPw').next().css('color','red');
-        $('#memberPw').focus();
     }
 });
 
@@ -131,6 +127,17 @@ $("[name=emailCodeChk]").click(function(){
 
     function notsubmit(){
         const input = $('input');
+        if($('.idChkVal').val() == 0){
+            alert('아이디 중복체크해주세요.');
+            return false;
+        }
+        const phoneValue = $('#memberPhone').val();
+        const regArr = 
+        /^\d{3}-\d{4}-\d{4}$/;
+        const check = regArr.test(phoneValue);
+        if(!check){
+            alert('전화번호는 \n 010-0000-0000 형식이여야 합니다.');
+        }
         for(let i=0 ;i<input.length;i++){
             const inputVal = input.eq(i).val();
             if(inputVal == ''){
@@ -179,6 +186,7 @@ $("[name=emailCodeChk]").click(function(){
         $('.close').click();
         // $('input[name=memberId]').attr('readonly','true');
         $('input[name=memberPw]').focus();
+        $('.idChkVal').val(1);
     })
 
     $('.idChkBtn').on('click',function(){
@@ -216,6 +224,7 @@ $("[name=emailCodeChk]").click(function(){
         $(this).attr('placeholder',"");
         }
     })
+    
 
     // $('.email2').on('focusin',function(){
     //     $(this).css('border-bottom','2px solid #aaaaaa');
@@ -225,3 +234,6 @@ $("[name=emailCodeChk]").click(function(){
         location.href="/";
     }
 
+        $('#memberId').on('change',function(){
+            $('.idChkVal').val(0);
+        })
