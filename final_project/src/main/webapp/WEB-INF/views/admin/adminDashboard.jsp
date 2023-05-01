@@ -249,9 +249,9 @@
 						</c:forEach>
 					</div>
 				</div>
-				<div class="surf-img">
+				<!-- <div class="surf-img">
 					<img src="/resources/upload/main/surf22.jpg">
-				</div>
+				</div> -->
 			</div>
 		</div>
     </div>

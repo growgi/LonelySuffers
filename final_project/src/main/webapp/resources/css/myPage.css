@@ -386,8 +386,11 @@ button:hover{
     border-top-right-radius: 10px;
     width: 120px;
   }
-  table>tbody>tr:first-child>td{
-    border-left: 1px solid #fff;
+
+  table>tbody>tr>td>a:hover{
+    font-weight: 600;
+    color: black;
+    font-size: 1.05em;
 
   }
 

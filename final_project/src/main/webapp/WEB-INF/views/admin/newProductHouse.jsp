@@ -11,6 +11,23 @@
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <body>
 	<!-- Modal -->
+	<div id="approve-modal" class="modal-bg" style="z-index:1; display:none;">
+		<div class="modal-wrap">
+			<div class="modal-head">
+			<h2>상품 승인</h2>
+			<span class="material-icons close-icon modal-close">close</span>
+			</div>
+			<div class="modal-content">
+				<div class="product-info"></div>
+				<p>해당 상품을 승인하시겠습니까?</p>
+			</div>
+			<div class="modal-foot">
+			<button class="approveProduct btn-m bc4 btn-pill">확인</button>
+			<button class="btn-m bc5 modal-close btn-pill">취소</button>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
     <div id="return-modal" class="modal-bg" style="z-index:1; display:none;">
       <div class="modal-wrap">
         <div class="modal-head">
@@ -76,9 +93,9 @@
 									<th></th>
 								</tr>
 								<c:choose>
-								<c:when test="${houseList eq null }">
+								<c:when test="${empty houseList}">
 								<tr>
-									<td colspan="7">
+									<td colspan="8">
 									    <div class="noInfo-wrapper">
 									        <div>
 									            <span class="material-symbols-outlined noInfo-icon">info</span>
@@ -111,7 +128,7 @@
 										<td>${h.houseCity }</td>
 										<td><a href="/houseView.do?houseNo=${h.houseNo }" class="btn-r bc5">상품정보 확인</a></td>
 										<td>
-											<button class="approveProduct btn-s bc1">승인</button>
+											<button class="btn-s bc1" id="approve-btn" target="#approve-modal">승인</button>
 											<input type="hidden" value="${h.houseNo }" name="productNo">
 											<button class="modal-open-btn btn-s bc2" target="#return-modal">반려</button>
 										</td>
@@ -127,7 +144,8 @@
 						</div>
 						<div class="list-bottom">
 							<div>
-								<button class="checkedApproveProduct btn-m bc1">선택 상품 승인</button>
+								<button class="checkedApproveProduct-btn btn-m bc1">선택 상품 승인</button>
+								<button class="checkedApproveProduct" style="display:none">선택 상품 승인</button>
 								<!-- <button class="checkedReturnProduct btn-m bc2">선택 상품 반려</button> -->
 							</div>
 						</div>
@@ -148,5 +166,16 @@
 	        $(".count").show();
 	    }
 	});
+
+	$(".checkedApproveProduct-btn").on("click",function(){
+        const result = confirm("해당 상품(들)을 승인하시겠습니까?");
+    
+        if(result == true) {
+            $(this).next().click();
+            alert("성공적으로 승인되었습니다.");
+        } else {
+            alert("해당 작업을 취소하였습니다.");
+        }
+    });
 </script>
 </html>

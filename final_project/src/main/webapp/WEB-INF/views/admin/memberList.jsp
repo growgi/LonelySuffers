@@ -146,6 +146,13 @@
     <script src="resources/js/admin.js"></script>
 </body>
 <script>
+    /*메뉴 제목*/
+    $(function(){
+        $(".top-menu-title").text("회원 목록");
+        $(".menu-detail>li>a").eq(0).addClass("active-menu-click");
+    });
+
+
     $(".search-bar>input").on("click",function(){
         $(this).toggleClass("active-search-bar");
     });

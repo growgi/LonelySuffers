@@ -47,6 +47,20 @@
                             <th>처리상태</th>
                             <th>주문 상세</th>
                         </tr>
+                      	<c:choose>
+						<c:when test="${empty orderList }">
+						<tr>
+							<td colspan="8">
+							    <div class="noInfo-wrapper">
+							        <div>
+							            <span class="material-symbols-outlined noInfo-icon">info</span>
+							            <div class="noInfo-text">조회된 정보가 없습니다.</div>
+							        </div>
+							    </div>
+						    </td>
+						</tr>
+						</c:when>
+						<c:otherwise>
                         <c:forEach items="${orderList }" var="o">
                         <tr>
                             <td><input type="checkbox" name="orderCheck" class="check"></td>
@@ -59,6 +73,8 @@
                             <td><a href="/orderDetail.do?orderNo=${o.orderNo }" class="btn-r bc5">주문 상세 내역</a></td>
                         </tr>
                         </c:forEach>
+                        </c:otherwise>
+                        </c:choose>
                     </table>
                     <div id="pageNavi">
                     	${pageNavi }
@@ -66,7 +82,8 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="deleteCheckedOrder btn-m bc2">선택 내역 삭제</button>
+                        <button class="deleteCheckedOrder-btn btn-m bc2">선택 내역 삭제</button>
+                        <button class="deleteCheckedOrder" style="display:none;">선택 내역 삭제</button>
                     </div>
                 </div>
             </div>
@@ -90,6 +107,16 @@
 		location.href = "/deleteOrder.do?orderNo="+orderNo;
 	});
 
+    $(".deleteCheckedOrder-btn").on("click",function(){
+        const result = confirm("해당 내역을 삭제하시겠습니까?");
+    
+        if(result == true) {
+            $(this).next().click();
+            alert("성공적으로 삭제되었습니다.");
+        } else {
+            alert("해당 작업이 취소되었습니다.");
+        }
+    });
     
     //체크박스 선택상품
 	$(".deleteCheckedOrder").on("click", function() {

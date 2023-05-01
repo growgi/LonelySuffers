@@ -1,6 +1,7 @@
 package kr.co.admin.controller;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -270,19 +271,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/checkedApproveProduct.do")
-	public String checkedApproveProduct(String productType, String no) {
-		//체크된 상품
-		boolean result = service.updateCheckedApproveProduct(productType, no);
+	public String checkedApproveProduct(String pType, String no) {
+		boolean result = false;
+		result = service.updateCheckedApproveProduct(pType, no);
 		
 		if(result) {
-			if(productType.equals("숙박")) {
-				return "redirect:/newProductHouse.do?reqPage=1";
-			} else {
-				return "redirect:/newProductLesson.do?reqPage=1";
-			}
+			return "redirect:/newProductAll.do?reqPage=1";
+
 		} else {
-			return "redirect:/productListLesson.do?reqPage=1";
+			return "redirect:/memberList.do?reqPage=1";
 		}
+
 	}
 	
 	//반려
@@ -453,7 +452,20 @@ public class AdminController {
 
 	}
 	
-	//선택 상품 - 강습 상태 변경
+	//선택 상품 상태 변경
+	@Transactional
+	@RequestMapping(value="/checkedUpdateProductStatus.do")
+	public String checkedUpdatepProductStatus(String pType, String no, String status) {
+		boolean result = service.updateProductStatus(pType, no, status);
+		
+		if(result) {
+			return "redirect:/productListAll.do?reqPage=1";
+		} else {
+			return "redirect:/memberList.do?reqPage=1";
+		}
+	}
+	
+	/*선택 상품 - 강습 상태 변경
 	@Transactional
 	@RequestMapping(value="/checkedUpdateLessonStatus.do")
 	public String checkedUpdateLessonStatus(String no, String status) {
@@ -464,9 +476,9 @@ public class AdminController {
 		} else {
 			return "redirect:/memberList.do?reqPage=1";
 		}
-	}
+	}*/
 	
-	//선택 상품 - 숙박 상태 변경
+	/*선택 상품 - 숙박 상태 변경
 	@Transactional
 	@RequestMapping(value="/checkedUpdateHouseStatus.do")
 	public String checkedUpdateHouseStatus(String no, String status) {
@@ -477,7 +489,7 @@ public class AdminController {
 		} else {
 			return "redirect:/memberList.do?reqPage=1";
 		}
-	}
+	}*/
 	
 	//상품 판매 중지 (1개)
 	@RequestMapping(value="/productStopSelling.do")
@@ -605,7 +617,10 @@ public class AdminController {
 	@RequestMapping(value="/adminChat.do")
 	public String adminChat(Model model) {
 		ArrayList<ChatActive> list = cService.selectAllChatActive();
+		int adminChatCount = service.selectNewAdminChatCount();
+		
 		model.addAttribute("list",list);
+		model.addAttribute("adminChatCount",adminChatCount);
 		return "admin/adminChat";
 	}
 

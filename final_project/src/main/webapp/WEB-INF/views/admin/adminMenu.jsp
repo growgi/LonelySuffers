@@ -337,7 +337,7 @@
     </div>
     <div class="top-menu">
         <div class="top-menu-background">
-            <div class="top-menu-title">회원 목록</div>
+            <div class="top-menu-title"></div>
             <div class="admin-icon" style="cursor:pointer"><span class="material-symbols-outlined" style="cursor:pointer">link</span></div>
         </div>
     </div>

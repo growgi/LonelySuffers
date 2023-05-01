@@ -22,11 +22,14 @@
 				<input type="hidden" name="chatMemberId"
 					value="${sessionScope.m.memberId }">
 			</c:if>
+			<div class="count">
+				1:1 문의 <span>${adminChatCount }</span>건
+			</div>
 			<ul>
 				<li>
 					<div class="th">
-						<div class="td" style="width:20%">문의번호</div>
-						<div class="td" style="width:25%">문의자</div>
+						<div class="td" style="width:15%">문의번호</div>
+						<div class="td" style="width:30%">문의자</div>
 						<div class="td" style="width:30%">최근 채팅 시간</div>
 						<div class="td" style="width:25%">채팅 종료 여부</div>
 					</div>
@@ -34,19 +37,21 @@
 				<c:forEach items="${list }" var="ca" varStatus="status">
 					<li><div class="active_chat_title" value="${ca.memberId }">
 							<input type="hidden" class="memberId" value="${ca.memberId }">
-							<div class="td" style="width:20%">${status.count }</div>
-							<div class="td" style="width:25%">${ca.memberId }</div>
+							<div class="td" style="width:15%">${status.count }</div>
+							<div class="td" style="width:30%;">${ca.memberId }</div>
 							<div class="td timeDiv" style="width:30%"></div>
-							<div class="td" style="width:25%">
-								<c:choose>
-									<c:when test="${ca.chatActivation == 1}">
+							<c:choose>
+							<c:when test="${ca.chatActivation == 1}">
+								<div class="td" style="width:25%; color:#19A7CE;">
 								채팅중
+								</div>
 							</c:when>
-									<c:otherwise>
+							<c:otherwise>
+								<div class="td" style="width:25%">
 								채팅종료
+								</div>
 							</c:otherwise>
-								</c:choose>
-							</div>
+							</c:choose>
 						</div></li>
 					<div> <!--이거 li를 div로 바꿔도 되겠지?-->
 						<div class="chatting">

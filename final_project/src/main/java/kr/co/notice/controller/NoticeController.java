@@ -63,12 +63,13 @@ public class NoticeController {
 	         String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
 	         for(MultipartFile file : noticeFile) {
 	            String filename = file.getOriginalFilename();
-	            String filepath = manager.upload(savePath, file);
-	            
-	            FileVO fileVO = new FileVO();
-	            fileVO.setFilename(filename);
-	            fileVO.setFilepath(filepath);
-	            fileList.add(fileVO);
+	            String filepath = manager.uploadImg(savePath, file);
+	            if(filepath != null) {
+		            FileVO fileVO = new FileVO();
+		            fileVO.setFilename(filename);
+		            fileVO.setFilepath(filepath);
+		            fileList.add(fileVO);
+	            }
 	         }
 	      }
 	      int result = service.insertNotice(n,fileList);
@@ -95,11 +96,11 @@ public class NoticeController {
 				Notice n = service.selectOneNotice(noticeNo);
 				model.addAttribute("n",n);
 				return "notice/noticeUpdateFrm";
+				}else {
+					return "redirect:/noticeView.do?noticeNo="+noticeNo;
+				}
 			}else {
-				return "redirect:/noticeView.do?noticeNo="+noticeNo;
-			}
-			}else {
-				return "redirect:/";
+		        return "redirect:/";
 		}
 	}
 	
@@ -171,6 +172,7 @@ public class NoticeController {
 			}
 		}else {
 			 return "redirect:/";
+
 		}
 	}
 	
@@ -198,27 +200,3 @@ public class NoticeController {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

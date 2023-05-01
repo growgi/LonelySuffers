@@ -43,9 +43,24 @@
                             <th>마감여부</th>
                             <th></th>
                         </tr>
+                        <c:choose>
+						<c:when test="${empty carpoolList }">
+						<tr>
+							<td colspan="8">
+							    <div class="noInfo-wrapper">
+							        <div>
+							            <span class="material-symbols-outlined noInfo-icon">info</span>
+							            <div class="noInfo-text">조회된 정보가 없습니다.</div>
+							        </div>
+							    </div>
+						    </td>
+						</tr>
+						</c:when>
+						<c:otherwise>
                         <c:forEach items="${carpoolList }" var="c">
                         <tr>
                             <td><input type="checkbox" name="orderCheck" class="check"></td>
+                            <td style="display:none;">${c.carpoolNo}</td>
                             <td>${c.driverId }</td>
                             <td>
                             <c:choose>
@@ -78,6 +93,8 @@
                             <td><a href="/carpoolRequest.do?carpoolNo=${c.carpoolNo }" class="btn-r bc5" style="width:150px">게시글 상세보기</a></td>
                         </tr>
                         </c:forEach>
+                        </c:otherwise>
+                        </c:choose>
                     </table>
                     <div id="pageNavi">
                     	${pageNavi }
@@ -85,7 +102,8 @@
                 </div>
                 <div class="list-bottom">
                     <div>
-                        <button class="deleteCheckedCarpool btn-m bc2">게시글 삭제</button>
+                        <button class="deleteCheckedCarpool-btn btn-m bc2">게시글 삭제</button>
+                        <button class="deleteCheckedCarpool" style="display:none;">게시글 삭제</button>
                     </div>
                 </div>
             </div>
@@ -101,6 +119,17 @@
     });
     
     /*게시글 삭제*/
+    $(".deleteCheckedCarpool-btn").on("click",function(){
+        const result = confirm("해당 게시글을 삭제하시겠습니까?");
+    
+        if(result == true) {
+            $(this).next().click();
+            alert("성공적으로 삭제되었습니다.");
+        } else {
+            alert("해당 작업이 취소되었습니다.");
+        }
+    });
+
     //체크박스 선택상품
 	$(".deleteCheckedCarpool").on("click", function() {
 		const check = $(".check:checked");

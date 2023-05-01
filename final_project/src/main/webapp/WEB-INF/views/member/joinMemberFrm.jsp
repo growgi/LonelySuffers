@@ -42,6 +42,7 @@
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="content">
 						<div class="content-title">회원가입</div>
+						<input type="text" class="idChkVal" value=0>
 						<form action="/joinMember.do" autocomplete="off" method="post" class="customInput">
 							<div>
 							<input type="text" name="memberId" id="memberId" class="longinput inputVaild" required><button type="button" name="idChk">중복체크</button>
@@ -113,7 +114,7 @@
             <div class="form-group" style="text-align: center">
               <label for="emailCode">인증코드</label>
               <input type="text" maxlength='8'class="customEmailCode"id="emailCode" required>
-                             <!--  <input type="text" class="form-control" name="emailCode"> -->
+              <input type="hidden" class="form-control" name="emailCode">
             </div>
               <button type="button" class="btn btn-success btn-block" name="emailCodeChk"><span class="glyphicon glyphicon-off"></span> 인증</button>
           </form>

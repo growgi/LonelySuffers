@@ -52,6 +52,25 @@
 	}
 </style>
 <body>
+	<!-- Modal -->
+	<div id="changeStatusProduct-modal" class="modal-bg" style="z-index:1; display:none;">
+		<div class="modal-wrap">
+			<div class="modal-head">
+			<h2>선택 상품 상태 변경</h2>
+			<span class="material-icons close-icon modal-close">close</span>
+			</div>
+			<div class="modal-content">
+				<div class="waveEffect" style="border:none;">
+					<p class="waveEffectWord-back page-name">Lonely Surfers</p>
+				</div>
+				<p>선택한 상품(들)의 상태를 변경하시겠습니까?</p>
+			</div>
+			<div class="modal-foot">
+			<button class="checkedUpdateProductStatus-btn2 btn-m bc4 btn-pill">확인</button>
+			<button class="btn-m bc5 modal-close btn-pill">취소</button>
+			</div>
+		</div>
+	</div>
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
 	<div class="currProduct-wrapper product-wrapper admin-content">
 		<div>
@@ -98,9 +117,9 @@
 									<th></th>
 								</tr>
 								<c:choose>
-								<c:when test="${productList eq null }">
+								<c:when test="${empty productList }">
 								<tr>
-									<td colspan="8">
+									<td colspan="9">
 									    <div class="noInfo-wrapper">
 									        <div>
 									            <span class="material-symbols-outlined noInfo-icon">info</span>
@@ -115,7 +134,7 @@
 								<c:if test="${p.productStatus == 1 || p.productStatus == 0 }">
                                 	<tr>
 										<td><input type="checkbox" name="memberCheck"
-											class="lesson-check chk" value="${p.productNo }"></td>
+											class="lesson-check product-check chk" value="${p.productNo }"></td>
                                 		<td>${p.productType }</td>
                                 		<td>
                                 		<c:choose>
@@ -222,7 +241,8 @@
 											<div class="list-detail-box" style="display: none" onblur="">
 												<div>
 													<a href="#" class="update-detail">상품 정보 수정</a>
-													<div class="product-stop-selling">상품 판매 중지</div>
+													<div class="product-stop-selling-btn">상품 판매 중지</div>
+													<div class="product-stop-selling" style="display:none;">상품 판매 중지</div>
 													<input type="hidden" value="${p.productNo }">
 												</div>
 											</div></td>
@@ -238,8 +258,8 @@
 						</div>
 						<div class="list-bottom">
 							<div>
-								<input type="submit" value="선택 상품 상태 변경"
-									class="checkedUpdateLessonStatus btn-m bc1">
+								<!-- <button class="checkedUpdateProductStatus-btn btn-m bc1" target="#changeStatusProduct-modal">선택 상품 상태 변경</button> -->
+								<input type="submit" value="선택 상품 상태 변경" class="checkedUpdateProductStatus-btn btn-m bc1" target="#changeStatusProduct-modal">
 							</div>
 						</div>
 					</div>

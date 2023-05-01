@@ -11,6 +11,10 @@
     color:#25382f;
 }
 
+.noInfo-wrapper *{
+	color:#999999;
+}
+
 
 .admin-content>div{
     margin-left: 300px;
