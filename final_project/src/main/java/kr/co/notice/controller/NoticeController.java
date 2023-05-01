@@ -3,6 +3,7 @@ package kr.co.notice.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.FileManager;
+import kr.co.member.model.vo.Member;
 import kr.co.notice.model.service.NoticeService;
 import kr.co.notice.model.vo.FileVO;
 import kr.co.notice.model.vo.Notice;
@@ -39,8 +41,17 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/noticeWriteFrm.do")
-	public String noticeWriteFrm() {
-		return "notice/noticeWriteFrm";
+	public String noticeWriteFrm(HttpSession session) {
+		Member me = (Member)session.getAttribute("m");
+		if(me != null) {
+			if(me.getMemberGrade() == 1) {
+				return "notice/noticeWriteFrm";
+			}else {
+		         return "redirect:/noticeList.do?reqPage=1";
+			}
+		}else {
+	         return "redirect:/";
+		}
 	}
 	
 	
@@ -52,12 +63,13 @@ public class NoticeController {
 	         String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
 	         for(MultipartFile file : noticeFile) {
 	            String filename = file.getOriginalFilename();
-	            String filepath = manager.upload(savePath, file);
-	            
-	            FileVO fileVO = new FileVO();
-	            fileVO.setFilename(filename);
-	            fileVO.setFilepath(filepath);
-	            fileList.add(fileVO);
+	            String filepath = manager.uploadImg(savePath, file);
+	            if(filepath != null) {
+		            FileVO fileVO = new FileVO();
+		            fileVO.setFilename(filename);
+		            fileVO.setFilepath(filepath);
+		            fileList.add(fileVO);
+	            }
 	         }
 	      }
 	      int result = service.insertNotice(n,fileList);
@@ -77,10 +89,19 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/noticeUpdateFrm.do")
-	public String noticeUpdateFrm(int noticeNo, Model model) {
-		Notice n = service.selectOneNotice(noticeNo);
-	      model.addAttribute("n",n);
-	      return "notice/noticeUpdateFrm";
+	public String noticeUpdateFrm(int noticeNo, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		if(me != null) {
+			if(me.getMemberGrade() == 1) {
+				Notice n = service.selectOneNotice(noticeNo);
+			      model.addAttribute("n",n);
+			      return "notice/noticeUpdateFrm";
+			}else {
+				return "redirect:/noticeView.do?noticeNo="+noticeNo;
+			}
+		}else {
+	         return "redirect:/";
+		}
 	}
 	
 	@RequestMapping(value="/noticeUpdate.do")
@@ -127,20 +148,29 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/deleteNotice.do")
-	public String deleteNotice(int noticeNo, HttpServletRequest request, Model model) {
-		ArrayList<FileVO> list = service.deleteNotice(noticeNo);
-		if(list == null) {
-			return "redirect:/noticeView.do?noticeNo="+noticeNo;
-		}else {
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
-			for(FileVO file : list) {
-				boolean deleteResult = manager.deleteFile(savePath, file.getFilepath());
+	public String deleteNotice(int noticeNo, HttpServletRequest request, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		if(me != null) {
+			if(me.getMemberGrade() == 1) {
+		    ArrayList<FileVO> list = service.deleteNotice(noticeNo);
+		    if(list == null) {
+	    		return "redirect:/noticeView.do?noticeNo="+noticeNo;
+	    	}else {
+	    		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
+	    		for(FileVO file : list) {
+	    			boolean deleteResult = manager.deleteFile(savePath, file.getFilepath());
+	    		}
+    			model.addAttribute("title","공지사항 삭제");
+         	model.addAttribute("msg","공지사항 삭제에 성공하였습니다.");
+     			model.addAttribute("icon","success");
+  	  		model.addAttribute("loc","/noticeList.do?reqPage=1");
+  		  	return "common/msg";
+	    	}
+	    }else {
+				return "redirect:/noticeView.do?noticeNo="+noticeNo;
 			}
-			model.addAttribute("title","공지사항 삭제");
-    	  	model.addAttribute("msg","공지사항 삭제에 성공하였습니다.");
-  			model.addAttribute("icon","success");
-  			model.addAttribute("loc","/noticeList.do?reqPage=1");
-  			return "common/msg";
+		}else {
+	         return "redirect:/";
 		}
 	}
 	
@@ -156,7 +186,8 @@ public class NoticeController {
 	
 	@RequestMapping(value="/searchNoticeTitle.do")
 	public String searchNoticeTitle(String searchNtTitle, Model model) {
-		ArrayList<Notice> list = service.selectSearchNotice(searchNtTitle);
+		String[] keywords = searchNtTitle.trim().replaceAll("(\\s)\\1+","$1").split(" ");		
+		ArrayList<Notice> list = service.selectSearchNotice(keywords);
 		if(list != null) { 
 			model.addAttribute("list", list);
 			return "notice/noticeList";
@@ -167,27 +198,3 @@ public class NoticeController {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
