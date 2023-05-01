@@ -105,7 +105,7 @@ $('[name=emailChk]').on('click',function(){
                 }else{
                     const mailCode = data;
                     $("#myModal").modal();
-                    // $('[name=emailCode]').val(mailCode);
+                    $('[name=emailCode]').val(mailCode);
                 }
             }
         });
