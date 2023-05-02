@@ -241,7 +241,7 @@
 								</tr>
 								<tr>
 									<th style="padding-bottom: 80px;">내용</th>
-									<th style="padding-bottom: 20px; padding-top: 20px;"><textarea class="reviewWriteView" style="width: 215px; height: 100px;" name="reviewContent"></textarea></th>
+									<th style="padding-bottom: 20px; padding-top: 20px;"><textarea class="reviewWriteView" style="width: 208px; height: 100px;" name="reviewContent"></textarea></th>
 								</tr>
 								<tr>
 									<th style="padding-right: 5px;">별점</th>
