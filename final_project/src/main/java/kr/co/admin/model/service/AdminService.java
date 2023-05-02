@@ -456,7 +456,7 @@ public class AdminService {
 		
 		pageNavi += "</ul>";
 		
-		LessonPageData lpd = new LessonPageData(lessonList, pageNavi, start);
+		LessonPageData lpd = new LessonPageData(lessonList, pageNavi, start, totalCount);
 		
 		return lpd;
 	}
@@ -555,7 +555,7 @@ public class AdminService {
 		
 		pageNavi += "</ul>";
 		
-		HousePageData hpd = new HousePageData(houseList, pageNavi, start);
+		HousePageData hpd = new HousePageData(houseList, pageNavi, start, totalCount);
 		
 		return hpd;
 	}
@@ -762,7 +762,7 @@ public class AdminService {
 		
 		pageNavi += "</ul>";
 		
-		LessonPageData lpd = new LessonPageData(lessonList, pageNavi, start);
+		LessonPageData lpd = new LessonPageData(lessonList, pageNavi, start, totalCount);
 		
 		return lpd;
 	}
@@ -861,7 +861,7 @@ public class AdminService {
 		
 		pageNavi += "</ul>";
 		
-		HousePageData hpd = new HousePageData(houseList, pageNavi, start);
+		HousePageData hpd = new HousePageData(houseList, pageNavi, start, totalCount);
 		
 		return hpd;
 	}
@@ -1229,7 +1229,7 @@ public class AdminService {
 		
 		pageNavi += "</ul>";
 		
-		ProductPageData ppd = new ProductPageData(productList, pageNavi, start);
+		ProductPageData ppd = new ProductPageData(productList, pageNavi, start, totalCount);
 		
 		return ppd;
 	}
@@ -1338,7 +1338,7 @@ public class AdminService {
 		
 		pageNavi += "</ul>";
 		
-		ProductPageData ppd = new ProductPageData(productList, pageNavi, start);
+		ProductPageData ppd = new ProductPageData(productList, pageNavi, start, totalCount);
 		
 		return ppd;
 	}

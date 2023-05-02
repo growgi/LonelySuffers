@@ -63,7 +63,7 @@
 							<div class="col-md-8">
 								<div class="waveEffect" style="margin: 0 auto;">
 									<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
-									<p class="waveEffecrd-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+									<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
 								</div>
 							</div>
 						</div>
@@ -112,12 +112,42 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-5">
-									별평점 평균값 들어올 자리
+								<div class="col-md-8">
+									<div id="half-stars-example">
+										<input type="hidden" name="houseScore" value="${house.houseScore }">
+    <div class="rating-group">
+        <input class="rating__input rating__input--none" name="rating2" id="rating2-0" value="0" type="radio" disabled checked>
+        <label aria-label="0 stars" class="rating__label" for="rating2-0">&nbsp;</label>
+        <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio" disabled>
+        <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio" disabled>
+        <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio" disabled>
+        <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio" disabled>
+        <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" disabled>
+        <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio" disabled>
+        <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio" disabled>
+        <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio" disabled>
+        <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio" disabled>
+        <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" disabled>
+    </div>
+</div>
 								</div>
-								<div class="col-md-1"></div>
-								<div class="col-md-3">
-									<!-- 판매량 넣을 자리 -->
+								<div class="col-md-3 optionIcons">
+									<c:if test="${house.houseBarbecue == 1}">
+										<img src="/resources/images/barbecue.png">
+									</c:if>
+									<c:if test="${house.houseParty == 1}">
+										<img src="/resources/images/party.png">
+									</c:if>
 								</div>
 							</div>
 							<div class="row" style="margin-top: 30px;">
@@ -129,7 +159,9 @@
 								<input id="showWishStatus" type="checkbox">
 								<div>관심상품</div>
 							</button>
-							<button type="button" data-toggle="modal" data-target="#bookingModal" id="goBooking">예약하기</button>
+							<button class="toggleWishList" style="background-color: #3ac5c8;" onclick="location.href='/kiosk.do'">
+								<div style="color: white;">예약하기</div>
+							</button>
 						</div>
 						<c:if test="${sessionScope.m.memberGrade == 2}">
 						<div>
@@ -247,11 +279,11 @@
 									<th style="padding-right: 5px;">별점</th>
 									<td>
 										<div id="reviewWrapper">
-											<input type="radio" id="star1" name="rating" value=1 checked><label for="star1"></label>
-											<input type="radio" id="star2" name="rating" value=2><label for="star2"></label>
-											<input type="radio" id="star3" name="rating" value=3><label for="star3"></label>
-											<input type="radio" id="star4" name="rating" value=4><label for="star4"></label>
-											<input type="radio" id="star5" name="rating" value=5><label for="star5"></label>
+											<input type="radio" id="star1" name="rating" value="1" checked="checked"><label class="ratingTap" for="star1"></label>
+											<input type="radio" id="star2" name="rating" value="2"><label class="ratingTap" for="star2"></label>
+											<input type="radio" id="star3" name="rating" value="3"><label class="ratingTap" for="star3"></label>
+											<input type="radio" id="star4" name="rating" value="4"><label class="ratingTap" for="star4"></label>
+											<input type="radio" id="star5" name="rating" value="5"><label class="ratingTap" for="star5"></label>
 										</div>
 									</td>
 								</tr>
@@ -1068,6 +1100,45 @@
 			if( $(".hiddenMemberGrade").val()==1 || $(".hiddenMemberGrade").val()==3 ){
 			}else{
 				elementRules.style.setProperty('display', 'none');
+			}
+		});
+
+
+
+	// 평점 select
+		$(document).ready(function() {
+			const score = $("[name=houseScore]").val();
+			if(score <0.5){
+			}else if(score >= 0.5 && score < 1){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-05").prop("checked", true);
+			}else if(score >= 1 && score < 1.5){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-10").prop("checked", true);
+			}else if(score >= 1.5 && score < 2){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-15").prop("checked", true);
+			}else if(score >= 2 && score < 2.5){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-20").prop("checked", true);
+			}else if(score >= 2.5 && score < 3){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-25").prop("checked", true);
+			}else if(score >= 3 && score < 3.5){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-30").prop("checked", true);
+			}else if(score >= 3.5 && score < 4){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-35").prop("checked", true);
+			}else if(score >= 4 && score < 4.5){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-40").prop("checked", true);
+			}else if(score >= 4.5 && score < 5){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-45").prop("checked", true);
+			}else if(score >= 5){
+				$("#rating2-0").prop("checked", false);
+				$("#rating2-50").prop("checked", true);
 			}
 		});
 	</script>

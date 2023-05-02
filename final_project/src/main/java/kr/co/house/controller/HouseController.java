@@ -139,15 +139,20 @@ public class HouseController {
 	public String houseUpdate(int houseNo, HttpSession session, Model model) {
 		House h = service.selectOneHouse(houseNo);
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberId().equals(h.getWriter())) {
+		if(me.getMemberGender()==1) {
 			model.addAttribute("house", h);
 			return "product/houseUpdate";
 		}else {
-			model.addAttribute("title","접근 제한됨");
-			model.addAttribute("msg","상품 등록자만이 수정할 수 있습니다.");
-			model.addAttribute("icon","error");
-			model.addAttribute("loc","/houseView.do?houseNo="+houseNo);
-			return "common/msg";
+			if(me.getMemberId().equals(h.getWriter())) {
+				model.addAttribute("house", h);
+				return "product/houseUpdate";
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","상품 등록자만이 수정할 수 있습니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/houseView.do?houseNo="+houseNo);
+				return "common/msg";
+			}
 		}
 	}
 

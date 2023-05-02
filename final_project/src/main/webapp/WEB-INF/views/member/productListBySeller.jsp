@@ -4,26 +4,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
+<!-- Basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Mobile Meta -->
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- Site Meta -->
+<title>나의 상품 목록 - Lonely Surfers</title>
+<meta name="keywords" content="서핑,파도타기">
+<meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
+<meta name="author" content="KH정보교육원">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <style>
 	/*table*/
-	.list-top>table th:nth-child(2){
+	table th:nth-child(1){
 		width: 6%;
 	}
-	table th:nth-child(3){
+	table th:nth-child(2){
 		width: 13%;
 	}
-	table th:nth-child(4){
+	table th:nth-child(3){
 		width: 300px;
+		text-align: center;
 	}
-	table td:nth-child(4){
+	table td:nth-child(3){
 		overflow: hidden;
 	    text-overflow: ellipsis;
 	    white-space: nowrap;
@@ -50,45 +60,61 @@
 	th:last-child, td-last-child{
 		width: 50px;
 	}
+	.pagination {
+		text-align: center;
+	}
+	.product-check {
+		border: none;
+		width: 2.4rem;
+		height: 2.4rem;
+	}
+	.product-check:focus {
+		outline: none;
+	}
 </style>
+</head>
+
+
+
 <body>
-	<!-- Modal -->
-	<div id="changeStatusProduct-modal" class="modal-bg" style="z-index:1; display:none;">
-		<div class="modal-wrap">
-			<div class="modal-head">
-			<h2>선택 상품 상태 변경</h2>
-			<span class="material-icons close-icon modal-close">close</span>
-			</div>
-			<div class="modal-content">
-				<div class="waveEffect" style="border:none;">
-					<p class="waveEffectWord-back page-name">Lonely Surfers</p>
+	<div id="wrapper">
+		<jsp:include page="/WEB-INF/views/common/header.jsp" />
+
+		<section class="section nopad lb">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+						<h2>내가 등록한 상품</h2>
+						<p class="lead">
+						<input type="hidden" name="houseStatus" value="${house.houseStatus }">
+						<c:if test="${house.houseStatus == 0}">판매 중지된 상품입니다.
+						</c:if>
+						</p>
+					</div>
+					<!-- end col -->
 				</div>
-				<p>선택한 상품(들)의 상태를 변경하시겠습니까?</p>
+				<!-- end row -->
 			</div>
-			<div class="modal-foot">
-			<button class="checkedUpdateProductStatus-btn2 btn-m bc4 btn-pill">확인</button>
-			<button class="btn-m bc5 modal-close btn-pill">취소</button>
-			</div>
-		</div>
-	</div>
-	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
-	<div class="currProduct-wrapper product-wrapper admin-content">
-		<div>
-			<div class="lesson-list">
+			<!-- end container -->
+		</section>
+		<!-- end section -->
+		
+		<section class="section">
+			<div class="container">
+			<div class="product-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="/productListAll.do?reqPage=1" style="background-color:#19A7CE; color:#fff">전체</a>
-						<a href="/productListLesson.do?reqPage=1">강습</a>
-						<a href="/productListHouse.do?reqPage=1">숙박</a>
+						<a href="/productListBySeller.do?reqPage=1" style="background-color:#19A7CE; color:#fff">전체</a>
+						<a href="/lessonListBySeller.do?reqPage=1">강습</a>
+						<a href="/houseListBySeller.do?reqPage=1">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<input type="hidden" value="${hiddenVal }" class="hidden-input">
-						<form action="/adminSearchProduct.do" method="get"
+						<form action="/searchProductBySeller.do" method="get"
 						class="search-bar" name="search-product">
 						<input type="hidden" name="jspPage" value="pl">
 						<select name="productSearchType" class="search-type">
 							<option value="n">상품명</option>
-							<option value="s">판매자</option>
 							<option value="lo">지역</option>
 						</select>
 						<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
@@ -102,24 +128,20 @@
 							<div class="count">
 								전체 상품 <span>${productCount }</span>
 							</div>
-							<input type="hidden" value="1" class="lesson-product-type">
 							<table>
 								<tr>
-									<th><input type="checkbox" name="productCheck"
-										class="lesson-all-check chk"></th>
-									<th>종류</th>
-									<th>사진</th>
-									<th>상품명</th>
-									<th>판매자</th>
-									<th>지역</th>
-									<th>평점</th>
-									<th>상품 상태</th>
+									<th style="text-align: center;">종류</th>
+									<th style="text-align: center;">사진</th>
+									<th style="text-align: center;">상품명</th>
+									<th style="text-align: center;">지역</th>
+									<th style="text-align: center;">평점</th>
+									<th style="text-align: center;">상품 상태</th>
 									<th></th>
 								</tr>
 								<c:choose>
 								<c:when test="${empty productList }">
 								<tr>
-									<td colspan="9">
+									<td colspan="7">
 									    <div class="noInfo-wrapper">
 									        <div>
 									            <span class="material-symbols-outlined noInfo-icon">info</span>
@@ -131,10 +153,7 @@
 								</c:when>
 								<c:otherwise>
 								<c:forEach items="${productList }" var="p">
-								<c:if test="${p.productStatus >= 0 }">
                                 	<tr>
-										<td><input type="checkbox" name="memberCheck"
-											class="lesson-check product-check chk" value="${p.productNo }"></td>
                                 		<td>${p.productType }</td>
                                 		<td>
                                 		<c:choose>
@@ -163,7 +182,6 @@
 	                                		</c:when>
 	                                	</c:choose>
 										</td>
-										<td>${p.productWriter }</td>
 										<td>${p.productCity }</td>
 										<td>
 										<c:choose>
@@ -212,7 +230,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore >= 5 }">
+										<c:when test="${p.productScore == 5 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -224,37 +242,35 @@
 										</c:choose>
 										</td>
 										<td><c:choose>
-												<c:when test="${p.productStatus == 1}">
-													<select class="status-change">
-														<option value="1" selected>판매중</option>
-														<option value="0">판매중지</option>
-													</select>
-												</c:when>
-												<c:when test="${p.productStatus == 0}">
-													<select class="status-change">
-														<option value="1">판매중</option>
-														<option value="0" selected>판매중지</option>
-													</select>
-												</c:when>
+												<c:when test="${p.productStatus == 1}">판매중</c:when>
+												<c:when test="${p.productStatus == 0}">판매중지</c:when>
+												<c:when test="${p.productStatus == -1}">승인대기</c:when>
+												<c:when test="${p.productStatus == -2}">승인반려</c:when>
 											</c:choose></td>
 										<td><span class="material-symbols-outlined more-detail">more_vert</span>
 											<div class="list-detail-box" style="display: none" onblur="">
 												<div>
 			                                		<c:choose>
-			                                		<c:when test="${p.productType == '강습'}">
-														<a href="/lessonUpdate.do?lessonNo=${p.productNo }" class="update-detail">상품 정보 수정</a>
-													</c:when>
-			                                		<c:when test="${p.productType == '숙박'}">
-														<a href="/houseUpdate.do?houseNo=${p.productNo }" class="update-detail">상품 정보 수정</a>
-			                                		</c:when>
+				                                		<c:when test="${p.productType == '강습'}">
+															<a href="/lessonUpdate.do?lessonNo=${p.productNo }" class="update-detail">상품 정보 수정</a>
+														</c:when>
+				                                		<c:when test="${p.productType == '숙박'}">
+															<a href="/houseUpdate.do?houseNo=${p.productNo }" class="update-detail">상품 정보 수정</a>
+				                                		</c:when>
 													</c:choose>
-													<div class="product-stop-selling-btn">상품 판매 중지</div>
-													<div class="product-stop-selling" style="display:none;">상품 판매 중지</div>
+			                                		<c:choose>
+				                                		<c:when test="${p.productStatus == 1}">
+															<div onclick="toSoldOut(this)">상품 판매 중지</div>
+														</c:when>
+				                                		<c:when test="${p.productStatus == 0}">
+															<div onclick="toResale(this)">판매 재개</div>
+														</c:when>
+													</c:choose>
 													<input type="hidden" value="${p.productNo }">
 												</div>
-											</div></td>
+											</div>
+										</td>
 									</tr>
-								</c:if>
 								</c:forEach>
 								</c:otherwise>
 								</c:choose>
@@ -263,28 +279,86 @@
 								${pageNavi }
 							</div>
 						</div>
-						<div class="list-bottom">
-							<div>
-								<!-- <button class="checkedUpdateProductStatus-btn btn-m bc1" target="#changeStatusProduct-modal">선택 상품 상태 변경</button> -->
-								<input type="submit" value="선택 상품 상태 변경" class="checkedUpdateProductStatus-btn btn-m bc1" target="#changeStatusProduct-modal">
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		</section>
+
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
+	<!-- end wrapper -->
+
+	<!-- 기본 .js 파일들 -->
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/parallax.js"></script>
+	<script src="resources/js/animate.js"></script>
+	<script src="resources/js/custom.js"></script>
+	<!-- 추가 .js파일들이 필요하면 아래에 넣으세요 -->
 	<script src="resources/js/admin.js"></script>
 	<script src="resources/js/adminProductList.js"></script>
+	
+	<script>
+		/*검색 결과에 count 출력 삭제*/
+		$(function(){
+		    if($('.hidden-input').val()==1) {
+		        $(".count").hide();
+		    } else {
+		        $(".count").show();
+		    }
+		});
+
+
+
+	// 판매 중지를 누르면 동작하는 ajax
+		function toSoldOut(obj){
+			$.ajax({
+				url : "/toSoldOut.do",
+				data: {productNo : $(this).next().val(), productType : $(this).parent().parent().parent().parent().find("td").eq(1).text()},
+				dataType : "text",
+				success : function(result){
+					alert(result);
+					if(result == "성공"){
+						location.reload()
+					}
+				}
+			});
+		}
+
+
+
+	// 판매 재개를 누르면 동작하는 ajax
+		function toResale(obj){
+			$.ajax({
+				url : "/toResale.do",
+				data: {productNo : $(this).next().val(), productType : $(this).parent().parent().parent().parent().find("td").eq(1).text()},
+				dataType : "text",
+				success : function(result){
+					alert(result);
+					if(result == "성공"){
+						location.reload()
+					}
+				}
+			});
+		}
+
+
+
+	// 승인 재요청을 누르면 동작하는 ajax
+		function toReview(obj){
+			$.ajax({
+				url : "/toResale.do",
+				data: {productNo : $(this).next().val(), productType : $(this).parent().parent().parent().parent().find("td").eq(1).text()},
+				dataType : "text",
+				success : function(result){
+					alert(result);
+					if(result == "성공"){
+						location.reload()
+					}
+				}
+			});
+		}
+	</script>
+
 </body>
-<script>
-	/*검색 결과에 count 출력 삭제*/
-	$(function(){
-	    if($('.hidden-input').val()==1) {
-	        $(".count").hide();
-	    } else {
-	        $(".count").show();
-	    }
-	});
-</script>
 </html>

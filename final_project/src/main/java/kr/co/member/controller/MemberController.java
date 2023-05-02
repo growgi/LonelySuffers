@@ -6,14 +6,20 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.admin.model.service.AdminService;
+import kr.co.admin.model.vo.HousePageData;
+import kr.co.admin.model.vo.LessonPageData;
 import kr.co.admin.model.vo.OrderPageData;
+import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.ProductPageData;
+import kr.co.admin.model.vo.Search;
+import kr.co.admin.model.vo.SearchWithId;
 import kr.co.chat.model.service.ChatService;
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
@@ -460,5 +466,70 @@ public class MemberController {
 		model.addAttribute("start", ppd.getStart());
 		model.addAttribute("newProductCount", productCount);
 		return "member/sellerProduct";
+	}
+
+
+
+// 판매자별 모든 상품 목록 조회
+	@RequestMapping(value = "/productListBySeller.do")
+	public String productListBySeller(int reqPage, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		ProductPageData ppd = service.selectProductBySeller(reqPage, me.getMemberId());
+
+		model.addAttribute("productList", ppd.getProductList());
+		model.addAttribute("pageNavi", ppd.getPageNavi());
+		model.addAttribute("start", ppd.getStart());
+		model.addAttribute("productCount", ppd.getTotalCount());
+		model.addAttribute("hiddenVal",0);
+		return "member/productListBySeller";
+	}
+
+
+
+// 판매자별 강습 상품 목록 조회
+	@RequestMapping(value = "/lessonListBySeller.do")
+	public String lessonListBySeller(int reqPage, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		LessonPageData lpd = service.selectLessonBySeller(reqPage, me.getMemberId());
+
+		model.addAttribute("lessonList", lpd.getLessonList());
+		model.addAttribute("pageNavi", lpd.getPageNavi());
+		model.addAttribute("start", lpd.getStart());
+		model.addAttribute("newLessonCount", lpd.getTotalCount());
+		model.addAttribute("hiddenVal",0);
+		return "member/lessonListBySeller";
+	}
+
+
+
+// 판매자별 숙박 상품 목록 조회
+	@RequestMapping(value = "/houseListBySeller.do")
+	public String houseListBySeller(int reqPage, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		HousePageData hpd = service.selectHouseBySeller(reqPage, me.getMemberId());
+
+		model.addAttribute("houseList", hpd.getHouseList());
+		model.addAttribute("pageNavi", hpd.getPageNavi());
+		model.addAttribute("start", hpd.getStart());
+		model.addAttribute("houseCount", hpd.getTotalCount());
+		model.addAttribute("hiddenVal",0);
+		return "member/houseListBySeller";
+	}
+
+
+
+// 판매자별 상품 목록 검색
+	@RequestMapping(value="/searchProductBySeller.do")
+	public String searchProductBySeller(String productSearchType, String productSearchKeyword, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		String[] keywords = productSearchKeyword.trim().replaceAll("(\\s)\\1+","$1").split(" ");		
+		SearchWithId sp = new SearchWithId(productSearchType, keywords, me.getMemberId());
+		
+		ArrayList<Product> productList = service.selectSearchProduct(sp);
+		
+		model.addAttribute("productList",productList);
+		model.addAttribute("hiddenVal",1);
+		
+		return "member/productListBySeller";
 	}
 }

@@ -214,12 +214,11 @@ public class AdminController {
 	@RequestMapping(value="/newProductAll.do")
 	public String newProductAll(int reqPage, Model model) {
 		ProductPageData ppd = service.selectAllNewProduct(reqPage); //신규 전체 상품 목록
-		int newProductCount = service.selectNewProductCount(); //신규 강습 상품 수
 		
 		model.addAttribute("productList", ppd.getProductList());
 		model.addAttribute("pageNavi", ppd.getPageNavi());
 		model.addAttribute("start", ppd.getStart());
-		model.addAttribute("newProductCount", newProductCount);
+		model.addAttribute("newProductCount", ppd.getTotalCount());
 		model.addAttribute("hiddenVal",0);
 		
 		return "admin/newProductAll";
@@ -228,12 +227,11 @@ public class AdminController {
 	@RequestMapping(value="/newProductLesson.do")
 	public String newProductLesson(int reqPage, Model model) {
 		LessonPageData lpd = service.selectNewLesson(reqPage); //신규 강습 상품 목록
-		int newLessonCount = service.selectNewLessonCount(); //신규 강습 상품 수
 		
 		model.addAttribute("lessonList", lpd.getLessonList());
 		model.addAttribute("pageNavi", lpd.getPageNavi());
 		model.addAttribute("start", lpd.getStart());
-		model.addAttribute("newLessonCount", newLessonCount);
+		model.addAttribute("newLessonCount", lpd.getTotalCount());
 		model.addAttribute("hiddenVal",0);
 		
 		return "admin/newProductLesson";
@@ -242,12 +240,11 @@ public class AdminController {
 	@RequestMapping(value="/newProductHouse.do")
 	public String newProductHouse(int reqPage, Model model) {
 		HousePageData hpd = service.selectNewHouse(reqPage); //신규 숙박 상품 목록
-		int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
 		
 		model.addAttribute("houseList", hpd.getHouseList());
 		model.addAttribute("pageNavi", hpd.getPageNavi());
 		model.addAttribute("start", hpd.getStart());
-		model.addAttribute("newHouseCount", newHouseCount);
+		model.addAttribute("newHouseCount", hpd.getTotalCount());
 		model.addAttribute("hiddenVal",0);
 		
 		return "admin/newProductHouse";
@@ -402,13 +399,12 @@ public class AdminController {
 	@RequestMapping(value="/productListAll.do")
 	public String productListAll(int reqPage, Model model) {
 		ProductPageData ppd = service.selectAllProduct(reqPage); //모든 상품 목록
-		int productCount = service.selectAllProductCount(); //모든 상품 수
 		
 		if(ppd != null) {	
 			model.addAttribute("productList", ppd.getProductList());
 			model.addAttribute("pageNavi", ppd.getPageNavi());
 			model.addAttribute("start", ppd.getStart());
-			model.addAttribute("productCount", productCount);
+			model.addAttribute("productCount", ppd.getTotalCount());
 			model.addAttribute("hiddenVal",0);
 			
 			return "admin/productListAll";
@@ -420,13 +416,12 @@ public class AdminController {
 	@RequestMapping(value="/productListLesson.do")
 	public String productListLesson(int reqPage, Model model) {
 		LessonPageData lpd = service.selectAllLesson(reqPage); //강습 상품 목록
-		int lessonCount = service.selectLessonCount(); //강습 상품 수
 		
 		if(lpd != null) {	
 			model.addAttribute("lessonList", lpd.getLessonList());
 			model.addAttribute("pageNavi", lpd.getPageNavi());
 			model.addAttribute("start", lpd.getStart());
-			model.addAttribute("lessonCount", lessonCount);
+			model.addAttribute("lessonCount", lpd.getTotalCount());
 			model.addAttribute("hiddenVal",0);
 			
 			return "admin/productListLesson";
@@ -439,13 +434,12 @@ public class AdminController {
 	@RequestMapping(value="/productListHouse.do")
 	public String productListHouse(int reqPage, Model model) {
 		HousePageData hpd = service.selectAllHouse(reqPage); //숙박 상품 목록
-		int houseCount = service.selectHouseCount(); //숙박 상품 수
 		
 		if(hpd != null) {	
 			model.addAttribute("houseList", hpd.getHouseList());
 			model.addAttribute("pageNavi", hpd.getPageNavi());
 			model.addAttribute("start", hpd.getStart());
-			model.addAttribute("houseCount", houseCount);
+			model.addAttribute("houseCount", hpd.getTotalCount());
 			model.addAttribute("hiddenVal",0);
 			
 			return "admin/productListHouse";

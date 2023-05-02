@@ -7,10 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.admin.model.vo.HousePageData;
+import kr.co.admin.model.vo.LessonPageData;
 import kr.co.admin.model.vo.OrderPageData;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.ProductPageData;
+import kr.co.admin.model.vo.SearchWithId;
 import kr.co.chat.model.dao.ChatDao;
+import kr.co.house.model.vo.House;
+import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.dao.MemberDao;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
@@ -337,7 +342,7 @@ public class MemberService {
 		
 		pageNavi += "</ul>";
 		
-		ProductPageData ppd = new ProductPageData(productList, pageNavi, start);
+		ProductPageData ppd = new ProductPageData(productList, pageNavi, start, totalCount);
 		
 		return ppd;
 	}
@@ -348,4 +353,225 @@ public class MemberService {
 	}
 
 
+
+// 판매자별 모든 상품 목록 조회
+	public ProductPageData selectProductBySeller(int reqPage, String memberId) {
+		int numPerPage = 10;
+		int end = numPerPage * reqPage;
+		int start = end - numPerPage + 1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		
+		ArrayList<Product> productList = dao.selectProductBySeller(map);
+		
+		int totalCount = dao.selectProductCountBySeller(memberId);
+		
+		int totalPage = 0;
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		} else {
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
+		String pageNavi = "<ul class='pagination circle-style'>";
+		
+		//이전버튼 
+		if(pageNo != 1) {
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/productListBySeller.do?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<span class='material-icons'>chevron_left</span>"; //구글 아이콘 ... <
+			pageNavi += "</a></li>";
+		}
+		
+		//페이지 숫자 ... < 1 2 3 4 5 >
+		for(int i=0; i<pageNaviSize; i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li>";
+				//현재 페이지는 active-page 클래스 추가 ... 색 다르게 적용
+				pageNavi += "<a class='page-item active-page' href='/productListBySeller.do?reqPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			} else {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item' href='/productListBySeller.do?reqPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}
+			pageNo++; //페이지번호+1 ... 다음페이지
+			
+			if(pageNo>totalPage) { //페이지번호가 전체페이지수보다 크면 for문 빠져나감
+				break;
+			}
+		}
+		
+		//다음버튼
+		if(pageNo <= totalPage) { //다음버튼이 만들어지는 조건
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/productListBySeller.do?reqPage="+(pageNo)+"'>";
+			pageNavi += "<span class='material-icons'>chevron_right</span>"; //구글 아이콘 ... >
+			pageNavi += "</a></li>";
+		}
+		
+		pageNavi += "</ul>";
+		
+		ProductPageData ppd = new ProductPageData(productList, pageNavi, start, totalCount);
+		
+		return ppd;
+	}
+
+
+
+// 판매자별 강습 상품 목록 조회
+	public LessonPageData selectLessonBySeller(int reqPage, String memberId) {
+		int numPerPage = 10;
+		int end = numPerPage * reqPage;
+		int start = end - numPerPage + 1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		
+		ArrayList<Lesson> lessonList = dao.selectLessonBySeller(map);
+		
+		int totalCount = dao.selectLessonCountBySeller(memberId);
+		
+		int totalPage = 0;
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		} else {
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
+		String pageNavi = "<ul class='pagination circle-style'>";
+		
+		//이전버튼 
+		if(pageNo != 1) {
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/lessonListBySeller.do?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<span class='material-icons'>chevron_left</span>"; //구글 아이콘 ... <
+			pageNavi += "</a></li>";
+		}
+		
+		//페이지 숫자 ... < 1 2 3 4 5 >
+		for(int i=0; i<pageNaviSize; i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li>";
+				//현재 페이지는 active-page 클래스 추가 ... 색 다르게 적용
+				pageNavi += "<a class='page-item active-page' href='/lessonListBySeller.do?reqPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			} else {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item' href='/lessonListBySeller.do?reqPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}
+			pageNo++; //페이지번호+1 ... 다음페이지
+			
+			if(pageNo>totalPage) { //페이지번호가 전체페이지수보다 크면 for문 빠져나감
+				break;
+			}
+		}
+		
+		//다음버튼
+		if(pageNo <= totalPage) { //다음버튼이 만들어지는 조건
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/lessonListBySeller.do?reqPage="+(pageNo)+"'>";
+			pageNavi += "<span class='material-icons'>chevron_right</span>"; //구글 아이콘 ... >
+			pageNavi += "</a></li>";
+		}
+		
+		pageNavi += "</ul>";
+		
+		LessonPageData lpd = new LessonPageData(lessonList, pageNavi, start, totalCount);
+		
+		return lpd;
+	}
+
+
+
+// 판매자별 숙박 상품 목록 조회
+	public HousePageData selectHouseBySeller(int reqPage, String memberId) {
+		int numPerPage = 10;
+		int end = numPerPage * reqPage;
+		int start = end - numPerPage + 1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		
+		ArrayList<House> houseList = dao.selectHouseBySeller(map);
+		
+		int totalCount = dao.selectHouseCountBySeller(memberId);
+		
+		int totalPage = 0;
+		if(totalCount%numPerPage == 0) {
+			totalPage = totalCount/numPerPage;
+		} else {
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		int pageNaviSize = 5;
+		int pageNo = ((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
+		String pageNavi = "<ul class='pagination circle-style'>";
+		
+		//이전버튼 
+		if(pageNo != 1) {
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/houseListBySeller.do?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<span class='material-icons'>chevron_left</span>"; //구글 아이콘 ... <
+			pageNavi += "</a></li>";
+		}
+		
+		//페이지 숫자 ... < 1 2 3 4 5 >
+		for(int i=0; i<pageNaviSize; i++) {
+			if(pageNo == reqPage) {
+				pageNavi += "<li>";
+				//현재 페이지는 active-page 클래스 추가 ... 색 다르게 적용
+				pageNavi += "<a class='page-item active-page' href='/houseListBySeller.do?reqPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			} else {
+				pageNavi += "<li>";
+				pageNavi += "<a class='page-item' href='/houseListBySeller.do?reqPage="+(pageNo)+"'>";
+				pageNavi += pageNo;
+				pageNavi += "</a></li>";
+			}
+			pageNo++; //페이지번호+1 ... 다음페이지
+			
+			if(pageNo>totalPage) { //페이지번호가 전체페이지수보다 크면 for문 빠져나감
+				break;
+			}
+		}
+		
+		//다음버튼
+		if(pageNo <= totalPage) { //다음버튼이 만들어지는 조건
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/houseListBySeller.do?reqPage="+(pageNo)+"'>";
+			pageNavi += "<span class='material-icons'>chevron_right</span>"; //구글 아이콘 ... >
+			pageNavi += "</a></li>";
+		}
+		
+		pageNavi += "</ul>";
+		
+		HousePageData hpd = new HousePageData(houseList, pageNavi, start, totalCount);
+		
+		return hpd;
+	}
+
+
+
+// 판매자별 상품 목록 검색
+	public ArrayList<Product> selectSearchProduct(SearchWithId sp) {
+		return dao.selectSearchProduct(sp);
+	}
 }

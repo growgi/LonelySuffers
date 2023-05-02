@@ -93,6 +93,10 @@ input[type="number"], input[type="time"] {
 
 					<div class="col-md-6 product-detail">
 						<input type="hidden" name="lessonNo" value="${lesson.lessonNo }">
+							<input type="hidden" name="lessonStatus" value="${lesson.lessonStatus }">
+						<c:if test="${lesson.lessonStatus == -2 }">
+							<input type="hidden" name="rejectComment" value="${lesson.rejectComment }">
+						</c:if>
 						<div class="row">
 							<div class="col-md-7"><input type="text" name="lessonTeacher" value="${lesson.lessonTeacher }" maxlength="20" placeholder="한글 최대 6자" required> 강사</div>
 							<div class="col-md-5" style="text-align: right;">정원: <input type="number" name="lessonMaxNo" value="${lesson.lessonMaxNo }" min="1" max="100" placeholder="1~100" required>명</div>
@@ -296,6 +300,15 @@ input[type="number"], input[type="time"] {
 					$("[name=lessonCity]").children().eq(i).attr("selected", true);
 					break;
 				}
+			}
+		});
+
+
+
+	// status가 -2이면 alert로 rejectComment 노출
+		$(document).ready(function(){
+			if ( $("[name=rejectComment]").length > 0 ){
+				alert("관리자의 반려사유:\n"+$("[name=rejectComment]").val());
 			}
 		});
 

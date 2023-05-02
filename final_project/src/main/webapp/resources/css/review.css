@@ -73,7 +73,7 @@
 }
 
 
-label {
+.ratingTap {
     cursor: pointer;
     font-size: 30px;
     color: orange;
@@ -87,13 +87,13 @@ label {
     text-shadow: 0 3px 3px darken(#34495e, 5%);
 }
 
-label:hover {
+.ratingTap:hover {
     font-size: 40px;
     color: orange;
     text-shadow: 0 0 5px lighten(#34495e, 50%);
 }
 
-label:before {
+.ratingTap:before {
     margin-right: 5px;
     display: inline;
     width: auto;
@@ -109,7 +109,7 @@ label:before {
     content: "\f005";
 }
 
-input:checked + label ~ label:before {
+input:checked + .ratingTap ~ .ratingTap:before {
     content: "\f006";
 }
 
