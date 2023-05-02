@@ -580,6 +580,79 @@
     .pay-info>div>:last-child{
         font-size: 18px;
     }
+    
+    /*키오스크 리뷰 css*/
+    .reviewListView{
+	    background-color: #3ac5c8;
+	    color: #fff;
+	    text-align: center;
+	}
+	
+	.reviewListView> th{
+	    border: none;
+	    text-align: center;
+	    font-weight: bold;
+	    padding-bottom: 10px;
+	    padding-top: 10px;
+	}
+	.reviewListView> th:first-child{
+	    border-top-left-radius: 5px;
+	
+	}
+	.reviewListView> th:last-child{
+	    border-top-right-radius: 5px;
+	}
+	
+	.reviewModalContent{
+	    border-bottom: 1px solid #006bd6;
+	}
+	
+	.reviewModalContent>td{
+	    padding: 5px;
+	}
+	
+	.reviewModalBtn{
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	}
+	
+	.container1 {
+	    max-height: 300px; /* 초기 높이값 */
+	    overflow: hidden;
+	    position: relative;
+	    height: 100%;
+	}
+	
+	
+	.show-more {
+	    position: absolute;
+	    bottom: 0;
+	    left: 0;
+	    width: 840px;
+	    background-color: #fff;
+	    padding: 10px;
+	    cursor: pointer;
+	}
+	
+	.show-more::before {
+	    content: '▼';
+	    display: inline-block;
+	    margin-right: 5px;
+	    transform: rotate(0deg);
+	    transition: transform 0.3s ease-in-out;
+	}
+	
+	.container1.show-more-open .show-more::before {
+	    transform: rotate(180deg);
+	}
+	
+	.container1.show-more-open {
+	    max-height: 100%;
+	}
+	
+	.trans5:hover{
+	    transform: scale(3, 3);
+	}
 </style>
 <!-- naver map -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=osh0s8np34&submodules=geocoder" ></script>
@@ -993,12 +1066,94 @@
 										<div class="row tab-card-header">
 											<ul class="nav nav-tabs card-header-tabs">
 												<li class="nav-item active"><a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="false">상품설명</a></li>
-												<li class="nav-item"><a class="nav-link">상품평</a></li>
-												<li class="nav-item"><a class="nav-link">상품문의</a></li>
+												<li class="nav-item">
+													<a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">상품평</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">상품문의</a>
+												</li>
 											</ul>
 										</div>
 										<div class="tab-content" id="myTabContent">
 											<div class="tab-pane fade p-3 active in" id="one" role="tabpanel" aria-labelledby="one-tab"></div>
+											<div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+											
+<!-- 별점 후기 영역 시작  -->
+													
+							
+							<!--별점 & 후기 리스트 나오는 부분 -->
+							<div class="container1">
+								<div class="content1">	
+									<table class ="review-table" style="width: 845px; margin: 0 auto;">
+										<tr class="reviewListView">
+											<th style="width: 15%;">제목</th>
+											<th style="width: 10%;">작성자</th>
+											<th style="width: 20%;">내용</th>
+											<th style="width: 10%;">별점</th>
+											<th style="width: 10%; display: none;">카테고리</th>
+											<th style="width: 10%; display: none;">상품번호</th>
+											<th style="width: 25%;">사진</th>
+											<th style="width: 20%;"></th>
+										</tr>
+										
+												<c:forEach items="${list }" var="review">
+													<tr class="reviewModalContent">
+														<td style="text-align: center;">${review.reviewTitle }</td>
+														<td style="text-align: center;">${review.reviewWriter }</td>
+														<td style="text-align: center;">${review.reviewContent }</td>
+														<td style="text-align: center; color: orange;" value="${review.rating }">
+															<c:if test="${review.rating  == 1}">
+																★
+															</c:if>
+															<c:if test="${review.rating  == 2}">
+																★★
+															</c:if>
+															<c:if test="${review.rating  == 3}">
+																★★★
+															</c:if>
+															<c:if test="${review.rating  == 4}">
+																★★★★
+															</c:if>
+															<c:if test="${review.rating  == 5}">
+																★★★★★
+															</c:if>
+														</td>
+														<c:choose>
+															<c:when test="${review.productCategory == 2 }">
+																	<td style="text-align: center; display: none;">숙박</td>
+															</c:when>
+														</c:choose>
+														<td style="text-align: center; display: none;">${house.houseNo}</td>
+														<td>
+															<c:forEach items="${review.rfileList }" var="rf">
+																<div style="display: inline-block;">
+																	<img src="/resources/upload/review/${rf.filepath }" width="60" height="60" class="trans5">
+																	<input type="hidden" value=${rf.filepath }>
+																	<input type="hidden" value=${rf.fileNo }>
+																</div>
+															</c:forEach>
+														</td>
+														<td class="reviewBtnWrap">
+															<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
+																<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
+																<input type="hidden" value="${review.reviewNo }">
+																<input type="hidden" value="${review.productCategory }">
+																<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+															</c:if>
+														</td>
+													</tr>
+												</c:forEach>
+									</table>
+									<button class="show-more">더보기</button>
+								</div> <!-- content1 닫는 div -->
+							</div> <!-- container1 닫는 div -->
+							
+							
+
+<!-- 별점 후기 영역 끝  -->
+											
+											
+											</div>
 										</div>
 									</div>
 									<div class="col-md-3">
@@ -1727,7 +1882,7 @@ $("document").ready(function() {
 								const bookStartDate = $("#bookStartDate").val();
 								const bookEndDate = $("#bookEndDate").val();
 								
-								$.ajax({
+								$.ajax({//작업중
 										url : "/availableModalRoomsList.do",
 										data: {roomTitle : roomTitleVal, houseNo : houseNo, bookStartDate : bookStartDate, bookEndDate : bookEndDate},
 										dataType : "json",
@@ -1748,8 +1903,61 @@ $("document").ready(function() {
 												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName)
 							    			}
 											//$("[name=roomName] option:selected").val();
+											//리뷰리스트 불러오기
+											
 										}
 								});
+								
+								$.ajax({
+									url : "/selectAllReview.do",
+									data: {houseNo : houseNo},
+									dataType : "json",
+									success : function(List){
+										console.log("ajax 테스트중"+ JSON.stringify(List));
+										if(List.length  === "empty"){
+											const table=$(".review-table").children();
+											const tr=$("<tr>");
+											tr.append("<td colspan=7 style=text-align:center;>조회된 리뷰가 없습니다.</td>");
+											table.append(tr);
+										}else{
+											const table=$(".review-table").children();
+											for(let j=0; j<List.length; j++){
+												const tr=$("<tr class=reviewModalContent></tr>");
+												tr.append("<td style=text-align:center;>"+List[j].reviewTitle+"</td>");
+												tr.append("<td style=text-align:center;>"+List[j].reviewWriter+"</td>");
+												tr.append("<td style=text-align:center;>"+List[j].reviewContent+"</td>");
+												const rating=$("<td style='text-align:center; color:orange;'></td>");
+												
+												if(List[j].rating == 1){
+													rating.append("★");
+												}else if(List[j].rating == 2){
+													rating.append("★★");
+												}else if(List[j].rating == 3){
+													rating.append("★★★");
+												}else if(List[j].rating == 4){
+													rating.append("★★★★");
+												}else if(List[j].rating == 5){
+													rating.append("★★★★★");
+												};
+												tr.append(rating);
+												for(let k=0; k<List[j].rfileList.length; k++){
+													const fileList = $("<div style=display:inline-block;></div>");
+													fileList.append("<img src=/resources/upload/review/"+List[j].rfileList[k].filepath+" width=60 height=60 class=trans5>");
+													fileList.append("<input type=hidden value="+List[j].rfileList[k].filepath+">");
+													fileList.append("<input type=hidden value="+List[j].rfileList[k].fileNo+">");
+													tr.append(fileList);
+												};
+												
+												
+												table.append(tr);
+											}
+											
+										}
+									},
+									error : function(){
+										console.log("리뷰 ajax 에러났음");
+									}
+								})//리뷰리스트 불러오기 끝
 							},
 							//getroom function success 끝
 							error : function(){
@@ -2492,6 +2700,18 @@ $("document").ready(function() {
 				event.preventDefault();
 				event.returnValue = '';
 				
+			});
+			
+			// review 더보기 버튼 실행
+			
+			const showMoreBtn = document.querySelector('.show-more');
+			const container1 = document.querySelector('.container1');
+			
+			showMoreBtn.addEventListener('click', function() {
+			  container1.classList.toggle('show-more-open');
+			  if (container1.classList.contains('show-more-open')) {
+			    showMoreBtn.style.display = 'none';
+			  }
 			});
 
 </script>					

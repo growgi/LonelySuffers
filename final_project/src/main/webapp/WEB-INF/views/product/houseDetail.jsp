@@ -63,7 +63,7 @@
 							<div class="col-md-8">
 								<div class="waveEffect" style="margin: 0 auto;">
 									<p class="waveEffectWord-back" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
-									<p class="waveEffectWord-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
+									<p class="waveEffecrd-front" style="text-align: center; line-height: 1100%;">사진이 없습니다</p>
 								</div>
 							</div>
 						</div>

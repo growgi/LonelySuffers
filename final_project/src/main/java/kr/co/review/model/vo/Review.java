@@ -20,4 +20,6 @@ public class Review {
 	private int productCategory;
 	private int productNo;
 	private ArrayList<RFileVO> rfileList;
+	
+	private int houseNo;
 }

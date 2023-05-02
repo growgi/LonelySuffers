@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import common.FileManager;
 import kr.co.review.model.service.ReviewService;
@@ -21,6 +24,14 @@ public class ReviewController {
 	private ReviewService service;
 	@Autowired
 	private FileManager manager;
+	
+	@ResponseBody
+	@RequestMapping(value="/selectAllReview.do", produces = "application/text; charset=utf8")
+	public String selectAllReview(Review r) {
+		ArrayList<Review> list = service.selectAllReview2(r);
+		System.out.println("리뷰 컨트롤러 리스트"+list);
+		return new Gson().toJson(list);
+	}
 	
 	@RequestMapping(value="/reviewWriteFrm.do")
 	public String reviewWrite(Review rv, MultipartFile[] reviewFile, HttpServletRequest request, Model model) {
