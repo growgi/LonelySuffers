@@ -167,7 +167,7 @@
 										<td>${p.productCity }</td>
 										<td>
 										<c:choose>
-										<c:when test="${p.productScore == 0}">		
+										<c:when test="${p.productScore < 1}">		
 												<div class="small-ratings">
 									                <i class="fa fa-star"></i>
 									                <i class="fa fa-star"></i>
@@ -176,7 +176,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore == 1 }">
+										<c:when test="${p.productScore >= 1 && p.productScore < 2}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star"></i>
@@ -185,7 +185,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore == 2 }">
+										<c:when test="${p.productScore >= 2 && p.productScore < 3}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -194,7 +194,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore == 3 }">
+										<c:when test="${p.productScore >= 3 && p.productScore < 4}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -203,7 +203,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore == 4 }">
+										<c:when test="${p.productScore >= 4 && p.productScore < 5}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -212,7 +212,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore == 5 }">
+										<c:when test="${p.productScore >= 5 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -240,7 +240,14 @@
 										<td><span class="material-symbols-outlined more-detail">more_vert</span>
 											<div class="list-detail-box" style="display: none" onblur="">
 												<div>
-													<a href="#" class="update-detail">상품 정보 수정</a>
+			                                		<c:choose>
+			                                		<c:when test="${p.productType == '강습'}">
+														<a href="/lessonUpdate.do?lessonNo=${p.productNo }" class="update-detail">상품 정보 수정</a>
+													</c:when>
+			                                		<c:when test="${p.productType == '숙박'}">
+														<a href="/houseUpdate.do?houseNo=${p.productNo }" class="update-detail">상품 정보 수정</a>
+			                                		</c:when>
+													</c:choose>
 													<div class="product-stop-selling-btn">상품 판매 중지</div>
 													<div class="product-stop-selling" style="display:none;">상품 판매 중지</div>
 													<input type="hidden" value="${p.productNo }">

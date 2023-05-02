@@ -16,5 +16,6 @@ public class HousePageData {
 	private ArrayList<House> houseList;
 	private String pageNavi;
 	private int start;
+	private int totalCount;
 
 }

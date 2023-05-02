@@ -129,7 +129,7 @@ th:last-child, td-last-child{
 										<td>${l.lessonCity }</td>
 										<td>
 										<c:choose>
-										<c:when test="${l.lessonScore == 0 }">
+										<c:when test="${l.lessonScore < 1 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star"></i>
 									                <i class="fa fa-star"></i>
@@ -138,7 +138,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${l.lessonScore == 1 }">
+										<c:when test="${l.lessonScore >= 1 && l.lessonScore < 2}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star"></i>
@@ -147,7 +147,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${l.lessonScore == 2 }">
+										<c:when test="${l.lessonScore >= 2 && l.lessonScore < 3}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -156,7 +156,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${l.lessonScore == 3 }">
+										<c:when test="${l.lessonScore >= 3 && l.lessonScore < 4}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -165,7 +165,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${l.lessonScore == 4 }">
+										<c:when test="${l.lessonScore >= 4 && l.lessonScore < 5}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -174,7 +174,7 @@ th:last-child, td-last-child{
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${l.lessonScore == 5 }">
+										<c:when test="${l.lessonScore >= 5 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -202,7 +202,7 @@ th:last-child, td-last-child{
 										<td><span class="material-symbols-outlined more-detail">more_vert</span>
 											<div class="list-detail-box" style="display: none" onblur="">
 												<div>
-													<a href="#" class="update-detail">상품 정보 수정</a>
+													<a href="/lessonUpdate.do?lessonNo=${l.lessonNo }" class="update-detail">상품 정보 수정</a>
 													<div class="product-stop-selling-btn">상품 판매 중지</div>
 													<div class="product-stop-selling" style="display:none;">상품 판매 중지</div>
 													<input type="hidden" value="${l.lessonNo }">

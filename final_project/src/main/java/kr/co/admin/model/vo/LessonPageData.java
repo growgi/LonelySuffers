@@ -15,5 +15,6 @@ public class LessonPageData {
 	private ArrayList<Lesson> lessonList;
 	private String pageNavi;
 	private int start;
+	private int totalCount;
 
 }
