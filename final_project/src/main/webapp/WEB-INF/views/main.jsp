@@ -55,7 +55,7 @@
 <body>
 	<div id="wrapper">
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
+	
 
 		<section class="section transheader homepage parallax" data-stellar-background-ratio="0.5" style="background-image: url('resources/images/surfer-cluster.jpg');">
 			<div class="container">
@@ -63,6 +63,11 @@
 					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
 						<h2 style="font-weight:600; padding:6px 0px; font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</h2>
 						<p class="lead" style="font-size: 16px;">같이 서핑해요!</p>
+						<c:if test="${not empty errorMsg}">
+						    <script>
+						        alert("${errorMsg}");
+						    </script>
+						</c:if>
 						<div class="reservation-box">
 							<c:choose>
 								<c:when test="${not empty sessionScope.m }">
