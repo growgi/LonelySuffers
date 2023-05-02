@@ -2,6 +2,8 @@ package kr.co.admin.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,57 +56,76 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/dashboard.do")
-	public String dashboard(Model model) {
-		/*1st*/
-		int sellerAppCount = service.selectSellerAppCount(); //판매자 신청 회원 수
-		int newProductCount = service.selectNewProductCount(); //신규 상품 수
-		int newAdminChatCount = service.selectNewAdminChatCount(); //1:1문의 신규 건수
-		
-		int totalSalesAmount = service.selectTotalSalesAmount(); //총 판매금액
-		int todaySalesAmount = service.selectTodaySalesAmount(); //오늘 판매금액
-		
-		/*2nd*/
-		int memberCount = service.selectMemberCount(); //전체 사용자 수
-		int lessonCount = service.selectLessonCount(); //강습 상품 수
-		int houseCount = service.selectHouseCount(); //숙박 상품 수
-		int carpoolRecruitingCount = service.selectCarpoolRecruitingCount(); //카풀 게시글 수(모집중)
-		
-		/*3th*/
-		//ArrayList<Integer> visitantList = service.selectVisitant(); //방문자수 현황
-		ArrayList<GenderRatio> genderRatio = service.selectGenderRatio(); //남녀 비율
-		
-		/*4th*/
-		ArrayList<Product> newProductList = service.selectNewProduct(); //신규 추가 상품
-		ArrayList<Member> newMemberList = service.selectNewMember(); //신규 회원
-		
-		/*5th*/
-		ArrayList<Member> newCarpoolDriverList = service.selectNewCarpoolDriver(); //신규 카풀 운전자
-		ArrayList<SalesAmount> lessonSalesAmountList = service.selectLessonSalesAmount(); //강습 판매금액 추이
-		ArrayList<SalesAmount> houseSalesAmountList = service.selectHouseSalesAmount(); //숙박 판매금액 추이
-		ArrayList<SalesAmount> allSalesAmountList = service.selectAllSalesAmount(); //숙박 판매금액 추이
-		
-		/*6th*/
-		ArrayList<Member> adminList = service.selectAllAdmin(); //관리자 목록
-		
-		AdminDashboard dInfo = new AdminDashboard(sellerAppCount, newProductCount, newAdminChatCount, totalSalesAmount, todaySalesAmount, memberCount, lessonCount, houseCount, carpoolRecruitingCount, genderRatio, newProductList, newMemberList, newCarpoolDriverList, lessonSalesAmountList, houseSalesAmountList, allSalesAmountList, adminList);
-		model.addAttribute("dInfo", dInfo);
-		
-		return "admin/adminDashboard";
+	public String dashboard(Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			/*1st*/
+			int sellerAppCount = service.selectSellerAppCount(); //판매자 신청 회원 수
+			int newProductCount = service.selectNewProductCount(); //신규 상품 수
+			int newAdminChatCount = service.selectNewAdminChatCount(); //1:1문의 신규 건수
+			
+			int totalSalesAmount = service.selectTotalSalesAmount(); //총 판매금액
+			int todaySalesAmount = service.selectTodaySalesAmount(); //오늘 판매금액
+			
+			/*2nd*/
+			int memberCount = service.selectMemberCount(); //전체 사용자 수
+			int lessonCount = service.selectLessonCount(); //강습 상품 수
+			int houseCount = service.selectHouseCount(); //숙박 상품 수
+			int carpoolRecruitingCount = service.selectCarpoolRecruitingCount(); //카풀 게시글 수(모집중)
+			
+			/*3th*/
+			//ArrayList<Integer> visitantList = service.selectVisitant(); //방문자수 현황
+			ArrayList<GenderRatio> genderRatio = service.selectGenderRatio(); //남녀 비율
+			
+			/*4th*/
+			ArrayList<Product> newProductList = service.selectNewProduct(); //신규 추가 상품
+			ArrayList<Member> newMemberList = service.selectNewMember(); //신규 회원
+			
+			/*5th*/
+			ArrayList<Member> newCarpoolDriverList = service.selectNewCarpoolDriver(); //신규 카풀 운전자
+			ArrayList<SalesAmount> lessonSalesAmountList = service.selectLessonSalesAmount(); //강습 판매금액 추이
+			ArrayList<SalesAmount> houseSalesAmountList = service.selectHouseSalesAmount(); //숙박 판매금액 추이
+			ArrayList<SalesAmount> allSalesAmountList = service.selectAllSalesAmount(); //숙박 판매금액 추이
+			
+			/*6th*/
+			ArrayList<Member> adminList = service.selectAllAdmin(); //관리자 목록
+			
+			AdminDashboard dInfo = new AdminDashboard(sellerAppCount, newProductCount, newAdminChatCount, totalSalesAmount, todaySalesAmount, memberCount, lessonCount, houseCount, carpoolRecruitingCount, genderRatio, newProductList, newMemberList, newCarpoolDriverList, lessonSalesAmountList, houseSalesAmountList, allSalesAmountList, adminList);
+			model.addAttribute("dInfo", dInfo);
+			
+			return "admin/adminDashboard";
+			
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 	
 	/**회원목록*/
 	@RequestMapping(value="/memberList.do")
-	public String memberList(int reqPage, Model model) {
-		MemberPageData mpd = service.selectAllMember(reqPage);
-		int memberCount = service.selectMemberCount(); //전체 사용자 수
-		
-		model.addAttribute("memberList", mpd.getMemberList());
-		model.addAttribute("pageNavi", mpd.getPageNavi());
-		model.addAttribute("start", mpd.getStart());
-		model.addAttribute("memberCount", memberCount);
-		model.addAttribute("hiddenVal",0);
-		
-		return "admin/memberList";
+	public String memberList(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			MemberPageData mpd = service.selectAllMember(reqPage);
+			int memberCount = service.selectMemberCount(); //전체 사용자 수
+			
+			model.addAttribute("memberList", mpd.getMemberList());
+			model.addAttribute("pageNavi", mpd.getPageNavi());
+			model.addAttribute("start", mpd.getStart());
+			model.addAttribute("memberCount", memberCount);
+			model.addAttribute("hiddenVal",0);
+			
+			return "admin/memberList";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 	
 	//1명 회원 등급 변경
@@ -166,17 +187,26 @@ public class AdminController {
 	
 	/**2. 판매자 신청 회원 목록*/
 	@RequestMapping(value="/sellerApplicationList.do")
-	public String sellerApplicationList(int reqPage, Model model) {
-		MemberPageData mpd = service.selectAllSellerApplication(reqPage);
-		int sellerAppCount = service.selectSellerAppCount();
-		
-		model.addAttribute("sellerAppList", mpd.getMemberList());
-		model.addAttribute("pageNavi", mpd.getPageNavi());
-		model.addAttribute("start", mpd.getStart());
-		model.addAttribute("sellerAppCount", sellerAppCount);
-		model.addAttribute("hiddenVal",0);
-		
-		return "admin/sellerApplicationList";
+	public String sellerApplicationList(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			MemberPageData mpd = service.selectAllSellerApplication(reqPage);
+			int sellerAppCount = service.selectSellerAppCount();
+			
+			model.addAttribute("sellerAppList", mpd.getMemberList());
+			model.addAttribute("pageNavi", mpd.getPageNavi());
+			model.addAttribute("start", mpd.getStart());
+			model.addAttribute("sellerAppCount", sellerAppCount);
+			model.addAttribute("hiddenVal",0);
+			
+			return "admin/sellerApplicationList";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 	
 	//검색
@@ -212,42 +242,72 @@ public class AdminController {
 	
 	/**3. 신규 상품 승인*/
 	@RequestMapping(value="/newProductAll.do")
-	public String newProductAll(int reqPage, Model model) {
-		ProductPageData ppd = service.selectAllNewProduct(reqPage); //신규 전체 상품 목록
-		
-		model.addAttribute("productList", ppd.getProductList());
-		model.addAttribute("pageNavi", ppd.getPageNavi());
-		model.addAttribute("start", ppd.getStart());
-		model.addAttribute("newProductCount", ppd.getTotalCount());
-		model.addAttribute("hiddenVal",0);
-		
-		return "admin/newProductAll";
+	public String newProductAll(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			ProductPageData ppd = service.selectAllNewProduct(reqPage); //신규 전체 상품 목록
+			int newProductCount = service.selectNewProductCount(); //신규 강습 상품 수
+			
+			model.addAttribute("productList", ppd.getProductList());
+			model.addAttribute("pageNavi", ppd.getPageNavi());
+			model.addAttribute("start", ppd.getStart());
+			model.addAttribute("newProductCount", newProductCount);
+			model.addAttribute("hiddenVal",0);
+			
+			return "admin/newProductAll";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 	
 	@RequestMapping(value="/newProductLesson.do")
-	public String newProductLesson(int reqPage, Model model) {
-		LessonPageData lpd = service.selectNewLesson(reqPage); //신규 강습 상품 목록
-		
-		model.addAttribute("lessonList", lpd.getLessonList());
-		model.addAttribute("pageNavi", lpd.getPageNavi());
-		model.addAttribute("start", lpd.getStart());
-		model.addAttribute("newLessonCount", lpd.getTotalCount());
-		model.addAttribute("hiddenVal",0);
-		
-		return "admin/newProductLesson";
+	public String newProductLesson(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			LessonPageData lpd = service.selectNewLesson(reqPage); //신규 강습 상품 목록
+			int newLessonCount = service.selectNewLessonCount(); //신규 강습 상품 수
+			
+			model.addAttribute("lessonList", lpd.getLessonList());
+			model.addAttribute("pageNavi", lpd.getPageNavi());
+			model.addAttribute("start", lpd.getStart());
+			model.addAttribute("newLessonCount", newLessonCount);
+			model.addAttribute("hiddenVal",0);
+			
+			return "admin/newProductLesson";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 	
 	@RequestMapping(value="/newProductHouse.do")
-	public String newProductHouse(int reqPage, Model model) {
-		HousePageData hpd = service.selectNewHouse(reqPage); //신규 숙박 상품 목록
-		
-		model.addAttribute("houseList", hpd.getHouseList());
-		model.addAttribute("pageNavi", hpd.getPageNavi());
-		model.addAttribute("start", hpd.getStart());
-		model.addAttribute("newHouseCount", hpd.getTotalCount());
-		model.addAttribute("hiddenVal",0);
-		
-		return "admin/newProductHouse";
+	public String newProductHouse(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			HousePageData hpd = service.selectNewHouse(reqPage); //신규 숙박 상품 목록
+			int newHouseCount = service.selectNewHouseCount(); //신규 숙박 상품 수
+			
+			model.addAttribute("houseList", hpd.getHouseList());
+			model.addAttribute("pageNavi", hpd.getPageNavi());
+			model.addAttribute("start", hpd.getStart());
+			model.addAttribute("newHouseCount", newHouseCount);
+			model.addAttribute("hiddenVal",0);
+			
+			return "admin/newProductHouse";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 
 	//승인
@@ -397,54 +457,81 @@ public class AdminController {
 
 	/**4. 등록된 상품 관리*/
 	@RequestMapping(value="/productListAll.do")
-	public String productListAll(int reqPage, Model model) {
-		ProductPageData ppd = service.selectAllProduct(reqPage); //모든 상품 목록
-		
-		if(ppd != null) {	
-			model.addAttribute("productList", ppd.getProductList());
-			model.addAttribute("pageNavi", ppd.getPageNavi());
-			model.addAttribute("start", ppd.getStart());
-			model.addAttribute("productCount", ppd.getTotalCount());
-			model.addAttribute("hiddenVal",0);
+	public String productListAll(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			ProductPageData ppd = service.selectAllProduct(reqPage); //모든 상품 목록
 			
-			return "admin/productListAll";
+			if(ppd != null) {	
+				model.addAttribute("productList", ppd.getProductList());
+				model.addAttribute("pageNavi", ppd.getPageNavi());
+				model.addAttribute("start", ppd.getStart());
+				model.addAttribute("productCount", ppd.getTotalCount());
+				model.addAttribute("hiddenVal",0);
+				
+				return "admin/productListAll";
+			} else {
+				return "redirect:/newProductLesson.do?reqPage=1";
+			}
 		} else {
-			return "redirect:/newProductLesson.do?reqPage=1";
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
 		}
 		
 	}
 	@RequestMapping(value="/productListLesson.do")
-	public String productListLesson(int reqPage, Model model) {
-		LessonPageData lpd = service.selectAllLesson(reqPage); //강습 상품 목록
-		
-		if(lpd != null) {	
-			model.addAttribute("lessonList", lpd.getLessonList());
-			model.addAttribute("pageNavi", lpd.getPageNavi());
-			model.addAttribute("start", lpd.getStart());
-			model.addAttribute("lessonCount", lpd.getTotalCount());
-			model.addAttribute("hiddenVal",0);
+	public String productListLesson(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			LessonPageData lpd = service.selectAllLesson(reqPage); //강습 상품 목록
 			
-			return "admin/productListLesson";
+			if(lpd != null) {	
+				model.addAttribute("lessonList", lpd.getLessonList());
+				model.addAttribute("pageNavi", lpd.getPageNavi());
+				model.addAttribute("start", lpd.getStart());
+				model.addAttribute("lessonCount", lpd.getTotalCount());
+				model.addAttribute("hiddenVal",0);
+				
+				return "admin/productListLesson";
+			} else {
+				return "redirect:/newProductLesson.do?reqPage=1";
+			}
 		} else {
-			return "redirect:/newProductLesson.do?reqPage=1";
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
 		}
 		
 	}
 	
 	@RequestMapping(value="/productListHouse.do")
-	public String productListHouse(int reqPage, Model model) {
-		HousePageData hpd = service.selectAllHouse(reqPage); //숙박 상품 목록
-		
-		if(hpd != null) {	
-			model.addAttribute("houseList", hpd.getHouseList());
-			model.addAttribute("pageNavi", hpd.getPageNavi());
-			model.addAttribute("start", hpd.getStart());
-			model.addAttribute("houseCount", hpd.getTotalCount());
-			model.addAttribute("hiddenVal",0);
+	public String productListHouse(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			HousePageData hpd = service.selectAllHouse(reqPage); //숙박 상품 목록
 			
-			return "admin/productListHouse";
+			if(hpd != null) {	
+				model.addAttribute("houseList", hpd.getHouseList());
+				model.addAttribute("pageNavi", hpd.getPageNavi());
+				model.addAttribute("start", hpd.getStart());
+				model.addAttribute("houseCount", hpd.getTotalCount());
+				model.addAttribute("hiddenVal",0);
+				
+				return "admin/productListHouse";
+			} else {
+				return "redirect:/newProductLesson.do?reqPage=1";
+			}
 		} else {
-			return "redirect:/newProductLesson.do?reqPage=1";
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
 		}
 
 	}
@@ -502,17 +589,26 @@ public class AdminController {
 	
 	/**5. 판매내역*/
 	@RequestMapping(value="/salesDetails.do")
-	public String salesDetails(int reqPage, Model model) {
-		OrderPageData opd = service.selectAllOrder(reqPage);
-		int orderCount = service.selectOrderCount();
-		
-		model.addAttribute("orderList", opd.getOrderList());
-		model.addAttribute("pageNavi", opd.getPageNavi());
-		model.addAttribute("start", opd.getStart());
-		model.addAttribute("orderCount", orderCount);
-		model.addAttribute("hiddenVal",0);
-		
-		return "admin/salesDetails";
+	public String salesDetails(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			OrderPageData opd = service.selectAllOrder(reqPage);
+			int orderCount = service.selectOrderCount();
+			
+			model.addAttribute("orderList", opd.getOrderList());
+			model.addAttribute("pageNavi", opd.getPageNavi());
+			model.addAttribute("start", opd.getStart());
+			model.addAttribute("orderCount", orderCount);
+			model.addAttribute("hiddenVal",0);
+			
+			return "admin/salesDetails";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 	
 	//내역 삭제
@@ -557,32 +653,50 @@ public class AdminController {
 	
 	/**6. 주문 상세*/
 	@RequestMapping(value="/orderDetail.do")
-	public String orderDetail(int orderNo, Model model) {
-		Order orderDetailInfo = service.selectOrderDetailInfo(orderNo);
-		ArrayList<Order> orderDetailList = service.selectOrderDetail(orderNo);
-		int orderDetailCount = service.selectOrderDetailCount(orderNo);
-		
-		model.addAttribute("orderDetailInfo", orderDetailInfo);
-		model.addAttribute("orderDetailList", orderDetailList);
-		model.addAttribute("orderDetailCount", orderDetailCount);
-		
-		return "admin/orderDetail";
+	public String orderDetail(int orderNo, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			Order orderDetailInfo = service.selectOrderDetailInfo(orderNo);
+			ArrayList<Order> orderDetailList = service.selectOrderDetail(orderNo);
+			int orderDetailCount = service.selectOrderDetailCount(orderNo);
+			
+			model.addAttribute("orderDetailInfo", orderDetailInfo);
+			model.addAttribute("orderDetailList", orderDetailList);
+			model.addAttribute("orderDetailCount", orderDetailCount);
+			
+			return "admin/orderDetail";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 		
 	}
 
 	/**카풀 관리*/
 	@RequestMapping(value="/carpoolList.do")
-	public String carpoolList(int reqPage, Model model) {
-		CarpoolPageData cpd = service.selectAllCarpool(reqPage);
-		int carpoolCount = service.selectCarpoolCount();
-		
-		model.addAttribute("carpoolList", cpd.getCarpoolList());
-		model.addAttribute("pageNavi", cpd.getPageNavi());
-		model.addAttribute("start", cpd.getStart());
-		model.addAttribute("carpoolCount", carpoolCount);
-		model.addAttribute("hiddenVal",0);
-		
-		return "admin/carpoolList";
+	public String carpoolList(int reqPage, Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			CarpoolPageData cpd = service.selectAllCarpool(reqPage);
+			int carpoolCount = service.selectCarpoolCount();
+			
+			model.addAttribute("carpoolList", cpd.getCarpoolList());
+			model.addAttribute("pageNavi", cpd.getPageNavi());
+			model.addAttribute("start", cpd.getStart());
+			model.addAttribute("carpoolCount", carpoolCount);
+			model.addAttribute("hiddenVal",0);
+			
+			return "admin/carpoolList";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 	
 	//게시글 삭제
@@ -612,13 +726,22 @@ public class AdminController {
 	
 	/**1:1 문의*/
 	@RequestMapping(value="/adminChat.do")
-	public String adminChat(Model model) {
-		ArrayList<ChatActive> list = cService.selectAllChatActive();
-		int adminChatCount = service.selectNewAdminChatCount();
-		
-		model.addAttribute("list",list);
-		model.addAttribute("adminChatCount",adminChatCount);
-		return "admin/adminChat";
+	public String adminChat(Model model, HttpSession session) {
+		Member loginMember = (Member)session.getAttribute("m");
+		if(loginMember.getMemberGrade() == 1) {
+			ArrayList<ChatActive> list = cService.selectAllChatActive();
+			int adminChatCount = service.selectNewAdminChatCount();
+			
+			model.addAttribute("list",list);
+			model.addAttribute("adminChatCount",adminChatCount);
+			return "admin/adminChat";
+		} else {
+			model.addAttribute("title","접근 제한");
+			model.addAttribute("msg","관리자로 로그인해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/main.do");
+			return "common/msg";
+		}
 	}
 
 }

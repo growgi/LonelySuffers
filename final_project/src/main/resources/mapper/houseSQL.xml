@@ -90,6 +90,12 @@
 	</select>
 
 
+<!-- 숙박 상품 판매상태 변경 -->
+	<update id="updateHouseStatus" parameterType="_int">
+		update house set house_status=#{productStatus} where house_no=#{productNo}
+	</update>
+
+
 <!-- 조건에 맞는 판매중인 상품들의 총 개수  -->
 	<select id="totalNumberOfHouseByProduct" parameterType="kr.co.house.model.vo.HouseListing" resultType="_int">
 		SELECT COUNT(*) FROM HOUSE WHERE HOUSE_STATUS = 1

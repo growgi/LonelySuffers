@@ -310,7 +310,7 @@
 
 
 
-
+<!-- 판매자별 모든 상품 목록 조회 -->
 	<select id="selectProductBySeller" parameterType="map" resultType="pr">
         select *
         from(select rownum as rnum, ap.*
@@ -339,7 +339,8 @@
         order by productStatus desc, productNo desc) ap)
         where rnum between #{start} and #{end}
 	</select>
-	
+
+<!-- 판매자별 모든 상품의 개수 -->
 	<select id="selectProductCountBySeller" parameterType="string" resultType="_int">
          select count(*) from (select
         	'강습' as productType,
@@ -353,8 +354,11 @@
 			h.writer as productWriter
         from house h)
         where productWriter = #{_parameter}
+        order by productNo desc
 	</select>
-	
+
+
+<!-- 판매자별 강습 상품 목록 조회 -->
 	<select id="selectLessonBySeller" parameterType="map" resultType="l">
 		select *
         from(select rownum as rnum, l.*
@@ -371,14 +375,17 @@
 			lesson_info_pic as lessonInfoPic
 		from lesson
         where writer = #{memberId}
-		order by lesson_status desc, lesson_no desc) l)
+		order by lesson_no desc) l)
         where rnum between #{start} and #{end}
 	</select>
-	
+
+<!-- 판매자별 강습 상품의 개수 -->
 	<select id="selectLessonCountBySeller" parameterType="string" resultType="_int">
 		select count(*) from lesson where writer = #{_parameter}
 	</select>
-	
+
+
+<!-- 판매자별 숙박 상품 목록 조회 -->
 	<select id="selectHouseBySeller" resultType="h">
 		select *
         from(select rownum as rnum, h.*
@@ -395,14 +402,17 @@
 			house_photo1 as housePhoto1
 		from house
         where writer = #{memberId}
-		order by house_status desc, house_no desc) h)
+		order by house_no desc) h)
         where rnum between #{start} and #{end}
 	</select>
-	
+
+<!-- 판매자별 숙박 상품의 개수 -->
 	<select id="selectHouseCountBySeller" parameterType="string" resultType="_int">
 		select count(*) from house where writer = #{_parameter}
 	</select>
-	
+
+
+<!-- 판매자별 상품 목록 검색  -->
 	<select id="selectSearchProduct" parameterType="kr.co.admin.model.vo.SearchWithId" resultType="pr">
          select * from (select
         	'강습' as productType,
@@ -427,7 +437,7 @@
         from house h
         )
         <choose>
-			<when test='searchType.equals("n")'>
+			<when test="searchType.equals('na')">
 				where productTitle like
 				<foreach collection="keywords" item="keyword" separator="and productTitle like">
 		 			'%'||#{keyword}||'%'
@@ -441,6 +451,85 @@
 			</when>
 		</choose>
 		and productWriter = #{memberId}
-        order by productStatus desc, productNo desc
+        order by productNo desc
+	</select>
+
+
+<!-- 판매자별 강습 상품 목록 검색  -->
+	<select id="selectSearchLesson" parameterType="kr.co.admin.model.vo.SearchWithId" resultType="l">
+	  select 
+	  		lesson_no as lessonNo,
+			lesson_level as lessonLevel,
+			lesson_title as lessonTitle,
+			lesson_price as lessonPrice,
+			lesson_max_no as lessonMaxNo,
+			writer,
+			lesson_city as lessonCity,
+			lesson_status as lessonStatus,
+			lesson_score as lessonScore,
+			lesson_info_pic as lessonInfoPic
+	  from lesson
+ 	    <choose>
+			<when test="searchType.equals('na')">
+	     	   where lesson_title like 
+				<foreach collection="keywords" item="keyword" separator="and lesson_title like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
+			</when>
+			<when test="searchType.equals('le')">
+				where lesson_level like 
+				<foreach collection="keywords" item="keyword" separator="and lesson_level like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
+			</when>
+			<when test="searchType.equals('lo')">
+				where lesson_city like 
+				<foreach collection="keywords" item="keyword" separator="and lesson_city like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
+			</when>
+		</choose>
+		and writer = #{memberId}
+	    order by lesson_no desc 
+	</select>
+
+
+<!-- 판매자별 숙박 상품 목록 검색  -->
+	<select id="selectSearchHouse" parameterType="kr.co.admin.model.vo.SearchWithId" resultType="h">
+		select
+			house_no as houseNo,
+			house_title as houseTitle,
+			writer,
+			room_title as roomTitle,
+			house_price as housePrice,
+			house_score as houseScore,
+			room_capa as roomCapa,
+			house_city as houseCity,
+			house_status as houseStatus,
+			house_score as houseScore,
+			house_photo1 as housePhoto1
+		from house
+		<choose>
+			<when test="searchType.equals('na')">
+				where house_title like 
+				<foreach collection="keywords" item="keyword" separator="and house_title like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
+			</when>
+			<when test="searchType.equals('rt')">
+				where room_title like 
+				<foreach collection="keywords" item="keyword" separator="and room_title like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
+			</when>
+			<when test="searchType.equals('lo')">
+				where house_address like 
+				<foreach collection="keywords" item="keyword" separator="and house_address like">
+		 			'%'||#{keyword}||'%'
+				</foreach>
+			</when>
+		</choose>
+		and writer = #{memberId}
+		order by house_no desc
 	</select>
 </mapper>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Lonely Surfers Admin</title>
 </head>
 <link rel="stylesheet" href="resources/css/adminCommon.css"></link>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
