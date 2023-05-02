@@ -95,8 +95,8 @@ public class FaqService {
 	}
 	
 
-	public ArrayList<Faq> selectSearchFaq(String searchFaqTitle) {
-		return dao.selectSearchFaq(searchFaqTitle);
+	public ArrayList<Faq> selectSearchFaq(String[] keywords ) {
+		return dao.selectSearchFaq(keywords);
 	}
 }
 

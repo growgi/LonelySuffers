@@ -59,13 +59,17 @@
 		where category_no = #{_parameter}
 	</select>
 	
-	<select id="selectSearchFaq" parameterType="string" resultType="fq">
+	<select id="selectSearchFaq" parameterType="map" resultType="fq">
      	select
      		faq_no as faqNo,
 			category_no as categoryNo,
   			faq_title as faqTitle,
   			faq_content as faqContent
 		from faq
-		where faq_title like '%'||#{searchFaqTitle}||'%' 	
+		where faq_title like 
+		<foreach collection="array" item="keyword" separator="and faq_title like">
+ 			'%'||#{keyword}||'%' 
+		</foreach>
+		order by faq_no desc	
      </select>  
 </mapper>

@@ -14,7 +14,6 @@ function adminChatList(memberId,index){
         success : function(list){
         $('.adminMessageArea').eq(index).empty();
         for(let i=0; i<list.length;i++){
-            console.log('하이');
             const msg = list[i];
             console.log("SenderCheck : "+msg.senderCheck);
             if(list[i].senderCheck == 1){

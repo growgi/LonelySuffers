@@ -37,15 +37,15 @@ public class SessionListener implements HttpSessionListener {
 
 			// 오늘 방문자 수
 			todayCount = service.getVisitTodayCount();
-			System.out.println(todayCount);
+			//System.out.println(todayCount);
 
 			// 전체 방문자 수
 			totalCount = service.getVisitTotalCount();
-			System.out.println(totalCount);
+			//System.out.println(totalCount);
 
 			// 일주일간 방문자 수
 			weekCountList = service.getVisitWeekCount();
-			System.out.println(weekCountList);
+			//System.out.println(weekCountList);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

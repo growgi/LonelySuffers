@@ -129,6 +129,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/myPage.do")
 	public String myPage(int reqPage,int tabNo,@SessionAttribute (required = false) Member m ,Model model) {
+		if(m.getMemberGrade() != 1) {
 		Member result = service.selectSellerApplication(m.getMemberNo());
 		OrderPageData opd = service.selectOrderList(reqPage,m.getMemberNo());
 		int chatActivation = cService.selectChatActivation(m.getMemberId());
@@ -149,6 +150,11 @@ public class MemberController {
 			}
 		}
 		return "member/myPage";
+	}else {
+		return "redirect:/main.do";
+	}
+	
+		
 	}
 	
 	@ResponseBody
@@ -213,7 +219,21 @@ public class MemberController {
 	@RequestMapping(value = "/dropMember.do")
 	public String deleteMember(int memberNo,Model model,HttpSession session) {
 		Member m = (Member)session.getAttribute("m");
+		
 		if(m.getMemberNo() == memberNo) {
+			
+			//판매상품이있을때 회원 탈퇴 막기
+			if(m.getMemberGrade() == 2) {
+				int count = service.selectProductCount(m.getMemberId());
+				if(count != 0 ) {
+					model.addAttribute("title","회원탈퇴");
+					model.addAttribute("msg","회원 탈퇴에 실패했습니다. 관리자에게 문의하세요");
+					model.addAttribute("icon","error");
+					model.addAttribute("loc","/myPage.do?reqPage=1&tabNo=0");
+					return "common/msg";
+				}
+			}
+			
 			int result = service.deleteMember(memberNo);
 			if(result != 0) {
 				service.deleteMyWishLists(m.getMemberId());

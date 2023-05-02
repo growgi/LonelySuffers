@@ -42,6 +42,7 @@
 <!-- class가 row인 div 안에 구현하시면 됩니다. -->
 					<div class="content">
 						<div class="content-title">회원가입</div>
+						<input type="hidden" class="idChkVal" value='0'>
 						<form action="/joinMember.do" autocomplete="off" method="post" class="customInput">
 							<div>
 							<input type="text" name="memberId" id="memberId" class="longinput inputVaild" required><button type="button" name="idChk">중복체크</button>

@@ -49,6 +49,11 @@ public class ReviewDao {
 		int result = sqlSession.delete("review.deleteFile", i);
 		return result;
 	}
+
+	public ArrayList<Review> selectAllReview2(Review r) {
+		List list = sqlSession.selectList("review.selectAllReview2", r);
+		return (ArrayList<Review>)list;
+	}
 }
 
 

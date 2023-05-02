@@ -47,10 +47,10 @@ public class NoticeController {
 			if(me.getMemberGrade() == 1) {
 				return "notice/noticeWriteFrm";
 			}else {
-		         return "redirect:/noticeList.do?reqPage=1";
+				return "redirect:/noticeList.do?reqPage=1";
 			}
 		}else {
-	         return "redirect:/";
+			return "redirect:/";
 		}
 	}
 	
@@ -94,13 +94,13 @@ public class NoticeController {
 		if(me != null) {
 			if(me.getMemberGrade() == 1) {
 				Notice n = service.selectOneNotice(noticeNo);
-			      model.addAttribute("n",n);
-			      return "notice/noticeUpdateFrm";
+				model.addAttribute("n",n);
+				return "notice/noticeUpdateFrm";
+				}else {
+					return "redirect:/noticeView.do?noticeNo="+noticeNo;
+				}
 			}else {
-				return "redirect:/noticeView.do?noticeNo="+noticeNo;
-			}
-		}else {
-	         return "redirect:/";
+		        return "redirect:/";
 		}
 	}
 	
@@ -152,25 +152,27 @@ public class NoticeController {
 		Member me = (Member)session.getAttribute("m");
 		if(me != null) {
 			if(me.getMemberGrade() == 1) {
-		    ArrayList<FileVO> list = service.deleteNotice(noticeNo);
-		    if(list == null) {
-	    		return "redirect:/noticeView.do?noticeNo="+noticeNo;
-	    	}else {
-	    		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
-	    		for(FileVO file : list) {
-	    			boolean deleteResult = manager.deleteFile(savePath, file.getFilepath());
-	    		}
-    			model.addAttribute("title","공지사항 삭제");
-         	model.addAttribute("msg","공지사항 삭제에 성공하였습니다.");
-     			model.addAttribute("icon","success");
-  	  		model.addAttribute("loc","/noticeList.do?reqPage=1");
-  		  	return "common/msg";
-	    	}
-	    }else {
+				ArrayList<FileVO> list = service.deleteNotice(noticeNo);
+				if(list == null) {
+					return "redirect:/noticeView.do?noticeNo="+noticeNo;
+				}else {
+					String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/notice/");
+					for(FileVO file : list) {
+						boolean deleteResult = manager.deleteFile(savePath, file.getFilepath());
+					}
+					model.addAttribute("title","공지사항 삭제");
+					model.addAttribute("msg","공지사항 삭제에 성공하였습니다.");
+					model.addAttribute("icon","success");
+					model.addAttribute("loc","/noticeList.do?reqPage=1");
+					return "common/msg";
+				}
+				
+			}else {
 				return "redirect:/noticeView.do?noticeNo="+noticeNo;
 			}
 		}else {
-	         return "redirect:/";
+			 return "redirect:/";
+
 		}
 	}
 	

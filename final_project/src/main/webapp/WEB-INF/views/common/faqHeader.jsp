@@ -47,32 +47,32 @@
 						<ul>
 							<li style="border-right: 1px solid #eee;">
 								<a href="/faqListKind.do?categoryNo=1&reqPage=1" class="button-arounder" role="button">
-								예약취소
+								예약취소🤿
 								</a>
 							</li>
 							<li style="border-right: 1px solid #eee;">
 								<a href="/faqListKind.do?categoryNo=2&reqPage=1" class="button-arounder" role="button">
-								숙박
+								숙박🎽
 								</a>
 							</li>
 							<li style="border-right: 1px solid #eee;">
-								<a href="/faqListKind.do?categoryNo=3&reqPage=1" class="button-arounder" role="button">
-								강습
+								<a h‍ref="/faqListKind.do?categoryNo=3&reqPage=1" class="button-arounder" role="button">
+								강습🏄‍♂️
 								</a>
 							</li>
 							<li style="border-right: 1px solid #eee;">
 								<a href="/faqListKind.do?categoryNo=4&reqPage=1" class="button-arounder" role="button">
-								카풀
+								카풀🏄‍♀️
 								</a>
 							</li>
 							<li style="border-right: 1px solid #eee;">
 								<a href="/faqListKind.do?categoryNo=5&reqPage=1" class="button-arounder" role="button">
-								후기
+								후기🛶
 								</a>
 							</li>
 							<li>
 								<a href="/faqListKind.do?categoryNo=6&reqPage=1" class="button-arounder" role="button">
-								회원서비스
+								회원서비스⛵
 								</a>
 							</li>
 						</ul>

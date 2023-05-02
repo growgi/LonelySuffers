@@ -355,12 +355,6 @@ input[type="number"], input[type="time"] {
 		$("[name=lessonTitle]").val(trimedTitle);
 		const trimedTeacher = $("[name=lessonTeacher]").val().trim().replace(/\s+/g," ");
 		$("[name=lessonTeacher]").val(trimedTeacher);
-		
-		if($("[name=lessonInfo]").find($(".note-editable")).html().length < 12){
-			alert("상품 설명을 작성하셔야 합니다.");
-			return false;
-		}
-		
 	// 강습 지역 input(name=lessonCity)이 선택되지 않았으면 form 제출을 막음
 		if( $("[name=lessonCity]").val() == null ){
 			alert('지역을 선택해주십시오.');
@@ -379,11 +373,6 @@ input[type="number"], input[type="time"] {
 
 // 신규 숙박 등록 submit 시 동작되는 함수. 제목들을 trim 후 form action
 	function triming(){
-		if($("[name=houseDescription").find($(".note-editable")).html().length < 12){
-			alert("상품 설명을 작성하셔야 합니다.");
-			return false;
-		}
-		
 		const trimedRoomTitle = $("[name=roomTitle]").val().trim().replace(/\s+/g," ");
 		$("[name=roomTitle]").val(trimedRoomTitle);
 		const trimedHouseTitle = $("[name=houseTitle]").val().trim().replace(/\s+/g," ");

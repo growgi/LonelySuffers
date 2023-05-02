@@ -56,8 +56,17 @@ let memberId;
             console.log(input);
             for(let i=0 ;i<input.length;i++){
                 if(input.eq(i).val()== data.memberId){
-                    console.log(input);
+                    console.log("input :"+input);
                     input.eq(i).next().next().next().next().text('채팅종료');
+                    input.eq(i).next().next().next().next().css('color','black');
+                    // const li = input.eq(i).parent().parent();
+                    // console.log("li : "+li);
+                    // console.log(li);
+                    // const chatDiv = input.eq(i).parent().parent().next();
+                    // console.log("chatDiv : "+chatDiv);
+                    // console.log(chatDiv);
+                    // $('.hiddenDiv').after(chatDiv);
+                    // $('.hiddenDiv').after(li);
                 }
             }
         }else if(data.type == "startChat"){
@@ -65,8 +74,18 @@ let memberId;
             console.log(input);
             for(let i=0 ;i<input.length;i++){
                 if(input.eq(i).val()== data.memberId){
-                    console.log(input);
+                    console.log("input :"+input);
                     input.eq(i).next().next().next().next().text('채팅중');
+                    input.eq(i).next().next().next().next().css('color','#19A7CE');
+                    // const li = input.eq(i).parent().parent();
+                    // console.log("li : "+li);
+                    // console.log(li);
+                    // const chatDiv = input.eq(i).parent().parent().next();
+                    // console.log("chatDiv : "+chatDiv);
+                    // console.log(chatDiv);
+                    // $('.activeDiv').after(chatDiv);
+                    // $('.activeDiv').after(li);
+                    
                 }
             }
         }

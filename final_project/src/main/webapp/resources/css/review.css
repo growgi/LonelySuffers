@@ -129,6 +129,18 @@ input:checked + .ratingTap ~ .ratingTap:before {
     content: "\f006";
 }
 
+#reviewModelWrapper {
+    display: inline-block;
+}
+
+#reviewModelWrapper:hover label:before {
+    content: "\f005";
+}
+
+#reviewModelWrapper label:hover ~ label:before {
+    content: "\f006";
+}
+
 .reviewWriteView{
     border: none;
     border-bottom: 2px solid #006bd6;
@@ -205,4 +217,7 @@ input:checked + .ratingTap ~ .ratingTap:before {
     max-height: 100%;
 }
 
+.trans5:hover{
+    transform: scale(3, 3);
+}
 

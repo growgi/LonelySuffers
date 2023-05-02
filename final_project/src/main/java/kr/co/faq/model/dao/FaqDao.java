@@ -52,8 +52,10 @@ public class FaqDao {
 		return totalCount;
 	}
 	
-	public ArrayList<Faq> selectSearchFaq(String searchFaqTitle) {
-		List searchFaq = sqlSession.selectList("faq.selectSearchFaq", searchFaqTitle);
+	public ArrayList<Faq> selectSearchFaq(String[] keywords) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("array",keywords);
+		List searchFaq = sqlSession.selectList("faq.selectSearchFaq", map);
 		return (ArrayList<Faq>)searchFaq;
 	}
 

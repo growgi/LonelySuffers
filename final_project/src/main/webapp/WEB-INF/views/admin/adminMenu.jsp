@@ -106,7 +106,7 @@
         background-color: #0a2647;
         width: 250px;
         z-index: 1;
-        height: 100vh;
+        height: 100%;
         overflow: auto;
         position: fixed;
 

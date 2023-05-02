@@ -37,6 +37,17 @@ public class HouseController {
 	@Autowired
 	private ReviewService rservice;
 
+// 키오스크로 이동
+	@RequestMapping(value="/kiosk.do")
+	public String kiosk(HttpSession session,Model model) {
+		Member me = (Member)session.getAttribute("m");
+		if (me != null){
+			return "kiosk/kiosk";
+		}else {
+			 model.addAttribute("errorMsg", "예약을 하려면 로그인이 필요합니다.");
+		     return "redirect:/";
+		}
+	}
 // 숙박 상품 상세페이지 보기.  House 테이블에서 Row 1개 전체 조회 후 반환
 	@RequestMapping(value="/houseView.do")
 	public String houseView(int houseNo, Model model) {
@@ -382,7 +393,7 @@ public class HouseController {
 			System.out.println("contoller"+roomBookNo);
 			return roomBookNo;
 		}else {
-			return "/kiosk.jsp";
+			return "kiosk/kiosk";
 		}
 	}
 }

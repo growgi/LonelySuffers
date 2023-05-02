@@ -53,6 +53,10 @@ public class ReviewService {
 		int result = dao.insertFile(rfileVO);
 		return result;
 	}
+
+	public ArrayList<Review> selectAllReview2(Review r) {
+		return dao.selectAllReview2(r);
+	}
 	
 	
 }
