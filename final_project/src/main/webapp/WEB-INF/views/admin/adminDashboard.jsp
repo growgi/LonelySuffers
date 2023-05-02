@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Lonely Surfers Admin</title>
 </head>
 <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 <link rel="stylesheet" href="resources/css/adminDashboard.css"></link>

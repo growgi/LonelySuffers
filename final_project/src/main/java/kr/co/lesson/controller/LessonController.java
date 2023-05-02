@@ -113,15 +113,20 @@ public class LessonController {
 	public String lessonUpdate(int lessonNo, HttpSession session, Model model) {
 		Lesson l = service.selectOneLesson(lessonNo);
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberId().equals(l.getWriter())) {		
+		if(me.getMemberGender()==1) {	
 			model.addAttribute("lesson", l);
 			return "product/lessonUpdate";
 		}else {
-			model.addAttribute("title","접근 제한됨");
-			model.addAttribute("msg","상품 등록자만이 수정할 수 있습니다.");
-			model.addAttribute("icon","error");
-			model.addAttribute("loc","/lessonView.do?lessonNo="+lessonNo);
-			return "common/msg";
+			if(me.getMemberId().equals(l.getWriter())) {		
+				model.addAttribute("lesson", l);
+				return "product/lessonUpdate";
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","상품 등록자만이 수정할 수 있습니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/lessonView.do?lessonNo="+lessonNo);
+				return "common/msg";
+			}
 		}
 	}
 
