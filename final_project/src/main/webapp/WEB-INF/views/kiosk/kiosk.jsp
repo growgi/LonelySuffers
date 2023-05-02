@@ -18,7 +18,7 @@
     
 	}
 	::-webkit-scrollbar-thumb {
-	    background-color: #3ac5c8;
+	    background-color: #000000;
 	    background-clip: padding-box;
 	    border: 2px solid transparent;
 	
@@ -49,7 +49,7 @@
 	
 	.modal-content{
 	width: 1200px;
-	margin-right:200px;
+	margin-right:180px;
 	}
 	h4.modal-title {
     text-align: center;
@@ -671,7 +671,7 @@
        				 <div id="scroll">
        				 	<span class="money"><span class="stat-count">0</span>원</span>
            				<img class="money-emoji" src="/resources/images/won.png">
-           				<input type="text" id="current-page" value="1">
+           				<input type="hidden" id="current-page" value="1">
            				<input type="hidden" class="memberName" value="${sessionScope.m.memberName }">
            				<input type="hidden" class="memberPhone" value="${sessionScope.m.memberPhone }">
            				<input type="hidden" class="memberEmail" value="${sessionScope.m.memberEmail }">
@@ -1651,6 +1651,10 @@ $("#level3").on('click',function(){
 //따라다니는 메뉴
 
 $("document").ready(function() {  
+	 $(".pages").hide();
+     $(".page1").show();
+	 $(".title").text("어디로 떠나볼까요?")
+	 $("#current-page").attr("value",1);
 	//주문내역에 회원 아이디 미리 넣어놓기
 	$(".orderTitle").text($('.memberName').val()+" 님의 주문내역");
 	
@@ -1900,7 +1904,7 @@ $("document").ready(function() {
 												option.val(List[i].roomNo);
 												option.text(List[i].roomName);
 												$("[name=roomName]").append(option);
-												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName)
+												$("<input type='hidden' id='roomNo-option' value="+List[i].roomName+">");
 							    			}
 											//$("[name=roomName] option:selected").val();
 											//리뷰리스트 불러오기

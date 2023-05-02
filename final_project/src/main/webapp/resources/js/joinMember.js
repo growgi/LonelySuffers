@@ -28,12 +28,12 @@ $('#memberPwRe').on('focusout',function(){
                 }else{
                     $('#memberPwRe').next().next().css('background-color','red');
                     $('#memberPwRe').next().css('color','red');
-                    $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
+                    $('#pwChkSpan').text('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
                 }
             }else{
                 $('#memberPwRe').next().next().css('background-color','red');
                 $('#memberPwRe').next().css('color','red');
-                $('#pwChkSpan').text('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+                $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
             }
     }
     
@@ -137,6 +137,7 @@ $("[name=emailCodeChk]").click(function(){
         const check = regArr.test(phoneValue);
         if(!check){
             alert('전화번호는 \n 010-0000-0000 형식이여야 합니다.');
+            return false;
         }
         for(let i=0 ;i<input.length;i++){
             const inputVal = input.eq(i).val();
