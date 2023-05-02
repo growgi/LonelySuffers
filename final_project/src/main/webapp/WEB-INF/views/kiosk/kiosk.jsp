@@ -2112,7 +2112,7 @@ $("document").ready(function() {
 	$(".page5-before").on('click',function(){
 		$(".pages").hide();
 		$(".page4").show();
-		$(".title").text("조건에 맞는 방 리스트예요~!");
+		$(".title").text("옵션을 골라주세요");
 		$("#current-page").attr("value",4);
 	})
 	$(".page5-okay").on('click',function(){
@@ -2152,7 +2152,7 @@ $("document").ready(function() {
 	$(".page6-before").on('click',function(){
 		$(".pages").hide();
 		$(".page5").show();
-		$(".title").text("조건에 맞는 방 리스트예요~!")
+		$(".title").text("조건에 맞는 방 리스트예요")
 		$("#current-page").attr("value",5);
 	})
 	$(".page6-okay").on('click',function(){
