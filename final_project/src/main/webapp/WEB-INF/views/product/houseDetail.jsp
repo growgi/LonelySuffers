@@ -113,6 +113,8 @@
 							</div>
 							<div class="row">
 								<div class="col-md-8">
+								<c:choose>
+									<c:when test="${house.houseScore != 0 }">
 									<div id="half-stars-example">
 										<input type="hidden" name="houseScore" value="${house.houseScore }">
     <div class="rating-group">
@@ -140,6 +142,9 @@
         <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" disabled>
     </div>
 </div>
+									</c:when>
+									<c:otherwise>아직 평점이 없습니다.</c:otherwise>
+								</c:choose>
 								</div>
 								<div class="col-md-3 optionIcons">
 									<c:if test="${house.houseBarbecue == 1}">
@@ -163,7 +168,7 @@
 								<div style="color: white;">예약하기</div>
 							</button>
 						</div>
-						<c:if test="${sessionScope.m.memberGrade == 2}">
+						<c:if test="${sessionScope.m.memberGrade == 1 || sessionScope.m.memberGrade == 2}">
 						<div>
 							<a class="btn btn-default" href="/houseUpdate.do?houseNo=${house.houseNo}">상품 수정</a>
 							<a class="btn btn-default" href="/roomManage.do?houseNo=${house.houseNo}">객실 관리</a>

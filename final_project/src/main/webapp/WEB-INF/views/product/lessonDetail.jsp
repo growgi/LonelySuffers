@@ -100,6 +100,8 @@
 								</div>
 							</div>
 							<div class="row">
+							<c:choose>
+								<c:when test="${lesson.lessonScore != 0 }">
 									<div id="half-stars-example">
 										<input type="hidden" name="lessonScore" value="${lesson.lessonScore }">
     <div class="rating-group">
@@ -127,6 +129,9 @@
         <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" disabled>
     </div>
 </div>
+								</c:when>
+								<c:otherwise>아직 평점이 없습니다.</c:otherwise>
+							</c:choose>
 							</div>
 							<p>지역 <span>${lesson.lessonCity }</span></p>
 						<div>
@@ -138,7 +143,7 @@
 								<div style="color: white;">예약하기</div>
 							</button>
 						</div>
-						<c:if test="${sessionScope.m.memberGrade == 2}">
+						<c:if test="${sessionScope.m.memberGrade == 1 || sessionScope.m.memberGrade == 2}">
 						<div>
 							<a class="btn btn-default" href="/lessonUpdate.do?lessonNo=${lesson.lessonNo}">상품 수정</a>
 						</div>
@@ -988,7 +993,7 @@
 
 	// 평점 select
 		$(document).ready(function() {
-			const score = $("[name=houseScore]").val();
+			const score = $("[name=lessonScore]").val();
 			if(score <0.5){
 			}else if(score >= 0.5 && score < 1){
 				$("#rating2-0").prop("checked", false);
