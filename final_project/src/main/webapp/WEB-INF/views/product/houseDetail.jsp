@@ -298,6 +298,7 @@
 							</div>
 							<div style="margin-top: 20px; margin-bottom: 20px; border-bottom: 2px dashed #595959;"></div>
 							
+							
 							<!--별점 & 후기 리스트 나오는 부분 -->
 							
 							<div class="container1">
@@ -314,51 +315,62 @@
 											<th style="width: 20%;"></th>
 										</tr>
 										
-										<c:forEach items="${list }" var="review">
-											<tr class="reviewModalContent">
-												<td style="text-align: center;">${review.reviewTitle }</td>
-												<td style="text-align: center;">${review.reviewWriter }</td>
-												<td style="text-align: center;">${review.reviewContent }</td>
-												<c:if test="${review.rating  == 1}">
-													<td style="text-align: center; color: orange;">★</td>
-												</c:if>
-												<c:if test="${review.rating  == 2}">
-													<td style="text-align: center; color: orange;">★★</td>
-												</c:if>
-												<c:if test="${review.rating  == 3}">
-													<td style="text-align: center; color: orange;">★★★</td>
-												</c:if>
-												<c:if test="${review.rating  == 4}">
-													<td style="text-align: center; color: orange;">★★★★</td>
-												</c:if>
-												<c:if test="${review.rating  == 5}">
-													<td style="text-align: center; color: orange;">★★★★★</td>
-												</c:if>
-												<c:choose>
-													<c:when test="${review.productCategory == 2 }">
-															<td style="text-align: center; display: none;">숙박</td>
-													</c:when>
-												</c:choose>
-												<td style="text-align: center; display: none;">${house.houseNo}</td>
-												<td>
-													<c:forEach items="${review.rfileList }" var="rf">
-														<div style="display: inline-block;">
-															<img src="/resources/upload/review/${rf.filepath }" width="60" height="60">
-															<input type="hidden" value=${rf.filepath }>
-															<input type="hidden" value=${rf.fileNo }>
-														</div>
-													</c:forEach>
-												</td>
-												<td class="reviewBtnWrap">
-													<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
-														<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
-														<input type="hidden" value="${review.reviewNo }">
-														<input type="hidden" value="${review.productCategory }">
-														<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
-													</c:if>
-												</td>
-											</tr>
-										</c:forEach>
+										<c:choose>
+											<c:when test="${empty list}">
+												<tr>
+													<td colspan="7" style="text-align:center;">조회된 리뷰가 없습니다.</td>
+												</tr>
+											</c:when>
+											<c:otherwise>	
+												<c:forEach items="${list }" var="review">
+													<tr class="reviewModalContent">
+														<td style="text-align: center;">${review.reviewTitle }</td>
+														<td style="text-align: center;">${review.reviewWriter }</td>
+														<td style="text-align: center;">${review.reviewContent }</td>
+														<td style="text-align: center; color: orange;" value="${review.rating }">
+															<c:if test="${review.rating  == 1}">
+																★
+															</c:if>
+															<c:if test="${review.rating  == 2}">
+																★★
+															</c:if>
+															<c:if test="${review.rating  == 3}">
+																★★★
+															</c:if>
+															<c:if test="${review.rating  == 4}">
+																★★★★
+															</c:if>
+															<c:if test="${review.rating  == 5}">
+																★★★★★
+															</c:if>
+														</td>
+														<c:choose>
+															<c:when test="${review.productCategory == 2 }">
+																	<td style="text-align: center; display: none;">숙박</td>
+															</c:when>
+														</c:choose>
+														<td style="text-align: center; display: none;">${house.houseNo}</td>
+														<td>
+															<c:forEach items="${review.rfileList }" var="rf">
+																<div style="display: inline-block;">
+																	<img src="/resources/upload/review/${rf.filepath }" width="60" height="60" class="trans5">
+																	<input type="hidden" value=${rf.filepath }>
+																	<input type="hidden" value=${rf.fileNo }>
+																</div>
+															</c:forEach>
+														</td>
+														<td class="reviewBtnWrap">
+															<c:if test="${sessionScope.m.memberId == review.reviewWriter}">
+																<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
+																<input type="hidden" value="${review.reviewNo }">
+																<input type="hidden" value="${review.productCategory }">
+																<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+															</c:if>
+														</td>
+													</tr>
+												</c:forEach>
+											</c:otherwise>
+										</c:choose>
 									</table>
 									<button class="show-more">더보기</button>
 								</div> <!-- content1 닫는 div -->
@@ -383,8 +395,8 @@
 							          		<input type="text" class="form-control reviewWriter" name="reviewWriter" placeholder="작성자" value="" readonly>
 							          		<div>내용</div>
 							          		<textarea class="form-control reviewContent" rows="6" name="reviewContent" placeholder="내용" required></textarea>
-							          		<div>별점(숫자(1~5)로 입력바랍니다.)</div>
-							          		<input type="text" class="form-control rating" name="rating" placeholder="" value=""required>
+							          		<div>별점(1~5)</div>
+							          		<input type="number" id="updateRating" class="form-control rating" name="rating" step=1 min=1 max=5 required>
 							          		<div style="display: none;">카테고리</div>
 							          		<input type="hidden" class="form-control productCategory" name="productCategory">
 							          		<input style="display: none;" type="text" class="form-control showProductCategory" readonly>
@@ -397,7 +409,7 @@
 											<input type="file" name="reviewFile" multiple>
 								        </div>
 								        <div class="modal-footer">
-							          		<button style="float: right;">후기글 등록</button>
+							          		<button id="ratingBtn" style="float: right;" onclick="return insertReviewBtn()">후기글 등록</button>
 							        	</div>
 							          </fieldset>
 							        </form>
@@ -494,7 +506,23 @@
 
 	<script type="text/javascript">
 	
-
+	// ratingBtn 정규표현식 버튼 실행
+	/*
+	function insertReviewBtn(){
+		const value = $("#updateRating").val();
+		console.log(value)
+		let regExp;
+		regExp = /^[1-5]+$/;
+		const check = regExp.test(value);
+		if(check){
+			return true;
+		}else{
+			alert("숫자 1~5만 입력 해주세요.")
+			return false;
+		}
+	}
+	*/
+		
 	
 	// review 더보기 버튼 실행
 	
@@ -527,7 +555,8 @@
 		var reviewTitle = $(this).parent().parent().children().eq(0).text();
 		var reviewWriter = $(this).parent().parent().children().eq(1).text();
 		var reviewContent = $(this).parent().parent().children().eq(2).text();
-		var rating = $(this).parent().parent().children().eq(3).text();
+		/* var rating = $(this).parent().parent().children().eq(3).children().text(); */
+		var rating = $(this).parent().parent().children().eq(3).attr("value");
 		var productCategory = $(this).next().next().val();
 		var rfileList =$(this).parent().parent().children().eq(6).children().clone();
 		$(".fileList-wrap").empty();
