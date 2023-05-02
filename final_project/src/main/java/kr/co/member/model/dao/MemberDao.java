@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.admin.model.vo.Product;
+import kr.co.admin.model.vo.SearchWithId;
+import kr.co.house.model.vo.House;
+import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
 import kr.co.member.model.vo.WishList;
@@ -149,4 +152,44 @@ public class MemberDao {
 
 
 
+// 판매자별 모든 상품 목록 조회
+	public ArrayList<Product> selectProductBySeller(HashMap<String, Object> map) {
+		List productList = sqlSession.selectList("member.selectProductBySeller", map);
+		return (ArrayList<Product>)productList;
+	}
+
+// 판매자별 모든 상품의 개수
+	public int selectProductCountBySeller(String memberId) {
+		return sqlSession.selectOne("member.selectProductCountBySeller", memberId);
+	}
+
+// 판매자별 강습 상품 목록 조회
+	public ArrayList<Lesson> selectLessonBySeller(HashMap<String, Object> map) {
+		List lessonList = sqlSession.selectList("member.selectLessonBySeller", map);
+		return (ArrayList<Lesson>)lessonList;
+	}
+
+// 판매자별 강습 상품의 개수
+	public int selectLessonCountBySeller(String memberId) {
+		return sqlSession.selectOne("member.selectLessonCountBySeller", memberId);
+	}
+
+// 판매자별 숙박 상품 목록 조회
+	public ArrayList<House> selectHouseBySeller(HashMap<String, Object> map) {
+		List houseList = sqlSession.selectList("member.selectHouseBySeller", map);
+		return (ArrayList<House>)houseList;
+	}
+
+// 판매자별 숙박 상품의 개수
+	public int selectHouseCountBySeller(String memberId) {
+		return sqlSession.selectOne("member.selectHouseCountBySeller", memberId);
+	}
+
+
+
+// 판매자별 상품 목록 검색 
+	public ArrayList<Product> selectSearchProduct(SearchWithId sp) {
+		List productList = sqlSession.selectList("member.selectSearchProduct", sp);
+		return (ArrayList<Product>)productList;
+	}
 }
