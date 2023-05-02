@@ -39,13 +39,50 @@ public class LessonController {
 
 // 강습 상품 상세페이지 보기.  Lesson 테이블에서 Row 1개 전체 조회 후 반환
 	@RequestMapping(value="/lessonView.do")
-	public String lessonView(int lessonNo, Model model) {
+	public String lessonView(int lessonNo, Model model, HttpSession session) {
 		Lesson l = service.selectOneLesson(lessonNo);
-		//review 리스트 받아오는 코드
-		ArrayList<Review> list = rservice.selectAllReview(lessonNo);
-		model.addAttribute("list", list);
-		model.addAttribute("lesson", l);
-		return "product/lessonDetail";
+		if(l.getLessonStatus()>=0) {
+			//review 리스트 받아오는 코드
+			ArrayList<Review> list = rservice.selectAllReview(lessonNo);
+			model.addAttribute("list", list);
+			model.addAttribute("lesson", l);
+			return "product/lessonDetail";
+		}else {
+			Member me = (Member)session.getAttribute("m");
+			if(me != null) {
+				if(me.getMemberGrade()==1) {
+					ArrayList<Review> list = rservice.selectAllReview(lessonNo);
+					model.addAttribute("list", list);
+					model.addAttribute("lesson", l);
+					return "product/lessonDetail";
+				}else if(me.getMemberGrade()==2) {
+					if(l.getWriter()==me.getMemberId()) {
+						ArrayList<Review> list = rservice.selectAllReview(lessonNo);
+						model.addAttribute("list", list);
+						model.addAttribute("lesson", l);
+						return "product/lessonDetail";
+					}else {
+						model.addAttribute("title","접근 제한됨");
+						model.addAttribute("msg","상품 등록자만이 열람할 수 있습니다.");
+						model.addAttribute("icon","error");
+						model.addAttribute("loc","/");
+						return "common/msg";
+					}
+				}else {
+					model.addAttribute("title","접근 제한됨");
+					model.addAttribute("msg","열람할 수 없는 상품입니다.");
+					model.addAttribute("icon","error");
+					model.addAttribute("loc","/");
+					return "common/msg";
+				}
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","열람할 수 없는 상품입니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/");
+				return "common/msg";
+			}
+		}
 	}
 
 
@@ -113,7 +150,7 @@ public class LessonController {
 	public String lessonUpdate(int lessonNo, HttpSession session, Model model) {
 		Lesson l = service.selectOneLesson(lessonNo);
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberGender()==1) {	
+		if(me.getMemberGrade()==1) {	
 			model.addAttribute("lesson", l);
 			return "product/lessonUpdate";
 		}else {
