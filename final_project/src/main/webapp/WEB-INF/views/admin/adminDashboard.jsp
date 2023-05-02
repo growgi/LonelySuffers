@@ -16,7 +16,6 @@
 	<jsp:include page="/WEB-INF/views/admin/adminMenu.jsp" />
     <div class="dashboard-wrapper admin-content">
 		<div>
-			
 			<div class="dashboard-1st">
 				<div class="calendar-wrap" style="border: none;">
 					<div style="padding: 0;">
@@ -112,7 +111,7 @@
 
 			<div class="dashboard-3rd">
 				<div class="visitant-graph">
-					<div class="title-bold">방문자 현황</div>
+					<div class="title-bold">방문자 수 현황</div>
 					<div class="visitant-val" style="display:none">
  						<%-- <div class="todayCount">${sessionScope.todayCount}</div>
 						<div class="totalCount">${sessionScope.totalCount}</div> --%>						
@@ -255,7 +254,7 @@
 			</div>
 		</div>
     </div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </body>
 <script>
 	/*메뉴 제목*/
@@ -352,60 +351,79 @@
 		visitantDateArr.push($(item).text());
 	});
 	
-	console.log(visitantDateArr);
+	//console.log(visitantDateArr);
 	
 	const dayTotalArr = new Array();
 	$(".dayTotal").each(function(index,item){
 		dayTotalArr.push($(item).text());
 	});
 	
-	console.log(dayTotalArr);
-	
+	//console.log(dayTotalArr);
 	var context = document
-            .getElementById('visitantGraph')
-            .getContext('2d');
-        var visitantGraph = new Chart(context, {
-            type: 'line', // 차트의 형태
-            data: { // 차트에 들어갈 데이터
-                labels: [
-                    //x 축
-                    visitantDateArr[0],visitantDateArr[1],visitantDateArr[2],visitantDateArr[3],visitantDateArr[4],visitantDateArr[5],visitantDateArr[6]
-                ],
-                datasets: [
-                    { //데이터
-                        label: 'visitant graph', //차트 제목
-                        fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                        data: [
-                        	dayTotalArr[0],dayTotalArr[1],dayTotalArr[2],dayTotalArr[3],dayTotalArr[4],dayTotalArr[5],dayTotalArr[6] //x축 label에 대응되는 데이터 값***
-                        ],
-                        backgroundColor: [
-                            //색상
-                            'rgba(255,117,117,0.3)'
-                        ],
-                        borderColor: [
-                            //경계선 색상
-                            'rgba(255,117,117,1)'
-                        ],
-                        borderWidth: 1 //경계선 굵기
-                    }
-                ]
-            },
-            options: {
-            	hover: {
-					mode: 'nearest',
-					intersect: true
-				},
-                scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }
-                    ]
-                }
-            }
-        });
+  .getElementById('visitantGraph')
+  .getContext('2d');
+
+var visitantGraph = new Chart(context, {
+  type: 'line', // 차트의 형태
+  data: { // 차트에 들어갈 데이터
+    labels: [
+      //x 축
+      visitantDateArr[0],visitantDateArr[1],visitantDateArr[2],visitantDateArr[3],visitantDateArr[4],visitantDateArr[5],visitantDateArr[6]
+    ],
+    datasets: [
+      { //데이터
+        label: 'visitant graph', //차트 제목
+        fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+        data: [
+          dayTotalArr[0],dayTotalArr[1],dayTotalArr[2],dayTotalArr[3],dayTotalArr[4],dayTotalArr[5],dayTotalArr[6] //x축 label에 대응되는 데이터 값***
+        ],
+        backgroundColor: [
+          //색상
+          'rgba(255,117,117,0.3)'
+        ],
+        borderColor: [
+          //경계선 색상
+          'rgba(255,117,117,1)'
+        ],
+        borderWidth: 1, //경계선 굵기
+        cubicInterpolationMode: 'monotone',
+        tension: 0.4
+      }
+    ]
+  }
+});
+	// var context = document
+    //         .getElementById('visitantGraph')
+    //         .getContext('2d');
+	// var visitantGraph = new Chart(context, {
+	// 	type: 'line', // 차트의 형태
+	// 	data: { // 차트에 들어갈 데이터
+	// 		labels: [
+	// 			//x 축
+	// 			visitantDateArr[0],visitantDateArr[1],visitantDateArr[2],visitantDateArr[3],visitantDateArr[4],visitantDateArr[5],visitantDateArr[6]
+	// 		],
+	// 		datasets: [
+	// 			{ //데이터
+	// 				label: 'visitant graph', //차트 제목
+	// 				fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+	// 				data: [
+	// 					dayTotalArr[0],dayTotalArr[1],dayTotalArr[2],dayTotalArr[3],dayTotalArr[4],dayTotalArr[5],dayTotalArr[6] //x축 label에 대응되는 데이터 값***
+	// 				],
+	// 				backgroundColor: [
+	// 					//색상
+	// 					'rgba(255,117,117,0.3)'
+	// 				],
+	// 				borderColor: [
+	// 					//경계선 색상
+	// 					'rgba(255,117,117,1)'
+	// 				],
+	// 				borderWidth: 1, //경계선 굵기
+	// 				cubicInterpolationMode: 'monotone',
+	// 				tension: 0.4
+	// 			}
+	// 		]
+	// 	}
+	// });
         
 	
 	/*남녀비율 chart*/
@@ -461,21 +479,21 @@
 		lessonMonthArr.push($(item).text());
 	});
 	
-	console.log(lessonMonthArr);
+	console.log("lessonMonthArr:"+lessonMonthArr);
 	
 	const houseMonthArr = new Array();
 	$(".house-month").each(function(index,item){
 		houseMonthArr.push($(item).text());
 	});
 	
-	console.log(houseMonthArr);
+	console.log("houseMonthArr:"+houseMonthArr);
 	
 	const allMonthArr = new Array();
 	$(".all-month").each(function(index,item){
 		allMonthArr.push($(item).text());
 	});
 	
-	console.log(allMonthArr);
+	console.log("allMonthArr:"+allMonthArr);
 	
 	//강습 판매금액
 	const lessonArr = new Array();
@@ -483,7 +501,7 @@
 		lessonArr.push($(item).text());
 	});
 	
-	console.log(lessonArr);
+	console.log("lessonArr:"+lessonArr);
 	
 	//숙박 판매금액
 	const houseArr = new Array();
@@ -491,7 +509,7 @@
 		houseArr.push($(item).text());
 	});
 	
-	console.log(houseArr);
+	console.log("houseArr:"+houseArr);
 	
 	//강습+숙박 판매금액
 	const allArr = new Array();
@@ -499,7 +517,7 @@
 		allArr.push($(item).text());
 	});
 	
-	console.log(allArr);
+	console.log("allArr:"+allArr);
 	
 	var context = document
             .getElementById('salesAmountGraph')
@@ -570,7 +588,7 @@
 					label: '강습+숙박', //차트 제목
 					fill: true, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 					data: [
-						allArr[0], allArr[1], allArr[2], allArr[3], allArr[4], allArr[5] //x축 label에 대응되는 데이터 값***
+						0, allArr[0], allArr[1], allArr[2], allArr[3], allArr[4], allArr[5] //x축 label에 대응되는 데이터 값***
 					],
 					backgroundColor: [
 						//색상
