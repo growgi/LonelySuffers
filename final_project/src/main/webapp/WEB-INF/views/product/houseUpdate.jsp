@@ -173,6 +173,10 @@ input[type="number"], input[type="time"] {
 					<div class="col-md-6 product-detail">
 							<input type="hidden" name="houseNo" value="${house.houseNo }">
 							<input type="hidden" name="roomTitle" value="${house.roomTitle }">
+							<input type="hidden" name="houseStatus" value="${house.houseStatus }">
+							<c:if test="${house.houseStatus == -2 }">
+								<input type="hidden" name="rejectComment" value="${house.rejectComment }">
+							</c:if>
 							<p>${house.roomTitle }</p>
 							<hr>
 							<div class="row">
@@ -350,6 +354,15 @@ input[type="number"], input[type="time"] {
 				$("[name=housePartyPrice]").prop("disabled", false);
 			}else{
 				$("[name=housePartyPrice]").prop("disabled", true);
+			}
+		});
+
+
+
+	// status가 -2이면 alert로 rejectComment 노출
+		$(document).ready(function(){
+			if ( $("[name=rejectComment]").length > 0 ){
+				alert("관리자의 반려사유:\n"+$("[name=rejectComment]").val());
 			}
 		});
 
