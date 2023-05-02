@@ -266,7 +266,7 @@
 								<button class="Btn reviewBtn button-74" style="margin-top: 20px;">후기 작성하기</button>
 							</c:if>	
 							<div class="review-wrap" style="margin-top: 20px;" >
-							<form action="/reviewWriteFrm.do" method="post" enctype="multipart/form-data">
+							<form action="/reviewWriteFrm.do" onsubmit="return getCurrentUrl()" method="post" enctype="multipart/form-data">
 							<table>
 								<tr>
 									<th style="padding-bottom: 10px;">사진</th>
@@ -296,13 +296,13 @@
 							<input type="hidden" name="productCategory" value="2">
 							<input type="hidden" name="productNo" value="${house.houseNo}">
 							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
+							<input type="hidden" name="previousUrl">
 							<button style="margin-top: 10px; margin-right: 10px;" class="button-74" type="submit">후기작성</button>
 							<button class="reviewEndBtn button-74" type="button">취소</button>
 							
 							</form>
 							</div>
 							<div style="margin-top: 20px; margin-bottom: 20px; border-bottom: 2px dashed #595959;"></div>
-							
 							
 							<!--별점 & 후기 리스트 나오는 부분 -->
 							
@@ -326,7 +326,7 @@
 													<td colspan="7" style="text-align:center;">조회된 리뷰가 없습니다.</td>
 												</tr>
 											</c:when>
-											<c:otherwise>	
+											<c:otherwise>
 												<c:forEach items="${list }" var="review">
 													<tr class="reviewModalContent">
 														<td style="text-align: center;">${review.reviewTitle }</td>
@@ -369,7 +369,7 @@
 																<button type="button" class="reviewModalBtn button-73" style="margin-right: 10px;" data-toggle="modal" data-target="#reviewUpdate">수정</button>
 																<input type="hidden" value="${review.reviewNo }">
 																<input type="hidden" value="${review.productCategory }">
-																<a class="reviewModalBtn button-73" href="/deleteReview.do?reviewNo=${review.reviewNo }">삭제</a>
+																<a class="reviewModalBtn button-73" href="/deleteReview.do?productNo=${house.houseNo }&productCat=2&reviewNo=${review.reviewNo }">삭제</a>
 															</c:if>
 														</td>
 													</tr>
@@ -386,7 +386,7 @@
 							<div class="modal fade" id="reviewUpdate" role="dialog">
 							    <div class="modal-dialog">
 							      <div class="modal-content">
-							        <form action="/reviewUpdate.do" method="post" enctype="multipart/form-data">
+							        <form action="/reviewUpdate.do" onsubmit="return updateReviewBtn()" method="post" enctype="multipart/form-data">
 							          <fieldset>
 								        <div class="modal-header">
 								          <button type="button" id="writeModalClose" class="close" data-dismiss="modal">&times;</button>
@@ -401,20 +401,28 @@
 							          		<div>내용</div>
 							          		<textarea class="form-control reviewContent" rows="6" name="reviewContent" placeholder="내용" required></textarea>
 							          		<div>별점(1~5)</div>
-							          		<input type="number" id="updateRating" class="form-control rating" name="rating" step=1 min=1 max=5 required>
+											<div>
+												<input type="radio" id="updateStar1" name="updateRating" value="1"><label class="ratingTap" for="updateStar1"></label>
+												<input type="radio" id="updateStar2" name="updateRating" value="2"><label class="ratingTap" for="updateStar2"></label>
+												<input type="radio" id="updateStar3" name="updateRating" value="3"><label class="ratingTap" for="updateStar3"></label>
+												<input type="radio" id="updateStar4" name="updateRating" value="4"><label class="ratingTap" for="updateStar4"></label>
+												<input type="radio" id="updateStar5" name="updateRating" value="5"><label class="ratingTap" for="updateStar5"></label>
+											</div>
+							          		<input type="hidden" id="updateRating" name="rating">
 							          		<div style="display: none;">카테고리</div>
 							          		<input type="hidden" class="form-control productCategory" name="productCategory">
 							          		<input style="display: none;" type="text" class="form-control showProductCategory" readonly>
 							          		<div style="display: none;">상품번호</div>
 							          		<input style="display: none;" type="text" class="form-control productNo" name="productNo" value="${house.houseNo}" readonly>
-							          		<div>첨부파일</div>
+							          		<div style="clear: both;">첨부파일</div>
 						          			<div class="fileList-wrap">
 						          			</div>
 											<p>첨부파일 추가</p>
 											<input type="file" name="reviewFile" multiple>
+							          		<input type="hidden" name="previousUrl">
 								        </div>
 								        <div class="modal-footer">
-							          		<button class="button-73" id="ratingBtn" style="float: right;" onclick="return insertReviewBtn()">후기글 등록</button>
+							          		<button type="submit" class="button-73" id="ratingBtn" style="float: right;">후기글 수정</button>
 							        	</div>
 							          </fieldset>
 							        </form>
@@ -510,23 +518,37 @@
 
 
 	<script type="text/javascript">
+	// 후기 등록 submit 버튼 눌렀을 때
+	function getCurrentUrl(){
+		const ltrim = /^\S{0,}houseView/;
+		const currentUrl = window.location.href;
+		const returnUrl = currentUrl.replace(ltrim, "");
+		$("[name=previousUrl]").val("houseView"+returnUrl);
+		return true;
+	}
 	
-	// ratingBtn 정규표현식 버튼 실행
-	/*
-	function insertReviewBtn(){
-		const value = $("#updateRating").val();
-		console.log(value)
-		let regExp;
-		regExp = /^[1-5]+$/;
-		const check = regExp.test(value);
-		if(check){
-			return true;
-		}else{
-			alert("숫자 1~5만 입력 해주세요.")
+	// 후기 수정하는 modal에서 submit 버튼 눌렀을 때
+	function updateReviewBtn(){
+		const ltrim = /^\S{0,}houseView/;
+		const currentUrl = window.location.href;
+		const returnUrl = currentUrl.replace(ltrim, "");
+		$("[name=previousUrl]").val("houseView"+returnUrl);
+		
+		if($("#updateStar1").prop("checked")){
+			$("#updateRating").val(1)
+		}else if($("#updateStar2").prop("checked")){
+			$("#updateRating").val(2)
+		}else if($("#updateStar3").prop("checked")){
+			$("#updateRating").val(3)
+		}else if($("#updateStar4").prop("checked")){
+			$("#updateRating").val(4)
+		}else if($("#updateStar5").prop("checked")){
+			$("#updateRating").val(5)
+		}else {
 			return false;
 		}
+		return true;
 	}
-	*/
 		
 	
 	// review 더보기 버튼 실행
@@ -572,14 +594,25 @@
 			div.append(f).append(button);
 			$(".fileList-wrap").append(div);
 		})
-		$(".updateReviewNo").val(reviewNo)
-		$(".modal-footer").children().attr("href", "")
+		$(".updateReviewNo").val(reviewNo);
+		$(".modal-footer").children().attr("href", "");
 		$(".reviewTitle").val(reviewTitle);
 		$(".reviewWriter").val(reviewWriter);
 		$(".reviewContent").val(reviewContent);
 		$(".rating").val(rating);
 		$(".productCategory").val(productCategory);
 		$(".showProductCategory").val("숙박");
+		if(rating == 1){
+			$("#updateStar1").prop("checked", true);
+		}else if(rating == 2){
+			$("#updateStar2").prop("checked", true);
+		}else if(rating == 3){
+			$("#updateStar3").prop("checked", true);
+		}else if(rating == 4){
+			$("#updateStar4").prop("checked", true);
+		}else if(rating == 5){
+			$("#updateStar5").prop("checked", true);
+		}
 	});
 	
 	// review 파일 삭제

@@ -34,7 +34,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/reviewWriteFrm.do")
-	public String reviewWrite(Review rv, MultipartFile[] reviewFile, HttpServletRequest request, Model model) {
+	public String reviewWrite(Review rv, String previousUrl, MultipartFile[] reviewFile, HttpServletRequest request, Model model) {
 		ArrayList<RFileVO> fileList = new ArrayList<RFileVO>();
 		if(!reviewFile[0].isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/review/");
@@ -53,20 +53,20 @@ public class ReviewController {
 			model.addAttribute("title","후기 작성");
   			model.addAttribute("msg","후기 작성에 실패하였습니다.");
   			model.addAttribute("icon","error");
-  			model.addAttribute("loc","/");
+  			model.addAttribute("loc","/"+previousUrl);
   			return "common/msg";
 		}else {
 			model.addAttribute("title","후기 작성");
     	  	model.addAttribute("msg","후기 작성에 성공하였습니다.");
   			model.addAttribute("icon","success");
-  			model.addAttribute("loc","/");
+  			model.addAttribute("loc","/"+previousUrl);
   			return "common/msg";
 		}
 		
 	}
 	
 	@RequestMapping(value="/reviewUpdate.do")
-	public String reviewUpdate(Review rv, String[] delFileList, int[] fileNo, MultipartFile[] reviewFile, HttpServletRequest request, Model model) {
+	public String reviewUpdate(Review rv, String previousUrl, String[] delFileList, int[] fileNo, MultipartFile[] reviewFile, HttpServletRequest request, Model model) {
 		ArrayList<RFileVO> fileList = new ArrayList<RFileVO>();
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/review/");
 		if(!reviewFile[0].isEmpty()) {
@@ -97,28 +97,40 @@ public class ReviewController {
 				model.addAttribute("title","후기 수정");
 	  			model.addAttribute("msg","후기 수정에 성공하였습니다.");
 	  			model.addAttribute("icon","success");
-	  			model.addAttribute("loc","/");
+	  			model.addAttribute("loc","/"+previousUrl);
 	  			return "common/msg";
 			}else {
 				model.addAttribute("title","후기 수정");
 	    	  	model.addAttribute("msg","후기 수정에 실패하였습니다.");
 	  			model.addAttribute("icon","error");
-	  			model.addAttribute("loc","/");
+	  			model.addAttribute("loc","/"+previousUrl);
 	  			return "common/msg";
 			}
 	}
 	
 	@RequestMapping(value="/deleteReview.do")
-	public String deleteReview(int reviewNo, Model model) {
+	public String deleteReview(int reviewNo, int productNo, int productCat, Model model) {
 		int result = service.deleteReview(reviewNo);
 		if(result > 0) {
 			model.addAttribute("title","후기 삭제");
     	  	model.addAttribute("msg","후기 삭제에 성공하였습니다.");
   			model.addAttribute("icon","success");
-  			model.addAttribute("loc","/");
+  			if(productCat == 1) {
+  	  			model.addAttribute("loc","/lessonView.do?lessonNo="+productNo);
+  			}else if(productCat == 2) {
+  	  			model.addAttribute("loc","/houseView.do?houseNo="+productNo);
+  			}
   			return "common/msg";
 		}else{
-			return "redirect:/";
+			model.addAttribute("title","후기 삭제");
+    	  	model.addAttribute("msg","후기 삭제에 실패하였습니다.");
+  			model.addAttribute("icon","error");
+  			if(productCat == 1) {
+  	  			model.addAttribute("loc","/lessonView.do?lessonNo="+productNo);
+  			}else if(productCat == 2) {
+  	  			model.addAttribute("loc","/houseView.do?houseNo="+productNo);
+  			}
+  			return "common/msg";
 		}
 	}
 	

@@ -113,7 +113,7 @@ input:checked + .ratingTap ~ .ratingTap:before {
     content: "\f006";
 }
 
-[name="rating"] {
+[name="rating"], [name="updateRating"] {
     display: none;
 }
 
