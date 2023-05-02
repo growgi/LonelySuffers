@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Lonely Surfers Admin</title>
 </head>
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
 <style>
@@ -98,6 +98,7 @@
                             <td>${m.memberEmail }</td>
                             <td>${m.enrollDate }</td>
                             <td>
+                            <div class="memberGradeVal" style="display:none;">${m.memberGrade}</div>
                             <c:choose>
                             <c:when test="${m.memberGrade == 1}">
                                 <select class="grade-change">
@@ -160,7 +161,7 @@
     $(function(){
         $(".menu-detail>li>a").eq(0).addClass("active-menu-click");
     });
-
+    
     $(".changeGrade-btn").on("click",function(){
         const result = confirm("해당 회원의 등급을 변경하시겠습니까?");
     
@@ -171,7 +172,6 @@
             alert("등급 변경이 취소되었습니다.");
         }
     });
-
     
     /*등급 변경*/
     //1명
@@ -214,7 +214,7 @@
 
         
         $(".checkedChangeGrade").on("click",function(){
-            console.log(id);
+            //console.log(id);
             location.href="/checkedChangeGrade.do?id="+id.join("/")+"&grade="+grade.join("/");
     	  });
       });
@@ -254,8 +254,8 @@
     
     /*모달*/
     $(function () {
-      $(document).on("click", ".deleteMember-modal-open-btn", function () {
-        //전달할 값
+    	const deleteMemberFunc = $(document).on("click", ".deleteMember-modal-open-btn", function (event) {
+		 //전달할 값
 		const check = $(".check:checked");
 		
 		if(check.length == 0) {
@@ -263,25 +263,37 @@
 		    return;
 		}
 		
-        $($(this).attr("target")).css("display", "flex"); //모달 보이기
-		
 		//체크된 회원아이디 저장 배열
 		const id = new Array();
 		
 		//체크된 체크박스 기준으로 회원아이디를 배열에 넣는 작업
-		check.each(function(index,item){
-		    const memberId = $(item).parent().parent().children().eq(2).text();
-		    console.log(memberId);
-		    id.push(memberId);
+		adminCheck = check.each(function(index,item){
+		    const memberGrade = $(item).parent().parent().find(".memberGradeVal").text();
+		    console.log(memberGrade);
+		    
+		    if(memberGrade == 1) {
+		    	alert("관리자는 탈퇴시킬 수 없습니다.");
+		    	
+		    	return;
+		    } else {
+			    const memberId = $(item).parent().parent().children().eq(2).text();
+			    //console.log(memberId);
+			    id.push(memberId);
+		    	
+		    }
+		    
 		});
-        
-        //console.log(productType);
-        //console.log(productNo);
-        
-    	  $(".deleteMember").on("click",function(){
-    		  console.log(id);
-	 		  location.href="/deleteMember.do?id="+id.join("/");
-    	  });
+		
+		$($(this).attr("target")).css("display", "flex"); //모달 보이기
+		      
+		//console.log(productType);
+		//console.log(productNo);
+  	        
+		$(".deleteMember").on("click",function(){
+			//console.log(id);
+			location.href="/deleteMember.do?id="+id.join("/");
+		});
+		
       });
       
       $(document).on("click", ".modal-close", function () {
