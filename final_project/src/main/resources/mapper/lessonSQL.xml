@@ -36,6 +36,7 @@
 		<if test='lessonMaxNo != 0'>LESSON_MAX_NO = #{lessonMaxNo},</if>
 		<if test='lessonStartTime != null'>LESSON_START_TIME = #{lessonStartTime},</if>
 		<if test='lessonEndTime != null'>LESSON_END_TIME = #{lessonEndTime},</if>
+		<if test='lessonStatus == -2'>LESSON_STATUS = -1,</if>
 		LESSON_PRICE = #{lessonPrice}
   		WHERE LESSON_NO = #{lessonNo}
 	</update>
@@ -133,7 +134,7 @@
 		<result column="LESSON_STATUS" property="lessonStatus"></result>
 		<result column="LESSON_SCORE" property="lessonScore"></result>
 		<result column="WRITER" property="writer"></result>
-		<result column="REJECT_COMMNET" property="rejectComment"></result>
+		<result column="REJECT_COMMENT" property="rejectComment"></result>
 	</resultMap>
 
 

@@ -507,12 +507,14 @@
 	<update id="updateApproveLesson" parameterType="_int">
 		update lesson set
 			lesson_status=1
+			reject_comment=''
 		where lesson_no=#{_parameter}
 	</update>
 	
 	<update id="updateApproveHouse" parameterType="_int">
 		update house set
-			house_status=1
+			house_status=1,
+			reject_comment=''
 		where house_no=#{_parameter}
 	</update>
 	

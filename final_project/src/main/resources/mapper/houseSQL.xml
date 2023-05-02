@@ -40,6 +40,7 @@
 		<if test='houseDescription != null'>HOUSE_DESCRIPTION = #{houseDescription},</if>
 		<if test='houseBarbecuePrice != 0'>HOUSE_BARBECUE_PRICE = #{houseBarbecuePrice},</if>
 		<if test='housePartyPrice != 0'>HOUSE_PARTY_PRICE = #{housePartyPrice},</if>
+		<if test='houseStatus == -2'>HOUSE_STATUS = -1,</if>
 		HOUSE_PRICE = #{housePrice},
 		HOUSE_BARBECUE = #{houseBarbecue},
 		HOUSE_PARTY = #{houseParty}
@@ -188,7 +189,7 @@
 		<result column="HOUSE_BARBECUE_PRICE" property="houseBarbecuePrice"></result>
 		<result column="HOUSE_PARTY" property="houseParty"></result>
 		<result column="HOUSE_PARTY_PRICE" property="housePartyPrice"></result>
-		<result column="REJECT_COMMNET" property="rejectComment"></result>
+		<result column="REJECT_COMMENT" property="rejectComment"></result>
 		<result column="ROOM_NO" property="roomNo"></result>
 		<result column="ROOM_NAME" property="roomName"></result>
 	</resultMap>
