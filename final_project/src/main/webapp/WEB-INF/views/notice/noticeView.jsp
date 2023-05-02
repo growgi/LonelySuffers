@@ -48,8 +48,9 @@
 					<div style="text-align: left; margin-left: 185px; margin-bottom: 15px;">
 						<a class="button-74" href="/noticeList.do?reqPage=1">목록보기</a>
 					</div>
-					<div class="paper">
-						<div class="paper-content">
+					<div class="notepad">
+						<div class="topNotepad"></div>
+						<div class="paper">
 							<ul>
 								<li class="paper2">제목</li>
 								<li>${n.noticeTitle }</li>
@@ -60,7 +61,7 @@
 							</ul>
 							<ul>
 								<c:forEach items="${n.fileList }" var="f">
-					            	<img src="/resources/upload/notice/${f.filepath }" width="100" height="100">
+					            	<img src="/resources/upload/notice/${f.filepath }" width="150" height="150">
 					            </c:forEach>
 							</ul>
 							<ul>
