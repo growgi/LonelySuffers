@@ -375,7 +375,7 @@
 											<input type="file" name="reviewFile" multiple>
 								        </div>
 								        <div class="modal-footer">
-							          		<button id="ratingBtn" style="float: right;" onclick="return insertReviewBtn()">후기글 등록</button>
+							          		<button class="button-73" id="ratingBtn" style="float: right;" onclick="return insertReviewBtn()">후기글 등록</button>
 							        	</div>
 							          </fieldset>
 							        </form>
