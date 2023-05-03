@@ -245,7 +245,7 @@
 <div class="left-menu">
     <div class="left-menu-wrapper">
         <div class="left-menu-title">
-            <a href="/">
+            <a href="/main.do">
                 <div class="waveEffect">
                     <p class="waveEffectWord-back" style="font-family: 'Delicious Handrawn', cursive;">Lonely Surfers</p>
                 </div>
