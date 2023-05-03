@@ -10,7 +10,7 @@
 </head>
 <body class="loading">
 	  <h1>요청하신 페이지를 호출할수 없습니다.</h1>
-	  <h2><span class="timeSpan">5</span>초 후 메인으로 이동합니다<b>:(</b></h2>
+	  <h2><span class="timeSpan">5</span>초 후 메인으로 이동합니다<b>:)</b></h2>
 	  <div class="gears">
 	    <div class="gear one">
 	      <div class="bar"></div>
