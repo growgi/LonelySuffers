@@ -506,7 +506,7 @@
 	
 	<update id="updateApproveLesson" parameterType="_int">
 		update lesson set
-			lesson_status=1
+			lesson_status=1,
 			reject_comment=''
 		where lesson_no=#{_parameter}
 	</update>
