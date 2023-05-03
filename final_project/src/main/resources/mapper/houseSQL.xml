@@ -10,7 +10,8 @@
 
 <!-- 숙박 상품 신규 등록 -->
 	<insert id="insertHouse" parameterType="h">
-		INSERT INTO HOUSE VALUES (HOUSE_SEQ.NEXTVAL, #{houseTitle}, #{houseCity}, #{houseAddress}, #{houseDescription}, #{housePhoto1}, #{housePhoto2}, #{housePhoto3}, #{housePhoto4}, -1, '', #{writer}, #{roomTitle}, #{roomCapa}, #{housePrice}, #{houseBarbecue}, #{houseBarbecuePrice}, #{houseParty}, #{housePartyPrice}, #{houseLat}, #{houseLng}, '')
+		INSERT INTO HOUSE VALUES (HOUSE_SEQ.NEXTVAL, #{houseTitle}, #{houseCity}, #{houseAddress}, #{houseDescription}, #{housePhoto1}, #{housePhoto2}, #{housePhoto3}, #{housePhoto4}, -1, '', #{writer}, #{roomTitle}, #{roomCapa}, #{housePrice}, #{houseBarbecue}, #{houseBarbecuePrice}, #{houseParty}, #{housePartyPrice}, #{houseLat}, #{house
+		}, '')
 		<selectKey resultType="_int" order="AFTER" keyProperty="houseNo">
 			SELECT MAX(HOUSE_NO) FROM HOUSE
 		</selectKey>
@@ -35,8 +36,8 @@
 		<if test='houseTitle != null'>HOUSE_TITLE = #{houseTitle},</if>
 		<if test='houseAddress != null'>HOUSE_ADDRESS = #{houseAddress},</if>
 		<if test='houseCity != null'>HOUSE_CITY = #{houseCity},</if>
-		<if test='houseLng != 0'>HOUSE_LNG = #{houseLng},</if>
-		<if test='houseLat != 0'>HOUSE_LAT = #{houseLat},</if>
+		<if test='houseLng != null'>HOUSE_LNG = #{houseLng},</if>
+		<if test='houseLat != null'>HOUSE_LAT = #{houseLat},</if>
 		<if test='houseDescription != null'>HOUSE_DESCRIPTION = #{houseDescription},</if>
 		<if test='houseBarbecuePrice != 0'>HOUSE_BARBECUE_PRICE = #{houseBarbecuePrice},</if>
 		<if test='housePartyPrice != 0'>HOUSE_PARTY_PRICE = #{housePartyPrice},</if>

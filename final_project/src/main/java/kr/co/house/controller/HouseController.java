@@ -67,7 +67,7 @@ public class HouseController {
 					model.addAttribute("house", h);
 					return "product/houseDetail";
 				}else if(me.getMemberGrade()==2) {
-					if(h.getWriter()==me.getMemberId()) {
+					if(h.getWriter().equals(me.getMemberId())) {
 					ArrayList<Review> list = rservice.selectAllReview(houseNo);
 					model.addAttribute("list", list);
 					model.addAttribute("house", h);

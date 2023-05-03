@@ -2383,52 +2383,54 @@ $("document").ready(function() {
 							//나중에 쓸 수 있게 receipt부분의 lessonBookNo에 값을 넣어줌
 							$("#lessonBookNo").attr("value",data);
 							console.log("ajax lessonBookNo"+data);
+							
+							
+							//ajax로 order_tbl에 insert(const는 모두 만들어놨음 ajax만 돌리면 된다)
+							$.ajax({
+								url:"/oderTblInsert.do",
+								type:"post",
+								data:{houseNo : houseNo, memberNo : memberNo, orderAllPrice : orderAllPrice, orderProduct : orderProduct},
+								success:function(data){
+									//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
+									$("#orderNo").attr("value",data);
+									console.log("ajax orderNo"+data);
+										//ajax로 order_detail에 insert
+										
+												const orderNo = data;
+												console.log("orderNo"+orderNo);
+												const roomBookNo = $("#roomBookNo").val();
+												console.log("roomBookNo"+roomBookNo);
+												const lessonBookNo = $("#lessonBookNo").val();
+												console.log("lessonBookNo"+lessonBookNo);
+										$.ajax({
+											url:"/orderDetailInsert.do",
+											type:"post",
+											data:{orderNo : orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
+											success:function(data){
+												
+												//나중에 쓸 수 있게 receipt부분의 orderDetailNo에 값을 넣어줌
+												$("#orderDetailNo").attr("value",data);
+												//다음 페이지 이동
+												$(".pages").hide();
+												console.log("page9 숨김")
+												$(".page9").show();
+												console.log("page9 보여줌")
+												$(".title").text("즐거운 여행 되세요");
+												console.log("page9 제목")
+												$("#current-page").attr("value",9);
+												
+											}
+										})
+									//
+								}
+							});//order_tbl, orderDetail에 insert끝
 						},
 						error:function(){
 							console.log("roomBook insert에 문제있음");
 						}
-					});
-					
-					//ajax로 order_tbl에 insert(const는 모두 만들어놨음 ajax만 돌리면 된다)
-					$.ajax({
-						url:"/oderTblInsert.do",
-						type:"post",
-						data:{houseNo : houseNo, memberNo : memberNo, orderAllPrice : orderAllPrice, orderProduct : orderProduct},
-						success:function(data){
-							//나중에 쓸 수 있게 receipt부분의 orderNo에 값을 넣어줌
-							$("#orderNo").attr("value",data);
-							console.log("ajax orderNo"+data);
-								//ajax로 order_detail에 insert
-								
-										const orderNo = data;
-										console.log("orderNo"+orderNo);
-										const roomBookNo = $("#roomBookNo").val();
-										console.log("roomBookNo"+roomBookNo);
-										const lessonBookNo = $("#lessonBookNo").val();
-										console.log("lessonBookNo"+lessonBookNo);
-								$.ajax({
-									url:"/orderDetailInsert.do",
-									type:"post",
-									data:{orderNo : orderNo, houseNo : houseNo, roomBookNo : roomBookNo, lessonNo : lessonNo, lessonBookNo : lessonBookNo},
-									success:function(data){
-										
-										//나중에 쓸 수 있게 receipt부분의 orderDetailNo에 값을 넣어줌
-
-										$("#orderDetailNo").attr("value",data);
-										//다음 페이지 이동
-										$(".pages").hide();
-										console.log("page9 숨김")
-										$(".page9").show();
-										console.log("page9 보여줌")
-										$(".title").text("즐거운 여행 되세요");
-										console.log("page9 제목")
-										$("#current-page").attr("value",9);
-										
-									}
-								})
-							//
-						}
 					});//결제 성공 이후 insert 로직 끝
+					
+				
 					
 			}else{
 				alert("결제를 취소합니다");	

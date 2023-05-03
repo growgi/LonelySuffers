@@ -74,10 +74,10 @@
             <div id="navbar" class="navbar-collapse collapse">
                <ul class="nav navbar-nav navbar-right">
                   <li class="active"><a href="index.jsp"><img alt="main" src="/resources/images/home.png" style="width: 30px; height: 30px;">홈</a></li>
-                  <li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <li class="dropdown yamm-fw hasmenu" style="position:relative;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <img alt="main" src="/resources/images/surfersurfer.png" style="width: 30px; height: 30px;">
                   상품 <span class="fa fa-angle-down"></span></a>
-                     <ul class="dropdown-menu">
+                     <ul class="dropdown-menu" style="left:0;">
                         <li>
                            <div class="yamm-content">
                               <div class="row">

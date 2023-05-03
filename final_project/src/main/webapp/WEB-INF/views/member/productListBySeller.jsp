@@ -71,6 +71,16 @@
 	.product-check:focus {
 		outline: none;
 	}
+	.insertBtn{
+	float: right;
+    color: black;
+    border: none;
+    outline: none;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 7px;
+    font-size: 16px;
+    }
 </style>
 </head>
 
@@ -118,7 +128,7 @@
 					</form>
 						<div class="productList-top list-top">
 							<div class="count">
-								전체 상품 <span>${productCount }</span>
+								전체 상품 <span>${productCount }</span><button class="insertBtn" type="button" onclick="location.href='/productInsert.do'">상품등록</button>
 							</div>
 							<table>
 								<tr>
