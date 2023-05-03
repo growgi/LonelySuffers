@@ -99,6 +99,7 @@ $(function() {
   }
   
   function saveid() {
+
     var expdate = new Date();
     if ($("#saveId").is(":checked")) {
       expdate.setTime(expdate.getTime() + 1000 * 3600 * 24 * 10); //맨뒤에 10은 10일동안쿠키에 저장한다는 뜻
