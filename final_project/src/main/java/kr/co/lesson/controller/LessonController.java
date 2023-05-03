@@ -56,7 +56,7 @@ public class LessonController {
 					model.addAttribute("lesson", l);
 					return "product/lessonDetail";
 				}else if(me.getMemberGrade()==2) {
-					if(l.getWriter()==me.getMemberId()) {
+					if(l.getWriter().equals(me.getMemberId())) {
 						ArrayList<Review> list = rservice.selectAllReview(lessonNo);
 						model.addAttribute("list", list);
 						model.addAttribute("lesson", l);
