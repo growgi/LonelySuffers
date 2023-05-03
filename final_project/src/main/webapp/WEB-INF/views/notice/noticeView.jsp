@@ -53,11 +53,11 @@
 						<div class="paper">
 							<ul>
 								<li class="paper2">제목</li>
-								<li>${n.noticeTitle }</li>
+								<li style="font-size: 17px;">${n.noticeTitle }</li>
 							</ul>
 							<ul>
 								<li class="paper2">작성일</li>
-								<li>${n.noticeDate }</li>
+								<li style="font-size: 17px;">${n.noticeDate }</li>
 							</ul>
 							<ul>
 								<c:forEach items="${n.fileList }" var="f">
@@ -66,7 +66,7 @@
 							</ul>
 							<ul>
 								<li class="paper2">내용</li>
-								<li>${n.getNoticeContentBr() }</li>
+								<li style="font-size: 17px;">${n.getNoticeContentBr() }</li>
 							</ul>
 						</div>
 					</div>

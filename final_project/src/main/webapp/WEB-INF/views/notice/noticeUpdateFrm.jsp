@@ -50,13 +50,13 @@
 							<div class="topNotepad"></div>
 							<div class="paper">
 								<ul>
-									<li class="paper2">번호<input id="noticeNo" type="text" name="noticeNo" value="${n.noticeNo }" readonly></li>
+									<li class="paper2">번호<input style="font-size: 20px;" id="noticeNo" type="text" name="noticeNo" value="${n.noticeNo }" readonly></li>
 								</ul>
 								<ul>
-									<li class="paper2">제목<input id="noticeTitle2" type="text" name="noticeTitle" value="${n.noticeTitle }" required></li>
+									<li class="paper2">제목<input style="font-size: 20px;" id="noticeTitle2" type="text" name="noticeTitle" value="${n.noticeTitle }" required></li>
 								</ul>
 								<ul>
-									<li class="paper2">작성일<input id="noticeDate" type="text" name="noticeDate" value="${n.noticeDate }" readonly></li>
+									<li class="paper2">작성일<input style="font-size: 20px;" id="noticeDate" type="text" name="noticeDate" value="${n.noticeDate }" readonly></li>
 								</ul>
 								<ul>
 									<li class="paper2">첨부파일</li>
