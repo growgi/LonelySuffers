@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lonly Surfers</title>
+<title>Lonely Surfers</title>
 <link rel="stylesheet" href="/resources/css/login.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" />
 <link rel="stylesheet" href="resources/css/adminTable.css"></link>
