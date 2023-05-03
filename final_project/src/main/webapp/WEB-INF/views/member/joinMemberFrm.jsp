@@ -58,7 +58,7 @@
 							</div>
 							<span id="pwChkSpan"></span>
 							<div>
-							<input type="text" name="memberName" id="memberName" class="longinput inputVaild" required>
+							<input type="text" name="memberName" id="memberName" maxlength="6" class="longinput inputVaild" required>
 							<label for="memberName">이름</label>
 							</div>
 							<div>

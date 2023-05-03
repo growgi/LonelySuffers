@@ -196,6 +196,7 @@
 		    return;
 		}
 		
+		
         $($(this).attr("target")).css("display", "flex"); //모달 보이기
 		
 		//체크된 회원아이디 저장 배열

@@ -74,49 +74,25 @@
             <div id="navbar" class="navbar-collapse collapse">
                <ul class="nav navbar-nav navbar-right">
                   <li class="active"><a href="index.jsp"><img alt="main" src="/resources/images/home.png" style="width: 30px; height: 30px;">홈</a></li>
-                  <li class="dropdown yamm-fw hasmenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <li class="dropdown yamm-fw hasmenu" style="position:relative;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <img alt="main" src="/resources/images/surfersurfer.png" style="width: 30px; height: 30px;">
                   상품 <span class="fa fa-angle-down"></span></a>
-                     <ul class="dropdown-menu">
+                     <ul class="dropdown-menu" style="left:0;">
                         <li>
                            <div class="yamm-content">
                               <div class="row">
-                                 <div class="col-md-2">
+                                 <div class="col-md-1">
                                     <ul>
                                        <li><a href="service-01.html"></a></li>
                                        <li><a href="service-02.html"></a></li>
                                        <li><a href="service-03.html"></a></li>
-                                       <li><a href="service-04.html"></a></li>
-                                       <li><a href="service-05.html"></a></li>
-                                       <li><a href="service-06.html"></a></li>
-                                       <li><a href="service-07.html"></a></li>
-                                       <li><a href="service-08.html"></a></li>
-                                       <li><a href="service-09.html"></a></li>
                                     </ul>
                                  </div>
-                                 <div class="col-md-4">
+                                 <div class="col-md-4" >
                                     <ul>
-                                       <li><a href="page-services.html">All Services</a></li>
-                                       <li><a href="/productInsert.do">상품 등록 페이지</a></li>
+                                    <li><a href="/wishList.do">관심상품</a></li>
                                        <li><a href="/selectLessonsByCondition.do?reqPage=1">강습 상품 검색</a></li>
                                        <li><a href="/selectHousesByCondition.do?reqPage=1">숙박 상품 검색</a></li>
-                                       <li><a href="page-ebooks.html">Free E-Books</a></li>
-                                       <li><a href="page-seo-analysis.html">SEO Analysis</a></li>
-                                       <li><a href="case-studies.html">Case Studies</a></li>
-                                       <li><a href="case-studies-single.html">Case Studies Single</a></li>
-                                    </ul>
-                                 </div>
-                                 <div class="col-md-4">
-                                    <ul>
-                                       <li><a href="blog.html">Blog & News</a></li>
-                                       <li><a href="/lessonView.do?lessonNo=">강습 상품 페이지</a></li>
-                                       <li><a href="/houseView.do?houseNo=">숙박 상품 페이지</a></li>
-                                       <li><a href="page.html">Default Page</a></li>
-                                       <li><a href="page-fullwidth.html">Fullwidth Page</a></li>
-                                       <li><a href="page-contact.html">Contact us</a></li>
-                                       <li><a href="/noticeList.do?reqPage=1">공지사항</a></li>
-                                       <li><a href="/faqListKind.do?categoryNo=1&reqPage=1">FAQ's Page</a></li>
-                                       <li><a href="page-not-found.html">404 Not Found</a></li>
                                     </ul>
                                  </div>
                               </div>

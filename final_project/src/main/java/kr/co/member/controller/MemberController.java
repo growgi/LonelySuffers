@@ -47,7 +47,7 @@ public class MemberController {
 		if(me == null) {
 			return "member/login";
 		}else {
-			return "redirect:/";
+			return "redirect:/main.do";
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class MemberController {
 		if(member != null) {
 			if(member.getMemberGrade() != 4) {
 			session.setAttribute("m", member);
-			return "redirect:/";
+			return "redirect:/main.do";
 			}else{
 				model.addAttribute("title","로그인 실패");
 				model.addAttribute("msg","탈퇴한 계정입니다.새로운 계정을 가입해주세요");
@@ -96,13 +96,13 @@ public class MemberController {
 			model.addAttribute("loc","/joinMemberFrm.do");
 			return "common/msg";
 		}
-		return "redirect:/";
+		return "redirect:/main.do";
 	}
 	
 	@RequestMapping(value = "/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/main.do";
 	}
 	
 	@ResponseBody
@@ -240,7 +240,7 @@ public class MemberController {
 				model.addAttribute("title","회원탈퇴");
 				model.addAttribute("msg","회원 탈퇴에 성공했습니다.");
 				model.addAttribute("icon","success");
-				model.addAttribute("loc","/");
+				model.addAttribute("loc","/main.do");
 				session.invalidate();
 				return "common/msg";
 			}else {
@@ -254,7 +254,7 @@ public class MemberController {
 			model.addAttribute("title","회원탈퇴");
 			model.addAttribute("msg","본인 아이디만 탈퇴 가능합니다");
 			model.addAttribute("icon","error");
-			model.addAttribute("loc","/");
+			model.addAttribute("loc","/main.do");
 			return "common/msg";
 		}
 	}

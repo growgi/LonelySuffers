@@ -131,7 +131,7 @@
  			<div class="orderDetail-wrapper admin-content">
         <div style="width:75%;">
             <div class="orderDetail-title">
-                <a href="/myPage.do" class="material-symbols-outlined">arrow_back_ios</a>
+                <a href="/myPage.do?reqPage=1&tabNo=1" class="material-symbols-outlined">arrow_back_ios</a>
                 <div class="bold">주문 상세</div>
             </div>
             <div class="orderDetail-info">
