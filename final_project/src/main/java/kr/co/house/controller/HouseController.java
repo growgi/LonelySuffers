@@ -198,6 +198,12 @@ public class HouseController {
 // 숙박 상품 수정하기.   House 테이블에서 Row 1개 수정
 	@RequestMapping(value="/updateHouse.do")
 	public String updateHouse(House h, MultipartFile newPhoto1, MultipartFile newPhoto2, MultipartFile newPhoto3, MultipartFile newPhoto4, HttpServletRequest request, Model model) {
+		if(h.getHouseLat().equals("")) {
+			h.setHouseLat(null);
+		}
+		if(h.getHouseLng().equals("")) {
+			h.setHouseLng(null);
+		}
 		int result = service.updateHouse(h);
 		if(result > 0) {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upload/house/");
