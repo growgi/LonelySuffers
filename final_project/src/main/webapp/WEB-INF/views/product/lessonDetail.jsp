@@ -260,7 +260,7 @@
 									</td>
 								</tr>
 							</table>
-							<input type="hidden" name="productCategory" value="2">
+							<input type="hidden" name="productCategory" value="1">
 							<input type="hidden" name="productNo" value="${lesson.lessonNo}">
 							<input type="hidden" name="reviewWriter" value="${sessionScope.m.memberId }">
 							<input type="hidden" name="previousUrl">
@@ -317,8 +317,8 @@
 															</c:if>
 														</td>
 														<c:choose>
-															<c:when test="${review.productCategory == 2 }">
-																	<td style="text-align: center; display: none;">숙박</td>
+															<c:when test="${review.productCategory == 1 }">
+																	<td style="text-align: center; display: none;">강습</td>
 															</c:when>
 														</c:choose>
 														<td style="text-align: center; display: none;">${lesson.lessonNo}</td>

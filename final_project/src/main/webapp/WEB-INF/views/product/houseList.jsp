@@ -316,7 +316,14 @@
 						<h4>${h.houseTitle}</h4>
 						<div class="row">
 							<div class="col-md-5">
+							<c:choose>
+								<c:when test="${h.houseScore > 0 }"> 
 								<p style="font-size: 16px;">${h.houseScore}점</p>
+								</c:when>
+								<c:otherwise>
+								<p style="font-size: 16px;">평점 없음</p>
+								</c:otherwise>
+							</c:choose>
 							</div>
 							<div class="col-md-4">
 								<p><fmt:formatNumber value="${h.housePrice}" pattern="#,###" />원/1박</p>

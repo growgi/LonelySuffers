@@ -291,7 +291,14 @@
 						<h4>${l.lessonTitle}</h4>
 						<div class="row">
 							<div class="col-md-5">
+							<c:choose>
+								<c:when test="${l.lessonScore > 0 }"> 
 								<p style="font-size: 16px;">${l.lessonScore}점</p>
+								</c:when>
+								<c:otherwise>
+								<p style="font-size: 16px;">평점 없음</p>
+								</c:otherwise>
+							</c:choose>
 							</div>
 							<div class="col-md-4">
 								<p><fmt:formatNumber value="${l.lessonPrice}" pattern="#,###" />원/1일</p>
