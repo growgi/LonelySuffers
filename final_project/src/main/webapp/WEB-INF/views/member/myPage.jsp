@@ -46,7 +46,7 @@
 									<li class="chatList">1대1문의<span class="chatChkSpan"></span></li>
 									<c:if test="${sessionScope.m.memberGrade == 2}">
 									<!-- <li><a href="/productInsert.do">판매자전용</a></li> -->
-									<li><a href="/sellerProduct.do?reqPage=1">판매자전용</a></li>
+									<li><a href="/productListBySeller.do?reqPage=1">판매자전용</a></li>
 							
 									</c:if>
 								</ul>
