@@ -254,7 +254,7 @@
     
     /*모달*/
     $(function () {
-    	const deleteMemberFunc = $(document).on("click", ".deleteMember-modal-open-btn", function (event) {
+    	const deleteMemberFunc = $(document).on("click", ".deleteMember-modal-open-btn", function (e) {
 		 //전달할 값
 		const check = $(".check:checked");
 		
@@ -265,16 +265,16 @@
 		
 		//체크된 회원아이디 저장 배열
 		const id = new Array();
-		
+		let adminCheck = true;		
 		//체크된 체크박스 기준으로 회원아이디를 배열에 넣는 작업
-		adminCheck = check.each(function(index,item){
+		check.each(function(index,item){
 		    const memberGrade = $(item).parent().parent().find(".memberGradeVal").text();
 		    console.log(memberGrade);
 		    
 		    if(memberGrade == 1) {
 		    	alert("관리자는 탈퇴시킬 수 없습니다.");
+		    	adminCheck=false;
 		    	
-		    	return;
 		    } else {
 			    const memberId = $(item).parent().parent().children().eq(2).text();
 			    //console.log(memberId);
@@ -283,8 +283,13 @@
 		    }
 		    
 		});
-		
+		if(adminCheck){
+			
 		$($(this).attr("target")).css("display", "flex"); //모달 보이기
+		}
+		
+		
+		
 		      
 		//console.log(productType);
 		//console.log(productNo);
