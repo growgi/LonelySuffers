@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="resources/css/error.css">
 </head>
 <body class="loading">
-	  <h1>404</h1>
-	  <h2><span class="timeSpan">10</span>초 후 메인으로 이동합니다<b>:(</b></h2>
+	  <h1 style="font-size:55px;font-weight:600;">이용에 불편을 드려 죄송합니다</h1>
+	  <h2><span class="timeSpan"></span> 초 후 메인페이지로 이동합니다</h2>
 	  <div class="gears">
 	    <div class="gear one">
 	      <div class="bar"></div>
@@ -36,7 +36,7 @@
   
 	let intervalId;
 	function authTime(){
-		$(".timeSpan").text("10");
+		$(".timeSpan").text("6");
 		intervalId = window.setInterval(function(){
 			timeCount();
 		},1000);

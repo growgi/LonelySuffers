@@ -126,6 +126,7 @@ $(function(){
         $('[name=startChatBtn]').click();
     }else{
         $('[name=endChatBtn').click();
+        $('.sendBox').slideUp();
     }
     console.log("chatActivation : "+chatActivation);
 

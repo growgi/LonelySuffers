@@ -23,16 +23,10 @@ $('#memberPwRe').on('focusout',function(){
             if(count == regArr.length){
                 if($('#memberPw').val() == pwValue){
                     $('#pwChkSpan').text('');
-                    $('#memberPwRe').next().next().css('background-color','#666');
-                    $('#memberPwRe').next().css('color','black');
                 }else{
-                    $('#memberPwRe').next().next().css('background-color','red');
-                    $('#memberPwRe').next().css('color','red');
                     $('#pwChkSpan').text('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
                 }
             }else{
-                $('#memberPwRe').next().next().css('background-color','red');
-                $('#memberPwRe').next().css('color','red');
                 $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
             }
     }
@@ -58,17 +52,18 @@ $('#memberPw').on('focusout',function(){
     }
     if(count == regArr.length){
         $('#pwChkSpan').text('');
-        $('#memberPw').next().next().css('background-color','#666');
+
         $('#memberPw').next().css('color','#666');
     }else{
         $('#pwChkSpan').text('영어 대/소문자 숫자 특수문자(!,@,#,$,%)를 포함하여 8~15글자를 입력해주세요.');
-        $('#memberPw').next().next().css('background-color','red');
-        $('#memberPw').next().css('color','red');
+
+        $('#pwChkSpan').css('color','red');
+       
     }
     if($('#memberPwRe').val() != '' && $(this).val() != $('#memberPwRe').val()){
         $('#pwChkSpan').text('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-        $('#memberPw').next().next().css('background-color','red');
-        $('#memberPw').next().css('color','red');
+
+        $('#pwChkSpan').css('color','red');
     }
 });
 
