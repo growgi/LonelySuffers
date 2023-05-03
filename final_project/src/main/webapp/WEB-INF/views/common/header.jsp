@@ -58,7 +58,7 @@
 
 
 <!-- 로고 영역 시작 -->
-               <a class="navbar-brand" href="/">
+               <a class="navbar-brand" href="/main.do">
                   <div class="waveEffect">
                      <p class="waveEffectWord-back" style="font-family: 'Delicious Handrawn', cursive; !important; font-size:50px; ">Lonely Surfers</p>
                      <p class="waveEffectWord-front" style="font-family:'Delicious Handrawn', cursive; !important;  font-size:50px; ">Lonely Surfers</p>
@@ -73,7 +73,7 @@
 <!-- 상단 메뉴바  영역 시작 -->
             <div id="navbar" class="navbar-collapse collapse">
                <ul class="nav navbar-nav navbar-right">
-                  <li class="active"><a href="index.jsp"><img alt="main" src="/resources/images/home.png" style="width: 30px; height: 30px;">홈</a></li>
+                  <li class="active"><a href="/main.do"><img alt="main" src="/resources/images/home.png" style="width: 30px; height: 30px;">홈</a></li>
                   <li class="dropdown yamm-fw hasmenu" style="position:relative;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <img alt="main" src="/resources/images/surfersurfer.png" style="width: 30px; height: 30px;">
                   상품 <span class="fa fa-angle-down"></span></a>
