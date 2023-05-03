@@ -108,6 +108,12 @@
                     </a>
                   </li>
                   <li>
+                    <a href="/faqListKind.do?categoryNo=1&reqPage=1">
+                      <img alt="main" src="/resources/images/faq.png" style="width: 25px; height: 25px;">
+                      <span style="line-height: 25px; vertical-align: middle;">FAQ</span>
+                    </a>
+                  </li>
+                  <li>
                     <a href="/noticeList.do?reqPage=1">
                       <img alt="main" src="/resources/images/notification-bell.png" style="width: 25px; height: 25px;">
                       <span style="line-height: 25px; vertical-align: middle;">공지사항</span>
