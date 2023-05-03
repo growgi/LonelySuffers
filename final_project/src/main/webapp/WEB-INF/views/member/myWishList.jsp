@@ -184,103 +184,115 @@
 				</div>
 				<!-- end row -->
 
-				<div class="portfolio row withhover">
-					<c:forEach items="${allWishList }" var="w">
-						<c:choose>
-							<c:when test="${w.houseNo ne 0}">
-								<div class="pitem item-w1 item-h1 cat0 cat2">
-									<c:choose>
-										<c:when test="${w.houseStatus > 0}"><div class="case-box"></c:when>
-										<c:otherwise><div class="case-box black-box"></c:otherwise>
-									</c:choose>
-										<div class="wishList-box">
-											<div class="wishList-box-top">
-												<div>
-													<div class="product-title">
-														<a href="/houseView.do?houseNo=${w.houseNo}">${w.houseTitle }</a>
-													</div>
-													<div class="material-symbols-outlined close-icon">close</div>
-													<input type="hidden" value="${w.wishNo }">
-												</div>
-												<div><span class="product-name">숙박</span> | <span class="location">${w.houseCity }</span></div>
-											</div>
-											<div class="wishList-box-bottom">
-												<div>
-													<c:choose>
-														<c:when test="${w.housePhoto1 != null }">
-															<img src="resources/upload/house/${w.housePhoto1 }" class="product-img">
-														</c:when>
-														<c:otherwise>
-															<div class="material-symbols-outlined no-pic">quiz</div>
-														</c:otherwise>
-													</c:choose>
-												</div>
-												<div class="wishList-box-detail">
-													<div><b><span>${w.roomTitle }</span></b></div>
-													<div><span>${w.houseAddress }</span></div>
-													<div>객실인원 <span>${w.roomCapa }</span>명</div>
-													<div class="product-price">
-														<span><fmt:formatNumber value="${w.housePrice }" pattern="#,###" /></span>원
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:when>
-							<c:when test="${w.lessonNo ne 0}">
-								<div class="pitem item-w1 item-h1 cat0 cat1">
-									<c:choose>
-										<c:when test="${w.lessonStatus > 0}"><div class="case-box"></c:when>
-										<c:otherwise><div class="case-box black-box"></c:otherwise>
-									</c:choose>
-										<div class="wishList-box">
-											<div class="wishList-box-top">
-												<div>
-													<div class="product-title">
-														<a href="lessonView.do?lessonNo=${w.lessonNo}">${w.lessonTitle }</a>
-													</div>
-													<div class="material-symbols-outlined close-icon">close</div>
-													<input type="hidden" value="${w.wishNo }">
-												</div>
-												<div><span class="product-name">강습</span> | <span class="location">${w.lessonCity }</span></div>
-											</div>
-											<div class="wishList-box-bottom">
-												<div>
-													<c:choose>
-														<c:when test="${w.lessonInfoPic != null }">
-															<img src="resources/upload/lesson/${w.lessonInfoPic }" class="product-img">
-														</c:when>
-														<c:otherwise>
-															<div class="material-symbols-outlined no-pic">quiz</div>
-														</c:otherwise>
-													</c:choose>
-												</div>
-												<div class="wishList-box-detail">
-													<div><b>${w.lessonTeacher }</b> 강사 
-														<span class="label label-primary">
+				<c:choose>
+					<c:when test="${empty allWishList}">
+						<div><h3>등록한 관심상품이 없습니다.</h3></div>
+					</c:when>
+					<c:otherwise>
+						<div class="portfolio row withhover">
+							<c:forEach items="${allWishList }" var="w">
+								<c:choose>
+									<c:when test="${w.houseNo ne 0}">
+										<div class="pitem item-w1 item-h1 cat0 cat2">
+											<c:choose>
+												<c:when test="${w.houseStatus > 0}"><div class="case-box"></c:when>
+												<c:otherwise><div class="case-box black-box"></c:otherwise>
+											</c:choose>
+												<div class="wishList-box">
+													<div class="wishList-box-top">
+														<div>
+															<div class="product-title">
 															<c:choose>
-																<c:when test="${w.lessonLevel == 1}">초급</c:when>
-																<c:when test="${w.lessonLevel == 2}">중급</c:when>
-																<c:when test="${w.lessonLevel == 3}">상급</c:when>
+																<c:when test="${w.houseStatus > 0}"><a href="/houseView.do?houseNo=${w.houseNo}">${w.houseTitle }</a></c:when>
+																<c:otherwise>${w.houseTitle }</c:otherwise>
 															</c:choose>
-														</span>
+															</div>
+															<div class="material-symbols-outlined close-icon">close</div>
+															<input type="hidden" value="${w.wishNo }">
+														</div>
+														<div><span class="product-name">숙박</span> | <span class="location">${w.houseCity }</span></div>
 													</div>
-													<div><span>강습시간 ${w.lessonStartTime }</span> ~ <span>${w.lessonEndTime }</span></div>
-													<div>모집정원 <span>${w.lessonMaxNo }</span>명</div>
-													<div class="product-price">
-														<span><fmt:formatNumber value="${w.lessonPrice }" pattern="#,###" /></span>원
+													<div class="wishList-box-bottom">
+														<div>
+															<c:choose>
+																<c:when test="${w.housePhoto1 != null }">
+																	<img src="resources/upload/house/${w.housePhoto1 }" class="product-img">
+																</c:when>
+																<c:otherwise>
+																	<div class="material-symbols-outlined no-pic">quiz</div>
+																</c:otherwise>
+															</c:choose>
+														</div>
+														<div class="wishList-box-detail">
+															<div><b><span>${w.roomTitle }</span></b></div>
+															<div><span>${w.houseAddress }</span></div>
+															<div>객실인원 <span>${w.roomCapa }</span>명</div>
+															<div class="product-price">
+																<span><fmt:formatNumber value="${w.housePrice }" pattern="#,###" /></span>원
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-							</c:when>
-						</c:choose>
-					</c:forEach>
-				</div>
-
+									</c:when>
+									<c:when test="${w.lessonNo ne 0}">
+										<div class="pitem item-w1 item-h1 cat0 cat1">
+											<c:choose>
+												<c:when test="${w.lessonStatus > 0}"><div class="case-box"></c:when>
+												<c:otherwise><div class="case-box black-box"></c:otherwise>
+											</c:choose>
+												<div class="wishList-box">
+													<div class="wishList-box-top">
+														<div>
+															<div class="product-title">
+															<c:choose>
+																<c:when test="${w.lessonStatus > 0}"><a href="lessonView.do?lessonNo=${w.lessonNo}">${w.lessonTitle }</a></c:when>
+																<c:otherwise>${w.lessonTitle }</c:otherwise>
+															</c:choose>
+															</div>
+															<div class="material-symbols-outlined close-icon">close</div>
+															<input type="hidden" value="${w.wishNo }">
+														</div>
+														<div><span class="product-name">강습</span> | <span class="location">${w.lessonCity }</span></div>
+													</div>
+													<div class="wishList-box-bottom">
+														<div>
+															<c:choose>
+																<c:when test="${w.lessonInfoPic != null }">
+																	<img src="resources/upload/lesson/${w.lessonInfoPic }" class="product-img">
+																</c:when>
+																<c:otherwise>
+																	<div class="material-symbols-outlined no-pic">quiz</div>
+																</c:otherwise>
+															</c:choose>
+														</div>
+														<div class="wishList-box-detail">
+															<div><b>${w.lessonTeacher }</b> 강사 
+																<span class="label label-primary">
+																	<c:choose>
+																		<c:when test="${w.lessonLevel == 1}">초급</c:when>
+																		<c:when test="${w.lessonLevel == 2}">중급</c:when>
+																		<c:when test="${w.lessonLevel == 3}">상급</c:when>
+																	</c:choose>
+																</span>
+															</div>
+															<div><span>강습시간 ${w.lessonStartTime }</span> ~ <span>${w.lessonEndTime }</span></div>
+															<div>모집정원 <span>${w.lessonMaxNo }</span>명</div>
+															<div class="product-price">
+																<span><fmt:formatNumber value="${w.lessonPrice }" pattern="#,###" /></span>원
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- end container -->
 		</section>

@@ -14,7 +14,7 @@
 	content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- Site Meta -->
-<title>나의 상품 목록 - Lonely Surfers</title>
+<title>나의 강습상품 목록 - Lonely Surfers</title>
 <meta name="keywords" content="서핑,파도타기">
 <meta name="description" content="파도타기를 좋아하는 사람들을 위한 웹사이트">
 <meta name="author" content="KH정보교육원">
@@ -23,33 +23,21 @@
 <link rel="stylesheet" href="resources/css/adminProductTable.css"></link>
 <style>
 	/*table*/
-	table th:nth-child(1){
+	table th:nth-child(0){
 		width: 6%;
 	}
-	table th:nth-child(2){
+	table th:nth-child(1){
 		width: 13%;
 	}
-	table th:nth-child(3){
+	table th:nth-child(2){
 		width: 300px;
 		text-align: center;
 	}
-	table td:nth-child(3){
+	table td:nth-child(2){
 		overflow: hidden;
 	    text-overflow: ellipsis;
 	    white-space: nowrap;
 	}
-	/*table th:nth-child(4){
-		width: 30%;
-	}
-	table th:nth-child(5){
-		width: 20%;
-	}
-	table th:nth-child(6){
-		width: 20%;
-	}
-	table th:nth-child(7){
-		width: 30%;
-	}*/
 	/*별점*/
 	.rating-color{
 	    color:#fbc634 !important;
@@ -100,38 +88,40 @@
 			<div class="product-list">
 				<div class="table-content">
 					<div class="product-choice">
-						<a href="/productListBySeller.do?reqPage=1" style="background-color:#19A7CE; color:#fff">전체</a>
-						<a href="/lessonListBySeller.do?reqPage=1">강습</a>
+						<a href="/productListBySeller.do?reqPage=1">전체</a>
+						<a href="/lessonListBySeller.do?reqPage=1" style="background-color:#19A7CE; color:#fff">강습</a>
 						<a href="/houseListBySeller.do?reqPage=1">숙박</a>
 					</div>
 					<div class="list-wrapper">
 						<input type="hidden" value="${hiddenVal }" class="hidden-input">
-						<form action="/searchProductBySeller.do" method="get"
+						<form action="/searchLessonBySeller.do" method="get"
 						class="search-bar" name="search-product">
-						<select name="productSearchType" class="search-type">
-							<option value="na">상품명</option>
+						<select name="lessonSearchType" class="search-type">
+							<option value="na">강습명</option>
+							<option value="le">강습레벨</option>
 							<option value="lo">지역</option>
 						</select>
 						<!-- <span class="material-symbols-outlined search-icon">search</span>  -->
-						<input type="text" placeholder="검색어를 입력하세요" name="productSearchKeyword"onkeyup="enterkey();"> <input type="submit" style="display: none;">
+						<input type="text" placeholder="검색어를 입력하세요" name="lessonSearchKeyword" onkeyup="enterkey();"> <input type="submit"style="display: none;">
 						<div class="material-symbols-outlined search-icon"><input type="submit" value="검색" class="search-icon" style="display:none;">search</div>
 					</form>
 						<div class="productList-top list-top">
 							<div class="count">
-								전체 상품 <span>${productCount }</span>
+								강습 상품 <span>${lessonCount }</span>
 							</div>
 							<table>
 								<tr>
-									<th style="text-align: center;">종류</th>
 									<th style="text-align: center;">사진</th>
 									<th style="text-align: center;">상품명</th>
+									<th style="text-align: center;">강습 레벨</th>
+									<th style="text-align: center;">모집정원</th>
 									<th style="text-align: center;">지역</th>
 									<th style="text-align: center;">평점</th>
 									<th style="text-align: center;">상품 상태</th>
 									<th style="text-align: center;"></th>
 								</tr>
 								<c:choose>
-								<c:when test="${empty productList }">
+								<c:when test="${empty lessonList }">
 								<tr>
 									<td colspan="7">
 									    <div class="noInfo-wrapper">
@@ -144,40 +134,25 @@
 								</tr>
 								</c:when>
 								<c:otherwise>
-								<c:forEach items="${productList }" var="p">
+								<c:forEach items="${lessonList }" var="l">
                                 	<tr>
-                                		<td>${p.productType }</td>
                                 		<td>
                                 		<c:choose>
-	                                		<c:when test="${p.productPic eq null}">
+	                                		<c:when test="${l.lessonInfoPic eq null}">
 	                                			<div class="material-symbols-outlined no-pic">quiz</div>
 	                                		</c:when>
 	                                		<c:otherwise>
-		                                		<c:choose>
-		                                		<c:when test="${p.productType == '강습'}">
-			                                		<img src="resources/upload/lesson/${p.productPic }">
-		                                		</c:when>
-		                                		<c:when test="${p.productType == '숙박'}">
-			                                		<img src="resources/upload/house/${p.productPic }">
-		                                		</c:when>
-		                                		</c:choose>
-                                			</c:otherwise>
+			                                	<img src="resources/upload/lesson/${l.lessonInfoPic }">
+			                                </c:otherwise>
                                 		</c:choose>
                                 		</td>
+										<td><a href="/lessonView.do?lessonNo=${l.lessonNo }">${l.lessonTitle }</a></td>
+										<td>${l.lessonLevel }</td>
+										<td><span>${l.lessonMaxNo }</span>명</td>
+										<td>${l.lessonCity }</td>
 										<td>
 										<c:choose>
-	                                		<c:when test="${p.productType == '강습'}">
-	                                			<a href="/lessonView.do?lessonNo=${p.productNo }">${p.productTitle }</a>
-	                                		</c:when>
-	                                		<c:when test="${p.productType == '숙박'}">
-	                                			<a href="/houseView.do?houseNo=${p.productNo }">${p.productTitle }</a>
-	                                		</c:when>
-	                                	</c:choose>
-										</td>
-										<td>${p.productCity }</td>
-										<td>
-										<c:choose>
-										<c:when test="${p.productScore < 1}">		
+										<c:when test="${l.lessonScore < 1}">		
 												<div class="small-ratings">
 									                <i class="fa fa-star"></i>
 									                <i class="fa fa-star"></i>
@@ -186,7 +161,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore >= 1 && p.productScore < 2}">
+										<c:when test="${l.lessonScore >= 1 && l.lessonScore < 2}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star"></i>
@@ -195,7 +170,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore >= 2 && p.productScore < 3}">
+										<c:when test="${l.lessonScore >= 2 && l.lessonScore < 3}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -204,7 +179,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore >= 3 && p.productScore < 4}">
+										<c:when test="${l.lessonScore >= 3 && l.lessonScore < 4}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -213,7 +188,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore >= 4 && p.productScore < 5}">
+										<c:when test="${l.lessonScore >= 4 && l.lessonScore < 5}">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -222,7 +197,7 @@
 									                <i class="fa fa-star"></i>
 									            </div>
 										</c:when>
-										<c:when test="${p.productScore == 5 }">
+										<c:when test="${l.lessonScore == 5 }">
 									            <div class="small-ratings">
 									                <i class="fa fa-star rating-color"></i>
 									                <i class="fa fa-star rating-color"></i>
@@ -234,31 +209,24 @@
 										</c:choose>
 										</td>
 										<td><c:choose>
-												<c:when test="${p.productStatus == 1}">판매중</c:when>
-												<c:when test="${p.productStatus == 0}">판매중지</c:when>
-												<c:when test="${p.productStatus == -1}">승인대기</c:when>
-												<c:when test="${p.productStatus == -2}">승인반려</c:when>
+												<c:when test="${l.lessonStatus == 1}">판매중</c:when>
+												<c:when test="${l.lessonStatus == 0}">판매중지</c:when>
+												<c:when test="${l.lessonStatus == -1}">승인대기</c:when>
+												<c:when test="${l.lessonStatus == -2}">승인반려</c:when>
 											</c:choose></td>
 										<td><span class="material-symbols-outlined more-detail">more_vert</span>
 											<div class="list-detail-box" style="display: none" onblur="">
 												<div>
+													<div onclick="location.href='/lessonUpdate.do?lessonNo=${l.lessonNo }'" class="update-detail">상품 정보 수정</div>
 			                                		<c:choose>
-				                                		<c:when test="${p.productType == '강습'}">
-															<div onclick="location.href='/lessonUpdate.do?lessonNo=${p.productNo }'" class="update-detail">상품 정보 수정</div>
-														</c:when>
-				                                		<c:when test="${p.productType == '숙박'}">
-															<div onclick="location.href='/houseUpdate.do?houseNo=${p.productNo }'" class="update-detail">상품 정보 수정</div>
-				                                		</c:when>
-													</c:choose>
-			                                		<c:choose>
-				                                		<c:when test="${p.productStatus == 1}">
+				                                		<c:when test="${l.lessonStatus == 1}">
 															<div onclick="toSoldOut(this)">상품 판매 중지</div>
 														</c:when>
-				                                		<c:when test="${p.productStatus == 0}">
+				                                		<c:when test="${l.lessonStatus == 0}">
 															<div onclick="toResale(this)">판매 재개</div>
 														</c:when>
 													</c:choose>
-													<input type="hidden" value="${p.productNo }">
+													<input type="hidden" value="${l.lessonNo }">
 												</div>
 											</div>
 										</td>
@@ -306,7 +274,7 @@
 		function toSoldOut(obj){
 			$.ajax({
 				url : "/toSoldOut.do",
-				data: {productNo : $(obj).next().val(), productType : $(obj).parent().parent().parent().parent().find("td").eq(0).text()},
+				data: {productNo : $(obj).next().val(), productType : "강습"},
 				dataType : "text",
 				success : function(result){
 					if(result == "성공"){
@@ -325,7 +293,7 @@
 		function toResale(obj){
 			$.ajax({
 				url : "/toResale.do",
-				data: {productNo : $(obj).next().val(), productType : $(obj).parent().parent().parent().parent().find("td").eq(0).text()},
+				data: {productNo : $(obj).next().val(), productType : "강습"},
 				dataType : "text",
 				success : function(result){
 					if(result == "성공"){

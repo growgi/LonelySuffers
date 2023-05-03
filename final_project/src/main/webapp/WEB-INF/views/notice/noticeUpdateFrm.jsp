@@ -46,16 +46,17 @@
 			<div class="container">
 				<div class="row" style="margin-top: 20px;">
 					<form action="/noticeUpdate.do" method="post" enctype="multipart/form-data" id="updateFrm">
-						<div class="paper">
-							<div class="paper-content">
+						<div class="notepad">
+							<div class="topNotepad"></div>
+							<div class="paper">
 								<ul>
-									<li class="paper2">번호<input id="noticeNo" type="text" name="noticeNo" value="${n.noticeNo }" readonly></li>
+									<li class="paper2">번호<input style="font-size: 20px;" id="noticeNo" type="text" name="noticeNo" value="${n.noticeNo }" readonly></li>
 								</ul>
 								<ul>
-									<li class="paper2">제목<input id="noticeTitle2" type="text" name="noticeTitle" value="${n.noticeTitle }" required></li>
+									<li class="paper2">제목<input style="font-size: 20px;" id="noticeTitle2" type="text" name="noticeTitle" value="${n.noticeTitle }" required></li>
 								</ul>
 								<ul>
-									<li class="paper2">작성일<input id="noticeDate" type="text" name="noticeDate" value="${n.noticeDate }" readonly></li>
+									<li class="paper2">작성일<input style="font-size: 20px;" id="noticeDate" type="text" name="noticeDate" value="${n.noticeDate }" readonly></li>
 								</ul>
 								<ul>
 									<li class="paper2">첨부파일</li>
@@ -71,7 +72,7 @@
 								</ul>
 								</div>
 								<ul>
-									<li style="border: none;">첨부파일 추가</li>
+									<li style="border: none; font-weight: bold;">첨부파일 추가</li>
 									<li style="border: none;"><input type="file" name="noticeFile" accept=".jpg,.jpeg,.gif,.png,.webp" multiple onchange="loadImgs(this);"></li>
 								</ul>
 								<ul>
@@ -79,7 +80,7 @@
 								</ul>
 								<ul>
 									<li class="paper2">내용</li>
-									<li><textarea id="summernote" name="noticeContent" required>${n.noticeContent }</textarea></li>
+									<li><textarea style="overflow: auto;" id="summernote" name="noticeContent" required>${n.noticeContent }</textarea></li>
 								</ul>
 							</div>
 						</div>
@@ -125,8 +126,8 @@ function deleteFile(obj,fileNo,filepath){
    
    $(document).ready(function() {
 	$('#summernote').summernote({
-		  width: 725,				   // 에디터 넓이	
-		  height: 220,                 // 에디터 높이
+		  width: 750,				   // 에디터 넓이	
+		  height: 600,                 // 에디터 높이
 		  minHeight: null,             // 최소 높이
 		  maxHeight: null,             // 최대 높이
 		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부

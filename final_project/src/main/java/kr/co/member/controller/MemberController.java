@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,9 +17,10 @@ import kr.co.admin.model.vo.LessonPageData;
 import kr.co.admin.model.vo.OrderPageData;
 import kr.co.admin.model.vo.Product;
 import kr.co.admin.model.vo.ProductPageData;
-import kr.co.admin.model.vo.Search;
 import kr.co.admin.model.vo.SearchWithId;
 import kr.co.chat.model.service.ChatService;
+import kr.co.house.model.vo.House;
+import kr.co.lesson.model.vo.Lesson;
 import kr.co.member.model.service.MemberService;
 import kr.co.member.model.vo.Member;
 import kr.co.member.model.vo.Order;
@@ -47,7 +47,7 @@ public class MemberController {
 		if(me == null) {
 			return "member/login";
 		}else {
-			return "redirect:/";
+			return "redirect:/main.do";
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class MemberController {
 		if(member != null) {
 			if(member.getMemberGrade() != 4) {
 			session.setAttribute("m", member);
-			return "redirect:/";
+			return "redirect:/main.do";
 			}else{
 				model.addAttribute("title","로그인 실패");
 				model.addAttribute("msg","탈퇴한 계정입니다.새로운 계정을 가입해주세요");
@@ -96,13 +96,13 @@ public class MemberController {
 			model.addAttribute("loc","/joinMemberFrm.do");
 			return "common/msg";
 		}
-		return "redirect:/";
+		return "redirect:/main.do";
 	}
 	
 	@RequestMapping(value = "/logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/main.do";
 	}
 	
 	@ResponseBody
@@ -240,7 +240,7 @@ public class MemberController {
 				model.addAttribute("title","회원탈퇴");
 				model.addAttribute("msg","회원 탈퇴에 성공했습니다.");
 				model.addAttribute("icon","success");
-				model.addAttribute("loc","/");
+				model.addAttribute("loc","/main.do");
 				session.invalidate();
 				return "common/msg";
 			}else {
@@ -254,7 +254,7 @@ public class MemberController {
 			model.addAttribute("title","회원탈퇴");
 			model.addAttribute("msg","본인 아이디만 탈퇴 가능합니다");
 			model.addAttribute("icon","error");
-			model.addAttribute("loc","/");
+			model.addAttribute("loc","/main.do");
 			return "common/msg";
 		}
 	}
@@ -531,5 +531,69 @@ public class MemberController {
 		model.addAttribute("hiddenVal",1);
 		
 		return "member/productListBySeller";
+	}
+
+
+
+// 판매자별 강습 상품 목록 검색
+	@RequestMapping(value="/searchLessonBySeller.do")
+	public String searchLessonBySeller(String lessonSearchType, String lessonSearchKeyword, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		String[] keywords = lessonSearchKeyword.trim().replaceAll("(\\s)\\1+","$1").split(" ");		
+		SearchWithId sp = new SearchWithId(lessonSearchType, keywords, me.getMemberId());
+		System.out.println("객체"+sp);
+		
+		ArrayList<Lesson> productList = service.selectSearchLesson(sp);
+		
+		model.addAttribute("lessonList",productList);
+		model.addAttribute("hiddenVal",1);
+		
+		return "member/lessonListBySeller";
+	}
+
+
+
+// 판매자별 숙박 상품 목록 검색
+	@RequestMapping(value="/searchHouseBySeller.do")
+	public String searchHouseBySeller(String houseSearchType, String houseSearchKeyword, HttpSession session, Model model) {
+		Member me = (Member)session.getAttribute("m");
+		String[] keywords = houseSearchKeyword.trim().replaceAll("(\\s)\\1+","$1").split(" ");		
+		SearchWithId sp = new SearchWithId(houseSearchType, keywords, me.getMemberId());
+		System.out.println("객체"+sp);
+		
+		ArrayList<House> productList = service.selectSearchHouse(sp);
+		
+		model.addAttribute("houseList",productList);
+		model.addAttribute("hiddenVal",1);
+		
+		return "member/houseListBySeller";
+	}
+
+
+
+// 판매자가 자신의 상품 1개를 판매중지 처리
+	@ResponseBody
+	@RequestMapping(value="/toSoldOut.do", produces = "application/json;charset=utf-8")
+	public String toSoldOut(int productNo, String productType) {
+		int result = service.toSoldOut(productNo, productType);
+		if(result>0) {
+			return "성공";
+		} else {
+			return "실패";
+		}
+	}
+
+
+
+// 판매자가 자신의 상품 1개를 판매재개
+	@ResponseBody
+	@RequestMapping(value="/toResale.do", produces = "application/json;charset=utf-8")
+	public String toResale(int productNo, String productType) {
+		int result = service.toResale(productNo, productType);
+		if(result>0) {
+			return "성공";
+		} else {
+			return "실패";
+		}
 	}
 }

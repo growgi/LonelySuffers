@@ -42,6 +42,12 @@
 	</update>
 
 
+<!-- 강습 상품 판매상태 변경 -->
+	<update id="updateLessonStatus">
+		update lesson set lesson_status=#{productStatus} where lesson_no=#{productNo}
+	</update>
+
+
 
 <!-- 조건에 따라, 판매 중인 상품 Row들 1페이씩 조회용  -->
 	<select id="selectLessonPage" parameterType="kr.co.lesson.model.vo.LessonListing" resultType="l">

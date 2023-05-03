@@ -461,13 +461,12 @@ public class AdminController {
 		Member loginMember = (Member)session.getAttribute("m");
 		if(loginMember.getMemberGrade() == 1) {
 			ProductPageData ppd = service.selectAllProduct(reqPage); //모든 상품 목록
-			int productCount = service.selectAllProductCount(); //모든 상품 수
 			
 			if(ppd != null) {	
 				model.addAttribute("productList", ppd.getProductList());
 				model.addAttribute("pageNavi", ppd.getPageNavi());
 				model.addAttribute("start", ppd.getStart());
-				model.addAttribute("productCount", productCount);
+				model.addAttribute("productCount", ppd.getTotalCount());
 				model.addAttribute("hiddenVal",0);
 				
 				return "admin/productListAll";
@@ -488,13 +487,12 @@ public class AdminController {
 		Member loginMember = (Member)session.getAttribute("m");
 		if(loginMember.getMemberGrade() == 1) {
 			LessonPageData lpd = service.selectAllLesson(reqPage); //강습 상품 목록
-			int lessonCount = service.selectLessonCount(); //강습 상품 수
 			
 			if(lpd != null) {	
 				model.addAttribute("lessonList", lpd.getLessonList());
 				model.addAttribute("pageNavi", lpd.getPageNavi());
 				model.addAttribute("start", lpd.getStart());
-				model.addAttribute("lessonCount", lessonCount);
+				model.addAttribute("lessonCount", lpd.getTotalCount());
 				model.addAttribute("hiddenVal",0);
 				
 				return "admin/productListLesson";
@@ -516,13 +514,12 @@ public class AdminController {
 		Member loginMember = (Member)session.getAttribute("m");
 		if(loginMember.getMemberGrade() == 1) {
 			HousePageData hpd = service.selectAllHouse(reqPage); //숙박 상품 목록
-			int houseCount = service.selectHouseCount(); //숙박 상품 수
 			
 			if(hpd != null) {	
 				model.addAttribute("houseList", hpd.getHouseList());
 				model.addAttribute("pageNavi", hpd.getPageNavi());
 				model.addAttribute("start", hpd.getStart());
-				model.addAttribute("houseCount", houseCount);
+				model.addAttribute("houseCount", hpd.getTotalCount());
 				model.addAttribute("hiddenVal",0);
 				
 				return "admin/productListHouse";

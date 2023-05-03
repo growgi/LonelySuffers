@@ -50,8 +50,9 @@
 			<div class="container">
 				<div class="row" style="margin-top: 20px;">
 					<form action="/noticeWrite.do" method="post" enctype="multipart/form-data">
-						<div class="paper">
-							<div class="paper-content">
+						<div class="notepad">
+							<div class="topNotepad"></div>
+							<div class="paper">
 								<ul>
 									<li class="paper2" style="padding-bottom: 10px;">제목<input id="noticeTitle" type="text" name="noticeTitle" required></li>
 								</ul>
@@ -59,7 +60,7 @@
 									<li class="paper2">첨부파일<input id="noticeFile" type="file" name="noticeFile" accept=".jpg,.jpeg,.gif,.png,.webp" multiple onchange="loadImgs(this);"></li>
 								</ul>
 								<ul>
-									<li class="paper2" style="margin-top: 25px;">내용</li>
+									<li class="paper2">내용</li>
 									<li><textarea id="summernote" name="noticeContent" required></textarea></li>
 								</ul>
 							</div>
@@ -101,8 +102,8 @@
 	
 	$(document).ready(function() {
 		$('#summernote').summernote({
-			  width: 725,				   // 에디터 넓이	
-			  height: 430,                 // 에디터 높이
+			  width: 750,				   // 에디터 넓이	
+			  height: 600,                 // 에디터 높이
 			  minHeight: null,             // 최소 높이
 			  maxHeight: null,             // 최대 높이
 			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부

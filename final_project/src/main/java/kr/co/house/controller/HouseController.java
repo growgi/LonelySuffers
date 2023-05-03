@@ -50,13 +50,50 @@ public class HouseController {
 	}
 // 숙박 상품 상세페이지 보기.  House 테이블에서 Row 1개 전체 조회 후 반환
 	@RequestMapping(value="/houseView.do")
-	public String houseView(int houseNo, Model model) {
+	public String houseView(int houseNo, Model model, HttpSession session) {
 		House h = service.selectOneHouse(houseNo);
-		//review 리스트 받아오는 코드
-		ArrayList<Review> list = rservice.selectAllReview(houseNo);
-		model.addAttribute("list", list);
-		model.addAttribute("house", h);
-		return "product/houseDetail";
+		if(h.getHouseStatus()>=0) {
+			//review 리스트 받아오는 코드
+			ArrayList<Review> list = rservice.selectAllReview(houseNo);
+			model.addAttribute("list", list);
+			model.addAttribute("house", h);
+			return "product/houseDetail";
+		}else {
+			Member me = (Member)session.getAttribute("m");
+			if(me != null) {
+				if(me.getMemberGrade()==1) {
+					ArrayList<Review> list = rservice.selectAllReview(houseNo);
+					model.addAttribute("list", list);
+					model.addAttribute("house", h);
+					return "product/houseDetail";
+				}else if(me.getMemberGrade()==2) {
+					if(h.getWriter()==me.getMemberId()) {
+					ArrayList<Review> list = rservice.selectAllReview(houseNo);
+					model.addAttribute("list", list);
+					model.addAttribute("house", h);
+					return "product/houseDetail";
+					}else {
+						model.addAttribute("title","접근 제한됨");
+						model.addAttribute("msg","상품 등록자만이 열람할 수 있습니다.");
+						model.addAttribute("icon","error");
+						model.addAttribute("loc","/");
+						return "common/msg";
+					}
+				}else {
+					model.addAttribute("title","접근 제한됨");
+					model.addAttribute("msg","열람할 수 없는 상품입니다.");
+					model.addAttribute("icon","error");
+					model.addAttribute("loc","/");
+					return "common/msg";
+				}
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","열람할 수 없는 상품입니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/");
+				return "common/msg";
+			}
+		}
 	}
 	
 
@@ -139,7 +176,7 @@ public class HouseController {
 	public String houseUpdate(int houseNo, HttpSession session, Model model) {
 		House h = service.selectOneHouse(houseNo);
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberGender()==1) {
+		if(me.getMemberGrade()==1) {
 			model.addAttribute("house", h);
 			return "product/houseUpdate";
 		}else {
@@ -199,17 +236,24 @@ public class HouseController {
 	public String roomManage(int houseNo, HttpSession session, Model model) {
 		House h = service.selectOneHouse(houseNo);
 		Member me = (Member)session.getAttribute("m");
-		if(me.getMemberId().equals(h.getWriter())) {
+		if(me.getMemberGrade()==1) {
 			ArrayList<Room> list = service.selectAllRoomsByHouseNo(houseNo);
 			model.addAttribute("house", h);
 			model.addAttribute("rooms", list);
 			return "product/roomManage";
 		}else {
-			model.addAttribute("title","접근 제한됨");
-			model.addAttribute("msg","상품 등록자만이 해당 상품에 대한 객실들을 관리할 수 있습니다.");
-			model.addAttribute("icon","error");
-			model.addAttribute("loc","/houseView.do?houseNo="+houseNo);
-			return "common/msg";
+			if(me.getMemberId().equals(h.getWriter())) {
+				ArrayList<Room> list = service.selectAllRoomsByHouseNo(houseNo);
+				model.addAttribute("house", h);
+				model.addAttribute("rooms", list);
+				return "product/roomManage";
+			}else {
+				model.addAttribute("title","접근 제한됨");
+				model.addAttribute("msg","상품 등록자만이 해당 상품에 대한 객실들을 관리할 수 있습니다.");
+				model.addAttribute("icon","error");
+				model.addAttribute("loc","/houseView.do?houseNo="+houseNo);
+				return "common/msg";
+			}
 		}
 	}
 

@@ -574,4 +574,50 @@ public class MemberService {
 	public ArrayList<Product> selectSearchProduct(SearchWithId sp) {
 		return dao.selectSearchProduct(sp);
 	}
+
+
+
+// 판매자별 강습 상품 목록 검색
+	public ArrayList<Lesson> selectSearchLesson(SearchWithId sp) {
+		return dao.selectSearchLesson(sp);
+	}
+
+
+
+// 판매자별 숙박 상품 목록 검색
+	public ArrayList<House> selectSearchHouse(SearchWithId sp) {
+		return dao.selectSearchHouse(sp);
+	}
+
+
+
+// 판매자가 자신의 상품 1개를 판매중지 처리
+	public int toSoldOut(int productNo, String productType) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("productNo", productNo);
+		map.put("productStatus", 0);	//판매중지
+		if(productType.equals("강습")) {
+			return dao.updateLessonStatus(map);
+		}else if(productType.equals("숙박")) {
+			return dao.updateHouseStatus(map);
+		}else {
+			return 0;
+		}
+	}
+
+
+
+// 판매자가 자신의 상품 1개를 판매재개
+	public int toResale(int productNo, String productType) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("productNo", productNo);
+		map.put("productStatus", 1);	//판매중
+		if(productType.equals("강습")) {
+			return dao.updateLessonStatus(map);
+		}else if(productType.equals("숙박")) {
+			return dao.updateHouseStatus(map);
+		}else {
+			return 0;
+		}
+	}
 }

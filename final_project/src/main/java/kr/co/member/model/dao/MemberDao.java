@@ -192,4 +192,36 @@ public class MemberDao {
 		List productList = sqlSession.selectList("member.selectSearchProduct", sp);
 		return (ArrayList<Product>)productList;
 	}
+
+
+
+// 판매자별 강습 상품 목록 검색 
+	public ArrayList<Lesson> selectSearchLesson(SearchWithId sp) {
+		List lessonList = sqlSession.selectList("member.selectSearchLesson", sp);
+		return (ArrayList<Lesson>)lessonList;
+	}
+
+
+
+// 판매자별 숙박 상품 목록 검색 
+	public ArrayList<House> selectSearchHouse(SearchWithId sp) {
+		List houseList = sqlSession.selectList("member.selectSearchHouse", sp);
+		return (ArrayList<House>)houseList;
+	}
+
+
+
+// 판매자가 자신의 강습상품 1개의 판매상태 변경
+	public int updateLessonStatus(HashMap<String, Object> map) {
+		System.out.println("Dao에서 productNo: "+map.get("productNo"));
+		return sqlSession.update("l.updateLessonStatus", map);
+	}
+
+
+
+// 판매자가 자신의 숙박상품 1개를 판매상태 변경
+	public int updateHouseStatus(HashMap<String, Object> map) {
+		System.out.println("Dao에서 HashMap에 넣은 후 productNo: "+map.get("productNo"));
+		return sqlSession.update("h.updateHouseStatus", map);
+	}
 }
