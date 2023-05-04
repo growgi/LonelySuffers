@@ -43,7 +43,7 @@ public class MailSender {
 		Session session = Session.getDefaultInstance(prop,
 				new Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() { 
-						PasswordAuthentication pa = new PasswordAuthentication("eoekdl3","tajezwgygkwivjqr");
+						PasswordAuthentication pa = new PasswordAuthentication("구글계정ID","구글e메일코드");
 						return pa;
 						}
 					}
